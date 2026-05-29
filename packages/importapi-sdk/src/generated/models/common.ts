@@ -11,6 +11,7 @@ import { DiscountCodeImport } from './discount-codes'
 import { InventoryImport } from './inventories'
 import { PriceImport } from './prices'
 import { ProductSelectionImport } from './product-selections'
+import { ProductTailoringImport } from './product-tailoring'
 import { ProductDraftImport } from './productdrafts'
 import { ProductImport } from './products'
 import { ProductTypeImport } from './producttypes'
@@ -174,6 +175,7 @@ export type _ImportResource =
   | ProductDraftImport
   | ProductImport
   | ProductSelectionImport
+  | ProductTailoringImport
   | ProductTypeImport
   | ProductVariantImport
   | StandalonePriceImport
@@ -628,6 +630,7 @@ export enum ImportResourceTypeValues {
   Product = 'product',
   ProductDraft = 'product-draft',
   ProductSelection = 'product-selection',
+  ProductTailoring = 'product-tailoring',
   ProductType = 'product-type',
   ProductVariant = 'product-variant',
   ProductVariantPatch = 'product-variant-patch',
@@ -647,6 +650,7 @@ export type ImportResourceType =
   | 'product'
   | 'product-draft'
   | 'product-selection'
+  | 'product-tailoring'
   | 'product-type'
   | 'product-variant'
   | 'product-variant-patch'

@@ -56,6 +56,7 @@ export type ErrorObject =
   | AttributeDefinitionTypeConflictError
   | AttributeNameDoesNotExistError
   | BadGatewayError
+  | CircularDependencyError
   | ConcurrentModificationError
   | ContentTooLargeError
   | CountryNotConfiguredInStoreError
@@ -78,6 +79,9 @@ export type ErrorObject =
   | ExpiredCustomerEmailTokenError
   | ExpiredCustomerPasswordTokenError
   | ExtensionBadResponseError
+  | ExtensionChainTooDeepError
+  | ExtensionChainTooWideError
+  | ExtensionDependencyExistsError
   | ExtensionNoResponseError
   | ExtensionPredicateEvaluationFailedError
   | ExtensionUpdateActionsFailedError
@@ -96,12 +100,15 @@ export type ErrorObject =
   | InvalidSubjectError
   | InvalidTokenError
   | LanguageUsedInStoresError
+  | LineItemQuantityAboveLimitError
+  | LineItemQuantityBelowLimitError
   | LockedFieldError
   | MatchingPriceNotFoundError
   | MaxCartDiscountsReachedError
   | MaxDiscountGroupsReachedError
   | MaxResourceLimitExceededError
   | MaxStoreReferencesReachedError
+  | MissingDependencyError
   | MissingRoleOnChannelError
   | MissingTaxRateForCountryError
   | MoneyOverflowError
@@ -305,6 +312,20 @@ export interface BadGatewayError extends IErrorObject {
   [key: string]: any
   /**
    *	Plain text description of the error.
+   *
+   */
+  readonly message: string
+}
+/**
+ *	Returned when a circular reference is detected among Extension dependencies.
+ *
+ */
+export interface CircularDependencyError extends IErrorObject {
+  readonly code: 'CircularDependency'
+  [key: string]: any
+  /**
+   *	`"Circular dependency detected: [ext-1, ext-2, ext-1]"`
+   *
    *
    */
   readonly message: string
@@ -1008,6 +1029,48 @@ export interface ExtensionBadResponseError extends IErrorObject {
    */
   readonly extensionKey?: string
 }
+/**
+ *	Returned when the Extension dependency chain exceeds 3 layers.
+ *
+ */
+export interface ExtensionChainTooDeepError extends IErrorObject {
+  readonly code: 'ExtensionChainTooDeep'
+  [key: string]: any
+  /**
+   *	`"The dependency chain depth 4 exceeds the maximum allowed depth of 3"`
+   *
+   *
+   */
+  readonly message: string
+}
+/**
+ *	Returned when an Extension declares more than 5 direct dependencies.
+ *
+ */
+export interface ExtensionChainTooWideError extends IErrorObject {
+  readonly code: 'ExtensionChainTooWide'
+  [key: string]: any
+  /**
+   *	`"Extension chain breadth exceeds the maximum allowed breadth of 5"`
+   *
+   *
+   */
+  readonly message: string
+}
+/**
+ *	Returned when attempting to delete an Extension that is a prerequisite for other Extensions.
+ *
+ */
+export interface ExtensionDependencyExistsError extends IErrorObject {
+  readonly code: 'ExtensionDependencyExists'
+  [key: string]: any
+  /**
+   *	`"The extension cannot be deleted because it is a prerequisite for: [ext-2, ext-3]."`
+   *
+   *
+   */
+  readonly message: string
+}
 export interface ExtensionError {
   [key: string]: any
   /**
@@ -1143,7 +1206,7 @@ export interface FeatureRemovedError extends IErrorObject {
 /**
  *	Returned when a server-side problem occurs before or after data persistence. In some cases, the requested action may successfully complete after the error is returned. Therefore, it is recommended to verify the status of the requested resource after receiving a 500 error.
  *
- *	If you encounter this error, report it to the [Composable Commerce support team](https://support.commercetools.com).
+ *	If you encounter this error, report it to the [commercetools support team](https://support.commercetools.com).
  *
  */
 export interface GeneralError extends IErrorObject {
@@ -1381,6 +1444,70 @@ export interface LanguageUsedInStoresError extends IErrorObject {
   readonly message: string
 }
 /**
+ *	Returned when attempting to create or update a [Cart](ctp:api:type:Cart) with a Line Item whose quantity exceeds the `maxCartQuantity` limit defined in the [InventoryEntry](ctp:api:type:InventoryEntry) for that Line Item's SKU.
+ *
+ */
+export interface LineItemQuantityAboveLimitError extends IErrorObject {
+  readonly code: 'LineItemQuantityAboveLimit'
+  [key: string]: any
+  /**
+   *	`"Quantity '$quantity' greater than maximum '$maxCartQuantity'."`
+   *
+   *
+   */
+  readonly message: string
+  /**
+   *	The quantity that was requested.
+   *
+   *
+   */
+  readonly quantity: number
+  /**
+   *	The maximum quantity allowed for this Line Item.
+   *
+   *
+   */
+  readonly maxCartQuantity: number
+  /**
+   *	Reference to the Line Item that caused the error.
+   *
+   *
+   */
+  readonly lineItem?: string
+}
+/**
+ *	Returned when attempting to create or update a [Cart](ctp:api:type:Cart) with a Line Item whose quantity is below the `minCartQuantity` limit defined in the [InventoryEntry](ctp:api:type:InventoryEntry) for that Line Item's SKU.
+ *
+ */
+export interface LineItemQuantityBelowLimitError extends IErrorObject {
+  readonly code: 'LineItemQuantityBelowLimit'
+  [key: string]: any
+  /**
+   *	`"Quantity '$quantity' less than minimum '$minCartQuantity'."`
+   *
+   *
+   */
+  readonly message: string
+  /**
+   *	The quantity that was requested.
+   *
+   *
+   */
+  readonly quantity: number
+  /**
+   *	The minimum quantity required for this Line Item.
+   *
+   *
+   */
+  readonly minCartQuantity: number
+  /**
+   *	Reference to the Line Item that caused the error.
+   *
+   *
+   */
+  readonly lineItem?: string
+}
+/**
  *	Returned when two [Customers](ctp:api:type:Customer) are simultaneously created or updated with the same email address.
  *
  *	To confirm if the operation was successful, repeat the request.
@@ -1539,6 +1666,20 @@ export interface MaxStoreReferencesReachedError extends IErrorObject {
   [key: string]: any
   /**
    *	`"Maximum number of store discounts on a single cart discount reached $max".`
+   *
+   *
+   */
+  readonly message: string
+}
+/**
+ *	Returned when a referenced Extension does not exist or is not applicable to the same trigger.
+ *
+ */
+export interface MissingDependencyError extends IErrorObject {
+  readonly code: 'MissingDependency'
+  [key: string]: any
+  /**
+   *	`"The extensions '[ext-1, ext-2]' referenced in 'dependencies' do not exist."`
    *
    *
    */
@@ -1798,7 +1939,7 @@ export interface OverlappingStandalonePriceValidityError extends IErrorObject {
  *	Returned when a previous conflicting operation is still pending and needs to finish before the request can succeed.
  *
  *	The client application should retry the request with exponential backoff up to a point where further delay is unacceptable.
- *	If the error persists, report it to the [Composable Commerce support team](https://support.commercetools.com).
+ *	If the error persists, report it to the [commercetools support team](https://support.commercetools.com).
  *
  */
 export interface PendingOperationError extends IErrorObject {
@@ -2296,6 +2437,7 @@ export type GraphQLErrorObject =
   | GraphQLAttributeDefinitionTypeConflictError
   | GraphQLAttributeNameDoesNotExistError
   | GraphQLBadGatewayError
+  | GraphQLCircularDependencyError
   | GraphQLConcurrentModificationError
   | GraphQLContentTooLargeError
   | GraphQLCountryNotConfiguredInStoreError
@@ -2318,6 +2460,9 @@ export type GraphQLErrorObject =
   | GraphQLExpiredCustomerEmailTokenError
   | GraphQLExpiredCustomerPasswordTokenError
   | GraphQLExtensionBadResponseError
+  | GraphQLExtensionChainTooDeepError
+  | GraphQLExtensionChainTooWideError
+  | GraphQLExtensionDependencyExistsError
   | GraphQLExtensionNoResponseError
   | GraphQLExtensionPredicateEvaluationFailedError
   | GraphQLExtensionUpdateActionsFailedError
@@ -2336,12 +2481,15 @@ export type GraphQLErrorObject =
   | GraphQLInvalidSubjectError
   | GraphQLInvalidTokenError
   | GraphQLLanguageUsedInStoresError
+  | GraphQLLineItemQuantityAboveLimitError
+  | GraphQLLineItemQuantityBelowLimitError
   | GraphQLLockedFieldError
   | GraphQLMatchingPriceNotFoundError
   | GraphQLMaxCartDiscountsReachedError
   | GraphQLMaxDiscountGroupsReachedError
   | GraphQLMaxResourceLimitExceededError
   | GraphQLMaxStoreReferencesReachedError
+  | GraphQLMissingDependencyError
   | GraphQLMissingRoleOnChannelError
   | GraphQLMissingTaxRateForCountryError
   | GraphQLMoneyOverflowError
@@ -2509,6 +2657,14 @@ export interface GraphQLAttributeNameDoesNotExistError
  */
 export interface GraphQLBadGatewayError extends IGraphQLErrorObject {
   readonly code: 'BadGateway'
+  [key: string]: any
+}
+/**
+ *	Returned when a circular reference is detected among Extension dependencies.
+ *
+ */
+export interface GraphQLCircularDependencyError extends IGraphQLErrorObject {
+  readonly code: 'CircularDependency'
   [key: string]: any
 }
 /**
@@ -3035,6 +3191,31 @@ export interface GraphQLExtensionBadResponseError extends IGraphQLErrorObject {
   readonly extensionKey?: string
 }
 /**
+ *	Returned when the Extension dependency chain exceeds 3 layers.
+ *
+ */
+export interface GraphQLExtensionChainTooDeepError extends IGraphQLErrorObject {
+  readonly code: 'ExtensionChainTooDeep'
+  [key: string]: any
+}
+/**
+ *	Returned when an Extension declares more than 5 direct dependencies.
+ *
+ */
+export interface GraphQLExtensionChainTooWideError extends IGraphQLErrorObject {
+  readonly code: 'ExtensionChainTooWide'
+  [key: string]: any
+}
+/**
+ *	Returned when attempting to delete an Extension that is a prerequisite for other Extensions.
+ *
+ */
+export interface GraphQLExtensionDependencyExistsError
+  extends IGraphQLErrorObject {
+  readonly code: 'ExtensionDependencyExists'
+  [key: string]: any
+}
+/**
  *	Returned when the API Extension does not respond within the [time limit](/../api/projects/api-extensions#time-limits), or could not be reached.
  *
  */
@@ -3116,7 +3297,7 @@ export interface GraphQLFeatureRemovedError extends IGraphQLErrorObject {
 /**
  *	Returned when a server-side problem occurs before or after data persistence. In some cases, the requested action may successfully complete after the error is returned. Therefore, it is recommended to verify the status of the requested resource after receiving a 500 error.
  *
- *	If you encounter this error, report it to the [Composable Commerce support team](https://support.commercetools.com).
+ *	If you encounter this error, report it to the [commercetools support team](https://support.commercetools.com).
  *
  */
 export interface GraphQLGeneralError extends IGraphQLErrorObject {
@@ -3280,6 +3461,60 @@ export interface GraphQLLanguageUsedInStoresError extends IGraphQLErrorObject {
   [key: string]: any
 }
 /**
+ *	Returned when attempting to create or update a [Cart](ctp:api:type:Cart) with a Line Item whose quantity exceeds the `maxCartQuantity` limit defined in the [InventoryEntry](ctp:api:type:InventoryEntry) for that Line Item's SKU.
+ *
+ */
+export interface GraphQLLineItemQuantityAboveLimitError
+  extends IGraphQLErrorObject {
+  readonly code: 'LineItemQuantityAboveLimit'
+  [key: string]: any
+  /**
+   *	The quantity that was requested.
+   *
+   *
+   */
+  readonly quantity: number
+  /**
+   *	The maximum quantity allowed for this Line Item.
+   *
+   *
+   */
+  readonly maxCartQuantity: number
+  /**
+   *	Reference to the Line Item that caused the error.
+   *
+   *
+   */
+  readonly lineItem?: string
+}
+/**
+ *	Returned when attempting to create or update a [Cart](ctp:api:type:Cart) with a Line Item whose quantity is below the `minCartQuantity` limit defined in the [InventoryEntry](ctp:api:type:InventoryEntry) for that Line Item's SKU.
+ *
+ */
+export interface GraphQLLineItemQuantityBelowLimitError
+  extends IGraphQLErrorObject {
+  readonly code: 'LineItemQuantityBelowLimit'
+  [key: string]: any
+  /**
+   *	The quantity that was requested.
+   *
+   *
+   */
+  readonly quantity: number
+  /**
+   *	The minimum quantity required for this Line Item.
+   *
+   *
+   */
+  readonly minCartQuantity: number
+  /**
+   *	Reference to the Line Item that caused the error.
+   *
+   *
+   */
+  readonly lineItem?: string
+}
+/**
  *	Returned when two [Customers](ctp:api:type:Customer) are simultaneously created or updated with the same email address.
  *
  *	To confirm if the operation was successful, repeat the request.
@@ -3409,6 +3644,14 @@ export interface GraphQLMaxResourceLimitExceededError
 export interface GraphQLMaxStoreReferencesReachedError
   extends IGraphQLErrorObject {
   readonly code: 'MaxStoreReferencesReached'
+  [key: string]: any
+}
+/**
+ *	Returned when a referenced Extension does not exist or is not applicable to the same trigger.
+ *
+ */
+export interface GraphQLMissingDependencyError extends IGraphQLErrorObject {
+  readonly code: 'MissingDependency'
   [key: string]: any
 }
 /**
@@ -3619,7 +3862,7 @@ export interface GraphQLOverlappingStandalonePriceValidityError
  *	Returned when a previous conflicting operation is still pending and needs to finish before the request can succeed.
  *
  *	The client application should retry the request with exponential backoff up to a point where further delay is unacceptable.
- *	If the error persists, report it to the [Composable Commerce support team](https://support.commercetools.com).
+ *	If the error persists, report it to the [commercetools support team](https://support.commercetools.com).
  *
  */
 export interface GraphQLPendingOperationError extends IGraphQLErrorObject {

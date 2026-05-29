@@ -1735,7 +1735,7 @@ export interface PaymentValidationFailed extends IResponseMessage {
   readonly payload: PaymentReference
 }
 /**
- *	Generated when the Checkout [`projectKey`](/sdk) is deactivated and cannot be initialized. To activate it, contact the [Checkout support team](https://support.commercetools.com/).
+ *	Generated when the Checkout [`projectKey`](/sdk) is deactivated and cannot be initialized. To activate it, contact the [commercetools support team](https://support.commercetools.com/).
  *
  */
 export interface ProjectIsDeactivated extends IResponseMessage {

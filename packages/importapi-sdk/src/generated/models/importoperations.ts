@@ -46,7 +46,7 @@ export interface ImportOperation {
    */
   readonly resourceVersion?: number
   /**
-   *	Contains errors if the import was unsuccessful. See [Errors](/import-export/error).
+   *	Contains errors if the import was unsuccessful. See [Errors](/api/errors#import-api-specific-errors).
    *
    *
    */

@@ -127,7 +127,7 @@ export interface ErrorResponse {
 /**
  *	Returned when a server-side problem occurs. In some cases, the requested action may successfully complete after the error is returned. Therefore, it is recommended to verify the status of the requested resource after receiving a 500 error.
  *
- *	If you encounter this error, report it to the [Checkout support team](https://support.commercetools.com/).
+ *	If you encounter this error, report it to the [commercetools support team](https://support.commercetools.com/).
  *
  */
 export interface GeneralError extends IErrorObject {
