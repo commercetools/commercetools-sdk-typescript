@@ -1,5 +1,29 @@
 # @commercetools/checkout-sdk
 
+## 1.8.0
+
+### Minor Changes
+
+- [#1296](https://github.com/commercetools/commercetools-sdk-typescript/pull/1296) [`52cc58b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/52cc58b95ce94eed65e219cc2a365895b832a05e) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Checkout changes**
+
+  <details>
+  <summary>Added Enum(s)</summary>
+  - added enum `eu-central-1.aws` to type `Region`
+  - added enum `us-east-2.aws` to type `Region`
+  </details>
+
+  <details>
+  <summary>Removed Type(s)</summary>
+  - :warning: removed type `SetConnectorDeploymentUpdateAction`
+  </details>
+
+- [#1301](https://github.com/commercetools/commercetools-sdk-typescript/pull/1301) [`3577a1b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3577a1b18fcb7a2deb0dae32470a305c1fc1f45e) Thanks [@ShipilA](https://github.com/ShipilA)! - Monthly release June 2026
+
+### Patch Changes
+
+- Updated dependencies [[`3577a1b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3577a1b18fcb7a2deb0dae32470a305c1fc1f45e), [`3577a1b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3577a1b18fcb7a2deb0dae32470a305c1fc1f45e)]:
+  - @commercetools/ts-client@4.10.0
+
 ## 1.7.0
 
 ### Minor Changes
