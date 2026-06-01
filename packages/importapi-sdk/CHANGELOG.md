@@ -1,5 +1,48 @@
 # @commercetools/importapi-sdk
 
+## 6.16.0
+
+### Minor Changes
+
+- [#1296](https://github.com/commercetools/commercetools-sdk-typescript/pull/1296) [`52cc58b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/52cc58b95ce94eed65e219cc2a365895b832a05e) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Resource(s)</summary>
+  - added resource `/{projectKey}/product-tailorings`
+  - added resource `/{projectKey}/product-tailorings/import-containers`
+  - added resource `/{projectKey}/product-tailorings/import-containers/{importContainerKey}`
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+  - added enum `product-tailoring` to type `ImportResourceType`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `ProductTailoringImportRequest`
+  - added type `ProductVariantTailoringImport`
+  - added type `ProductTailoringImport`
+  </details>
+
+  <details>
+  <summary>Added Method(s)</summary>
+  - added method `apiRoot.withProjectKeyValue().productTailorings().importContainers().withImportContainerKeyValue().post()`
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+  - added property `reservationExpirationInMinutes` to type `InventoryImport`
+  - added property `active` to type `StandalonePriceImport`
+  </details>
+
+- [#1301](https://github.com/commercetools/commercetools-sdk-typescript/pull/1301) [`3577a1b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3577a1b18fcb7a2deb0dae32470a305c1fc1f45e) Thanks [@ShipilA](https://github.com/ShipilA)! - Monthly release June 2026
+
+### Patch Changes
+
+- Updated dependencies [[`3577a1b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3577a1b18fcb7a2deb0dae32470a305c1fc1f45e), [`3577a1b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3577a1b18fcb7a2deb0dae32470a305c1fc1f45e)]:
+  - @commercetools/ts-client@4.10.0
+
 ## 6.15.0
 
 ### Minor Changes
