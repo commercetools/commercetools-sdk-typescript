@@ -1,5 +1,27 @@
 # @commercetools/history-sdk
 
+## 5.15.0
+
+### Minor Changes
+
+- [#1303](https://github.com/commercetools/commercetools-sdk-typescript/pull/1303) [`934fcda`](https://github.com/commercetools/commercetools-sdk-typescript/commit/934fcdaae1436b4224a5e4b92bb5d436ce1eb69f) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **History changes**
+
+  <details>
+  <summary>Added Enum(s)</summary>
+  - added enum `setReservationExpirationInMinutes` to type `UpdateType`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `SetTransactionInterfaceIdChange`
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+  - added property `catalogData` to type `ChangeLocalizedNameChange`
+  - added property `catalogData` to type `SetLocalizedDescriptionChange`
+  </details>
+
 ## 5.14.0
 
 ### Minor Changes
