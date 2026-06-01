@@ -1,5 +1,22 @@
 # @commercetools/checkout-sdk
 
+## 1.9.0
+
+### Minor Changes
+
+- [#1303](https://github.com/commercetools/commercetools-sdk-typescript/pull/1303) [`934fcda`](https://github.com/commercetools/commercetools-sdk-typescript/commit/934fcdaae1436b4224a5e4b92bb5d436ce1eb69f) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Checkout changes**
+
+  <details>
+  <summary>Added Enum(s)</summary>
+  - added enum `eu-central-1.aws` to type `Region`
+  - added enum `us-east-2.aws` to type `Region`
+  </details>
+
+  <details>
+  <summary>Removed Type(s)</summary>
+  - :warning: removed type `SetConnectorDeploymentUpdateAction`
+  </details>
+
 ## 1.8.0
 
 ### Minor Changes
