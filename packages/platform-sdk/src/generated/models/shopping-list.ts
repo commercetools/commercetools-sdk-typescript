@@ -98,7 +98,7 @@ export interface ShoppingList extends BaseResource {
    */
   readonly store?: StoreKeyReference
   /**
-   *	[Reference](ctp:api:type:Reference) to the Business Unit the Shopping List belongs to. Only available for [B2B](/../offering/composable-commerce#composable-commerce-for-b2b)-enabled Projects.
+   *	[Reference](ctp:api:type:Reference) to the Business Unit the Shopping List belongs to. Only available for [B2B](/../offering/commerce-b2b)-enabled Projects.
    *
    *
    */
@@ -196,7 +196,7 @@ export interface ShoppingListDraft {
    */
   readonly store?: StoreResourceIdentifier
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of the Business Unit the Shopping List should belong to. When the `customer` of the Shopping List is set, the [Customer](ctp:api:type:Customer) must be an [Associate](ctp:api:type:Associate) of the Business Unit. Only available for [B2B](/../offering/composable-commerce#composable-commerce-for-b2b)-enabled Projects.
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of the Business Unit the Shopping List should belong to. When the `customer` of the Shopping List is set, the [Customer](ctp:api:type:Customer) must be an [Associate](ctp:api:type:Associate) of the Business Unit. Only available for [B2B](/../offering/commerce-b2b)-enabled Projects.
    *
    *
    */
@@ -336,7 +336,7 @@ export interface ShoppingListLineItemDraft {
    */
   readonly addedAt?: string
   /**
-   *	Custom Fields of the ShoppingListLineItem.
+   *	Custom Fields for the ShoppingListLineItem.
    *
    *
    */
@@ -842,14 +842,16 @@ export interface ShoppingListSetCustomTypeAction
   extends IShoppingListUpdateAction {
   readonly action: 'setCustomType'
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the ShoppingList with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the ShoppingList with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the ShoppingList.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the ShoppingList.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the ShoppingList.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */
@@ -943,14 +945,16 @@ export interface ShoppingListSetLineItemCustomTypeAction
    */
   readonly lineItemKey?: string
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the ShoppingListLineItem with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the ShoppingListLineItem with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the ShoppingListLineItem.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the ShoppingListLineItem.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the ShoppingListLineItem.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */
@@ -1020,14 +1024,16 @@ export interface ShoppingListSetTextLineItemCustomTypeAction
    */
   readonly textLineItemKey?: string
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the TextLineItem with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the TextLineItem with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the TextLineItem.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the TextLineItem.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the TextLineItem.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */

@@ -127,6 +127,8 @@ export interface RecurringOrder extends BaseResource {
   readonly cart: CartReference
   /**
    *	[Reference](ctp:api:type:Reference) to the original [Order](ctp:api:type:Order) that generated this RecurringOrder.
+   *	This field is automatically populated when the RecurringOrder is created via the [Create Order from Cart](/../api/projects/orders#create-order-from-cart) endpoint and the Cart contains Line Items with defined `recurrenceInfo`.
+   *	When the RecurringOrder is created directly via the [Create RecurringOrder](/../api/projects/recurring-orders#create-recurringorder) endpoint, this field remains empty.
    *
    *
    */
@@ -665,14 +667,16 @@ export interface RecurringOrderSetCustomTypeAction
   extends IRecurringOrderUpdateAction {
   readonly action: 'setCustomType'
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the RecurringOrder with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the RecurringOrder with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the RecurringOrder.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the RecurringOrder.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the RecurringOrder.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */

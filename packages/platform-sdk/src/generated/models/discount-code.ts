@@ -112,6 +112,7 @@ export interface DiscountCode extends BaseResource {
   /**
    *	Number of times the DiscountCode can be applied.
    *	DiscountCode application is counted at the time of Order creation or edit. However, Order cancellation or deletion does not decrement the count.
+   *	This field does not limit discount applications for Orders created from a [Recurring Order](ctp:api:type:RecurringOrder).
    *
    *
    */
@@ -119,6 +120,7 @@ export interface DiscountCode extends BaseResource {
   /**
    *	Number of times the DiscountCode can be applied per Customer (anonymous Carts are not supported).
    *	DiscountCode application is counted at the time of Order creation or edit. However, Order cancellation or deletion does not decrement the count.
+   *	This field does not limit discount applications for Orders created from a [Recurring Order](ctp:api:type:RecurringOrder).
    *
    *
    */
@@ -204,6 +206,7 @@ export interface DiscountCodeDraft {
    *	Number of times the DiscountCode can be applied.
    *
    *	If not set, the DiscountCode can be applied any number of times.
+   *	This field does not limit discount applications for Orders created from a [Recurring Order](ctp:api:type:RecurringOrder).
    *
    *
    */
@@ -212,6 +215,7 @@ export interface DiscountCodeDraft {
    *	Number of times the DiscountCode can be applied per Customer.
    *
    *	If not set, the DiscountCode can be applied any number of times.
+   *	This field does not limit discount applications for Orders created from a [Recurring Order](ctp:api:type:RecurringOrder).
    *
    *
    */
@@ -416,14 +420,16 @@ export interface DiscountCodeSetCustomTypeAction
   extends IDiscountCodeUpdateAction {
   readonly action: 'setCustomType'
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the DiscountCode with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the DiscountCode with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the DiscountCode.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the DiscountCode.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the DiscountCode.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */
@@ -459,6 +465,7 @@ export interface DiscountCodeSetMaxApplicationsAction
    *	Value to set.
    *
    *	If empty, any existing value will be removed and the DiscountCode can be applied any number of times.
+   *	This field does not limit discount applications for Orders created from a [Recurring Order](ctp:api:type:RecurringOrder).
    *
    *
    */
@@ -471,6 +478,7 @@ export interface DiscountCodeSetMaxApplicationsPerCustomerAction
    *	Value to set.
    *
    *	If empty, any existing value will be removed and the DiscountCode can be applied any number of times.
+   *	This field does not limit discount applications for Orders created from a [Recurring Order](ctp:api:type:RecurringOrder).
    *
    *
    */

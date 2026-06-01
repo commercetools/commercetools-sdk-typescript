@@ -60,4 +60,9 @@ export interface OperationStates {
    *
    */
   readonly canceled: number
+  /**
+   *	The number of ImportOperations in the `partiallyImported` state.
+   *
+   */
+  readonly partiallyImported: number
 }

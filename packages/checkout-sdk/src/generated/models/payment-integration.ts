@@ -377,7 +377,6 @@ export type PaymentIntegrationUpdateAction =
   | SetAutomatedReversalConfigurationPredicateUpdateAction
   | SetAutomatedReversalConfigurationStatusUpdateAction
   | SetAutomatedReversalConfigurationUpdateAction
-  | SetConnectorDeploymentUpdateAction
   | SetDisplayInfoDescriptionUpdateAction
   | SetDisplayInfoLabelUpdateAction
   | SetDisplayInfoLogoUrlUpdateAction
@@ -456,20 +455,6 @@ export interface SetAutomatedReversalConfigurationUpdateAction
    *
    */
   readonly automatedReversalConfiguration?: AutomatedReversalConfiguration
-}
-/**
- *	Sets the connector deployment reference of a PaymentIntegration.
- *
- */
-export interface SetConnectorDeploymentUpdateAction
-  extends IPaymentIntegrationUpdateAction {
-  readonly action: 'setConnectorDeployment'
-  /**
-   *	Value to set as the connector deployment reference of the PaymentIntegration.
-   *
-   *
-   */
-  readonly connectorDeployment: ConnectorDeploymentReference
 }
 /**
  *	Sets the display info description of a PaymentIntegration.

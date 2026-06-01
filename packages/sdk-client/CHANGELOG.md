@@ -1,5 +1,17 @@
 # @commercetools/sdk-client-v2
 
+## 3.4.0
+
+### Minor Changes
+
+- [#1239](https://github.com/commercetools/commercetools-sdk-typescript/pull/1239) [`4d930a0`](https://github.com/commercetools/commercetools-sdk-typescript/commit/4d930a0c084ae6a4404cee8c893442aeb258c484) Thanks [@ShipilA](https://github.com/ShipilA)! - Monthly release
+
+## 3.3.1
+
+### Patch Changes
+
+- [#1219](https://github.com/commercetools/commercetools-sdk-typescript/pull/1219) [`c665e6d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/c665e6d12fe11e66baa303059869bca2b7364b1c) Thanks [@ShipilA](https://github.com/ShipilA)! - Monthly release
+
 ## 3.3.0
 
 ### Minor Changes

@@ -213,7 +213,7 @@ export interface Customer extends BaseResource {
    */
   readonly customerGroupAssignments: CustomerGroupAssignment[]
   /**
-   *	Custom Fields for the Customer.
+   *	Custom Fields of the Customer.
    *
    *
    */
@@ -1157,14 +1157,16 @@ export interface CustomerSetAddressCustomTypeAction
    */
   readonly addressId: string
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the `address` with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the `address` with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the `address`.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the `address`.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the `address`.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */
@@ -1229,14 +1231,16 @@ export interface CustomerSetCustomFieldAction extends ICustomerUpdateAction {
 export interface CustomerSetCustomTypeAction extends ICustomerUpdateAction {
   readonly action: 'setCustomType'
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the Customer with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the Customer with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the Customer.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Customer.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the Customer.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */

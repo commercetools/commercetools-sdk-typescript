@@ -131,7 +131,7 @@ export enum CustomerSearchStatusValues {
 
 export type CustomerSearchStatus = 'Activated' | 'Deactivated' | (string & {})
 /**
- *	Defines how Product Discounts and Cart Discounts are combined for every Cart in a Project.
+ *	Defines how Product Discounts and Cart Discounts are combined for Line Items in every Cart of the Project.
  *
  */
 export enum DiscountCombinationModeValues {
@@ -170,6 +170,25 @@ export interface ExternalOAuth {
    *
    */
   readonly authorizationHeader: string
+}
+/**
+ *	Inventory configuration settings for a Project.
+ *
+ */
+export interface InventoryConfiguration {
+  /**
+   *	The number of minutes after which a [Reservation](ctp:api:type:Reservation) expires. To use the [ReserveOnCart](ctp:api:type:InventoryMode) inventory mode, this field must be set.
+   *
+   *
+   */
+  readonly reservationExpirationInMinutes?: number
+  /**
+   *	If set to `true`, [Reservations](ctp:api:type:Reservation) are marked as `Expired` once their
+   *	`reservationExpirationInMinutes` is reached. The reserved inventory is then made available. If set to `false`, tracking Line Items with expired reservations becomes your responsibility.
+   *
+   *
+   */
+  readonly releaseExpiredReservations: boolean
 }
 /**
  *	Specifies the status of the [Order Search](/../api/projects/order-search) index.
@@ -281,6 +300,12 @@ export interface Project {
    */
   readonly businessUnits?: BusinessUnitConfiguration
   /**
+   *	Holds configuration specific to inventory.
+   *
+   *
+   */
+  readonly inventory: InventoryConfiguration
+  /**
    *	Holds configuration specific to discounts, including how Product and Cart Discounts are combined in every Cart of the Project.
    *
    *
@@ -321,6 +346,8 @@ export type ProjectUpdateAction =
   | ProjectSetBusinessUnitAssociateRoleOnCreationAction
   | ProjectSetDiscountsConfigurationAction
   | ProjectSetExternalOAuthAction
+  | ProjectSetReleaseExpiredReservationsAction
+  | ProjectSetReservationExpirationInMinutesAction
   | ProjectSetShippingRateInputTypeAction
 export interface IProjectUpdateAction {
   /**
@@ -618,6 +645,35 @@ export interface ProjectSetExternalOAuthAction extends IProjectUpdateAction {
    *
    */
   readonly externalOAuth?: ExternalOAuth
+}
+/**
+ *	If set to `true`, [Reservations](ctp:api:type:Reservation) are marked as `Expired` once their
+ *	`reservationExpirationInMinutes` is reached. The reserved inventory is then made available. If set to `false`, tracking Line Items with expired reservations becomes your responsibility.
+ *
+ */
+export interface ProjectSetReleaseExpiredReservationsAction
+  extends IProjectUpdateAction {
+  readonly action: 'setReleaseExpiredReservations'
+  /**
+   *	Value to set.
+   *
+   */
+  readonly releaseExpiredReservations: boolean
+}
+/**
+ *	To use the [ReserveOnCart](ctp:api:type:InventoryMode) Line Item inventory mode, you must set the `reservationExpirationInMinutes` field on the [Project](ctp:api:type:Project) using this update action.
+ *
+ *	To override the Project setting, use the [Set Reservation Expiration In Minutes](ctp:api:type:InventoryEntrySetReservationExpirationInMinutesAction) update action on specific [InventoryEntries](ctp:api:type:InventoryEntry).
+ *
+ */
+export interface ProjectSetReservationExpirationInMinutesAction
+  extends IProjectUpdateAction {
+  readonly action: 'setReservationExpirationInMinutes'
+  /**
+   *	Value to set.
+   *
+   */
+  readonly reservationExpirationInMinutes: number
 }
 export interface ProjectSetShippingRateInputTypeAction
   extends IProjectUpdateAction {

@@ -190,7 +190,7 @@ export interface CheckoutPaymentAuthorizationFailedEvent extends IEvent {
   readonly data: CheckoutMessagePaymentsPayloadBaseData
 }
 /**
- *	Generated when a payment is successfully authorized in Checkout. This event indicates the payment has been validated and the amount has been reserved but not yet charged.
+ *	Generated when a payment is successfully authorized in Checkout. This event indicates that the payment has been validated and the amount has been reserved but not yet charged.
  *
  */
 export interface CheckoutPaymentAuthorizedEvent extends IEvent {
@@ -374,186 +374,6 @@ export interface CheckoutPaymentRefundedEvent extends IEvent {
    *
    */
   readonly data: CheckoutMessagePaymentsPayloadBaseData
-}
-/**
- *	Generated when an [Import Container](ctp:import:type:ImportContainer) is created.
- */
-export interface ImportContainerCreatedEvent extends IEvent {
-  readonly type: 'ImportContainerCreated'
-  /**
-   *	Unique identifier of the Event.
-   *
-   */
-  readonly id: string
-  /**
-   *
-   */
-  readonly notificationType: string
-  /**
-   *
-   */
-  readonly resourceType: EventSubscriptionResourceTypeId
-  /**
-   *	Date and time (UTC) the Event was generated.
-   *
-   */
-  readonly createdAt: string
-  /**
-   *	An object containing details of the created Import Container.
-   *
-   *
-   */
-  readonly data: ImportContainerCreatedEventData
-}
-/**
- *	Generated when an [Import Container](ctp:import:type:ImportContainer) is deleted.
- */
-export interface ImportContainerDeletedEvent extends IEvent {
-  readonly type: 'ImportContainerDeleted'
-  /**
-   *	Unique identifier of the Event.
-   *
-   */
-  readonly id: string
-  /**
-   *
-   */
-  readonly notificationType: string
-  /**
-   *
-   */
-  readonly resourceType: EventSubscriptionResourceTypeId
-  /**
-   *	Date and time (UTC) the Event was generated.
-   *
-   */
-  readonly createdAt: string
-  /**
-   *	An object containing details of the deleted Import Container.
-   *
-   *
-   */
-  readonly data: ImportContainerDeletedEventData
-}
-/**
- *	Generated when an [Import Operation](ctp:import:type:ImportOperation) has the `rejected` [ProcessingState](ctp:import:type:ProcessingState).
- */
-export interface ImportOperationRejectedEvent extends IEvent {
-  readonly type: 'ImportOperationRejected'
-  /**
-   *	Unique identifier of the Event.
-   *
-   */
-  readonly id: string
-  /**
-   *
-   */
-  readonly notificationType: string
-  /**
-   *
-   */
-  readonly resourceType: EventSubscriptionResourceTypeId
-  /**
-   *	Date and time (UTC) the Event was generated.
-   *
-   */
-  readonly createdAt: string
-  /**
-   *	An object containing details of the Import Operation with the `rejected` state.
-   *
-   *
-   */
-  readonly data: ImportOperationRejectedEventData
-}
-/**
- *	Generated when an [Import Operation](ctp:import:type:ImportOperation) has the `unresolved` [ProcessingState](ctp:import:type:ProcessingState).
- */
-export interface ImportUnresolvedEvent extends IEvent {
-  readonly type: 'ImportUnresolved'
-  /**
-   *	Unique identifier of the Event.
-   *
-   */
-  readonly id: string
-  /**
-   *
-   */
-  readonly notificationType: string
-  /**
-   *
-   */
-  readonly resourceType: EventSubscriptionResourceTypeId
-  /**
-   *	Date and time (UTC) the Event was generated.
-   *
-   */
-  readonly createdAt: string
-  /**
-   *	An object containing details of the Import Operation with the `unresolved` state.
-   *
-   *
-   */
-  readonly data: ImportUnresolvedEventData
-}
-/**
- *	Generated when an [Import Operation](ctp:import:type:ImportOperation) has the `validationFailed` [ProcessingState](ctp:import:type:ProcessingState).
- */
-export interface ImportValidationFailedEvent extends IEvent {
-  readonly type: 'ImportValidationFailed'
-  /**
-   *	Unique identifier of the Event.
-   *
-   */
-  readonly id: string
-  /**
-   *
-   */
-  readonly notificationType: string
-  /**
-   *
-   */
-  readonly resourceType: EventSubscriptionResourceTypeId
-  /**
-   *	Date and time (UTC) the Event was generated.
-   *
-   */
-  readonly createdAt: string
-  /**
-   *	An object containing details of the Import Operation with the `validationFailed` state.
-   *
-   *
-   */
-  readonly data: ImportValidationFailedEventData
-}
-/**
- *	Generated when an [Import Operation](ctp:import:type:ImportOperation) has the `waitForMasterVariant` [ProcessingState](ctp:import:type:ProcessingState).
- */
-export interface ImportWaitForMasterVariantEvent extends IEvent {
-  readonly type: 'ImportWaitForMasterVariant'
-  /**
-   *	Unique identifier of the Event.
-   *
-   */
-  readonly id: string
-  /**
-   *
-   */
-  readonly notificationType: string
-  /**
-   *
-   */
-  readonly resourceType: EventSubscriptionResourceTypeId
-  /**
-   *	Date and time (UTC) the Event was generated.
-   *
-   */
-  readonly createdAt: string
-  /**
-   *	An object containing details of the Import Operation with the `waitForMasterVariant` state.
-   *
-   *
-   */
-  readonly data: ImportWaitForMasterVariantEventData
 }
 /**
  *	The `data` payload of all related order event messages.
@@ -744,4 +564,184 @@ export interface ImportWaitForMasterVariantEventData {
    *
    */
   readonly importContainerKey: string
+}
+/**
+ *	Generated when an [Import Container](ctp:import:type:ImportContainer) is created.
+ */
+export interface ImportContainerCreatedEvent extends IEvent {
+  readonly type: 'ImportContainerCreated'
+  /**
+   *	Unique identifier of the Event.
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly notificationType: string
+  /**
+   *
+   */
+  readonly resourceType: EventSubscriptionResourceTypeId
+  /**
+   *	Date and time (UTC) the Event was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	An object containing details of the created Import Container.
+   *
+   *
+   */
+  readonly data: ImportContainerCreatedEventData
+}
+/**
+ *	Generated when an [Import Container](ctp:import:type:ImportContainer) is deleted.
+ */
+export interface ImportContainerDeletedEvent extends IEvent {
+  readonly type: 'ImportContainerDeleted'
+  /**
+   *	Unique identifier of the Event.
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly notificationType: string
+  /**
+   *
+   */
+  readonly resourceType: EventSubscriptionResourceTypeId
+  /**
+   *	Date and time (UTC) the Event was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	An object containing details of the deleted Import Container.
+   *
+   *
+   */
+  readonly data: ImportContainerDeletedEventData
+}
+/**
+ *	Generated when an [Import Operation](ctp:import:type:ImportOperation) has the `rejected` [ProcessingState](ctp:import:type:ProcessingState).
+ */
+export interface ImportOperationRejectedEvent extends IEvent {
+  readonly type: 'ImportOperationRejected'
+  /**
+   *	Unique identifier of the Event.
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly notificationType: string
+  /**
+   *
+   */
+  readonly resourceType: EventSubscriptionResourceTypeId
+  /**
+   *	Date and time (UTC) the Event was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	An object containing details of the Import Operation with the `rejected` state.
+   *
+   *
+   */
+  readonly data: ImportOperationRejectedEventData
+}
+/**
+ *	Generated when an [Import Operation](ctp:import:type:ImportOperation) has the `unresolved` [ProcessingState](ctp:import:type:ProcessingState).
+ */
+export interface ImportUnresolvedEvent extends IEvent {
+  readonly type: 'ImportUnresolved'
+  /**
+   *	Unique identifier of the Event.
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly notificationType: string
+  /**
+   *
+   */
+  readonly resourceType: EventSubscriptionResourceTypeId
+  /**
+   *	Date and time (UTC) the Event was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	An object containing details of the Import Operation with the `unresolved` state.
+   *
+   *
+   */
+  readonly data: ImportUnresolvedEventData
+}
+/**
+ *	Generated when an [Import Operation](ctp:import:type:ImportOperation) has the `validationFailed` [ProcessingState](ctp:import:type:ProcessingState).
+ */
+export interface ImportValidationFailedEvent extends IEvent {
+  readonly type: 'ImportValidationFailed'
+  /**
+   *	Unique identifier of the Event.
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly notificationType: string
+  /**
+   *
+   */
+  readonly resourceType: EventSubscriptionResourceTypeId
+  /**
+   *	Date and time (UTC) the Event was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	An object containing details of the Import Operation with the `validationFailed` state.
+   *
+   *
+   */
+  readonly data: ImportValidationFailedEventData
+}
+/**
+ *	Generated when an [Import Operation](ctp:import:type:ImportOperation) has the `waitForMasterVariant` [ProcessingState](ctp:import:type:ProcessingState).
+ */
+export interface ImportWaitForMasterVariantEvent extends IEvent {
+  readonly type: 'ImportWaitForMasterVariant'
+  /**
+   *	Unique identifier of the Event.
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly notificationType: string
+  /**
+   *
+   */
+  readonly resourceType: EventSubscriptionResourceTypeId
+  /**
+   *	Date and time (UTC) the Event was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	An object containing details of the Import Operation with the `waitForMasterVariant` state.
+   *
+   *
+   */
+  readonly data: ImportWaitForMasterVariantEventData
 }

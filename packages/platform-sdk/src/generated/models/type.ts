@@ -106,7 +106,7 @@ export interface CustomFields {
    */
   readonly type: TypeReference
   /**
-   *	Object containing the Custom Fields for the [customized resource or data type](/../api/projects/types#resourcetypeid).
+   *	Object containing the Custom Fields of the [customized resource or data type](/../api/projects/types#resourcetypeid).
    *
    *
    */
@@ -330,6 +330,7 @@ export enum ResourceTypeIdValues {
   ProductTailoring = 'product-tailoring',
   Quote = 'quote',
   RecurringOrder = 'recurring-order',
+  Reservation = 'reservation',
   Review = 'review',
   Shipping = 'shipping',
   ShippingMethod = 'shipping-method',
@@ -370,6 +371,7 @@ export type ResourceTypeId =
   | 'product-tailoring'
   | 'quote'
   | 'recurring-order'
+  | 'reservation'
   | 'review'
   | 'shipping'
   | 'shipping-method'

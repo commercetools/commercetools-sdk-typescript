@@ -42,6 +42,12 @@ export interface InventoryImport extends ImportResource {
    */
   readonly expectedDelivery?: string
   /**
+   *	Maps to `InventoryEntry.reservationExpirationInMinutes`
+   *
+   *
+   */
+  readonly reservationExpirationInMinutes?: number
+  /**
    *	Maps to `InventoryEntry.supplyChannel`. If the referenced [Channel](ctp:api:type:Channel) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced Channel is created.
    *
    *

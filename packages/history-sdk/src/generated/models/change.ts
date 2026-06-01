@@ -449,6 +449,7 @@ export type Change =
   | SetTitleChange
   | SetTransactionCustomFieldChange
   | SetTransactionCustomTypeChange
+  | SetTransactionInterfaceIdChange
   | SetTransitionsChange
   | SetUnitTypeChange
   | SetValidFromAndUntilChange
@@ -1999,6 +2000,17 @@ export interface ChangeLocalizedNameChange extends IChange {
    *
    */
   readonly nextValue: LocalizedString
+  /**
+   *	Product data that was updated.
+   *
+   *	- `staged`, if the staged [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *	- `current`, if the current [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *
+   *	This field is only present if the change is related to the Product entity.
+   *
+   *
+   */
+  readonly catalogData: string
 }
 /**
  *	Change triggered by the [Change Master Variant](ctp:api:type:ProductChangeMasterVariantAction) update action.
@@ -5619,6 +5631,17 @@ export interface SetLocalizedDescriptionChange extends IChange {
    *
    */
   readonly nextValue: LocalizedString
+  /**
+   *	Product data that was updated.
+   *
+   *	- `staged`, if the staged [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *	- `current`, if the current [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *
+   *	This field is only present if the change is related to the Product entity.
+   *
+   *
+   */
+  readonly catalogData: string
 }
 /**
  *	Change triggered by the [Set Max Applications](ctp:api:type:DiscountCodeSetMaxApplicationsAction) update action.
@@ -9213,6 +9236,31 @@ export interface SetTaxedShippingPriceChange extends IChange {
    *
    */
   readonly nextValue: TaxedPrice
+}
+/**
+ *	Change triggered by the [Set Transaction InterfaceId](ctp:api:type:PaymentSetTransactionInterfaceIdAction) update action.
+ */
+export interface SetTransactionInterfaceIdChange extends IChange {
+  readonly type: 'SetTransactionInterfaceIdChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Holds information about the updated Transaction.
+   *
+   */
+  readonly transaction: TransactionChangeValue
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: string
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: string
 }
 /**
  *	Change triggered by the [Add ShippingRate](ctp:api:type:ShippingMethodAddShippingRateAction) update action.

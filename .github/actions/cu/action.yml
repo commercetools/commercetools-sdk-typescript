@@ -1,0 +1,32 @@
+name: "Cleanup"
+description: "Cleanup created resources"
+
+inputs:
+  node-version:
+    description: "Node.js version"
+    required: false
+    default: "18"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout commercetools-sunrise-data
+      uses: actions/checkout@v4
+      with:
+        repository: commercetools/commercetools-sunrise-data
+        path: sunrise-data
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: Install dependencies
+      working-directory: sunrise-data
+      run: npm ci
+      shell: bash
+
+    - name: Run cleanup
+      working-directory: sunrise-data
+      run: npm run clean:data
+      shell: bash

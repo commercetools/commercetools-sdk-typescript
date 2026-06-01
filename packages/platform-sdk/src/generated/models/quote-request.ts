@@ -249,7 +249,7 @@ export interface QuoteRequest extends BaseResource {
    */
   readonly cart?: CartReference
   /**
-   *	The [BusinessUnit](ctp:api:type:BusinessUnit) for the Quote Request. Only available for [B2B](/../offering/composable-commerce#composable-commerce-for-b2b)-enabled Projects.
+   *	The [BusinessUnit](ctp:api:type:BusinessUnit) for the Quote Request. Only available for [B2B](/../offering/commerce-b2b)-enabled Projects.
    *
    *
    */
@@ -480,14 +480,16 @@ export interface QuoteRequestSetCustomTypeAction
   extends IQuoteRequestUpdateAction {
   readonly action: 'setCustomType'
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the QuoteRequest with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the QuoteRequest with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the QuoteRequest.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the QuoteRequest.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the QuoteRequest.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */

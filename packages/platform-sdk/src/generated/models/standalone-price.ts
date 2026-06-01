@@ -164,7 +164,7 @@ export interface StandalonePrice extends BaseResource {
    */
   readonly discounted?: DiscountedPrice
   /**
-   *	Custom Fields for the StandalonePrice.
+   *	Custom Fields of the StandalonePrice.
    *
    *
    */
@@ -499,14 +499,16 @@ export interface StandalonePriceSetCustomTypeAction
   extends IStandalonePriceUpdateAction {
   readonly action: 'setCustomType'
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the StandalonePrice with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the StandalonePrice with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the StandalonePrice.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the StandalonePrice.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the StandalonePrice.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */
@@ -565,6 +567,8 @@ export interface StandalonePriceSetPriceTiersAction
  *
  *	As the validity dates are part of the price scope and are not allowed to overlap, this update might return the [DuplicateStandalonePriceScope](ctp:api:type:DuplicateStandalonePriceScopeError) and [OverlappingStandalonePriceValidity](ctp:api:type:OverlappingStandalonePriceValidityError) errors, respectively. A Price without validity period does not conflict with a Price defined for a time period.
  *
+ *	If a modification is already in progress for the exact combination of SKU and price scope fields, an [ExactLockConflict](ctp:api:type:ExactLockConflictError) or a [ValidityLockConflict](ctp:api:type:ValidityLockConflictError) error is returned.
+ *
  */
 export interface StandalonePriceSetValidFromAction
   extends IStandalonePriceUpdateAction {
@@ -581,6 +585,8 @@ export interface StandalonePriceSetValidFromAction
  *	Updating the `validFrom` and `validUntil` values generates the [StandalonePriceValidFromAndUntilSet](ctp:api:type:StandalonePriceValidFromAndUntilSetMessage) Message.
  *
  *	As the validity dates are part of the price scope and are not allowed to overlap, this update might return the [DuplicateStandalonePriceScope](ctp:api:type:DuplicateStandalonePriceScopeError) and [OverlappingStandalonePriceValidity](ctp:api:type:OverlappingStandalonePriceValidityError) errors, respectively. A Price without validity period does not conflict with a Price defined for a time period.
+ *
+ *	If a modification is already in progress for the exact combination of SKU and price scope fields, an [ExactLockConflict](ctp:api:type:ExactLockConflictError) or a [ValidityLockConflict](ctp:api:type:ValidityLockConflictError) error is returned.
  *
  */
 export interface StandalonePriceSetValidFromAndUntilAction
@@ -605,6 +611,8 @@ export interface StandalonePriceSetValidFromAndUntilAction
  *	Updating the `validUntil` value generates the [StandalonePriceValidUntilSet](ctp:api:type:StandalonePriceValidUntilSetMessage) Message.
  *
  *	As the validity dates are part of the price scope and are not allowed to overlap, this update might return the [DuplicateStandalonePriceScope](ctp:api:type:DuplicateStandalonePriceScopeError) and [OverlappingStandalonePriceValidity](ctp:api:type:OverlappingStandalonePriceValidityError) errors, respectively. A Price without validity period does not conflict with a Price defined for a time period.
+ *
+ *	If a modification is already in progress for the exact combination of SKU and price scope fields, an [ExactLockConflict](ctp:api:type:ExactLockConflictError) or a [ValidityLockConflict](ctp:api:type:ValidityLockConflictError) error is returned.
  *
  */
 export interface StandalonePriceSetValidUntilAction

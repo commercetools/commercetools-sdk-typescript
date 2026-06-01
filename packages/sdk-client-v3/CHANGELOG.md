@@ -1,5 +1,33 @@
 # @commercetools/ts-client
 
+## 4.9.3
+
+### Patch Changes
+
+- [#1291](https://github.com/commercetools/commercetools-sdk-typescript/pull/1291) [`5638fa6`](https://github.com/commercetools/commercetools-sdk-typescript/commit/5638fa6717ca4326cfa3d3a60b5e3423e416f007) Thanks [@ajimae](https://github.com/ajimae)! - [Feat][DEVX-793] Allow Passing Custom Headers to Http Requests
+
+## 4.9.2
+
+### Patch Changes
+
+- [#1266](https://github.com/commercetools/commercetools-sdk-typescript/pull/1266) [`6814099`](https://github.com/commercetools/commercetools-sdk-typescript/commit/6814099c19abf13bf1c92b8092815db13cc45161) Thanks [@ajimae](https://github.com/ajimae)! - remove content-length headers and allow underlying client to calculate conent length
+
+## 4.9.1
+
+### Patch Changes
+
+- [#1239](https://github.com/commercetools/commercetools-sdk-typescript/pull/1239) [`4d930a0`](https://github.com/commercetools/commercetools-sdk-typescript/commit/4d930a0c084ae6a4404cee8c893442aeb258c484) Thanks [@ShipilA](https://github.com/ShipilA)! - Monthly release
+
+## 4.9.0
+
+### Minor Changes
+
+- [#1219](https://github.com/commercetools/commercetools-sdk-typescript/pull/1219) [`c665e6d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/c665e6d12fe11e66baa303059869bca2b7364b1c) Thanks [@ShipilA](https://github.com/ShipilA)! - Regular release
+
+### Patch Changes
+
+- [#1219](https://github.com/commercetools/commercetools-sdk-typescript/pull/1219) [`c665e6d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/c665e6d12fe11e66baa303059869bca2b7364b1c) Thanks [@ShipilA](https://github.com/ShipilA)! - Monthly release
+
 ## 4.8.0
 
 ### Minor Changes

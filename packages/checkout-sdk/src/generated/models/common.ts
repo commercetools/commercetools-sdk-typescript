@@ -115,7 +115,7 @@ export interface Amount {
   readonly currencyCode: string
 }
 /**
- *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+ *	JSON object where the keys are of type [Locale](ctp:checkout:type:Locale), and the values are the strings used for the corresponding language.
  *
  */
 export interface LocalizedString {
@@ -134,12 +134,16 @@ export interface LocalizedUrl {
  */
 export enum RegionValues {
   AustraliaSoutheast1Gcp = 'australia-southeast1.gcp',
+  EuCentral1Aws = 'eu-central-1.aws',
   EuropeWest1Gcp = 'europe-west1.gcp',
   UsCentral1Gcp = 'us-central1.gcp',
+  UsEast2Aws = 'us-east-2.aws',
 }
 
 export type Region =
   | 'australia-southeast1.gcp'
+  | 'eu-central-1.aws'
   | 'europe-west1.gcp'
   | 'us-central1.gcp'
+  | 'us-east-2.aws'
   | (string & {})

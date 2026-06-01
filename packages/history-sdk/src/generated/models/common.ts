@@ -342,7 +342,7 @@ export interface CustomFields {
    */
   readonly type: TypeReference
   /**
-   *	Object containing the Custom Fields for the [customized resource or data type](/../api/projects/types#resourcetypeid).
+   *	Object containing the Custom Fields of the [customized resource or data type](/../api/projects/types#resourcetypeid).
    *
    *
    */
@@ -3488,13 +3488,13 @@ export interface ProductVariant {
   readonly availability?: ProductVariantAvailability
   /**
    *	`true` if the Product Variant matches the search query.
-   *	Only available in response to a [Product Projection Search](ctp:api:type:ProductProjectionSearch) request.
+   *	Only available in response to a [Product Projection Search](/../api/projects/product-projection-search) request.
    *
    *
    */
   readonly isMatchingVariant?: boolean
   /**
-   *	Only available in response to a [Product Projection Search](ctp:api:type:ProductProjectionSearch) request
+   *	Only available in response to a [Product Projection Search](/../api/projects/product-projection-search) request
    *	with [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection).
    *	Can be used to sort, [filter](ctp:api:type:ProductProjectionSearchFilterScopedPrice), and facet.
    *
@@ -3502,7 +3502,7 @@ export interface ProductVariant {
    */
   readonly scopedPrice?: ScopedPrice
   /**
-   *	Only available in response to a [Product Projection Search](ctp:api:type:ProductProjectionSearchFilterScopedPrice) request
+   *	Only available in response to a [Product Projection Search](/../api/projects/product-projection-search) request
    *	with [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection).
    *
    *
@@ -3671,7 +3671,7 @@ export interface ScopedPrice {
    */
   readonly discounted?: DiscountedPrice
   /**
-   *	Custom Fields for the Price.
+   *	Custom Fields of the Price.
    *
    *
    */
@@ -3798,7 +3798,7 @@ export interface ClientLogging {
    */
   readonly anonymousId?: string
   /**
-   *	Indicates the [Customer](ctp:api:type:Customer) who created or modified the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only available for [B2B](/../offering/composable-commerce#composable-commerce-for-b2b)-enabled Projects when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
+   *	Indicates the [Customer](ctp:api:type:Customer) who created or modified the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only available for [B2B](/../offering/commerce-b2b)-enabled Projects when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
    *
    *
    */

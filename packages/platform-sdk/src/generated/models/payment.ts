@@ -105,7 +105,7 @@ export interface Payment extends BaseResource {
    */
   readonly interfaceInteractions: CustomFields[]
   /**
-   *	Custom Fields for the Payment.
+   *	Custom Fields of the Payment.
    *
    *
    */
@@ -498,7 +498,7 @@ export interface TransactionDraft {
    */
   readonly state?: TransactionState
   /**
-   *	Custom Fields of the Transaction.
+   *	Custom Fields for the Transaction.
    *
    */
   readonly custom?: CustomFieldsDraft
@@ -554,7 +554,9 @@ export interface PaymentAddInterfaceInteractionAction
    */
   readonly type: TypeResourceIdentifier
   /**
-   *	[Custom Fields](/../api/projects/custom-fields) as per [FieldDefinitions](ctp:api:type:FieldDefinition) of the [Type](ctp:api:type:Type).
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the InterfaceInteraction.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */
@@ -671,14 +673,16 @@ export interface PaymentSetCustomFieldAction extends IPaymentUpdateAction {
 export interface PaymentSetCustomTypeAction extends IPaymentUpdateAction {
   readonly action: 'setCustomType'
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the Payment with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the Payment with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the Payment.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Payment.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the Payment.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */
@@ -814,13 +818,15 @@ export interface PaymentSetMethodInfoCustomTypeAction
   extends IPaymentUpdateAction {
   readonly action: 'setMethodInfoCustomType'
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the `paymentMethodInfo` with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the `paymentMethodInfo` with [Custom Fields](ctp:api:type:CustomFields).
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the `paymentMethodInfo`.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the `paymentMethodInfo`.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */
@@ -955,14 +961,16 @@ export interface PaymentSetTransactionCustomTypeAction
    */
   readonly transactionId: string
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the Transaction with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the Transaction with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the Transaction.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Transaction.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the Transaction.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */
