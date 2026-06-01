@@ -1,5 +1,36 @@
 # @commercetools/history-sdk
 
+## 5.14.0
+
+### Minor Changes
+
+- [#1296](https://github.com/commercetools/commercetools-sdk-typescript/pull/1296) [`52cc58b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/52cc58b95ce94eed65e219cc2a365895b832a05e) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **History changes**
+
+  <details>
+  <summary>Added Enum(s)</summary>
+  - added enum `setReservationExpirationInMinutes` to type `UpdateType`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `SetTransactionInterfaceIdChange`
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+  - added property `catalogData` to type `ChangeLocalizedNameChange`
+  - added property `catalogData` to type `SetLocalizedDescriptionChange`
+  </details>
+
+- [#1301](https://github.com/commercetools/commercetools-sdk-typescript/pull/1301) [`3577a1b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3577a1b18fcb7a2deb0dae32470a305c1fc1f45e) Thanks [@ShipilA](https://github.com/ShipilA)! - Monthly release June 2026
+
+- [#1301](https://github.com/commercetools/commercetools-sdk-typescript/pull/1301) [`3577a1b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3577a1b18fcb7a2deb0dae32470a305c1fc1f45e) Thanks [@ShipilA](https://github.com/ShipilA)! - Monthly release
+
+### Patch Changes
+
+- Updated dependencies [[`3577a1b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3577a1b18fcb7a2deb0dae32470a305c1fc1f45e), [`3577a1b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3577a1b18fcb7a2deb0dae32470a305c1fc1f45e)]:
+  - @commercetools/ts-client@4.10.0
+
 ## 5.13.0
 
 ### Minor Changes
