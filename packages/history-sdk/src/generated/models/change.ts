@@ -8004,8 +8004,7 @@ export interface SetCustomLineItemDiscountedPriceChange extends IChange {
 /**
  *	Change triggered after a recalculation of discount on a [Custom Line Item](ctp:api:type:CustomLineItem).
  */
-export interface SetCustomLineItemDiscountedPricePerQuantityChange
-  extends IChange {
+export interface SetCustomLineItemDiscountedPricePerQuantityChange extends IChange {
   readonly type: 'SetCustomLineItemDiscountedPricePerQuantityChange'
   /**
    *

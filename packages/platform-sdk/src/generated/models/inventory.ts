@@ -335,8 +335,7 @@ export interface InventoryPagedQueryResponse {
  *	To set an absolute quantity value instead, use the [InventoryEntryChangeQuantityAction](ctp:api:type:InventoryEntryChangeQuantityAction) update action.
  *
  */
-export interface InventoryEntryAddQuantityAction
-  extends IInventoryEntryUpdateAction {
+export interface InventoryEntryAddQuantityAction extends IInventoryEntryUpdateAction {
   readonly action: 'addQuantity'
   /**
    *	Value to add to `quantityOnStock`.
@@ -349,8 +348,7 @@ export interface InventoryEntryAddQuantityAction
  *	To make an incremental change instead, use the [InventoryEntryAddQuantityAction](ctp:api:type:InventoryEntryAddQuantityAction) update action.
  *
  */
-export interface InventoryEntryChangeQuantityAction
-  extends IInventoryEntryUpdateAction {
+export interface InventoryEntryChangeQuantityAction extends IInventoryEntryUpdateAction {
   readonly action: 'changeQuantity'
   /**
    *	Value to set for `quantityOnStock`.
@@ -365,8 +363,7 @@ export interface InventoryEntryChangeQuantityAction
  *	Carts with existing `ReserveOnCart` reservations will not be invalidated by this update action and can still be ordered.
  *
  */
-export interface InventoryEntryRemoveQuantityAction
-  extends IInventoryEntryUpdateAction {
+export interface InventoryEntryRemoveQuantityAction extends IInventoryEntryUpdateAction {
   readonly action: 'removeQuantity'
   /**
    *	Value to remove from `quantityOnStock`.
@@ -374,8 +371,7 @@ export interface InventoryEntryRemoveQuantityAction
    */
   readonly quantity: number
 }
-export interface InventoryEntrySetCustomFieldAction
-  extends IInventoryEntryUpdateAction {
+export interface InventoryEntrySetCustomFieldAction extends IInventoryEntryUpdateAction {
   readonly action: 'setCustomField'
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
@@ -392,8 +388,7 @@ export interface InventoryEntrySetCustomFieldAction
    */
   readonly value?: any
 }
-export interface InventoryEntrySetCustomTypeAction
-  extends IInventoryEntryUpdateAction {
+export interface InventoryEntrySetCustomTypeAction extends IInventoryEntryUpdateAction {
   readonly action: 'setCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the InventoryEntry with [Custom Fields](ctp:api:type:CustomFields).
@@ -411,8 +406,7 @@ export interface InventoryEntrySetCustomTypeAction
    */
   readonly fields?: FieldContainer
 }
-export interface InventoryEntrySetExpectedDeliveryAction
-  extends IInventoryEntryUpdateAction {
+export interface InventoryEntrySetExpectedDeliveryAction extends IInventoryEntryUpdateAction {
   readonly action: 'setExpectedDelivery'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -425,8 +419,7 @@ export interface InventoryEntrySetExpectedDeliveryAction
  *	quantities that can be added to a Cart. For more information, see [Quantity limits](/../api/inventory-overview#quantity-limits).
  *
  */
-export interface InventoryEntrySetInventoryLimitsAction
-  extends IInventoryEntryUpdateAction {
+export interface InventoryEntrySetInventoryLimitsAction extends IInventoryEntryUpdateAction {
   readonly action: 'setInventoryLimits'
   /**
    *	Sets the minimum quantity that can be added to a Cart. If the value is absent or `null`
@@ -443,8 +436,7 @@ export interface InventoryEntrySetInventoryLimitsAction
    */
   readonly maxCartQuantity?: number
 }
-export interface InventoryEntrySetKeyAction
-  extends IInventoryEntryUpdateAction {
+export interface InventoryEntrySetKeyAction extends IInventoryEntryUpdateAction {
   readonly action: 'setKey'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -458,8 +450,7 @@ export interface InventoryEntrySetKeyAction
  *	a corresponding [InventoryEntryReorderPoint](ctp:api:type:InventoryEntryReorderPointMessage) Message is generated.
  *
  */
-export interface InventoryEntrySetReorderPointAction
-  extends IInventoryEntryUpdateAction {
+export interface InventoryEntrySetReorderPointAction extends IInventoryEntryUpdateAction {
   readonly action: 'setReorderPoint'
   /**
    *	Sets the configured inventory stock level for reorder point. If the value is absent or `null`
@@ -475,8 +466,7 @@ export interface InventoryEntrySetReorderPointAction
  *	Produces the [InventoryEntry Reservation Expiration In Minutes Set](ctp:api:type:InventoryEntryReservationExpirationInMinutesSetMessage) Message after a successful update.
  *
  */
-export interface InventoryEntrySetReservationExpirationInMinutesAction
-  extends IInventoryEntryUpdateAction {
+export interface InventoryEntrySetReservationExpirationInMinutesAction extends IInventoryEntryUpdateAction {
   readonly action: 'setReservationExpirationInMinutes'
   /**
    *	Value to set, must be a positive integer. If empty, any existing value will be removed.
@@ -484,8 +474,7 @@ export interface InventoryEntrySetReservationExpirationInMinutesAction
    */
   readonly reservationExpirationInMinutes?: number
 }
-export interface InventoryEntrySetRestockableInDaysAction
-  extends IInventoryEntryUpdateAction {
+export interface InventoryEntrySetRestockableInDaysAction extends IInventoryEntryUpdateAction {
   readonly action: 'setRestockableInDays'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -498,8 +487,7 @@ export interface InventoryEntrySetRestockableInDaysAction
  *	a corresponding [InventoryEntrySafetyStock](ctp:api:type:InventoryEntrySafetyStockMessage) Message is generated.
  *
  */
-export interface InventoryEntrySetSafetyStockAction
-  extends IInventoryEntryUpdateAction {
+export interface InventoryEntrySetSafetyStockAction extends IInventoryEntryUpdateAction {
   readonly action: 'setSafetyStock'
   /**
    *	Sets the configured inventory stock level for safety stock. If the value is absent or `null`
@@ -512,8 +500,7 @@ export interface InventoryEntrySetSafetyStockAction
 /**
  *	If an entry with the same `sku` and `supplyChannel` already exists, an [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
  */
-export interface InventoryEntrySetSupplyChannelAction
-  extends IInventoryEntryUpdateAction {
+export interface InventoryEntrySetSupplyChannelAction extends IInventoryEntryUpdateAction {
   readonly action: 'setSupplyChannel'
   /**
    *	Value to set. If empty, any existing value will be removed.

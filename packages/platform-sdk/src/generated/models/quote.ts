@@ -471,8 +471,7 @@ export interface QuoteChangeQuoteStateAction extends IQuoteUpdateAction {
  *	Represents the Buyer requesting renegotiation for a Quote. Valid for Quotes in a `Pending` [state](ctp:api:type:QuoteState).
  *
  */
-export interface QuoteRequestQuoteRenegotiationAction
-  extends IQuoteUpdateAction {
+export interface QuoteRequestQuoteRenegotiationAction extends IQuoteUpdateAction {
   readonly action: 'requestQuoteRenegotiation'
   /**
    *	Message from the [Buyer](/api/quotes-overview#buyer) regarding the Quote renegotiation request.

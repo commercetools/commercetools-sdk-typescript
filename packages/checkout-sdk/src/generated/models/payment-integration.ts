@@ -333,8 +333,7 @@ export interface PaymentIntegrationReference extends IReference {
  *	Resource identifier to a [Payment Integration](ctp:checkout:type:PaymentIntegration). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/errors#invalidjsoninput) error is returned.
  *
  */
-export interface PaymentIntegrationResourceIdentifier
-  extends IResourceIdentifier {
+export interface PaymentIntegrationResourceIdentifier extends IResourceIdentifier {
   readonly typeId: 'payment-integration'
   /**
    *	Unique identifier of the referenced Payment Integration. Required if `key` is absent.
@@ -418,8 +417,7 @@ export interface PaymentIntegrationUpdateActions {
  *	Sets the automated reversal configuration predicate of a PaymentIntegration.
  *
  */
-export interface SetAutomatedReversalConfigurationPredicateUpdateAction
-  extends IPaymentIntegrationUpdateAction {
+export interface SetAutomatedReversalConfigurationPredicateUpdateAction extends IPaymentIntegrationUpdateAction {
   readonly action: 'setAutomatedReversalConfigurationPredicate'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -432,8 +430,7 @@ export interface SetAutomatedReversalConfigurationPredicateUpdateAction
  *	Sets the automated reversal configuration status of a PaymentIntegration.
  *
  */
-export interface SetAutomatedReversalConfigurationStatusUpdateAction
-  extends IPaymentIntegrationUpdateAction {
+export interface SetAutomatedReversalConfigurationStatusUpdateAction extends IPaymentIntegrationUpdateAction {
   readonly action: 'setAutomatedReversalConfigurationStatus'
   /**
    *	Value to set as the automated reversal configuration status of the PaymentIntegration.
@@ -446,8 +443,7 @@ export interface SetAutomatedReversalConfigurationStatusUpdateAction
  *	Sets the automated reversal configuration of a PaymentIntegration.
  *
  */
-export interface SetAutomatedReversalConfigurationUpdateAction
-  extends IPaymentIntegrationUpdateAction {
+export interface SetAutomatedReversalConfigurationUpdateAction extends IPaymentIntegrationUpdateAction {
   readonly action: 'setAutomatedReversalConfiguration'
   /**
    *	Value to set as the automated reversal configuration of the PaymentIntegration.
@@ -460,8 +456,7 @@ export interface SetAutomatedReversalConfigurationUpdateAction
  *	Sets the display info description of a PaymentIntegration.
  *
  */
-export interface SetDisplayInfoDescriptionUpdateAction
-  extends IPaymentIntegrationUpdateAction {
+export interface SetDisplayInfoDescriptionUpdateAction extends IPaymentIntegrationUpdateAction {
   readonly action: 'setDisplayInfoDescription'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -474,8 +469,7 @@ export interface SetDisplayInfoDescriptionUpdateAction
  *	Sets the display info label of a PaymentIntegration.
  *
  */
-export interface SetDisplayInfoLabelUpdateAction
-  extends IPaymentIntegrationUpdateAction {
+export interface SetDisplayInfoLabelUpdateAction extends IPaymentIntegrationUpdateAction {
   readonly action: 'setDisplayInfoLabel'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -488,8 +482,7 @@ export interface SetDisplayInfoLabelUpdateAction
  *	Sets the display info logo URL of a PaymentIntegration.
  *
  */
-export interface SetDisplayInfoLogoUrlUpdateAction
-  extends IPaymentIntegrationUpdateAction {
+export interface SetDisplayInfoLogoUrlUpdateAction extends IPaymentIntegrationUpdateAction {
   readonly action: 'setDisplayInfoLogoUrl'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -502,8 +495,7 @@ export interface SetDisplayInfoLogoUrlUpdateAction
  *	Sets the display info pay button text of a PaymentIntegration.
  *
  */
-export interface SetDisplayInfoPayButtonTextUpdateAction
-  extends IPaymentIntegrationUpdateAction {
+export interface SetDisplayInfoPayButtonTextUpdateAction extends IPaymentIntegrationUpdateAction {
   readonly action: 'setDisplayInfoPayButtonText'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -512,8 +504,7 @@ export interface SetDisplayInfoPayButtonTextUpdateAction
    */
   readonly payButtonText?: LocalizedString
 }
-export interface SetDisplayInfoUpdateAction
-  extends IPaymentIntegrationUpdateAction {
+export interface SetDisplayInfoUpdateAction extends IPaymentIntegrationUpdateAction {
   readonly action: 'setDisplayInfo'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -552,8 +543,7 @@ export interface SetNameUpdateAction extends IPaymentIntegrationUpdateAction {
  *	Sets the predicate of a PaymentIntegration.
  *
  */
-export interface SetPredicateUpdateAction
-  extends IPaymentIntegrationUpdateAction {
+export interface SetPredicateUpdateAction extends IPaymentIntegrationUpdateAction {
   readonly action: 'setPredicate'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -566,8 +556,7 @@ export interface SetPredicateUpdateAction
  *	Sets the sorting info of a PaymentIntegration.
  *
  */
-export interface SetSortingInfoUpdateAction
-  extends IPaymentIntegrationUpdateAction {
+export interface SetSortingInfoUpdateAction extends IPaymentIntegrationUpdateAction {
   readonly action: 'setSortingInfo'
   /**
    *	Value to set. If empty, any existing value will be removed.

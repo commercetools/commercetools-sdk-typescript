@@ -176,8 +176,7 @@ export interface RecurrencePolicyReference extends IReference {
  *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [RecurrencePolicy](ctp:api:type:RecurrencePolicy). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
-export interface RecurrencePolicyResourceIdentifier
-  extends IResourceIdentifier {
+export interface RecurrencePolicyResourceIdentifier extends IResourceIdentifier {
   readonly typeId: 'recurrence-policy'
   /**
    *	Unique identifier of the referenced [RecurrencePolicy](ctp:api:type:RecurrencePolicy). Required if `key` is absent.
@@ -230,8 +229,7 @@ export interface IRecurrencePolicyScheduleDraft {
  *	- To place orders on different dates within the same month (for example, the 1st and 15th), create separate [Recurring Orders](ctp:api:type:RecurringOrder)—each with its own schedule.
  *
  */
-export interface DayOfMonthScheduleDraft
-  extends IRecurrencePolicyScheduleDraft {
+export interface DayOfMonthScheduleDraft extends IRecurrencePolicyScheduleDraft {
   readonly type: 'dayOfMonth'
   /**
    *	The day of the month when the [Recurring Order](ctp:api:type:RecurringOrder) should be created.
@@ -305,8 +303,7 @@ export interface StandardScheduleDraft extends IRecurrencePolicyScheduleDraft {
    */
   readonly intervalUnit: IntervalUnit
 }
-export interface RecurrencePolicySetDescriptionAction
-  extends IRecurrencePolicyUpdateAction {
+export interface RecurrencePolicySetDescriptionAction extends IRecurrencePolicyUpdateAction {
   readonly action: 'setDescription'
   /**
    *	Value to set.
@@ -316,8 +313,7 @@ export interface RecurrencePolicySetDescriptionAction
    */
   readonly description?: LocalizedString
 }
-export interface RecurrencePolicySetKeyAction
-  extends IRecurrencePolicyUpdateAction {
+export interface RecurrencePolicySetKeyAction extends IRecurrencePolicyUpdateAction {
   readonly action: 'setKey'
   /**
    *	Value to set.
@@ -327,8 +323,7 @@ export interface RecurrencePolicySetKeyAction
    */
   readonly key?: string
 }
-export interface RecurrencePolicySetNameAction
-  extends IRecurrencePolicyUpdateAction {
+export interface RecurrencePolicySetNameAction extends IRecurrencePolicyUpdateAction {
   readonly action: 'setName'
   /**
    *	Value to set.
@@ -338,8 +333,7 @@ export interface RecurrencePolicySetNameAction
    */
   readonly name?: LocalizedString
 }
-export interface RecurrencePolicySetScheduleAction
-  extends IRecurrencePolicyUpdateAction {
+export interface RecurrencePolicySetScheduleAction extends IRecurrencePolicyUpdateAction {
   readonly action: 'setSchedule'
   /**
    *	Schedule where the recurrence is defined.

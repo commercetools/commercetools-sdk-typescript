@@ -351,8 +351,7 @@ export interface IProductDiscountValueDraft {
  *	Discounts the Product Price by a fixed amount, defined by the `money` field.
  *
  */
-export interface ProductDiscountValueAbsoluteDraft
-  extends IProductDiscountValueDraft {
+export interface ProductDiscountValueAbsoluteDraft extends IProductDiscountValueDraft {
   readonly type: 'absolute'
   /**
    *	Money values in different currencies.
@@ -379,8 +378,7 @@ export interface ProductDiscountValueExternal extends IProductDiscountValue {
  *	Use this when setting discounts using an external service.
  *
  */
-export interface ProductDiscountValueExternalDraft
-  extends IProductDiscountValueDraft {
+export interface ProductDiscountValueExternalDraft extends IProductDiscountValueDraft {
   readonly type: 'external'
 }
 /**
@@ -399,8 +397,7 @@ export interface ProductDiscountValueRelative extends IProductDiscountValue {
  *	Discounts the Product Price by a percentage, defined by the `permyriad` field.
  *
  */
-export interface ProductDiscountValueRelativeDraft
-  extends IProductDiscountValueDraft {
+export interface ProductDiscountValueRelativeDraft extends IProductDiscountValueDraft {
   readonly type: 'relative'
   /**
    *	Fraction (per ten thousand) the price is reduced by. For example, `1000` will result in a 10% price reduction.
@@ -409,8 +406,7 @@ export interface ProductDiscountValueRelativeDraft
    */
   readonly permyriad: number
 }
-export interface ProductDiscountChangeIsActiveAction
-  extends IProductDiscountUpdateAction {
+export interface ProductDiscountChangeIsActiveAction extends IProductDiscountUpdateAction {
   readonly action: 'changeIsActive'
   /**
    *	New value to set.
@@ -420,8 +416,7 @@ export interface ProductDiscountChangeIsActiveAction
    */
   readonly isActive: boolean
 }
-export interface ProductDiscountChangeNameAction
-  extends IProductDiscountUpdateAction {
+export interface ProductDiscountChangeNameAction extends IProductDiscountUpdateAction {
   readonly action: 'changeName'
   /**
    *	New value to set. Must not be empty.
@@ -430,8 +425,7 @@ export interface ProductDiscountChangeNameAction
    */
   readonly name: LocalizedString
 }
-export interface ProductDiscountChangePredicateAction
-  extends IProductDiscountUpdateAction {
+export interface ProductDiscountChangePredicateAction extends IProductDiscountUpdateAction {
   readonly action: 'changePredicate'
   /**
    *	New value to set. Must be a valid [ProductDiscount predicate](/../api/projects/predicates#productdiscount-predicates).
@@ -440,8 +434,7 @@ export interface ProductDiscountChangePredicateAction
    */
   readonly predicate: string
 }
-export interface ProductDiscountChangeSortOrderAction
-  extends IProductDiscountUpdateAction {
+export interface ProductDiscountChangeSortOrderAction extends IProductDiscountUpdateAction {
   readonly action: 'changeSortOrder'
   /**
    *	New value to set.
@@ -453,8 +446,7 @@ export interface ProductDiscountChangeSortOrderAction
    */
   readonly sortOrder: string
 }
-export interface ProductDiscountChangeValueAction
-  extends IProductDiscountUpdateAction {
+export interface ProductDiscountChangeValueAction extends IProductDiscountUpdateAction {
   readonly action: 'changeValue'
   /**
    *	New value to set. Must not be empty.
@@ -463,8 +455,7 @@ export interface ProductDiscountChangeValueAction
    */
   readonly value: ProductDiscountValueDraft
 }
-export interface ProductDiscountSetDescriptionAction
-  extends IProductDiscountUpdateAction {
+export interface ProductDiscountSetDescriptionAction extends IProductDiscountUpdateAction {
   readonly action: 'setDescription'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -473,8 +464,7 @@ export interface ProductDiscountSetDescriptionAction
    */
   readonly description?: LocalizedString
 }
-export interface ProductDiscountSetKeyAction
-  extends IProductDiscountUpdateAction {
+export interface ProductDiscountSetKeyAction extends IProductDiscountUpdateAction {
   readonly action: 'setKey'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -483,8 +473,7 @@ export interface ProductDiscountSetKeyAction
    */
   readonly key?: string
 }
-export interface ProductDiscountSetValidFromAction
-  extends IProductDiscountUpdateAction {
+export interface ProductDiscountSetValidFromAction extends IProductDiscountUpdateAction {
   readonly action: 'setValidFrom'
   /**
    *	Value to set.
@@ -495,8 +484,7 @@ export interface ProductDiscountSetValidFromAction
    */
   readonly validFrom?: string
 }
-export interface ProductDiscountSetValidFromAndUntilAction
-  extends IProductDiscountUpdateAction {
+export interface ProductDiscountSetValidFromAndUntilAction extends IProductDiscountUpdateAction {
   readonly action: 'setValidFromAndUntil'
   /**
    *	Value to set.
@@ -513,8 +501,7 @@ export interface ProductDiscountSetValidFromAndUntilAction
    */
   readonly validUntil?: string
 }
-export interface ProductDiscountSetValidUntilAction
-  extends IProductDiscountUpdateAction {
+export interface ProductDiscountSetValidUntilAction extends IProductDiscountUpdateAction {
   readonly action: 'setValidUntil'
   /**
    *	Value to set.

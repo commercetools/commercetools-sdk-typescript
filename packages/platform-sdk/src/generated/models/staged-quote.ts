@@ -297,8 +297,7 @@ export interface IStagedQuoteUpdateAction {
    */
   readonly action: string
 }
-export interface StagedQuoteChangeStagedQuoteStateAction
-  extends IStagedQuoteUpdateAction {
+export interface StagedQuoteChangeStagedQuoteStateAction extends IStagedQuoteUpdateAction {
   readonly action: 'changeStagedQuoteState'
   /**
    *	New state to be set for the Staged Quote.
@@ -306,8 +305,7 @@ export interface StagedQuoteChangeStagedQuoteStateAction
    */
   readonly stagedQuoteState: StagedQuoteState
 }
-export interface StagedQuoteSetCustomFieldAction
-  extends IStagedQuoteUpdateAction {
+export interface StagedQuoteSetCustomFieldAction extends IStagedQuoteUpdateAction {
   readonly action: 'setCustomField'
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
@@ -324,8 +322,7 @@ export interface StagedQuoteSetCustomFieldAction
    */
   readonly value?: any
 }
-export interface StagedQuoteSetCustomTypeAction
-  extends IStagedQuoteUpdateAction {
+export interface StagedQuoteSetCustomTypeAction extends IStagedQuoteUpdateAction {
   readonly action: 'setCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the StagedQuote with [Custom Fields](ctp:api:type:CustomFields).
@@ -343,8 +340,7 @@ export interface StagedQuoteSetCustomTypeAction
    */
   readonly fields?: FieldContainer
 }
-export interface StagedQuoteSetSellerCommentAction
-  extends IStagedQuoteUpdateAction {
+export interface StagedQuoteSetSellerCommentAction extends IStagedQuoteUpdateAction {
   readonly action: 'setSellerComment'
   /**
    *	If `sellerComment` is absent or `null`, this field will be removed if it exists.
@@ -366,8 +362,7 @@ export interface StagedQuoteSetValidToAction extends IStagedQuoteUpdateAction {
  *	If the existing [State](ctp:api:type:State) has set `transitions`, there must be a direct transition to the new State. If `transitions` is not set, no validation is performed. This update action produces the [Staged Quote State Transition](ctp:api:type:StagedQuoteStateTransitionMessage) Message.
  *
  */
-export interface StagedQuoteTransitionStateAction
-  extends IStagedQuoteUpdateAction {
+export interface StagedQuoteTransitionStateAction extends IStagedQuoteUpdateAction {
   readonly action: 'transitionState'
   /**
    *	Value to set.

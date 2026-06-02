@@ -29,7 +29,7 @@ function compose({
   return _middlewares.reduce(
     (ac: Dispatch, cv: Dispatch) =>
       (...args: Array<Next>): Next =>
-        ac(cv.apply(null, args))
+        ac(cv.apply(null, args as [Next]))
   )
 }
 

@@ -435,8 +435,7 @@ export interface IQuoteRequestUpdateAction {
  *	This update action produces the [Quote Request Customer Changed](ctp:api:type:QuoteRequestCustomerChangedMessage) Message.
  *
  */
-export interface QuoteRequestChangeCustomerAction
-  extends IQuoteRequestUpdateAction {
+export interface QuoteRequestChangeCustomerAction extends IQuoteRequestUpdateAction {
   readonly action: 'changeCustomer'
   /**
    *	New Customer to own the Quote Request.
@@ -449,8 +448,7 @@ export interface QuoteRequestChangeCustomerAction
  *	A Buyer is only allowed to cancel a Quote Request when it is in `Submitted` state.
  *
  */
-export interface QuoteRequestChangeQuoteRequestStateAction
-  extends IQuoteRequestUpdateAction {
+export interface QuoteRequestChangeQuoteRequestStateAction extends IQuoteRequestUpdateAction {
   readonly action: 'changeQuoteRequestState'
   /**
    *	New state to be set for the Quote Request.
@@ -458,8 +456,7 @@ export interface QuoteRequestChangeQuoteRequestStateAction
    */
   readonly quoteRequestState: QuoteRequestState
 }
-export interface QuoteRequestSetCustomFieldAction
-  extends IQuoteRequestUpdateAction {
+export interface QuoteRequestSetCustomFieldAction extends IQuoteRequestUpdateAction {
   readonly action: 'setCustomField'
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
@@ -476,8 +473,7 @@ export interface QuoteRequestSetCustomFieldAction
    */
   readonly value?: any
 }
-export interface QuoteRequestSetCustomTypeAction
-  extends IQuoteRequestUpdateAction {
+export interface QuoteRequestSetCustomTypeAction extends IQuoteRequestUpdateAction {
   readonly action: 'setCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the QuoteRequest with [Custom Fields](ctp:api:type:CustomFields).
@@ -499,8 +495,7 @@ export interface QuoteRequestSetCustomTypeAction
  *	If the existing [State](ctp:api:type:State) has set `transitions`, there must be a direct transition to the new State. If `transitions` is not set, no validation is performed. This update action produces the [Quote Request State Transition](ctp:api:type:QuoteRequestStateTransitionMessage) Message.
  *
  */
-export interface QuoteRequestTransitionStateAction
-  extends IQuoteRequestUpdateAction {
+export interface QuoteRequestTransitionStateAction extends IQuoteRequestUpdateAction {
   readonly action: 'transitionState'
   /**
    *	Value to set.

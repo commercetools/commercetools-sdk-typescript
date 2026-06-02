@@ -1240,8 +1240,7 @@ export interface InheritedAssociateRoleAssignment {
  *	Adding an address to a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitAddressAdded](ctp:api:type:BusinessUnitAddressAddedMessage) Message.
  *
  */
-export interface BusinessUnitAddAddressAction
-  extends IBusinessUnitUpdateAction {
+export interface BusinessUnitAddAddressAction extends IBusinessUnitUpdateAction {
   readonly action: 'addAddress'
   /**
    *	Address to add to the addresses of the [Business Unit](ctp:api:type:BusinessUnit).
@@ -1254,8 +1253,7 @@ export interface BusinessUnitAddAddressAction
  *	Adding an Associate to a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitAssociateAdded](ctp:api:type:BusinessUnitAssociateAddedMessage) Message.
  *
  */
-export interface BusinessUnitAddAssociateAction
-  extends IBusinessUnitUpdateAction {
+export interface BusinessUnitAddAssociateAction extends IBusinessUnitUpdateAction {
   readonly action: 'addAssociate'
   /**
    *	The Associate to add.
@@ -1268,8 +1266,7 @@ export interface BusinessUnitAddAssociateAction
  *	Adding a billing address to a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitBillingAddressAdded](ctp:api:type:BusinessUnitBillingAddressAddedMessage) Message.
  *
  */
-export interface BusinessUnitAddBillingAddressIdAction
-  extends IBusinessUnitUpdateAction {
+export interface BusinessUnitAddBillingAddressIdAction extends IBusinessUnitUpdateAction {
   readonly action: 'addBillingAddressId'
   /**
    *	ID of the address to add as a billing address. Either `addressId` or `addressKey` is required.
@@ -1290,8 +1287,7 @@ export interface BusinessUnitAddBillingAddressIdAction
  *	This action generates the [BusinessUnitCustomerGroupAssignmentAdded](ctp:api:type:BusinessUnitCustomerGroupAssignmentAddedMessage) Message.
  *
  */
-export interface BusinessUnitAddCustomerGroupAssignmentAction
-  extends IBusinessUnitUpdateAction {
+export interface BusinessUnitAddCustomerGroupAssignmentAction extends IBusinessUnitUpdateAction {
   readonly action: 'addCustomerGroupAssignment'
   /**
    *	Customer Group to assign the Business Unit to.
@@ -1304,8 +1300,7 @@ export interface BusinessUnitAddCustomerGroupAssignmentAction
  *	Adding a shipping address to a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitShippingAddressAdded](ctp:api:type:BusinessUnitShippingAddressAddedMessage) Message.
  *
  */
-export interface BusinessUnitAddShippingAddressIdAction
-  extends IBusinessUnitUpdateAction {
+export interface BusinessUnitAddShippingAddressIdAction extends IBusinessUnitUpdateAction {
   readonly action: 'addShippingAddressId'
   /**
    *	ID of the address to add as a shipping address. Either `addressId` or `addressKey` is required.
@@ -1338,8 +1333,7 @@ export interface BusinessUnitAddStoreAction extends IBusinessUnitUpdateAction {
  *	Changing the address on a Business Unit generates the [BusinessUnitAddressChanged](ctp:api:type:BusinessUnitAddressChangedMessage) Message.
  *
  */
-export interface BusinessUnitChangeAddressAction
-  extends IBusinessUnitUpdateAction {
+export interface BusinessUnitChangeAddressAction extends IBusinessUnitUpdateAction {
   readonly action: 'changeAddress'
   /**
    *	ID of the address to change. Either `addressId` or `addressKey` is required.
@@ -1368,8 +1362,7 @@ export interface BusinessUnitChangeAddressAction
  *	This update action generates a [BusinessUnitApprovalRuleModeChanged](ctp:api:type:BusinessUnitApprovalRuleModeChangedMessage) Message.
  *
  */
-export interface BusinessUnitChangeApprovalRuleModeAction
-  extends IBusinessUnitUpdateAction {
+export interface BusinessUnitChangeApprovalRuleModeAction extends IBusinessUnitUpdateAction {
   readonly action: 'changeApprovalRuleMode'
   /**
    *	The new value for `approvalRuleMode`.
@@ -1382,8 +1375,7 @@ export interface BusinessUnitChangeApprovalRuleModeAction
  *	Updating the [Associate](ctp:api:type:Associate) on a [Business Unit](ctp:api:type:BusinessUnit) generates the [BusinessUnitAssociateChanged](ctp:api:type:BusinessUnitAssociateChangedMessage) Message.
  *
  */
-export interface BusinessUnitChangeAssociateAction
-  extends IBusinessUnitUpdateAction {
+export interface BusinessUnitChangeAssociateAction extends IBusinessUnitUpdateAction {
   readonly action: 'changeAssociate'
   /**
    *	New version of an existing Associate.
@@ -1397,8 +1389,7 @@ export interface BusinessUnitChangeAssociateAction
  *	This update action generates a [BusinessUnitAssociateModeChanged](ctp:api:type:BusinessUnitAssociateModeChangedMessage) Message.
  *
  */
-export interface BusinessUnitChangeAssociateModeAction
-  extends IBusinessUnitUpdateAction {
+export interface BusinessUnitChangeAssociateModeAction extends IBusinessUnitUpdateAction {
   readonly action: 'changeAssociateMode'
   /**
    *	The new value for `associateMode`.
@@ -1417,8 +1408,7 @@ export interface BusinessUnitChangeAssociateModeAction
  *	Updating the name on a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitNameChanged](ctp:api:type:BusinessUnitNameChangedMessage) Message.
  *
  */
-export interface BusinessUnitChangeNameAction
-  extends IBusinessUnitUpdateAction {
+export interface BusinessUnitChangeNameAction extends IBusinessUnitUpdateAction {
   readonly action: 'changeName'
   /**
    *	New name to set.
@@ -1431,8 +1421,7 @@ export interface BusinessUnitChangeNameAction
  *	This action generates a [BusinessUnitParentChanged](ctp:api:type:BusinessUnitParentChangedMessage) Message.
  *
  */
-export interface BusinessUnitChangeParentUnitAction
-  extends IBusinessUnitUpdateAction {
+export interface BusinessUnitChangeParentUnitAction extends IBusinessUnitUpdateAction {
   readonly action: 'changeParentUnit'
   /**
    *	New parent unit of the [Business Unit](ctp:api:type:BusinessUnit).
@@ -1448,8 +1437,7 @@ export interface BusinessUnitChangeParentUnitAction
  *	Changing the status of a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitStatusChanged](ctp:api:type:BusinessUnitStatusChangedMessage) Message.
  *
  */
-export interface BusinessUnitChangeStatusAction
-  extends IBusinessUnitUpdateAction {
+export interface BusinessUnitChangeStatusAction extends IBusinessUnitUpdateAction {
   readonly action: 'changeStatus'
   /**
    *	New status to set.
@@ -1462,8 +1450,7 @@ export interface BusinessUnitChangeStatusAction
  *	Removing the address from a [Business Unit](ctp:api:type:BusinessUnit) generates the [BusinessUnitAddressRemoved](ctp:api:type:BusinessUnitAddressRemovedMessage) Message.
  *
  */
-export interface BusinessUnitRemoveAddressAction
-  extends IBusinessUnitUpdateAction {
+export interface BusinessUnitRemoveAddressAction extends IBusinessUnitUpdateAction {
   readonly action: 'removeAddress'
   /**
    *	ID of the address to be removed. Either `addressId` or `addressKey` is required.
@@ -1482,8 +1469,7 @@ export interface BusinessUnitRemoveAddressAction
  *	Removing an [Associate](ctp:api:type:Associate) from a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitAssociateRemoved](ctp:api:type:BusinessUnitAssociateRemovedMessage) Message.
  *
  */
-export interface BusinessUnitRemoveAssociateAction
-  extends IBusinessUnitUpdateAction {
+export interface BusinessUnitRemoveAssociateAction extends IBusinessUnitUpdateAction {
   readonly action: 'removeAssociate'
   /**
    *	[Associate](ctp:api:type:Associate) to remove.
@@ -1496,8 +1482,7 @@ export interface BusinessUnitRemoveAssociateAction
  *	Removing a billing address from a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitBillingAddressRemoved](ctp:api:type:BusinessUnitBillingAddressRemovedMessage) Message.
  *
  */
-export interface BusinessUnitRemoveBillingAddressIdAction
-  extends IBusinessUnitUpdateAction {
+export interface BusinessUnitRemoveBillingAddressIdAction extends IBusinessUnitUpdateAction {
   readonly action: 'removeBillingAddressId'
   /**
    *	ID of the address to be removed from `billingAddressIds`. Either `addressId` or `addressKey` is required.
@@ -1518,8 +1503,7 @@ export interface BusinessUnitRemoveBillingAddressIdAction
  *	This action generates the [BusinessUnitCustomerGroupAssignmentRemoved](ctp:api:type:BusinessUnitCustomerGroupAssignmentRemovedMessage) Message.
  *
  */
-export interface BusinessUnitRemoveCustomerGroupAssignmentAction
-  extends IBusinessUnitUpdateAction {
+export interface BusinessUnitRemoveCustomerGroupAssignmentAction extends IBusinessUnitUpdateAction {
   readonly action: 'removeCustomerGroupAssignment'
   /**
    *	Customer Group to unassign the Business Unit from.
@@ -1532,8 +1516,7 @@ export interface BusinessUnitRemoveCustomerGroupAssignmentAction
  *	Removing a shipping address from a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitShippingAddressRemoved](ctp:api:type:BusinessUnitShippingAddressRemovedMessage) Message.
  *
  */
-export interface BusinessUnitRemoveShippingAddressIdAction
-  extends IBusinessUnitUpdateAction {
+export interface BusinessUnitRemoveShippingAddressIdAction extends IBusinessUnitUpdateAction {
   readonly action: 'removeShippingAddressId'
   /**
    *	ID of the address to be removed from `shippingAddressIds`. Either `addressId` or `addressKey` is required.
@@ -1557,8 +1540,7 @@ export interface BusinessUnitRemoveShippingAddressIdAction
  *	Only applicable when `storeMode` is `Explicit`.
  *
  */
-export interface BusinessUnitRemoveStoreAction
-  extends IBusinessUnitUpdateAction {
+export interface BusinessUnitRemoveStoreAction extends IBusinessUnitUpdateAction {
   readonly action: 'removeStore'
   /**
    *	[Store](ctp:api:type:Store) to remove.
@@ -1571,8 +1553,7 @@ export interface BusinessUnitRemoveStoreAction
  *	Adding a Custom Field to an Address of a Business Unit generates the [BusinessUnitAddressCustomFieldAdded](ctp:api:type:BusinessUnitAddressCustomFieldAddedMessage) Message, removing one generates the [BusinessUnitAddressCustomFieldRemoved](ctp:api:type:BusinessUnitAddressCustomFieldRemovedMessage) Message, and updating an existing one generates the [BusinessUnitAddressCustomFieldChanged](ctp:api:type:BusinessUnitAddressCustomFieldChangedMessage) Message.
  *
  */
-export interface BusinessUnitSetAddressCustomFieldAction
-  extends IBusinessUnitUpdateAction {
+export interface BusinessUnitSetAddressCustomFieldAction extends IBusinessUnitUpdateAction {
   readonly action: 'setAddressCustomField'
   /**
    *	ID of the address to be extended.
@@ -1599,8 +1580,7 @@ export interface BusinessUnitSetAddressCustomFieldAction
  *	Adding or updating a Custom Type on an Address of a Business Unit generates the [BusinessUnitAddressCustomTypeSet](ctp:api:type:BusinessUnitAddressCustomTypeSetMessage) Message, and removing one generates the [BusinessUnitAddressCustomTypeRemoved](ctp:api:type:BusinessUnitAddressCustomTypeRemovedMessage) Message.
  *
  */
-export interface BusinessUnitSetAddressCustomTypeAction
-  extends IBusinessUnitUpdateAction {
+export interface BusinessUnitSetAddressCustomTypeAction extends IBusinessUnitUpdateAction {
   readonly action: 'setAddressCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the `address` with [Custom Fields](ctp:api:type:CustomFields).
@@ -1628,8 +1608,7 @@ export interface BusinessUnitSetAddressCustomTypeAction
  *	Changes the Associates of a [Business Unit](ctp:api:type:BusinessUnit), generates a [BusinessUnitAssociatesSet](ctp:api:type:BusinessUnitAssociatesSetMessage) Message.
  *
  */
-export interface BusinessUnitSetAssociatesAction
-  extends IBusinessUnitUpdateAction {
+export interface BusinessUnitSetAssociatesAction extends IBusinessUnitUpdateAction {
   readonly action: 'setAssociates'
   /**
    *	The new list of Associates. If empty, existing values will be removed.
@@ -1642,8 +1621,7 @@ export interface BusinessUnitSetAssociatesAction
  *	Setting the contact email on a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitContactEmailSet](ctp:api:type:BusinessUnitContactEmailSetMessage) Message.
  *
  */
-export interface BusinessUnitSetContactEmailAction
-  extends IBusinessUnitUpdateAction {
+export interface BusinessUnitSetContactEmailAction extends IBusinessUnitUpdateAction {
   readonly action: 'setContactEmail'
   /**
    *	Email to set.
@@ -1657,8 +1635,7 @@ export interface BusinessUnitSetContactEmailAction
  *	Adding a Custom Field to a Business Unit generates the [BusinessUnitCustomFieldAdded](ctp:api:type:BusinessUnitCustomFieldAddedMessage) Message, removing one generates the [BusinessUnitCustomFieldRemoved](ctp:api:type:BusinessUnitCustomFieldRemovedMessage) Message, and updating an existing one generates the [BusinessUnitCustomFieldChanged](ctp:api:type:BusinessUnitCustomFieldChangedMessage) Message.
  *
  */
-export interface BusinessUnitSetCustomFieldAction
-  extends IBusinessUnitUpdateAction {
+export interface BusinessUnitSetCustomFieldAction extends IBusinessUnitUpdateAction {
   readonly action: 'setCustomField'
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields) to add, update, or remove.
@@ -1679,8 +1656,7 @@ export interface BusinessUnitSetCustomFieldAction
  *	Adding or updating a Custom Type on a Business Unit generates the [BusinessUnitCustomTypeSet](ctp:api:type:BusinessUnitCustomTypeSetMessage) Message, removing one generates the [BusinessUnitCustomTypeRemoved](ctp:api:type:BusinessUnitCustomTypeRemovedMessage) Message.
  *
  */
-export interface BusinessUnitSetCustomTypeAction
-  extends IBusinessUnitUpdateAction {
+export interface BusinessUnitSetCustomTypeAction extends IBusinessUnitUpdateAction {
   readonly action: 'setCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the BusinessUnit with [Custom Fields](ctp:api:type:CustomFields).
@@ -1704,8 +1680,7 @@ export interface BusinessUnitSetCustomTypeAction
  *	This action generates the [BusinessUnitCustomerGroupAssignmentsSet](ctp:api:type:BusinessUnitCustomerGroupAssignmentsSetMessage) Message.
  *
  */
-export interface BusinessUnitSetCustomerGroupAssignmentsAction
-  extends IBusinessUnitUpdateAction {
+export interface BusinessUnitSetCustomerGroupAssignmentsAction extends IBusinessUnitUpdateAction {
   readonly action: 'setCustomerGroupAssignments'
   /**
    *	Customer Groups to assign the Business Unit to.
@@ -1718,8 +1693,7 @@ export interface BusinessUnitSetCustomerGroupAssignmentsAction
  *	Setting the default billing address on a [Business Unit](ctp:api:type:BusinessUnit) generates the [BusinessUnitDefaultBillingAddressSet](ctp:api:type:BusinessUnitDefaultBillingAddressSetMessage) Message.
  *
  */
-export interface BusinessUnitSetDefaultBillingAddressAction
-  extends IBusinessUnitUpdateAction {
+export interface BusinessUnitSetDefaultBillingAddressAction extends IBusinessUnitUpdateAction {
   readonly action: 'setDefaultBillingAddress'
   /**
    *	ID of the address to add as a billing address. Either `addressId` or `addressKey` is required.
@@ -1738,8 +1712,7 @@ export interface BusinessUnitSetDefaultBillingAddressAction
  *	Setting the default shipping address on a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitDefaultShippingAddressSet](ctp:api:type:BusinessUnitDefaultShippingAddressSetMessage) Message.
  *
  */
-export interface BusinessUnitSetDefaultShippingAddressAction
-  extends IBusinessUnitUpdateAction {
+export interface BusinessUnitSetDefaultShippingAddressAction extends IBusinessUnitUpdateAction {
   readonly action: 'setDefaultShippingAddress'
   /**
    *	ID of the address to add as a shipping address. Either `addressId` or `addressKey` is required.
@@ -1759,8 +1732,7 @@ export interface BusinessUnitSetDefaultShippingAddressAction
  *	This update action generates a [BusinessUnitStoreModeChanged](ctp:api:type:BusinessUnitStoreModeChangedMessage) Message.
  *
  */
-export interface BusinessUnitSetStoreModeAction
-  extends IBusinessUnitUpdateAction {
+export interface BusinessUnitSetStoreModeAction extends IBusinessUnitUpdateAction {
   readonly action: 'setStoreMode'
   /**
    *	Set to `Explicit` to specify Stores for the Business Unit. Set to `FromParent` to inherit Stores from a parent.
@@ -1796,8 +1768,7 @@ export interface BusinessUnitSetStoresAction extends IBusinessUnitUpdateAction {
  *	This action generates a [BusinessUnitTypeSet](ctp:api:type:BusinessUnitTypeSetMessage) Message.
  *
  */
-export interface BusinessUnitSetUnitTypeAction
-  extends IBusinessUnitUpdateAction {
+export interface BusinessUnitSetUnitTypeAction extends IBusinessUnitUpdateAction {
   readonly action: 'setUnitType'
   /**
    *	New type of the [Business Unit](ctp:api:type:BusinessUnit).

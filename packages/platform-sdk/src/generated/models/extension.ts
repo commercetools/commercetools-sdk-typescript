@@ -449,8 +449,7 @@ export interface IHttpDestinationAuthentication {
  *	For example, the `headerValue` for [Basic Authentication](https://datatracker.ietf.org/doc/html/rfc7617) should be set to `Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==`.
  *
  */
-export interface AuthorizationHeaderAuthentication
-  extends IHttpDestinationAuthentication {
+export interface AuthorizationHeaderAuthentication extends IHttpDestinationAuthentication {
   readonly type: 'AuthorizationHeader'
   /**
    *	Partially hidden on retrieval for security reasons.
@@ -466,8 +465,7 @@ export interface AuthorizationHeaderAuthentication
  *	`https://foo.azurewebsites.net/api/bar?code=secret`.
  *
  */
-export interface AzureFunctionsAuthentication
-  extends IHttpDestinationAuthentication {
+export interface AzureFunctionsAuthentication extends IHttpDestinationAuthentication {
   readonly type: 'AzureFunctions'
   /**
    *	Partially hidden on retrieval for security reasons.
@@ -476,8 +474,7 @@ export interface AzureFunctionsAuthentication
    */
   readonly key: string
 }
-export interface ExtensionChangeDestinationAction
-  extends IExtensionUpdateAction {
+export interface ExtensionChangeDestinationAction extends IExtensionUpdateAction {
   readonly action: 'changeDestination'
   /**
    *	New value to set. Must not be empty.
@@ -495,8 +492,7 @@ export interface ExtensionChangeTriggersAction extends IExtensionUpdateAction {
    */
   readonly triggers: ExtensionTrigger[]
 }
-export interface ExtensionSetAdditionalContextAction
-  extends IExtensionUpdateAction {
+export interface ExtensionSetAdditionalContextAction extends IExtensionUpdateAction {
   readonly action: 'setAdditionalContext'
   /**
    *	New value to set.
@@ -514,8 +510,7 @@ export interface ExtensionSetDependenciesAction extends IExtensionUpdateAction {
    */
   readonly dependencies: ExtensionResourceIdentifier[]
 }
-export interface ExtensionSetExpansionPathsAction
-  extends IExtensionUpdateAction {
+export interface ExtensionSetExpansionPathsAction extends IExtensionUpdateAction {
   readonly action: 'setExpansionPaths'
   /**
    *	[Expansion paths](/../api/general-concepts#expansion-paths) used for reference expansion of the payload.

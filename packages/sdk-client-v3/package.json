@@ -2,7 +2,7 @@
   "name": "@commercetools/ts-client",
   "version": "4.10.0",
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "description": "commercetools Composable Commerce TypeScript SDK client.",
   "keywords": [

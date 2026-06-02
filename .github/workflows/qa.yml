@@ -105,7 +105,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: [18, 20]
+        version:
+          - 22
+          # - 24
       fail-fast: true
       max-parallel: 1
 

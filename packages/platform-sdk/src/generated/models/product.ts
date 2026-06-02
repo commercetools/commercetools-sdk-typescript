@@ -1756,8 +1756,7 @@ export interface ProductRevertStagedChangesAction extends IProductUpdateAction {
  *	Reverts the staged version of a ProductVariant to the current version.
  *
  */
-export interface ProductRevertStagedVariantChangesAction
-  extends IProductUpdateAction {
+export interface ProductRevertStagedVariantChangesAction extends IProductUpdateAction {
   readonly action: 'revertStagedVariantChanges'
   /**
    *	The `id` of the ProductVariant to revert.
@@ -2085,8 +2084,7 @@ export interface ProductSetAttributeAction extends IProductUpdateAction {
  *	Adds, removes, or changes a Variant Attribute in all Product Variants at the same time.
  *	This action is useful for setting values for Attributes with the [Constraint](ctp:api:type:AttributeConstraintEnum) `SameForAll`.
  */
-export interface ProductSetAttributeInAllVariantsAction
-  extends IProductUpdateAction {
+export interface ProductSetAttributeInAllVariantsAction extends IProductUpdateAction {
   readonly action: 'setAttributeInAllVariants'
   /**
    *	Name of the Attribute to set.
@@ -2118,8 +2116,7 @@ export interface ProductSetAttributeInAllVariantsAction
    */
   readonly staged?: boolean
 }
-export interface ProductSetCategoryOrderHintAction
-  extends IProductUpdateAction {
+export interface ProductSetCategoryOrderHintAction extends IProductUpdateAction {
   readonly action: 'setCategoryOrderHint'
   /**
    *	The `id` of the Category to add the `orderHint`. If this Category is not assigned to the Product, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
@@ -2374,8 +2371,7 @@ export interface ProductSetProductAttributeAction extends IProductUpdateAction {
    */
   readonly staged?: boolean
 }
-export interface ProductSetProductPriceCustomFieldAction
-  extends IProductUpdateAction {
+export interface ProductSetProductPriceCustomFieldAction extends IProductUpdateAction {
   readonly action: 'setProductPriceCustomField'
   /**
    *	The `id` of the Embedded Price to update.
@@ -2404,8 +2400,7 @@ export interface ProductSetProductPriceCustomFieldAction
    */
   readonly value?: any
 }
-export interface ProductSetProductPriceCustomTypeAction
-  extends IProductUpdateAction {
+export interface ProductSetProductPriceCustomTypeAction extends IProductUpdateAction {
   readonly action: 'setProductPriceCustomType'
   /**
    *	The `id` of the Embedded Price to update.
@@ -2439,8 +2434,7 @@ export interface ProductSetProductPriceCustomTypeAction
  *	Either `variantId` or `sku` is required.
  *
  */
-export interface ProductSetProductVariantKeyAction
-  extends IProductUpdateAction {
+export interface ProductSetProductVariantKeyAction extends IProductUpdateAction {
   readonly action: 'setProductVariantKey'
   /**
    *	The `id` of the ProductVariant to update.

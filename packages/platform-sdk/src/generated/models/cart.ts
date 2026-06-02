@@ -2152,8 +2152,7 @@ export interface IShippingRateInputDraft {
    */
   readonly type: string
 }
-export interface ClassificationShippingRateInputDraft
-  extends IShippingRateInputDraft {
+export interface ClassificationShippingRateInputDraft extends IShippingRateInputDraft {
   readonly type: 'Classification'
   /**
    *	Key of the value used as a programmatic identifier.
@@ -2760,8 +2759,7 @@ export interface CartAddShoppingListAction extends ICartUpdateAction {
    */
   readonly supplyChannel?: ChannelResourceIdentifier
 }
-export interface CartApplyDeltaToCustomLineItemShippingDetailsTargetsAction
-  extends ICartUpdateAction {
+export interface CartApplyDeltaToCustomLineItemShippingDetailsTargetsAction extends ICartUpdateAction {
   readonly action: 'applyDeltaToCustomLineItemShippingDetailsTargets'
   /**
    *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
@@ -2786,8 +2784,7 @@ export interface CartApplyDeltaToCustomLineItemShippingDetailsTargetsAction
  *	To override the shipping details, see [Set LineItem ShippingDetails](ctp:api:type:CartSetLineItemShippingDetailsAction).
  *
  */
-export interface CartApplyDeltaToLineItemShippingDetailsTargetsAction
-  extends ICartUpdateAction {
+export interface CartApplyDeltaToLineItemShippingDetailsTargetsAction extends ICartUpdateAction {
   readonly action: 'applyDeltaToLineItemShippingDetailsTargets'
   /**
    *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
@@ -2831,8 +2828,7 @@ export interface CartChangeCustomLineItemMoneyAction extends ICartUpdateAction {
    */
   readonly money: _Money
 }
-export interface CartChangeCustomLineItemPriceModeAction
-  extends ICartUpdateAction {
+export interface CartChangeCustomLineItemPriceModeAction extends ICartUpdateAction {
   readonly action: 'changeCustomLineItemPriceMode'
   /**
    *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
@@ -2864,8 +2860,7 @@ export interface CartChangeCustomLineItemPriceModeAction
  *	in a single Cart update command.
  *
  */
-export interface CartChangeCustomLineItemQuantityAction
-  extends ICartUpdateAction {
+export interface CartChangeCustomLineItemQuantityAction extends ICartUpdateAction {
   readonly action: 'changeCustomLineItemQuantity'
   /**
    *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
@@ -3195,8 +3190,7 @@ export interface CartSetBillingAddressAction extends ICartUpdateAction {
    */
   readonly address?: _BaseAddress
 }
-export interface CartSetBillingAddressCustomFieldAction
-  extends ICartUpdateAction {
+export interface CartSetBillingAddressCustomFieldAction extends ICartUpdateAction {
   readonly action: 'setBillingAddressCustomField'
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
@@ -3213,8 +3207,7 @@ export interface CartSetBillingAddressCustomFieldAction
    */
   readonly value?: any
 }
-export interface CartSetBillingAddressCustomTypeAction
-  extends ICartUpdateAction {
+export interface CartSetBillingAddressCustomTypeAction extends ICartUpdateAction {
   readonly action: 'setBillingAddressCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the `billingAddress` with [Custom Fields](ctp:api:type:CustomFields).
@@ -3299,8 +3292,7 @@ export interface CartSetCustomFieldAction extends ICartUpdateAction {
    */
   readonly value?: any
 }
-export interface CartSetCustomLineItemCustomFieldAction
-  extends ICartUpdateAction {
+export interface CartSetCustomLineItemCustomFieldAction extends ICartUpdateAction {
   readonly action: 'setCustomLineItemCustomField'
   /**
    *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
@@ -3329,8 +3321,7 @@ export interface CartSetCustomLineItemCustomFieldAction
    */
   readonly value?: any
 }
-export interface CartSetCustomLineItemCustomTypeAction
-  extends ICartUpdateAction {
+export interface CartSetCustomLineItemCustomTypeAction extends ICartUpdateAction {
   readonly action: 'setCustomLineItemCustomType'
   /**
    *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
@@ -3365,8 +3356,7 @@ export interface CartSetCustomLineItemCustomTypeAction
  *	If the Cart is already associated with a Recurring Order, this action will fail.
  *
  */
-export interface CartSetCustomLineItemRecurrenceInfoAction
-  extends ICartUpdateAction {
+export interface CartSetCustomLineItemRecurrenceInfoAction extends ICartUpdateAction {
   readonly action: 'setCustomLineItemRecurrenceInfo'
   /**
    *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
@@ -3388,8 +3378,7 @@ export interface CartSetCustomLineItemRecurrenceInfoAction
    */
   readonly recurrenceInfo?: CustomLineItemRecurrenceInfoDraft
 }
-export interface CartSetCustomLineItemShippingDetailsAction
-  extends ICartUpdateAction {
+export interface CartSetCustomLineItemShippingDetailsAction extends ICartUpdateAction {
   readonly action: 'setCustomLineItemShippingDetails'
   /**
    *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
@@ -3415,8 +3404,7 @@ export interface CartSetCustomLineItemShippingDetailsAction
  *	Can be used if the Cart has the `ExternalAmount` [TaxMode](ctp:api:type:TaxMode).
  *
  */
-export interface CartSetCustomLineItemTaxAmountAction
-  extends ICartUpdateAction {
+export interface CartSetCustomLineItemTaxAmountAction extends ICartUpdateAction {
   readonly action: 'setCustomLineItemTaxAmount'
   /**
    *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
@@ -3594,8 +3582,7 @@ export interface CartSetCustomerIdAction extends ICartUpdateAction {
  *	If a [ChangeSubscription](ctp:api:type:ChangeSubscription) exists for Carts, a [ResourceDeletedDeliveryPayload](ctp:api:type:ResourceDeletedDeliveryPayload) is sent.
  *
  */
-export interface CartSetDeleteDaysAfterLastModificationAction
-  extends ICartUpdateAction {
+export interface CartSetDeleteDaysAfterLastModificationAction extends ICartUpdateAction {
   readonly action: 'setDeleteDaysAfterLastModification'
   /**
    *	Value to set.
@@ -3621,8 +3608,7 @@ export interface CartSetDirectDiscountsAction extends ICartUpdateAction {
    */
   readonly discounts: DirectDiscountDraft[]
 }
-export interface CartSetItemShippingAddressCustomFieldAction
-  extends ICartUpdateAction {
+export interface CartSetItemShippingAddressCustomFieldAction extends ICartUpdateAction {
   readonly action: 'setItemShippingAddressCustomField'
   /**
    *	`key` of the [Address](ctp:api:type:Address) in `itemShippingAddress`.
@@ -3645,8 +3631,7 @@ export interface CartSetItemShippingAddressCustomFieldAction
    */
   readonly value?: any
 }
-export interface CartSetItemShippingAddressCustomTypeAction
-  extends ICartUpdateAction {
+export interface CartSetItemShippingAddressCustomTypeAction extends ICartUpdateAction {
   readonly action: 'setItemShippingAddressCustomType'
   /**
    *	`key` of the [Address](ctp:api:type:Address) in `itemShippingAddress`.
@@ -3743,8 +3728,7 @@ export interface CartSetLineItemCustomTypeAction extends ICartUpdateAction {
  *	Setting a distribution channel for a [LineItem](ctp:api:type:LineItem) can lead to an updated `price` as described in [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
  *
  */
-export interface CartSetLineItemDistributionChannelAction
-  extends ICartUpdateAction {
+export interface CartSetLineItemDistributionChannelAction extends ICartUpdateAction {
   readonly action: 'setLineItemDistributionChannel'
   /**
    *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
@@ -3848,8 +3832,7 @@ export interface CartSetLineItemRecurrenceInfoAction extends ICartUpdateAction {
    */
   readonly recurrenceInfo?: LineItemRecurrenceInfoDraft
 }
-export interface CartSetLineItemShippingDetailsAction
-  extends ICartUpdateAction {
+export interface CartSetLineItemShippingDetailsAction extends ICartUpdateAction {
   readonly action: 'setLineItemShippingDetails'
   /**
    *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
@@ -4022,8 +4005,7 @@ export interface CartSetPurchaseOrderNumberAction extends ICartUpdateAction {
  *	Sets a new expiration date and time for all [ReserveOnCart](ctp:api:type:InventoryMode) Line Items with a [Reservation](ctp:api:type:Reservation). The Cart will return a [warning](ctp:api:type:WarningObject) for any Reservation that could not be changed.
  *
  */
-export interface CartSetReservationExpirationInMinutesAction
-  extends ICartUpdateAction {
+export interface CartSetReservationExpirationInMinutesAction extends ICartUpdateAction {
   readonly action: 'setReservationExpirationInMinutes'
   /**
    *	Value to set. Must be a positive integer.
@@ -4053,8 +4035,7 @@ export interface CartSetShippingAddressAction extends ICartUpdateAction {
    */
   readonly address?: _BaseAddress
 }
-export interface CartSetShippingAddressCustomFieldAction
-  extends ICartUpdateAction {
+export interface CartSetShippingAddressCustomFieldAction extends ICartUpdateAction {
   readonly action: 'setShippingAddressCustomField'
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
@@ -4071,8 +4052,7 @@ export interface CartSetShippingAddressCustomFieldAction
    */
   readonly value?: any
 }
-export interface CartSetShippingAddressCustomTypeAction
-  extends ICartUpdateAction {
+export interface CartSetShippingAddressCustomTypeAction extends ICartUpdateAction {
   readonly action: 'setShippingAddressCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the `shippingAddress` with [Custom Fields](ctp:api:type:CustomFields).
@@ -4173,8 +4153,7 @@ export interface CartSetShippingMethodAction extends ICartUpdateAction {
  *	A Shipping Method tax amount can be set if the Cart has the `ExternalAmount` [TaxMode](ctp:api:type:TaxMode).
  *
  */
-export interface CartSetShippingMethodTaxAmountAction
-  extends ICartUpdateAction {
+export interface CartSetShippingMethodTaxAmountAction extends ICartUpdateAction {
   readonly action: 'setShippingMethodTaxAmount'
   /**
    *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) to update. This is required for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).

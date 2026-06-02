@@ -6,7 +6,7 @@
   "name": "@commercetools/checkout-sdk",
   "version": "1.9.0",
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "description": "Typescript SDK for Composable Commerce Checkout API",
   "keywords": [

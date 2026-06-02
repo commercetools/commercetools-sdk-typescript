@@ -1141,8 +1141,7 @@ export interface ExpressPaymentFailed extends IResponseMessage {
  *	Generated when a requested Express Payments integration is not available. This can happen when using `mountMethod()` with a payment method that is not configured or not available for the current session.
  *
  */
-export interface ExpressPaymentIntegrationNotAvailable
-  extends IResponseMessage {
+export interface ExpressPaymentIntegrationNotAvailable extends IResponseMessage {
   readonly code: 'express_payment_integration_not_available'
   /**
    *	\`warn`
@@ -1601,8 +1600,7 @@ export interface PaymentIntegrationSelected extends IResponseMessage {
  *	Generated when the customer has entered the payment integration information and moves to the next step.
  *
  */
-export interface PaymentIntegrationSelectionConfirmation
-  extends IResponseMessage {
+export interface PaymentIntegrationSelectionConfirmation extends IResponseMessage {
   readonly code: 'payment_integration_selection_confirmation'
   /**
    *	\`info`
@@ -1629,8 +1627,7 @@ export interface PaymentIntegrationSelectionConfirmation
  *	Generated when the selection of the payment integration by the customer is not successful.
  *
  */
-export interface PaymentIntegrationSelectionConfirmationFailed
-  extends IResponseMessage {
+export interface PaymentIntegrationSelectionConfirmationFailed extends IResponseMessage {
   readonly code: 'payment_integration_selection_confirmation_failed'
   /**
    *	\`info`

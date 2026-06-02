@@ -321,8 +321,7 @@ export interface RuleRequesterDraft {
  *	Setting the approvers for an [Approval Rule](ctp:api:type:ApprovalRule) generates an [ApprovalRuleApproversSet](ctp:api:type:ApprovalRuleApproversSetMessage) Message.
  *
  */
-export interface ApprovalRuleSetApproversAction
-  extends IApprovalRuleUpdateAction {
+export interface ApprovalRuleSetApproversAction extends IApprovalRuleUpdateAction {
   readonly action: 'setApprovers'
   /**
    *	New approvers to set for the Approval Rule.
@@ -331,8 +330,7 @@ export interface ApprovalRuleSetApproversAction
    */
   readonly approvers: ApproverHierarchyDraft
 }
-export interface ApprovalRuleSetCustomFieldAction
-  extends IApprovalRuleUpdateAction {
+export interface ApprovalRuleSetCustomFieldAction extends IApprovalRuleUpdateAction {
   readonly action: 'setCustomField'
   /**
    *	Name of the [Custom Field](ctp:api:type:CustomFields).
@@ -349,8 +347,7 @@ export interface ApprovalRuleSetCustomFieldAction
    */
   readonly value?: any
 }
-export interface ApprovalRuleSetCustomTypeAction
-  extends IApprovalRuleUpdateAction {
+export interface ApprovalRuleSetCustomTypeAction extends IApprovalRuleUpdateAction {
   readonly action: 'setCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the ApprovalRule with [Custom Fields](ctp:api:type:CustomFields).
@@ -372,8 +369,7 @@ export interface ApprovalRuleSetCustomTypeAction
  *	Setting the description for an [Approval Rule](ctp:api:type:ApprovalRule) generates an [ApprovalRuleDescriptionSet](ctp:api:type:ApprovalRuleDescriptionSetMessage) Message.
  *
  */
-export interface ApprovalRuleSetDescriptionAction
-  extends IApprovalRuleUpdateAction {
+export interface ApprovalRuleSetDescriptionAction extends IApprovalRuleUpdateAction {
   readonly action: 'setDescription'
   /**
    *	New description to set for the Approval Rule.
@@ -410,8 +406,7 @@ export interface ApprovalRuleSetNameAction extends IApprovalRuleUpdateAction {
  *	Setting the [Order Predicate](/../api/projects/predicates#order-predicates) for an [Approval Rule](ctp:api:type:ApprovalRule) generates an [ApprovalRulePredicateSet](ctp:api:type:ApprovalRulePredicateSetMessage) Message.
  *
  */
-export interface ApprovalRuleSetPredicateAction
-  extends IApprovalRuleUpdateAction {
+export interface ApprovalRuleSetPredicateAction extends IApprovalRuleUpdateAction {
   readonly action: 'setPredicate'
   /**
    *	A valid [Order Predicate](/../api/projects/predicates#order-predicates) to set for the Approval Rule.
@@ -423,8 +418,7 @@ export interface ApprovalRuleSetPredicateAction
  *	Sets the requesters for an [Approval Rule](ctp:api:type:ApprovalRule) generates an [ApprovalRuleRequestersSet](ctp:api:type:ApprovalRuleRequestersSetMessage) Message.
  *
  */
-export interface ApprovalRuleSetRequestersAction
-  extends IApprovalRuleUpdateAction {
+export interface ApprovalRuleSetRequestersAction extends IApprovalRuleUpdateAction {
   readonly action: 'setRequesters'
   /**
    *	New requesters to set for the Approval Rule.

@@ -13,7 +13,7 @@ function createTestRequest(options) {
   }
 }
 
-function FormDataMockClass() {
+function FormDataMockClass(this: any) {
   this.append = jest.fn()
 }
 

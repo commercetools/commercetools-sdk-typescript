@@ -692,8 +692,7 @@ export interface TypeChangeEnumValueOrderAction extends ITypeUpdateAction {
    */
   readonly keys: string[]
 }
-export interface TypeChangeFieldDefinitionOrderAction
-  extends ITypeUpdateAction {
+export interface TypeChangeFieldDefinitionOrderAction extends ITypeUpdateAction {
   readonly action: 'changeFieldDefinitionOrder'
   /**
    *	Must match the set of `name`s of FieldDefinitions (up to order).
@@ -752,8 +751,7 @@ export interface TypeChangeLabelAction extends ITypeUpdateAction {
  *	Changes the `label` of a [LocalizedEnumValue](ctp:api:type:CustomFieldLocalizedEnumValue) of a [LocalizedEnumType](ctp:api:type:CustomFieldLocalizedEnumType) FieldDefinition.
  *
  */
-export interface TypeChangeLocalizedEnumValueLabelAction
-  extends ITypeUpdateAction {
+export interface TypeChangeLocalizedEnumValueLabelAction extends ITypeUpdateAction {
   readonly action: 'changeLocalizedEnumValueLabel'
   /**
    *	`name` of the [FieldDefinition](ctp:api:type:FieldDefinition) to update.
@@ -774,8 +772,7 @@ export interface TypeChangeLocalizedEnumValueLabelAction
  *	This update action can be used to update a [LocalizedEnumType](ctp:api:type:CustomFieldLocalizedEnumType) FieldDefinition and a [SetType](ctp:api:type:CustomFieldSetType) of [LocalizedEnumType](ctp:api:type:CustomFieldLocalizedEnumType) FieldDefinitions.
  *
  */
-export interface TypeChangeLocalizedEnumValueOrderAction
-  extends ITypeUpdateAction {
+export interface TypeChangeLocalizedEnumValueOrderAction extends ITypeUpdateAction {
   readonly action: 'changeLocalizedEnumValueOrder'
   /**
    *	`name` of the [Field Definition](ctp:api:type:FieldDefinition) to update.

@@ -430,8 +430,7 @@ export interface StoreRemoveCountryAction extends IStoreUpdateAction {
  *	This update action produces the [StoreDistributionChannelsChanged](ctp:api:type:StoreDistributionChannelsChangedMessage) Message.
  *
  */
-export interface StoreRemoveDistributionChannelAction
-  extends IStoreUpdateAction {
+export interface StoreRemoveDistributionChannelAction extends IStoreUpdateAction {
   readonly action: 'removeDistributionChannel'
   /**
    *	Value to remove. ResourceIdentifier of a Channel with the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).

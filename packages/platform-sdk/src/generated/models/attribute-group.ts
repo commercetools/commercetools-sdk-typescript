@@ -216,8 +216,7 @@ export interface AttributeReference {
    */
   readonly key: string
 }
-export interface AttributeGroupAddAttributeAction
-  extends IAttributeGroupUpdateAction {
+export interface AttributeGroupAddAttributeAction extends IAttributeGroupUpdateAction {
   readonly action: 'addAttribute'
   /**
    *	Value to add.
@@ -226,8 +225,7 @@ export interface AttributeGroupAddAttributeAction
    */
   readonly attribute: AttributeReference
 }
-export interface AttributeGroupChangeNameAction
-  extends IAttributeGroupUpdateAction {
+export interface AttributeGroupChangeNameAction extends IAttributeGroupUpdateAction {
   readonly action: 'changeName'
   /**
    *	New value to set.
@@ -237,8 +235,7 @@ export interface AttributeGroupChangeNameAction
    */
   readonly name: LocalizedString
 }
-export interface AttributeGroupRemoveAttributeAction
-  extends IAttributeGroupUpdateAction {
+export interface AttributeGroupRemoveAttributeAction extends IAttributeGroupUpdateAction {
   readonly action: 'removeAttribute'
   /**
    *	Value to remove.
@@ -247,8 +244,7 @@ export interface AttributeGroupRemoveAttributeAction
    */
   readonly attribute: AttributeReference
 }
-export interface AttributeGroupSetAttributesAction
-  extends IAttributeGroupUpdateAction {
+export interface AttributeGroupSetAttributesAction extends IAttributeGroupUpdateAction {
   readonly action: 'setAttributes'
   /**
    *	New unique values to set.
@@ -257,8 +253,7 @@ export interface AttributeGroupSetAttributesAction
    */
   readonly attributes: AttributeReference[]
 }
-export interface AttributeGroupSetDescriptionAction
-  extends IAttributeGroupUpdateAction {
+export interface AttributeGroupSetDescriptionAction extends IAttributeGroupUpdateAction {
   readonly action: 'setDescription'
   /**
    *	Value to set.
@@ -268,8 +263,7 @@ export interface AttributeGroupSetDescriptionAction
    */
   readonly description?: LocalizedString
 }
-export interface AttributeGroupSetKeyAction
-  extends IAttributeGroupUpdateAction {
+export interface AttributeGroupSetKeyAction extends IAttributeGroupUpdateAction {
   readonly action: 'setKey'
   /**
    *	If `key` is absent or `null`, the existing key, if any, will be removed.
