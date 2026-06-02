@@ -5,10 +5,9 @@
     "isolatedModules": true,
     "lib": ["ESNext", "DOM"],
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     "removeComments": false,
-    "resolveJsonModule": true,
-    "downlevelIteration": true
+    "resolveJsonModule": true
   },
   "include": ["packages"]
 }
