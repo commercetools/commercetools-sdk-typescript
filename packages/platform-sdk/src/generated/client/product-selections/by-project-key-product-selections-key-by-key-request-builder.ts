@@ -7,7 +7,7 @@ import {
   ProductSelection,
   ProductSelectionUpdate,
 } from '../../models/product-selection'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyProductSelectionsKeyByKeyProductsRequestBuilder } from '../products/by-project-key-product-selections-key-by-key-products-request-builder'
 /**

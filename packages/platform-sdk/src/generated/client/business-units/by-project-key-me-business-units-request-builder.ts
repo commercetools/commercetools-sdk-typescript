@@ -8,7 +8,7 @@ import {
   BusinessUnitPagedQueryResponse,
 } from '../../models/business-unit'
 import { MyBusinessUnitDraft } from '../../models/me'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyMeBusinessUnitsByIDRequestBuilder } from './by-project-key-me-business-units-by-id-request-builder'
 import { ByProjectKeyMeBusinessUnitsKeyByKeyRequestBuilder } from './by-project-key-me-business-units-key-by-key-request-builder'

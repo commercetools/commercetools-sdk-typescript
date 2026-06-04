@@ -8,7 +8,7 @@ import {
   CustomObjectDraft,
   CustomObjectPagedQueryResponse,
 } from '../../models/custom-object'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyCustomObjectsByContainerByKeyRequestBuilder } from './by-project-key-custom-objects-by-container-by-key-request-builder'
 import { ByProjectKeyCustomObjectsByContainerRequestBuilder } from './by-project-key-custom-objects-by-container-request-builder'

@@ -8,7 +8,7 @@ import {
   StagedQuoteDraft,
   StagedQuotePagedQueryResponse,
 } from '../../models/staged-quote'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyStagedQuotesByIDRequestBuilder } from './by-project-key-staged-quotes-by-id-request-builder'
 import { ByProjectKeyStagedQuotesKeyByKeyRequestBuilder } from './by-project-key-staged-quotes-key-by-key-request-builder'

@@ -65,13 +65,14 @@ export * from './client/product-variants/by-project-key-product-variants-request
 export * from './client/products/by-project-key-products-request-builder'
 export * from './client/standalone-prices/by-project-key-standalone-prices-request-builder'
 export * from './client/types/by-project-key-types-request-builder'
+
+//models
 export * from './models/business-units'
 export * from './models/categories'
 export * from './models/common'
 export * from './models/customers'
 export * from './models/customfields'
 export * from './models/discount-codes'
-//models
 export * from './models/errors'
 export * from './models/importcontainers'
 export * from './models/importoperations'
@@ -89,10 +90,9 @@ export * from './models/producttypes'
 export * from './models/productvariants'
 export * from './models/standalone-prices'
 export * from './models/types'
+
 //Common package
 export * from './shared/utils/common-types'
 export * from './shared/utils/middleware'
 export * from './shared/utils/requests-utils'
 export * from './shared/utils/uri-utils'
-
-

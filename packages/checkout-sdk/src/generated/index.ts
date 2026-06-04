@@ -19,6 +19,7 @@ export * from './client/payment-intents/by-project-key-payment-intents-request-b
 export * from './client/transactions/by-project-key-transactions-by-id-request-builder'
 export * from './client/transactions/by-project-key-transactions-key-by-key-request-builder'
 export * from './client/transactions/by-project-key-transactions-request-builder'
+
 //models
 export * from './models/application'
 export * from './models/cart'
@@ -32,10 +33,9 @@ export * from './models/payment-intents'
 export * from './models/responses'
 export * from './models/scalar-types'
 export * from './models/transaction'
+
 //Common package
 export * from './shared/utils/common-types'
 export * from './shared/utils/middleware'
 export * from './shared/utils/requests-utils'
 export * from './shared/utils/uri-utils'
-
-

@@ -5,7 +5,7 @@
  */
 import { ProcessingState } from '../../models/common'
 import { ImportOperationPagedResponse } from '../../models/importoperations'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/

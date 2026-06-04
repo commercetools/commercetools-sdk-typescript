@@ -8,7 +8,7 @@ import {
   DiscountGroupDraft,
   DiscountGroupPagedQueryResponse,
 } from '../../models/discount-group'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyDiscountGroupsByIDRequestBuilder } from './by-project-key-discount-groups-by-id-request-builder'
 import { ByProjectKeyDiscountGroupsKeyByKeyRequestBuilder } from './by-project-key-discount-groups-key-by-key-request-builder'

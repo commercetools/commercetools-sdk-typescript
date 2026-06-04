@@ -5,7 +5,7 @@
  */
 import { Cart } from '../../models/cart'
 import { MyCartUpdate } from '../../models/me'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/

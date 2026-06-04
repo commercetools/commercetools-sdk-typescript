@@ -8,7 +8,7 @@ import {
   InventoryEntryDraft,
   InventoryPagedQueryResponse,
 } from '../../models/inventory'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyInventoryByIDRequestBuilder } from './by-project-key-inventory-by-id-request-builder'
 import { ByProjectKeyInventoryKeyByKeyRequestBuilder } from './by-project-key-inventory-key-by-key-request-builder'

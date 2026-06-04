@@ -8,7 +8,7 @@ import {
   CustomerPagedQueryResponse,
   CustomerSignInResult,
 } from '../../models/customer'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyCustomersEmailConfirmRequestBuilder } from '../confirm/by-project-key-customers-email-confirm-request-builder'
 import { ByProjectKeyCustomersEmailTokenRequestBuilder } from '../email-token/by-project-key-customers-email-token-request-builder'

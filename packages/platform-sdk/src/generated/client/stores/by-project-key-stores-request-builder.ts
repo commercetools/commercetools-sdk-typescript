@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { Store, StoreDraft, StorePagedQueryResponse } from '../../models/store'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyStoresByIDRequestBuilder } from './by-project-key-stores-by-id-request-builder'
 import { ByProjectKeyStoresKeyByKeyRequestBuilder } from './by-project-key-stores-key-by-key-request-builder'

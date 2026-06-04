@@ -5,7 +5,7 @@
  */
 import { Cart, CartPagedQueryResponse } from '../../models/cart'
 import { MyCartDraft } from '../../models/me'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyMeCartsReplicateRequestBuilder } from '../replicate/by-project-key-me-carts-replicate-request-builder'
 import { ByProjectKeyMeCartsByIDRequestBuilder } from './by-project-key-me-carts-by-id-request-builder'

@@ -8,7 +8,7 @@ import {
   AttributeGroupDraft,
   AttributeGroupPagedQueryResponse,
 } from '../../models/attribute-group'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyAttributeGroupsByIDRequestBuilder } from './by-project-key-attribute-groups-by-id-request-builder'
 import { ByProjectKeyAttributeGroupsKeyByKeyRequestBuilder } from './by-project-key-attribute-groups-key-by-key-request-builder'

@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { Cart, CartDraft, CartPagedQueryResponse } from '../../models/cart'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyCartsCustomerIdByCustomerIdMergeRequestBuilder } from '../merge/by-project-key-carts-customer-id-by-customer-id-merge-request-builder'
 import { ByProjectKeyCartsReplicateRequestBuilder } from '../replicate/by-project-key-carts-replicate-request-builder'

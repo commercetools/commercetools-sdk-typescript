@@ -7,8 +7,8 @@
 import {
   KeyReference,
   LocalizedString,
-  TypedMoney,
   TypeKeyReference,
+  TypedMoney,
 } from './common'
 
 /**

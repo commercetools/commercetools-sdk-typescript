@@ -5,7 +5,7 @@
  */
 import { Customer } from '../../models/customer'
 import { MyCustomerUpdate } from '../../models/me'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyMeActiveCartRequestBuilder } from '../active-cart/by-project-key-me-active-cart-request-builder'
 import { ByProjectKeyMeBusinessUnitsRequestBuilder } from '../business-units/by-project-key-me-business-units-request-builder'

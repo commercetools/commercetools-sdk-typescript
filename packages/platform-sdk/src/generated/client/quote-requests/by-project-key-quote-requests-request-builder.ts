@@ -8,7 +8,7 @@ import {
   QuoteRequestDraft,
   QuoteRequestPagedQueryResponse,
 } from '../../models/quote-request'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyQuoteRequestsByIDRequestBuilder } from './by-project-key-quote-requests-by-id-request-builder'
 import { ByProjectKeyQuoteRequestsKeyByKeyRequestBuilder } from './by-project-key-quote-requests-key-by-key-request-builder'

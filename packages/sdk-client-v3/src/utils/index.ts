@@ -18,7 +18,7 @@ export { default as store } from './tokenStore'
 export { parseURLString, stringifyURLString } from './url'
 export { default as userAgent } from './userAgent'
 export {
-    validate, validateClient, validateHttpClientOptions, validateRetryCodes,
-    // validateUserAgentOptions,
-    validateStringBodyHeaderOptions
+  validate, validateClient, validateHttpClientOptions, validateRetryCodes,
+  // validateUserAgentOptions,
+  validateStringBodyHeaderOptions
 } from './validate'

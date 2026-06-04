@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { Quote, QuoteDraft, QuotePagedQueryResponse } from '../../models/quote'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyInStoreKeyByStoreKeyQuotesByIDRequestBuilder } from './by-project-key-in-store-key-by-store-key-quotes-by-id-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyQuotesKeyByKeyRequestBuilder } from './by-project-key-in-store-key-by-store-key-quotes-key-by-key-request-builder'
