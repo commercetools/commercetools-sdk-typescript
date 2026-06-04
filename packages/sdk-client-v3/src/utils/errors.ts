@@ -1,4 +1,9 @@
-function DefineError(statusCode: number, message: string, meta: object = {}) {
+function DefineError(
+  this: any,
+  statusCode: number,
+  message: string,
+  meta: object = {}
+) {
   this.code = meta['code'] ??= this.constructor.name
   this.statusCode = statusCode
   this.status = statusCode
@@ -11,40 +16,40 @@ function DefineError(statusCode: number, message: string, meta: object = {}) {
   if (Error.captureStackTrace) Error.captureStackTrace(this, this.constructor)
 }
 
-export function NetworkError(...args: Array<unknown>) {
-  DefineError.call(this, 0, ...args)
+export function NetworkError(this: any, ...args: Array<unknown>) {
+  DefineError.apply(this, [0, ...args] as any)
 }
 
-export function HttpError(...args: Array<unknown>) {
-  DefineError.call(this, ...args)
+export function HttpError(this: any, ...args: Array<unknown>) {
+  DefineError.apply(this, args as any)
 }
 
-export function BadRequest(...args: Array<unknown>) {
-  DefineError.call(this, 400, ...args)
+export function BadRequest(this: any, ...args: Array<unknown>) {
+  DefineError.apply(this, [400, ...args] as any)
 }
 
-export function Unauthorized(...args: Array<unknown>) {
-  DefineError.call(this, 401, ...args)
+export function Unauthorized(this: any, ...args: Array<unknown>) {
+  DefineError.apply(this, [401, ...args] as any)
 }
 
-export function Forbidden(...args: Array<unknown>) {
-  DefineError.call(this, 403, ...args)
+export function Forbidden(this: any, ...args: Array<unknown>) {
+  DefineError.apply(this, [403, ...args] as any)
 }
 
-export function NotFound(...args: Array<unknown>) {
-  DefineError.call(this, 404, ...args)
+export function NotFound(this: any, ...args: Array<unknown>) {
+  DefineError.apply(this, [404, ...args] as any)
 }
 
-export function ConcurrentModification(...args: Array<unknown>) {
-  DefineError.call(this, 409, ...args)
+export function ConcurrentModification(this: any, ...args: Array<unknown>) {
+  DefineError.apply(this, [409, ...args] as any)
 }
 
-export function InternalServerError(...args: Array<unknown>) {
-  DefineError.call(this, 500, ...args)
+export function InternalServerError(this: any, ...args: Array<unknown>) {
+  DefineError.apply(this, [500, ...args] as any)
 }
 
-export function ServiceUnavailable(...args: Array<unknown>) {
-  DefineError.call(this, 503, ...args)
+export function ServiceUnavailable(this: any, ...args: Array<unknown>) {
+  DefineError.apply(this, [503, ...args] as any)
 }
 
 export default function getErrorByCode(code: number) {

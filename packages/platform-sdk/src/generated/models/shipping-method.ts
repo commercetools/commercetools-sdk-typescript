@@ -494,8 +494,7 @@ export interface ZoneRateDraft {
    */
   readonly shippingRates: ShippingRateDraft[]
 }
-export interface ShippingMethodAddShippingRateAction
-  extends IShippingMethodUpdateAction {
+export interface ShippingMethodAddShippingRateAction extends IShippingMethodUpdateAction {
   readonly action: 'addShippingRate'
   /**
    *	[Zone](ctp:api:type:Zone) to which the ShippingRate should be added.
@@ -509,8 +508,7 @@ export interface ShippingMethodAddShippingRateAction
    */
   readonly shippingRate: ShippingRateDraft
 }
-export interface ShippingMethodAddZoneAction
-  extends IShippingMethodUpdateAction {
+export interface ShippingMethodAddZoneAction extends IShippingMethodUpdateAction {
   readonly action: 'addZone'
   /**
    *	Value to add to `zoneRates`.
@@ -521,8 +519,7 @@ export interface ShippingMethodAddZoneAction
    */
   readonly zone: ZoneResourceIdentifier
 }
-export interface ShippingMethodChangeActiveAction
-  extends IShippingMethodUpdateAction {
+export interface ShippingMethodChangeActiveAction extends IShippingMethodUpdateAction {
   readonly action: 'changeActive'
   /**
    *	Value to set.
@@ -533,8 +530,7 @@ export interface ShippingMethodChangeActiveAction
    */
   readonly active: boolean
 }
-export interface ShippingMethodChangeIsDefaultAction
-  extends IShippingMethodUpdateAction {
+export interface ShippingMethodChangeIsDefaultAction extends IShippingMethodUpdateAction {
   readonly action: 'changeIsDefault'
   /**
    *	Value to set. Only one ShippingMethod can be default in a [Project](ctp:api:type:Project).
@@ -543,8 +539,7 @@ export interface ShippingMethodChangeIsDefaultAction
    */
   readonly isDefault: boolean
 }
-export interface ShippingMethodChangeNameAction
-  extends IShippingMethodUpdateAction {
+export interface ShippingMethodChangeNameAction extends IShippingMethodUpdateAction {
   readonly action: 'changeName'
   /**
    *	Unique value to set within a [Project](ctp:api:type:Project). Must not be empty.
@@ -552,8 +547,7 @@ export interface ShippingMethodChangeNameAction
    */
   readonly name: string
 }
-export interface ShippingMethodChangeTaxCategoryAction
-  extends IShippingMethodUpdateAction {
+export interface ShippingMethodChangeTaxCategoryAction extends IShippingMethodUpdateAction {
   readonly action: 'changeTaxCategory'
   /**
    *	Value to set.
@@ -561,8 +555,7 @@ export interface ShippingMethodChangeTaxCategoryAction
    */
   readonly taxCategory: TaxCategoryResourceIdentifier
 }
-export interface ShippingMethodRemoveShippingRateAction
-  extends IShippingMethodUpdateAction {
+export interface ShippingMethodRemoveShippingRateAction extends IShippingMethodUpdateAction {
   readonly action: 'removeShippingRate'
   /**
    *	[Zone](ctp:api:type:Zone) from which the ShippingRate should be removed.
@@ -576,8 +569,7 @@ export interface ShippingMethodRemoveShippingRateAction
    */
   readonly shippingRate: ShippingRateDraft
 }
-export interface ShippingMethodRemoveZoneAction
-  extends IShippingMethodUpdateAction {
+export interface ShippingMethodRemoveZoneAction extends IShippingMethodUpdateAction {
   readonly action: 'removeZone'
   /**
    *	Value to remove from `zoneRates`.
@@ -592,8 +584,7 @@ export interface ShippingMethodRemoveZoneAction
  *	This action sets, overwrites, or removes any existing [Custom Field](/projects/custom-fields) for an existing ShippingMethod.
  *
  */
-export interface ShippingMethodSetCustomFieldAction
-  extends IShippingMethodUpdateAction {
+export interface ShippingMethodSetCustomFieldAction extends IShippingMethodUpdateAction {
   readonly action: 'setCustomField'
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
@@ -610,8 +601,7 @@ export interface ShippingMethodSetCustomFieldAction
    */
   readonly value?: any
 }
-export interface ShippingMethodSetCustomTypeAction
-  extends IShippingMethodUpdateAction {
+export interface ShippingMethodSetCustomTypeAction extends IShippingMethodUpdateAction {
   readonly action: 'setCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the ShippingMethod with [Custom Fields](ctp:api:type:CustomFields).
@@ -629,8 +619,7 @@ export interface ShippingMethodSetCustomTypeAction
    */
   readonly fields?: FieldContainer
 }
-export interface ShippingMethodSetDescriptionAction
-  extends IShippingMethodUpdateAction {
+export interface ShippingMethodSetDescriptionAction extends IShippingMethodUpdateAction {
   readonly action: 'setDescription'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -638,8 +627,7 @@ export interface ShippingMethodSetDescriptionAction
    */
   readonly description?: string
 }
-export interface ShippingMethodSetKeyAction
-  extends IShippingMethodUpdateAction {
+export interface ShippingMethodSetKeyAction extends IShippingMethodUpdateAction {
   readonly action: 'setKey'
   /**
    *	If `key` is absent or `null`, the existing key, if any, will be removed.
@@ -647,8 +635,7 @@ export interface ShippingMethodSetKeyAction
    */
   readonly key?: string
 }
-export interface ShippingMethodSetLocalizedDescriptionAction
-  extends IShippingMethodUpdateAction {
+export interface ShippingMethodSetLocalizedDescriptionAction extends IShippingMethodUpdateAction {
   readonly action: 'setLocalizedDescription'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -656,8 +643,7 @@ export interface ShippingMethodSetLocalizedDescriptionAction
    */
   readonly localizedDescription?: LocalizedString
 }
-export interface ShippingMethodSetLocalizedNameAction
-  extends IShippingMethodUpdateAction {
+export interface ShippingMethodSetLocalizedNameAction extends IShippingMethodUpdateAction {
   readonly action: 'setLocalizedName'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -665,8 +651,7 @@ export interface ShippingMethodSetLocalizedNameAction
    */
   readonly localizedName?: LocalizedString
 }
-export interface ShippingMethodSetPredicateAction
-  extends IShippingMethodUpdateAction {
+export interface ShippingMethodSetPredicateAction extends IShippingMethodUpdateAction {
   readonly action: 'setPredicate'
   /**
    *	A valid [Cart predicate](/projects/predicates#cart-predicates). If `predicate` is absent or `null`, it is removed if it exists.

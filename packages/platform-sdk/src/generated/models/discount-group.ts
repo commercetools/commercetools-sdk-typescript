@@ -226,8 +226,7 @@ export interface IDiscountGroupUpdateAction {
    */
   readonly action: string
 }
-export interface DiscountGroupSetDescriptionAction
-  extends IDiscountGroupUpdateAction {
+export interface DiscountGroupSetDescriptionAction extends IDiscountGroupUpdateAction {
   readonly action: 'setDescription'
   /**
    *	Value to set.
@@ -243,8 +242,7 @@ export interface DiscountGroupSetDescriptionAction
  *	If the [limit](/../api/limits#discount-groups) for active Discount Groups has been reached, a [MaxDiscountGroupsReached](ctp:api:type:MaxDiscountGroupsReachedError) error is returned.
  *
  */
-export interface DiscountGroupSetIsActiveAction
-  extends IDiscountGroupUpdateAction {
+export interface DiscountGroupSetIsActiveAction extends IDiscountGroupUpdateAction {
   readonly action: 'setIsActive'
   /**
    *	New value to set.
@@ -282,8 +280,7 @@ export interface DiscountGroupSetNameAction extends IDiscountGroupUpdateAction {
  *	Setting the sort order generates the [DiscountGroupSortOrderSet](ctp:api:type:DiscountGroupSortOrderSetMessage) Message.
  *
  */
-export interface DiscountGroupSetSortOrderAction
-  extends IDiscountGroupUpdateAction {
+export interface DiscountGroupSetSortOrderAction extends IDiscountGroupUpdateAction {
   readonly action: 'setSortOrder'
   /**
    *	New value to set (between `0` and `1`).

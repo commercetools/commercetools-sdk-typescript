@@ -921,8 +921,7 @@ export interface CustomerAddAddressAction extends ICustomerUpdateAction {
  *	Adds an Address from the `addresses` array to `billingAddressIds`. Either `addressId` or `addressKey` is required.
  *
  */
-export interface CustomerAddBillingAddressIdAction
-  extends ICustomerUpdateAction {
+export interface CustomerAddBillingAddressIdAction extends ICustomerUpdateAction {
   readonly action: 'addBillingAddressId'
   /**
    *	`id` of the [Address](ctp:api:type:Address) to become a billing address.
@@ -941,8 +940,7 @@ export interface CustomerAddBillingAddressIdAction
  *	Assigns a Customer Group to a Customer. This action generates the [CustomerGroupAssignmentAdded](ctp:api:type:CustomerGroupAssignmentAddedMessage) Message.
  *
  */
-export interface CustomerAddCustomerGroupAssignmentAction
-  extends ICustomerUpdateAction {
+export interface CustomerAddCustomerGroupAssignmentAction extends ICustomerUpdateAction {
   readonly action: 'addCustomerGroupAssignment'
   /**
    *	Customer Group to assign the Customer to.
@@ -955,8 +953,7 @@ export interface CustomerAddCustomerGroupAssignmentAction
  *	Adds an Address from the `addresses` array to `shippingAddressIds`. Either `addressId` or `addressKey` is required.
  *
  */
-export interface CustomerAddShippingAddressIdAction
-  extends ICustomerUpdateAction {
+export interface CustomerAddShippingAddressIdAction extends ICustomerUpdateAction {
   readonly action: 'addShippingAddressId'
   /**
    *	`id` of the [Address](ctp:api:type:Address) to become a shipping address.
@@ -1050,8 +1047,7 @@ export interface CustomerRemoveAddressAction extends ICustomerUpdateAction {
  *	If the billing address is the default billing address, the `defaultBillingAddressId` is unset. Either `addressId` or `addressKey` is required.
  *
  */
-export interface CustomerRemoveBillingAddressIdAction
-  extends ICustomerUpdateAction {
+export interface CustomerRemoveBillingAddressIdAction extends ICustomerUpdateAction {
   readonly action: 'removeBillingAddressId'
   /**
    *	`id` of the [Address](ctp:api:type:Address) to remove from `billingAddressIds`.
@@ -1070,8 +1066,7 @@ export interface CustomerRemoveBillingAddressIdAction
  *	Unassigns a Customer Group from a Customer. This action generates the [CustomerGroupAssignmentRemoved](ctp:api:type:CustomerGroupAssignmentRemovedMessage) Message.
  *
  */
-export interface CustomerRemoveCustomerGroupAssignmentAction
-  extends ICustomerUpdateAction {
+export interface CustomerRemoveCustomerGroupAssignmentAction extends ICustomerUpdateAction {
   readonly action: 'removeCustomerGroupAssignment'
   /**
    *	Customer Group to unassign the Customer from.
@@ -1085,8 +1080,7 @@ export interface CustomerRemoveCustomerGroupAssignmentAction
  *	If the shipping address is the default shipping address, the `defaultShippingAddressId` is unset. Either `addressId` or `addressKey` is required.
  *
  */
-export interface CustomerRemoveShippingAddressIdAction
-  extends ICustomerUpdateAction {
+export interface CustomerRemoveShippingAddressIdAction extends ICustomerUpdateAction {
   readonly action: 'removeShippingAddressId'
   /**
    *	`id` of the [Address](ctp:api:type:Address) to remove from `shippingAddressIds`.
@@ -1119,8 +1113,7 @@ export interface CustomerRemoveStoreAction extends ICustomerUpdateAction {
  *	Adding a Custom Field to an Address of a Customer generates the [CustomerAddressCustomFieldAdded](ctp:api:type:CustomerAddressCustomFieldAddedMessage) Message, removing one generates the [CustomerAddressCustomFieldRemoved](ctp:api:type:CustomerAddressCustomFieldRemovedMessage) Message, and updating an existing one generates the [CustomerAddressCustomFieldChanged](ctp:api:type:CustomerAddressCustomFieldChangedMessage) Message.
  *
  */
-export interface CustomerSetAddressCustomFieldAction
-  extends ICustomerUpdateAction {
+export interface CustomerSetAddressCustomFieldAction extends ICustomerUpdateAction {
   readonly action: 'setAddressCustomField'
   /**
    *	User-defined unique identifier of the [Address](ctp:api:type:Address) to be updated.
@@ -1147,8 +1140,7 @@ export interface CustomerSetAddressCustomFieldAction
  *	Adding or updating a Custom Type on an Address of a Customer generates the [CustomerAddressCustomTypeSet](ctp:api:type:CustomerAddressCustomTypeSetMessage) Message, and removing one generates the [CustomerAddressCustomTypeRemoved](ctp:api:type:CustomerAddressCustomTypeRemovedMessage) Message.
  *
  */
-export interface CustomerSetAddressCustomTypeAction
-  extends ICustomerUpdateAction {
+export interface CustomerSetAddressCustomTypeAction extends ICustomerUpdateAction {
   readonly action: 'setAddressCustomType'
   /**
    *	User-defined unique identifier of the [Address](ctp:api:type:Address) to be updated.
@@ -1172,8 +1164,7 @@ export interface CustomerSetAddressCustomTypeAction
    */
   readonly fields?: FieldContainer
 }
-export interface CustomerSetAuthenticationModeAction
-  extends ICustomerUpdateAction {
+export interface CustomerSetAuthenticationModeAction extends ICustomerUpdateAction {
   readonly action: 'setAuthenticationMode'
   /**
    *	Value to set.
@@ -1266,8 +1257,7 @@ export interface CustomerSetCustomerGroupAction extends ICustomerUpdateAction {
  *	Assigns multiple Customer Groups to a Customer. This action generates the [CustomerGroupAssignmentsSetMessage](ctp:api:type:CustomerGroupAssignmentsSetMessage) Message.
  *
  */
-export interface CustomerSetCustomerGroupAssignmentsAction
-  extends ICustomerUpdateAction {
+export interface CustomerSetCustomerGroupAssignmentsAction extends ICustomerUpdateAction {
   readonly action: 'setCustomerGroupAssignments'
   /**
    *	Customer Groups to assign the Customer to.
@@ -1311,8 +1301,7 @@ export interface CustomerSetDateOfBirthAction extends ICustomerUpdateAction {
  *	This action generates the [CustomerDefaultBillingAddressSet](ctp:api:type:CustomerDefaultBillingAddressSetMessage) Message.
  *
  */
-export interface CustomerSetDefaultBillingAddressAction
-  extends ICustomerUpdateAction {
+export interface CustomerSetDefaultBillingAddressAction extends ICustomerUpdateAction {
   readonly action: 'setDefaultBillingAddress'
   /**
    *	`id` of the [Address](ctp:api:type:Address) to become the default billing address.
@@ -1334,8 +1323,7 @@ export interface CustomerSetDefaultBillingAddressAction
  *	This action generates the [CustomerDefaultShippingAddressSet](ctp:api:type:CustomerDefaultShippingAddressSetMessage) Message.
  *
  */
-export interface CustomerSetDefaultShippingAddressAction
-  extends ICustomerUpdateAction {
+export interface CustomerSetDefaultShippingAddressAction extends ICustomerUpdateAction {
   readonly action: 'setDefaultShippingAddress'
   /**
    *	`id` of the [Address](ctp:api:type:Address) to become the default shipping address.

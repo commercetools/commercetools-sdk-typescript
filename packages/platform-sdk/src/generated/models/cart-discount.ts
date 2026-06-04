@@ -556,8 +556,7 @@ export interface ICartDiscountValueDraft {
    */
   readonly type: string
 }
-export interface CartDiscountValueAbsoluteDraft
-  extends ICartDiscountValueDraft {
+export interface CartDiscountValueAbsoluteDraft extends ICartDiscountValueDraft {
   readonly type: 'absolute'
   /**
    *	Money values in different currencies.
@@ -656,8 +655,7 @@ export interface CartDiscountValueGiftLineItem extends ICartDiscountValue {
  *	Hence, this type can not be used in the [Change Value](ctp:api:type:CartDiscountChangeValueAction) update action.
  *
  */
-export interface CartDiscountValueGiftLineItemDraft
-  extends ICartDiscountValueDraft {
+export interface CartDiscountValueGiftLineItemDraft extends ICartDiscountValueDraft {
   readonly type: 'giftLineItem'
   /**
    *	ResourceIdentifier of a Product.
@@ -708,8 +706,7 @@ export interface CartDiscountValueRelative extends ICartDiscountValue {
    */
   readonly applicationMode?: DiscountApplicationMode
 }
-export interface CartDiscountValueRelativeDraft
-  extends ICartDiscountValueDraft {
+export interface CartDiscountValueRelativeDraft extends ICartDiscountValueDraft {
   readonly type: 'relative'
   /**
    *	Fraction (per ten thousand) the price is reduced by. For example, `1000` will result in a 10% price reduction.
@@ -941,8 +938,7 @@ export interface CartDiscountAddStoreAction extends ICartDiscountUpdateAction {
    */
   readonly store: StoreResourceIdentifier
 }
-export interface CartDiscountChangeCartPredicateAction
-  extends ICartDiscountUpdateAction {
+export interface CartDiscountChangeCartPredicateAction extends ICartDiscountUpdateAction {
   readonly action: 'changeCartPredicate'
   /**
    *	New value to set.
@@ -951,8 +947,7 @@ export interface CartDiscountChangeCartPredicateAction
    */
   readonly cartPredicate: string
 }
-export interface CartDiscountChangeIsActiveAction
-  extends ICartDiscountUpdateAction {
+export interface CartDiscountChangeIsActiveAction extends ICartDiscountUpdateAction {
   readonly action: 'changeIsActive'
   /**
    *	New value to set.
@@ -964,8 +959,7 @@ export interface CartDiscountChangeIsActiveAction
    */
   readonly isActive: boolean
 }
-export interface CartDiscountChangeNameAction
-  extends ICartDiscountUpdateAction {
+export interface CartDiscountChangeNameAction extends ICartDiscountUpdateAction {
   readonly action: 'changeName'
   /**
    *	New value to set.
@@ -974,8 +968,7 @@ export interface CartDiscountChangeNameAction
    */
   readonly name: LocalizedString
 }
-export interface CartDiscountChangeRequiresDiscountCodeAction
-  extends ICartDiscountUpdateAction {
+export interface CartDiscountChangeRequiresDiscountCodeAction extends ICartDiscountUpdateAction {
   readonly action: 'changeRequiresDiscountCode'
   /**
    *	New value to set.
@@ -985,8 +978,7 @@ export interface CartDiscountChangeRequiresDiscountCodeAction
    */
   readonly requiresDiscountCode: boolean
 }
-export interface CartDiscountChangeSortOrderAction
-  extends ICartDiscountUpdateAction {
+export interface CartDiscountChangeSortOrderAction extends ICartDiscountUpdateAction {
   readonly action: 'changeSortOrder'
   /**
    *	New value to set (between `0` and `1`).
@@ -996,8 +988,7 @@ export interface CartDiscountChangeSortOrderAction
    */
   readonly sortOrder: string
 }
-export interface CartDiscountChangeStackingModeAction
-  extends ICartDiscountUpdateAction {
+export interface CartDiscountChangeStackingModeAction extends ICartDiscountUpdateAction {
   readonly action: 'changeStackingMode'
   /**
    *	New value to set.
@@ -1006,8 +997,7 @@ export interface CartDiscountChangeStackingModeAction
    */
   readonly stackingMode: StackingMode
 }
-export interface CartDiscountChangeTargetAction
-  extends ICartDiscountUpdateAction {
+export interface CartDiscountChangeTargetAction extends ICartDiscountUpdateAction {
   readonly action: 'changeTarget'
   /**
    *	New value to set.
@@ -1025,8 +1015,7 @@ export interface CartDiscountChangeTargetAction
  *	Changing to [Gift Line Item](ctp:api:type:CartDiscountValueGiftLineItem) is not supported.
  *
  */
-export interface CartDiscountChangeValueAction
-  extends ICartDiscountUpdateAction {
+export interface CartDiscountChangeValueAction extends ICartDiscountUpdateAction {
   readonly action: 'changeValue'
   /**
    *	New value to set.
@@ -1043,8 +1032,7 @@ export interface CartDiscountChangeValueAction
  *	This action generates a [CartDiscountStoreRemoved](ctp:api:type:CartDiscountStoreRemovedMessage) Message.
  *
  */
-export interface CartDiscountRemoveStoreAction
-  extends ICartDiscountUpdateAction {
+export interface CartDiscountRemoveStoreAction extends ICartDiscountUpdateAction {
   readonly action: 'removeStore'
   /**
    *	[Store](ctp:api:type:Store) to remove.
@@ -1053,8 +1041,7 @@ export interface CartDiscountRemoveStoreAction
    */
   readonly store: StoreResourceIdentifier
 }
-export interface CartDiscountSetCustomFieldAction
-  extends ICartDiscountUpdateAction {
+export interface CartDiscountSetCustomFieldAction extends ICartDiscountUpdateAction {
   readonly action: 'setCustomField'
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
@@ -1071,8 +1058,7 @@ export interface CartDiscountSetCustomFieldAction
    */
   readonly value?: any
 }
-export interface CartDiscountSetCustomTypeAction
-  extends ICartDiscountUpdateAction {
+export interface CartDiscountSetCustomTypeAction extends ICartDiscountUpdateAction {
   readonly action: 'setCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the CartDiscount with [Custom Fields](ctp:api:type:CustomFields).
@@ -1090,8 +1076,7 @@ export interface CartDiscountSetCustomTypeAction
    */
   readonly fields?: FieldContainer
 }
-export interface CartDiscountSetDescriptionAction
-  extends ICartDiscountUpdateAction {
+export interface CartDiscountSetDescriptionAction extends ICartDiscountUpdateAction {
   readonly action: 'setDescription'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -1100,8 +1085,7 @@ export interface CartDiscountSetDescriptionAction
    */
   readonly description?: LocalizedString
 }
-export interface CartDiscountSetDiscountGroupAction
-  extends ICartDiscountUpdateAction {
+export interface CartDiscountSetDiscountGroupAction extends ICartDiscountUpdateAction {
   readonly action: 'setDiscountGroup'
   /**
    *	Reference to a DiscountGroup that the Cart Discount must belong to.
@@ -1132,8 +1116,7 @@ export interface CartDiscountSetKeyAction extends ICartDiscountUpdateAction {
  *	Sets the scope of the Cart Discount for Recurring Orders.
  *
  */
-export interface CartDiscountSetRecurringOrderScopeAction
-  extends ICartDiscountUpdateAction {
+export interface CartDiscountSetRecurringOrderScopeAction extends ICartDiscountUpdateAction {
   readonly action: 'setRecurringOrderScope'
   /**
    *	Scope of the Cart Discount for Recurring Orders.
@@ -1164,8 +1147,7 @@ export interface CartDiscountSetStoresAction extends ICartDiscountUpdateAction {
    */
   readonly stores: StoreResourceIdentifier[]
 }
-export interface CartDiscountSetValidFromAction
-  extends ICartDiscountUpdateAction {
+export interface CartDiscountSetValidFromAction extends ICartDiscountUpdateAction {
   readonly action: 'setValidFrom'
   /**
    *	Value to set.
@@ -1175,8 +1157,7 @@ export interface CartDiscountSetValidFromAction
    */
   readonly validFrom?: string
 }
-export interface CartDiscountSetValidFromAndUntilAction
-  extends ICartDiscountUpdateAction {
+export interface CartDiscountSetValidFromAndUntilAction extends ICartDiscountUpdateAction {
   readonly action: 'setValidFromAndUntil'
   /**
    *	Value to set.
@@ -1193,8 +1174,7 @@ export interface CartDiscountSetValidFromAndUntilAction
    */
   readonly validUntil?: string
 }
-export interface CartDiscountSetValidUntilAction
-  extends ICartDiscountUpdateAction {
+export interface CartDiscountSetValidUntilAction extends ICartDiscountUpdateAction {
   readonly action: 'setValidUntil'
   /**
    *	Value to set.

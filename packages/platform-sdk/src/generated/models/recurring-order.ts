@@ -602,8 +602,7 @@ export interface AnyOrderDraft extends IRecurringOrderScopeDraft {
  *	Applies Cart Discounts to recurring Orders that match the Recurrence Policies.
  *
  */
-export interface ApplicableRecurrencePoliciesDraft
-  extends IRecurringOrderScopeDraft {
+export interface ApplicableRecurrencePoliciesDraft extends IRecurringOrderScopeDraft {
   readonly type: 'ApplicableRecurrencePolicies'
   /**
    *	Recurrence Policies for which the Cart Discount is valid.
@@ -641,8 +640,7 @@ export interface RecurringOrdersOnlyDraft extends IRecurringOrderScopeDraft {
  *	Adding a Custom Field to a Recurring Order generates the [RecurringOrderCustomFieldAdded](ctp:api:type:RecurringOrderCustomFieldAddedMessage) Message, removing one generates the [RecurringOrderCustomFieldRemoved](ctp:api:type:RecurringOrderCustomFieldRemovedMessage) Message, and updating an existing one generates the [RecurringOrderCustomFieldChanged](ctp:api:type:RecurringOrderCustomFieldChangedMessage) Message.
  *
  */
-export interface RecurringOrderSetCustomFieldAction
-  extends IRecurringOrderUpdateAction {
+export interface RecurringOrderSetCustomFieldAction extends IRecurringOrderUpdateAction {
   readonly action: 'setCustomField'
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
@@ -663,8 +661,7 @@ export interface RecurringOrderSetCustomFieldAction
  *	Adding or updating a Custom Type on a Recurring Order generates the [RecurringOrderCustomTypeSet](ctp:api:type:RecurringOrderCustomTypeSetMessage) Message, removing one generates the [RecurringOrderCustomTypeRemoved](ctp:api:type:RecurringOrderCustomTypeRemovedMessage) Message.
  *
  */
-export interface RecurringOrderSetCustomTypeAction
-  extends IRecurringOrderUpdateAction {
+export interface RecurringOrderSetCustomTypeAction extends IRecurringOrderUpdateAction {
   readonly action: 'setCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the RecurringOrder with [Custom Fields](ctp:api:type:CustomFields).
@@ -686,8 +683,7 @@ export interface RecurringOrderSetCustomTypeAction
  *	Setting the expiration date and time generates the [RecurringOrderExpiresAtSet](ctp:api:type:RecurringOrderExpiresAtSetMessage) Message.
  *
  */
-export interface RecurringOrderSetExpiresAtAction
-  extends IRecurringOrderUpdateAction {
+export interface RecurringOrderSetExpiresAtAction extends IRecurringOrderUpdateAction {
   readonly action: 'setExpiresAt'
   /**
    *	Date and time (UTC) the Recurring Order should expire. If empty, any existing value will be removed.
@@ -702,8 +698,7 @@ export interface RecurringOrderSetExpiresAtAction
  *	This update action generates the [RecurringOrderKeySet](ctp:api:type:RecurringOrderKeySetMessage) Message.
  *
  */
-export interface RecurringOrderSetKeyAction
-  extends IRecurringOrderUpdateAction {
+export interface RecurringOrderSetKeyAction extends IRecurringOrderUpdateAction {
   readonly action: 'setKey'
   /**
    *	Value to set.
@@ -713,8 +708,7 @@ export interface RecurringOrderSetKeyAction
    */
   readonly key?: string
 }
-export interface RecurringOrderSetOrderSkipConfigurationAction
-  extends IRecurringOrderUpdateAction {
+export interface RecurringOrderSetOrderSkipConfigurationAction extends IRecurringOrderUpdateAction {
   readonly action: 'setOrderSkipConfiguration'
   /**
    *	Configuration for skipping future orders of the [Recurring Order](ctp:api:type:RecurringOrder).
@@ -734,8 +728,7 @@ export interface RecurringOrderSetOrderSkipConfigurationAction
  *	Setting the schedule generates the [RecurringOrderScheduleSet](ctp:api:type:RecurringOrderScheduleSetMessage) Message.
  *
  */
-export interface RecurringOrderSetScheduleAction
-  extends IRecurringOrderUpdateAction {
+export interface RecurringOrderSetScheduleAction extends IRecurringOrderUpdateAction {
   readonly action: 'setSchedule'
   /**
    *	Value to set.
@@ -748,8 +741,7 @@ export interface RecurringOrderSetScheduleAction
  *	Setting the start date and time generates the [RecurringOrderStartsAtSet](ctp:api:type:RecurringOrderStartsAtSetMessage) Message.
  *
  */
-export interface RecurringOrderSetStartsAtAction
-  extends IRecurringOrderUpdateAction {
+export interface RecurringOrderSetStartsAtAction extends IRecurringOrderUpdateAction {
   readonly action: 'setStartsAt'
   /**
    *	Date and time (UTC) the [Recurring Order](ctp:api:type:RecurringOrder) should be started. The date and time must be in the future.
@@ -761,8 +753,7 @@ export interface RecurringOrderSetStartsAtAction
  *	Setting the [RecurringOrderState](ctp:api:type:RecurringOrderState) generates the [RecurringOrderStateChanged](ctp:api:type:RecurringOrderStateChangedMessage) Message.
  *
  */
-export interface RecurringOrderSetStateAction
-  extends IRecurringOrderUpdateAction {
+export interface RecurringOrderSetStateAction extends IRecurringOrderUpdateAction {
   readonly action: 'setRecurringOrderState'
   /**
    *	New state of the RecurringOrder.
@@ -778,8 +769,7 @@ export interface RecurringOrderSetStateAction
  *	This update action produces the [Recurring Order State Transition](ctp:api:type:RecurringOrderStateTransitionMessage) Message.
  *
  */
-export interface RecurringOrderTransitionStateAction
-  extends IRecurringOrderUpdateAction {
+export interface RecurringOrderTransitionStateAction extends IRecurringOrderUpdateAction {
   readonly action: 'transitionState'
   /**
    *	Value to set.

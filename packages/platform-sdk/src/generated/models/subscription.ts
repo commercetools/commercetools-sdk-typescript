@@ -1090,8 +1090,7 @@ export interface ISubscriptionUpdateAction {
  *	A test notification is sent to ensure the correct configuration of the Destination. If the notification cannot be delivered, the update will fail. The payload of the test notification is of type [ResourceCreated](ctp:api:type:ResourceCreatedDeliveryPayload) for the `resourceTypeId` `subscription`. The `status` will change to [Healthy](ctp:api:type:SubscriptionHealthStatus), if it isn't already.
  *
  */
-export interface SubscriptionChangeDestinationAction
-  extends ISubscriptionUpdateAction {
+export interface SubscriptionChangeDestinationAction extends ISubscriptionUpdateAction {
   readonly action: 'changeDestination'
   /**
    *	New value to set. Must not be empty.
@@ -1100,8 +1099,7 @@ export interface SubscriptionChangeDestinationAction
    */
   readonly destination: Destination
 }
-export interface SubscriptionSetChangesAction
-  extends ISubscriptionUpdateAction {
+export interface SubscriptionSetChangesAction extends ISubscriptionUpdateAction {
   readonly action: 'setChanges'
   /**
    *	Value to set. Can only be unset if either `messages` or `events` is set.
@@ -1128,8 +1126,7 @@ export interface SubscriptionSetKeyAction extends ISubscriptionUpdateAction {
    */
   readonly key?: string
 }
-export interface SubscriptionSetMessagesAction
-  extends ISubscriptionUpdateAction {
+export interface SubscriptionSetMessagesAction extends ISubscriptionUpdateAction {
   readonly action: 'setMessages'
   /**
    *	Value to set. Can only be unset if either `changes` or `events` is set.

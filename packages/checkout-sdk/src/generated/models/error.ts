@@ -88,8 +88,7 @@ export interface ConnectorFailedError extends IErrorObject {
  *	Returned when a field value conflicts with an existing value stored in a particular resource causing a duplicate.
  *
  */
-export interface DuplicateFieldWithConflictingResourceError
-  extends IErrorObject {
+export interface DuplicateFieldWithConflictingResourceError extends IErrorObject {
   readonly code: 'DuplicateFieldWithConflictingResource'
   /**
    *	`"A duplicate value $duplicateValue exists for field $field in request."`

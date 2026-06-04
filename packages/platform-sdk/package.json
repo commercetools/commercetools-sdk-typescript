@@ -6,7 +6,7 @@
   "name": "@commercetools/platform-sdk",
   "version": "8.27.0",
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "description": "TypeScript definitions and SDK for commercetools Composable Commerce",
   "keywords": ["commercetools", "composable commerce", "typescript", "sdk"],
@@ -30,9 +30,9 @@
   },
   "devDependencies": {
     "@types/uuid": "11.0.0",
-    "organize-imports-cli": "0.10.0",
+    "organize-imports-cli": "1.0.2",
     "tsconfig-replace-paths": "0.0.14",
-    "uuid": "13.0.0"
+    "uuid": "14.0.0"
   },
   "scripts": {
     "remove_path_alias": "tsconfig-replace-paths --project tsconfig-declarations.json -s ./src/generated -o ./src/generated",

@@ -346,8 +346,7 @@ export type Permission =
  *	Adding a Permission to an [AssociateRole](ctp:api:type:AssociateRole) generates an [AssociateRolePermissionAdded](ctp:api:type:AssociateRolePermissionAddedMessage) Message.
  *
  */
-export interface AssociateRoleAddPermissionAction
-  extends IAssociateRoleUpdateAction {
+export interface AssociateRoleAddPermissionAction extends IAssociateRoleUpdateAction {
   readonly action: 'addPermission'
   /**
    *	Permission to be added to the AssociateRole.
@@ -360,8 +359,7 @@ export interface AssociateRoleAddPermissionAction
  *	Changing the `buyerAssignable` value of an AssociateRole generates an [AssociateRoleBuyerAssignableChanged](ctp:api:type:AssociateRoleBuyerAssignableChangedMessage) Message.
  *
  */
-export interface AssociateRoleChangeBuyerAssignableAction
-  extends IAssociateRoleUpdateAction {
+export interface AssociateRoleChangeBuyerAssignableAction extends IAssociateRoleUpdateAction {
   readonly action: 'changeBuyerAssignable'
   /**
    *	The new value of the `buyerAssignable` field of the AssociateRole.
@@ -374,8 +372,7 @@ export interface AssociateRoleChangeBuyerAssignableAction
  *	Removing a Permission from an [AssociateRole](ctp:api:type:AssociateRole) generates an [AssociateRolePermissionRemoved](ctp:api:type:AssociateRolePermissionRemovedMessage) Message.
  *
  */
-export interface AssociateRoleRemovePermissionAction
-  extends IAssociateRoleUpdateAction {
+export interface AssociateRoleRemovePermissionAction extends IAssociateRoleUpdateAction {
   readonly action: 'removePermission'
   /**
    *	Permission to be removed from the AssociateRole.
@@ -384,8 +381,7 @@ export interface AssociateRoleRemovePermissionAction
    */
   readonly permission: Permission
 }
-export interface AssociateRoleSetCustomFieldAction
-  extends IAssociateRoleUpdateAction {
+export interface AssociateRoleSetCustomFieldAction extends IAssociateRoleUpdateAction {
   readonly action: 'setCustomField'
   /**
    *	Name of the [Custom Field](ctp:api:type:CustomFields).
@@ -402,8 +398,7 @@ export interface AssociateRoleSetCustomFieldAction
    */
   readonly value?: any
 }
-export interface AssociateRoleSetCustomTypeAction
-  extends IAssociateRoleUpdateAction {
+export interface AssociateRoleSetCustomTypeAction extends IAssociateRoleUpdateAction {
   readonly action: 'setCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the AssociateRole with [Custom Fields](ctp:api:type:CustomFields).
@@ -439,8 +434,7 @@ export interface AssociateRoleSetNameAction extends IAssociateRoleUpdateAction {
  *	Updating the Permissions on an [AssociateRole](ctp:api:type:AssociateRole) generates an [AssociateRolePermissionsSet](ctp:api:type:AssociateRolePermissionsSetMessage) Message.
  *
  */
-export interface AssociateRoleSetPermissionsAction
-  extends IAssociateRoleUpdateAction {
+export interface AssociateRoleSetPermissionsAction extends IAssociateRoleUpdateAction {
   readonly action: 'setPermissions'
   /**
    *	Overrides the current list of Permissions for the AssociateRole.

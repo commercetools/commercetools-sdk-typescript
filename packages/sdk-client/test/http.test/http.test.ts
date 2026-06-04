@@ -3,6 +3,24 @@ import { createHttpMiddleware } from '../../src/sdk-middleware-http'
 import { MiddlewareRequest, MiddlewareResponse } from '../../src/types/sdk.d'
 
 const Buffer = require('buffer/').Buffer
+
+// nock 14.x uses @mswjs/interceptors. When the AbortController fires first
+// (due to timeout), @mswjs/interceptors marks the request "handled". When
+// nock's delayed-response timer fires afterwards it calls respondWith() on
+// the already-handled controller, throwing InterceptorError synchronously
+// inside the timer callback. Patch the prototype once so that call is a
+// no-op instead of an unhandled exception.
+;(function patchRequestController() {
+  const { RequestController } = require('@mswjs/interceptors')
+  const orig = RequestController.prototype.respondWith
+  RequestController.prototype.respondWith = function (...args: unknown[]) {
+    try {
+      return orig.apply(this, args)
+    } catch (e: any) {
+      if (e?.constructor?.name !== 'InterceptorError') throw e
+    }
+  }
+})()
 function createTestRequest(options) {
   return {
     uri: '',
@@ -13,7 +31,7 @@ function createTestRequest(options) {
   }
 }
 
-function FormDataMockClass() {
+function FormDataMockClass(this: any) {
   this.append = jest.fn()
 }
 

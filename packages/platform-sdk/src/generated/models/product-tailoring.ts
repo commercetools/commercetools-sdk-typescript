@@ -414,8 +414,7 @@ export interface ProductTailoringReference extends IReference {
  *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ProductTailoring](ctp:api:type:ProductTailoring).
  *
  */
-export interface ProductTailoringResourceIdentifier
-  extends IResourceIdentifier {
+export interface ProductTailoringResourceIdentifier extends IResourceIdentifier {
   readonly typeId: 'product-tailoring'
   /**
    *	Unique identifier of the referenced [ProductTailoring](ctp:api:type:ProductTailoring). Either `id` or `key` is required.
@@ -546,8 +545,7 @@ export interface ProductVariantTailoringDraft {
  *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists.
  *
  */
-export interface ProductTailoringAddAssetAction
-  extends IProductTailoringUpdateAction {
+export interface ProductTailoringAddAssetAction extends IProductTailoringUpdateAction {
   readonly action: 'addAsset'
   /**
    *	The `id` of the tailored ProductVariant to update.
@@ -584,8 +582,7 @@ export interface ProductTailoringAddAssetAction
  *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists. Produces the [ProductTailoringImageAdded](/projects/messages/product-catalog-messages#product-tailoring-image-added) Message.
  *
  */
-export interface ProductTailoringAddExternalImageAction
-  extends IProductTailoringUpdateAction {
+export interface ProductTailoringAddExternalImageAction extends IProductTailoringUpdateAction {
   readonly action: 'addExternalImage'
   /**
    *	The `id` of the tailored ProductVariant to update.
@@ -617,8 +614,7 @@ export interface ProductTailoringAddExternalImageAction
  *	Produces the [ProductVariantTailoringAdded](ctp:api:type:ProductVariantTailoringAddedMessage) Message.
  *
  */
-export interface ProductTailoringAddVariantAction
-  extends IProductTailoringUpdateAction {
+export interface ProductTailoringAddVariantAction extends IProductTailoringUpdateAction {
   readonly action: 'addVariant'
   /**
    *	The `id` of the tailored ProductVariant to update.
@@ -662,8 +658,7 @@ export interface ProductTailoringAddVariantAction
  *	The Asset to update must be specified using either `assetId` or `assetKey`.
  *
  */
-export interface ProductTailoringChangeAssetNameAction
-  extends IProductTailoringUpdateAction {
+export interface ProductTailoringChangeAssetNameAction extends IProductTailoringUpdateAction {
   readonly action: 'changeAssetName'
   /**
    *	The `id` of the tailored ProductVariant to update.
@@ -706,8 +701,7 @@ export interface ProductTailoringChangeAssetNameAction
  *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists.
  *
  */
-export interface ProductTailoringChangeAssetOrderAction
-  extends IProductTailoringUpdateAction {
+export interface ProductTailoringChangeAssetOrderAction extends IProductTailoringUpdateAction {
   readonly action: 'changeAssetOrder'
   /**
    *	The `id` of the tailored ProductVariant to update.
@@ -738,8 +732,7 @@ export interface ProductTailoringChangeAssetOrderAction
  *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists.
  *
  */
-export interface ProductTailoringMoveImageToPositionAction
-  extends IProductTailoringUpdateAction {
+export interface ProductTailoringMoveImageToPositionAction extends IProductTailoringUpdateAction {
   readonly action: 'moveImageToPosition'
   /**
    *	The `id` of the tailored ProductVariant to update.
@@ -777,8 +770,7 @@ export interface ProductTailoringMoveImageToPositionAction
  *	Generates the [ProductTailoringPublished](ctp:api:type:ProductTailoringPublishedMessage) Message.
  *
  */
-export interface ProductTailoringPublishAction
-  extends IProductTailoringUpdateAction {
+export interface ProductTailoringPublishAction extends IProductTailoringUpdateAction {
   readonly action: 'publish'
 }
 /**
@@ -786,8 +778,7 @@ export interface ProductTailoringPublishAction
  *	The Asset to remove must be specified using either `assetId` or `assetKey`.
  *
  */
-export interface ProductTailoringRemoveAssetAction
-  extends IProductTailoringUpdateAction {
+export interface ProductTailoringRemoveAssetAction extends IProductTailoringUpdateAction {
   readonly action: 'removeAsset'
   /**
    *	The `id` of the tailored ProductVariant to update.
@@ -824,8 +815,7 @@ export interface ProductTailoringRemoveAssetAction
  *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists.
  *
  */
-export interface ProductTailoringRemoveImageAction
-  extends IProductTailoringUpdateAction {
+export interface ProductTailoringRemoveImageAction extends IProductTailoringUpdateAction {
   readonly action: 'removeImage'
   /**
    *	The `id` of the tailored ProductVariant to update.
@@ -857,8 +847,7 @@ export interface ProductTailoringRemoveImageAction
  *	Produces the [ProductVariantTailoringDeleted](ctp:api:type:ProductVariantTailoringRemovedMessage) Message.
  *
  */
-export interface ProductTailoringRemoveVariantAction
-  extends IProductTailoringUpdateAction {
+export interface ProductTailoringRemoveVariantAction extends IProductTailoringUpdateAction {
   readonly action: 'removeVariant'
   /**
    *	The `id` of the ProductVariant to remove from the Tailoring.
@@ -884,8 +873,7 @@ export interface ProductTailoringRemoveVariantAction
  *	The [Asset](ctp:api:type:Asset) to update must be specified using either `assetId` or `assetKey`.
  *
  */
-export interface ProductTailoringSetAssetCustomFieldAction
-  extends IProductTailoringUpdateAction {
+export interface ProductTailoringSetAssetCustomFieldAction extends IProductTailoringUpdateAction {
   readonly action: 'setAssetCustomField'
   /**
    *	The `id` of the tailored ProductVariant to update.
@@ -937,8 +925,7 @@ export interface ProductTailoringSetAssetCustomFieldAction
  *	The [Asset](ctp:api:type:Asset) to update must be specified using either `assetId` or `assetKey`.
  *
  */
-export interface ProductTailoringSetAssetCustomTypeAction
-  extends IProductTailoringUpdateAction {
+export interface ProductTailoringSetAssetCustomTypeAction extends IProductTailoringUpdateAction {
   readonly action: 'setAssetCustomType'
   /**
    *	The `id` of the tailored ProductVariant to update.
@@ -991,8 +978,7 @@ export interface ProductTailoringSetAssetCustomTypeAction
  *	The [Asset](ctp:api:type:Asset) to update must be specified using either `assetId` or `assetKey`.
  *
  */
-export interface ProductTailoringSetAssetDescriptionAction
-  extends IProductTailoringUpdateAction {
+export interface ProductTailoringSetAssetDescriptionAction extends IProductTailoringUpdateAction {
   readonly action: 'setAssetDescription'
   /**
    *	The `id` of the tailored ProductVariant to update.
@@ -1035,8 +1021,7 @@ export interface ProductTailoringSetAssetDescriptionAction
  *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists.
  *
  */
-export interface ProductTailoringSetAssetKeyAction
-  extends IProductTailoringUpdateAction {
+export interface ProductTailoringSetAssetKeyAction extends IProductTailoringUpdateAction {
   readonly action: 'setAssetKey'
   /**
    *	The `id` of the tailored ProductVariant to update.
@@ -1074,8 +1059,7 @@ export interface ProductTailoringSetAssetKeyAction
  *	The [Asset](ctp:api:type:Asset) to update must be specified using either `assetId` or `assetKey`.
  *
  */
-export interface ProductTailoringSetAssetSourcesAction
-  extends IProductTailoringUpdateAction {
+export interface ProductTailoringSetAssetSourcesAction extends IProductTailoringUpdateAction {
   readonly action: 'setAssetSources'
   /**
    *	The `id` of the tailored ProductVariant to update.
@@ -1119,8 +1103,7 @@ export interface ProductTailoringSetAssetSourcesAction
  *	The Asset to update must be specified using either `assetId` or `assetKey`.
  *
  */
-export interface ProductTailoringSetAssetTagsAction
-  extends IProductTailoringUpdateAction {
+export interface ProductTailoringSetAssetTagsAction extends IProductTailoringUpdateAction {
   readonly action: 'setAssetTags'
   /**
    *	The `id` of the tailored ProductVariant to update.
@@ -1163,8 +1146,7 @@ export interface ProductTailoringSetAssetTagsAction
  *	Either `variantId` or `sku` is required.
  *
  */
-export interface ProductTailoringSetAttributeAction
-  extends IProductTailoringUpdateAction {
+export interface ProductTailoringSetAttributeAction extends IProductTailoringUpdateAction {
   readonly action: 'setAttribute'
   /**
    *	The `id` of the ProductVariant to update.
@@ -1215,8 +1197,7 @@ export interface ProductTailoringSetAttributeAction
  *	Adds, removes, or changes a tailored Attribute in all Product Variants of a Product at the same time.
  *	This action is useful for setting tailored values for Attributes with the [Constraint](ctp:api:type:AttributeConstraintEnum) `SameForAll`.
  */
-export interface ProductTailoringSetAttributeInAllVariantsAction
-  extends IProductTailoringUpdateAction {
+export interface ProductTailoringSetAttributeInAllVariantsAction extends IProductTailoringUpdateAction {
   readonly action: 'setAttributeInAllVariants'
   /**
    *	The name of the Attribute to set.
@@ -1253,8 +1234,7 @@ export interface ProductTailoringSetAttributeInAllVariantsAction
  *	Generates the [ProductTailoringDescriptionSet](ctp:api:type:ProductTailoringDescriptionSetMessage) Message.
  *
  */
-export interface ProductTailoringSetDescriptionAction
-  extends IProductTailoringUpdateAction {
+export interface ProductTailoringSetDescriptionAction extends IProductTailoringUpdateAction {
   readonly action: 'setDescription'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -1273,8 +1253,7 @@ export interface ProductTailoringSetDescriptionAction
  *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists. Produces the [ProductTailoringImagesSet](/projects/messages/product-catalog-messages#product-tailoring-images-set) Message.
  *
  */
-export interface ProductTailoringSetExternalImagesAction
-  extends IProductTailoringUpdateAction {
+export interface ProductTailoringSetExternalImagesAction extends IProductTailoringUpdateAction {
   readonly action: 'setImages'
   /**
    *	The `id` of the tailored ProductVariant to update.
@@ -1308,8 +1287,7 @@ export interface ProductTailoringSetExternalImagesAction
  *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists.
  *
  */
-export interface ProductTailoringSetImageLabelAction
-  extends IProductTailoringUpdateAction {
+export interface ProductTailoringSetImageLabelAction extends IProductTailoringUpdateAction {
   readonly action: 'setImageLabel'
   /**
    *	The `sku` of the tailored ProductVariant to update.
@@ -1345,8 +1323,7 @@ export interface ProductTailoringSetImageLabelAction
 /**
  *	Updates all meta attributes at the same time.
  */
-export interface ProductTailoringSetMetaAttributesAction
-  extends IProductTailoringUpdateAction {
+export interface ProductTailoringSetMetaAttributesAction extends IProductTailoringUpdateAction {
   readonly action: 'setMetaAttributes'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -1373,8 +1350,7 @@ export interface ProductTailoringSetMetaAttributesAction
    */
   readonly staged?: boolean
 }
-export interface ProductTailoringSetMetaDescriptionAction
-  extends IProductTailoringUpdateAction {
+export interface ProductTailoringSetMetaDescriptionAction extends IProductTailoringUpdateAction {
   readonly action: 'setMetaDescription'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -1389,8 +1365,7 @@ export interface ProductTailoringSetMetaDescriptionAction
    */
   readonly staged?: boolean
 }
-export interface ProductTailoringSetMetaKeywordsAction
-  extends IProductTailoringUpdateAction {
+export interface ProductTailoringSetMetaKeywordsAction extends IProductTailoringUpdateAction {
   readonly action: 'setMetaKeywords'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -1405,8 +1380,7 @@ export interface ProductTailoringSetMetaKeywordsAction
    */
   readonly staged?: boolean
 }
-export interface ProductTailoringSetMetaTitleAction
-  extends IProductTailoringUpdateAction {
+export interface ProductTailoringSetMetaTitleAction extends IProductTailoringUpdateAction {
   readonly action: 'setMetaTitle'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -1425,8 +1399,7 @@ export interface ProductTailoringSetMetaTitleAction
  *	Generates the [ProductTailoringNameSet](ctp:api:type:ProductTailoringNameSetMessage) Message.
  *
  */
-export interface ProductTailoringSetNameAction
-  extends IProductTailoringUpdateAction {
+export interface ProductTailoringSetNameAction extends IProductTailoringUpdateAction {
   readonly action: 'setName'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -1441,8 +1414,7 @@ export interface ProductTailoringSetNameAction
    */
   readonly staged?: boolean
 }
-export interface ProductTailoringSetProductAttributeAction
-  extends IProductTailoringUpdateAction {
+export interface ProductTailoringSetProductAttributeAction extends IProductTailoringUpdateAction {
   readonly action: 'setProductAttribute'
   /**
    *	Name of the Attribute to set.
@@ -1478,8 +1450,7 @@ export interface ProductTailoringSetProductAttributeAction
  *	Generates the [ProductTailoringSlugSet](ctp:api:type:ProductTailoringSlugSetMessage) Message.
  *
  */
-export interface ProductTailoringSetSlugAction
-  extends IProductTailoringUpdateAction {
+export interface ProductTailoringSetSlugAction extends IProductTailoringUpdateAction {
   readonly action: 'setSlug'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -1499,7 +1470,6 @@ export interface ProductTailoringSetSlugAction
  *	Generates the [ProductTailoringUnpublished](ctp:api:type:ProductTailoringUnpublishedMessage) Message.
  *
  */
-export interface ProductTailoringUnpublishAction
-  extends IProductTailoringUpdateAction {
+export interface ProductTailoringUnpublishAction extends IProductTailoringUpdateAction {
   readonly action: 'unpublish'
 }

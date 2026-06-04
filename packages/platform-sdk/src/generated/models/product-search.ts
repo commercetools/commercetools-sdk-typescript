@@ -359,24 +359,21 @@ export type _ProductSearchFacetExpression =
   | ProductSearchFacetDistinctExpression
   | ProductSearchFacetRangesExpression
   | ProductSearchFacetStatsExpression
-export interface ProductSearchFacetCountExpression
-  extends ProductSearchFacetExpression {
+export interface ProductSearchFacetCountExpression extends ProductSearchFacetExpression {
   /**
    *	Definition of the count facet.
    *
    */
   readonly count: ProductSearchFacetCountValue
 }
-export interface ProductSearchFacetDistinctExpression
-  extends ProductSearchFacetExpression {
+export interface ProductSearchFacetDistinctExpression extends ProductSearchFacetExpression {
   /**
    *	Definition of the distinct facet.
    *
    */
   readonly distinct: ProductSearchFacetDistinctValue
 }
-export interface ProductSearchFacetRangesExpression
-  extends ProductSearchFacetExpression {
+export interface ProductSearchFacetRangesExpression extends ProductSearchFacetExpression {
   /**
    *	Definition of the ranges facet.
    *
@@ -463,8 +460,7 @@ export type _ProductSearchFacetResult =
  *	Result of a [distinct facet](/../api/projects/product-search#distinct-facets) or a [ranges facet](/../api/projects/product-search#ranges-facets).
  *
  */
-export interface ProductSearchFacetResultBucket
-  extends ProductSearchFacetResult {
+export interface ProductSearchFacetResultBucket extends ProductSearchFacetResult {
   /**
    *	Contains results of the facet.
    *
@@ -487,8 +483,7 @@ export interface ProductSearchFacetResultBucketEntry {
  *	Result of a [count facet](/../api/projects/product-search#count-facets).
  *
  */
-export interface ProductSearchFacetResultCount
-  extends ProductSearchFacetResult {
+export interface ProductSearchFacetResultCount extends ProductSearchFacetResult {
   /**
    *	Number of Products (or Product Variants) matching the query.
    *
@@ -500,8 +495,7 @@ export interface ProductSearchFacetResultCount
  *	The data type of `min` `max`, `mean`, and `sum` matches the data type of the `field` in the [facet expression](ctp:api:type:ProductSearchFacetStatsExpression).
  *
  */
-export interface ProductSearchFacetResultStats
-  extends ProductSearchFacetResult {
+export interface ProductSearchFacetResultStats extends ProductSearchFacetResult {
   /**
    *	The minimum value of the field, scoped to the faceted results.
    *
@@ -542,8 +536,7 @@ export enum ProductSearchFacetScopeEnumValues {
 }
 
 export type ProductSearchFacetScopeEnum = 'all' | 'query' | (string & {})
-export interface ProductSearchFacetStatsExpression
-  extends ProductSearchFacetExpression {
+export interface ProductSearchFacetStatsExpression extends ProductSearchFacetExpression {
   /**
    *	Definition of the stats facet.
    *

@@ -603,8 +603,7 @@ export enum TextInputHintValues {
 }
 
 export type TextInputHint = 'MultiLine' | 'SingleLine' | (string & {})
-export interface ProductTypeAddAttributeDefinitionAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeAddAttributeDefinitionAction extends IProductTypeUpdateAction {
   readonly action: 'addAttributeDefinition'
   /**
    *	Value to append to `attributes`.
@@ -616,8 +615,7 @@ export interface ProductTypeAddAttributeDefinitionAction
  *	Adds a localizable enum to the values of [AttributeLocalizedEnumType](ctp:api:type:AttributeLocalizedEnumType). It can update an AttributeLocalizedEnumType AttributeDefinition or an [AttributeSetType](ctp:api:type:AttributeSetType) of AttributeLocalizedEnumType AttributeDefinition.
  *
  */
-export interface ProductTypeAddLocalizedEnumValueAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeAddLocalizedEnumValueAction extends IProductTypeUpdateAction {
   readonly action: 'addLocalizedEnumValue'
   /**
    *	Name of the AttributeDefinition to update.
@@ -636,8 +634,7 @@ export interface ProductTypeAddLocalizedEnumValueAction
  *	Adds an enum to the values of [AttributeEnumType](ctp:api:type:AttributeEnumType) AttributeDefinition, or [AttributeSetType](ctp:api:type:AttributeSetType) of AttributeEnumType AttributeDefinition.
  *
  */
-export interface ProductTypeAddPlainEnumValueAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeAddPlainEnumValueAction extends IProductTypeUpdateAction {
   readonly action: 'addPlainEnumValue'
   /**
    *	Name of the AttributeDefinition to update.
@@ -656,8 +653,7 @@ export interface ProductTypeAddPlainEnumValueAction
  *	Updates the `attributeConstraint` of an [AttributeDefinition](ctp:api:type:AttributeDefinition). For now only following changes are supported: `SameForAll` to `None` and `Unique` to `None`.
  *
  */
-export interface ProductTypeChangeAttributeConstraintAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeChangeAttributeConstraintAction extends IProductTypeUpdateAction {
   readonly action: 'changeAttributeConstraint'
   /**
    *	Name of the AttributeDefinition to update.
@@ -678,8 +674,7 @@ export interface ProductTypeChangeAttributeConstraintAction
  *	If the AttributeDefinition name to be changed does not exist, an [AttributeNameDoesNotExist](ctp:api:type:AttributeNameDoesNotExistError) error is returned.
  *
  */
-export interface ProductTypeChangeAttributeNameAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeChangeAttributeNameAction extends IProductTypeUpdateAction {
   readonly action: 'changeAttributeName'
   /**
    *	Name of the AttributeDefinition to update.
@@ -695,8 +690,7 @@ export interface ProductTypeChangeAttributeNameAction
    */
   readonly newAttributeName: string
 }
-export interface ProductTypeChangeAttributeOrderByNameAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeChangeAttributeOrderByNameAction extends IProductTypeUpdateAction {
   readonly action: 'changeAttributeOrderByName'
   /**
    *	Names of Attributes to reorder. This array must include all Attributes currently present on a ProductType in a different order.
@@ -705,8 +699,7 @@ export interface ProductTypeChangeAttributeOrderByNameAction
    */
   readonly attributeNames: string[]
 }
-export interface ProductTypeChangeDescriptionAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeChangeDescriptionAction extends IProductTypeUpdateAction {
   readonly action: 'changeDescription'
   /**
    *	New value to set.
@@ -722,8 +715,7 @@ export interface ProductTypeChangeDescriptionAction
  *	All Products will be updated to the new key in an [eventually consistent](/general-concepts#eventual-consistency) way.
  *
  */
-export interface ProductTypeChangeEnumKeyAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeChangeEnumKeyAction extends IProductTypeUpdateAction {
   readonly action: 'changeEnumKey'
   /**
    *	Name of the AttributeDefinition to update.
@@ -747,8 +739,7 @@ export interface ProductTypeChangeEnumKeyAction
  *	Updates the `inputHint` of an [AttributeDefinition](ctp:api:type:AttributeDefinition).
  *
  */
-export interface ProductTypeChangeInputHintAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeChangeInputHintAction extends IProductTypeUpdateAction {
   readonly action: 'changeInputHint'
   /**
    *	Name of the AttributeDefinition to update.
@@ -766,8 +757,7 @@ export interface ProductTypeChangeInputHintAction
  *	Following this update the Products are reindexed asynchronously to reflect this change on the search endpoint. When enabling search on an existing Attribute type definition, the constraint regarding the maximum size of a searchable Attribute will not be enforced. Instead, AttributeDefinitions exceeding this limit will be treated as not searchable and will not be available for full-text search.
  *
  */
-export interface ProductTypeChangeIsSearchableAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeChangeIsSearchableAction extends IProductTypeUpdateAction {
   readonly action: 'changeIsSearchable'
   /**
    *	Name of the AttributeDefinition to update.
@@ -801,8 +791,7 @@ export interface ProductTypeChangeLabelAction extends IProductTypeUpdateAction {
  *	All Products will be updated to the new label in an [eventually consistent](/general-concepts#eventual-consistency) way.
  *
  */
-export interface ProductTypeChangeLocalizedEnumValueLabelAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeChangeLocalizedEnumValueLabelAction extends IProductTypeUpdateAction {
   readonly action: 'changeLocalizedEnumValueLabel'
   /**
    *	Name of the AttributeDefinition to update.
@@ -820,8 +809,7 @@ export interface ProductTypeChangeLocalizedEnumValueLabelAction
  *	Updates the order of localized enum `values` in an [AttributeLocalizedEnumType](ctp:api:type:AttributeLocalizedEnumType) AttributeDefinition. It can update an AttributeLocalizedEnumType AttributeDefinition or an [AttributeSetType](ctp:api:type:AttributeSetType) of AttributeLocalizedEnumType AttributeDefinition.
  *
  */
-export interface ProductTypeChangeLocalizedEnumValueOrderAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeChangeLocalizedEnumValueOrderAction extends IProductTypeUpdateAction {
   readonly action: 'changeLocalizedEnumValueOrder'
   /**
    *	Name of the AttributeDefinition to update.
@@ -849,8 +837,7 @@ export interface ProductTypeChangeNameAction extends IProductTypeUpdateAction {
  *	All Products will be updated to the new label in an [eventually consistent](/general-concepts#eventual-consistency) way.
  *
  */
-export interface ProductTypeChangePlainEnumValueLabelAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeChangePlainEnumValueLabelAction extends IProductTypeUpdateAction {
   readonly action: 'changePlainEnumValueLabel'
   /**
    *	Name of the AttributeDefinition to update.
@@ -868,8 +855,7 @@ export interface ProductTypeChangePlainEnumValueLabelAction
  *	Updates the order of enum `values` in an [AttributeEnumType](ctp:api:type:AttributeEnumType) AttributeDefinition. It can update an AttributeEnumType AttributeDefinition or an [AttributeSetType](ctp:api:type:AttributeSetType) of AttributeEnumType AttributeDefinition.
  *
  */
-export interface ProductTypeChangePlainEnumValueOrderAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeChangePlainEnumValueOrderAction extends IProductTypeUpdateAction {
   readonly action: 'changePlainEnumValueOrder'
   /**
    *	Name of the AttributeDefinition to update.
@@ -889,8 +875,7 @@ export interface ProductTypeChangePlainEnumValueOrderAction
  *	The `CombinationUnique` constraint is not checked when an Attribute is removed, and uniqueness violations may occur when you remove an Attribute with a `CombinationUnique` constraint.
  *
  */
-export interface ProductTypeRemoveAttributeDefinitionAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeRemoveAttributeDefinitionAction extends IProductTypeUpdateAction {
   readonly action: 'removeAttributeDefinition'
   /**
    *	Name of the Attribute to remove.
@@ -904,8 +889,7 @@ export interface ProductTypeRemoveAttributeDefinitionAction
  *	If the Attribute is **not** required, the Attributes of all Products using those enum keys will also be removed in an [eventually consistent](/general-concepts#eventual-consistency) way. If the Attribute is required, the operation returns an [EnumValueIsUsed](ctp:api:type:EnumValueIsUsedError) error.
  *
  */
-export interface ProductTypeRemoveEnumValuesAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeRemoveEnumValuesAction extends IProductTypeUpdateAction {
   readonly action: 'removeEnumValues'
   /**
    *	Name of the AttributeDefinition to update.

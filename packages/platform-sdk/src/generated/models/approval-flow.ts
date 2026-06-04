@@ -250,8 +250,7 @@ export interface ApprovalFlowRejectAction extends IApprovalFlowUpdateAction {
    */
   readonly reason?: string
 }
-export interface ApprovalFlowSetCustomFieldAction
-  extends IApprovalFlowUpdateAction {
+export interface ApprovalFlowSetCustomFieldAction extends IApprovalFlowUpdateAction {
   readonly action: 'setCustomField'
   /**
    *	Name of the [Custom Field](ctp:api:type:CustomFields).
@@ -268,8 +267,7 @@ export interface ApprovalFlowSetCustomFieldAction
    */
   readonly value?: any
 }
-export interface ApprovalFlowSetCustomTypeAction
-  extends IApprovalFlowUpdateAction {
+export interface ApprovalFlowSetCustomTypeAction extends IApprovalFlowUpdateAction {
   readonly action: 'setCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the ApprovalFlow with [Custom Fields](ctp:api:type:CustomFields).

@@ -2,7 +2,7 @@
   "name": "@commercetools/sdk-client-v2",
   "version": "3.5.0",
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "description": "commercetools Composable Commerce TypeScript SDK client.",
   "keywords": [
@@ -45,10 +45,10 @@
   },
   "devDependencies": {
     "common-tags": "1.8.2",
-    "dotenv": "17.2.2",
-    "jest": "29.7.0",
-    "nock": "14.0.10",
-    "organize-imports-cli": "0.10.0"
+    "dotenv": "17.4.2",
+    "jest": "30.4.2",
+    "nock": "14.0.15",
+    "organize-imports-cli": "1.0.2"
   },
   "scripts": {
     "organize_imports": "find src -type f -name '*.ts' | xargs organize-imports-cli",

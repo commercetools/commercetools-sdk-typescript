@@ -338,8 +338,7 @@ export interface TaxCategoryChangeNameAction extends ITaxCategoryUpdateAction {
    */
   readonly name: string
 }
-export interface TaxCategoryRemoveTaxRateAction
-  extends ITaxCategoryUpdateAction {
+export interface TaxCategoryRemoveTaxRateAction extends ITaxCategoryUpdateAction {
   readonly action: 'removeTaxRate'
   /**
    *	ID of the TaxRate to remove.
@@ -356,8 +355,7 @@ export interface TaxCategoryRemoveTaxRateAction
    */
   readonly taxRateKey?: string
 }
-export interface TaxCategoryReplaceTaxRateAction
-  extends ITaxCategoryUpdateAction {
+export interface TaxCategoryReplaceTaxRateAction extends ITaxCategoryUpdateAction {
   readonly action: 'replaceTaxRate'
   /**
    *	ID of the TaxRate to replace.
@@ -380,8 +378,7 @@ export interface TaxCategoryReplaceTaxRateAction
    */
   readonly taxRate: TaxRateDraft
 }
-export interface TaxCategorySetDescriptionAction
-  extends ITaxCategoryUpdateAction {
+export interface TaxCategorySetDescriptionAction extends ITaxCategoryUpdateAction {
   readonly action: 'setDescription'
   /**
    *	Value to set. If empty, any existing value will be removed.

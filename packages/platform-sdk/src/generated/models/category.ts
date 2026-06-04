@@ -448,8 +448,7 @@ export interface CategoryRemoveAssetAction extends ICategoryUpdateAction {
    */
   readonly assetKey?: string
 }
-export interface CategorySetAssetCustomFieldAction
-  extends ICategoryUpdateAction {
+export interface CategorySetAssetCustomFieldAction extends ICategoryUpdateAction {
   readonly action: 'setAssetCustomField'
   /**
    *	New value to set. Either `assetId` or `assetKey` is required.
@@ -478,8 +477,7 @@ export interface CategorySetAssetCustomFieldAction
    */
   readonly value?: any
 }
-export interface CategorySetAssetCustomTypeAction
-  extends ICategoryUpdateAction {
+export interface CategorySetAssetCustomTypeAction extends ICategoryUpdateAction {
   readonly action: 'setAssetCustomType'
   /**
    *	New value to set. Either `assetId` or `assetKey` is required.
@@ -509,8 +507,7 @@ export interface CategorySetAssetCustomTypeAction
    */
   readonly fields?: FieldContainer
 }
-export interface CategorySetAssetDescriptionAction
-  extends ICategoryUpdateAction {
+export interface CategorySetAssetDescriptionAction extends ICategoryUpdateAction {
   readonly action: 'setAssetDescription'
   /**
    *	New value to set. Either `assetId` or `assetKey` is required.
@@ -658,8 +655,7 @@ export interface CategorySetKeyAction extends ICategoryUpdateAction {
    */
   readonly key?: string
 }
-export interface CategorySetMetaDescriptionAction
-  extends ICategoryUpdateAction {
+export interface CategorySetMetaDescriptionAction extends ICategoryUpdateAction {
   readonly action: 'setMetaDescription'
   /**
    *	Value to set.

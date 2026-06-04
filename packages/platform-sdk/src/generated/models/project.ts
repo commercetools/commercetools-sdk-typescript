@@ -467,8 +467,7 @@ export interface ShoppingListsConfiguration {
    */
   readonly deleteDaysAfterLastModification: number
 }
-export interface ProjectChangeBusinessUnitSearchStatusAction
-  extends IProjectUpdateAction {
+export interface ProjectChangeBusinessUnitSearchStatusAction extends IProjectUpdateAction {
   readonly action: 'changeBusinessUnitSearchStatus'
   /**
    *	Activates or deactivates the [Search Business Units](ctp:api:endpoint:/{projectKey}/business-units/search:POST) feature. Activation will trigger building a search index for the Business Units in the Project.
@@ -476,8 +475,7 @@ export interface ProjectChangeBusinessUnitSearchStatusAction
    */
   readonly status: BusinessUnitSearchStatus
 }
-export interface ProjectChangeBusinessUnitStatusOnCreationAction
-  extends IProjectUpdateAction {
+export interface ProjectChangeBusinessUnitStatusOnCreationAction extends IProjectUpdateAction {
   readonly action: 'changeMyBusinessUnitStatusOnCreation'
   /**
    *	Status for Business Units created using the [My Business Unit endpoint](ctp:api:endpoint:/{projectKey}/me/business-units:POST).
@@ -486,8 +484,7 @@ export interface ProjectChangeBusinessUnitStatusOnCreationAction
    */
   readonly status: BusinessUnitConfigurationStatus
 }
-export interface ProjectChangeCartsConfigurationAction
-  extends IProjectUpdateAction {
+export interface ProjectChangeCartsConfigurationAction extends IProjectUpdateAction {
   readonly action: 'changeCartsConfiguration'
   /**
    *	Configuration for the [Carts](/../api/projects/carts) feature.
@@ -505,8 +502,7 @@ export interface ProjectChangeCountriesAction extends IProjectUpdateAction {
    */
   readonly countries: string[]
 }
-export interface ProjectChangeCountryTaxRateFallbackEnabledAction
-  extends IProjectUpdateAction {
+export interface ProjectChangeCountryTaxRateFallbackEnabledAction extends IProjectUpdateAction {
   readonly action: 'changeCountryTaxRateFallbackEnabled'
   /**
    *	When `true`, country _- no state_ Tax Rate is used as fallback. See [CartsConfiguration](ctp:api:type:CartsConfiguration).
@@ -523,8 +519,7 @@ export interface ProjectChangeCurrenciesAction extends IProjectUpdateAction {
    */
   readonly currencies: string[]
 }
-export interface ProjectChangeCustomerSearchStatusAction
-  extends IProjectUpdateAction {
+export interface ProjectChangeCustomerSearchStatusAction extends IProjectUpdateAction {
   readonly action: 'changeCustomerSearchStatus'
   /**
    *	Activates or deactivates the [Customer Search](/../api/projects/customer-search) feature. Activation will trigger building a search index for the Customers in the Project.
@@ -545,8 +540,7 @@ export interface ProjectChangeLanguagesAction extends IProjectUpdateAction {
    */
   readonly languages: string[]
 }
-export interface ProjectChangeMessagesConfigurationAction
-  extends IProjectUpdateAction {
+export interface ProjectChangeMessagesConfigurationAction extends IProjectUpdateAction {
   readonly action: 'changeMessagesConfiguration'
   /**
    *	Configuration for the [Messages Query](/../api/projects/messages) feature.
@@ -563,8 +557,7 @@ export interface ProjectChangeNameAction extends IProjectUpdateAction {
    */
   readonly name: string
 }
-export interface ProjectChangeOrderSearchStatusAction
-  extends IProjectUpdateAction {
+export interface ProjectChangeOrderSearchStatusAction extends IProjectUpdateAction {
   readonly action: 'changeOrderSearchStatus'
   /**
    *	Activates or deactivates the [Order Search](/../api/projects/order-search) feature. Activation will trigger building a search index for the Orders in the Project.
@@ -572,8 +565,7 @@ export interface ProjectChangeOrderSearchStatusAction
    */
   readonly status: OrderSearchStatus
 }
-export interface ProjectChangePriceRoundingModeAction
-  extends IProjectUpdateAction {
+export interface ProjectChangePriceRoundingModeAction extends IProjectUpdateAction {
   readonly action: 'changePriceRoundingMode'
   /**
    *	Project-level default rounding mode for calculating the total prices on [LineItems](ctp:api:type:LineItem) and [CustomLineItems](ctp:api:type:CustomLineItem). See [CartsConfiguration](ctp:api:type:CartsConfiguration).
@@ -581,8 +573,7 @@ export interface ProjectChangePriceRoundingModeAction
    */
   readonly priceRoundingMode: RoundingMode
 }
-export interface ProjectChangeProductSearchIndexingEnabledAction
-  extends IProjectUpdateAction {
+export interface ProjectChangeProductSearchIndexingEnabledAction extends IProjectUpdateAction {
   readonly action: 'changeProductSearchIndexingEnabled'
   /**
    *	- If `false`, the indexing of [Product](ctp:api:type:Product) information will stop and the [Product Projection Search](/../api/projects/product-projection-search) as well as the [Search Term Suggestions](/../api/projects/search-term-suggestions) API will no longer be available for this Project. The Project's [SearchIndexingConfiguration](ctp:api:type:SearchIndexingConfiguration) `status` for `products` will be changed to `"Deactivated"`.
@@ -598,8 +589,7 @@ export interface ProjectChangeProductSearchIndexingEnabledAction
    */
   readonly mode?: ProductSearchIndexingMode
 }
-export interface ProjectChangeShoppingListsConfigurationAction
-  extends IProjectUpdateAction {
+export interface ProjectChangeShoppingListsConfigurationAction extends IProjectUpdateAction {
   readonly action: 'changeShoppingListsConfiguration'
   /**
    *	Configuration for the [Shopping Lists](/../api/projects/shoppingLists) feature.
@@ -608,8 +598,7 @@ export interface ProjectChangeShoppingListsConfigurationAction
    */
   readonly shoppingListsConfiguration: ShoppingListsConfiguration
 }
-export interface ProjectChangeTaxRoundingModeAction
-  extends IProjectUpdateAction {
+export interface ProjectChangeTaxRoundingModeAction extends IProjectUpdateAction {
   readonly action: 'changeTaxRoundingMode'
   /**
    *	Project-level default rounding mode for tax calculation. See [CartsConfiguration](ctp:api:type:CartsConfiguration).
@@ -617,8 +606,7 @@ export interface ProjectChangeTaxRoundingModeAction
    */
   readonly taxRoundingMode: RoundingMode
 }
-export interface ProjectSetBusinessUnitAssociateRoleOnCreationAction
-  extends IProjectUpdateAction {
+export interface ProjectSetBusinessUnitAssociateRoleOnCreationAction extends IProjectUpdateAction {
   readonly action: 'setMyBusinessUnitAssociateRoleOnCreation'
   /**
    *	Default [Associate Role](ctp:api:type:AssociateRole) assigned to the Associate creating a Business Unit using the [My Business Unit endpoint](ctp:api:endpoint:/{projectKey}/me/business-units:POST).
@@ -627,8 +615,7 @@ export interface ProjectSetBusinessUnitAssociateRoleOnCreationAction
    */
   readonly associateRole: AssociateRoleResourceIdentifier
 }
-export interface ProjectSetDiscountsConfigurationAction
-  extends IProjectUpdateAction {
+export interface ProjectSetDiscountsConfigurationAction extends IProjectUpdateAction {
   readonly action: 'setDiscountsConfiguration'
   /**
    *	Configuration for the behavior of Cart and Product Discounts in the Project.
@@ -651,8 +638,7 @@ export interface ProjectSetExternalOAuthAction extends IProjectUpdateAction {
  *	`reservationExpirationInMinutes` is reached. The reserved inventory is then made available. If set to `false`, tracking Line Items with expired reservations becomes your responsibility.
  *
  */
-export interface ProjectSetReleaseExpiredReservationsAction
-  extends IProjectUpdateAction {
+export interface ProjectSetReleaseExpiredReservationsAction extends IProjectUpdateAction {
   readonly action: 'setReleaseExpiredReservations'
   /**
    *	Value to set.
@@ -666,8 +652,7 @@ export interface ProjectSetReleaseExpiredReservationsAction
  *	To override the Project setting, use the [Set Reservation Expiration In Minutes](ctp:api:type:InventoryEntrySetReservationExpirationInMinutesAction) update action on specific [InventoryEntries](ctp:api:type:InventoryEntry).
  *
  */
-export interface ProjectSetReservationExpirationInMinutesAction
-  extends IProjectUpdateAction {
+export interface ProjectSetReservationExpirationInMinutesAction extends IProjectUpdateAction {
   readonly action: 'setReservationExpirationInMinutes'
   /**
    *	Value to set.
@@ -675,8 +660,7 @@ export interface ProjectSetReservationExpirationInMinutesAction
    */
   readonly reservationExpirationInMinutes: number
 }
-export interface ProjectSetShippingRateInputTypeAction
-  extends IProjectUpdateAction {
+export interface ProjectSetShippingRateInputTypeAction extends IProjectUpdateAction {
   readonly action: 'setShippingRateInputType'
   /**
    *	Value to set. If empty, any existing value will be removed.

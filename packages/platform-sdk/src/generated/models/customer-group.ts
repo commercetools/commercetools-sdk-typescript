@@ -199,8 +199,7 @@ export interface ICustomerGroupUpdateAction {
    */
   readonly action: string
 }
-export interface CustomerGroupChangeNameAction
-  extends ICustomerGroupUpdateAction {
+export interface CustomerGroupChangeNameAction extends ICustomerGroupUpdateAction {
   readonly action: 'changeName'
   /**
    *	New name of the CustomerGroup.
@@ -209,8 +208,7 @@ export interface CustomerGroupChangeNameAction
    */
   readonly name: string
 }
-export interface CustomerGroupSetCustomFieldAction
-  extends ICustomerGroupUpdateAction {
+export interface CustomerGroupSetCustomFieldAction extends ICustomerGroupUpdateAction {
   readonly action: 'setCustomField'
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
@@ -232,8 +230,7 @@ export interface CustomerGroupSetCustomFieldAction
  *	If present, this action overwrites any existing [custom](/../api/projects/custom-fields) type and fields.
  *
  */
-export interface CustomerGroupSetCustomTypeAction
-  extends ICustomerGroupUpdateAction {
+export interface CustomerGroupSetCustomTypeAction extends ICustomerGroupUpdateAction {
   readonly action: 'setCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the CustomerGroup with [Custom Fields](ctp:api:type:CustomFields).

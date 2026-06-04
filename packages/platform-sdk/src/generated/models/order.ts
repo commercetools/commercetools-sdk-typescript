@@ -392,8 +392,7 @@ export interface OrderSearchAnyValue extends OrderSearchQueryExpressionValue {
    */
   readonly caseInsensitive?: boolean
 }
-export interface OrderSearchDateRangeValue
-  extends OrderSearchQueryExpressionValue {
+export interface OrderSearchDateRangeValue extends OrderSearchQueryExpressionValue {
   /**
    *
    */
@@ -403,8 +402,7 @@ export interface OrderSearchDateRangeValue
    */
   readonly lte?: string
 }
-export interface OrderSearchFullTextValue
-  extends OrderSearchQueryExpressionValue {
+export interface OrderSearchFullTextValue extends OrderSearchQueryExpressionValue {
   /**
    *
    */
@@ -418,8 +416,7 @@ export interface OrderSearchFullTextValue
    */
   readonly mustMatch?: OrderSearchMatchType
 }
-export interface OrderSearchLongRangeValue
-  extends OrderSearchQueryExpressionValue {
+export interface OrderSearchLongRangeValue extends OrderSearchQueryExpressionValue {
   /**
    *
    */
@@ -429,8 +426,7 @@ export interface OrderSearchLongRangeValue
    */
   readonly lte?: number
 }
-export interface OrderSearchNumberRangeValue
-  extends OrderSearchQueryExpressionValue {
+export interface OrderSearchNumberRangeValue extends OrderSearchQueryExpressionValue {
   /**
    *
    */
@@ -454,8 +450,7 @@ export enum OrderSearchSortOrderValues {
 }
 
 export type OrderSearchSortOrder = 'asc' | 'desc' | (string & {})
-export interface OrderSearchStringValue
-  extends OrderSearchQueryExpressionValue {
+export interface OrderSearchStringValue extends OrderSearchQueryExpressionValue {
   /**
    *
    */
@@ -1468,22 +1463,19 @@ export type _OrderSearchCompoundExpression =
   | OrderSearchFilterExpression
   | OrderSearchNotExpression
   | OrderSearchOrExpression
-export interface OrderSearchAndExpression
-  extends OrderSearchCompoundExpression {
+export interface OrderSearchAndExpression extends OrderSearchCompoundExpression {
   /**
    *
    */
   readonly and: OrderSearchQuery[]
 }
-export interface OrderSearchFilterExpression
-  extends OrderSearchCompoundExpression {
+export interface OrderSearchFilterExpression extends OrderSearchCompoundExpression {
   /**
    *
    */
   readonly filter: OrderSearchQueryExpression[]
 }
-export interface OrderSearchNotExpression
-  extends OrderSearchCompoundExpression {
+export interface OrderSearchNotExpression extends OrderSearchCompoundExpression {
   /**
    *
    */
@@ -1506,8 +1498,7 @@ export type _OrderSearchQueryExpression =
   | OrderSearchNumberRangeExpression
   | OrderSearchPrefixExpression
   | OrderSearchWildCardExpression
-export interface OrderSearchDateRangeExpression
-  extends OrderSearchQueryExpression {
+export interface OrderSearchDateRangeExpression extends OrderSearchQueryExpression {
   /**
    *
    */
@@ -1519,43 +1510,37 @@ export interface OrderSearchExactExpression extends OrderSearchQueryExpression {
    */
   readonly exact: OrderSearchAnyValue
 }
-export interface OrderSearchExistsExpression
-  extends OrderSearchQueryExpression {
+export interface OrderSearchExistsExpression extends OrderSearchQueryExpression {
   /**
    *
    */
   readonly exists: _OrderSearchQueryExpressionValue
 }
-export interface OrderSearchFullTextExpression
-  extends OrderSearchQueryExpression {
+export interface OrderSearchFullTextExpression extends OrderSearchQueryExpression {
   /**
    *
    */
   readonly fullText: OrderSearchFullTextValue
 }
-export interface OrderSearchLongRangeExpression
-  extends OrderSearchQueryExpression {
+export interface OrderSearchLongRangeExpression extends OrderSearchQueryExpression {
   /**
    *
    */
   readonly range: OrderSearchLongRangeValue
 }
-export interface OrderSearchNumberRangeExpression
-  extends OrderSearchQueryExpression {
+export interface OrderSearchNumberRangeExpression extends OrderSearchQueryExpression {
   /**
    *
    */
   readonly range: OrderSearchNumberRangeValue
 }
-export interface OrderSearchPrefixExpression
-  extends OrderSearchQueryExpression {
+export interface OrderSearchPrefixExpression extends OrderSearchQueryExpression {
   /**
    *
    */
   readonly prefix: OrderSearchStringValue
 }
-export interface OrderSearchWildCardExpression
-  extends OrderSearchQueryExpression {
+export interface OrderSearchWildCardExpression extends OrderSearchQueryExpression {
   /**
    *
    */
@@ -2548,8 +2533,7 @@ export interface OrderChangeShipmentStateAction extends IOrderUpdateAction {
  *	The `quantity` in the [ItemStates](ctp:api:type:ItemState) must match the sum of all Custom Line Item states' quantities.
  *
  */
-export interface OrderImportCustomLineItemStateAction
-  extends IOrderUpdateAction {
+export interface OrderImportCustomLineItemStateAction extends IOrderUpdateAction {
   readonly action: 'importCustomLineItemState'
   /**
    *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
@@ -2624,8 +2608,7 @@ export interface OrderRemoveDeliveryAction extends IOrderUpdateAction {
  *	In such case, change the Line Item shipping address to a different `addressKey` first using the [Set LineItemShippingDetails](ctp:api:type:OrderSetLineItemShippingDetailsAction) update action, before you remove the obsolete address.
  *
  */
-export interface OrderRemoveItemShippingAddressAction
-  extends IOrderUpdateAction {
+export interface OrderRemoveItemShippingAddressAction extends IOrderUpdateAction {
   readonly action: 'removeItemShippingAddress'
   /**
    *	`key` of the Address to remove from `itemShippingAddresses`.
@@ -2638,8 +2621,7 @@ export interface OrderRemoveItemShippingAddressAction
  *	Produces the [ParcelRemovedFromDelivery](ctp:api:type:ParcelRemovedFromDeliveryMessage) Message.
  *
  */
-export interface OrderRemoveParcelFromDeliveryAction
-  extends IOrderUpdateAction {
+export interface OrderRemoveParcelFromDeliveryAction extends IOrderUpdateAction {
   readonly action: 'removeParcelFromDelivery'
   /**
    *	`id` of an existing [Parcel](ctp:api:type:Parcel).
@@ -2687,8 +2669,7 @@ export interface OrderSetBillingAddressAction extends IOrderUpdateAction {
    */
   readonly address?: _BaseAddress
 }
-export interface OrderSetBillingAddressCustomFieldAction
-  extends IOrderUpdateAction {
+export interface OrderSetBillingAddressCustomFieldAction extends IOrderUpdateAction {
   readonly action: 'setBillingAddressCustomField'
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
@@ -2705,8 +2686,7 @@ export interface OrderSetBillingAddressCustomFieldAction
    */
   readonly value?: any
 }
-export interface OrderSetBillingAddressCustomTypeAction
-  extends IOrderUpdateAction {
+export interface OrderSetBillingAddressCustomTypeAction extends IOrderUpdateAction {
   readonly action: 'setBillingAddressCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the `billingAddress` with [Custom Fields](ctp:api:type:CustomFields).
@@ -2758,8 +2738,7 @@ export interface OrderSetCustomFieldAction extends IOrderUpdateAction {
    */
   readonly value?: any
 }
-export interface OrderSetCustomLineItemCustomFieldAction
-  extends IOrderUpdateAction {
+export interface OrderSetCustomLineItemCustomFieldAction extends IOrderUpdateAction {
   readonly action: 'setCustomLineItemCustomField'
   /**
    *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
@@ -2788,8 +2767,7 @@ export interface OrderSetCustomLineItemCustomFieldAction
    */
   readonly value?: any
 }
-export interface OrderSetCustomLineItemCustomTypeAction
-  extends IOrderUpdateAction {
+export interface OrderSetCustomLineItemCustomTypeAction extends IOrderUpdateAction {
   readonly action: 'setCustomLineItemCustomType'
   /**
    *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
@@ -2819,8 +2797,7 @@ export interface OrderSetCustomLineItemCustomTypeAction
    */
   readonly fields?: FieldContainer
 }
-export interface OrderSetCustomLineItemShippingDetailsAction
-  extends IOrderUpdateAction {
+export interface OrderSetCustomLineItemShippingDetailsAction extends IOrderUpdateAction {
   readonly action: 'setCustomLineItemShippingDetails'
   /**
    *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
@@ -2923,8 +2900,7 @@ export interface OrderSetDeliveryAddressAction extends IOrderUpdateAction {
    */
   readonly address?: _BaseAddress
 }
-export interface OrderSetDeliveryAddressCustomFieldAction
-  extends IOrderUpdateAction {
+export interface OrderSetDeliveryAddressCustomFieldAction extends IOrderUpdateAction {
   readonly action: 'setDeliveryAddressCustomField'
   /**
    *	`id` of an existing [Delivery](ctp:api:type:Delivery).
@@ -2957,8 +2933,7 @@ export interface OrderSetDeliveryAddressCustomFieldAction
    */
   readonly value?: any
 }
-export interface OrderSetDeliveryAddressCustomTypeAction
-  extends IOrderUpdateAction {
+export interface OrderSetDeliveryAddressCustomTypeAction extends IOrderUpdateAction {
   readonly action: 'setDeliveryAddressCustomType'
   /**
    *	`id` of an existing [Delivery](ctp:api:type:Delivery).
@@ -3089,8 +3064,7 @@ export interface OrderSetDeliveryItemsAction extends IOrderUpdateAction {
    */
   readonly items: DeliveryItem[]
 }
-export interface OrderSetItemShippingAddressCustomFieldAction
-  extends IOrderUpdateAction {
+export interface OrderSetItemShippingAddressCustomFieldAction extends IOrderUpdateAction {
   readonly action: 'setItemShippingAddressCustomField'
   /**
    *	`key` of the [Address](ctp:api:type:Address) in `itemShippingAddresses`.
@@ -3113,8 +3087,7 @@ export interface OrderSetItemShippingAddressCustomFieldAction
    */
   readonly value?: any
 }
-export interface OrderSetItemShippingAddressCustomTypeAction
-  extends IOrderUpdateAction {
+export interface OrderSetItemShippingAddressCustomTypeAction extends IOrderUpdateAction {
   readonly action: 'setItemShippingAddressCustomType'
   /**
    *	`key` of the [Address](ctp:api:type:Address) in `itemShippingAddresses`.
@@ -3197,8 +3170,7 @@ export interface OrderSetLineItemCustomTypeAction extends IOrderUpdateAction {
    */
   readonly fields?: FieldContainer
 }
-export interface OrderSetLineItemShippingDetailsAction
-  extends IOrderUpdateAction {
+export interface OrderSetLineItemShippingDetailsAction extends IOrderUpdateAction {
   readonly action: 'setLineItemShippingDetails'
   /**
    *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
@@ -3427,8 +3399,7 @@ export interface OrderSetReturnInfoAction extends IOrderUpdateAction {
    */
   readonly items?: ReturnInfoDraft[]
 }
-export interface OrderSetReturnItemCustomFieldAction
-  extends IOrderUpdateAction {
+export interface OrderSetReturnItemCustomFieldAction extends IOrderUpdateAction {
   readonly action: 'setReturnItemCustomField'
   /**
    *	`id` of the [ReturnItem](ctp:api:type:ReturnItem) to update. Either `returnItemId` or `returnItemKey` is required.
@@ -3556,8 +3527,7 @@ export interface OrderSetShippingAddressAction extends IOrderUpdateAction {
    */
   readonly address?: _BaseAddress
 }
-export interface OrderSetShippingAddressCustomFieldAction
-  extends IOrderUpdateAction {
+export interface OrderSetShippingAddressCustomFieldAction extends IOrderUpdateAction {
   readonly action: 'setShippingAddressCustomField'
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
@@ -3574,8 +3544,7 @@ export interface OrderSetShippingAddressCustomFieldAction
    */
   readonly value?: any
 }
-export interface OrderSetShippingAddressCustomTypeAction
-  extends IOrderUpdateAction {
+export interface OrderSetShippingAddressCustomTypeAction extends IOrderUpdateAction {
   readonly action: 'setShippingAddressCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the `shippingAddress` with [Custom Fields](ctp:api:type:CustomFields).
@@ -3673,8 +3642,7 @@ export interface OrderSetStoreAction extends IOrderUpdateAction {
  *	Produces the [Custom Line Item State Transition](ctp:api:type:CustomLineItemStateTransitionMessage) Message.
  *
  */
-export interface OrderTransitionCustomLineItemStateAction
-  extends IOrderUpdateAction {
+export interface OrderTransitionCustomLineItemStateAction extends IOrderUpdateAction {
   readonly action: 'transitionCustomLineItemState'
   /**
    *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
@@ -3783,8 +3751,7 @@ export interface OrderTransitionStateAction extends IOrderUpdateAction {
  *	Updates an address in `itemShippingAddresses` by keeping the Address `key`.
  *
  */
-export interface OrderUpdateItemShippingAddressAction
-  extends IOrderUpdateAction {
+export interface OrderUpdateItemShippingAddressAction extends IOrderUpdateAction {
   readonly action: 'updateItemShippingAddress'
   /**
    *	The new Address with the same `key` as the Address it will replace.

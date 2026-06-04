@@ -359,8 +359,7 @@ export interface IDiscountCodeUpdateAction {
    */
   readonly action: string
 }
-export interface DiscountCodeChangeCartDiscountsAction
-  extends IDiscountCodeUpdateAction {
+export interface DiscountCodeChangeCartDiscountsAction extends IDiscountCodeUpdateAction {
   readonly action: 'changeCartDiscounts'
   /**
    *	New value to set.
@@ -369,8 +368,7 @@ export interface DiscountCodeChangeCartDiscountsAction
    */
   readonly cartDiscounts: CartDiscountResourceIdentifier[]
 }
-export interface DiscountCodeChangeGroupsAction
-  extends IDiscountCodeUpdateAction {
+export interface DiscountCodeChangeGroupsAction extends IDiscountCodeUpdateAction {
   readonly action: 'changeGroups'
   /**
    *	New value to set. An empty array removes the DiscountCode from all groups.
@@ -379,8 +377,7 @@ export interface DiscountCodeChangeGroupsAction
    */
   readonly groups: string[]
 }
-export interface DiscountCodeChangeIsActiveAction
-  extends IDiscountCodeUpdateAction {
+export interface DiscountCodeChangeIsActiveAction extends IDiscountCodeUpdateAction {
   readonly action: 'changeIsActive'
   /**
    *	New value to set. Set to `true` to activate the DiscountCode for all matching Discounts.
@@ -389,8 +386,7 @@ export interface DiscountCodeChangeIsActiveAction
    */
   readonly isActive: boolean
 }
-export interface DiscountCodeSetCartPredicateAction
-  extends IDiscountCodeUpdateAction {
+export interface DiscountCodeSetCartPredicateAction extends IDiscountCodeUpdateAction {
   readonly action: 'setCartPredicate'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -398,8 +394,7 @@ export interface DiscountCodeSetCartPredicateAction
    */
   readonly cartPredicate?: string
 }
-export interface DiscountCodeSetCustomFieldAction
-  extends IDiscountCodeUpdateAction {
+export interface DiscountCodeSetCustomFieldAction extends IDiscountCodeUpdateAction {
   readonly action: 'setCustomField'
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
@@ -416,8 +411,7 @@ export interface DiscountCodeSetCustomFieldAction
    */
   readonly value?: any
 }
-export interface DiscountCodeSetCustomTypeAction
-  extends IDiscountCodeUpdateAction {
+export interface DiscountCodeSetCustomTypeAction extends IDiscountCodeUpdateAction {
   readonly action: 'setCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the DiscountCode with [Custom Fields](ctp:api:type:CustomFields).
@@ -435,8 +429,7 @@ export interface DiscountCodeSetCustomTypeAction
    */
   readonly fields?: FieldContainer
 }
-export interface DiscountCodeSetDescriptionAction
-  extends IDiscountCodeUpdateAction {
+export interface DiscountCodeSetDescriptionAction extends IDiscountCodeUpdateAction {
   readonly action: 'setDescription'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -458,8 +451,7 @@ export interface DiscountCodeSetKeyAction extends IDiscountCodeUpdateAction {
    */
   readonly key?: string
 }
-export interface DiscountCodeSetMaxApplicationsAction
-  extends IDiscountCodeUpdateAction {
+export interface DiscountCodeSetMaxApplicationsAction extends IDiscountCodeUpdateAction {
   readonly action: 'setMaxApplications'
   /**
    *	Value to set.
@@ -471,8 +463,7 @@ export interface DiscountCodeSetMaxApplicationsAction
    */
   readonly maxApplications?: number
 }
-export interface DiscountCodeSetMaxApplicationsPerCustomerAction
-  extends IDiscountCodeUpdateAction {
+export interface DiscountCodeSetMaxApplicationsPerCustomerAction extends IDiscountCodeUpdateAction {
   readonly action: 'setMaxApplicationsPerCustomer'
   /**
    *	Value to set.
@@ -492,8 +483,7 @@ export interface DiscountCodeSetNameAction extends IDiscountCodeUpdateAction {
    */
   readonly name?: LocalizedString
 }
-export interface DiscountCodeSetValidFromAction
-  extends IDiscountCodeUpdateAction {
+export interface DiscountCodeSetValidFromAction extends IDiscountCodeUpdateAction {
   readonly action: 'setValidFrom'
   /**
    *	Value to set that must be earlier than `validUntil`. If empty, any existing value will be removed.
@@ -502,8 +492,7 @@ export interface DiscountCodeSetValidFromAction
    */
   readonly validFrom?: string
 }
-export interface DiscountCodeSetValidFromAndUntilAction
-  extends IDiscountCodeUpdateAction {
+export interface DiscountCodeSetValidFromAndUntilAction extends IDiscountCodeUpdateAction {
   readonly action: 'setValidFromAndUntil'
   /**
    *	Value to set that must be earlier than `validUntil`. If empty, any existing value will be removed.
@@ -518,8 +507,7 @@ export interface DiscountCodeSetValidFromAndUntilAction
    */
   readonly validUntil?: string
 }
-export interface DiscountCodeSetValidUntilAction
-  extends IDiscountCodeUpdateAction {
+export interface DiscountCodeSetValidUntilAction extends IDiscountCodeUpdateAction {
   readonly action: 'setValidUntil'
   /**
    *	Value to set that must be later than `validFrom`. If empty, any existing value will be removed.

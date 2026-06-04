@@ -396,8 +396,7 @@ export interface IStandalonePriceUpdateAction {
  *	Adding a [PriceTier](ctp:api:type:PriceTier) to a [StandalonePrice](ctp:api:type:StandalonePrice) produces the [Standalone Price Tier Added](ctp:api:type:StandalonePriceTierAddedMessage) Message.
  *
  */
-export interface StandalonePriceAddPriceTierAction
-  extends IStandalonePriceUpdateAction {
+export interface StandalonePriceAddPriceTierAction extends IStandalonePriceUpdateAction {
   readonly action: 'addPriceTier'
   /**
    *	The [PriceTier](ctp:api:type:PriceTier) to be added to the `tiers` field of the [StandalonePrice](ctp:api:type:StandalonePrice).
@@ -414,16 +413,14 @@ export interface StandalonePriceAddPriceTierAction
  *	Applies all staged changes to the StandalonePrice by overwriting all current values with the values in the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice). After successfully applied, the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice) will be removed from the StandalonePrice. An `applyStagedChanges` update action on a StandalonePrice that does not contain any staged changes will return a `400 Bad Request` error. Applying staged changes successfully will produce the [StandalonePriceStagedChangesApplied](ctp:api:type:StandalonePriceStagedChangesAppliedMessage) Message.
  *
  */
-export interface StandalonePriceApplyStagedChangesAction
-  extends IStandalonePriceUpdateAction {
+export interface StandalonePriceApplyStagedChangesAction extends IStandalonePriceUpdateAction {
   readonly action: 'applyStagedChanges'
 }
 /**
  *	Updating the value of a [StandalonePrice](ctp:api:type:StandalonePrice) produces the [StandalonePriceActiveChanged](ctp:api:type:StandalonePriceActiveChangedMessage) Message.
  *
  */
-export interface StandalonePriceChangeActiveAction
-  extends IStandalonePriceUpdateAction {
+export interface StandalonePriceChangeActiveAction extends IStandalonePriceUpdateAction {
   readonly action: 'changeActive'
   /**
    *	New value to set for the `active` field of the [StandalonePrice](ctp:api:type:StandalonePrice).
@@ -436,8 +433,7 @@ export interface StandalonePriceChangeActiveAction
  *	Updating the value of a [StandalonePrice](ctp:api:type:StandalonePrice) produces the [StandalonePriceValueChangedMessage](ctp:api:type:StandalonePriceValueChangedMessage).
  *
  */
-export interface StandalonePriceChangeValueAction
-  extends IStandalonePriceUpdateAction {
+export interface StandalonePriceChangeValueAction extends IStandalonePriceUpdateAction {
   readonly action: 'changeValue'
   /**
    *	New value to set. Must not be empty.
@@ -458,8 +454,7 @@ export interface StandalonePriceChangeValueAction
  *	Removing a [PriceTier](ctp:api:type:PriceTier) from a [StandalonePrice](ctp:api:type:StandalonePrice) produces the [Standalone Price Tier Removed](ctp:api:type:StandalonePriceTierRemovedMessage) Message.
  *
  */
-export interface StandalonePriceRemovePriceTierAction
-  extends IStandalonePriceUpdateAction {
+export interface StandalonePriceRemovePriceTierAction extends IStandalonePriceUpdateAction {
   readonly action: 'removePriceTier'
   /**
    *	The `minimumQuantity` of the [PriceTier](ctp:api:type:PriceTier) to be removed from the `tiers` field of the [StandalonePrice](ctp:api:type:StandalonePrice).
@@ -473,12 +468,10 @@ export interface StandalonePriceRemovePriceTierAction
  *	Removing staged changes successfully produces the [StandalonePriceStagedChangesRemoved](ctp:api:type:StandalonePriceStagedChangesRemovedMessage) Message.
  *
  */
-export interface StandalonePriceRemoveStagedChangesAction
-  extends IStandalonePriceUpdateAction {
+export interface StandalonePriceRemoveStagedChangesAction extends IStandalonePriceUpdateAction {
   readonly action: 'removeStagedChanges'
 }
-export interface StandalonePriceSetCustomFieldAction
-  extends IStandalonePriceUpdateAction {
+export interface StandalonePriceSetCustomFieldAction extends IStandalonePriceUpdateAction {
   readonly action: 'setCustomField'
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
@@ -495,8 +488,7 @@ export interface StandalonePriceSetCustomFieldAction
    */
   readonly value?: any
 }
-export interface StandalonePriceSetCustomTypeAction
-  extends IStandalonePriceUpdateAction {
+export interface StandalonePriceSetCustomTypeAction extends IStandalonePriceUpdateAction {
   readonly action: 'setCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the StandalonePrice with [Custom Fields](ctp:api:type:CustomFields).
@@ -521,8 +513,7 @@ export interface StandalonePriceSetCustomTypeAction
  *	Produces the [StandalonePriceExternalDiscountSet](ctp:api:type:StandalonePriceExternalDiscountSetMessage) Message.
  *
  */
-export interface StandalonePriceSetDiscountedPriceAction
-  extends IStandalonePriceUpdateAction {
+export interface StandalonePriceSetDiscountedPriceAction extends IStandalonePriceUpdateAction {
   readonly action: 'setDiscountedPrice'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -537,8 +528,7 @@ export interface StandalonePriceSetDiscountedPriceAction
  *	Sets the key on a Standalone Price. Produces the [StandalonePriceKeySet](ctp:api:type:StandalonePriceKeySetMessage) Message.
  *
  */
-export interface StandalonePriceSetKeyAction
-  extends IStandalonePriceUpdateAction {
+export interface StandalonePriceSetKeyAction extends IStandalonePriceUpdateAction {
   readonly action: 'setKey'
   /**
    *	Value to set. Must be unique. If empty, any existing value will be removed.
@@ -551,8 +541,7 @@ export interface StandalonePriceSetKeyAction
  *	Sets all [PriceTiers](ctp:api:type:PriceTier) for a [StandalonePrice](ctp:api:type:StandalonePrice) in one action, produces the [Standalone Price Tiers Set](ctp:api:type:StandalonePriceTiersSetMessage) Message.
  *
  */
-export interface StandalonePriceSetPriceTiersAction
-  extends IStandalonePriceUpdateAction {
+export interface StandalonePriceSetPriceTiersAction extends IStandalonePriceUpdateAction {
   readonly action: 'setPriceTiers'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -570,8 +559,7 @@ export interface StandalonePriceSetPriceTiersAction
  *	If a modification is already in progress for the exact combination of SKU and price scope fields, an [ExactLockConflict](ctp:api:type:ExactLockConflictError) or a [ValidityLockConflict](ctp:api:type:ValidityLockConflictError) error is returned.
  *
  */
-export interface StandalonePriceSetValidFromAction
-  extends IStandalonePriceUpdateAction {
+export interface StandalonePriceSetValidFromAction extends IStandalonePriceUpdateAction {
   readonly action: 'setValidFrom'
   /**
    *	Value to set.
@@ -589,8 +577,7 @@ export interface StandalonePriceSetValidFromAction
  *	If a modification is already in progress for the exact combination of SKU and price scope fields, an [ExactLockConflict](ctp:api:type:ExactLockConflictError) or a [ValidityLockConflict](ctp:api:type:ValidityLockConflictError) error is returned.
  *
  */
-export interface StandalonePriceSetValidFromAndUntilAction
-  extends IStandalonePriceUpdateAction {
+export interface StandalonePriceSetValidFromAndUntilAction extends IStandalonePriceUpdateAction {
   readonly action: 'setValidFromAndUntil'
   /**
    *	Value to set.
@@ -615,8 +602,7 @@ export interface StandalonePriceSetValidFromAndUntilAction
  *	If a modification is already in progress for the exact combination of SKU and price scope fields, an [ExactLockConflict](ctp:api:type:ExactLockConflictError) or a [ValidityLockConflict](ctp:api:type:ValidityLockConflictError) error is returned.
  *
  */
-export interface StandalonePriceSetValidUntilAction
-  extends IStandalonePriceUpdateAction {
+export interface StandalonePriceSetValidUntilAction extends IStandalonePriceUpdateAction {
   readonly action: 'setValidUntil'
   /**
    *	Value to set.

@@ -552,8 +552,7 @@ export interface DuplicateFieldError extends IErrorObject {
  *	Returned when a field value conflicts with an existing value stored in a particular resource causing a duplicate.
  *
  */
-export interface DuplicateFieldWithConflictingResourceError
-  extends IErrorObject {
+export interface DuplicateFieldWithConflictingResourceError extends IErrorObject {
   readonly code: 'DuplicateFieldWithConflictingResource'
   [key: string]: any
   /**
@@ -2015,8 +2014,7 @@ export interface ProductAssignmentMissingError extends IErrorObject {
  *	The error is returned as a failed response either to the [Add Product](ctp:api:type:ProductSelectionAddProductAction) or to the [Exclude Product](ctp:api:type:ProductSelectionExcludeProductAction) update action.
  *
  */
-export interface ProductPresentWithDifferentVariantSelectionError
-  extends IErrorObject {
+export interface ProductPresentWithDifferentVariantSelectionError extends IErrorObject {
   readonly code: 'ProductPresentWithDifferentVariantSelection'
   [key: string]: any
   /**
@@ -2536,8 +2534,7 @@ export interface IGraphQLErrorObject {
  *	The client application should choose another anonymous ID or retrieve an automatically generated one.
  *
  */
-export interface GraphQLAnonymousIdAlreadyInUseError
-  extends IGraphQLErrorObject {
+export interface GraphQLAnonymousIdAlreadyInUseError extends IGraphQLErrorObject {
   readonly code: 'AnonymousIdAlreadyInUse'
   [key: string]: any
 }
@@ -2545,8 +2542,7 @@ export interface GraphQLAnonymousIdAlreadyInUseError
  *	Returned when an [Associate](/projects/business-units#associate) is missing a [Permission](/projects/associate-roles#ctp:api:type:Permission) on a [B2B resource](/associates-overview#b2b-resources).
  *
  */
-export interface GraphQLAssociateMissingPermissionError
-  extends IGraphQLErrorObject {
+export interface GraphQLAssociateMissingPermissionError extends IGraphQLErrorObject {
   readonly code: 'AssociateMissingPermission'
   [key: string]: any
   /**
@@ -2580,8 +2576,7 @@ export interface GraphQLAssociateMissingPermissionError
  *	The error is returned as a failed response to the [Create ProductType](ctp:api:endpoint:/{projectKey}/product-types:POST) request or [Change AttributeDefinition Name](ctp:api:type:ProductTypeChangeAttributeNameAction) update action.
  *
  */
-export interface GraphQLAttributeDefinitionAlreadyExistsError
-  extends IGraphQLErrorObject {
+export interface GraphQLAttributeDefinitionAlreadyExistsError extends IGraphQLErrorObject {
   readonly code: 'AttributeDefinitionAlreadyExists'
   [key: string]: any
   /**
@@ -2609,8 +2604,7 @@ export interface GraphQLAttributeDefinitionAlreadyExistsError
  *	The error is returned as a failed response to the [Create ProductType](ctp:api:endpoint:/{projectKey}/product-types:POST) request.
  *
  */
-export interface GraphQLAttributeDefinitionTypeConflictError
-  extends IGraphQLErrorObject {
+export interface GraphQLAttributeDefinitionTypeConflictError extends IGraphQLErrorObject {
   readonly code: 'AttributeDefinitionTypeConflict'
   [key: string]: any
   /**
@@ -2638,8 +2632,7 @@ export interface GraphQLAttributeDefinitionTypeConflictError
  *	The error is returned as a failed response to the [Change AttributeDefinition Name](ctp:api:type:ProductTypeChangeAttributeNameAction) update action.
  *
  */
-export interface GraphQLAttributeNameDoesNotExistError
-  extends IGraphQLErrorObject {
+export interface GraphQLAttributeNameDoesNotExistError extends IGraphQLErrorObject {
   readonly code: 'AttributeNameDoesNotExist'
   [key: string]: any
   /**
@@ -2672,8 +2665,7 @@ export interface GraphQLCircularDependencyError extends IGraphQLErrorObject {
  *	The client application should resolve the conflict (with or without involving the end user) before retrying the request.
  *
  */
-export interface GraphQLConcurrentModificationError
-  extends IGraphQLErrorObject {
+export interface GraphQLConcurrentModificationError extends IGraphQLErrorObject {
   readonly code: 'ConcurrentModification'
   [key: string]: any
   /**
@@ -2704,8 +2696,7 @@ export interface GraphQLContentTooLargeError extends IGraphQLErrorObject {
  *	- [Set Country](ctp:api:type:StagedOrderSetCountryAction) update action on Order Edits.
  *
  */
-export interface GraphQLCountryNotConfiguredInStoreError
-  extends IGraphQLErrorObject {
+export interface GraphQLCountryNotConfiguredInStoreError extends IGraphQLErrorObject {
   readonly code: 'CountryNotConfiguredInStore'
   [key: string]: any
   /**
@@ -2737,8 +2728,7 @@ export interface GraphQLCountryNotConfiguredInStoreError
  *	- [Create Order from Cart in BusinessUnit](ctp:api:endpoint:/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/orders:POST) request on Associate Orders.
  *
  */
-export interface GraphQLDiscountCodeNonApplicableError
-  extends IGraphQLErrorObject {
+export interface GraphQLDiscountCodeNonApplicableError extends IGraphQLErrorObject {
   readonly code: 'DiscountCodeNonApplicable'
   [key: string]: any
   /**
@@ -2782,8 +2772,7 @@ export interface GraphQLDiscountCodeNonApplicableError
  *	Returned when the `Unique` [AttributeConstraint](ctp:api:type:AttributeConstraintEnum) criteria are not met during an [Update Product](/../api/projects/products#update-product) request.
  *
  */
-export interface GraphQLDuplicateAttributeValueError
-  extends IGraphQLErrorObject {
+export interface GraphQLDuplicateAttributeValueError extends IGraphQLErrorObject {
   readonly code: 'DuplicateAttributeValue'
   [key: string]: any
   /**
@@ -2797,8 +2786,7 @@ export interface GraphQLDuplicateAttributeValueError
  *	Returned when the `CombinationUnique` [AttributeConstraint](ctp:api:type:AttributeConstraintEnum) criteria are not met during an [Update Product](/../api/projects/products#update-product) request.
  *
  */
-export interface GraphQLDuplicateAttributeValuesError
-  extends IGraphQLErrorObject {
+export interface GraphQLDuplicateAttributeValuesError extends IGraphQLErrorObject {
   readonly code: 'DuplicateAttributeValues'
   [key: string]: any
   /**
@@ -2846,8 +2834,7 @@ export interface GraphQLDuplicateFieldError extends IGraphQLErrorObject {
  *	Returned when a field value conflicts with an existing value stored in a particular resource causing a duplicate.
  *
  */
-export interface GraphQLDuplicateFieldWithConflictingResourceError
-  extends IGraphQLErrorObject {
+export interface GraphQLDuplicateFieldWithConflictingResourceError extends IGraphQLErrorObject {
   readonly code: 'DuplicateFieldWithConflictingResource'
   [key: string]: any
   /**
@@ -2908,8 +2895,7 @@ export interface GraphQLDuplicatePriceScopeError extends IGraphQLErrorObject {
  *	The error is returned as a failed response to the [Create StandalonePrice](ctp:api:endpoint:/{projectKey}/standalone-prices:POST) request.
  *
  */
-export interface GraphQLDuplicateStandalonePriceScopeError
-  extends IGraphQLErrorObject {
+export interface GraphQLDuplicateStandalonePriceScopeError extends IGraphQLErrorObject {
   readonly code: 'DuplicateStandalonePriceScope'
   [key: string]: any
   /**
@@ -2965,8 +2951,7 @@ export interface GraphQLDuplicateStandalonePriceScopeError
  *	Returned when a [Product Variant](ctp:api:type:ProductVariant) value conflicts with an existing one during an [Update Product](/../api/projects/products#update-product) request.
  *
  */
-export interface GraphQLDuplicateVariantValuesError
-  extends IGraphQLErrorObject {
+export interface GraphQLDuplicateVariantValuesError extends IGraphQLErrorObject {
   readonly code: 'DuplicateVariantValues'
   [key: string]: any
   /**
@@ -3125,8 +3110,7 @@ export interface GraphQLExactLockConflictError extends IGraphQLErrorObject {
  *	- [Verify email of Customer](ctp:api:endpoint:/{projectKey}/customers/email/confirm:POST) and [Verify email of Customer in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/email/confirm:POST) requests
  *
  */
-export interface GraphQLExpiredCustomerEmailTokenError
-  extends IGraphQLErrorObject {
+export interface GraphQLExpiredCustomerEmailTokenError extends IGraphQLErrorObject {
   readonly code: 'ExpiredCustomerEmailToken'
   [key: string]: any
 }
@@ -3139,8 +3123,7 @@ export interface GraphQLExpiredCustomerEmailTokenError
  *	- [Reset password of Customer](ctp:api:endpoint:/{projectKey}/customers/password/reset:POST) and [Reset password of Customer in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password/reset:POST) requests
  *
  */
-export interface GraphQLExpiredCustomerPasswordTokenError
-  extends IGraphQLErrorObject {
+export interface GraphQLExpiredCustomerPasswordTokenError extends IGraphQLErrorObject {
   readonly code: 'ExpiredCustomerPasswordToken'
   [key: string]: any
 }
@@ -3210,8 +3193,7 @@ export interface GraphQLExtensionChainTooWideError extends IGraphQLErrorObject {
  *	Returned when attempting to delete an Extension that is a prerequisite for other Extensions.
  *
  */
-export interface GraphQLExtensionDependencyExistsError
-  extends IGraphQLErrorObject {
+export interface GraphQLExtensionDependencyExistsError extends IGraphQLErrorObject {
   readonly code: 'ExtensionDependencyExists'
   [key: string]: any
 }
@@ -3239,8 +3221,7 @@ export interface GraphQLExtensionNoResponseError extends IGraphQLErrorObject {
  *	Returned when the predicate defined in the [ExtensionTrigger](ctp:api:type:ExtensionTrigger) could not be evaluated due to a missing field.
  *
  */
-export interface GraphQLExtensionPredicateEvaluationFailedError
-  extends IGraphQLErrorObject {
+export interface GraphQLExtensionPredicateEvaluationFailedError extends IGraphQLErrorObject {
   readonly code: 'ExtensionPredicateEvaluationFailed'
   [key: string]: any
   /**
@@ -3255,8 +3236,7 @@ export interface GraphQLExtensionPredicateEvaluationFailedError
  *	This would result in a [400 Bad Request](#400-bad-request) response if the same update action was sent from a regular client.
  *
  */
-export interface GraphQLExtensionUpdateActionsFailedError
-  extends IGraphQLErrorObject {
+export interface GraphQLExtensionUpdateActionsFailedError extends IGraphQLErrorObject {
   readonly code: 'ExtensionUpdateActionsFailed'
   [key: string]: any
   /**
@@ -3317,8 +3297,7 @@ export interface GraphQLInsufficientScopeError extends IGraphQLErrorObject {
  *	Returned when certain API-specific constraints were not met. For example, the specified [Discount Code](ctp:api:type:DiscountCode) was never applied and cannot be updated.
  *
  */
-export interface GraphQLInternalConstraintViolatedError
-  extends IGraphQLErrorObject {
+export interface GraphQLInternalConstraintViolatedError extends IGraphQLErrorObject {
   readonly code: 'InternalConstraintViolated'
   [key: string]: any
 }
@@ -3344,8 +3323,7 @@ export interface GraphQLInvalidCredentialsError extends IGraphQLErrorObject {
  *	- [Change Customer Password](ctp:api:endpoint:/{projectKey}/me/password:POST) and [Change Customer Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/me/password:POST) requests on My Customer Profile.
  *
  */
-export interface GraphQLInvalidCurrentPasswordError
-  extends IGraphQLErrorObject {
+export interface GraphQLInvalidCurrentPasswordError extends IGraphQLErrorObject {
   readonly code: 'InvalidCurrentPassword'
   [key: string]: any
 }
@@ -3399,8 +3377,7 @@ export interface GraphQLInvalidInputError extends IGraphQLErrorObject {
  *	- [Create Order from Cart in BusinessUnit](ctp:api:endpoint:/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/orders:POST) and [Create Order from Quote in BusinessUnit](ctp:api:endpoint:/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/orders/quotes:POST) requests on Associate Orders.
  *
  */
-export interface GraphQLInvalidItemShippingDetailsError
-  extends IGraphQLErrorObject {
+export interface GraphQLInvalidItemShippingDetailsError extends IGraphQLErrorObject {
   readonly code: 'InvalidItemShippingDetails'
   [key: string]: any
   /**
@@ -3464,8 +3441,7 @@ export interface GraphQLLanguageUsedInStoresError extends IGraphQLErrorObject {
  *	Returned when attempting to create or update a [Cart](ctp:api:type:Cart) with a Line Item whose quantity exceeds the `maxCartQuantity` limit defined in the [InventoryEntry](ctp:api:type:InventoryEntry) for that Line Item's SKU.
  *
  */
-export interface GraphQLLineItemQuantityAboveLimitError
-  extends IGraphQLErrorObject {
+export interface GraphQLLineItemQuantityAboveLimitError extends IGraphQLErrorObject {
   readonly code: 'LineItemQuantityAboveLimit'
   [key: string]: any
   /**
@@ -3491,8 +3467,7 @@ export interface GraphQLLineItemQuantityAboveLimitError
  *	Returned when attempting to create or update a [Cart](ctp:api:type:Cart) with a Line Item whose quantity is below the `minCartQuantity` limit defined in the [InventoryEntry](ctp:api:type:InventoryEntry) for that Line Item's SKU.
  *
  */
-export interface GraphQLLineItemQuantityBelowLimitError
-  extends IGraphQLErrorObject {
+export interface GraphQLLineItemQuantityBelowLimitError extends IGraphQLErrorObject {
   readonly code: 'LineItemQuantityBelowLimit'
   [key: string]: any
   /**
@@ -3596,8 +3571,7 @@ export interface GraphQLMatchingPriceNotFoundError extends IGraphQLErrorObject {
  *	- [Change IsActive](ctp:api:type:CartDiscountChangeIsActiveAction) update action
  *
  */
-export interface GraphQLMaxCartDiscountsReachedError
-  extends IGraphQLErrorObject {
+export interface GraphQLMaxCartDiscountsReachedError extends IGraphQLErrorObject {
   readonly code: 'MaxCartDiscountsReached'
   [key: string]: any
 }
@@ -3610,8 +3584,7 @@ export interface GraphQLMaxCartDiscountsReachedError
  *	- [Set IsActive](ctp:api:type:DiscountGroupSetIsActiveAction) update action
  *
  */
-export interface GraphQLMaxDiscountGroupsReachedError
-  extends IGraphQLErrorObject {
+export interface GraphQLMaxDiscountGroupsReachedError extends IGraphQLErrorObject {
   readonly code: 'MaxDiscountGroupsReached'
   [key: string]: any
 }
@@ -3621,8 +3594,7 @@ export interface GraphQLMaxDiscountGroupsReachedError
  *	The limits must be adjusted for this resource before sending the request again.
  *
  */
-export interface GraphQLMaxResourceLimitExceededError
-  extends IGraphQLErrorObject {
+export interface GraphQLMaxResourceLimitExceededError extends IGraphQLErrorObject {
   readonly code: 'MaxResourceLimitExceeded'
   [key: string]: any
   /**
@@ -3641,8 +3613,7 @@ export interface GraphQLMaxResourceLimitExceededError
  *	- [Add Store](ctp:api:type:CartDiscountAddStoreAction) and [Set Store](ctp:api:type:CartDiscountSetStoresAction) update actions
  *
  */
-export interface GraphQLMaxStoreReferencesReachedError
-  extends IGraphQLErrorObject {
+export interface GraphQLMaxStoreReferencesReachedError extends IGraphQLErrorObject {
   readonly code: 'MaxStoreReferencesReached'
   [key: string]: any
 }
@@ -3700,8 +3671,7 @@ export interface GraphQLMissingRoleOnChannelError extends IGraphQLErrorObject {
  *	- [Create Order from Cart in BusinessUnit](ctp:api:endpoint:/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/orders:POST) requests on Associate Orders.
  *
  */
-export interface GraphQLMissingTaxRateForCountryError
-  extends IGraphQLErrorObject {
+export interface GraphQLMissingTaxRateForCountryError extends IGraphQLErrorObject {
   readonly code: 'MissingTaxRateForCountry'
   [key: string]: any
   /**
@@ -3737,8 +3707,7 @@ export interface GraphQLMoneyOverflowError extends IGraphQLErrorObject {
  *	The error is returned as a failed response to the [Get Matching ProductDiscount](ctp:api:endpoint:/{projectKey}/product-discounts/matching:POST) request.
  *
  */
-export interface GraphQLNoMatchingProductDiscountFoundError
-  extends IGraphQLErrorObject {
+export interface GraphQLNoMatchingProductDiscountFoundError extends IGraphQLErrorObject {
   readonly code: 'NoMatchingProductDiscountFound'
   [key: string]: any
 }
@@ -3793,8 +3762,7 @@ export interface GraphQLOverCapacityError extends IGraphQLErrorObject {
  *	The error is returned as a failed response to the [Create StandalonePrice](ctp:api:endpoint:/{projectKey}/standalone-prices:POST) request.
  *
  */
-export interface GraphQLOverlappingStandalonePriceValidityError
-  extends IGraphQLErrorObject {
+export interface GraphQLOverlappingStandalonePriceValidityError extends IGraphQLErrorObject {
   readonly code: 'OverlappingStandalonePriceValidity'
   [key: string]: any
   /**
@@ -3902,8 +3870,7 @@ export interface GraphQLPriceChangedError extends IGraphQLErrorObject {
  *	The error is returned as a failed response either to the [Set Variant Selection](ctp:api:type:ProductSelectionSetVariantSelectionAction) or to the [Set Variant Exclusion](ctp:api:type:ProductSelectionSetVariantExclusionAction) update action.
  *
  */
-export interface GraphQLProductAssignmentMissingError
-  extends IGraphQLErrorObject {
+export interface GraphQLProductAssignmentMissingError extends IGraphQLErrorObject {
   readonly code: 'ProductAssignmentMissing'
   [key: string]: any
   /**
@@ -3919,8 +3886,7 @@ export interface GraphQLProductAssignmentMissingError
  *	The error is returned as a failed response either to the [Add Product](ctp:api:type:ProductSelectionAddProductAction) or to the [Exclude Product](ctp:api:type:ProductSelectionExcludeProductAction) update action.
  *
  */
-export interface GraphQLProductPresentWithDifferentVariantSelectionError
-  extends IGraphQLErrorObject {
+export interface GraphQLProductPresentWithDifferentVariantSelectionError extends IGraphQLErrorObject {
   readonly code: 'ProductPresentWithDifferentVariantSelection'
   [key: string]: any
   /**
@@ -3942,8 +3908,7 @@ export interface GraphQLProductPresentWithDifferentVariantSelectionError
  *	The error is returned as a failed response to the [Set Languages](ctp:api:type:StoreSetLanguagesAction) update action.
  *
  */
-export interface GraphQLProjectNotConfiguredForLanguagesError
-  extends IGraphQLErrorObject {
+export interface GraphQLProjectNotConfiguredForLanguagesError extends IGraphQLErrorObject {
   readonly code: 'ProjectNotConfiguredForLanguages'
   [key: string]: any
   /**
@@ -3953,8 +3918,7 @@ export interface GraphQLProjectNotConfiguredForLanguagesError
    */
   readonly languages?: string[]
 }
-export interface GraphQLQueryComplexityLimitExceededError
-  extends IGraphQLErrorObject {
+export interface GraphQLQueryComplexityLimitExceededError extends IGraphQLErrorObject {
   readonly code: 'QueryComplexityLimitExceeded'
   [key: string]: any
 }
@@ -4000,8 +3964,7 @@ export interface GraphQLReferenceExistsError extends IGraphQLErrorObject {
  *	Returned when a resource referenced by a [Reference](ctp:api:type:Reference) or a [ResourceIdentifier](ctp:api:type:ResourceIdentifier) could not be found.
  *
  */
-export interface GraphQLReferencedResourceNotFoundError
-  extends IGraphQLErrorObject {
+export interface GraphQLReferencedResourceNotFoundError extends IGraphQLErrorObject {
   readonly code: 'ReferencedResourceNotFound'
   [key: string]: any
   /**
@@ -4049,8 +4012,7 @@ export interface GraphQLResourceNotFoundError extends IGraphQLErrorObject {
  *	Returned when the resource exceeds the maximum allowed size of 16 MB.
  *
  */
-export interface GraphQLResourceSizeLimitExceededError
-  extends IGraphQLErrorObject {
+export interface GraphQLResourceSizeLimitExceededError extends IGraphQLErrorObject {
   readonly code: 'ResourceSizeLimitExceeded'
   [key: string]: any
 }
@@ -4068,8 +4030,7 @@ export interface GraphQLSearchDeactivatedError extends IGraphQLErrorObject {
  *	Returned when a search query could not be completed due to an unexpected failure.
  *
  */
-export interface GraphQLSearchExecutionFailureError
-  extends IGraphQLErrorObject {
+export interface GraphQLSearchExecutionFailureError extends IGraphQLErrorObject {
   readonly code: 'SearchExecutionFailure'
   [key: string]: any
 }
@@ -4077,8 +4038,7 @@ export interface GraphQLSearchExecutionFailureError
  *	Returned when a search facet path could not be found.
  *
  */
-export interface GraphQLSearchFacetPathNotFoundError
-  extends IGraphQLErrorObject {
+export interface GraphQLSearchFacetPathNotFoundError extends IGraphQLErrorObject {
   readonly code: 'SearchFacetPathNotFound'
   [key: string]: any
 }
@@ -4086,8 +4046,7 @@ export interface GraphQLSearchFacetPathNotFoundError
  *	Returned when the indexing of Product information is still in progress for Projects that have indexing activated.
  *
  */
-export interface GraphQLSearchIndexingInProgressError
-  extends IGraphQLErrorObject {
+export interface GraphQLSearchIndexingInProgressError extends IGraphQLErrorObject {
   readonly code: 'SearchIndexingInProgress'
   [key: string]: any
 }
@@ -4119,8 +4078,7 @@ export interface GraphQLSemanticErrorError extends IGraphQLErrorObject {
  *	- [Create Order from Cart in BusinessUnit](ctp:api:endpoint:/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/orders:POST) request on Associate Orders.
  *
  */
-export interface GraphQLShippingMethodDoesNotMatchCartError
-  extends IGraphQLErrorObject {
+export interface GraphQLShippingMethodDoesNotMatchCartError extends IGraphQLErrorObject {
   readonly code: 'ShippingMethodDoesNotMatchCart'
   [key: string]: any
 }
@@ -4133,8 +4091,7 @@ export interface GraphQLShippingMethodDoesNotMatchCartError
  *	- [Add Store](ctp:api:type:CartDiscountAddStoreAction) and [Set Store](ctp:api:type:CartDiscountSetStoresAction) update actions
  *
  */
-export interface GraphQLStoreCartDiscountsLimitReachedError
-  extends IGraphQLErrorObject {
+export interface GraphQLStoreCartDiscountsLimitReachedError extends IGraphQLErrorObject {
   readonly code: 'StoreCartDiscountsLimitReached'
   [key: string]: any
   /**

@@ -18,5 +18,6 @@
     "enabled": true
   },
   "labels": ["Type: Maintenance"],
-  "ignoreDeps": []
+  "ignoreDeps": [],
+  "ignorePaths": ["examples/**"]
 }

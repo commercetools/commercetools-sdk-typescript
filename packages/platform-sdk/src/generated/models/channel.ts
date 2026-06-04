@@ -342,8 +342,7 @@ export interface ChannelSetAddressAction extends IChannelUpdateAction {
    */
   readonly address?: _BaseAddress
 }
-export interface ChannelSetAddressCustomFieldAction
-  extends IChannelUpdateAction {
+export interface ChannelSetAddressCustomFieldAction extends IChannelUpdateAction {
   readonly action: 'setAddressCustomField'
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
@@ -360,8 +359,7 @@ export interface ChannelSetAddressCustomFieldAction
    */
   readonly value?: any
 }
-export interface ChannelSetAddressCustomTypeAction
-  extends IChannelUpdateAction {
+export interface ChannelSetAddressCustomTypeAction extends IChannelUpdateAction {
   readonly action: 'setAddressCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the `address` with [Custom Fields](ctp:api:type:CustomFields).
