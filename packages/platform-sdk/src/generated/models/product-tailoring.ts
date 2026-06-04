@@ -10,9 +10,9 @@ import {
   AssetSource,
   BaseResource,
   CreatedBy,
-  Image,
   IReference,
   IResourceIdentifier,
+  Image,
   LastModifiedBy,
   LocalizedString,
 } from './common'

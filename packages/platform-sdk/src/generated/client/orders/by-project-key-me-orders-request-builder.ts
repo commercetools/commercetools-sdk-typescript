@@ -5,7 +5,7 @@
  */
 import { MyOrderFromCartDraft } from '../../models/me'
 import { Order, OrderPagedQueryResponse } from '../../models/order'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyMeOrdersQuotesRequestBuilder } from '../quotes/by-project-key-me-orders-quotes-request-builder'
 import { ByProjectKeyMeOrdersByIDRequestBuilder } from './by-project-key-me-orders-by-id-request-builder'

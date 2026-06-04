@@ -293,6 +293,8 @@ export * from './client/types/by-project-key-types-request-builder'
 export * from './client/zones/by-project-key-zones-by-id-request-builder'
 export * from './client/zones/by-project-key-zones-key-by-key-request-builder'
 export * from './client/zones/by-project-key-zones-request-builder'
+
+//models
 export * from './models/api-client'
 export * from './models/approval-flow'
 export * from './models/approval-rule'
@@ -304,7 +306,6 @@ export * from './models/cart'
 export * from './models/cart-discount'
 export * from './models/category'
 export * from './models/channel'
-//models
 export * from './models/common'
 export * from './models/custom-object'
 export * from './models/customer'
@@ -350,10 +351,9 @@ export * from './models/tax-category'
 export * from './models/type'
 export * from './models/warning'
 export * from './models/zone'
+
 //Common package
 export * from './shared/utils/common-types'
 export * from './shared/utils/middleware'
 export * from './shared/utils/requests-utils'
 export * from './shared/utils/uri-utils'
-
-

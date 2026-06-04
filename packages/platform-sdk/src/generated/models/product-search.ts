@@ -8,8 +8,8 @@ import { ErrorObject, ErrorResponse } from './error'
 import { ProductProjection } from './product'
 import {
   SearchFieldType,
-  SearchSorting,
   SearchSortOrder,
+  SearchSorting,
   _SearchQuery,
 } from './search'
 

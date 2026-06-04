@@ -8,7 +8,7 @@ import {
   ApplicationDraft,
   PaginatedApplication,
 } from '../../models/application'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyApplicationsByIdRequestBuilder } from './by-project-key-applications-by-id-request-builder'
 import { ByProjectKeyApplicationsKeyByKeyRequestBuilder } from './by-project-key-applications-key-by-key-request-builder'

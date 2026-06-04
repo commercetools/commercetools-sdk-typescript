@@ -8,7 +8,7 @@ import {
   SubscriptionDraft,
   SubscriptionPagedQueryResponse,
 } from '../../models/subscription'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeySubscriptionsByIDRequestBuilder } from './by-project-key-subscriptions-by-id-request-builder'
 import { ByProjectKeySubscriptionsKeyByKeyRequestBuilder } from './by-project-key-subscriptions-key-by-key-request-builder'

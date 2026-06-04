@@ -16,9 +16,9 @@ import {
   RoundingMode,
   ShippingRateInputDraft,
   TaxCalculationMode,
-  TaxedPrice,
   TaxMode,
   TaxPortionDraft,
+  TaxedPrice,
 } from './cart'
 import { ChannelResourceIdentifier } from './channel'
 import {

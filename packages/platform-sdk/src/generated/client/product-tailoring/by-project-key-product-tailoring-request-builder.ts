@@ -8,7 +8,7 @@ import {
   ProductTailoringDraft,
   ProductTailoringPagedQueryResponse,
 } from '../../models/product-tailoring'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyProductTailoringByIDRequestBuilder } from './by-project-key-product-tailoring-by-id-request-builder'
 import { ByProjectKeyProductTailoringKeyByKeyRequestBuilder } from './by-project-key-product-tailoring-key-by-key-request-builder'

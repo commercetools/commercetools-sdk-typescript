@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { Product, ProductUpdate } from '../../models/product'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyProductsKeyByKeyProductSelectionsRequestBuilder } from '../product-selections/by-project-key-products-key-by-key-product-selections-request-builder'
 /**

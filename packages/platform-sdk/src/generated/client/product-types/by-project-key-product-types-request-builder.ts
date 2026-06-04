@@ -8,7 +8,7 @@ import {
   ProductTypeDraft,
   ProductTypePagedQueryResponse,
 } from '../../models/product-type'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyProductTypesByIDRequestBuilder } from './by-project-key-product-types-by-id-request-builder'
 import { ByProjectKeyProductTypesKeyByKeyRequestBuilder } from './by-project-key-product-types-key-by-key-request-builder'

@@ -14,8 +14,8 @@ import {
   ShippingInfo,
   ShippingRateInput,
   TaxCalculationMode,
-  TaxedPrice,
   TaxMode,
+  TaxedPrice,
 } from './cart'
 import {
   Address,

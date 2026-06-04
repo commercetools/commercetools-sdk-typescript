@@ -8,7 +8,7 @@ import {
   AssociateRoleDraft,
   AssociateRolePagedQueryResponse,
 } from '../../models/associate-role'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyAssociateRolesByIDRequestBuilder } from './by-project-key-associate-roles-by-id-request-builder'
 import { ByProjectKeyAssociateRolesKeyByKeyRequestBuilder } from './by-project-key-associate-roles-key-by-key-request-builder'

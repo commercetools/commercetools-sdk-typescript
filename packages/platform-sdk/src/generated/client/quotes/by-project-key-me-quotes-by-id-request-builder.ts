@@ -5,7 +5,7 @@
  */
 import { MyQuoteUpdate } from '../../models/me'
 import { Quote } from '../../models/quote'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/

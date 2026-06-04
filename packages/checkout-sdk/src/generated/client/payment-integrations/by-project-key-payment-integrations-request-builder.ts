@@ -8,7 +8,7 @@ import {
   PaymentIntegration,
 } from '../../models/payment-integration'
 import { PaymentIntegrationDraft } from '../../models/payment-integration-draft'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyPaymentIntegrationsByIdRequestBuilder } from './by-project-key-payment-integrations-by-id-request-builder'
 import { ByProjectKeyPaymentIntegrationsKeyByKeyRequestBuilder } from './by-project-key-payment-integrations-key-by-key-request-builder'

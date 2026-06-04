@@ -8,7 +8,7 @@ import {
   ShippingMethodDraft,
   ShippingMethodPagedQueryResponse,
 } from '../../models/shipping-method'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyShippingMethodsMatchingCartLocationRequestBuilder } from '../matching-cart-location/by-project-key-shipping-methods-matching-cart-location-request-builder'
 import { ByProjectKeyShippingMethodsMatchingCartRequestBuilder } from '../matching-cart/by-project-key-shipping-methods-matching-cart-request-builder'

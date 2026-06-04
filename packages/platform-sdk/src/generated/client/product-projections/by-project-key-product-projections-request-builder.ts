@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { ProductProjectionPagedQueryResponse } from '../../models/product'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyProductProjectionsSearchRequestBuilder } from '../search/by-project-key-product-projections-search-request-builder'
 import { ByProjectKeyProductProjectionsSuggestRequestBuilder } from '../suggest/by-project-key-product-projections-suggest-request-builder'
