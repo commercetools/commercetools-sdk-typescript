@@ -98,7 +98,7 @@ export interface ShoppingList extends BaseResource {
    */
   readonly store?: StoreKeyReference
   /**
-   *	[Reference](ctp:api:type:Reference) to the Business Unit the Shopping List belongs to. Only available for [B2B](/../offering/commerce-b2b)-enabled Projects.
+   *	[Reference](ctp:api:type:Reference) to the Business Unit the Shopping List belongs to. Only available for [B2B](/offering/commerce-b2b)-enabled Projects.
    *
    *
    */
@@ -196,7 +196,7 @@ export interface ShoppingListDraft {
    */
   readonly store?: StoreResourceIdentifier
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of the Business Unit the Shopping List should belong to. When the `customer` of the Shopping List is set, the [Customer](ctp:api:type:Customer) must be an [Associate](ctp:api:type:Associate) of the Business Unit. Only available for [B2B](/../offering/commerce-b2b)-enabled Projects.
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of the Business Unit the Shopping List should belong to. When the `customer` of the Shopping List is set, the [Customer](ctp:api:type:Customer) must be an [Associate](ctp:api:type:Associate) of the Business Unit. Only available for [B2B](/offering/commerce-b2b)-enabled Projects.
    *
    *
    */
@@ -350,7 +350,7 @@ export interface ShoppingListLineItemDraft {
 }
 export interface ShoppingListPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
@@ -363,16 +363,16 @@ export interface ShoppingListPagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
   readonly total?: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -397,14 +397,14 @@ export interface ShoppingListReference extends IReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded ShoppingList. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for ShoppingLists.
+   *	Contains the representation of the expanded ShoppingList. Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for ShoppingLists.
    *
    *
    */
   readonly obj?: ShoppingList
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ShoppingList](ctp:api:type:ShoppingList). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ShoppingList](ctp:api:type:ShoppingList). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface ShoppingListResourceIdentifier extends IResourceIdentifier {
@@ -802,7 +802,7 @@ export interface ShoppingListSetAnonymousIdAction extends IShoppingListUpdateAct
 export interface ShoppingListSetBusinessUnitAction extends IShoppingListUpdateAction {
   readonly action: 'setBusinessUnit'
   /**
-   *	The Business Unit to assign to the Shopping List, which must have access to the [Store](/../api/projects/stores) that is set on the Shopping List.
+   *	The Business Unit to assign to the Shopping List, which must have access to the [Store](/api/projects/stores) that is set on the Shopping List.
    *
    *
    */
@@ -811,7 +811,7 @@ export interface ShoppingListSetBusinessUnitAction extends IShoppingListUpdateAc
 export interface ShoppingListSetCustomFieldAction extends IShoppingListUpdateAction {
   readonly action: 'setCustomField'
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -897,7 +897,7 @@ export interface ShoppingListSetLineItemCustomFieldAction extends IShoppingListU
    */
   readonly lineItemKey?: string
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -974,7 +974,7 @@ export interface ShoppingListSetTextLineItemCustomFieldAction extends IShoppingL
    */
   readonly textLineItemKey?: string
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */

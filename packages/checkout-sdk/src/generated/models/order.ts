@@ -7,19 +7,19 @@
 import { IResourceIdentifier } from './common'
 
 /**
- *	Resource identifier to an [Order](/../api/projects/orders). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/errors#invalidjsoninput) error is returned.
+ *	Resource identifier to an [Order](/api/projects/orders). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/errors#invalidjsoninput) error is returned.
  *
  */
 export interface OrderResourceIdentifier extends IResourceIdentifier {
   readonly typeId: 'order'
   /**
-   *	Unique identifier of the referenced [Order](/../api/projects/orders). Required if `key` is absent.
+   *	Unique identifier of the referenced [Order](/api/projects/orders). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [Order](/../api/projects/orders). Required if `id` is absent.
+   *	User-defined unique identifier of the referenced [Order](/api/projects/orders). Required if `id` is absent.
    *
    *
    */

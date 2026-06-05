@@ -74,17 +74,17 @@ export interface ImportOperation {
   readonly expiresAt: string
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) for Import Operations.
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) for Import Operations.
  *
  */
 export interface ImportOperationPagedResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */

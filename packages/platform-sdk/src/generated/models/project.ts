@@ -62,7 +62,7 @@ export interface BusinessUnitConfiguration {
   readonly myBusinessUnitAssociateRoleOnCreation?: AssociateRoleKeyReference
 }
 /**
- *	Default value for [Business Unit Status](ctp:api:type:BusinessUnitStatus) configured though [Project settings](/../api/projects/project#change-my-business-unit-status-on-creation).
+ *	Default value for [Business Unit Status](ctp:api:type:BusinessUnitStatus) configured though [Project settings](/api/projects/project#change-my-business-unit-status-on-creation).
  */
 export enum BusinessUnitConfigurationStatusValues {
   Active = 'Active',
@@ -74,7 +74,7 @@ export type BusinessUnitConfigurationStatus =
   | 'Inactive'
   | (string & {})
 /**
- *	Specifies the status of the [Business Unit Search](/../api/projects/business-unit-search) index.
+ *	Specifies the status of the [Business Unit Search](/api/projects/business-unit-search) index.
  *	You can change the status using the [Change Business Unit Search Status](ctp:api:type:ProjectChangeBusinessUnitSearchStatusAction) update action.
  *
  */
@@ -120,7 +120,7 @@ export interface CartsConfiguration {
   readonly taxRoundingMode?: RoundingMode
 }
 /**
- *	Specifies the status of the [Customer Search](/../api/projects/customer-search) index.
+ *	Specifies the status of the [Customer Search](/api/projects/customer-search) index.
  *	You can change the status using the [Change Customer Search Status](ctp:api:type:ProjectChangeCustomerSearchStatusAction) update action.
  *
  */
@@ -153,7 +153,7 @@ export interface DiscountsConfiguration {
   readonly discountCombinationMode: DiscountCombinationMode
 }
 /**
- *	Represents a RFC 7662 compliant [OAuth 2.0 Token Introspection](https://datatracker.ietf.org/doc/html/rfc7662) endpoint. For more information, see [Requesting an access token using an external OAuth 2.0 server](/../api/authorization#request-an-access-token-using-an-external-oauth-server).
+ *	Represents a RFC 7662 compliant [OAuth 2.0 Token Introspection](https://datatracker.ietf.org/doc/html/rfc7662) endpoint. For more information, see [Requesting an access token using an external OAuth 2.0 server](/api/authorization#request-an-access-token-using-an-external-oauth-server).
  *
  *	You can only configure **one** external OAuth 2.0 endpoint per Project. To authenticate using multiple external services (such as social network logins), use a middle layer authentication service.
  *
@@ -191,7 +191,7 @@ export interface InventoryConfiguration {
   readonly releaseExpiredReservations: boolean
 }
 /**
- *	Specifies the status of the [Order Search](/../api/projects/order-search) index.
+ *	Specifies the status of the [Order Search](/api/projects/order-search) index.
  */
 export enum OrderSearchStatusValues {
   Activated = 'Activated',
@@ -258,19 +258,19 @@ export interface Project {
    */
   readonly trialUntil?: string
   /**
-   *	Holds the configuration for the [Messages Query](/../api/projects/messages) feature.
+   *	Holds the configuration for the [Messages Query](/api/projects/messages) feature.
    *
    *
    */
   readonly messages: MessagesConfiguration
   /**
-   *	Holds the configuration for the [Carts](/../api/projects/carts) feature.
+   *	Holds the configuration for the [Carts](/api/projects/carts) feature.
    *
    *
    */
   readonly carts: CartsConfiguration
   /**
-   *	Holds the configuration for the [Shopping Lists](/../api/projects/shoppingLists) feature.
+   *	Holds the configuration for the [Shopping Lists](/api/projects/shoppingLists) feature.
    *
    *
    */
@@ -361,27 +361,27 @@ export interface IProjectUpdateAction {
  */
 export interface SearchIndexingConfiguration {
   /**
-   *	Configuration for the [Product Projection Search](/../api/projects/product-projection-search) and [Search Term Suggestions](/../api/projects/search-term-suggestions) APIs.
+   *	Configuration for the [Product Projection Search](/api/projects/product-projection-search) and [Search Term Suggestions](/api/projects/search-term-suggestions) APIs.
    *
    */
   readonly products?: SearchIndexingConfigurationValues
   /**
-   *	Configuration for the [Product Search](/../api/projects/product-search) feature.
+   *	Configuration for the [Product Search](/api/projects/product-search) feature.
    *
    */
   readonly productsSearch?: SearchIndexingConfigurationValues
   /**
-   *	Configuration for the [Order Search](/../api/projects/order-search) feature.
+   *	Configuration for the [Order Search](/api/projects/order-search) feature.
    *
    */
   readonly orders?: SearchIndexingConfigurationValues
   /**
-   *	Configuration for the [Customer Search](/../api/projects/customer-search) feature.
+   *	Configuration for the [Customer Search](/api/projects/customer-search) feature.
    *
    */
   readonly customers?: SearchIndexingConfigurationValues
   /**
-   *	Configuration for the [Business Unit Search](/../api/projects/business-unit-search) feature.
+   *	Configuration for the [Business Unit Search](/api/projects/business-unit-search) feature.
    *
    */
   readonly businessUnits?: SearchIndexingConfigurationValues
@@ -487,7 +487,7 @@ export interface ProjectChangeBusinessUnitStatusOnCreationAction extends IProjec
 export interface ProjectChangeCartsConfigurationAction extends IProjectUpdateAction {
   readonly action: 'changeCartsConfiguration'
   /**
-   *	Configuration for the [Carts](/../api/projects/carts) feature.
+   *	Configuration for the [Carts](/api/projects/carts) feature.
    *
    *
    */
@@ -522,7 +522,7 @@ export interface ProjectChangeCurrenciesAction extends IProjectUpdateAction {
 export interface ProjectChangeCustomerSearchStatusAction extends IProjectUpdateAction {
   readonly action: 'changeCustomerSearchStatus'
   /**
-   *	Activates or deactivates the [Customer Search](/../api/projects/customer-search) feature. Activation will trigger building a search index for the Customers in the Project.
+   *	Activates or deactivates the [Customer Search](/api/projects/customer-search) feature. Activation will trigger building a search index for the Customers in the Project.
    *
    */
   readonly status: CustomerSearchStatus
@@ -543,7 +543,7 @@ export interface ProjectChangeLanguagesAction extends IProjectUpdateAction {
 export interface ProjectChangeMessagesConfigurationAction extends IProjectUpdateAction {
   readonly action: 'changeMessagesConfiguration'
   /**
-   *	Configuration for the [Messages Query](/../api/projects/messages) feature.
+   *	Configuration for the [Messages Query](/api/projects/messages) feature.
    *
    */
   readonly messagesConfiguration: MessagesConfigurationDraft
@@ -560,7 +560,7 @@ export interface ProjectChangeNameAction extends IProjectUpdateAction {
 export interface ProjectChangeOrderSearchStatusAction extends IProjectUpdateAction {
   readonly action: 'changeOrderSearchStatus'
   /**
-   *	Activates or deactivates the [Order Search](/../api/projects/order-search) feature. Activation will trigger building a search index for the Orders in the Project.
+   *	Activates or deactivates the [Order Search](/api/projects/order-search) feature. Activation will trigger building a search index for the Orders in the Project.
    *
    */
   readonly status: OrderSearchStatus
@@ -576,14 +576,14 @@ export interface ProjectChangePriceRoundingModeAction extends IProjectUpdateActi
 export interface ProjectChangeProductSearchIndexingEnabledAction extends IProjectUpdateAction {
   readonly action: 'changeProductSearchIndexingEnabled'
   /**
-   *	- If `false`, the indexing of [Product](ctp:api:type:Product) information will stop and the [Product Projection Search](/../api/projects/product-projection-search) as well as the [Search Term Suggestions](/../api/projects/search-term-suggestions) API will no longer be available for this Project. The Project's [SearchIndexingConfiguration](ctp:api:type:SearchIndexingConfiguration) `status` for `products` will be changed to `"Deactivated"`.
-   *	- If `true`, the indexing of [Product](ctp:api:type:Product) information will start and the [Product Projection Search](/../api/projects/product-projection-search) as well as the [Search Term Suggestions](/../api/projects/search-term-suggestions) API will become available soon after for this Project. Proportional to the amount of information being indexed, the Project's [SearchIndexingConfiguration](ctp:api:type:SearchIndexingConfiguration) `status` for `products` will be shown as `"Indexing"` during this time. As soon as the indexing has finished, the configuration status will be changed to `"Activated"` making the aforementioned APIs fully available for this Project.
+   *	- If `false`, the indexing of [Product](ctp:api:type:Product) information will stop and the [Product Projection Search](/api/projects/product-projection-search) as well as the [Search Term Suggestions](/api/projects/search-term-suggestions) API will no longer be available for this Project. The Project's [SearchIndexingConfiguration](ctp:api:type:SearchIndexingConfiguration) `status` for `products` will be changed to `"Deactivated"`.
+   *	- If `true`, the indexing of [Product](ctp:api:type:Product) information will start and the [Product Projection Search](/api/projects/product-projection-search) as well as the [Search Term Suggestions](/api/projects/search-term-suggestions) API will become available soon after for this Project. Proportional to the amount of information being indexed, the Project's [SearchIndexingConfiguration](ctp:api:type:SearchIndexingConfiguration) `status` for `products` will be shown as `"Indexing"` during this time. As soon as the indexing has finished, the configuration status will be changed to `"Activated"` making the aforementioned APIs fully available for this Project.
    *
    *
    */
   readonly enabled: boolean
   /**
-   *	Controls whether the action should apply to [Product Projection Search](/../api/projects/product-projection-search) or to [Product Search](/../api/projects/product-search).
+   *	Controls whether the action should apply to [Product Projection Search](/api/projects/product-projection-search) or to [Product Search](/api/projects/product-search).
    *
    *
    */
@@ -592,7 +592,7 @@ export interface ProjectChangeProductSearchIndexingEnabledAction extends IProjec
 export interface ProjectChangeShoppingListsConfigurationAction extends IProjectUpdateAction {
   readonly action: 'changeShoppingListsConfiguration'
   /**
-   *	Configuration for the [Shopping Lists](/../api/projects/shoppingLists) feature.
+   *	Configuration for the [Shopping Lists](/api/projects/shoppingLists) feature.
    *
    *
    */

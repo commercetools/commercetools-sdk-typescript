@@ -74,24 +74,24 @@ export interface InventoryEntry extends BaseResource {
    */
   readonly supplyChannel?: ChannelReference
   /**
-   *	Overall amount of stock (`availableQuantity` + reserved). This value is eventually consistent with the internal SKU availability used for reservation logic, with a delay of up to 10 seconds. See [Inventory checks and consistency](/../api/inventory-overview#inventory-checks-and-consistency) for more information.
+   *	Overall amount of stock (`availableQuantity` + reserved). This value is eventually consistent with the internal SKU availability used for reservation logic, with a delay of up to 10 seconds. See [Inventory checks and consistency](/api/inventory-overview#inventory-checks-and-consistency) for more information.
    *
    */
   readonly quantityOnStock: number
   /**
-   *	Available amount of stock (`quantityOnStock` - reserved). This value is eventually consistent with the internal SKU availability used for reservation logic, with a delay of up to 10 seconds. See [Inventory checks and consistency](/../api/inventory-overview#inventory-checks-and-consistency) for more information.
+   *	Available amount of stock (`quantityOnStock` - reserved). This value is eventually consistent with the internal SKU availability used for reservation logic, with a delay of up to 10 seconds. See [Inventory checks and consistency](/api/inventory-overview#inventory-checks-and-consistency) for more information.
    *
    *
    */
   readonly availableQuantity: number
   /**
-   *	Minimum quantity that can be added to a Cart. See [Quantity limits](/../api/inventory-overview#quantity-limits).
+   *	Minimum quantity that can be added to a Cart. See [Quantity limits](/api/inventory-overview#quantity-limits).
    *
    *
    */
   readonly minCartQuantity?: number
   /**
-   *	Maximum quantity that can be added to a Cart. See [Quantity limits](/../api/inventory-overview#quantity-limits).
+   *	Maximum quantity that can be added to a Cart. See [Quantity limits](/api/inventory-overview#quantity-limits).
    *
    *
    */
@@ -117,7 +117,7 @@ export interface InventoryEntry extends BaseResource {
    */
   readonly reservationExpirationInMinutes?: number
   /**
-   *	Configuration of stock levels for the InventoryEntry. Corresponding [Messages](/../api/projects/messages/product-catalog-messages#inventory-entry-messages) are triggered when the `quantityOnStock` reaches the configured levels.
+   *	Configuration of stock levels for the InventoryEntry. Corresponding [Messages](/api/projects/messages/product-catalog-messages#inventory-entry-messages) are triggered when the `quantityOnStock` reaches the configured levels.
    *
    *
    */
@@ -139,7 +139,7 @@ export interface InventoryEntryDraft {
   /**
    *	User-defined unique identifier for the InventoryEntry.
    *
-   *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing InventoryEntries with the [Import API](/../api/import-export/overview) and the [Merchant Center](/../merchant-center/import-data).
+   *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing InventoryEntries with the [Import API](/api/import-export/overview) and the [Merchant Center](/merchant-center/import-data).
    *
    *
    */
@@ -151,19 +151,19 @@ export interface InventoryEntryDraft {
    */
   readonly supplyChannel?: ChannelResourceIdentifier
   /**
-   *	Overall amount of stock. See [Inventory checks and consistency](/../api/inventory-overview#inventory-checks-and-consistency) for consistency information.
+   *	Overall amount of stock. See [Inventory checks and consistency](/api/inventory-overview#inventory-checks-and-consistency) for consistency information.
    *
    *
    */
   readonly quantityOnStock: number
   /**
-   *	Minimum quantity that can be added to a Cart. See [Quantity limits](/../api/inventory-overview#quantity-limits).
+   *	Minimum quantity that can be added to a Cart. See [Quantity limits](/api/inventory-overview#quantity-limits).
    *
    *
    */
   readonly minCartQuantity?: number
   /**
-   *	Maximum quantity that can be added to a Cart. See [Quantity limits](/../api/inventory-overview#quantity-limits).
+   *	Maximum quantity that can be added to a Cart. See [Quantity limits](/api/inventory-overview#quantity-limits).
    *
    *
    */
@@ -190,7 +190,7 @@ export interface InventoryEntryDraft {
    */
   readonly reservationExpirationInMinutes?: number
   /**
-   *	Configuration of stock levels for the InventoryEntry. Corresponding [Messages](/../api/projects/messages/product-catalog-messages#inventory-entry-messages) are triggered when the `quantityOnStock` reaches the configured levels.
+   *	Configuration of stock levels for the InventoryEntry. Corresponding [Messages](/api/projects/messages/product-catalog-messages#inventory-entry-messages) are triggered when the `quantityOnStock` reaches the configured levels.
    *
    *
    */
@@ -215,14 +215,14 @@ export interface InventoryEntryReference extends IReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded InventoryEntry. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for InventoryEntries.
+   *	Contains the representation of the expanded InventoryEntry. Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for InventoryEntries.
    *
    *
    */
   readonly obj?: InventoryEntry
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to an [InventoryEntry](ctp:api:type:InventoryEntry). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to an [InventoryEntry](ctp:api:type:InventoryEntry). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface InventoryEntryResourceIdentifier extends IResourceIdentifier {
@@ -241,7 +241,7 @@ export interface InventoryEntryResourceIdentifier extends IResourceIdentifier {
   readonly key?: string
 }
 /**
- *	Stock level thresholds for an [InventoryEntry](ctp:api:type:InventoryEntry) that trigger Messages when stock levels reach certain points. For more information, see [Stock level notifications](/../api/inventory-overview#stock-level-notifications).
+ *	Stock level thresholds for an [InventoryEntry](ctp:api:type:InventoryEntry) that trigger Messages when stock levels reach certain points. For more information, see [Stock level notifications](/api/inventory-overview#stock-level-notifications).
  *
  */
 export interface InventoryEntryStockLevels {
@@ -295,13 +295,13 @@ export interface IInventoryEntryUpdateAction {
 }
 export interface InventoryPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -314,10 +314,10 @@ export interface InventoryPagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -374,7 +374,7 @@ export interface InventoryEntryRemoveQuantityAction extends IInventoryEntryUpdat
 export interface InventoryEntrySetCustomFieldAction extends IInventoryEntryUpdateAction {
   readonly action: 'setCustomField'
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -416,7 +416,7 @@ export interface InventoryEntrySetExpectedDeliveryAction extends IInventoryEntry
 }
 /**
  *	Sets the inventory limits for a specific InventoryEntry. This action allows you to define minimum and maximum
- *	quantities that can be added to a Cart. For more information, see [Quantity limits](/../api/inventory-overview#quantity-limits).
+ *	quantities that can be added to a Cart. For more information, see [Quantity limits](/api/inventory-overview#quantity-limits).
  *
  */
 export interface InventoryEntrySetInventoryLimitsAction extends IInventoryEntryUpdateAction {

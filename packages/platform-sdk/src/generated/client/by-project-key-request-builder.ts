@@ -400,7 +400,7 @@ export class ByProjectKeyRequestBuilder {
     })
   }
   /**
-   *	A staged quote holds the negotiation between the [Buyer](/../api/quotes-overview#buyer) and the [Seller](/../api/quotes-overview#seller).
+   *	A staged quote holds the negotiation between the [Buyer](/api/quotes-overview#buyer) and the [Seller](/api/quotes-overview#seller).
    */
   public stagedQuotes(): ByProjectKeyStagedQuotesRequestBuilder {
     return new ByProjectKeyStagedQuotesRequestBuilder({

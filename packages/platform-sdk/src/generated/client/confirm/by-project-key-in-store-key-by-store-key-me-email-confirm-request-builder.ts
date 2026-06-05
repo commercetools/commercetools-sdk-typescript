@@ -20,9 +20,9 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeEmailConfirmRequestBuilder {
     }
   ) {}
   /**
-   *	This is the last step in the [email verification process of a Customer](/../api/projects/customers#email-verification-of-customer-in-store). Returns a `200` status if successful.
+   *	This is the last step in the [email verification process of a Customer](/api/projects/customers#email-verification-of-customer-in-store). Returns a `200` status if successful.
    *
-   *	After the email is verified, all email tokens issued previously through the [email verification flow](/../api/projects/customers#email-verification-of-customer) are invalidated. This invalidation of tokens is [eventually consistent](/../api/general-concepts#eventual-consistency).
+   *	After the email is verified, all email tokens issued previously through the [email verification flow](/api/projects/customers#email-verification-of-customer) are invalidated. This invalidation of tokens is [eventually consistent](/api/general-concepts#eventual-consistency).
    *
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *

@@ -260,12 +260,12 @@ export interface PaymentMethodInfoDraft {
   readonly custom?: CustomFieldsDraft
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [Payment](ctp:api:type:Payment).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with `results` containing an array of [Payment](ctp:api:type:Payment).
  *
  */
 export interface PaymentPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
@@ -278,16 +278,16 @@ export interface PaymentPagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
   readonly total?: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -312,14 +312,14 @@ export interface PaymentReference extends IReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded Payment. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for Payments.
+   *	Contains the representation of the expanded Payment. Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for Payments.
    *
    *
    */
   readonly obj?: Payment
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of a [Payment](ctp:api:type:Payment). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of a [Payment](ctp:api:type:Payment). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface PaymentResourceIdentifier extends IResourceIdentifier {
@@ -652,7 +652,7 @@ export interface PaymentSetAnonymousIdAction extends IPaymentUpdateAction {
 export interface PaymentSetCustomFieldAction extends IPaymentUpdateAction {
   readonly action: 'setCustomField'
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -791,7 +791,7 @@ export interface PaymentSetMethodInfoAction extends IPaymentUpdateAction {
 export interface PaymentSetMethodInfoCustomFieldAction extends IPaymentUpdateAction {
   readonly action: 'setMethodInfoCustomField'
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -926,7 +926,7 @@ export interface PaymentSetTransactionCustomFieldAction extends IPaymentUpdateAc
    */
   readonly transactionId: string
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */

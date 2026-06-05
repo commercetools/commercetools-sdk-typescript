@@ -85,9 +85,9 @@ export interface Extension extends BaseResource {
    */
   readonly dependencies?: ExtensionReference[]
   /**
-   *	[Expansion paths](/../api/general-concepts#expansion-paths) used for reference expansion of the payload.
+   *	[Expansion paths](/api/general-concepts#expansion-paths) used for reference expansion of the payload.
    *
-   *	Be aware of the [limits](/../api/limits#api-extensions) of this feature and its [performance impact](/../api/performance-tips#api-extensions).
+   *	Be aware of the [limits](/api/limits#api-extensions) of this feature and its [performance impact](/api/performance-tips#api-extensions).
    *
    *
    */
@@ -210,9 +210,9 @@ export interface ExtensionDraft {
    */
   readonly dependencies?: ExtensionResourceIdentifier[]
   /**
-   *	[Expansion paths](/../api/general-concepts#expansion-paths) used for reference expansion of the payload.
+   *	[Expansion paths](/api/general-concepts#expansion-paths) used for reference expansion of the payload.
    *
-   *	Be aware of the [limits](/../api/limits#api-extensions) of this feature and its [performance impact](/../api/performance-tips#api-extensions).
+   *	Be aware of the [limits](/api/limits#api-extensions) of this feature and its [performance impact](/api/performance-tips#api-extensions).
    *
    *
    */
@@ -245,18 +245,18 @@ export interface ExtensionInput {
   readonly oldResource?: Reference
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [Extension](ctp:api:type:Extension).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with `results` containing an array of [Extension](ctp:api:type:Extension).
  *
  */
 export interface ExtensionPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -269,10 +269,10 @@ export interface ExtensionPagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -297,14 +297,14 @@ export interface ExtensionReference extends IReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded Extension. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for Extensions.
+   *	Contains the representation of the expanded Extension. Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for Extensions.
    *
    *
    */
   readonly obj?: Extension
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to an [Extension](ctp:api:type:Extension). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to an [Extension](ctp:api:type:Extension). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface ExtensionResourceIdentifier extends IResourceIdentifier {
@@ -367,7 +367,7 @@ export interface ExtensionTrigger {
    */
   readonly actions: ExtensionAction[]
   /**
-   *	Valid [predicate](/../api/predicates/query) that controls the conditions under which the API Extension is called. The Extension is not triggered when the specified condition is not fulfilled.
+   *	Valid [predicate](/api/predicates/query) that controls the conditions under which the API Extension is called. The Extension is not triggered when the specified condition is not fulfilled.
    *
    *
    */
@@ -513,9 +513,9 @@ export interface ExtensionSetDependenciesAction extends IExtensionUpdateAction {
 export interface ExtensionSetExpansionPathsAction extends IExtensionUpdateAction {
   readonly action: 'setExpansionPaths'
   /**
-   *	[Expansion paths](/../api/general-concepts#expansion-paths) used for reference expansion of the payload.
+   *	[Expansion paths](/api/general-concepts#expansion-paths) used for reference expansion of the payload.
    *
-   *	Be aware of the [limits](/../api/limits#api-extensions) of this feature and its [performance impact](/../api/performance-tips#api-extensions).
+   *	Be aware of the [limits](/api/limits#api-extensions) of this feature and its [performance impact](/api/performance-tips#api-extensions).
    *
    *
    */

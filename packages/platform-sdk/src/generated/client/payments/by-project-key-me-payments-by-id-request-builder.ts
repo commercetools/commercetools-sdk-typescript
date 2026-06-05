@@ -67,7 +67,7 @@ export class ByProjectKeyMePaymentsByIDRequestBuilder {
     )
   }
   /**
-   *	Updates a [Payment](/projects/me-payments#mypayment) for the authenticated Customer or anonymous user using one or more [update actions](/../api/projects/me-payments#update-actions).
+   *	Updates a [Payment](/projects/me-payments#mypayment) for the authenticated Customer or anonymous user using one or more [update actions](/api/projects/me-payments#update-actions).
    *	You can only update a Payment if it has no [Transactions](ctp:api:type:Transaction).
    *
    */

@@ -113,18 +113,18 @@ export interface RecurrencePolicyDraft {
   readonly schedule: RecurrencePolicyScheduleDraft
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [RecurrencePolicy](ctp:api:type:RecurrencePolicy).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with results containing an array of [RecurrencePolicy](ctp:api:type:RecurrencePolicy).
  *
  */
 export interface RecurrencePolicyPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -137,10 +137,10 @@ export interface RecurrencePolicyPagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -166,14 +166,14 @@ export interface RecurrencePolicyReference extends IReference {
   readonly id: string
   /**
    *	Contains the representation of the expanded RecurrencePolicy.
-   *	Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for RecurrencePolicies.
+   *	Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for RecurrencePolicies.
    *
    *
    */
   readonly obj?: RecurrencePolicy
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [RecurrencePolicy](ctp:api:type:RecurrencePolicy). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [RecurrencePolicy](ctp:api:type:RecurrencePolicy). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface RecurrencePolicyResourceIdentifier extends IResourceIdentifier {

@@ -175,13 +175,13 @@ import { Zone, ZoneReference, ZoneResourceIdentifier } from './zone'
  */
 export interface PagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -194,10 +194,10 @@ export interface PagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -640,7 +640,7 @@ export type _BaseResource =
   | Type
   | Zone
 /**
- *	These objects represent information about which [API Client](/../api/projects/api-clients) created or modified a resource. For more information, see [Client Logging](/../api/general-concepts#client-logging).
+ *	These objects represent information about which [API Client](/api/projects/api-clients) created or modified a resource. For more information, see [Client Logging](/api/general-concepts#client-logging).
  *
  */
 export interface ClientLogging {
@@ -651,7 +651,7 @@ export interface ClientLogging {
    */
   readonly clientId?: string
   /**
-   *	[External user ID](/../api/general-concepts#external-user-ids) provided by `X-External-User-ID` HTTP Header.
+   *	[External user ID](/api/general-concepts#external-user-ids) provided by `X-External-User-ID` HTTP Header.
    *
    *
    */
@@ -669,7 +669,7 @@ export interface ClientLogging {
    */
   readonly anonymousId?: string
   /**
-   *	Indicates the [Customer](ctp:api:type:Customer) who created or modified the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only available for [B2B](/../offering/commerce-b2b)-enabled Projects when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
+   *	Indicates the [Customer](ctp:api:type:Customer) who created or modified the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only available for [B2B](/offering/commerce-b2b)-enabled Projects when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
    *
    *
    */
@@ -687,7 +687,7 @@ export interface CreatedBy extends ClientLogging {
    */
   readonly clientId?: string
   /**
-   *	[External user ID](/../api/general-concepts#external-user-ids) provided by the `X-External-User-ID` HTTP Header or `external_user_id:{externalUserId}` [scope](/../api/scopes#external-oauth).
+   *	[External user ID](/api/general-concepts#external-user-ids) provided by the `X-External-User-ID` HTTP Header or `external_user_id:{externalUserId}` [scope](/api/scopes#external-oauth).
    *
    *
    */
@@ -711,7 +711,7 @@ export interface CreatedBy extends ClientLogging {
    */
   readonly attributedTo?: Attribution
   /**
-   *	Indicates the [Customer](ctp:api:type:Customer) who created the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only available for [B2B](/../offering/commerce-b2b)-enabled Project when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
+   *	Indicates the [Customer](ctp:api:type:Customer) who created the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only available for [B2B](/offering/commerce-b2b)-enabled Project when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
    *
    *
    */
@@ -831,7 +831,7 @@ export interface LastModifiedBy extends ClientLogging {
    */
   readonly clientId?: string
   /**
-   *	[External user ID](/../api/general-concepts#external-user-ids) provided by the `X-External-User-ID` HTTP Header or `external_user_id:{externalUserId}` [scope](/../api/scopes#external-oauth).
+   *	[External user ID](/api/general-concepts#external-user-ids) provided by the `X-External-User-ID` HTTP Header or `external_user_id:{externalUserId}` [scope](/api/scopes#external-oauth).
    *
    *
    */
@@ -855,7 +855,7 @@ export interface LastModifiedBy extends ClientLogging {
    */
   readonly attributedTo?: Attribution
   /**
-   *	Indicates the [Customer](ctp:api:type:Customer) who modified the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only available for [B2B](/../offering/commerce-b2b)-enabled Projects when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
+   *	Indicates the [Customer](ctp:api:type:Customer) who modified the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only available for [B2B](/offering/commerce-b2b)-enabled Projects when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
    *
    *
    */
@@ -978,7 +978,7 @@ export interface Price {
   readonly validUntil?: string
   /**
    *	Set if a matching [ProductDiscount](ctp:api:type:ProductDiscount) exists.
-   *	If set, the API uses the DiscountedPrice value for the [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
+   *	If set, the API uses the DiscountedPrice value for the [Line Item price selection](/api/pricing-and-discounts-overview#line-item-price-selection).
    *	When a [relative discount](ctp:api:type:ProductDiscountValueRelative) has been applied and the fraction part of the DiscountedPrice `value` is 0.5, the `value` is rounded in favor of the customer with [half-down rounding](https://en.wikipedia.org/wiki/Rounding#Rounding_half_down).
    *
    *	If an [absolute discount](ctp:api:type:ProductDiscountValueAbsolute) value exceeds the price of the Product Variant, the discounted price is a negative value.
@@ -1428,7 +1428,7 @@ export interface IResourceIdentifier {
 }
 /**
  *	Scoped Price is contained in a [ProductVariant](ctp:api:type:ProductVariant) which is returned in response to a
- *	[Product Projection Search](ctp:api:type:ProductProjectionSearchFilterScopedPrice) request when [Scoped Price Search](/../api/pricing-and-discounts-overview#scoped-price-search) is used.
+ *	[Product Projection Search](ctp:api:type:ProductProjectionSearchFilterScopedPrice) request when [Scoped Price Search](/api/pricing-and-discounts-overview#scoped-price-search) is used.
  *
  */
 export interface ScopedPrice {

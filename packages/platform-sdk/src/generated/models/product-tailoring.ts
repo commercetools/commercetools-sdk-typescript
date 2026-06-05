@@ -80,7 +80,7 @@ export interface ProductTailoring extends BaseResource {
    */
   readonly product: ProductReference
   /**
-   *	If `true`, the tailored information contained in the `current` [ProductTailoringData](ctp:api:type:ProductTailoringData) is provided when [retrieving the ProductProjection in Store](/../api/projects/product-tailoring#retrieve-product-projection-with-tailored-information).
+   *	If `true`, the tailored information contained in the `current` [ProductTailoringData](ctp:api:type:ProductTailoringData) is provided when [retrieving the ProductProjection in Store](/api/projects/product-tailoring#retrieve-product-projection-with-tailored-information).
    *	For information not part of the ProductTailoringData, the original information contained in the [ProductData](ctp:api:type:ProductData) is provided.
    *	If `false`, only the original information contained in the ProductData is provided.
    *
@@ -258,7 +258,7 @@ export interface ProductTailoringDraft {
    */
   readonly slug?: LocalizedString
   /**
-   *	Set to `true` to [publish](/../api/projects/product-tailoring#stage-and-publish-tailored-product-information) the ProductTailoring immediately.
+   *	Set to `true` to [publish](/api/projects/product-tailoring#stage-and-publish-tailored-product-information) the ProductTailoring immediately.
    *	Otherwise, the tailored product information is just staged.
    *
    *
@@ -353,18 +353,18 @@ export interface ProductTailoringInStoreDraft {
   readonly attributes?: ProductTailoringAttribute[]
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [ProductTailoring](ctp:api:type:ProductTailoring).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with results containing an array of [ProductTailoring](ctp:api:type:ProductTailoring).
  *
  */
 export interface ProductTailoringPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -378,8 +378,8 @@ export interface ProductTailoringPagedQueryResponse {
   /**
    *	Total number of results matching the query.
    *	Present only when the `withTotal` query parameter is set to `true`.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -404,7 +404,7 @@ export interface ProductTailoringReference extends IReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded ProductTailoring. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for ProductTailoring.
+   *	Contains the representation of the expanded ProductTailoring. Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for ProductTailoring.
    *
    *
    */
@@ -906,7 +906,7 @@ export interface ProductTailoringSetAssetCustomFieldAction extends IProductTailo
    */
   readonly assetKey?: string
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */

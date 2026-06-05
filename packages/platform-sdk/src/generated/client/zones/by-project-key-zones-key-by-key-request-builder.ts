@@ -46,7 +46,7 @@ export class ByProjectKeyZonesKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Checks if a Zone exists with the provided `key`. Returns a `200 OK` status if the Zone exists or a [Not Found](/../api/errors#404-not-found) error otherwise.
+   *	Checks if a Zone exists with the provided `key`. Returns a `200 OK` status if the Zone exists or a [Not Found](/api/errors#404-not-found) error otherwise.
    */
   public head(methodArgs?: {
     headers?: {
@@ -67,7 +67,7 @@ export class ByProjectKeyZonesKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Updates a Zone in the Project using one or more [update actions](/../api/projects/zones#update-actions).
+   *	Updates a Zone in the Project using one or more [update actions](/api/projects/zones#update-actions).
    */
   public post(methodArgs: {
     queryArgs?: {

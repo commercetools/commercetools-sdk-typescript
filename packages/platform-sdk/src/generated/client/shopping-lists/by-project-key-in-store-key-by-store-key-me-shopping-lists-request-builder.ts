@@ -95,7 +95,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsRequestBuilder {
   /**
    *	Checks if one or more ShoppingLists exist for the provided query predicate for the authenticated Customer or anonymous user in a [Store](ctp:api:type:Store). Returns `200 OK` status if successful.
    *
-   *	A [Not Found](/../api/errors#404-not-found) error is returned in the following scenarios:
+   *	A [Not Found](/api/errors#404-not-found) error is returned in the following scenarios:
    *
    *	- If no ShoppingLists exist for the provided query predicate in a Store.
    *	- If a ShoppingList matches the query predicate but does not have a `store` specified, or the `store` field references a different Store.

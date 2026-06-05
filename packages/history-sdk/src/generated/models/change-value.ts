@@ -78,7 +78,7 @@ export interface AttributeValue {
 export interface ChangeTargetCustomLineItemsChangeValue extends IChangeTargetChangeValue {
   readonly type: 'customLineItems'
   /**
-   *	Valid [CustomLineItem target predicate](/../api/projects/predicates#customlineitem-field-identifiers).
+   *	Valid [CustomLineItem target predicate](/api/projects/predicates#customlineitem-field-identifiers).
    *
    */
   readonly predicate: string
@@ -86,7 +86,7 @@ export interface ChangeTargetCustomLineItemsChangeValue extends IChangeTargetCha
 export interface ChangeTargetLineItemsChangeValue extends IChangeTargetChangeValue {
   readonly type: 'lineItems'
   /**
-   *	Valid [LineItem target predicate](/../api/projects/predicates#lineitem-field-identifiers).
+   *	Valid [LineItem target predicate](/api/projects/predicates#lineitem-field-identifiers).
    *
    */
   readonly predicate: string
@@ -94,7 +94,7 @@ export interface ChangeTargetLineItemsChangeValue extends IChangeTargetChangeVal
 export interface ChangeTargetMultiBuyCustomLineItemsChangeValue extends IChangeTargetChangeValue {
   readonly type: 'multiBuyCustomLineItems'
   /**
-   *	Valid [CustomLineItem target predicate](/../api/projects/predicates#customlineitem-field-identifiers).
+   *	Valid [CustomLineItem target predicate](/api/projects/predicates#customlineitem-field-identifiers).
    *
    */
   readonly predicate: string
@@ -122,7 +122,7 @@ export interface ChangeTargetMultiBuyCustomLineItemsChangeValue extends IChangeT
 export interface ChangeTargetMultiBuyLineItemsChangeValue extends IChangeTargetChangeValue {
   readonly type: 'multiBuyLineItems'
   /**
-   *	Valid [LineItem target predicate](/../api/projects/predicates#lineitem-field-identifiers).
+   *	Valid [LineItem target predicate](/api/projects/predicates#lineitem-field-identifiers).
    *
    */
   readonly predicate: string

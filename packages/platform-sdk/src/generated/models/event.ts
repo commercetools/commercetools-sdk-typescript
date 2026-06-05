@@ -421,7 +421,7 @@ export interface CheckoutMessagePaymentsPayloadBaseData {
    */
   readonly payment: PaymentReference
   /**
-   *	`id` of the [Transaction](/../api/projects/payments#transaction).
+   *	`id` of the [Transaction](/api/projects/payments#transaction).
    *
    *
    */

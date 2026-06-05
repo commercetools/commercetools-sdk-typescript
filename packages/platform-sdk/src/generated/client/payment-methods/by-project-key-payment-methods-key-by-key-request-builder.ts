@@ -70,7 +70,7 @@ export class ByProjectKeyPaymentMethodsKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Updates a PaymentMethod in the Project using one or more [update actions](/../api/projects/payment-methods#update-actions).
+   *	Updates a PaymentMethod in the Project using one or more [update actions](/api/projects/payment-methods#update-actions).
    *
    */
   public post(methodArgs: {

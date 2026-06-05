@@ -46,7 +46,7 @@ export class ByProjectKeyQuoteRequestsByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if a QuoteRequest exists with the provided `id`. Returns a `200 OK` status if the QuoteRequest exists, or a [Not Found](/../api/errors#404-not-found) error otherwise.
+   *	Checks if a QuoteRequest exists with the provided `id`. Returns a `200 OK` status if the QuoteRequest exists, or a [Not Found](/api/errors#404-not-found) error otherwise.
    */
   public head(methodArgs?: {
     headers?: {
@@ -67,7 +67,7 @@ export class ByProjectKeyQuoteRequestsByIDRequestBuilder {
     )
   }
   /**
-   *	Updates a QuoteRequest in the Project using one or more [update actions](/../api/projects/quote-requests#update-actions).
+   *	Updates a QuoteRequest in the Project using one or more [update actions](/api/projects/quote-requests#update-actions).
    */
   public post(methodArgs: {
     queryArgs?: {

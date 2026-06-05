@@ -21,7 +21,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyProductProjectionsByIDRequestBuilde
     }
   ) {}
   /**
-   *	Retrieves the [projected](/../api/projects/productProjections#projection-dimensions) representation of a [Product](ctp:api:type:Product) by its ID in the specified [Store](ctp:api:type:Store).
+   *	Retrieves the [projected](/api/projects/productProjections#projection-dimensions) representation of a [Product](ctp:api:type:Product) by its ID in the specified [Store](ctp:api:type:Store).
    *
    *	If the Store has defined some languages, countries, distribution, supply Channels, and/or Product Selection,
    *	they are used for projections based on [locale](ctp:api:type:ProductProjectionLocales), [price](ctp:api:type:ProductProjectionPrices),
@@ -30,7 +30,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyProductProjectionsByIDRequestBuilde
    *	If a [ProductTailoring](ctp:api:type:ProductTailoring) exists for the Product with the given `key` and the given Store, this endpoint returns the ProductProjection with tailored data.
    *
    *	By default, this endpoint returns the `current` representation of Products where the `published` flag is `true`.
-   *	If a Product is unpublished (`published=false`), the endpoint returns a [Not Found](/../api/errors#404-not-found) error.
+   *	If a Product is unpublished (`published=false`), the endpoint returns a [Not Found](/api/errors#404-not-found) error.
    *
    *	Required access scopes:
    *

@@ -72,7 +72,7 @@ export class ByProjectKeyRecurrencePoliciesByIDRequestBuilder {
     )
   }
   /**
-   *	Updates a Recurrence Policy using one or more [update actions](/../api/projects/recurrence-policies#update-actions).
+   *	Updates a Recurrence Policy using one or more [update actions](/api/projects/recurrence-policies#update-actions).
    *
    */
   public post(methodArgs: {

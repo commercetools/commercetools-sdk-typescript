@@ -51,7 +51,7 @@ export class ByProjectKeyShippingMethodsMatchingCartRequestBuilder {
     )
   }
   /**
-   *	Checks if an active ShippingMethod exists for the provided Cart. Returns a `200 OK` status if the ShippingMethod exists or a [Not Found](/../api/errors#404-not-found) error otherwise.
+   *	Checks if an active ShippingMethod exists for the provided Cart. Returns a `200 OK` status if the ShippingMethod exists or a [Not Found](/api/errors#404-not-found) error otherwise.
    */
   public head(methodArgs: {
     queryArgs: {

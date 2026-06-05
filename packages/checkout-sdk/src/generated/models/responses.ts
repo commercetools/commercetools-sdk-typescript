@@ -237,7 +237,7 @@ export interface ExpressPaymentInterrupted extends IMessage {
   readonly correlationId: string
 }
 /**
- *	Generated in Payment Only [mode](/../checkout/overview#complete-checkout-and-payment-only-modes) when the customer hasn't accepted the terms and conditions yet.
+ *	Generated in Payment Only [mode](/checkout/overview#complete-checkout-and-payment-only-modes) when the customer hasn't accepted the terms and conditions yet.
  *
  */
 export interface ExternalTermsAndConditionsPending extends IMessage {
@@ -457,7 +457,7 @@ export interface InitTimeout extends IMessage {
   readonly correlationId: string
 }
 /**
- *	Generated when the Application does not support the requested Checkout [mode](/../checkout/overview#complete-checkout-and-payment-only-modes).
+ *	Generated when the Application does not support the requested Checkout [mode](/checkout/overview#complete-checkout-and-payment-only-modes).
  *
  */
 export interface InvalidMode extends IMessage {
@@ -545,7 +545,7 @@ export interface NoPaymentIntegrations extends IMessage {
   readonly correlationId: string
 }
 /**
- *	Generated when Checkout starts verifying the [Order](/../api/projects/orders).
+ *	Generated when Checkout starts verifying the [Order](/api/projects/orders).
  *
  */
 export interface OrderVerificationStarted extends IMessage {
@@ -567,7 +567,7 @@ export interface OrderVerificationStarted extends IMessage {
   readonly correlationId: string
 }
 /**
- *	Generated when the verification of the [Order](/../api/projects/orders) times out.
+ *	Generated when the verification of the [Order](/api/projects/orders) times out.
  *
  */
 export interface OrderVerificationTimeout extends IMessage {
@@ -787,7 +787,7 @@ export interface BadInputData extends IResponseMessage {
   readonly payload: any
 }
 /**
- *	Generated when the [Cart](/../api/projects/carts) was emptied during the checkout process. It is not possible to recover from this, the customer must restart the checkout process.
+ *	Generated when the [Cart](/api/projects/carts) was emptied during the checkout process. It is not possible to recover from this, the customer must restart the checkout process.
  *
  */
 export interface CartEmptiedDuringCheckout extends IResponseMessage {
@@ -814,7 +814,7 @@ export interface CartEmptiedDuringCheckout extends IResponseMessage {
   readonly payload: any
 }
 /**
- *	Generated when the [Cart](/../api/projects/carts) for the current checkout is empty. The Cart must contain at least one [Line Item](/../api/carts-orders-overview#line-items).
+ *	Generated when the [Cart](/api/projects/carts) for the current checkout is empty. The Cart must contain at least one [Line Item](/api/carts-orders-overview#line-items).
  *
  */
 export interface CartEmpty extends IResponseMessage {
@@ -841,7 +841,7 @@ export interface CartEmpty extends IResponseMessage {
   readonly payload: any
 }
 /**
- *	Generated when the [Cart](/../api/projects/carts) is not found. To start the checkout process, a valid Cart with at least one [Line Item](/../api/carts-orders-overview#line-items) is required.
+ *	Generated when the [Cart](/api/projects/carts) is not found. To start the checkout process, a valid Cart with at least one [Line Item](/api/carts-orders-overview#line-items) is required.
  *
  */
 export interface CartNotFound extends IResponseMessage {
@@ -868,7 +868,7 @@ export interface CartNotFound extends IResponseMessage {
   readonly payload: any
 }
 /**
- *	Generated when trying to add a [Payment](/../api/projects/payments) to a [Cart](/../api/projects/carts) that already references an approved Payment.
+ *	Generated when trying to add a [Payment](/api/projects/payments) to a [Cart](/api/projects/carts) that already references an approved Payment.
  *
  */
 export interface CartWithExistingPayment extends IResponseMessage {
@@ -922,7 +922,7 @@ export interface CheckoutCompleted extends IResponseMessage {
   readonly payload: any
 }
 /**
- *	Generated when the [Connector](/../checkout/connectors-and-applications#payment-connectors) triggers an error.
+ *	Generated when the [Connector](/checkout/connectors-and-applications#payment-connectors) triggers an error.
  *
  */
 export interface ConnectorError extends IResponseMessage {
@@ -976,7 +976,7 @@ export interface DeprecatedFields extends IResponseMessage {
   readonly payload: any
 }
 /**
- *	Generated when the [Discount Code](/../api/projects/discountCodes) is not applicable for the current Cart.
+ *	Generated when the [Discount Code](/api/projects/discountCodes) is not applicable for the current Cart.
  *
  */
 export interface DiscountCodeNotApplicable extends IResponseMessage {
@@ -1246,7 +1246,7 @@ export interface InvalidLocale extends IResponseMessage {
   readonly payload: any
 }
 /**
- *	Generated when no [Shipping Method](/../api/projects/shippingMethods) is available for the shipping address of the [Cart](/../api/projects/carts). This may indicate an incomplete configuration.
+ *	Generated when no [Shipping Method](/api/projects/shippingMethods) is available for the shipping address of the [Cart](/api/projects/carts). This may indicate an incomplete configuration.
  *
  */
 export interface NoShippingMethods extends IResponseMessage {
@@ -1273,7 +1273,7 @@ export interface NoShippingMethods extends IResponseMessage {
   readonly payload: any
 }
 /**
- *	Generated when the Order could not be created due to inconsistencies in the [Cart](/../api/projects/carts).
+ *	Generated when the Order could not be created due to inconsistencies in the [Cart](/api/projects/carts).
  *
  */
 export interface NonOrderableCartError extends IResponseMessage {
@@ -1300,7 +1300,7 @@ export interface NonOrderableCartError extends IResponseMessage {
   readonly payload: any
 }
 /**
- *	Generated when using the `paymentFlow` [method](/../checkout/browser-sdk#paymentflow-method) and Checkout removes a [Discount Code](/../api/projects/discountCodes) from the Cart because it does not apply to the Cart. Checkout removes the Discount Code to avoid an order creation error when converting the Cart to an Order.
+ *	Generated when using the `paymentFlow` [method](/checkout/browser-sdk#paymentflow-method) and Checkout removes a [Discount Code](/api/projects/discountCodes) from the Cart because it does not apply to the Cart. Checkout removes the Discount Code to avoid an order creation error when converting the Cart to an Order.
  *
  */
 export interface NotApplicableDiscountCodeRemoved extends IResponseMessage {
@@ -1327,7 +1327,7 @@ export interface NotApplicableDiscountCodeRemoved extends IResponseMessage {
   readonly payload: any
 }
 /**
- *	Generated when an [Order](/../api/projects/orders) is created after a successful checkout process.
+ *	Generated when an [Order](/api/projects/orders) is created after a successful checkout process.
  *
  */
 export interface OrderCreated extends IResponseMessage {
@@ -1354,7 +1354,7 @@ export interface OrderCreated extends IResponseMessage {
   readonly payload: any
 }
 /**
- *	Generated when an [Order](/../api/projects/orders) that references an approved [Payment](/../api/projects/payments) cannot be created.
+ *	Generated when an [Order](/api/projects/orders) that references an approved [Payment](/api/projects/payments) cannot be created.
  *
  */
 export interface OrderCreationError extends IResponseMessage {
@@ -1381,7 +1381,7 @@ export interface OrderCreationError extends IResponseMessage {
   readonly payload: any
 }
 /**
- *	Generated when retrying the verification of the [Order](/../api/projects/orders) results in an error.
+ *	Generated when retrying the verification of the [Order](/api/projects/orders) results in an error.
  *
  */
 export interface OrderVerificationRetryError extends IResponseMessage {
@@ -1759,7 +1759,7 @@ export interface ProjectIsDeactivated extends IResponseMessage {
   readonly payload: any
 }
 /**
- *	Generated when there was an error removing the [Discount Code](/../api/projects/discountCodes).
+ *	Generated when there was an error removing the [Discount Code](/api/projects/discountCodes).
  *
  */
 export interface RemoveDiscountCodeError extends IResponseMessage {
@@ -1786,7 +1786,7 @@ export interface RemoveDiscountCodeError extends IResponseMessage {
   readonly payload: any
 }
 /**
- *	Generated when the [Cart](/../api/projects/carts) cannot be updated with the shipping address.
+ *	Generated when the [Cart](/api/projects/carts) cannot be updated with the shipping address.
  *
  */
 export interface SetShippingAddressError extends IResponseMessage {
@@ -1943,7 +1943,7 @@ export interface UnavailableLocale extends IResponseMessage {
   readonly payload: any
 }
 /**
- *	Generated when the country of the shipping address and/or billing address associated with the [Cart](/../api/projects/carts) does not match the countries set for the [Application](/connectors-and-applications#applications).
+ *	Generated when the country of the shipping address and/or billing address associated with the [Cart](/api/projects/carts) does not match the countries set for the [Application](/connectors-and-applications#applications).
  *
  */
 export interface UnsupportedCountry extends IResponseMessage {

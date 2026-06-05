@@ -210,12 +210,12 @@ export interface AttributeDefinition {
    */
   readonly inputHint: TextInputHint
   /**
-   *	If `true`, the Attribute's values are available in the [Product Search](/../api/projects/product-search) or the [Product Projection Search](/../api/projects/product-projection-search) API for use in full-text search queries, filters, and facets.
+   *	If `true`, the Attribute's values are available in the [Product Search](/api/projects/product-search) or the [Product Projection Search](/api/projects/product-projection-search) API for use in full-text search queries, filters, and facets.
    *	However, if an Attribute's `level` is set as `Product`, then Product Projection Search does **not support** the Attribute.
    *
    *	The exact features that are available with this flag depend on the specific [AttributeType](ctp:api:type:AttributeType).
-   *	The maximum size of a searchable field is **restricted** by the [Field content size limit](/../api/limits#field-content-size).
-   *	This constraint is enforced at both [Product creation](ctp:api:endpoint:/{projectKey}/products:POST) and [Product update](/../api/projects/products#update-product).
+   *	The maximum size of a searchable field is **restricted** by the [Field content size limit](/api/limits#field-content-size).
+   *	This constraint is enforced at both [Product creation](ctp:api:endpoint:/{projectKey}/products:POST) and [Product update](/api/projects/products#update-product).
    *	If the length of the input exceeds the maximum size, an [InvalidField](ctp:api:type:InvalidFieldError) error is returned.
    *
    */
@@ -342,7 +342,7 @@ export interface CustomFields {
    */
   readonly type: TypeReference
   /**
-   *	Object containing the Custom Fields of the [customized resource or data type](/../api/projects/types#resourcetypeid).
+   *	Object containing the Custom Fields of the [customized resource or data type](/api/projects/types#resourcetypeid).
    *
    *
    */
@@ -665,8 +665,8 @@ export interface Stacking extends IDiscountTypeCombination {
   readonly type: 'Stacking'
 }
 /**
- *	Defines a [Custom Field](/../api/projects/custom-fields) and its meta-information.
- *	This FieldDefinition is similar to an [AttributeDefinition](ctp:api:type:AttributeDefinition) of [Product Types](/../api/projects/productTypes).
+ *	Defines a [Custom Field](/api/projects/custom-fields) and its meta-information.
+ *	This FieldDefinition is similar to an [AttributeDefinition](ctp:api:type:AttributeDefinition) of [Product Types](/api/projects/productTypes).
  *
  */
 export interface FieldDefinition {
@@ -851,7 +851,7 @@ export interface IKeyReference {
   readonly key: string
 }
 /**
- *	The representation of a [Line Item](/../api/carts-orders-overview#line-items) in a [Cart](ctp:api:type:Cart) or in an [Order](ctp:api:type:Order).
+ *	The representation of a [Line Item](/api/carts-orders-overview#line-items) in a [Cart](ctp:api:type:Cart) or in an [Order](ctp:api:type:Order).
  *
  */
 export interface LineItem {
@@ -894,7 +894,7 @@ export interface LineItem {
   readonly name: LocalizedString
   /**
    *	`slug` of the current version of the Product. Updated automatically if the `slug` changes. Empty if the Product has been deleted.
-   *	The `productSlug` field of LineItem is not expanded when using [Reference Expansion](/../api/general-concepts#reference-expansion).
+   *	The `productSlug` field of LineItem is not expanded when using [Reference Expansion](/api/general-concepts#reference-expansion).
    *
    *
    */
@@ -973,13 +973,13 @@ export interface LineItem {
    */
   readonly perMethodTaxRate: MethodTaxRate[]
   /**
-   *	Identifies [Inventory entries](/../api/projects/inventory) that are reserved. The referenced Channel has the `InventorySupply` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
+   *	Identifies [Inventory entries](/api/projects/inventory) that are reserved. The referenced Channel has the `InventorySupply` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
    *
    *
    */
   readonly supplyChannel?: ChannelReference
   /**
-   *	Used to [select](/../api/pricing-and-discounts-overview#line-item-price-selection) a Product Price. The referenced Channel has the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
+   *	Used to [select](/api/pricing-and-discounts-overview#line-item-price-selection) a Product Price. The referenced Channel has the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
    *
    *
    */
@@ -1353,7 +1353,7 @@ export interface Price {
   readonly validUntil?: string
   /**
    *	Is set if a [ProductDiscount](ctp:api:type:ProductDiscount) has been applied.
-   *	If set, the API uses the DiscountedPrice value for the [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
+   *	If set, the API uses the DiscountedPrice value for the [Line Item price selection](/api/pricing-and-discounts-overview#line-item-price-selection).
    *	When a [relative discount](ctp:api:type:ProductDiscountValueRelative) has been applied and the fraction part of the DiscountedPrice `value` is 0.5, the `value` is rounded in favor of the customer with [half-down rounding](https://en.wikipedia.org/wiki/Rounding#Rounding_half_down).
    *
    *
@@ -1927,7 +1927,7 @@ export interface ShippingRate {
    */
   readonly price: CentPrecisionMoney
   /**
-   *	[Free shipping](/../api/shipping-delivery-overview#free-shipping) is applied if the sum of the (Custom) Line Item Prices reaches the specified value.
+   *	[Free shipping](/api/shipping-delivery-overview#free-shipping) is applied if the sum of the (Custom) Line Item Prices reaches the specified value.
    *
    */
   readonly freeAbove?: CentPrecisionMoney
@@ -2032,7 +2032,7 @@ export interface StoreCountry {
   readonly code: string
 }
 /**
- *	It is used to calculate the [taxPortions](/../api/projects/carts#taxedprice) field in a Cart or Order.
+ *	It is used to calculate the [taxPortions](/api/projects/carts#taxedprice) field in a Cart or Order.
  */
 export interface SubRate {
   /**
@@ -2437,7 +2437,7 @@ export type BusinessUnitApprovalRuleMode =
   | 'ExplicitAndFromParent'
   | (string & {})
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [BusinessUnit](ctp:api:type:BusinessUnit). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [BusinessUnit](ctp:api:type:BusinessUnit). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface BusinessUnitResourceIdentifier extends ResourceIdentifier {
@@ -2555,8 +2555,8 @@ export interface DiscountedTotalPricePortion {
   readonly discountedAmount: TypedMoney
 }
 /**
- *	This mode determines the type of Prices used for [price selection](/../api/pricing-and-discounts-overview#price-selection) by Line Items and Products.
- *	For more information about the difference between the Prices, see [Pricing](/../api/pricing-and-discounts-overview).
+ *	This mode determines the type of Prices used for [price selection](/api/pricing-and-discounts-overview#price-selection) by Line Items and Products.
+ *	For more information about the difference between the Prices, see [Pricing](/api/pricing-and-discounts-overview).
  *
  */
 export enum ProductPriceModeEnumValues {
@@ -3460,7 +3460,7 @@ export interface ProductVariant {
    */
   readonly attributes?: Attribute[]
   /**
-   *	Only available when [price selection](/../api/pricing-and-discounts-overview#price-selection) is used.
+   *	Only available when [price selection](/api/pricing-and-discounts-overview#price-selection) is used.
    *	Cannot be used in a [Query Predicate](ctp:api:type:QueryPredicate).
    *
    *
@@ -3488,28 +3488,28 @@ export interface ProductVariant {
   readonly availability?: ProductVariantAvailability
   /**
    *	`true` if the Product Variant matches the search query.
-   *	Only available in response to a [Product Projection Search](/../api/projects/product-projection-search) request.
+   *	Only available in response to a [Product Projection Search](/api/projects/product-projection-search) request.
    *
    *
    */
   readonly isMatchingVariant?: boolean
   /**
-   *	Only available in response to a [Product Projection Search](/../api/projects/product-projection-search) request
-   *	with [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection).
+   *	Only available in response to a [Product Projection Search](/api/projects/product-projection-search) request
+   *	with [Product price selection](/api/pricing-and-discounts-overview#product-price-selection).
    *	Can be used to sort, [filter](ctp:api:type:ProductProjectionSearchFilterScopedPrice), and facet.
    *
    *
    */
   readonly scopedPrice?: ScopedPrice
   /**
-   *	Only available in response to a [Product Projection Search](/../api/projects/product-projection-search) request
-   *	with [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection).
+   *	Only available in response to a [Product Projection Search](/api/projects/product-projection-search) request
+   *	with [Product price selection](/api/pricing-and-discounts-overview#product-price-selection).
    *
    *
    */
   readonly scopedPriceDiscounted?: boolean
   /**
-   *	Only available when [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection) is used.
+   *	Only available when [Product price selection](/api/pricing-and-discounts-overview#product-price-selection) is used.
    *	Cannot be used in a [Query Predicate](ctp:api:type:QueryPredicate).
    *
    *
@@ -3610,7 +3610,7 @@ export type ResourceTypeId =
   | (string & {})
 /**
  *	Scoped Price is contained in a [ProductVariant](ctp:api:type:ProductVariant) which is returned in response to a
- *	[Product Projection Search](ctp:api:type:ProductProjectionSearchFilterScopedPrice) request when [Scoped Price Search](/../api/pricing-and-discounts-overview#scoped-price-search) is used.
+ *	[Product Projection Search](ctp:api:type:ProductProjectionSearchFilterScopedPrice) request when [Scoped Price Search](/api/pricing-and-discounts-overview#scoped-price-search) is used.
  *
  */
 export interface ScopedPrice {
@@ -3769,7 +3769,7 @@ export interface TypeReference extends IReference {
   readonly id: string
 }
 /**
- *	These objects represent information about which [API Client](/../api/projects/api-clients) created or modified a resource. For more information, see [Client Logging](/../api/general-concepts#client-logging).
+ *	These objects represent information about which [API Client](/api/projects/api-clients) created or modified a resource. For more information, see [Client Logging](/api/general-concepts#client-logging).
  *
  */
 export interface ClientLogging {
@@ -3780,7 +3780,7 @@ export interface ClientLogging {
    */
   readonly clientId?: string
   /**
-   *	[External user ID](/../api/general-concepts#external-user-ids) provided by `X-External-User-ID` HTTP Header.
+   *	[External user ID](/api/general-concepts#external-user-ids) provided by `X-External-User-ID` HTTP Header.
    *
    *
    */
@@ -3798,14 +3798,14 @@ export interface ClientLogging {
    */
   readonly anonymousId?: string
   /**
-   *	Indicates the [Customer](ctp:api:type:Customer) who created or modified the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only available for [B2B](/../offering/commerce-b2b)-enabled Projects when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
+   *	Indicates the [Customer](ctp:api:type:Customer) who created or modified the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only available for [B2B](/offering/commerce-b2b)-enabled Projects when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
    *
    *
    */
   readonly associate?: CustomerReference
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Zone](ctp:api:type:Zone). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Zone](ctp:api:type:Zone). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface ZoneResourceIdentifier extends ResourceIdentifier {

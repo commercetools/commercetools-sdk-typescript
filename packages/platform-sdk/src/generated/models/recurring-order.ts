@@ -127,8 +127,8 @@ export interface RecurringOrder extends BaseResource {
   readonly cart: CartReference
   /**
    *	[Reference](ctp:api:type:Reference) to the original [Order](ctp:api:type:Order) that generated this RecurringOrder.
-   *	This field is automatically populated when the RecurringOrder is created via the [Create Order from Cart](/../api/projects/orders#create-order-from-cart) endpoint and the Cart contains Line Items with defined `recurrenceInfo`.
-   *	When the RecurringOrder is created directly via the [Create RecurringOrder](/../api/projects/recurring-orders#create-recurringorder) endpoint, this field remains empty.
+   *	This field is automatically populated when the RecurringOrder is created via the [Create Order from Cart](/api/projects/orders#create-order-from-cart) endpoint and the Cart contains Line Items with defined `recurrenceInfo`.
+   *	When the RecurringOrder is created directly via the [Create RecurringOrder](/api/projects/recurring-orders#create-recurringorder) endpoint, this field remains empty.
    *
    *
    */
@@ -291,18 +291,18 @@ export interface RecurringOrderDraft {
   readonly custom?: CustomFieldsDraft
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [RecurringOrder](ctp:api:type:RecurringOrder).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with `results` containing an array of [RecurringOrder](ctp:api:type:RecurringOrder).
  *
  */
 export interface RecurringOrderPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -315,10 +315,10 @@ export interface RecurringOrderPagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -344,14 +344,14 @@ export interface RecurringOrderReference extends IReference {
   readonly id: string
   /**
    *	Contains the representation of the expanded RecurringOrder.
-   *	Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for RecurringOrders.
+   *	Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for RecurringOrders.
    *
    *
    */
   readonly obj?: RecurringOrder
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [RecurringOrder](ctp:api:type:RecurringOrder). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [RecurringOrder](ctp:api:type:RecurringOrder). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface RecurringOrderResourceIdentifier extends IResourceIdentifier {
@@ -643,7 +643,7 @@ export interface RecurringOrdersOnlyDraft extends IRecurringOrderScopeDraft {
 export interface RecurringOrderSetCustomFieldAction extends IRecurringOrderUpdateAction {
   readonly action: 'setCustomField'
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */

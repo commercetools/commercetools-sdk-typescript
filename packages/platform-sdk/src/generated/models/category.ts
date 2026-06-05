@@ -69,7 +69,7 @@ export interface Category extends BaseResource {
    *	User-defined identifier used as a deep-link URL to the related Category per [Locale](ctp:api:type:Locale).
    *	A Category can have the same slug for different Locales, but they are unique across the [Project](ctp:api:type:Project).
    *	Valid slugs match the pattern `^[A-Za-z0-9_-]{2,256}+$`.
-   *	For [good performance](/../api/predicates/query#performance-considerations), indexes are provided for the first 15 `languages` set in a Project.
+   *	For [good performance](/api/predicates/query#performance-considerations), indexes are provided for the first 15 `languages` set in a Project.
    *
    *
    */
@@ -215,25 +215,25 @@ export interface CategoryDraft {
   /**
    *	User-defined unique identifier for the Category.
    *
-   *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing Categories with the [Import API](/../api/import-export/overview) and the [Merchant Center](/../merchant-center/import-data).
+   *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing Categories with the [Import API](/api/import-export/overview) and the [Merchant Center](/merchant-center/import-data).
    *
    *
    */
   readonly key?: string
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [Category](ctp:api:type:Category).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with results containing an array of [Category](ctp:api:type:Category).
  *
  */
 export interface CategoryPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -246,10 +246,10 @@ export interface CategoryPagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -274,14 +274,14 @@ export interface CategoryReference extends IReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded Category. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for Categories.
+   *	Contains the representation of the expanded Category. Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for Categories.
    *
    *
    */
   readonly obj?: Category
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Category](ctp:api:type:Category). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Category](ctp:api:type:Category). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface CategoryResourceIdentifier extends IResourceIdentifier {
@@ -463,7 +463,7 @@ export interface CategorySetAssetCustomFieldAction extends ICategoryUpdateAction
    */
   readonly assetKey?: string
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -592,7 +592,7 @@ export interface CategorySetAssetTagsAction extends ICategoryUpdateAction {
 export interface CategorySetCustomFieldAction extends ICategoryUpdateAction {
   readonly action: 'setCustomField'
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */

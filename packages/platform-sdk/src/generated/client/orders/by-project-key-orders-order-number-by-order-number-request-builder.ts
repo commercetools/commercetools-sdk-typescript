@@ -67,7 +67,7 @@ export class ByProjectKeyOrdersOrderNumberByOrderNumberRequestBuilder {
     )
   }
   /**
-   *	Updates an Order in the Project using one or more [update actions](/../api/projects/orders#update-actions).
+   *	Updates an Order in the Project using one or more [update actions](/api/projects/orders#update-actions).
    */
   public post(methodArgs: {
     queryArgs?: {

@@ -151,7 +151,7 @@ export interface FacetResults {
 }
 export interface FacetTerm {
   /**
-   *	Value for the field specified in the [term facet expression](/../api/projects/product-projection-search#term-facet-expression) for which at least one [ProductVariant](ctp:api:type:ProductVariant) could be found.
+   *	Value for the field specified in the [term facet expression](/api/projects/product-projection-search#term-facet-expression) for which at least one [ProductVariant](ctp:api:type:ProductVariant) could be found.
    *
    *
    */
@@ -164,7 +164,7 @@ export interface FacetTerm {
   readonly count: number
   /**
    *	Number of [Products](ctp:api:type:Product) for which the `term` applies.
-   *	Only available if the `counting products` [extension](/../api/projects/product-projection-search#counting-products) is enabled.
+   *	Only available if the `counting products` [extension](/api/projects/product-projection-search#counting-products) is enabled.
    *
    *
    */
@@ -180,13 +180,13 @@ export type FacetTypes = 'filter' | 'range' | 'terms' | (string & {})
 export interface FilteredFacetResult extends IFacetResult {
   readonly type: 'filter'
   /**
-   *	Number of [ProductVariants](ctp:api:type:ProductVariant) matching the value specified in [filtered facet expression](/../api/projects/product-projection-search#filtered-facet-expression).
+   *	Number of [ProductVariants](ctp:api:type:ProductVariant) matching the value specified in [filtered facet expression](/api/projects/product-projection-search#filtered-facet-expression).
    *
    *
    */
   readonly count: number
   /**
-   *	Number of [Products](ctp:api:type:Product) matching the value specified in [filtered facet expression](/../api/projects/product-projection-search#filtered-facet-expression).
+   *	Number of [Products](ctp:api:type:Product) matching the value specified in [filtered facet expression](/api/projects/product-projection-search#filtered-facet-expression).
    *
    *	Present only if the `counting products` [extension](/projects/product-projection-search#counting-products) is enabled.
    *
@@ -284,7 +284,7 @@ export interface Product extends BaseResource {
 }
 export interface ProductCatalogData {
   /**
-   *	If `true`, the `current` representation of the Product is retrievable in the [Product Projection](/projects/productProjections) endpoints and indexed for [Product Search](/../api/projects/product-search).
+   *	If `true`, the `current` representation of the Product is retrievable in the [Product Projection](/projects/productProjections) endpoints and indexed for [Product Search](/api/projects/product-search).
    *
    *
    */
@@ -409,7 +409,7 @@ export interface ProductDraft {
   /**
    *	User-defined unique identifier for the Product.
    *
-   *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing Products with the [Import API](/../api/import-export/overview) and the [Merchant Center](/../merchant-center/import-data).
+   *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing Products with the [Import API](/api/import-export/overview) and the [Merchant Center](/merchant-center/import-data).
    *
    *
    */
@@ -482,7 +482,7 @@ export interface ProductDraft {
   readonly state?: StateResourceIdentifier
   /**
    *	If `true`, the platform sets the `published` flag on the resulting [ProductCatalogData](ctp:api:type:ProductCatalogData) to `true`.
-   *	This makes the current representation retrievable in [Product Projection](/projects/productProjections) endpoints and indexes it for [Product Search](/../api/projects/product-search).
+   *	This makes the current representation retrievable in [Product Projection](/projects/productProjections) endpoints and indexes it for [Product Search](/api/projects/product-search).
    *	You can also set this flag later using the [Publish](/projects/products#publish) update action.
    *
    *
@@ -503,18 +503,18 @@ export interface ProductDraft {
   readonly attributes?: Attribute[]
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [Product](ctp:api:type:Product).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with `results` containing an array of [Product](ctp:api:type:Product).
  *
  */
 export interface ProductPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -527,10 +527,10 @@ export interface ProductPagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](ctp:api:type:QueryPredicate), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](ctp:api:type:QueryPredicate), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -543,8 +543,8 @@ export interface ProductPagedQueryResponse {
   readonly results: Product[]
 }
 /**
- *	This mode determines the type of Prices used for [price selection](/../api/pricing-and-discounts-overview#price-selection) by Line Items and Products.
- *	For more information about the difference between the Prices, see [Pricing](/../api/pricing-and-discounts-overview).
+ *	This mode determines the type of Prices used for [price selection](/api/pricing-and-discounts-overview#price-selection) by Line Items and Products.
+ *	For more information about the difference between the Prices, see [Pricing](/api/pricing-and-discounts-overview).
  *
  */
 export enum ProductPriceModeEnumValues {
@@ -606,7 +606,7 @@ export interface ProductProjection extends BaseResource {
    *	User-defined identifier used in a deep-link URL for the [Product](ctp:api:type:Product).
    *	Must be unique across a Project, but can be the same for Products in different locales.
    *	Matches the pattern `[a-zA-Z0-9_\-]{2,256}`.
-   *	For [good performance](/../api/predicates/query#performance-considerations), indexes are provided for the first 15 `languages` set in the [Project](ctp:api:type:Project).
+   *	For [good performance](/api/predicates/query#performance-considerations), indexes are provided for the first 15 `languages` set in the [Project](ctp:api:type:Project).
    *
    *
    */
@@ -642,7 +642,7 @@ export interface ProductProjection extends BaseResource {
    */
   readonly metaKeywords?: LocalizedString
   /**
-   *	Used by [Search Term Suggestions](/../api/projects/search-term-suggestions), but is also considered for a [full text search](/projects/product-projection-search#full-text-search) in the Product Projection Search API.
+   *	Used by [Search Term Suggestions](/api/projects/search-term-suggestions), but is also considered for a [full text search](/projects/product-projection-search#full-text-search) in the Product Projection Search API.
    *
    *
    */
@@ -692,7 +692,7 @@ export interface ProductProjection extends BaseResource {
   /**
    *	Indicates whether the Prices of the Product Projection are [embedded](ctp:api:type:Price) or [standalone](ctp:api:type:StandalonePrice).
    *
-   *	When [projecting Prices by Store](/../api/projects/productProjections#projection-by-store), the API supports only Embedded Prices (`Embedded`).
+   *	When [projecting Prices by Store](/api/projects/productProjections#projection-by-store), the API supports only Embedded Prices (`Embedded`).
    *
    *
    */
@@ -706,7 +706,7 @@ export interface ProductProjection extends BaseResource {
 }
 export interface ProductProjectionPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
@@ -719,16 +719,16 @@ export interface ProductProjectionPagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
   readonly total?: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -741,19 +741,19 @@ export interface ProductProjectionPagedQueryResponse {
   readonly results: ProductProjection[]
 }
 /**
- *	The response returned to a [Product Projection Search](/../api/projects/product-projection-search#product-projection-search) request.
- *	The object contains the [query results](/../api/projects/product-projection-search#query-results) with Product Projections where at least one ProductVariant matches the search query, as well as the [facet results](/../api/projects/product-projection-search#facet-results), if requested.
+ *	The response returned to a [Product Projection Search](/api/projects/product-projection-search#product-projection-search) request.
+ *	The object contains the [query results](/api/projects/product-projection-search#query-results) with Product Projections where at least one ProductVariant matches the search query, as well as the [facet results](/api/projects/product-projection-search#facet-results), if requested.
  *
  */
 export interface ProductProjectionPagedSearchResponse {
   /**
-   *	The maximum number of results returned on a [page](/../api/projects/product-projection-search#pagination).
+   *	The maximum number of results returned on a [page](/api/projects/product-projection-search#pagination).
    *
    *
    */
   readonly limit: number
   /**
-   *	The starting point for the retrieved [paginated](/../api/projects/product-projection-search#pagination) result.
+   *	The starting point for the retrieved [paginated](/api/projects/product-projection-search#pagination) result.
    *
    *
    */
@@ -772,13 +772,13 @@ export interface ProductProjectionPagedSearchResponse {
   readonly total?: number
   /**
    *	[ProductProjections](ctp:api:type:ProductProjection) where at least one [ProductVariant](ctp:api:type:ProductVariant) matches the search query, provided with the `text.{language}` and/or `filter.query` or `filter` query parameter.
-   *	If the query parameter `markMatchingVariants=true` was provided with the request, the [matching variants](/../api/projects/product-projection-search#matching-variants) are marked as such.
+   *	If the query parameter `markMatchingVariants=true` was provided with the request, the [matching variants](/api/projects/product-projection-search#matching-variants) are marked as such.
    *
    *
    */
   readonly results: ProductProjection[]
   /**
-   *	Facet results for each [facet expression](/../api/projects/product-projection-search#facets) specified in the search request.
+   *	Facet results for each [facet expression](/api/projects/product-projection-search#facets) specified in the search request.
    *
    *	Only present if at least one `facet` parameter was provided with the search request.
    *
@@ -799,14 +799,14 @@ export interface ProductReference extends IReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded Product. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for Products.
+   *	Contains the representation of the expanded Product. Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for Products.
    *
    *
    */
   readonly obj?: Product
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Product](ctp:api:type:Product). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Product](ctp:api:type:Product). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface ProductResourceIdentifier extends IResourceIdentifier {
@@ -916,7 +916,7 @@ export interface ProductVariant {
    */
   readonly key?: string
   /**
-   *	If the Product is [projected by Store](/../api/projects/productProjections#projection-by-store), this field only contains Embedded Prices that are valid for that Store.
+   *	If the Product is [projected by Store](/api/projects/productProjections#projection-by-store), this field only contains Embedded Prices that are valid for that Store.
    *
    *	Cannot contain two Embedded Prices with the same scopes (currency, country, Customer Group, Channel, `validFrom` and `validUntil`).
    *
@@ -930,7 +930,7 @@ export interface ProductVariant {
    */
   readonly attributes?: Attribute[]
   /**
-   *	Only present when [price selection](/../api/pricing-and-discounts-overview#price-selection) is applied.
+   *	Only present when [price selection](/api/pricing-and-discounts-overview#price-selection) is applied.
    *	Cannot be used in a [Query Predicate](ctp:api:type:QueryPredicate).
    *
    *
@@ -958,28 +958,28 @@ export interface ProductVariant {
   readonly availability?: ProductVariantAvailability
   /**
    *	`true` if the Product Variant matches the search query.
-   *	Only available in response to a [Product Projection Search](/../api/projects/product-projection-search) request.
+   *	Only available in response to a [Product Projection Search](/api/projects/product-projection-search) request.
    *
    *
    */
   readonly isMatchingVariant?: boolean
   /**
-   *	Only available in response to a [Product Projection Search](/../api/projects/product-projection-search) request
-   *	with [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection).
+   *	Only available in response to a [Product Projection Search](/api/projects/product-projection-search) request
+   *	with [Product price selection](/api/pricing-and-discounts-overview#product-price-selection).
    *	Can be used to sort, [filter](ctp:api:type:ProductProjectionSearchFilterScopedPrice), and facet.
    *
    *
    */
   readonly scopedPrice?: ScopedPrice
   /**
-   *	Only available in response to a [Product Projection Search](/../api/projects/product-projection-search) request
-   *	with [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection).
+   *	Only available in response to a [Product Projection Search](/api/projects/product-projection-search) request
+   *	with [Product price selection](/api/pricing-and-discounts-overview#product-price-selection).
    *
    *
    */
   readonly scopedPriceDiscounted?: boolean
   /**
-   *	Only available when [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection) is used.
+   *	Only available when [Product price selection](/api/pricing-and-discounts-overview#product-price-selection) is used.
    *	Cannot be used in a [Query Predicate](ctp:api:type:QueryPredicate).
    *
    *
@@ -1176,13 +1176,13 @@ export interface TermFacetResult extends IFacetResult {
    */
   readonly dataType: TermFacetResultType
   /**
-   *	Number of [ProductVariants](ctp:api:type:ProductVariant) that have no value for the specified [term facet expression](/../api/projects/product-projection-search#term-facet-expression).
+   *	Number of [ProductVariants](ctp:api:type:ProductVariant) that have no value for the specified [term facet expression](/api/projects/product-projection-search#term-facet-expression).
    *
    *
    */
   readonly missing: number
   /**
-   *	Number of terms matching the [term facet expression](/../api/projects/product-projection-search#term-facet-expression).
+   *	Number of terms matching the [term facet expression](/api/projects/product-projection-search#term-facet-expression).
    *
    *	- If the expression refers to Product fields like `categories.id` and `reviewRatingStatistics.count`, the value represents the number of Products.
    *	- If the expression is defined for fields specific to Product Variants, for example, `variants.attributes.{name}`, the value represents the number of Product Variants matching the expression.
@@ -1197,7 +1197,7 @@ export interface TermFacetResult extends IFacetResult {
    */
   readonly other: number
   /**
-   *	Values for the field specified in [term facet expression](/../api/projects/product-projection-search#term-facet-expression) for which at least one [ProductVariant](ctp:api:type:ProductVariant) could be found.
+   *	Values for the field specified in [term facet expression](/api/projects/product-projection-search#term-facet-expression) for which at least one [ProductVariant](ctp:api:type:ProductVariant) could be found.
    *
    *	By default, facet terms are returned in a descending order of their `count`.
    *
@@ -1600,7 +1600,7 @@ export interface ProductMoveImageToPositionAction extends IProductUpdateAction {
 }
 /**
  *	Copies the product data from the Product's staged representation to its current representation and sets the `published` flag on the resulting [ProductCatalogData](ctp:api:type:ProductCatalogData) to `true`.
- *	This makes the current representation retrievable in [Product Projection](/projects/productProjections) endpoints and indexes it for [Product Search](/../api/projects/product-search).
+ *	This makes the current representation retrievable in [Product Projection](/projects/productProjections) endpoints and indexes it for [Product Search](/api/projects/product-search).
  *
  *	Produces the [ProductPublished](ctp:api:type:ProductPublishedMessage) Message.
  */
@@ -1669,9 +1669,9 @@ export interface ProductRemoveFromCategoryAction extends IProductUpdateAction {
   readonly staged?: boolean
 }
 /**
- *	Removes a Product image and deletes it from the Content Delivery Network (CDN) if it had been [uploaded to our CDN](/../api/projects/products#upload-product-image).
+ *	Removes a Product image and deletes it from the Content Delivery Network (CDN) if it had been [uploaded to our CDN](/api/projects/products#upload-product-image).
  *	External images will not be deleted.
- *	The API deletes the removed image from the CDN in an [eventual consistent](/../api/general-concepts#eventual-consistency) way.
+ *	The API deletes the removed image from the CDN in an [eventual consistent](/api/general-concepts#eventual-consistency) way.
  *	Either `variantId` or `sku` is required.
  *
  */
@@ -1802,7 +1802,7 @@ export interface ProductSetAssetCustomFieldAction extends IProductUpdateAction {
    */
   readonly assetKey?: string
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -2220,7 +2220,7 @@ export interface ProductSetKeyAction extends IProductUpdateAction {
   /**
    *	Value to set. If empty, any existing value will be removed.
    *
-   *	To update a Product using the [Import API](/../api/import-export/overview) and the [Merchant Center](/../merchant-center/import-data), the Product `key` must match the pattern `^[A-Za-z0-9_-]{2,256}$`.
+   *	To update a Product using the [Import API](/api/import-export/overview) and the [Merchant Center](/merchant-center/import-data), the Product `key` must match the pattern `^[A-Za-z0-9_-]{2,256}$`.
    *
    *
    */
@@ -2386,7 +2386,7 @@ export interface ProductSetProductPriceCustomFieldAction extends IProductUpdateA
    */
   readonly staged?: boolean
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -2537,7 +2537,7 @@ export interface ProductTransitionStateAction extends IProductUpdateAction {
 }
 /**
  *	Sets the `published` flag on the [ProductCatalogData](ctp:api:type:ProductCatalogData) to `false`.
- *	This makes the [current](/../api/projects/productProjections#current--staged) representation of a Product unavailable in [Product Projection](/projects/productProjections) endpoints by default, and excludes it from [Product Search](/../api/projects/product-search).
+ *	This makes the [current](/api/projects/productProjections#current--staged) representation of a Product unavailable in [Product Projection](/projects/productProjections) endpoints by default, and excludes it from [Product Search](/api/projects/product-search).
  *	To retrieve unpublished Products on Product Projection endpoints, set parameter `staged=true`.
  *
  *	Produces the [ProductUnpublished](ctp:api:type:ProductUnpublishedMessage) Message.

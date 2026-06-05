@@ -51,7 +51,7 @@ export interface AttributeDefinition {
    */
   readonly inputHint?: TextInputHint
   /**
-   *	If `true`, the Attribute's values are available in the [Product Search](/../api/projects/product-search) or the [Product Projection Search](/../api/projects/product-projection-search) API for use in full-text search queries, filters, and facets.
+   *	If `true`, the Attribute's values are available in the [Product Search](/api/projects/product-search) or the [Product Projection Search](/api/projects/product-projection-search) API for use in full-text search queries, filters, and facets.
    *
    */
   readonly isSearchable?: boolean

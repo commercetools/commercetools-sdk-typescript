@@ -130,7 +130,7 @@ export interface ProductVariantImportRequest extends IImportRequest {
   readonly resources: ProductVariantImport[]
 }
 /**
- *	The request body to [import Embedded Prices](ctp:import:endpoint:/{projectKey}/prices/import-containers/{importContainerKey}:POST). Contains data for [Embedded Prices](/../api/types#price) to be created or updated in a Project.
+ *	The request body to [import Embedded Prices](ctp:import:endpoint:/{projectKey}/prices/import-containers/{importContainerKey}:POST). Contains data for [Embedded Prices](/api/types#price) to be created or updated in a Project.
  *
  */
 export interface PriceImportRequest extends IImportRequest {

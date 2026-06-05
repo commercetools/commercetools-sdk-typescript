@@ -72,7 +72,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyOrdersOrderNumberByOrderNumberReque
     )
   }
   /**
-   *	Updates an Order in a [Store](ctp:api:type:Store) using one or more [update actions](/../api/projects/orders#update-actions).
+   *	Updates an Order in a [Store](ctp:api:type:Store) using one or more [update actions](/api/projects/orders#update-actions).
    *	If the Order exists in the Project but does not have a `store` specified, or the `store` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
    *
    */
