@@ -50,7 +50,7 @@ export class ByProjectKeyCategoriesRequestBuilder {
   }
 
   /**
-   *	Either the [scope](/../api/scopes) `view_products:{projectKey}` or `view_categories:{projectKey}` is required.
+   *	Either the [scope](/api/scopes) `view_products:{projectKey}` or `view_categories:{projectKey}` is required.
    *
    */
   public get(methodArgs?: {
@@ -108,7 +108,7 @@ export class ByProjectKeyCategoriesRequestBuilder {
     )
   }
   /**
-   *	Either the [scope](/../api/scopes) `manage_products:{projectKey}` or `manage_categories:{projectKey}` is required.
+   *	Either the [scope](/api/scopes) `manage_products:{projectKey}` or `manage_categories:{projectKey}` is required.
    *
    *	Creating a Category produces the [CategoryCreated](ctp:api:type:CategoryCreatedMessage) Message.
    *

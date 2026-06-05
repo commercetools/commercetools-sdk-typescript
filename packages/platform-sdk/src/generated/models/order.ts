@@ -290,13 +290,13 @@ export interface OrderPagedSearchResponse {
    */
   readonly total: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
   readonly offset?: number
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
@@ -308,7 +308,7 @@ export interface OrderPagedSearchResponse {
   readonly hits: Hit[]
 }
 /**
- *	Possible values for the `customType` property on [simple expressions](/../api/projects/order-search#simple-expressions) indicating the data type of the `field`.
+ *	Possible values for the `customType` property on [simple expressions](/api/projects/order-search#simple-expressions) indicating the data type of the `field`.
  */
 export enum OrderSearchCustomTypeValues {
   BooleanType = 'BooleanType',
@@ -365,7 +365,7 @@ export interface OrderSearchQueryExpressionValue {
    */
   readonly boost?: number
   /**
-   *	Possible values for the `customType` property on [simple expressions](/../api/projects/order-search#simple-expressions) indicating the data type of the `field`.
+   *	Possible values for the `customType` property on [simple expressions](/api/projects/order-search#simple-expressions) indicating the data type of the `field`.
    *
    */
   readonly customType?: OrderSearchCustomType
@@ -702,7 +702,7 @@ export interface LineItemImportDraft {
    */
   readonly taxRate?: TaxRate
   /**
-   *	The Channel used to [select a Price](/../api/pricing-and-discounts-overview#line-item-price-selection).
+   *	The Channel used to [select a Price](/api/pricing-and-discounts-overview#line-item-price-selection).
    *	This Channel must have the `ProductDistribution` role.
    *
    */
@@ -760,7 +760,7 @@ export interface Order extends BaseResource {
   /**
    *	User-defined identifier of a purchase Order.
    *
-   *	It is typically set by the [Buyer](ctp:api:type:Buyer) and can be used with [Quotes](/quotes-overview) to track the purchase Order during the [quote and order flow](/../api/quotes-overview#intended-workflow).
+   *	It is typically set by the [Buyer](ctp:api:type:Buyer) and can be used with [Quotes](/quotes-overview) to track the purchase Order during the [quote and order flow](/api/quotes-overview#intended-workflow).
    *
    */
   readonly purchaseOrderNumber?: string
@@ -778,7 +778,7 @@ export interface Order extends BaseResource {
   readonly customerEmail?: string
   /**
    *	[Reference](ctp:api:type:Reference) to the Customer Group of the Customer that the Order belongs to.
-   *	Used for [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
+   *	Used for [Line Item price selection](/api/pricing-and-discounts-overview#line-item-price-selection).
    *
    */
   readonly customerGroup?: CustomerGroupReference
@@ -789,7 +789,7 @@ export interface Order extends BaseResource {
    */
   readonly anonymousId?: string
   /**
-   *	[Reference](ctp:api:type:Reference) to a Business Unit the Order belongs to. Only available for [B2B](/../offering/commerce-b2b)-enabled Projects.
+   *	[Reference](ctp:api:type:Reference) to a Business Unit the Order belongs to. Only available for [B2B](/offering/commerce-b2b)-enabled Projects.
    *
    *
    */
@@ -961,7 +961,7 @@ export interface Order extends BaseResource {
    */
   readonly paymentInfo?: PaymentInfo
   /**
-   *	Used for [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
+   *	Used for [Line Item price selection](/api/pricing-and-discounts-overview#line-item-price-selection).
    *
    */
   readonly country?: string
@@ -1115,7 +1115,7 @@ export interface OrderFromCartDraft {
   /**
    *	User-defined identifier for a purchase order.
    *
-   *	It is typically set by the [Buyer](ctp:api:type:Buyer) or Merchant to track the purchase order during the [quote and order flow](/../api/quotes-overview#intended-workflow).
+   *	It is typically set by the [Buyer](ctp:api:type:Buyer) or Merchant to track the purchase order during the [quote and order flow](/api/quotes-overview#intended-workflow).
    *
    *	If not provided, the `purchaseOrderNumber` from the referenced [Cart](ctp:api:type:Cart) is used.
    *
@@ -1246,7 +1246,7 @@ export interface OrderImportDraft {
   readonly customerGroup?: CustomerGroupResourceIdentifier
   /**
    *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to the Business Unit the Order should belong to.
-   *	When the `customerId` of the Order is also set, the [Customer](ctp:api:type:Customer) must be an [Associate](ctp:api:type:Associate) of the Business Unit. Only available for [B2B](/../offering/commerce-b2b)-enabled Projects.
+   *	When the `customerId` of the Order is also set, the [Customer](ctp:api:type:Customer) must be an [Associate](ctp:api:type:Associate) of the Business Unit. Only available for [B2B](/offering/commerce-b2b)-enabled Projects.
    *
    *
    */
@@ -1393,18 +1393,18 @@ export interface OrderImportDraft {
   readonly custom?: CustomFieldsDraft
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [Order](ctp:api:type:Order).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with `results` containing an array of [Order](ctp:api:type:Order).
  *
  */
 export interface OrderPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -1417,10 +1417,10 @@ export interface OrderPagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](ctp:api:type:QueryPredicate), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](ctp:api:type:QueryPredicate), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -1445,7 +1445,7 @@ export interface OrderReference extends IReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded Order. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for Orders.
+   *	Contains the representation of the expanded Order. Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for Orders.
    *
    *
    */
@@ -2333,7 +2333,7 @@ export interface TrackingData {
  *	A [Delivery](ctp:api:type:Delivery) can only be added to an [Order](ctp:api:type:Order) if
  *	its `shippingInfo` (for `shippingMode` = `Single`), or its `shipping` (for `shippingMode` = `Multiple`) exists.
  *
- *	Multiple Deliveries can be added to the same Order to represent split or partial shipments. However, the API doesn't validate that the cumulative quantities of Line Items or Custom Line Items across all Deliveries match or stay within the originally ordered quantities. For more information, see [Multiple Deliveries](/../api/shipping-delivery-overview#multiple-deliveries) on the Shipping and Delivery overview page.
+ *	Multiple Deliveries can be added to the same Order to represent split or partial shipments. However, the API doesn't validate that the cumulative quantities of Line Items or Custom Line Items across all Deliveries match or stay within the originally ordered quantities. For more information, see [Multiple Deliveries](/api/shipping-delivery-overview#multiple-deliveries) on the Shipping and Delivery overview page.
  *
  *	Produces the [Delivery Added](ctp:api:type:DeliveryAddedMessage) Message.
  *
@@ -2672,7 +2672,7 @@ export interface OrderSetBillingAddressAction extends IOrderUpdateAction {
 export interface OrderSetBillingAddressCustomFieldAction extends IOrderUpdateAction {
   readonly action: 'setBillingAddressCustomField'
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -2724,7 +2724,7 @@ export interface OrderSetBusinessUnitAction extends IOrderUpdateAction {
 export interface OrderSetCustomFieldAction extends IOrderUpdateAction {
   readonly action: 'setCustomField'
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -2753,7 +2753,7 @@ export interface OrderSetCustomLineItemCustomFieldAction extends IOrderUpdateAct
    */
   readonly customLineItemKey?: string
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -2919,7 +2919,7 @@ export interface OrderSetDeliveryAddressCustomFieldAction extends IOrderUpdateAc
    */
   readonly deliveryKey?: string
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -2986,7 +2986,7 @@ export interface OrderSetDeliveryCustomFieldAction extends IOrderUpdateAction {
    */
   readonly deliveryKey?: string
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -3073,7 +3073,7 @@ export interface OrderSetItemShippingAddressCustomFieldAction extends IOrderUpda
    */
   readonly addressKey: string
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -3126,7 +3126,7 @@ export interface OrderSetLineItemCustomFieldAction extends IOrderUpdateAction {
    */
   readonly lineItemKey?: string
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -3233,7 +3233,7 @@ export interface OrderSetParcelCustomFieldAction extends IOrderUpdateAction {
    */
   readonly parcelKey?: string
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -3414,7 +3414,7 @@ export interface OrderSetReturnItemCustomFieldAction extends IOrderUpdateAction 
    */
   readonly returnItemKey?: string
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -3530,7 +3530,7 @@ export interface OrderSetShippingAddressAction extends IOrderUpdateAction {
 export interface OrderSetShippingAddressCustomFieldAction extends IOrderUpdateAction {
   readonly action: 'setShippingAddressCustomField'
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -3573,7 +3573,7 @@ export interface OrderSetShippingCustomFieldAction extends IOrderUpdateAction {
    */
   readonly shippingKey?: string
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */

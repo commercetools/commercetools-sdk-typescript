@@ -127,17 +127,17 @@ export interface ImportContainerUpdateDraft {
   readonly resourceType?: ImportResourceType
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [ImportContainer](ctp:import:type:ImportContainer).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with results containing an array of [ImportContainer](ctp:import:type:ImportContainer).
  *
  */
 export interface ImportContainerPagedResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */

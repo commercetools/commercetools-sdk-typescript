@@ -79,13 +79,13 @@ export interface AssignedProductSelection {
  */
 export interface AssignedProductSelectionPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -99,8 +99,8 @@ export interface AssignedProductSelectionPagedQueryResponse {
   /**
    *	Total number of results matching the query.
    *	Present only when the `withTotal` query parameter is set to `true`.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -134,12 +134,12 @@ export interface ProductSelection extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources updated after 1/02/2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	Present on resources updated after 1/02/2019 except for [events not tracked](/api/general-concepts#events-tracked).
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1/02/2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	Present on resources created after 1/02/2019 except for [events not tracked](/api/general-concepts#events-tracked).
    *
    */
   readonly createdBy?: CreatedBy
@@ -251,13 +251,13 @@ export type ProductSelectionMode =
  */
 export interface ProductSelectionPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -291,13 +291,13 @@ export interface ProductSelectionPagedQueryResponse {
  */
 export interface ProductSelectionProductPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -311,8 +311,8 @@ export interface ProductSelectionProductPagedQueryResponse {
   /**
    *	Total number of results matching the query.
    *	Present only when the `withTotal` query parameter is set to `true`.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -336,14 +336,14 @@ export interface ProductSelectionReference extends IReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded ProductSelection. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for ProductSelections.
+   *	Contains the representation of the expanded ProductSelection. Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for ProductSelections.
    *
    *
    */
   readonly obj?: ProductSelection
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ProductSelection](ctp:api:type:ProductSelection). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ProductSelection](ctp:api:type:ProductSelection). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface ProductSelectionResourceIdentifier extends IResourceIdentifier {
@@ -459,13 +459,13 @@ export type ProductVariantSelectionTypeEnum =
  */
 export interface ProductsInStorePagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -479,8 +479,8 @@ export interface ProductsInStorePagedQueryResponse {
   /**
    *	Total number of results matching the query.
    *	Present only when the `withTotal` query parameter is set to `true`.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -552,7 +552,7 @@ export interface ProductSelectionRemoveProductAction extends IProductSelectionUp
 export interface ProductSelectionSetCustomFieldAction extends IProductSelectionUpdateAction {
   readonly action: 'setCustomField'
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */

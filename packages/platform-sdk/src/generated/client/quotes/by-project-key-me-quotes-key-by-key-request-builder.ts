@@ -71,7 +71,7 @@ export class ByProjectKeyMeQuotesKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Updates a Quote for the authenticated Customer using one or more [update actions](/../api/projects/quotes#update-actions).
+   *	Updates a Quote for the authenticated Customer using one or more [update actions](/api/projects/quotes#update-actions).
    *
    */
   public post(methodArgs: {

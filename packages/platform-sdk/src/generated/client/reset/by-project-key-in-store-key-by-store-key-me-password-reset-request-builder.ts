@@ -20,11 +20,11 @@ export class ByProjectKeyInStoreKeyByStoreKeyMePasswordResetRequestBuilder {
     }
   ) {}
   /**
-   *	This is the last step in the [password reset process of the authenticated Customer](/../api/projects/customers#password-reset-of-customer-in-store).
+   *	This is the last step in the [password reset process of the authenticated Customer](/api/projects/customers#password-reset-of-customer-in-store).
    *
    *	Resetting a password produces the Customer [CustomerPasswordUpdated](ctp:api:type:CustomerPasswordUpdatedMessage) Message with `reset=true`.
    *
-   *	After the password is reset, all password tokens issued previously through the [password reset flow](/../api/projects/customers#password-reset-of-customer) are invalidated. In addition, any access and refresh tokens issued previously through the [password flow](/../api/authorization#password-flow) and [refresh token flow](/../api/authorization#refresh-token-flow) are invalidated. This invalidation of tokens is [eventually consistent](/../api/general-concepts#eventual-consistency).
+   *	After the password is reset, all password tokens issued previously through the [password reset flow](/api/projects/customers#password-reset-of-customer) are invalidated. In addition, any access and refresh tokens issued previously through the [password flow](/api/authorization#password-flow) and [refresh token flow](/api/authorization#refresh-token-flow) are invalidated. This invalidation of tokens is [eventually consistent](/api/general-concepts#eventual-consistency).
    *
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *

@@ -101,13 +101,13 @@ export interface CustomerGroupDraft {
  */
 export interface CustomerGroupPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -120,10 +120,10 @@ export interface CustomerGroupPagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -148,14 +148,14 @@ export interface CustomerGroupReference extends IReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded CustomerGroup. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for CustomerGroups.
+   *	Contains the representation of the expanded CustomerGroup. Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for CustomerGroups.
    *
    *
    */
   readonly obj?: CustomerGroup
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [CustomerGroup](ctp:api:type:CustomerGroup). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [CustomerGroup](ctp:api:type:CustomerGroup). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface CustomerGroupResourceIdentifier extends IResourceIdentifier {
@@ -211,7 +211,7 @@ export interface CustomerGroupChangeNameAction extends ICustomerGroupUpdateActio
 export interface CustomerGroupSetCustomFieldAction extends ICustomerGroupUpdateAction {
   readonly action: 'setCustomField'
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -227,7 +227,7 @@ export interface CustomerGroupSetCustomFieldAction extends ICustomerGroupUpdateA
 }
 /**
  *	This action sets or removes the custom type for an existing CustomerGroup.
- *	If present, this action overwrites any existing [custom](/../api/projects/custom-fields) type and fields.
+ *	If present, this action overwrites any existing [custom](/api/projects/custom-fields) type and fields.
  *
  */
 export interface CustomerGroupSetCustomTypeAction extends ICustomerGroupUpdateAction {

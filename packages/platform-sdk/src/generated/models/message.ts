@@ -137,7 +137,7 @@ export interface ContainerAndKey {
   readonly container: string
 }
 /**
- *	Base representation of a Message containing common fields to all [Message Types](/../api/projects/messages#message-types).
+ *	Base representation of a Message containing common fields to all [Message Types](/api/projects/messages#message-types).
  *
  */
 export type Message =
@@ -512,7 +512,7 @@ export interface IMessage {
    */
   readonly resourceVersion: number
   /**
-   *	[Message Type](/../api/projects/messages#message-types) of the Message.
+   *	[Message Type](/api/projects/messages#message-types) of the Message.
    *
    *
    */
@@ -7045,7 +7045,7 @@ export interface CustomerDefaultShippingAddressSetMessage extends IMessage {
   readonly address?: Address
 }
 /**
- *	Generated after a successful [Delete Customer](/../api/projects/customers#delete-customer) request.
+ *	Generated after a successful [Delete Customer](/api/projects/customers#delete-customer) request.
  *
  */
 export interface CustomerDeletedMessage extends IMessage {
@@ -8300,7 +8300,7 @@ export interface CustomerPasswordTokenCreatedMessage extends IMessage {
   readonly invalidateOlderTokens: boolean
 }
 /**
- *	Generated after a successful [Reset Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password/reset:POST), [Reset Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password/reset:POST), [Change Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password:POST), or [Change Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password:POST) request. This Message is also produced during equivalent requests to the [My Customer Profile](/../api/projects/me-profile) endpoint.
+ *	Generated after a successful [Reset Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password/reset:POST), [Reset Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password/reset:POST), [Change Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password:POST), or [Change Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password:POST) request. This Message is also produced during equivalent requests to the [My Customer Profile](/api/projects/me-profile) endpoint.
  *
  */
 export interface CustomerPasswordUpdatedMessage extends IMessage {
@@ -9298,7 +9298,7 @@ export interface InventoryEntryCreatedMessage extends IMessage {
   readonly inventoryEntry: InventoryEntry
 }
 /**
- *	Generated after a successful [Delete InventoryEntry](/../api/projects/inventory#delete-inventoryentry) request.
+ *	Generated after a successful [Delete InventoryEntry](/api/projects/inventory#delete-inventoryentry) request.
  *
  */
 export interface InventoryEntryDeletedMessage extends IMessage {
@@ -9791,12 +9791,12 @@ export interface InventoryEntrySafetyStockMessage extends IMessage {
   readonly supplyChannel?: ChannelReference
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [Message](ctp:api:type:Message).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with `results` containing an array of [Message](ctp:api:type:Message).
  *
  */
 export interface MessagePagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
@@ -9809,16 +9809,16 @@ export interface MessagePagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
   readonly total?: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -9831,17 +9831,17 @@ export interface MessagePagedQueryResponse {
   readonly results: Message[]
 }
 /**
- *	Holds the configuration for the [Messages Query](/../api/projects/messages) feature for the Project.
+ *	Holds the configuration for the [Messages Query](/api/projects/messages) feature for the Project.
  */
 export interface MessagesConfiguration {
   /**
-   *	When `true`, the [Messages Query](/../api/projects/messages) feature is active.
+   *	When `true`, the [Messages Query](/api/projects/messages) feature is active.
    *
    *
    */
   readonly enabled: boolean
   /**
-   *	Specifies the number of days each Message should be available via the [Messages Query](/../api/projects/messages) API.
+   *	Specifies the number of days each Message should be available via the [Messages Query](/api/projects/messages) API.
    *	For Messages older than the specified period, it is not guaranteed that they are still accessible via the API.
    *	This field may not be present on Projects created before 8 October 2018.
    *
@@ -9850,17 +9850,17 @@ export interface MessagesConfiguration {
   readonly deleteDaysAfterCreation?: number
 }
 /**
- *	Defines the configuration for the [Messages Query](/../api/projects/messages) feature for the Project.
+ *	Defines the configuration for the [Messages Query](/api/projects/messages) feature for the Project.
  */
 export interface MessagesConfigurationDraft {
   /**
-   *	Setting to `true` activates the [Messages Query](/../api/projects/messages) feature.
+   *	Setting to `true` activates the [Messages Query](/api/projects/messages) feature.
    *
    *
    */
   readonly enabled: boolean
   /**
-   *	Specifies the number of days each Message should be available via the [Messages Query](/../api/projects/messages) API. For Messages older than the specified period, it is not guaranteed that they are still accessible via the API.
+   *	Specifies the number of days each Message should be available via the [Messages Query](/api/projects/messages) API. For Messages older than the specified period, it is not guaranteed that they are still accessible via the API.
    *
    *
    */
@@ -9974,7 +9974,7 @@ export interface IOrderMessage {
    */
   readonly resourceVersion: number
   /**
-   *	[Message Type](/../api/projects/messages#message-types) of the Message.
+   *	[Message Type](/api/projects/messages#message-types) of the Message.
    *
    *
    */
@@ -12157,7 +12157,7 @@ export interface OrderCustomerSetMessage extends IOrderMessage {
   readonly oldCustomerGroup?: CustomerGroupReference
 }
 /**
- *	Generated after a successful [Delete Order](/../api/projects/orders#delete-order) request.
+ *	Generated after a successful [Delete Order](/api/projects/orders#delete-order) request.
  *
  */
 export interface OrderDeletedMessage extends IOrderMessage {
@@ -12367,7 +12367,7 @@ export interface OrderDiscountCodeRemovedMessage extends IOrderMessage {
   readonly discountCode: DiscountCodeReference
 }
 /**
- *	Generated after the [DiscountCodeState](ctp:api:type:DiscountCodeState) changes due to a [recalculation](/../api/projects/carts#recalculate).
+ *	Generated after the [DiscountCodeState](ctp:api:type:DiscountCodeState) changes due to a [recalculation](/api/projects/carts#recalculate).
  *
  */
 export interface OrderDiscountCodeStateSetMessage extends IOrderMessage {
@@ -12772,7 +12772,7 @@ export interface OrderLineItemDiscountSetMessage extends IOrderMessage {
   readonly taxedPricePortions: MethodTaxedPrice[]
 }
 /**
- *	Generated after a successful [Set LineItem DistributionChannel](/../api/projects/order-edits#set-lineitem-distributionchannel) update action.
+ *	Generated after a successful [Set LineItem DistributionChannel](/api/projects/order-edits#set-lineitem-distributionchannel) update action.
  *
  */
 export interface OrderLineItemDistributionChannelSetMessage extends IOrderMessage {
@@ -16842,7 +16842,7 @@ export interface ProductCreatedMessage extends IMessage {
   readonly productProjection: ProductProjection
 }
 /**
- *	Generated after a successful [Delete Product](/../api/projects/products#delete-product) request.
+ *	Generated after a successful [Delete Product](/api/projects/products#delete-product) request.
  *
  */
 export interface ProductDeletedMessage extends IMessage {
@@ -16918,7 +16918,7 @@ export interface ProductDeletedMessage extends IMessage {
   readonly currentProjection?: ProductProjection
 }
 /**
- *	Generated after a successful [Add External Image](ctp:api:type:ProductAddExternalImageAction) update action or after the successful [upload of an image](/../api/projects/products#upload-product-image).
+ *	Generated after a successful [Add External Image](ctp:api:type:ProductAddExternalImageAction) update action or after the successful [upload of an image](/api/projects/products#upload-product-image).
  *
  */
 export interface ProductImageAddedMessage extends IMessage {
@@ -18464,7 +18464,7 @@ export interface ProductSelectionCreatedMessage extends IMessage {
   readonly productSelection: ProductSelection
 }
 /**
- *	Generated after a successful [Delete Product Selection](/../api/projects/product-selections#delete-productselection) request.
+ *	Generated after a successful [Delete Product Selection](/api/projects/product-selections#delete-productselection) request.
  *
  */
 export interface ProductSelectionDeletedMessage extends IMessage {
@@ -19061,8 +19061,8 @@ export interface ProductStateTransitionMessage extends IMessage {
   readonly force: boolean
 }
 /**
- *	Generated after a successful [Create Product Tailoring](/../api/projects/product-tailoring#create-producttailoring) or
- *	[Create Product Tailoring in Store](/../api/projects/product-tailoring#create-producttailoring-in-store) request.
+ *	Generated after a successful [Create Product Tailoring](/api/projects/product-tailoring#create-producttailoring) or
+ *	[Create Product Tailoring in Store](/api/projects/product-tailoring#create-producttailoring-in-store) request.
  *
  */
 export interface ProductTailoringCreatedMessage extends IMessage {
@@ -19205,8 +19205,8 @@ export interface ProductTailoringCreatedMessage extends IMessage {
   readonly published: boolean
 }
 /**
- *	Generated after a successful [Delete Product Tailoring](/../api/projects/product-tailoring#delete-producttailoring) or
- *	[Delete ProductTailoring assigned to Product in Store](/../api/projects/product-tailoring#delete-producttailoring-assigned-to-product-in-store) request.
+ *	Generated after a successful [Delete Product Tailoring](/api/projects/product-tailoring#delete-producttailoring) or
+ *	[Delete ProductTailoring assigned to Product in Store](/api/projects/product-tailoring#delete-producttailoring-assigned-to-product-in-store) request.
  *
  */
 export interface ProductTailoringDeletedMessage extends IMessage {
@@ -20403,7 +20403,7 @@ export interface QuoteCreatedMessage extends IMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Quote](/../api/projects/quotes) that was created.
+   *	[Quote](/api/projects/quotes) that was created.
    *
    *
    */
@@ -20473,20 +20473,20 @@ export interface QuoteCustomerChangedMessage extends IMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	The [Buyer](/../api/quotes-overview#buyer) who now owns the Quote.
+   *	The [Buyer](/api/quotes-overview#buyer) who now owns the Quote.
    *
    *
    */
   readonly customer: CustomerReference
   /**
-   *	The previous [Buyer](/../api/quotes-overview#buyer).
+   *	The previous [Buyer](/api/quotes-overview#buyer).
    *
    *
    */
   readonly previousCustomer: CustomerReference
 }
 /**
- *	Generated after a successful [Delete Quote](/../api/projects/quotes#delete-quote) request.
+ *	Generated after a successful [Delete Quote](/api/projects/quotes#delete-quote) request.
  *
  */
 export interface QuoteDeletedMessage extends IMessage {
@@ -20683,7 +20683,7 @@ export interface QuoteRequestCreatedMessage extends IMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Quote Request](/../api/projects/quote-requests) that was created.
+   *	[Quote Request](/api/projects/quote-requests) that was created.
    *
    *
    */
@@ -20753,20 +20753,20 @@ export interface QuoteRequestCustomerChangedMessage extends IMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	The [Buyer](/../api/quotes-overview#buyer) who now owns the Quote Request.
+   *	The [Buyer](/api/quotes-overview#buyer) who now owns the Quote Request.
    *
    *
    */
   readonly customer: CustomerReference
   /**
-   *	The previous [Buyer](/../api/quotes-overview#buyer).
+   *	The previous [Buyer](/api/quotes-overview#buyer).
    *
    *
    */
   readonly previousCustomer: CustomerReference
 }
 /**
- *	Generated after a successful [Delete QuoteRequest](/../api/projects/quote-requests#delete-quoterequest) request.
+ *	Generated after a successful [Delete QuoteRequest](/api/projects/quote-requests#delete-quoterequest) request.
  *
  */
 export interface QuoteRequestDeletedMessage extends IMessage {
@@ -21589,7 +21589,7 @@ export interface RecurringOrderCustomTypeSetMessage extends IMessage {
   readonly previousTypeId?: string
 }
 /**
- *	Generated after a successful [Delete RecurringOrder](/../api/projects/recurring-orders#delete-recurringorder) request.
+ *	Generated after a successful [Delete RecurringOrder](/api/projects/recurring-orders#delete-recurringorder) request.
  *
  */
 export interface RecurringOrderDeletedMessage extends IMessage {
@@ -22668,7 +22668,7 @@ export interface IShoppingListMessage {
    */
   readonly resourceVersion: number
   /**
-   *	[Message Type](/../api/projects/messages#message-types) of the Message.
+   *	[Message Type](/api/projects/messages#message-types) of the Message.
    *
    *
    */
@@ -22884,14 +22884,14 @@ export interface StagedQuoteCreatedMessage extends IMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Staged Quote](/../api/projects/staged-quotes) that was created.
+   *	[Staged Quote](/api/projects/staged-quotes) that was created.
    *
    *
    */
   readonly stagedQuote: StagedQuote
 }
 /**
- *	Generated after a successful [Delete StagedQuote](/../api/projects/staged-quotes#delete-stagedquote) request.
+ *	Generated after a successful [Delete StagedQuote](/api/projects/staged-quotes#delete-stagedquote) request.
  *
  */
 export interface StagedQuoteDeletedMessage extends IMessage {
@@ -23399,7 +23399,7 @@ export interface StandalonePriceCreatedMessage extends IMessage {
   readonly standalonePrice: StandalonePrice
 }
 /**
- *	Generated after a successful [Delete StandalonePrice](/../api/projects/standalone-prices#delete-standaloneprice) request.
+ *	Generated after a successful [Delete StandalonePrice](/api/projects/standalone-prices#delete-standaloneprice) request.
  *
  */
 export interface StandalonePriceDeletedMessage extends IMessage {
@@ -23748,7 +23748,7 @@ export interface StandalonePriceStagedChangesAppliedMessage extends IMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	Applied changes of the [StandalonePrice](/../api/projects/standalone-prices) after the [Apply Staged Changes](ctp:api:type:StandalonePriceApplyStagedChangesAction) update action.
+   *	Applied changes of the [StandalonePrice](/api/projects/standalone-prices) after the [Apply Staged Changes](ctp:api:type:StandalonePriceApplyStagedChangesAction) update action.
    *
    *
    */
@@ -24548,7 +24548,7 @@ export interface StoreCreatedMessage extends IMessage {
   readonly custom?: CustomFields
 }
 /**
- *	Generated after a successful [Delete Store](/../api/projects/stores#delete-store) request.
+ *	Generated after a successful [Delete Store](/api/projects/stores#delete-store) request.
  *
  */
 export interface StoreDeletedMessage extends IMessage {
@@ -25038,7 +25038,7 @@ export interface UserProvidedIdentifiers {
    */
   readonly slug?: LocalizedString
   /**
-   *	Unique identifier of a [Custom Object](/../api/projects/custom-objects).
+   *	Unique identifier of a [Custom Object](/api/projects/custom-objects).
    *
    */
   readonly containerAndKey?: ContainerAndKey
@@ -26817,7 +26817,7 @@ export interface CustomerDefaultShippingAddressSetMessagePayload extends IMessag
   readonly address?: Address
 }
 /**
- *	Generated after a successful [Delete Customer](/../api/projects/customers#delete-customer) request.
+ *	Generated after a successful [Delete Customer](/api/projects/customers#delete-customer) request.
  *
  */
 export interface CustomerDeletedMessagePayload extends IMessagePayload {
@@ -27103,7 +27103,7 @@ export interface CustomerPasswordTokenCreatedMessagePayload extends IMessagePayl
   readonly invalidateOlderTokens: boolean
 }
 /**
- *	Generated after a successful [Reset Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password/reset:POST), [Reset Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password/reset:POST), [Change Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password:POST), or [Change Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password:POST) request. This Message is also produced during equivalent requests to the [My Customer Profile](/../api/projects/me-profile) endpoint.
+ *	Generated after a successful [Reset Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password/reset:POST), [Reset Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password/reset:POST), [Change Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password:POST), or [Change Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password:POST) request. This Message is also produced during equivalent requests to the [My Customer Profile](/api/projects/me-profile) endpoint.
  *
  */
 export interface CustomerPasswordUpdatedMessagePayload extends IMessagePayload {
@@ -27303,7 +27303,7 @@ export interface InventoryEntryCreatedMessagePayload extends IMessagePayload {
   readonly inventoryEntry: InventoryEntry
 }
 /**
- *	Generated after a successful [Delete InventoryEntry](/../api/projects/inventory#delete-inventoryentry) request.
+ *	Generated after a successful [Delete InventoryEntry](/api/projects/inventory#delete-inventoryentry) request.
  *
  */
 export interface InventoryEntryDeletedMessagePayload extends IMessagePayload {
@@ -28146,7 +28146,7 @@ export interface OrderCustomerSetMessagePayload extends IOrderMessagePayload {
   readonly oldCustomerGroup?: CustomerGroupReference
 }
 /**
- *	Generated after a successful [Delete Order](/../api/projects/orders#delete-order) request.
+ *	Generated after a successful [Delete Order](/api/projects/orders#delete-order) request.
  *
  */
 export interface OrderDeletedMessagePayload extends IOrderMessagePayload {
@@ -28185,7 +28185,7 @@ export interface OrderDiscountCodeRemovedMessagePayload extends IOrderMessagePay
   readonly discountCode: DiscountCodeReference
 }
 /**
- *	Generated after the [DiscountCodeState](ctp:api:type:DiscountCodeState) changes due to a [recalculation](/../api/projects/carts#recalculate).
+ *	Generated after the [DiscountCodeState](ctp:api:type:DiscountCodeState) changes due to a [recalculation](/api/projects/carts#recalculate).
  *
  */
 export interface OrderDiscountCodeStateSetMessagePayload extends IOrderMessagePayload {
@@ -28305,7 +28305,7 @@ export interface OrderLineItemDiscountSetMessagePayload extends IOrderMessagePay
   readonly taxedPricePortions: MethodTaxedPrice[]
 }
 /**
- *	Generated after a successful [Set LineItem DistributionChannel](/../api/projects/order-edits#set-lineitem-distributionchannel) update action.
+ *	Generated after a successful [Set LineItem DistributionChannel](/api/projects/order-edits#set-lineitem-distributionchannel) update action.
  *
  */
 export interface OrderLineItemDistributionChannelSetMessagePayload extends IOrderMessagePayload {
@@ -29354,7 +29354,7 @@ export interface ProductCreatedMessagePayload extends IMessagePayload {
   readonly productProjection: ProductProjection
 }
 /**
- *	Generated after a successful [Delete Product](/../api/projects/products#delete-product) request.
+ *	Generated after a successful [Delete Product](/api/projects/products#delete-product) request.
  *
  */
 export interface ProductDeletedMessagePayload extends IMessagePayload {
@@ -29373,7 +29373,7 @@ export interface ProductDeletedMessagePayload extends IMessagePayload {
   readonly currentProjection?: ProductProjection
 }
 /**
- *	Generated after a successful [Add External Image](ctp:api:type:ProductAddExternalImageAction) update action or after the successful [upload of an image](/../api/projects/products#upload-product-image).
+ *	Generated after a successful [Add External Image](ctp:api:type:ProductAddExternalImageAction) update action or after the successful [upload of an image](/api/projects/products#upload-product-image).
  *
  */
 export interface ProductImageAddedMessagePayload extends IMessagePayload {
@@ -29851,7 +29851,7 @@ export interface ProductSelectionCreatedMessagePayload extends IMessagePayload {
   readonly productSelection: ProductSelection
 }
 /**
- *	Generated after a successful [Delete Product Selection](/../api/projects/product-selections#delete-productselection) request.
+ *	Generated after a successful [Delete Product Selection](/api/projects/product-selections#delete-productselection) request.
  *
  */
 export interface ProductSelectionDeletedMessagePayload extends IMessagePayload {
@@ -29992,8 +29992,8 @@ export interface ProductStateTransitionMessagePayload extends IMessagePayload {
   readonly force: boolean
 }
 /**
- *	Generated after a successful [Create Product Tailoring](/../api/projects/product-tailoring#create-producttailoring) or
- *	[Create Product Tailoring in Store](/../api/projects/product-tailoring#create-producttailoring-in-store) request.
+ *	Generated after a successful [Create Product Tailoring](/api/projects/product-tailoring#create-producttailoring) or
+ *	[Create Product Tailoring in Store](/api/projects/product-tailoring#create-producttailoring-in-store) request.
  *
  */
 export interface ProductTailoringCreatedMessagePayload extends IMessagePayload {
@@ -30079,8 +30079,8 @@ export interface ProductTailoringCreatedMessagePayload extends IMessagePayload {
   readonly published: boolean
 }
 /**
- *	Generated after a successful [Delete Product Tailoring](/../api/projects/product-tailoring#delete-producttailoring) or
- *	[Delete ProductTailoring assigned to Product in Store](/../api/projects/product-tailoring#delete-producttailoring-assigned-to-product-in-store) request.
+ *	Generated after a successful [Delete Product Tailoring](/api/projects/product-tailoring#delete-producttailoring) or
+ *	[Delete ProductTailoring assigned to Product in Store](/api/projects/product-tailoring#delete-producttailoring-assigned-to-product-in-store) request.
  *
  */
 export interface ProductTailoringDeletedMessagePayload extends IMessagePayload {
@@ -30479,7 +30479,7 @@ export interface ProductVariantTailoringRemovedMessagePayload extends IMessagePa
 export interface QuoteCreatedMessagePayload extends IMessagePayload {
   readonly type: 'QuoteCreated'
   /**
-   *	[Quote](/../api/projects/quotes) that was created.
+   *	[Quote](/api/projects/quotes) that was created.
    *
    *
    */
@@ -30492,20 +30492,20 @@ export interface QuoteCreatedMessagePayload extends IMessagePayload {
 export interface QuoteCustomerChangedMessagePayload extends IMessagePayload {
   readonly type: 'QuoteCustomerChanged'
   /**
-   *	The [Buyer](/../api/quotes-overview#buyer) who now owns the Quote.
+   *	The [Buyer](/api/quotes-overview#buyer) who now owns the Quote.
    *
    *
    */
   readonly customer: CustomerReference
   /**
-   *	The previous [Buyer](/../api/quotes-overview#buyer).
+   *	The previous [Buyer](/api/quotes-overview#buyer).
    *
    *
    */
   readonly previousCustomer: CustomerReference
 }
 /**
- *	Generated after a successful [Delete Quote](/../api/projects/quotes#delete-quote) request.
+ *	Generated after a successful [Delete Quote](/api/projects/quotes#delete-quote) request.
  *
  */
 export interface QuoteDeletedMessagePayload extends IMessagePayload {
@@ -30531,7 +30531,7 @@ export interface QuoteRenegotiationRequestedMessagePayload extends IMessagePaylo
 export interface QuoteRequestCreatedMessagePayload extends IMessagePayload {
   readonly type: 'QuoteRequestCreated'
   /**
-   *	[Quote Request](/../api/projects/quote-requests) that was created.
+   *	[Quote Request](/api/projects/quote-requests) that was created.
    *
    *
    */
@@ -30544,20 +30544,20 @@ export interface QuoteRequestCreatedMessagePayload extends IMessagePayload {
 export interface QuoteRequestCustomerChangedMessagePayload extends IMessagePayload {
   readonly type: 'QuoteRequestCustomerChanged'
   /**
-   *	The [Buyer](/../api/quotes-overview#buyer) who now owns the Quote Request.
+   *	The [Buyer](/api/quotes-overview#buyer) who now owns the Quote Request.
    *
    *
    */
   readonly customer: CustomerReference
   /**
-   *	The previous [Buyer](/../api/quotes-overview#buyer).
+   *	The previous [Buyer](/api/quotes-overview#buyer).
    *
    *
    */
   readonly previousCustomer: CustomerReference
 }
 /**
- *	Generated after a successful [Delete QuoteRequest](/../api/projects/quote-requests#delete-quoterequest) request.
+ *	Generated after a successful [Delete QuoteRequest](/api/projects/quote-requests#delete-quoterequest) request.
  *
  */
 export interface QuoteRequestDeletedMessagePayload extends IMessagePayload {
@@ -30753,7 +30753,7 @@ export interface RecurringOrderCustomTypeSetMessagePayload extends IMessagePaylo
   readonly previousTypeId?: string
 }
 /**
- *	Generated after a successful [Delete RecurringOrder](/../api/projects/recurring-orders#delete-recurringorder) request.
+ *	Generated after a successful [Delete RecurringOrder](/api/projects/recurring-orders#delete-recurringorder) request.
  *
  */
 export interface RecurringOrderDeletedMessagePayload extends IMessagePayload {
@@ -31086,14 +31086,14 @@ export interface ShoppingListStoreSetMessagePayload extends IMessagePayload {
 export interface StagedQuoteCreatedMessagePayload extends IMessagePayload {
   readonly type: 'StagedQuoteCreated'
   /**
-   *	[Staged Quote](/../api/projects/staged-quotes) that was created.
+   *	[Staged Quote](/api/projects/staged-quotes) that was created.
    *
    *
    */
   readonly stagedQuote: StagedQuote
 }
 /**
- *	Generated after a successful [Delete StagedQuote](/../api/projects/staged-quotes#delete-stagedquote) request.
+ *	Generated after a successful [Delete StagedQuote](/api/projects/staged-quotes#delete-stagedquote) request.
  *
  */
 export interface StagedQuoteDeletedMessagePayload extends IMessagePayload {
@@ -31202,7 +31202,7 @@ export interface StandalonePriceCreatedMessagePayload extends IMessagePayload {
   readonly standalonePrice: StandalonePrice
 }
 /**
- *	Generated after a successful [Delete StandalonePrice](/../api/projects/standalone-prices#delete-standaloneprice) request.
+ *	Generated after a successful [Delete StandalonePrice](/api/projects/standalone-prices#delete-standaloneprice) request.
  *
  */
 export interface StandalonePriceDeletedMessagePayload extends IMessagePayload {
@@ -31266,7 +31266,7 @@ export interface StandalonePriceKeySetMessagePayload extends IMessagePayload {
 export interface StandalonePriceStagedChangesAppliedMessagePayload extends IMessagePayload {
   readonly type: 'StandalonePriceStagedChangesApplied'
   /**
-   *	Applied changes of the [StandalonePrice](/../api/projects/standalone-prices) after the [Apply Staged Changes](ctp:api:type:StandalonePriceApplyStagedChangesAction) update action.
+   *	Applied changes of the [StandalonePrice](/api/projects/standalone-prices) after the [Apply Staged Changes](ctp:api:type:StandalonePriceApplyStagedChangesAction) update action.
    *
    *
    */
@@ -31496,7 +31496,7 @@ export interface StoreCreatedMessagePayload extends IMessagePayload {
   readonly custom?: CustomFields
 }
 /**
- *	Generated after a successful [Delete Store](/../api/projects/stores#delete-store) request.
+ *	Generated after a successful [Delete Store](/api/projects/stores#delete-store) request.
  *
  */
 export interface StoreDeletedMessagePayload extends IMessagePayload {

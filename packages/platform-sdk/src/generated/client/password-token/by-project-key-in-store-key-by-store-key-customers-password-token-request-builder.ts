@@ -23,7 +23,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersPasswordTokenRequestBuilde
     }
   ) {}
   /**
-   *	Use this method to create a password reset token for a Store-specific Customer during their [password reset process](/../api/customers-overview#customer-password-reset).
+   *	Use this method to create a password reset token for a Store-specific Customer during their [password reset process](/api/customers-overview#customer-password-reset).
    *
    *	If the Customer exists in the Project but the `stores` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
    *

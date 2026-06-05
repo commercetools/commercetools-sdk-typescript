@@ -74,7 +74,7 @@ export interface ApprovalRule extends BaseResource {
    */
   readonly status: ApprovalRuleStatus
   /**
-   *	The [Order Predicate](/../api/projects/predicates#order-predicates) describing the [Orders](ctp:api:type:Order) the Approval Rule should match against.
+   *	The [Order Predicate](/api/projects/predicates#order-predicates) describing the [Orders](ctp:api:type:Order) the Approval Rule should match against.
    *
    *
    */
@@ -130,7 +130,7 @@ export interface ApprovalRuleDraft {
    */
   readonly status: ApprovalRuleStatus
   /**
-   *	The [predicate](/../api/predicates/predicate-operators) describing the [Orders](ctp:api:type:Order) the Approval Rule should match against.
+   *	The [predicate](/api/predicates/predicate-operators) describing the [Orders](ctp:api:type:Order) the Approval Rule should match against.
    *
    *
    */
@@ -149,18 +149,18 @@ export interface ApprovalRuleDraft {
   readonly requesters: RuleRequesterDraft[]
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [ApprovalRule](ctp:api:type:ApprovalRule).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with results containing an array of [ApprovalRule](ctp:api:type:ApprovalRule).
  *
  */
 export interface ApprovalRulePagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -173,10 +173,10 @@ export interface ApprovalRulePagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -403,13 +403,13 @@ export interface ApprovalRuleSetNameAction extends IApprovalRuleUpdateAction {
   readonly name: string
 }
 /**
- *	Setting the [Order Predicate](/../api/projects/predicates#order-predicates) for an [Approval Rule](ctp:api:type:ApprovalRule) generates an [ApprovalRulePredicateSet](ctp:api:type:ApprovalRulePredicateSetMessage) Message.
+ *	Setting the [Order Predicate](/api/projects/predicates#order-predicates) for an [Approval Rule](ctp:api:type:ApprovalRule) generates an [ApprovalRulePredicateSet](ctp:api:type:ApprovalRulePredicateSetMessage) Message.
  *
  */
 export interface ApprovalRuleSetPredicateAction extends IApprovalRuleUpdateAction {
   readonly action: 'setPredicate'
   /**
-   *	A valid [Order Predicate](/../api/projects/predicates#order-predicates) to set for the Approval Rule.
+   *	A valid [Order Predicate](/api/projects/predicates#order-predicates) to set for the Approval Rule.
    *
    */
   readonly predicate: string

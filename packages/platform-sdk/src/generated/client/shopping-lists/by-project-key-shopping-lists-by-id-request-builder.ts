@@ -67,7 +67,7 @@ export class ByProjectKeyShoppingListsByIDRequestBuilder {
     )
   }
   /**
-   *	Updates a ShoppingList in the Project using one or more [update actions](/../api/projects/shoppingLists#update-actions).
+   *	Updates a ShoppingList in the Project using one or more [update actions](/api/projects/shoppingLists#update-actions).
    */
   public post(methodArgs: {
     queryArgs?: {

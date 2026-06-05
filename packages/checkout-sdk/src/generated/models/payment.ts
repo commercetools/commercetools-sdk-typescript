@@ -7,32 +7,32 @@
 import { IReference, IResourceIdentifier } from './common'
 
 /**
- *	Reference to a [Payment](/../api/projects/payments).
+ *	Reference to a [Payment](/api/projects/payments).
  *
  */
 export interface PaymentReference extends IReference {
   readonly typeId: 'payment'
   /**
-   *	Unique identifier of the referenced [Payment](/../api/projects/payments).
+   *	Unique identifier of the referenced [Payment](/api/projects/payments).
    *
    *
    */
   readonly id: string
 }
 /**
- *	Resource identifier to a [Payment](/../api/projects/payments). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/errors#invalidjsoninput) error is returned.
+ *	Resource identifier to a [Payment](/api/projects/payments). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/errors#invalidjsoninput) error is returned.
  *
  */
 export interface PaymentResourceIdentifier extends IResourceIdentifier {
   readonly typeId: 'payment'
   /**
-   *	Unique identifier of the referenced [Payment](/../api/projects/payments). Required if `key` is absent.
+   *	Unique identifier of the referenced [Payment](/api/projects/payments). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [Payment](/../api/projects/payments). Required if `id` is absent.
+   *	User-defined unique identifier of the referenced [Payment](/api/projects/payments). Required if `id` is absent.
    *
    *
    */

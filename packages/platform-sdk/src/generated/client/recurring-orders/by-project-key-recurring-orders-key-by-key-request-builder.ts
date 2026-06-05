@@ -72,7 +72,7 @@ export class ByProjectKeyRecurringOrdersKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Updates a Recurring Order using one or more [update actions](/../api/projects/recurring-orders#update-actions).
+   *	Updates a Recurring Order using one or more [update actions](/api/projects/recurring-orders#update-actions).
    *
    *	A Recurring Order can only be updated when it is not processing an Order. Otherwise, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *

@@ -46,7 +46,7 @@ export class ByProjectKeyStagedQuotesKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Checks if a StagedQuote exists with the provided `key`. Returns a `200 OK` status if the StagedQuote exists, or a [Not Found](/../api/errors#404-not-found) error otherwise.
+   *	Checks if a StagedQuote exists with the provided `key`. Returns a `200 OK` status if the StagedQuote exists, or a [Not Found](/api/errors#404-not-found) error otherwise.
    */
   public head(methodArgs?: {
     headers?: {
@@ -67,7 +67,7 @@ export class ByProjectKeyStagedQuotesKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Updates a StagedQuote in the Project using one or more [update actions](/../api/projects/staged-quotes#update-actions).
+   *	Updates a StagedQuote in the Project using one or more [update actions](/api/projects/staged-quotes#update-actions).
    */
   public post(methodArgs: {
     queryArgs?: {

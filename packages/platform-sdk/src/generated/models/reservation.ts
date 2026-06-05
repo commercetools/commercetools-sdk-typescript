@@ -27,7 +27,7 @@ export interface ReservationReference extends IReference {
   readonly id: string
   /**
    *	Contains the representation of the expanded Reservation.
-   *	Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for Reservations.
+   *	Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for Reservations.
    *
    *
    */

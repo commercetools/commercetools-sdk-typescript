@@ -63,7 +63,7 @@ export interface AssociateRole extends BaseResource {
    */
   readonly key: string
   /**
-   *	Whether the AssociateRole can be assigned to an Associate by a [buyer](/../api/associates-overview#buyer). If false, the AssociateRole can only be assigned using the [general endpoint](/../api/associates-overview#through-the-general-endpoints).
+   *	Whether the AssociateRole can be assigned to an Associate by a [buyer](/api/associates-overview#buyer). If false, the AssociateRole can only be assigned using the [general endpoint](/api/associates-overview#through-the-general-endpoints).
    *
    *
    */
@@ -101,7 +101,7 @@ export interface AssociateRoleDraft {
    */
   readonly name?: string
   /**
-   *	Whether the AssociateRole can be assigned to an Associate by a [buyer](/../api/associates-overview#buyer).
+   *	Whether the AssociateRole can be assigned to an Associate by a [buyer](/api/associates-overview#buyer).
    *
    *
    */
@@ -133,18 +133,18 @@ export interface AssociateRoleKeyReference extends IKeyReference {
   readonly key: string
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [AssociateRole](ctp:api:type:AssociateRole).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with results containing an array of [AssociateRole](ctp:api:type:AssociateRole).
  *
  */
 export interface AssociateRolePagedQueryResponse {
   /**
-   *	Number of requested [results](/../api/general-concepts#limit).
+   *	Number of requested [results](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of elements [skipped](/../api/general-concepts#offset).
+   *	Number of elements [skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -157,10 +157,10 @@ export interface AssociateRolePagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -185,14 +185,14 @@ export interface AssociateRoleReference extends IReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded AssociateRole. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for AssociateRole.
+   *	Contains the representation of the expanded AssociateRole. Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for AssociateRole.
    *
    *
    */
   readonly obj?: AssociateRole
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:TypeResourceIdentifier) of an [AssociateRole](ctp:api:type:AssociateRole). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:TypeResourceIdentifier) of an [AssociateRole](ctp:api:type:AssociateRole). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface AssociateRoleResourceIdentifier extends IResourceIdentifier {

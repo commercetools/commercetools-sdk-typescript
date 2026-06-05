@@ -83,7 +83,7 @@ export class ByProjectKeyMeOrdersRequestBuilder {
   /**
    *	Checks if one or more Orders exist for the provided query predicate for the authenticated Customer or anonymous user. Returns a `200` status if successful.
    *
-   *	A [Not Found](/../api/errors#404-not-found) error is returned in the following scenarios:
+   *	A [Not Found](/api/errors#404-not-found) error is returned in the following scenarios:
    *
    *	- If no Orders exist that match the provided query predicate.
    *	- If one or more Orders exist but don't have either a `customerId` that matches the [customer:{id}](/scopes#internal-oauth) scope, or an `anonymousId` that matches the [anonymous_id:{id}](/scopes#internal-oauth) scope.

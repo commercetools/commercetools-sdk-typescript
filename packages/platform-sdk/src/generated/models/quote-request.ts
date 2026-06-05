@@ -96,7 +96,7 @@ export interface QuoteRequest extends BaseResource {
    */
   readonly comment?: string
   /**
-   *	The [Buyer](/../api/quotes-overview#buyer) who owns the request.
+   *	The [Buyer](/api/quotes-overview#buyer) who owns the request.
    *
    *
    */
@@ -109,7 +109,7 @@ export interface QuoteRequest extends BaseResource {
    */
   readonly customerGroup?: CustomerGroupReference
   /**
-   *	The Store to which the [Buyer](/../api/quotes-overview#buyer) belongs.
+   *	The Store to which the [Buyer](/api/quotes-overview#buyer) belongs.
    *
    *
    */
@@ -249,7 +249,7 @@ export interface QuoteRequest extends BaseResource {
    */
   readonly cart?: CartReference
   /**
-   *	The [BusinessUnit](ctp:api:type:BusinessUnit) for the Quote Request. Only available for [B2B](/../offering/commerce-b2b)-enabled Projects.
+   *	The [BusinessUnit](ctp:api:type:BusinessUnit) for the Quote Request. Only available for [B2B](/offering/commerce-b2b)-enabled Projects.
    *
    *
    */
@@ -305,18 +305,18 @@ export interface QuoteRequestDraft {
   readonly purchaseOrderNumber?: string
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [QuoteRequest](ctp:api:type:QuoteRequest).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with results containing an array of [QuoteRequest](ctp:api:type:QuoteRequest).
  *
  */
 export interface QuoteRequestPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -329,10 +329,10 @@ export interface QuoteRequestPagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -358,7 +358,7 @@ export interface QuoteRequestReference extends IReference {
   readonly id: string
   /**
    *	Contains the representation of the expanded QuoteRequest.
-   *	Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for QuoteRequest.
+   *	Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for QuoteRequest.
    *
    *
    */
@@ -459,7 +459,7 @@ export interface QuoteRequestChangeQuoteRequestStateAction extends IQuoteRequest
 export interface QuoteRequestSetCustomFieldAction extends IQuoteRequestUpdateAction {
   readonly action: 'setCustomField'
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */

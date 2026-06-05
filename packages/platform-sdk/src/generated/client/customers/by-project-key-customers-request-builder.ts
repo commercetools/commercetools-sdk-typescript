@@ -207,7 +207,7 @@ export class ByProjectKeyCustomersRequestBuilder {
     )
   }
   /**
-   *	Allows converting an anonymous Cart to the active Cart of a Customer with [cart merge](/../api/customers-overview#cart-merge-during-sign-in-and-sign-up).
+   *	Allows converting an anonymous Cart to the active Cart of a Customer with [cart merge](/api/customers-overview#cart-merge-during-sign-in-and-sign-up).
    *
    *	Creating a Customer produces the [CustomerCreated](ctp:api:type:CustomerCreatedMessage) Message. Simultaneously creating two Customers with the same email address can return a [LockedField](ctp:api:type:LockedFieldError) error.
    *

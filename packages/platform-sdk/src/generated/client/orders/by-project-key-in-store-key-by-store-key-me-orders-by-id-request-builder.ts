@@ -56,7 +56,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeOrdersByIDRequestBuilder {
   /**
    *	Checks if an Order exists with the provided `id` in a [Store](ctp:api:type:Store) for the authenticated Customer or anonymous user. Returns a `200` status if successful.
    *
-   *	A [Not Found](/../api/errors#404-not-found) error is returned in the following scenarios:
+   *	A [Not Found](/api/errors#404-not-found) error is returned in the following scenarios:
    *
    *	- If no Order exists in the Store with the provided `id`.
    *	- If an Order exists but does not have a `store` specified, or the `store` field references a different Store.

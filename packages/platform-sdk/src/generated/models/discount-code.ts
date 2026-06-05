@@ -79,7 +79,7 @@ export interface DiscountCode extends BaseResource {
    */
   readonly description?: LocalizedString
   /**
-   *	User-defined unique identifier of the DiscountCode [added to the Cart](/../api/projects/carts#add-discountcode) to apply the related [CartDiscounts](ctp:api:type:CartDiscount).
+   *	User-defined unique identifier of the DiscountCode [added to the Cart](/api/projects/carts#add-discountcode) to apply the related [CartDiscounts](ctp:api:type:CartDiscount).
    *
    *
    */
@@ -161,7 +161,7 @@ export interface DiscountCodeDraft {
   /**
    *	User-defined unique identifier for the DiscountCode.
    *
-   *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing Discount Codes with the [Import API](/../api/import-export/overview) and the [Merchant Center](/../merchant-center/import-data).
+   *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing Discount Codes with the [Import API](/api/import-export/overview) and the [Merchant Center](/merchant-center/import-data).
    *
    */
   readonly key?: string
@@ -178,7 +178,7 @@ export interface DiscountCodeDraft {
    */
   readonly description?: LocalizedString
   /**
-   *	User-defined unique identifier for the DiscountCode that can be [added to the Cart](/../api/projects/carts#add-discountcode) to apply the related [CartDiscounts](ctp:api:type:CartDiscount).
+   *	User-defined unique identifier for the DiscountCode that can be [added to the Cart](/api/projects/carts#add-discountcode) to apply the related [CartDiscounts](ctp:api:type:CartDiscount).
    *	It cannot be modified after the DiscountCode is created.
    *
    *
@@ -246,18 +246,18 @@ export interface DiscountCodeDraft {
   readonly validUntil?: string
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [DiscountCode](ctp:api:type:DiscountCode).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with `results` containing an array of [DiscountCode](ctp:api:type:DiscountCode).
  *
  */
 export interface DiscountCodePagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -270,10 +270,10 @@ export interface DiscountCodePagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -298,14 +298,14 @@ export interface DiscountCodeReference extends IReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded DiscountCode. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for DiscountCodes.
+   *	Contains the representation of the expanded DiscountCode. Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for DiscountCodes.
    *
    *
    */
   readonly obj?: DiscountCode
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [DiscountCode](ctp:api:type:DiscountCode). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [DiscountCode](ctp:api:type:DiscountCode). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface DiscountCodeResourceIdentifier extends IResourceIdentifier {
@@ -397,7 +397,7 @@ export interface DiscountCodeSetCartPredicateAction extends IDiscountCodeUpdateA
 export interface DiscountCodeSetCustomFieldAction extends IDiscountCodeUpdateAction {
   readonly action: 'setCustomField'
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */

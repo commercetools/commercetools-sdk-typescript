@@ -49,7 +49,7 @@ export class ByProjectKeyShippingMethodsByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if a ShippingMethod exists with the provided `id`. Returns a `200 OK` status if the ShippingMethod exists or a [Not Found](/../api/errors#404-not-found) error otherwise.
+   *	Checks if a ShippingMethod exists with the provided `id`. Returns a `200 OK` status if the ShippingMethod exists or a [Not Found](/api/errors#404-not-found) error otherwise.
    */
   public head(methodArgs?: {
     headers?: {
@@ -70,7 +70,7 @@ export class ByProjectKeyShippingMethodsByIDRequestBuilder {
     )
   }
   /**
-   *	Updates a ShippingMethod in the Project using one or more [update actions](/../api/projects/shippingMethods#update-actions).
+   *	Updates a ShippingMethod in the Project using one or more [update actions](/api/projects/shippingMethods#update-actions).
    */
   public post(methodArgs: {
     queryArgs?: {

@@ -20,7 +20,7 @@ export class ByProjectKeyCustomersPasswordTokenByPasswordTokenRequestBuilder {
     }
   ) {}
   /**
-   *	Use this method to retrieve the details of a global Customer by using the password token during their [password reset process](/../api/customers-overview#customer-password-reset).
+   *	Use this method to retrieve the details of a global Customer by using the password token during their [password reset process](/api/customers-overview#customer-password-reset).
    *
    */
   public get(methodArgs?: {

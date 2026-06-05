@@ -7,45 +7,45 @@
 import { IReference, IResourceIdentifier } from './common'
 
 /**
- *	Reference to a [Cart](/../api/projects/carts).
+ *	Reference to a [Cart](/api/projects/carts).
  *
  */
 export interface CartReference extends IReference {
   readonly typeId: 'cart'
   /**
-   *	Unique identifier of the referenced [Cart](/../api/projects/carts).
+   *	Unique identifier of the referenced [Cart](/api/projects/carts).
    *
    *
    */
   readonly id: string
 }
 /**
- *	Resource identifier to a [Cart](/../api/projects/carts). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/errors#invalidjsoninput) error is returned.
+ *	Resource identifier to a [Cart](/api/projects/carts). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/errors#invalidjsoninput) error is returned.
  *
  */
 export interface CartResourceIdentifier extends IResourceIdentifier {
   readonly typeId: 'cart'
   /**
-   *	Unique identifier of the referenced [Cart](/../api/projects/carts). Required if `key` is absent.
+   *	Unique identifier of the referenced [Cart](/api/projects/carts). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [Cart](/../api/projects/carts). Required if `id` is absent.
+   *	User-defined unique identifier of the referenced [Cart](/api/projects/carts). Required if `id` is absent.
    *
    *
    */
   readonly key?: string
 }
 /**
- *	Reference to an [Order](/../api/projects/orders).
+ *	Reference to an [Order](/api/projects/orders).
  *
  */
 export interface OrderReference extends IReference {
   readonly typeId: 'order'
   /**
-   *	Unique identifier of the referenced [Order](/../api/projects/orders).
+   *	Unique identifier of the referenced [Order](/api/projects/orders).
    *
    *
    */

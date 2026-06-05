@@ -81,12 +81,12 @@ export interface AttributeDefinition {
    */
   readonly inputHint: TextInputHint
   /**
-   *	If `true`, the Attribute's values are available in the [Product Search](/../api/projects/product-search) or the [Product Projection Search](/../api/projects/product-projection-search) API for use in full-text search queries, filters, and facets.
+   *	If `true`, the Attribute's values are available in the [Product Search](/api/projects/product-search) or the [Product Projection Search](/api/projects/product-projection-search) API for use in full-text search queries, filters, and facets.
    *	However, if an Attribute's `level` is set as `Product`, then Product Projection Search does **not support** the Attribute.
    *
    *	The exact features that are available with this flag depend on the specific [AttributeType](ctp:api:type:AttributeType).
-   *	The maximum size of a searchable field is **restricted** by the [Field content size limit](/../api/limits#field-content-size).
-   *	This constraint is enforced at both [Product creation](ctp:api:endpoint:/{projectKey}/products:POST) and [Product update](/../api/projects/products#update-product).
+   *	The maximum size of a searchable field is **restricted** by the [Field content size limit](/api/limits#field-content-size).
+   *	This constraint is enforced at both [Product creation](ctp:api:endpoint:/{projectKey}/products:POST) and [Product update](/api/projects/products#update-product).
    *	If the length of the input exceeds the maximum size, an [InvalidField](ctp:api:type:InvalidFieldError) error is returned.
    *
    */
@@ -150,12 +150,12 @@ export interface AttributeDefinitionDraft {
    */
   readonly inputHint?: TextInputHint
   /**
-   *	Set as `true` if you want the Attribute's values to be available in the [Product Search](/../api/projects/product-search) or the [Product Projection Search](/../api/projects/product-projection-search) API and can be used in full-text search queries, filters, and facets.
+   *	Set as `true` if you want the Attribute's values to be available in the [Product Search](/api/projects/product-search) or the [Product Projection Search](/api/projects/product-projection-search) API and can be used in full-text search queries, filters, and facets.
    *	If an Attribute's `level` is set as `Product`, then Product Projection Search does **not support** the Attribute.
    *
    *
    *	Which exact features are available with this flag depends on the specific [AttributeType](ctp:api:type:AttributeType).
-   *	The maximum size of a searchable field is **restricted** by the [Field content size limit](/../api/limits#field-content-size).
+   *	The maximum size of a searchable field is **restricted** by the [Field content size limit](/api/limits#field-content-size).
    *	This constraint is enforced at both Product creation and Product update.
    *	If the length of the input exceeds the maximum size, an [InvalidField](ctp:api:type:InvalidFieldError) error is returned.
    *
@@ -474,18 +474,18 @@ export interface ProductTypeDraft {
   readonly attributes?: AttributeDefinitionDraft[]
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [ProductType](ctp:api:type:ProductType).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with results containing an array of [ProductType](ctp:api:type:ProductType).
  *
  */
 export interface ProductTypePagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -498,10 +498,10 @@ export interface ProductTypePagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -526,14 +526,14 @@ export interface ProductTypeReference extends IReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded ProductType. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for ProductTypes.
+   *	Contains the representation of the expanded ProductType. Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for ProductTypes.
    *
    *
    */
   readonly obj?: ProductType
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ProductType](ctp:api:type:ProductType). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ProductType](ctp:api:type:ProductType). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface ProductTypeResourceIdentifier extends IResourceIdentifier {

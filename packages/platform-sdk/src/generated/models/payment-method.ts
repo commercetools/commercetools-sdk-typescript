@@ -59,7 +59,7 @@ export interface PaymentMethod extends BaseResource {
   /**
    *	Reference to a BusinessUnit associated with the PaymentMethod.
    *
-   *	Only available for [B2B](/../offering/commerce-b2b)-enabled Projects.
+   *	Only available for [B2B](/offering/commerce-b2b)-enabled Projects.
    *
    *
    */
@@ -157,7 +157,7 @@ export interface PaymentMethodDraft {
   /**
    *	Reference to a BusinessUnit the PaymentMethod should belong to.
    *
-   *	Only available for [B2B](/../offering/commerce-b2b)-enabled Projects.
+   *	Only available for [B2B](/offering/commerce-b2b)-enabled Projects.
    *
    *
    */
@@ -208,18 +208,18 @@ export interface PaymentMethodDraft {
   readonly custom?: CustomFieldsDraft
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [PaymentMethod](ctp:api:type:PaymentMethod).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with `results` containing an array of [PaymentMethod](ctp:api:type:PaymentMethod).
  *
  */
 export interface PaymentMethodPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -232,10 +232,10 @@ export interface PaymentMethodPagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -260,7 +260,7 @@ export interface PaymentMethodReference extends IReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded PaymentMethod. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for PaymentMethods.
+   *	Contains the representation of the expanded PaymentMethod. Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for PaymentMethods.
    *
    *
    */
@@ -328,7 +328,7 @@ export interface IPaymentMethodUpdateAction {
 export interface PaymentMethodSetCustomFieldAction extends IPaymentMethodUpdateAction {
   readonly action: 'setCustomField'
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields) to add, update, or remove.
+   *	Name of the [Custom Field](/api/projects/custom-fields) to add, update, or remove.
    *
    *
    */

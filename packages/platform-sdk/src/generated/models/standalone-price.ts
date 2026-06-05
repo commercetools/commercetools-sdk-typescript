@@ -141,7 +141,7 @@ export interface StandalonePrice extends BaseResource {
    */
   readonly validFrom?: string
   /**
-   *	Date until the Price is valid. Standalone Prices that are no longer valid are not automatically deleted, but they can be [deleted](/../api/projects/standalone-prices#delete-standaloneprice) if necessary.
+   *	Date until the Price is valid. Standalone Prices that are no longer valid are not automatically deleted, but they can be [deleted](/api/projects/standalone-prices#delete-standaloneprice) if necessary.
    *
    *
    */
@@ -155,8 +155,8 @@ export interface StandalonePrice extends BaseResource {
    */
   readonly tiers?: PriceTier[]
   /**
-   *	Set if a matching [ProductDiscount](ctp:api:type:ProductDiscount) exists. If set, the API uses the `discounted` value for the [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
-   *	When a [relative discount](/../api/projects/productDiscounts#productdiscountvaluerelative) is applied and the fraction part of the `discounted` price is 0.5, the discounted price is rounded in favor of the customer with the [half down rounding](https://en.wikipedia.org/wiki/Rounding#Rounding_half_down).
+   *	Set if a matching [ProductDiscount](ctp:api:type:ProductDiscount) exists. If set, the API uses the `discounted` value for the [Line Item price selection](/api/pricing-and-discounts-overview#line-item-price-selection).
+   *	When a [relative discount](/api/projects/productDiscounts#productdiscountvaluerelative) is applied and the fraction part of the `discounted` price is 0.5, the discounted price is rounded in favor of the customer with the [half down rounding](https://en.wikipedia.org/wiki/Rounding#Rounding_half_down).
    *
    *	If an [absolute discount](ctp:api:type:ProductDiscountValueAbsolute) value exceeds the price of the Product Variant, the discounted price is a negative value.
    *
@@ -176,8 +176,8 @@ export interface StandalonePrice extends BaseResource {
    */
   readonly staged?: StagedStandalonePrice
   /**
-   *	If set to `true`, the StandalonePrice is considered during [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection).
-   *	If set to `false`, the StandalonePrice is not considered during [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection) and any associated Line Items in a Cart cannot be ordered.
+   *	If set to `true`, the StandalonePrice is considered during [Product price selection](/api/pricing-and-discounts-overview#product-price-selection).
+   *	If set to `false`, the StandalonePrice is not considered during [Product price selection](/api/pricing-and-discounts-overview#product-price-selection) and any associated Line Items in a Cart cannot be ordered.
    *
    *
    */
@@ -234,7 +234,7 @@ export interface StandalonePriceDraft {
    */
   readonly validFrom?: string
   /**
-   *	Sets the date until the Price is valid. Must be at least 1 ms later than `validFrom`. Standalone Prices that are no longer valid are not automatically deleted, but they can be [deleted](/../api/projects/standalone-prices#delete-standaloneprice) if necessary.
+   *	Sets the date until the Price is valid. Must be at least 1 ms later than `validFrom`. Standalone Prices that are no longer valid are not automatically deleted, but they can be [deleted](/api/projects/standalone-prices#delete-standaloneprice) if necessary.
    *
    *
    */
@@ -272,7 +272,7 @@ export interface StandalonePriceDraft {
    */
   readonly staged?: StagedPriceDraft
   /**
-   *	Set to `false`, if the StandalonePrice should not be considered during [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection).
+   *	Set to `false`, if the StandalonePrice should not be considered during [Product price selection](/api/pricing-and-discounts-overview#product-price-selection).
    *
    *
    */
@@ -303,10 +303,10 @@ export interface StandalonePricePagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -331,7 +331,7 @@ export interface StandalonePriceReference extends IReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded StandalonePrice. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for StandalonePrice.
+   *	Contains the representation of the expanded StandalonePrice. Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for StandalonePrice.
    *
    *
    */
@@ -474,7 +474,7 @@ export interface StandalonePriceRemoveStagedChangesAction extends IStandalonePri
 export interface StandalonePriceSetCustomFieldAction extends IStandalonePriceUpdateAction {
   readonly action: 'setCustomField'
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */

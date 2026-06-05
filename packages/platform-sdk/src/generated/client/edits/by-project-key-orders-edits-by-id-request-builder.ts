@@ -78,7 +78,7 @@ export class ByProjectKeyOrdersEditsByIDRequestBuilder {
     )
   }
   /**
-   *	Updates an OrderEdit in the Project using one or more [update actions](/../api/projects/order-edits#update-actions).
+   *	Updates an OrderEdit in the Project using one or more [update actions](/api/projects/order-edits#update-actions).
    */
   public post(methodArgs: {
     queryArgs?: {

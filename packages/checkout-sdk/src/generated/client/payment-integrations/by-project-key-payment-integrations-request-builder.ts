@@ -52,7 +52,7 @@ export class ByProjectKeyPaymentIntegrationsRequestBuilder {
   /**
    *	Retrieves Payment Integrations in a [Project](ctp:api:type:Project).
    *
-   *	The results are [paginated](/../api/general-concepts#pagination).
+   *	The results are [paginated](/api/general-concepts#pagination).
    *
    */
   public get(methodArgs?: {

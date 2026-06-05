@@ -5,7 +5,7 @@
  */
 
 /**
- *	Possible values for the `fieldType` property on [simple expressions](/../api/search-query-language#simple-expressions) indicating the data type of the `field`.
+ *	Possible values for the `fieldType` property on [simple expressions](/api/search-query-language#simple-expressions) indicating the data type of the `field`.
  */
 export enum SearchFieldTypeValues {
   Boolean = 'boolean',
@@ -195,7 +195,7 @@ export interface SearchQueryExpressionValue {
    */
   readonly boost?: number
   /**
-   *	Possible values for the `fieldType` property on [simple expressions](/../api/search-query-language#simple-expressions) indicating the data type of the `field`.
+   *	Possible values for the `fieldType` property on [simple expressions](/api/search-query-language#simple-expressions) indicating the data type of the `field`.
    *
    */
   readonly fieldType?: SearchFieldType
@@ -447,7 +447,7 @@ export interface SearchSorting {
    */
   readonly fieldType?: SearchFieldType
   /**
-   *	Allows you to apply a [sort filter](/../api/search-query-language#sort-filter).
+   *	Allows you to apply a [sort filter](/api/search-query-language#sort-filter).
    *
    *
    */
