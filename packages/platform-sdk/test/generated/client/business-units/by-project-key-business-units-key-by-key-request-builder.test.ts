@@ -58,6 +58,15 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'delete',
+      uri: '/test_projectKey/business-units/key=test_key?dataErasure=true&version=2',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .businessUnits()
+        .withKey({ key: 'test_key' })
+        .delete({ queryArgs: { dataErasure: true, version: 2 } }),
+    },
+    {
+      method: 'delete',
       uri: '/test_projectKey/business-units/key=test_key?version=2',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })

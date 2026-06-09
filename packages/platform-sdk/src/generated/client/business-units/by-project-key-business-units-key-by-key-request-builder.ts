@@ -91,6 +91,7 @@ export class ByProjectKeyBusinessUnitsKeyByKeyRequestBuilder {
   }
   public delete(methodArgs: {
     queryArgs: {
+      dataErasure?: boolean
       version: number
       expand?: string | string[]
       [key: string]: QueryParam
