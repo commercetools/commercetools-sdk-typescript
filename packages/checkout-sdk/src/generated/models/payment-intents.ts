@@ -83,6 +83,21 @@ export type PaymentIntentOperation =
   | 'reversePayment'
   | (string & {})
 /**
+ *	The outcome returned by the payment Connector after processing a Payment Intent.
+ *
+ */
+export enum PaymentIntentOutcomeValues {
+  Approved = 'approved',
+  Received = 'received',
+  Rejected = 'rejected',
+}
+
+export type PaymentIntentOutcome =
+  | 'approved'
+  | 'received'
+  | 'rejected'
+  | (string & {})
+/**
  *	Requests to [refund](/payments-lifecycle#refund) the given amount to the customer. Checkout will request the PSP or gift card management system to proceed with the financial process to refund the amount.
  *
  */
@@ -106,6 +121,19 @@ export interface PaymentIntentRefundAction extends IPaymentIntentAction {
    *
    */
   readonly merchantReference?: string
+}
+/**
+ *	Returned by Checkout after forwarding a Payment Intent request to the payment Connector.
+ *	If the Connector response does not contain a valid `outcome` value, Checkout returns a `500 Internal Server Error`.
+ *
+ */
+export interface PaymentIntentResponse {
+  /**
+   *	The outcome of the Payment Intent as reported by the payment [Connector](/connectors-and-applications#payment-connectors).
+   *
+   *
+   */
+  readonly outcome: PaymentIntentOutcome
 }
 /**
  *	Requests to [reverse](/payment-integration-predicates) a [Payment](ctp:api:type:Payment). Checkout reverses the Payment, and then requests the PSP or gift card management system to proceed with the relevant process to reverse the Payment.
