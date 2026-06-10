@@ -93,7 +93,7 @@ jobs:
         run: yarn test --coverage
 
       - name: Upload Coverage Report
-        uses: codecov/codecov-action@v5 #2db07e317924c76f654a414629d71c65876882e2 v5.4.3
+        uses: codecov/codecov-action@v7 #2db07e317924c76f654a414629d71c65876882e2 v5.4.3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: test-coverage
