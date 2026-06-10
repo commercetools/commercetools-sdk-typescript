@@ -259,7 +259,7 @@ export interface ShippingMethodReference extends IReference {
   readonly obj?: ShippingMethod
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ShippingMethod](ctp:api:type:ShippingMethod). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ShippingMethod](ctp:api:type:ShippingMethod). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](ctp:api:type:InvalidJsonInputError) error is returned.
  *
  */
 export interface ShippingMethodResourceIdentifier extends IResourceIdentifier {
@@ -285,7 +285,7 @@ export interface ShippingMethodUpdate {
    */
   readonly version: number
   /**
-   *	Update actions to be performed on the [ShippingMethod](/projects/shippingMethods#shippingmethod).
+   *	Update actions to be performed on the [ShippingMethod](ctp:api:type:ShippingMethod).
    *
    *
    */
@@ -372,7 +372,7 @@ export interface IShippingRatePriceTier {
 export interface CartClassificationTier extends IShippingRatePriceTier {
   readonly type: 'CartClassification'
   /**
-   *	`key` selected from the `values` of the [CartClassificationType](/projects/project#cartclassificationtype) configured in the Project.
+   *	`key` selected from the `values` of the [CartClassificationType](ctp:api:type:CartClassificationType) configured in the Project.
    *
    *
    */

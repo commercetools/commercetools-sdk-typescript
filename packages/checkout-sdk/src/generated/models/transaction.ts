@@ -48,7 +48,7 @@ export interface Transaction {
    */
   readonly transactionItems: TransactionItem[]
   /**
-   *	Reference to the [Cart](/api/projects/carts#cart) for which the payment must be executed.
+   *	Reference to the [Cart](ctp:api:type:Cart) for which the payment must be executed.
    *
    */
   readonly cart?: CartReference
@@ -58,7 +58,7 @@ export interface Transaction {
    */
   readonly transactionStatus: TransactionStatus
   /**
-   *	Reference to the [Order](/api/projects/orders#order) created from the Cart when the Transaction is completed.
+   *	Reference to the [Order](ctp:api:type:Order) created from the Cart when the Transaction is completed.
    *
    */
   readonly order?: OrderReference

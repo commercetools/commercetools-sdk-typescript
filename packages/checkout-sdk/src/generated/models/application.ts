@@ -302,7 +302,7 @@ export interface ApplicationReference extends IReference {
   readonly id: string
 }
 /**
- *	Resource identifier to an [Application](ctp:checkout:type:Application). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/errors#invalidjsoninput) error is returned.
+ *	Resource identifier to an [Application](ctp:checkout:type:Application). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](ctp:api:type:InvalidJsonInputError) error is returned.
  *
  */
 export interface ApplicationResourceIdentifier extends IResourceIdentifier {

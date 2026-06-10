@@ -806,7 +806,7 @@ export interface ProductReference extends IReference {
   readonly obj?: Product
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Product](ctp:api:type:Product). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Product](ctp:api:type:Product). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](ctp:api:type:InvalidJsonInputError) error is returned.
  *
  */
 export interface ProductResourceIdentifier extends IResourceIdentifier {
@@ -1061,7 +1061,7 @@ export interface ProductVariantChannelAvailability {
   readonly version: number
 }
 /**
- *	JSON object where the keys are supply [Channel](/projects/channels) `id`, and the values are [ProductVariantChannelAvailability](/projects/products#productvariantchannelavailability).
+ *	JSON object where the keys are supply [Channel](/projects/channels) `id`, and the values are [ProductVariantChannelAvailability](ctp:api:type:ProductVariantChannelAvailability).
  *
  */
 export interface ProductVariantChannelAvailabilityMap {
