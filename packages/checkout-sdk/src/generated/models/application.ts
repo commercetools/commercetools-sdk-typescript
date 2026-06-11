@@ -362,10 +362,6 @@ export interface IApplicationUpdateAction {
    */
   readonly action: string
 }
-/**
- *	Update actions for Applications.
- *
- */
 export interface ApplicationUpdateActions {
   /**
    *	Expected version of the Application on which the changes should be applied.

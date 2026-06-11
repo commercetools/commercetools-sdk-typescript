@@ -395,10 +395,6 @@ export interface IPaymentIntegrationUpdateAction {
    */
   readonly action: string
 }
-/**
- *	PaymentIntegrationUpdateActions
- *
- */
 export interface PaymentIntegrationUpdateActions {
   /**
    *	Expected version of the PaymentIntegration on which the changes should be applied. If the expected version does not match the actual version, a [ConcurrentModification](ctp:checkout:type:ConcurrentModificationError) error will be returned.
