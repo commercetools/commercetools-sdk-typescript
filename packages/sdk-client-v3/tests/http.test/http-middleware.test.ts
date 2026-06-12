@@ -347,6 +347,82 @@ describe('Http Middleware.', () => {
     createHttpMiddleware(httpMiddlewareOptions as any)(next)(request)
   })
 
+  test('should mask sensitive header contents by default when the option is omitted', () => {
+    const response = createTestResponse({
+      data: {},
+      statusCode: 504,
+      headers: {
+        'server-time': '05:07',
+      },
+    })
+
+    const request = createTestRequest({
+      uri: '/default-header/content-type',
+      method: 'POST',
+      body: { id: 'test-id' },
+      headers: {
+        'Content-Type': 'image/jpeg',
+        authorization: 'Bearer xbghRywRe===',
+      },
+    })
+
+    // `maskSensitiveHeaderData` is intentionally NOT set here
+    const httpMiddlewareOptions: HttpMiddlewareOptions = {
+      host: 'http://api-host.com',
+      httpClient: jest.fn(() => response),
+      includeOriginalRequest: true,
+      includeRequestInErrorResponse: true,
+    }
+
+    const next = (req: MiddlewareRequest) => {
+      expect(req.response?.error?.originalRequest).toBeTruthy()
+      expect(
+        req.response?.error?.originalRequest?.headers?.authorization
+      ).toEqual('Bearer ********')
+      return response
+    }
+
+    createHttpMiddleware(httpMiddlewareOptions as any)(next)(request)
+  })
+
+  test('should not mask sensitive header contents when explicitly disabled', () => {
+    const response = createTestResponse({
+      data: {},
+      statusCode: 504,
+      headers: {
+        'server-time': '05:07',
+      },
+    })
+
+    const request = createTestRequest({
+      uri: '/default-header/content-type',
+      method: 'POST',
+      body: { id: 'test-id' },
+      headers: {
+        'Content-Type': 'image/jpeg',
+        authorization: 'Bearer xbghRywRe===',
+      },
+    })
+
+    const httpMiddlewareOptions: HttpMiddlewareOptions = {
+      host: 'http://api-host.com',
+      httpClient: jest.fn(() => response),
+      maskSensitiveHeaderData: false,
+      includeOriginalRequest: true,
+      includeRequestInErrorResponse: true,
+    }
+
+    const next = (req: MiddlewareRequest) => {
+      expect(req.response?.error?.originalRequest).toBeTruthy()
+      expect(
+        req.response?.error?.originalRequest?.headers?.authorization
+      ).toEqual('Bearer xbghRywRe===')
+      return response
+    }
+
+    createHttpMiddleware(httpMiddlewareOptions as any)(next)(request)
+  })
+
   test('should not default other header content-type to application/json', () => {
     const response = createTestResponse({
       data: {},
