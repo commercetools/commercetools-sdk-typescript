@@ -4,7 +4,7 @@
     "access": "public"
   },
   "name": "@commercetools/checkout-sdk",
-  "version": "1.9.0",
+  "version": "2.0.0",
   "engines": {
     "node": ">=22"
   },
@@ -32,7 +32,7 @@
     "./dist/commercetools-checkout-sdk.esm.js": "./dist/commercetools-checkout-sdk.browser.esm.js"
   },
   "dependencies": {
-    "@commercetools/ts-client": "^4.10.0"
+    "@commercetools/ts-client": "^5.0.0"
   },
   "devDependencies": {
     "organize-imports-cli": "1.0.2",
