@@ -20,7 +20,7 @@ export interface PaymentReference extends IReference {
   readonly id: string
 }
 /**
- *	Resource identifier to a [Payment](/api/projects/payments). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/errors#invalidjsoninput) error is returned.
+ *	Resource identifier to a [Payment](/api/projects/payments). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](ctp:api:type:InvalidJsonInputError) error is returned.
  *
  */
 export interface PaymentResourceIdentifier extends IResourceIdentifier {

@@ -173,7 +173,7 @@ export interface RecurrencePolicyReference extends IReference {
   readonly obj?: RecurrencePolicy
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [RecurrencePolicy](ctp:api:type:RecurrencePolicy). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [RecurrencePolicy](ctp:api:type:RecurrencePolicy). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](ctp:api:type:InvalidJsonInputError) error is returned.
  *
  */
 export interface RecurrencePolicyResourceIdentifier extends IResourceIdentifier {

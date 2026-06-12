@@ -20,7 +20,7 @@ export class ByProjectKeyMePaymentsByIDRequestBuilder {
     }
   ) {}
   /**
-   *	Retrieves a [Payment](/projects/me-payments#mypayment) with the provided `id` for the authenticated Customer or anonymous user.
+   *	Retrieves a Payment with the provided `id` for the authenticated Customer or anonymous user.
    */
   public get(methodArgs?: {
     queryArgs?: {
@@ -46,7 +46,7 @@ export class ByProjectKeyMePaymentsByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if a [Payment](/projects/me-payments#mypayment) exists with the provided `id` for the authenticated Customer or anonymous user. Returns a `200` status if the Payment exists, or a `404` status otherwise.
+   *	Checks if a Payment exists with the provided `id` for the authenticated Customer or anonymous user. Returns a `200` status if the Payment exists, or a `404` status otherwise.
    */
   public head(methodArgs?: {
     headers?: {
@@ -67,7 +67,7 @@ export class ByProjectKeyMePaymentsByIDRequestBuilder {
     )
   }
   /**
-   *	Updates a [Payment](/projects/me-payments#mypayment) for the authenticated Customer or anonymous user using one or more [update actions](/api/projects/me-payments#update-actions).
+   *	Updates a Payment for the authenticated Customer or anonymous user using one or more [update actions](/api/projects/me-payments#update-actions).
    *	You can only update a Payment if it has no [Transactions](ctp:api:type:Transaction).
    *
    */
@@ -98,7 +98,7 @@ export class ByProjectKeyMePaymentsByIDRequestBuilder {
     )
   }
   /**
-   *	Deletes a [Payment](/projects/me-payments#mypayment) with the provided `id` for the authenticated Customer or anonymous user.
+   *	Deletes a Payment with the provided `id` for the authenticated Customer or anonymous user.
    *	You can only delete a Payment if it has no [Transactions](ctp:api:type:Transaction).
    *
    */

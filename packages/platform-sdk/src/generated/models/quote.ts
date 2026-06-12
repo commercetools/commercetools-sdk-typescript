@@ -295,7 +295,7 @@ export interface QuoteDraft {
    */
   readonly stagedQuoteVersion: number
   /**
-   *	If `true`, the `stagedQuoteState` of the referenced [StagedQuote](/api/projects/staged-quotes#stagedquote) will be set to `Sent`.
+   *	If `true`, the `stagedQuoteState` of the referenced [StagedQuote](ctp:api:type:StagedQuote) will be set to `Sent`.
    *
    *
    */
@@ -310,8 +310,8 @@ export interface QuoteDraft {
   /**
    *	[Custom Fields](ctp:api:type:CustomFields) to be added to the Quote.
    *
-   *	- If specified, the Custom Fields are merged with the Custom Fields on the referenced [StagedQuote](/api/projects/staged-quotes#stagedquote) and added to the Quote.
-   *	- If empty, the Custom Fields on the referenced [StagedQuote](/api/projects/staged-quotes#stagedquote) are added to the Quote automatically.
+   *	- If specified, the Custom Fields are merged with the Custom Fields on the referenced [StagedQuote](ctp:api:type:StagedQuote) and added to the Quote.
+   *	- If empty, the Custom Fields on the referenced [StagedQuote](ctp:api:type:StagedQuote) are added to the Quote automatically.
    *
    *
    */

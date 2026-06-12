@@ -1467,7 +1467,7 @@ export interface ProductVariantChannelAvailability {
   readonly version: number
 }
 /**
- *	JSON object where the keys are supply [Channel](/projects/channels) `id`, and the values are [ProductVariantChannelAvailability](/projects/products#productvariantchannelavailability).
+ *	JSON object where the keys are supply [Channel](/projects/channels) `id`, and the values are [ProductVariantChannelAvailability](ctp:api:type:ProductVariantChannelAvailability).
  *
  */
 export interface ProductVariantChannelAvailabilityMap {
@@ -2437,7 +2437,7 @@ export type BusinessUnitApprovalRuleMode =
   | 'ExplicitAndFromParent'
   | (string & {})
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [BusinessUnit](ctp:api:type:BusinessUnit). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [BusinessUnit](ctp:api:type:BusinessUnit). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](ctp:api:type:InvalidJsonInputError) error is returned.
  *
  */
 export interface BusinessUnitResourceIdentifier extends ResourceIdentifier {
@@ -3340,7 +3340,7 @@ export type PriceSelectionMode = 'Dynamic' | 'Fixed' | (string & {})
 /**
  *	A Price tier is selected instead of the default Price when a certain quantity of the [ProductVariant](ctp:api:type:ProductVariant) is [added to a Cart](/projects/carts#add-lineitem) and ordered.
  *	_For   If no Price tier is found for the Order quantity, the base Price is used.
- *	A Price tier is applied for the entire quantity of a Product Variant put as [LineItem](/projects/carts#lineitem) in a Cart as soon as the minimum quantity for the Price tier is reached.
+ *	A Price tier is applied for the entire quantity of a Product Variant put as [LineItem](ctp:api:type:LineItem) in a Cart as soon as the minimum quantity for the Price tier is reached.
  *	The Price tier is applied per Line Item of the Product Variant. If, for example, the same Product Variant appears in the same Cart as several Line Items, (what can be achieved by different values of a Custom Field on the Line Items) for each Line Item the minimum quantity must be reached to get the Price tier.
  *
  */
@@ -3805,7 +3805,7 @@ export interface ClientLogging {
   readonly associate?: CustomerReference
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Zone](ctp:api:type:Zone). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Zone](ctp:api:type:Zone). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](ctp:api:type:InvalidJsonInputError) error is returned.
  *
  */
 export interface ZoneResourceIdentifier extends ResourceIdentifier {

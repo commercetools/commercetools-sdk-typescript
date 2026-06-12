@@ -878,7 +878,7 @@ export interface Money {
    *	* Cents for EUR and USD, pence for GBP, or centime for CHF (5 CHF is specified as `500`).
    *	* The value in the major unit for currencies without minor units, like JPY (5 JPY is specified as `5`).
    *
-   *	`centAmount` is represented as 64-bit integers. If this limit is exceeded, a [MoneyOverflow](/errors#moneyoverflow) error will be returned.
+   *	`centAmount` is represented as 64-bit integers. If this limit is exceeded, a [MoneyOverflow](ctp:api:type:MoneyOverflowError) error will be returned.
    *
    *
    */
@@ -1093,7 +1093,7 @@ export interface PriceDraft {
  *	A Price tier is selected instead of the default Price when a certain quantity of the [ProductVariant](ctp:api:type:ProductVariant) is [added to a Cart](/projects/carts#add-lineitem) and ordered.
  *	_For example: the Price can be lower if more than 10 items are ordered._
  *	If no Price tier is found for the Order quantity, the base Price is used.
- *	A Price tier is applied for the entire quantity of a Product Variant put as [LineItem](/projects/carts#lineitem) in a Cart as soon as the minimum quantity for the Price tier is reached.
+ *	A Price tier is applied for the entire quantity of a Product Variant put as [LineItem](ctp:api:type:LineItem) in a Cart as soon as the minimum quantity for the Price tier is reached.
  *	The Price tier is applied per Line Item of the Product Variant. If, for example, the same Product Variant appears in the same Cart as several Line Items, (what can be achieved by different values of a Custom Field on the Line Items) for each Line Item the minimum quantity must be reached to get the Price tier.
  *
  */
@@ -1507,7 +1507,7 @@ export interface ITypedMoney {
    *	* Cents for EUR and USD, pence for GBP, or centime for CHF (5 CHF is specified as `500`).
    *	* The value in the major unit for currencies without minor units, like JPY (5 JPY is specified as `5`).
    *
-   *	`centAmount` is represented as 64-bit integers. If this limit is exceeded, a [MoneyOverflow](/errors#moneyoverflow) error will be returned.
+   *	`centAmount` is represented as 64-bit integers. If this limit is exceeded, a [MoneyOverflow](ctp:api:type:MoneyOverflowError) error will be returned.
    *
    *
    */
@@ -1545,7 +1545,7 @@ export interface CentPrecisionMoney extends ITypedMoney {
    *	* Cents for EUR and USD, pence for GBP, or centime for CHF (5 CHF is specified as `500`).
    *	* The value in the major unit for currencies without minor units, like JPY (5 JPY is specified as `5`).
    *
-   *	`centAmount` is represented as 64-bit integers. If this limit is exceeded, a [MoneyOverflow](/errors#moneyoverflow) error will be returned.
+   *	`centAmount` is represented as 64-bit integers. If this limit is exceeded, a [MoneyOverflow](ctp:api:type:MoneyOverflowError) error will be returned.
    *
    *
    */
@@ -1574,7 +1574,7 @@ export interface HighPrecisionMoney extends ITypedMoney {
    *	* Cents for EUR and USD, pence for GBP, or centime for CHF (5 CHF is specified as `500`).
    *	* The value in the major unit for currencies without minor units, like JPY (5 JPY is specified as `5`).
    *
-   *	`centAmount` is represented as 64-bit integers. If this limit is exceeded, a [MoneyOverflow](/errors#moneyoverflow) error will be returned.
+   *	`centAmount` is represented as 64-bit integers. If this limit is exceeded, a [MoneyOverflow](ctp:api:type:MoneyOverflowError) error will be returned.
    *
    *
    */
@@ -1667,7 +1667,7 @@ export interface HighPrecisionMoneyDraft extends ITypedMoneyDraft {
    *
    *	A Price of 1.015 USD can be rounded either to 1.01 USD or 1.02 USD. If it lies outside of this range, an error message stating that centAmount must be rounded correctly will be returned.
    *
-   *	`centAmount` is represented as 64-bit integers. If this limit is exceeded, a [MoneyOverflow](/errors#moneyoverflow) error will be returned.
+   *	`centAmount` is represented as 64-bit integers. If this limit is exceeded, a [MoneyOverflow](ctp:api:type:MoneyOverflowError) error will be returned.
    *
    *	If `centAmount` is not provided, the API calculates the value automatically using the default rounding mode half even.
    *
@@ -1689,7 +1689,7 @@ export interface HighPrecisionMoneyDraft extends ITypedMoneyDraft {
   /**
    *	Amount in 1 / (10 ^ `fractionDigits`) of a currency.
    *
-   *	`preciseAmount` is represented as 64-bit integers. If this limit is exceeded, a [MoneyOverflow](/errors#moneyoverflow) error will be returned.
+   *	`preciseAmount` is represented as 64-bit integers. If this limit is exceeded, a [MoneyOverflow](ctp:api:type:MoneyOverflowError) error will be returned.
    *
    *
    */

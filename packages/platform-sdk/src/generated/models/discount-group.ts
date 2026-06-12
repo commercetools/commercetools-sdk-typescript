@@ -179,7 +179,7 @@ export interface DiscountGroupReference extends IReference {
 }
 /**
  *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [DiscountGroup](ctp:api:type:DiscountGroup). Either `id` or `key` is required.
- *	If both are set, an [InvalidJsonInput](/api/errors#invalidjsoninput) error is returned.
+ *	If both are set, an [InvalidJsonInput](ctp:api:type:InvalidJsonInputError) error is returned.
  *
  */
 export interface DiscountGroupResourceIdentifier extends IResourceIdentifier {

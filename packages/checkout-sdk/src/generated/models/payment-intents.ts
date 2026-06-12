@@ -25,14 +25,14 @@ export type PaymentIntentAction =
   | PaymentIntentReverseAction
 export interface IPaymentIntentAction {
   /**
-   *	Action to execute for the given [Payment](/api/projects/payments#payment).
+   *	Action to execute for the given [Payment](ctp:api:type:Payment).
    *
    *
    */
   readonly action: PaymentIntentOperation
 }
 /**
- *	Requests to [cancel the authorization](/payments-lifecycle#authorization-cancellation) for a Payment. Checkout will cancel the [Payment](/api/projects/payments#payment) and will request the PSP or gift card management system to proceed with the financial process to cancel the authorization.
+ *	Requests to [cancel the authorization](/payments-lifecycle#authorization-cancellation) for a Payment. Checkout will cancel the [Payment](ctp:api:type:Payment) and will request the PSP or gift card management system to proceed with the financial process to cancel the authorization.
  *
  *	You cannot request to cancel the authorization for a Payment that has already been [captured](/payments-lifecycle#payment-capture).
  *
@@ -40,7 +40,7 @@ export interface IPaymentIntentAction {
 export interface PaymentIntentCancelAction extends IPaymentIntentAction {
   readonly action: 'cancelPayment'
   /**
-   *	A merchant-defined identifier associated with the [Payment](/api/projects/payments#payment) to track and reconcile the [Payment Intent Action](ctp:checkout:type:PaymentIntentAction) on the merchant's side. For example, an invoice number.
+   *	A merchant-defined identifier associated with the [Payment](ctp:api:type:Payment) to track and reconcile the [Payment Intent Action](ctp:checkout:type:PaymentIntentAction) on the merchant's side. For example, an invoice number.
    *
    *
    */
@@ -59,7 +59,7 @@ export interface PaymentIntentCaptureAction extends IPaymentIntentAction {
    */
   readonly amount: Amount
   /**
-   *	A merchant-defined identifier associated with the [Payment](/api/projects/payments#payment) to track and reconcile the [Payment Intent Action](ctp:checkout:type:PaymentIntentAction) on the merchant's side. For example, an invoice number.
+   *	A merchant-defined identifier associated with the [Payment](ctp:api:type:Payment) to track and reconcile the [Payment Intent Action](ctp:checkout:type:PaymentIntentAction) on the merchant's side. For example, an invoice number.
    *
    *
    */
@@ -83,6 +83,21 @@ export type PaymentIntentOperation =
   | 'reversePayment'
   | (string & {})
 /**
+ *	The outcome returned by the payment Connector after processing a Payment Intent.
+ *
+ */
+export enum PaymentIntentOutcomeValues {
+  Approved = 'approved',
+  Received = 'received',
+  Rejected = 'rejected',
+}
+
+export type PaymentIntentOutcome =
+  | 'approved'
+  | 'received'
+  | 'rejected'
+  | (string & {})
+/**
  *	Requests to [refund](/payments-lifecycle#refund) the given amount to the customer. Checkout will request the PSP or gift card management system to proceed with the financial process to refund the amount.
  *
  */
@@ -101,20 +116,33 @@ export interface PaymentIntentRefundAction extends IPaymentIntentAction {
    */
   readonly transactionId?: string
   /**
-   *	A merchant-defined identifier associated with the [Payment](/api/projects/payments#payment) to track and reconcile the [Payment Intent Action](ctp:checkout:type:PaymentIntentAction) on the merchant's side. For example, an invoice number.
+   *	A merchant-defined identifier associated with the [Payment](ctp:api:type:Payment) to track and reconcile the [Payment Intent Action](ctp:checkout:type:PaymentIntentAction) on the merchant's side. For example, an invoice number.
    *
    *
    */
   readonly merchantReference?: string
 }
 /**
- *	Requests to [reverse](/payment-integration-predicates) a [Payment](/api/projects/payments#payment). Checkout reverses the Payment, and then requests the PSP or gift card management system to proceed with the relevant process to reverse the Payment.
+ *	Returned by Checkout after forwarding a Payment Intent request to the payment Connector.
+ *	If the Connector response does not contain a valid `outcome` value, Checkout returns a `500 Internal Server Error`.
+ *
+ */
+export interface PaymentIntentResponse {
+  /**
+   *	The outcome of the Payment Intent as reported by the payment [Connector](/connectors-and-applications#payment-connectors).
+   *
+   *
+   */
+  readonly outcome: PaymentIntentOutcome
+}
+/**
+ *	Requests to [reverse](/payment-integration-predicates) a [Payment](ctp:api:type:Payment). Checkout reverses the Payment, and then requests the PSP or gift card management system to proceed with the relevant process to reverse the Payment.
  *
  */
 export interface PaymentIntentReverseAction extends IPaymentIntentAction {
   readonly action: 'reversePayment'
   /**
-   *	A merchant-defined identifier associated with the [Payment](/api/projects/payments#payment) to track and reconcile the [Payment Intent Action](ctp:checkout:type:PaymentIntentAction) on the merchant's side. For example, an invoice number.
+   *	A merchant-defined identifier associated with the [Payment](ctp:api:type:Payment) to track and reconcile the [Payment Intent Action](ctp:checkout:type:PaymentIntentAction) on the merchant's side. For example, an invoice number.
    *
    *
    */

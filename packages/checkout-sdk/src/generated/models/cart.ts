@@ -20,7 +20,7 @@ export interface CartReference extends IReference {
   readonly id: string
 }
 /**
- *	Resource identifier to a [Cart](/api/projects/carts). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/errors#invalidjsoninput) error is returned.
+ *	Resource identifier to a [Cart](/api/projects/carts). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](ctp:api:type:InvalidJsonInputError) error is returned.
  *
  */
 export interface CartResourceIdentifier extends IResourceIdentifier {
