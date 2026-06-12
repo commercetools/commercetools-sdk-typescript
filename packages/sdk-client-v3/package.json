@@ -1,6 +1,6 @@
 {
   "name": "@commercetools/ts-client",
-  "version": "4.10.0",
+  "version": "5.0.0",
   "engines": {
     "node": ">=22"
   },
