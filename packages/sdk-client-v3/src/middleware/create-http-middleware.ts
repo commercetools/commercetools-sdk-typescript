@@ -146,7 +146,7 @@ export default function createHttpMiddleware(
     includeOriginalRequest,
     includeRequestInErrorResponse = true,
     includeResponseHeaders = true,
-    maskSensitiveHeaderData,
+    maskSensitiveHeaderData = true,
     httpClientOptions,
     stringBodyContentTypes = [],
   } = options
