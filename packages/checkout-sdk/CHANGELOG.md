@@ -1,5 +1,59 @@
 # @commercetools/checkout-sdk
 
+## 2.0.0
+
+### Major Changes
+
+- [#1312](https://github.com/commercetools/commercetools-sdk-typescript/pull/1312) [`947f262`](https://github.com/commercetools/commercetools-sdk-typescript/commit/947f2621f67bf217b329223093be7d8d49755d93) Thanks [@ajimae](https://github.com/ajimae)! - ## Drop support for Node.js 18 and 20
+
+  ### What changed
+
+  The minimum required Node.js version has been raised from `>=18` to `>=22`. Node.js 18 and 20 are no longer supported.
+
+  ### Why
+
+  Dependencies in this SDK now require Node.js 22 or higher. In particular:
+
+  - **nock 14.x** (used in tests) replaced its internal HTTP interception with `@mswjs/interceptors`, which relies on modern Node.js internals.
+  - **Jest 30** requires Node.js 22+ for its test runner.
+  - Node.js 18 reached end-of-life in April 2025. Node.js 20 reaches end-of-life in April 2026. Aligning the engine requirement with actively maintained LTS releases reduces the maintenance surface.
+
+  ### How to update
+
+  Upgrade your runtime to **Node.js 22 or later** before updating to this version. No code changes are required — only the Node.js runtime version needs to change.
+
+  ```bash
+  # Using nvm
+  nvm install 22
+  nvm use 22
+
+  # Using fnm
+  fnm install 22
+  fnm use 22
+  ```
+
+  If you are pinned to Node.js 18 or 20 for other reasons, stay on the previous major version of this SDK until you are able to upgrade your runtime.
+
+### Minor Changes
+
+- [#1330](https://github.com/commercetools/commercetools-sdk-typescript/pull/1330) [`34686cd`](https://github.com/commercetools/commercetools-sdk-typescript/commit/34686cd3be7794ba13452a71a6116e0f4788dcbd) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Checkout changes**
+
+  <details>
+  <summary>Changed MethodResponseBody(s)</summary>
+  - :warning: changed response body for `200: application/json` of method `post /{projectKey}/payment-intents/{paymentId}` from type `any` to `PaymentIntentResponse`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `PaymentIntentOutcome`
+  - added type `PaymentIntentResponse`
+  </details>
+
+### Patch Changes
+
+- Updated dependencies [[`947f262`](https://github.com/commercetools/commercetools-sdk-typescript/commit/947f2621f67bf217b329223093be7d8d49755d93), [`f3b1563`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f3b1563bfa6b5f1b64320ca4202a1554271d8352)]:
+  - @commercetools/ts-client@5.0.0
+
 ## 1.9.0
 
 ### Minor Changes
