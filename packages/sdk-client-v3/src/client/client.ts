@@ -134,14 +134,14 @@ export default function createClient(middlewares: ClientOptions): Client {
   _options = middlewares
   validateClient(middlewares)
 
-  let _maskSensitiveHeaderData = false
+  let _maskSensitiveHeaderData = true
 
   const resolver = {
     async resolve(rs: ClientRequest): Promise<ClientResult> {
       const {
         response,
         includeOriginalRequest,
-        maskSensitiveHeaderData,
+        maskSensitiveHeaderData = true,
         ...request
       } = rs
       const { retryCount, ...rest } = response
