@@ -236,7 +236,7 @@ export interface ChannelResourceIdentifier extends IResourceIdentifier {
   readonly key?: string
 }
 /**
- *	Describes the purpose and type of the Channel. A Channel can have one or more roles.
+ *	Describes how a Channel is used. A Channel can have one or more roles.
  *
  */
 export enum ChannelRoleEnumValues {

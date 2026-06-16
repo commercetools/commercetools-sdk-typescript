@@ -262,6 +262,7 @@ export interface TaxRate {
   readonly country: string
   /**
    *	State within the country, such as Texas in the United States.
+   *	The value is case-sensitive and must use the same casing as the `state` value in the Cart `shippingAddress`.
    *
    *
    */
@@ -302,6 +303,7 @@ export interface TaxRateDraft {
   readonly country: string
   /**
    *	State within the country, such as Texas in the United States.
+   *	The value is case-sensitive and must use the same casing as the `state` value in the Cart `shippingAddress`.
    *
    *
    */
