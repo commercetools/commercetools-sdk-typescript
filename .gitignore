@@ -17,6 +17,13 @@ node_modules
 *.tgz
 package-lock.json
 
+# Example app lockfiles — examples are demos, keep them untracked so they
+# don't trigger Dependabot security/version checks
+examples/**/yarn.lock
+examples/**/bun.lock
+examples/**/bun.lockb
+examples/**/package-lock.json
+
 # Build artifacts
 _book
 .changelog
