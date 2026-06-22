@@ -83,7 +83,9 @@ jobs:
       - name: Test (Examples)
         run: |
           cd examples
-          yarn install --immutable
+          # Example lockfiles are gitignored (kept out of Dependabot's scan),
+          # so install without --immutable here.
+          yarn install
           yarn test
 
       - name: Test (Unit)

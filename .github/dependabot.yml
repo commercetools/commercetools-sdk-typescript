@@ -13,3 +13,17 @@ updates:
       interval: weekly
     labels:
       - "Type: Maintenance"
+
+  # The example apps are demos, not shipped code. This entry exists solely to
+  # silence Dependabot PRs for every manifest under examples/. The blanket
+  # `ignore` suppresses both version and security update PRs — `exclude-paths`
+  # only covers version updates (dependabot/dependabot-core#14408).
+  - package-ecosystem: npm
+    directories:
+      - "/examples"
+      - "/examples/**"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    ignore:
+      - dependency-name: "*"
