@@ -4156,7 +4156,9 @@ export interface CartSetShippingMethodAction extends ICartUpdateAction {
 export interface CartSetShippingMethodTaxAmountAction extends ICartUpdateAction {
   readonly action: 'setShippingMethodTaxAmount'
   /**
-   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) to update. This is required for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) to update.
+   *	This is required and valid only for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	An [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned if `shippingKey` is provided for Carts with `Single` [ShippingMode](ctp:api:type:ShippingMode), or omitted for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -4176,7 +4178,9 @@ export interface CartSetShippingMethodTaxAmountAction extends ICartUpdateAction 
 export interface CartSetShippingMethodTaxRateAction extends ICartUpdateAction {
   readonly action: 'setShippingMethodTaxRate'
   /**
-   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) to update. This is required for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) to update.
+   *	This is required and valid only for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	An [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned if `shippingKey` is provided for Carts with `Single` [ShippingMode](ctp:api:type:ShippingMode), or omitted for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
