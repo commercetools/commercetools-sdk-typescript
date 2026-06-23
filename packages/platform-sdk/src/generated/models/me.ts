@@ -629,7 +629,7 @@ export interface MyDivisionDraft extends IMyBusinessUnitDraft {
  */
 export interface MyLineItemDraft {
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Must be unique among LineItems in the Cart.
    *
    *
    */
@@ -1480,7 +1480,7 @@ export interface MyCartAddItemShippingAddressAction extends IMyCartUpdateAction 
 export interface MyCartAddLineItemAction extends IMyCartUpdateAction {
   readonly action: 'addLineItem'
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Must be unique among LineItems in the Cart.
    *
    *
    */

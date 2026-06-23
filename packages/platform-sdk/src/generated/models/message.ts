@@ -10887,7 +10887,7 @@ export interface LineItemStateTransitionMessage extends IOrderMessage {
    */
   readonly lineItemId: string
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Unique among LineItems in the Order.
    *
    *
    */
@@ -12740,7 +12740,7 @@ export interface OrderLineItemDiscountSetMessage extends IOrderMessage {
    */
   readonly lineItemId: string
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Unique among LineItems in the Order.
    *
    *
    */
@@ -12841,7 +12841,7 @@ export interface OrderLineItemDistributionChannelSetMessage extends IOrderMessag
    */
   readonly lineItemId: string
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Unique among LineItems in the Order.
    *
    *
    */
@@ -12923,7 +12923,7 @@ export interface OrderLineItemRemovedMessage extends IOrderMessage {
    */
   readonly lineItemId: string
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Unique among LineItems in the Order.
    *
    *
    */
@@ -27788,7 +27788,7 @@ export interface LineItemStateTransitionMessagePayload extends IOrderMessagePayl
    */
   readonly lineItemId: string
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Unique among LineItems in the Order.
    *
    *
    */
@@ -28273,7 +28273,7 @@ export interface OrderLineItemDiscountSetMessagePayload extends IOrderMessagePay
    */
   readonly lineItemId: string
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Unique among LineItems in the Order.
    *
    *
    */
@@ -28317,7 +28317,7 @@ export interface OrderLineItemDistributionChannelSetMessagePayload extends IOrde
    */
   readonly lineItemId: string
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Unique among LineItems in the Order.
    *
    *
    */
@@ -28342,7 +28342,7 @@ export interface OrderLineItemRemovedMessagePayload extends IOrderMessagePayload
    */
   readonly lineItemId: string
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Unique among LineItems in the Order.
    *
    *
    */

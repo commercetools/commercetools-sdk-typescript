@@ -152,6 +152,7 @@ export interface FacetResults {
 export interface FacetTerm {
   /**
    *	Value for the field specified in the [term facet expression](/api/projects/product-projection-search#term-facet-expression) for which at least one [ProductVariant](ctp:api:type:ProductVariant) could be found.
+   *	For [AttributeNumberType](ctp:api:type:AttributeNumberType) Attributes, numeric values are returned as decimals, for example `1.0` instead of `1`.
    *
    *
    */
@@ -451,7 +452,7 @@ export interface ProductDraft {
    */
   readonly metaKeywords?: LocalizedString
   /**
-   *	The Product Variant to be the Master Variant for the Product. Required if `variants` are provided also.
+   *	The Product Variant to be the Master Variant for the Product. Required if `variants` are provided or if the referenced Product Type contains any Variant-level [AttributeDefinition](ctp:api:type:AttributeDefinition) with `isRequired` set to `true`.
    *
    *
    */
@@ -902,13 +903,13 @@ export interface ProductVariant {
    */
   readonly id: number
   /**
-   *	User-defined unique SKU of the Product Variant.
+   *	User-defined SKU of the Product Variant. Unique across all ProductVariants in a Project.
    *
    *
    */
   readonly sku?: string
   /**
-   *	User-defined unique identifier of the ProductVariant.
+   *	User-defined identifier of the ProductVariant. Unique among ProductVariants in the same Product.
    *
    *	This is different from [Product](ctp:api:type:Product) `key`.
    *
@@ -998,7 +999,8 @@ export interface ProductVariantAvailability {
    */
   readonly channels?: ProductVariantChannelAvailabilityMap
   /**
-   *	Indicates whether a Product Variant is in stock.
+   *	`true` if the Product Variant is in stock, based on an [InventoryEntry](ctp:api:type:InventoryEntry) that has no assigned supply [Channel](ctp:api:type:Channel).
+   *	This value reflects global or default availability; it does not aggregate the channel-specific availabilities found in the `channels` field.
    *
    *
    */
@@ -1069,13 +1071,13 @@ export interface ProductVariantChannelAvailabilityMap {
 }
 export interface ProductVariantDraft {
   /**
-   *	User-defined unique SKU of the Product Variant.
+   *	User-defined SKU of the Product Variant. Must be unique across all ProductVariants in a Project.
    *
    *
    */
   readonly sku?: string
   /**
-   *	User-defined unique identifier for the ProductVariant.
+   *	User-defined identifier for the ProductVariant. Must be unique among ProductVariants in the same Product.
    *
    *
    */
@@ -1362,13 +1364,13 @@ export interface ProductAddToCategoryAction extends IProductUpdateAction {
 export interface ProductAddVariantAction extends IProductUpdateAction {
   readonly action: 'addVariant'
   /**
-   *	Value to set. Must be unique.
+   *	Value to set. Must be unique across all ProductVariants in a Project.
    *
    *
    */
   readonly sku?: string
   /**
-   *	Value to set. Must be unique.
+   *	Value to set. Must be unique among ProductVariants in the same Product.
    *
    *
    */
@@ -2449,7 +2451,7 @@ export interface ProductSetProductVariantKeyAction extends IProductUpdateAction 
    */
   readonly sku?: string
   /**
-   *	Value to set. Must be unique. If empty, any existing value will be removed.
+   *	Value to set. Must be unique among ProductVariants in the same Product. If empty, any existing value will be removed.
    *
    *
    */
@@ -2491,7 +2493,7 @@ export interface ProductSetSkuAction extends IProductUpdateAction {
    */
   readonly variantId: number
   /**
-   *	Value to set. Must be unique. If empty, any existing value will be removed.
+   *	Value to set. Must be unique across all ProductVariants in a Project. If empty, any existing value will be removed.
    *
    *
    */

@@ -476,7 +476,7 @@ export interface CustomLineItemImportDraft {
    */
   readonly name: LocalizedString
   /**
-   *	User-defined unique identifier of the Custom Line Item.
+   *	User-defined identifier of the Custom Line Item. Must be unique among Custom Line Items in the Order.
    *
    */
   readonly key?: string
@@ -548,7 +548,7 @@ export interface Delivery {
    */
   readonly id: string
   /**
-   *	User-defined unique identifier of the Delivery.
+   *	User-defined identifier of the Delivery. Unique among Deliveries in the Order.
    *
    */
   readonly key?: string
@@ -585,7 +585,7 @@ export interface Delivery {
 }
 export interface DeliveryDraft {
   /**
-   *	User-defined unique identifier of the Delivery.
+   *	User-defined identifier of the Delivery. Must be unique among Deliveries in the Order.
    *
    */
   readonly key?: string
@@ -669,7 +669,7 @@ export interface LineItemImportDraft {
    */
   readonly name: LocalizedString
   /**
-   *	User-defined unique identifier of the Line Item.
+   *	User-defined identifier of the Line Item. Must be unique among Line Items in the Order.
    *
    */
   readonly key?: string
@@ -1913,7 +1913,7 @@ export interface IReturnItem {
    */
   readonly id: string
   /**
-   *	User-defined unique identifier of the Return Item.
+   *	User-defined identifier of the Return Item. Unique among Return Items in the Order.
    *
    */
   readonly key?: string
@@ -1976,7 +1976,7 @@ export interface CustomLineItemReturnItem extends IReturnItem {
    */
   readonly id: string
   /**
-   *	User-defined unique identifier of the CustomLineItemReturnItem.
+   *	User-defined identifier of the CustomLineItemReturnItem. Must be unique among Return Items in the Order.
    *
    */
   readonly key?: string
@@ -2041,7 +2041,7 @@ export interface LineItemReturnItem extends IReturnItem {
    */
   readonly id: string
   /**
-   *	User-defined unique identifier of the LineItemReturnItem.
+   *	User-defined identifier of the LineItemReturnItem. Must be unique among Return Items in the Order.
    *
    */
   readonly key?: string
@@ -2099,7 +2099,7 @@ export interface LineItemReturnItem extends IReturnItem {
 }
 export interface ReturnItemDraft {
   /**
-   *	User-defined unique identifier of the Return Item.
+   *	User-defined identifier of the Return Item. Must be unique among Return Items in the Order.
    *
    */
   readonly key?: string

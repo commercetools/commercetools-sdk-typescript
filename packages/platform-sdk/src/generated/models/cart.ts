@@ -847,7 +847,7 @@ export interface CustomLineItem {
    */
   readonly id: string
   /**
-   *	User-defined unique identifier of the Custom Line Item.
+   *	User-defined identifier of the Custom Line Item. Unique among Custom Line Items in the Cart or Order.
    *
    *
    */
@@ -962,7 +962,7 @@ export interface CustomLineItemDraft {
    */
   readonly name: LocalizedString
   /**
-   *	User-defined unique identifier of the Custom Line Item.
+   *	User-defined identifier of the Custom Line Item. Must be unique among Custom Line Items in the Cart.
    *
    *
    */
@@ -1513,7 +1513,7 @@ export interface LineItem {
    */
   readonly id: string
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Unique among LineItems in the Cart or Order.
    *
    *
    */
@@ -1698,7 +1698,7 @@ export interface LineItem {
  */
 export interface LineItemDraft {
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Must be unique among LineItems in the Cart.
    *
    *
    */
@@ -2378,7 +2378,7 @@ export interface CartAddCustomLineItemAction extends ICartUpdateAction {
    */
   readonly name: LocalizedString
   /**
-   *	User-defined unique identifier of the Custom Line Item.
+   *	User-defined identifier of the Custom Line Item. Must be unique among Custom Line Items in the Cart.
    *
    *
    */
@@ -2555,7 +2555,7 @@ export interface CartAddItemShippingAddressAction extends ICartUpdateAction {
 export interface CartAddLineItemAction extends ICartUpdateAction {
   readonly action: 'addLineItem'
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Must be unique among LineItems in the Cart.
    *
    *
    */

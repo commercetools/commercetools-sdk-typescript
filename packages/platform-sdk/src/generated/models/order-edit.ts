@@ -531,7 +531,7 @@ export interface StagedOrderAddCustomLineItemAction extends IStagedOrderUpdateAc
    */
   readonly name: LocalizedString
   /**
-   *	User-defined unique identifier of the Custom Line Item.
+   *	User-defined identifier of the Custom Line Item. Must be unique among Custom Line Items in the StagedOrder.
    *
    *
    */
@@ -685,7 +685,7 @@ export interface StagedOrderAddItemShippingAddressAction extends IStagedOrderUpd
 export interface StagedOrderAddLineItemAction extends IStagedOrderUpdateAction {
   readonly action: 'addLineItem'
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Must be unique among LineItems in the StagedOrder.
    *
    *
    */
