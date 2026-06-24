@@ -2691,7 +2691,11 @@ export interface CartAddShippingMethodAction extends ICartUpdateAction {
   readonly shippingKey: string
   /**
    *	ResourceIdentifier to a [ShippingMethod](ctp:api:type:ShippingMethod) to add to the Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
-   *	If the referenced Shipping Method has a predicate that does not match the Cart, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *	[InvalidOperation](ctp:api:type:InvalidOperationError) error is returned in one of the following cases:
+   *	  1. If the referenced Shipping Method has a predicate that does not match the Cart.
+   *	  2. If the referenced Shipping Method is not active.
+   *	  3. If the referenced Shipping Method is associated with a Store that is different from the Cart's Store.
+   *	  4. If the referenced Shipping Method is associated with a Store and the Cart is not associated with any Store.
    *
    *
    */
@@ -4137,7 +4141,11 @@ export interface CartSetShippingMethodAction extends ICartUpdateAction {
    *	Value to set.
    *	If empty, any existing value is removed.
    *
-   *	If the referenced Shipping Method is inactive, or has a predicate that does not match the Cart, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *	[InvalidOperation](ctp:api:type:InvalidOperationError) error is returned in one of the following cases:
+   *	  1. If the referenced Shipping Method has a predicate that does not match the Cart.
+   *	  2. If the referenced Shipping Method is not active.
+   *	  3. If the referenced Shipping Method is associated with a Store that is different from the Cart's Store.
+   *	  4. If the referenced Shipping Method is associated with a Store and the Cart is not associated with any Store.
    *
    *
    */

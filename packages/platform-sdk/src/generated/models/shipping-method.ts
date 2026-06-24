@@ -14,6 +14,7 @@ import {
   LocalizedString,
   _Money,
 } from './common'
+import { StoreKeyReference, StoreResourceIdentifier } from './store'
 import {
   TaxCategoryReference,
   TaxCategoryResourceIdentifier,
@@ -136,6 +137,13 @@ export interface ShippingMethod extends BaseResource {
    *
    */
   readonly custom?: CustomFields
+  /**
+   *	- If a value exists, the Shipping Method applies to [Carts](ctp:api:type:Cart) with a [Store](ctp:api:type:Store) that matches any Store in this field.
+   *	- If empty, the Shipping Method applies to all [Carts](ctp:api:type:Cart), irrespective of a Store.
+   *
+   *
+   */
+  readonly stores: StoreKeyReference[]
 }
 export interface ShippingMethodDraft {
   /**
@@ -198,6 +206,15 @@ export interface ShippingMethodDraft {
    *
    */
   readonly custom?: CustomFieldsDraft
+  /**
+   *	- If defined and not empty, the Shipping Method applies to [Carts](ctp:api:type:Cart) with a [Store](ctp:api:type:Store) that matches any Store in this field.
+   *	- If not defined or empty, the Shipping Method applies to all Carts, irrespective of a Store.
+   *
+   *	If the number of referenced Stores exceeds the [Stores per Shipping Method limit](/api/limits#shipping-methods), an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
+   *
+   */
+  readonly stores?: StoreResourceIdentifier[]
 }
 /**
  *	[PagedQueryResult](/general-concepts#pagedqueryresult) with `results` containing an array of [ShippingMethod](ctp:api:type:ShippingMethod).
@@ -293,12 +310,14 @@ export interface ShippingMethodUpdate {
 }
 export type ShippingMethodUpdateAction =
   | ShippingMethodAddShippingRateAction
+  | ShippingMethodAddStoreAction
   | ShippingMethodAddZoneAction
   | ShippingMethodChangeActiveAction
   | ShippingMethodChangeIsDefaultAction
   | ShippingMethodChangeNameAction
   | ShippingMethodChangeTaxCategoryAction
   | ShippingMethodRemoveShippingRateAction
+  | ShippingMethodRemoveStoreAction
   | ShippingMethodRemoveZoneAction
   | ShippingMethodSetCustomFieldAction
   | ShippingMethodSetCustomTypeAction
@@ -307,6 +326,7 @@ export type ShippingMethodUpdateAction =
   | ShippingMethodSetLocalizedDescriptionAction
   | ShippingMethodSetLocalizedNameAction
   | ShippingMethodSetPredicateAction
+  | ShippingMethodSetStoresAction
 export interface IShippingMethodUpdateAction {
   /**
    *
@@ -508,6 +528,19 @@ export interface ShippingMethodAddShippingRateAction extends IShippingMethodUpda
    */
   readonly shippingRate: ShippingRateDraft
 }
+/**
+ *	Associates the ShippingMethod with a Store.
+ *
+ */
+export interface ShippingMethodAddStoreAction extends IShippingMethodUpdateAction {
+  readonly action: 'addStore'
+  /**
+   *	ResourceIdentifier of the Store to add.
+   *
+   *
+   */
+  readonly store: StoreResourceIdentifier
+}
 export interface ShippingMethodAddZoneAction extends IShippingMethodUpdateAction {
   readonly action: 'addZone'
   /**
@@ -568,6 +601,20 @@ export interface ShippingMethodRemoveShippingRateAction extends IShippingMethodU
    *
    */
   readonly shippingRate: ShippingRateDraft
+}
+/**
+ *	Removes the association to a Store from the ShippingMethod.
+ *	If no more Stores are assigned, the ShippingMethod becomes a global ShippingMethod.
+ *
+ */
+export interface ShippingMethodRemoveStoreAction extends IShippingMethodUpdateAction {
+  readonly action: 'removeStore'
+  /**
+   *	ResourceIdentifier of the Store to remove.
+   *
+   *
+   */
+  readonly store: StoreResourceIdentifier
 }
 export interface ShippingMethodRemoveZoneAction extends IShippingMethodUpdateAction {
   readonly action: 'removeZone'
@@ -658,4 +705,20 @@ export interface ShippingMethodSetPredicateAction extends IShippingMethodUpdateA
    *
    */
   readonly predicate?: string
+}
+/**
+ *	Sets the Stores the ShippingMethod is associated with.
+ *	If empty, the ShippingMethod becomes a global ShippingMethod.
+ *
+ */
+export interface ShippingMethodSetStoresAction extends IShippingMethodUpdateAction {
+  readonly action: 'setStores'
+  /**
+   *	ResourceIdentifiers of the Stores to set.
+   *	Overrides the current list of Stores.
+   *	If empty, any existing values are removed.
+   *
+   *
+   */
+  readonly stores: StoreResourceIdentifier[]
 }
