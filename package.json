@@ -43,7 +43,7 @@
     "@manypkg/cli": "^0.25.1",
     "@preconstruct/cli": "^2.8.13",
     "@types/jest": "^30.0.0",
-    "@types/node": "^25.9.1",
+    "@types/node": "^26.0.0",
     "axios": "^1.16.1",
     "babel-jest": "^30.4.1",
     "clean-webpack-plugin": "^4.0.0",
