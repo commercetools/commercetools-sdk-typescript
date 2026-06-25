@@ -230,7 +230,7 @@ export interface TaxRate {
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the TaxRate.
+   *	User-defined identifier of the TaxRate. Unique within the TaxCategory containing it.
    *	Present when set using [TaxRateDraft](ctp:api:type:TaxRateDraft). Not available for external TaxRates created using [ExternalTaxRateDraft](ctp:api:type:ExternalTaxRateDraft).
    *
    *
@@ -316,7 +316,7 @@ export interface TaxRateDraft {
    */
   readonly subRates?: SubRate[]
   /**
-   *	User-defined unique identifier of the TaxRate.
+   *	User-defined identifier of the TaxRate. Must be unique within the TaxCategory containing it.
    *
    *
    */

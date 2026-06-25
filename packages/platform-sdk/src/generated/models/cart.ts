@@ -847,7 +847,7 @@ export interface CustomLineItem {
    */
   readonly id: string
   /**
-   *	User-defined unique identifier of the Custom Line Item.
+   *	User-defined identifier of the Custom Line Item. Unique among Custom Line Items in the Cart or Order.
    *
    *
    */
@@ -962,7 +962,7 @@ export interface CustomLineItemDraft {
    */
   readonly name: LocalizedString
   /**
-   *	User-defined unique identifier of the Custom Line Item.
+   *	User-defined identifier of the Custom Line Item. Must be unique among Custom Line Items in the Cart.
    *
    *
    */
@@ -1513,7 +1513,7 @@ export interface LineItem {
    */
   readonly id: string
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Unique among LineItems in the Cart or Order.
    *
    *
    */
@@ -1698,7 +1698,7 @@ export interface LineItem {
  */
 export interface LineItemDraft {
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Must be unique among LineItems in the Cart.
    *
    *
    */
@@ -2378,7 +2378,7 @@ export interface CartAddCustomLineItemAction extends ICartUpdateAction {
    */
   readonly name: LocalizedString
   /**
-   *	User-defined unique identifier of the Custom Line Item.
+   *	User-defined identifier of the Custom Line Item. Must be unique among Custom Line Items in the Cart.
    *
    *
    */
@@ -2555,7 +2555,7 @@ export interface CartAddItemShippingAddressAction extends ICartUpdateAction {
 export interface CartAddLineItemAction extends ICartUpdateAction {
   readonly action: 'addLineItem'
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Must be unique among LineItems in the Cart.
    *
    *
    */
@@ -2691,7 +2691,11 @@ export interface CartAddShippingMethodAction extends ICartUpdateAction {
   readonly shippingKey: string
   /**
    *	ResourceIdentifier to a [ShippingMethod](ctp:api:type:ShippingMethod) to add to the Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
-   *	If the referenced Shipping Method has a predicate that does not match the Cart, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *	[InvalidOperation](ctp:api:type:InvalidOperationError) error is returned in one of the following cases:
+   *	  1. If the referenced Shipping Method has a predicate that does not match the Cart.
+   *	  2. If the referenced Shipping Method is not active.
+   *	  3. If the referenced Shipping Method is associated with a Store that is different from the Cart's Store.
+   *	  4. If the referenced Shipping Method is associated with a Store and the Cart is not associated with any Store.
    *
    *
    */
@@ -3031,6 +3035,8 @@ export interface CartFreezeCartAction extends ICartUpdateAction {
  *	[Locks](/api/carts-orders-overview#lock-a-cart) a Cart, preventing all updates from API Clients without an elevated [OAuth 2.0 Scope](/api/scopes).
  *	This action sets the Cart's `lock` [field](/projects/carts#cart) which identifies the API Client that locked the Cart and when the lock was applied.
  *	This action requires an additional OAuth 2.0 Scope `manage_locked_carts`.
+ *
+ *	Produces the [CartLocked](ctp:api:type:CartLockedMessage) Message.
  *
  */
 export interface CartLockCartAction extends ICartUpdateAction {
@@ -4137,7 +4143,11 @@ export interface CartSetShippingMethodAction extends ICartUpdateAction {
    *	Value to set.
    *	If empty, any existing value is removed.
    *
-   *	If the referenced Shipping Method is inactive, or has a predicate that does not match the Cart, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *	[InvalidOperation](ctp:api:type:InvalidOperationError) error is returned in one of the following cases:
+   *	  1. If the referenced Shipping Method has a predicate that does not match the Cart.
+   *	  2. If the referenced Shipping Method is not active.
+   *	  3. If the referenced Shipping Method is associated with a Store that is different from the Cart's Store.
+   *	  4. If the referenced Shipping Method is associated with a Store and the Cart is not associated with any Store.
    *
    *
    */
@@ -4156,7 +4166,9 @@ export interface CartSetShippingMethodAction extends ICartUpdateAction {
 export interface CartSetShippingMethodTaxAmountAction extends ICartUpdateAction {
   readonly action: 'setShippingMethodTaxAmount'
   /**
-   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) to update. This is required for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) to update.
+   *	This is required and valid only for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	An [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned if `shippingKey` is provided for Carts with `Single` [ShippingMode](ctp:api:type:ShippingMode), or omitted for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -4176,7 +4188,9 @@ export interface CartSetShippingMethodTaxAmountAction extends ICartUpdateAction 
 export interface CartSetShippingMethodTaxRateAction extends ICartUpdateAction {
   readonly action: 'setShippingMethodTaxRate'
   /**
-   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) to update. This is required for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) to update.
+   *	This is required and valid only for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	An [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned if `shippingKey` is provided for Carts with `Single` [ShippingMode](ctp:api:type:ShippingMode), or omitted for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -4220,6 +4234,8 @@ export interface CartUnfreezeCartAction extends ICartUpdateAction {
 /**
  *	Unlocks a Cart, removing all update restrictions that are in place while a Cart is [locked](/api/carts-orders-overview#lock-a-cart).
  *	This action requires an additional OAuth 2.0 Scope `manage_locked_carts`.
+ *
+ *	Produces the [CartUnlocked](ctp:api:type:CartUnlockedMessage) Message.
  *
  */
 export interface CartUnlockCartAction extends ICartUpdateAction {

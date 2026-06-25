@@ -531,7 +531,7 @@ export interface StagedOrderAddCustomLineItemAction extends IStagedOrderUpdateAc
    */
   readonly name: LocalizedString
   /**
-   *	User-defined unique identifier of the Custom Line Item.
+   *	User-defined identifier of the Custom Line Item. Must be unique among Custom Line Items in the StagedOrder.
    *
    *
    */
@@ -685,7 +685,7 @@ export interface StagedOrderAddItemShippingAddressAction extends IStagedOrderUpd
 export interface StagedOrderAddLineItemAction extends IStagedOrderUpdateAction {
   readonly action: 'addLineItem'
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Must be unique among LineItems in the StagedOrder.
    *
    *
    */
@@ -2687,7 +2687,9 @@ export interface StagedOrderSetShippingMethodAction extends IStagedOrderUpdateAc
 export interface StagedOrderSetShippingMethodTaxAmountAction extends IStagedOrderUpdateAction {
   readonly action: 'setShippingMethodTaxAmount'
   /**
-   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) to update. This is required for Orders with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) to update.
+   *	This is required and valid only for Orders with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	An [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned if `shippingKey` is provided for Orders with `Single` [ShippingMode](ctp:api:type:ShippingMode), or omitted for Orders with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -2706,7 +2708,9 @@ export interface StagedOrderSetShippingMethodTaxAmountAction extends IStagedOrde
 export interface StagedOrderSetShippingMethodTaxRateAction extends IStagedOrderUpdateAction {
   readonly action: 'setShippingMethodTaxRate'
   /**
-   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) to update. This is required for Orders with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) to update.
+   *	This is required and valid only for Orders with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	An [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned if `shippingKey` is provided for Orders with `Single` [ShippingMode](ctp:api:type:ShippingMode), or omitted for Orders with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */

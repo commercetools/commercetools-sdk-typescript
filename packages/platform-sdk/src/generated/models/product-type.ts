@@ -83,6 +83,8 @@ export interface AttributeDefinition {
   /**
    *	If `true`, the Attribute's values are available in the [Product Search](/api/projects/product-search) or the [Product Projection Search](/api/projects/product-projection-search) API for use in full-text search queries, filters, and facets.
    *	However, if an Attribute's `level` is set as `Product`, then Product Projection Search does **not support** the Attribute.
+   *	To use the Attribute in search, filters, or facets, set `isSearchable` to `true` for all AttributeDefinitions with the same `name` across different ProductTypes.
+   *	If the `isSearchable` values are different, the Attribute isn't available for search, filters, or facets.
    *
    *	The exact features that are available with this flag depend on the specific [AttributeType](ctp:api:type:AttributeType).
    *	The maximum size of a searchable field is **restricted** by the [Field content size limit](/api/limits#field-content-size).
@@ -106,10 +108,10 @@ export interface AttributeDefinitionDraft {
    */
   readonly type: AttributeType
   /**
-   *	User-defined name of the Attribute that is unique to the [Project](ctp:api:type:Project).
+   *	User-defined name of the Attribute that must be unique within the ProductType.
    *
-   *	When using the same `name` for an Attribute in multiple ProductTypes, all fields of the AttributeDefinition of this Attribute must be the same across the ProductTypes, else an [AttributeDefinitionAlreadyExists](ctp:api:type:AttributeDefinitionAlreadyExistsError) error is returned.
-   *	An exception to this are the values of an `enum` or `lenum` Type and sets thereof.
+   *	To use the same `name` in multiple ProductTypes, each AttributeDefinition must have the same `type`; otherwise, an [AttributeDefinitionTypeConflict](ctp:api:type:AttributeDefinitionTypeConflictError) error is returned.
+   *	For `enum` or `lenum` Types and sets of these AttributeTypes, the enum values can be different for each ProductType.
    *
    */
   readonly name: string
@@ -152,7 +154,8 @@ export interface AttributeDefinitionDraft {
   /**
    *	Set as `true` if you want the Attribute's values to be available in the [Product Search](/api/projects/product-search) or the [Product Projection Search](/api/projects/product-projection-search) API and can be used in full-text search queries, filters, and facets.
    *	If an Attribute's `level` is set as `Product`, then Product Projection Search does **not support** the Attribute.
-   *
+   *	To use the Attribute in search, filters, or facets, set `isSearchable` to `true` for all AttributeDefinitions with the same `name` across different ProductTypes.
+   *	If the `isSearchable` values are different, the Attribute isn't available for search, filters, or facets.
    *
    *	Which exact features are available with this flag depends on the specific [AttributeType](ctp:api:type:AttributeType).
    *	The maximum size of a searchable field is **restricted** by the [Field content size limit](/api/limits#field-content-size).
@@ -682,10 +685,10 @@ export interface ProductTypeChangeAttributeNameAction extends IProductTypeUpdate
    */
   readonly attributeName: string
   /**
-   *	New user-defined name of the Attribute that is unique to the [Project](ctp:api:type:Project).
+   *	New user-defined name of the Attribute that must be unique within the ProductType.
    *
-   *	When using the same `name` for an Attribute in two or more ProductTypes, all fields of the AttributeDefinition of this Attribute must be the same across the ProductTypes. If not, an [AttributeDefinitionAlreadyExists](ctp:api:type:AttributeDefinitionAlreadyExistsError) error is returned.
-   *	An exception to this are the values of an `enum` or `lenum` type and sets thereof.
+   *	To use the same `name` in multiple ProductTypes, each AttributeDefinition must have the same `type`; otherwise, an [AttributeDefinitionTypeConflict](ctp:api:type:AttributeDefinitionTypeConflictError) error is returned.
+   *	For `enum` or `lenum` Types and sets of these AttributeTypes, the enum values can be different for each ProductType.
    *
    */
   readonly newAttributeName: string
@@ -755,6 +758,7 @@ export interface ProductTypeChangeInputHintAction extends IProductTypeUpdateActi
 }
 /**
  *	Following this update the Products are reindexed asynchronously to reflect this change on the search endpoint. When enabling search on an existing Attribute type definition, the constraint regarding the maximum size of a searchable Attribute will not be enforced. Instead, AttributeDefinitions exceeding this limit will be treated as not searchable and will not be available for full-text search.
+ *	To use the Attribute in search, filters, or facets, set `isSearchable` to `true` for all AttributeDefinitions with the same `name` across different ProductTypes. If the `isSearchable` values are different, the Attribute isn't available for search, filters, or facets.
  *
  */
 export interface ProductTypeChangeIsSearchableAction extends IProductTypeUpdateAction {
@@ -871,6 +875,8 @@ export interface ProductTypeChangePlainEnumValueOrderAction extends IProductType
 }
 /**
  *	Removes an AttributeDefinition and also deletes all corresponding Attributes on all [Products](/projects/products) with this ProductType. The removal of the Attributes is [eventually consistent](/general-concepts#eventual-consistency).
+ *
+ *	Do not remove an AttributeDefinition and add a new AttributeDefinition with the same `name` in the same update request. Because the removal is eventually consistent, wait until it is complete before sending another update request for the ProductType.
  *
  *	The `CombinationUnique` constraint is not checked when an Attribute is removed, and uniqueness violations may occur when you remove an Attribute with a `CombinationUnique` constraint.
  *

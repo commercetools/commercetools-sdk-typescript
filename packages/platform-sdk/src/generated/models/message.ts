@@ -206,8 +206,10 @@ export type Message =
   | CartDiscountStoreRemovedMessage
   | CartDiscountStoresSetMessage
   | CartFrozenMessage
+  | CartLockedMessage
   | CartPurchaseOrderNumberSetMessage
   | CartUnfrozenMessage
+  | CartUnlockedMessage
   | CategoryCreatedMessage
   | CategorySlugChangedMessage
   | CustomLineItemStateTransitionMessage
@@ -5269,6 +5271,70 @@ export interface CartFrozenMessage extends IMessage {
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
 }
 /**
+ *	Generated after a successful [Lock Cart](ctp:api:type:CartLockCartAction) update action.
+ *
+ */
+export interface CartLockedMessage extends IMessage {
+  readonly type: 'CartLocked'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+}
+/**
  *	Generated after a successful [Set Purchase Order Number](ctp:api:type:CartSetPurchaseOrderNumberAction) update action.
  *
  */
@@ -5350,6 +5416,70 @@ export interface CartPurchaseOrderNumberSetMessage extends IMessage {
  */
 export interface CartUnfrozenMessage extends IMessage {
   readonly type: 'CartUnfrozen'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+}
+/**
+ *	Generated after a successful [Unlock Cart](ctp:api:type:CartUnlockCartAction) update action.
+ *
+ */
+export interface CartUnlockedMessage extends IMessage {
+  readonly type: 'CartUnlocked'
   /**
    *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
@@ -10887,7 +11017,7 @@ export interface LineItemStateTransitionMessage extends IOrderMessage {
    */
   readonly lineItemId: string
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Unique among LineItems in the Order.
    *
    *
    */
@@ -12740,7 +12870,7 @@ export interface OrderLineItemDiscountSetMessage extends IOrderMessage {
    */
   readonly lineItemId: string
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Unique among LineItems in the Order.
    *
    *
    */
@@ -12841,7 +12971,7 @@ export interface OrderLineItemDistributionChannelSetMessage extends IOrderMessag
    */
   readonly lineItemId: string
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Unique among LineItems in the Order.
    *
    *
    */
@@ -12923,7 +13053,7 @@ export interface OrderLineItemRemovedMessage extends IOrderMessage {
    */
   readonly lineItemId: string
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Unique among LineItems in the Order.
    *
    *
    */
@@ -25109,8 +25239,10 @@ export type MessagePayload =
   | CartDiscountStoreRemovedMessagePayload
   | CartDiscountStoresSetMessagePayload
   | CartFrozenMessagePayload
+  | CartLockedMessagePayload
   | CartPurchaseOrderNumberSetMessagePayload
   | CartUnfrozenMessagePayload
+  | CartUnlockedMessagePayload
   | CategoryCreatedMessagePayload
   | CategorySlugChangedMessagePayload
   | CustomLineItemStateTransitionMessagePayload
@@ -26409,6 +26541,13 @@ export interface CartFrozenMessagePayload extends IMessagePayload {
   readonly type: 'CartFrozen'
 }
 /**
+ *	Generated after a successful [Lock Cart](ctp:api:type:CartLockCartAction) update action.
+ *
+ */
+export interface CartLockedMessagePayload extends IMessagePayload {
+  readonly type: 'CartLocked'
+}
+/**
  *	Generated after a successful [Set Purchase Order Number](ctp:api:type:CartSetPurchaseOrderNumberAction) update action.
  *
  */
@@ -26433,6 +26572,13 @@ export interface CartPurchaseOrderNumberSetMessagePayload extends IMessagePayloa
  */
 export interface CartUnfrozenMessagePayload extends IMessagePayload {
   readonly type: 'CartUnfrozen'
+}
+/**
+ *	Generated after a successful [Unlock Cart](ctp:api:type:CartUnlockCartAction) update action.
+ *
+ */
+export interface CartUnlockedMessagePayload extends IMessagePayload {
+  readonly type: 'CartUnlocked'
 }
 /**
  *	Generated after a successful [Create Category](ctp:api:endpoint:/{projectKey}/categories:POST) request.
@@ -27788,7 +27934,7 @@ export interface LineItemStateTransitionMessagePayload extends IOrderMessagePayl
    */
   readonly lineItemId: string
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Unique among LineItems in the Order.
    *
    *
    */
@@ -28273,7 +28419,7 @@ export interface OrderLineItemDiscountSetMessagePayload extends IOrderMessagePay
    */
   readonly lineItemId: string
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Unique among LineItems in the Order.
    *
    *
    */
@@ -28317,7 +28463,7 @@ export interface OrderLineItemDistributionChannelSetMessagePayload extends IOrde
    */
   readonly lineItemId: string
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Unique among LineItems in the Order.
    *
    *
    */
@@ -28342,7 +28488,7 @@ export interface OrderLineItemRemovedMessagePayload extends IOrderMessagePayload
    */
   readonly lineItemId: string
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Unique among LineItems in the Order.
    *
    *
    */

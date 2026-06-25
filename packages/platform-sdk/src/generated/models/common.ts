@@ -407,7 +407,7 @@ export interface BaseAddress {
    */
   readonly id?: string
   /**
-   *	User-defined identifier of the Address that must be unique when multiple addresses are referenced in [BusinessUnits](ctp:api:type:BusinessUnit), [Customers](ctp:api:type:Customer), and `itemShippingAddresses` (LineItem-specific addresses) of a [Cart](ctp:api:type:Cart), [Order](ctp:api:type:Order), [QuoteRequest](ctp:api:type:QuoteRequest), or [Quote](ctp:api:type:Quote).
+   *	User-defined identifier of the Address. Must be unique among the addresses in a [BusinessUnit](ctp:api:type:BusinessUnit), [Customer](ctp:api:type:Customer), or in the `itemShippingAddresses` (LineItem-specific addresses) of a [Cart](ctp:api:type:Cart), [Order](ctp:api:type:Order), [QuoteRequest](ctp:api:type:QuoteRequest), or [Quote](ctp:api:type:Quote).
    *
    *
    */
