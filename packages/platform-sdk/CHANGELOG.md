@@ -1,5 +1,28 @@
 # @commercetools/platform-sdk
 
+## 9.1.0
+
+### Minor Changes
+
+- [#1384](https://github.com/commercetools/commercetools-sdk-typescript/pull/1384) [`49c05ff`](https://github.com/commercetools/commercetools-sdk-typescript/commit/49c05ff0d82bcb994ab5c08685ff177077186342) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Property(s)</summary>
+  - added property `stores` to type `ShippingMethod`
+  - added property `stores` to type `ShippingMethodDraft`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `CartLockedMessage`
+  - added type `CartUnlockedMessage`
+  - added type `CartLockedMessagePayload`
+  - added type `CartUnlockedMessagePayload`
+  - added type `ShippingMethodAddStoreAction`
+  - added type `ShippingMethodRemoveStoreAction`
+  - added type `ShippingMethodSetStoresAction`
+  </details>
+
 ## 9.0.0
 
 ### Major Changes
