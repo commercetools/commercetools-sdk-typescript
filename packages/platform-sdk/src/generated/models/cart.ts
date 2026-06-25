@@ -3036,6 +3036,8 @@ export interface CartFreezeCartAction extends ICartUpdateAction {
  *	This action sets the Cart's `lock` [field](/projects/carts#cart) which identifies the API Client that locked the Cart and when the lock was applied.
  *	This action requires an additional OAuth 2.0 Scope `manage_locked_carts`.
  *
+ *	Produces the [CartLocked](ctp:api:type:CartLockedMessage) Message.
+ *
  */
 export interface CartLockCartAction extends ICartUpdateAction {
   readonly action: 'lockCart'
@@ -4232,6 +4234,8 @@ export interface CartUnfreezeCartAction extends ICartUpdateAction {
 /**
  *	Unlocks a Cart, removing all update restrictions that are in place while a Cart is [locked](/api/carts-orders-overview#lock-a-cart).
  *	This action requires an additional OAuth 2.0 Scope `manage_locked_carts`.
+ *
+ *	Produces the [CartUnlocked](ctp:api:type:CartUnlockedMessage) Message.
  *
  */
 export interface CartUnlockCartAction extends ICartUpdateAction {

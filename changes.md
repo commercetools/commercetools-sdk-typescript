@@ -10,6 +10,10 @@
 <details>
 <summary>Added Type(s)</summary>
 
+- added type `CartLockedMessage`
+- added type `CartUnlockedMessage`
+- added type `CartLockedMessagePayload`
+- added type `CartUnlockedMessagePayload`
 - added type `ShippingMethodAddStoreAction`
 - added type `ShippingMethodRemoveStoreAction`
 - added type `ShippingMethodSetStoresAction`
