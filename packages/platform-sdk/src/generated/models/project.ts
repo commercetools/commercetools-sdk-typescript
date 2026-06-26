@@ -203,6 +203,16 @@ export enum OrderSearchStatusValues {
 }
 
 export type OrderSearchStatus = 'Activated' | 'Deactivated' | (string & {})
+/**
+ *	Determines how Product Variants are managed in the Project.
+ *
+ */
+export enum ProductCatalogModelValues {
+  Classic = 'Classic',
+  Modular = 'Modular',
+}
+
+export type ProductCatalogModel = 'Classic' | 'Modular' | (string & {})
 export enum ProductSearchIndexingModeValues {
   ProductProjectionsSearch = 'ProductProjectionsSearch',
   ProductsSearch = 'ProductsSearch',
@@ -315,6 +325,13 @@ export interface Project {
    *
    */
   readonly discounts: DiscountsConfiguration
+  /**
+   *	Determines how Product Variants are managed in the Project.
+   *	If not set, defaults to `Classic` behavior.
+   *
+   *
+   */
+  readonly productCatalogModel?: ProductCatalogModel
 }
 export interface ProjectUpdate {
   /**
@@ -350,6 +367,7 @@ export type ProjectUpdateAction =
   | ProjectSetBusinessUnitAssociateRoleOnCreationAction
   | ProjectSetDiscountsConfigurationAction
   | ProjectSetExternalOAuthAction
+  | ProjectSetProductCatalogModelAction
   | ProjectSetReleaseExpiredReservationsAction
   | ProjectSetReservationExpirationInMinutesAction
   | ProjectSetShippingRateInputTypeAction
@@ -636,6 +654,26 @@ export interface ProjectSetExternalOAuthAction extends IProjectUpdateAction {
    *
    */
   readonly externalOAuth?: ExternalOAuth
+}
+export interface ProjectSetProductCatalogModelAction extends IProjectUpdateAction {
+  readonly action: 'setProductCatalogModel'
+  /**
+   *	Configuration for the Product catalog model in the Project.
+   *
+   *	When set to `Classic`, Product Variants are embedded in the Product.
+   *
+   *	When set to `Modular`, Product Variants are managed as standalone entities.
+   *	In this mode:
+   *	- Variant-related update actions on Products return a `400` error.
+   *	- Products must be created without `masterVariant` and `variants`.
+   *	- Products cannot be deleted while Variants reference them.
+   *	- Products cannot be unpublished while they have published Variants.
+   *	- [Carts](/projects/carts) read variant data from the Variant API instead of embedded Product Variants.
+   *	- `priceMode` on Products is set to `Standalone`.
+   *
+   *
+   */
+  readonly productCatalogModel: ProductCatalogModel
 }
 /**
  *	If set to `true`, [Reservations](ctp:api:type:Reservation) are marked as `Expired` once their

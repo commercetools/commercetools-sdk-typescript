@@ -51,6 +51,8 @@ import { ByProjectKeyStoresRequestBuilder } from './stores/by-project-key-stores
 import { ByProjectKeySubscriptionsRequestBuilder } from './subscriptions/by-project-key-subscriptions-request-builder'
 import { ByProjectKeyTaxCategoriesRequestBuilder } from './tax-categories/by-project-key-tax-categories-request-builder'
 import { ByProjectKeyTypesRequestBuilder } from './types/by-project-key-types-request-builder'
+import { ByProjectKeyVariantProjectionsRequestBuilder } from './variant-projections/by-project-key-variant-projections-request-builder'
+import { ByProjectKeyVariantsRequestBuilder } from './variants/by-project-key-variants-request-builder'
 import { ByProjectKeyZonesRequestBuilder } from './zones/by-project-key-zones-request-builder'
 /**
  **/
@@ -516,6 +518,29 @@ export class ByProjectKeyRequestBuilder {
    */
   public types(): ByProjectKeyTypesRequestBuilder {
     return new ByProjectKeyTypesRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
+   *	A Variant Projection is a lightweight, read-only representation of a single Product Variant
+   *	with embedded Product data such as name, slug, and description.
+   *
+   */
+  public variantProjections(): ByProjectKeyVariantProjectionsRequestBuilder {
+    return new ByProjectKeyVariantProjectionsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public variants(): ByProjectKeyVariantsRequestBuilder {
+    return new ByProjectKeyVariantsRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },

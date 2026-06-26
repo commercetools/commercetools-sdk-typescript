@@ -40,6 +40,7 @@ import { ChannelReference } from './channel'
 import {
   Address,
   AddressRole,
+  Asset,
   CentPrecisionMoney,
   CreatedBy,
   DiscountedPrice,
@@ -89,6 +90,7 @@ import {
   PaymentMethodToken,
 } from './payment-method'
 import {
+  Attribute,
   ProductPriceModeEnum,
   ProductProjection,
   ProductReference,
@@ -461,6 +463,15 @@ export type Message =
   | StoreNameSetMessage
   | StoreProductSelectionsChangedMessage
   | StoreSupplyChannelsChangedMessage
+  | VariantCreatedMessage
+  | VariantDeletedMessage
+  | VariantImageAddedMessage
+  | VariantImagesSetMessage
+  | VariantKeySetMessage
+  | VariantPublishedMessage
+  | VariantSkuSetMessage
+  | VariantStagedChangesRemovedMessage
+  | VariantUnpublishedMessage
 export interface IMessage {
   /**
    *	Unique identifier of the Message. Can be used to track which Messages have been processed.
@@ -25177,6 +25188,697 @@ export interface UserProvidedIdentifiers {
    */
   readonly containerAndKey?: ContainerAndKey
 }
+/**
+ *	Generated after a successful [Create Variant](/../api/projects/variants#create-variant) request.
+ *
+ */
+export interface VariantCreatedMessage extends IMessage {
+  readonly type: 'VariantCreated'
+  /**
+   *	Unique identifier of the Variant.
+   *
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Unique identifier of the Product to which the Variant belongs.
+   *
+   *
+   */
+  readonly productId: string
+  /**
+   *	Unique identifier of the Variant within its parent Product.
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	User-defined unique identifier of the Variant.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	SKU of the Variant.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	Attributes of the Variant.
+   *
+   *
+   */
+  readonly attributes?: Attribute[]
+  /**
+   *	Assets of the Variant.
+   *
+   *
+   */
+  readonly assets?: Asset[]
+  /**
+   *	Images of the Variant.
+   *
+   *
+   */
+  readonly images?: Image[]
+  /**
+   *	Whether the Variant was published.
+   *
+   *
+   */
+  readonly publish: boolean
+}
+/**
+ *	Generated after a successful [Delete Variant](/../api/projects/variants#delete-variant) request.
+ *
+ */
+export interface VariantDeletedMessage extends IMessage {
+  readonly type: 'VariantDeleted'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+}
+/**
+ *	Generated after a successful [Add External Image](ctp:api:type:VariantAddExternalImageAction) update action.
+ *
+ */
+export interface VariantImageAddedMessage extends IMessage {
+  readonly type: 'VariantImageAdded'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	[Image](ctp:api:type:Image) that was added.
+   *
+   *
+   */
+  readonly image: Image
+  /**
+   *	Whether the update was only applied to the staged Variant.
+   *
+   *
+   */
+  readonly staged: boolean
+}
+/**
+ *	Generated after a successful [Set Images](ctp:api:type:VariantSetImagesAction) update action.
+ *
+ */
+export interface VariantImagesSetMessage extends IMessage {
+  readonly type: 'VariantImagesSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The images that were set on the Variant.
+   *
+   *
+   */
+  readonly images: Image[]
+  /**
+   *	The previous images of the Variant.
+   *
+   *
+   */
+  readonly oldImages: Image[]
+  /**
+   *	Whether the update was only applied to the staged Variant.
+   *
+   *
+   */
+  readonly staged: boolean
+}
+/**
+ *	Generated after a successful [Set Key](ctp:api:type:VariantSetKeyAction) update action.
+ *
+ */
+export interface VariantKeySetMessage extends IMessage {
+  readonly type: 'VariantKeySet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The key that was set on the Variant.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	The previous key of the Variant.
+   *
+   *
+   */
+  readonly oldKey?: string
+}
+/**
+ *	Generated after a successful [Publish](/../api/projects/variants#publish) update action.
+ *
+ */
+export interface VariantPublishedMessage extends IMessage {
+  readonly type: 'VariantPublished'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+}
+/**
+ *	Generated after a successful [Set SKU](ctp:api:type:VariantSetSkuAction) update action.
+ *
+ */
+export interface VariantSkuSetMessage extends IMessage {
+  readonly type: 'VariantSkuSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The SKU that was set on the Variant.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	The previous SKU of the Variant.
+   *
+   *
+   */
+  readonly oldSku?: string
+  /**
+   *	Whether the update was only applied to the staged Variant.
+   *
+   *
+   */
+  readonly staged: boolean
+}
+/**
+ *	Generated after a successful [Staged Changes Removed](/../api/projects/variants#remove-staged-changes) update action.
+ *
+ */
+export interface VariantStagedChangesRemovedMessage extends IMessage {
+  readonly type: 'VariantStagedChangesRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+}
+/**
+ *	Generated after a successful [Unpublish](/../api/projects/variants#unpublish) update action.
+ *
+ */
+export interface VariantUnpublishedMessage extends IMessage {
+  readonly type: 'VariantUnpublished'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Reference to the Product containing the Variant that was unpublished.
+   *
+   *
+   */
+  readonly product: ProductReference
+}
 export type MessagePayload =
   | ApprovalFlowApprovedMessagePayload
   | ApprovalFlowCompletedMessagePayload
@@ -25499,6 +26201,15 @@ export type MessagePayload =
   | StoreNameSetMessagePayload
   | StoreProductSelectionsChangedMessagePayload
   | StoreSupplyChannelsChangedMessagePayload
+  | VariantCreatedMessagePayload
+  | VariantDeletedMessagePayload
+  | VariantImageAddedMessagePayload
+  | VariantImagesSetMessagePayload
+  | VariantKeySetMessagePayload
+  | VariantPublishedMessagePayload
+  | VariantSkuSetMessagePayload
+  | VariantStagedChangesRemovedMessagePayload
+  | VariantUnpublishedMessagePayload
 export interface IMessagePayload {
   /**
    *
@@ -28009,6 +28720,8 @@ export interface OrderBusinessUnitSetMessagePayload extends IOrderMessagePayload
 /**
  *	Generated after an Order is successfully created according to the defined schedule of a Recurring Order.
  *
+ *	This Message is emitted in place of the standard [OrderCreated](ctp:api:type:OrderCreatedMessage) Message: Orders generated by a Recurring Order schedule do not emit the [OrderCreated](ctp:api:type:OrderCreatedMessage) Message.
+ *
  */
 export interface OrderCreatedFromRecurringOrderMessagePayload extends IOrderMessagePayload {
   readonly type: 'OrderCreatedFromRecurringOrder'
@@ -28026,7 +28739,9 @@ export interface OrderCreatedFromRecurringOrderMessagePayload extends IOrderMess
   readonly recurringOrderRef: RecurringOrderReference
 }
 /**
- *	Generated after a successful [Create Order](ctp:api:endpoint:/{projectKey}/orders:POST) request.
+ *	Generated after a successful [Create Order](ctp:api:endpoint:/{projectKey}/orders:POST) request, for the initial Order created directly from a Cart.
+ *
+ *	Orders generated by a [Recurring Order](ctp:api:type:RecurringOrder) schedule do not emit this Message. They emit the [OrderCreatedFromRecurringOrder](ctp:api:type:OrderCreatedFromRecurringOrderMessage) Message instead.
  *
  */
 export interface OrderCreatedMessagePayload extends IOrderMessagePayload {
@@ -31757,4 +32472,187 @@ export interface StoreSupplyChannelsChangedMessagePayload extends IMessagePayloa
    *
    */
   readonly removedSupplyChannels?: ChannelReference[]
+}
+/**
+ *	Generated after a successful [Create Variant](/../api/projects/variants#create-variant) request.
+ *
+ */
+export interface VariantCreatedMessagePayload extends IMessagePayload {
+  readonly type: 'VariantCreated'
+  /**
+   *	Unique identifier of the Variant.
+   *
+   *
+   */
+  readonly id: string
+  /**
+   *	Unique identifier of the Product to which the Variant belongs.
+   *
+   *
+   */
+  readonly productId: string
+  /**
+   *	Unique identifier of the Variant within its parent Product.
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	User-defined unique identifier of the Variant.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	SKU of the Variant.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	Attributes of the Variant.
+   *
+   *
+   */
+  readonly attributes?: Attribute[]
+  /**
+   *	Assets of the Variant.
+   *
+   *
+   */
+  readonly assets?: Asset[]
+  /**
+   *	Images of the Variant.
+   *
+   *
+   */
+  readonly images?: Image[]
+  /**
+   *	Whether the Variant was published.
+   *
+   *
+   */
+  readonly publish: boolean
+}
+/**
+ *	Generated after a successful [Delete Variant](/../api/projects/variants#delete-variant) request.
+ *
+ */
+export interface VariantDeletedMessagePayload extends IMessagePayload {
+  readonly type: 'VariantDeleted'
+}
+/**
+ *	Generated after a successful [Add External Image](ctp:api:type:VariantAddExternalImageAction) update action.
+ *
+ */
+export interface VariantImageAddedMessagePayload extends IMessagePayload {
+  readonly type: 'VariantImageAdded'
+  /**
+   *	[Image](ctp:api:type:Image) that was added.
+   *
+   *
+   */
+  readonly image: Image
+  /**
+   *	Whether the update was only applied to the staged Variant.
+   *
+   *
+   */
+  readonly staged: boolean
+}
+/**
+ *	Generated after a successful [Set Images](ctp:api:type:VariantSetImagesAction) update action.
+ *
+ */
+export interface VariantImagesSetMessagePayload extends IMessagePayload {
+  readonly type: 'VariantImagesSet'
+  /**
+   *	The images that were set on the Variant.
+   *
+   *
+   */
+  readonly images: Image[]
+  /**
+   *	The previous images of the Variant.
+   *
+   *
+   */
+  readonly oldImages: Image[]
+  /**
+   *	Whether the update was only applied to the staged Variant.
+   *
+   *
+   */
+  readonly staged: boolean
+}
+/**
+ *	Generated after a successful [Set Key](ctp:api:type:VariantSetKeyAction) update action.
+ *
+ */
+export interface VariantKeySetMessagePayload extends IMessagePayload {
+  readonly type: 'VariantKeySet'
+  /**
+   *	The key that was set on the Variant.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	The previous key of the Variant.
+   *
+   *
+   */
+  readonly oldKey?: string
+}
+/**
+ *	Generated after a successful [Publish](/../api/projects/variants#publish) update action.
+ *
+ */
+export interface VariantPublishedMessagePayload extends IMessagePayload {
+  readonly type: 'VariantPublished'
+}
+/**
+ *	Generated after a successful [Set SKU](ctp:api:type:VariantSetSkuAction) update action.
+ *
+ */
+export interface VariantSkuSetMessagePayload extends IMessagePayload {
+  readonly type: 'VariantSkuSet'
+  /**
+   *	The SKU that was set on the Variant.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	The previous SKU of the Variant.
+   *
+   *
+   */
+  readonly oldSku?: string
+  /**
+   *	Whether the update was only applied to the staged Variant.
+   *
+   *
+   */
+  readonly staged: boolean
+}
+/**
+ *	Generated after a successful [Staged Changes Removed](/../api/projects/variants#remove-staged-changes) update action.
+ *
+ */
+export interface VariantStagedChangesRemovedMessagePayload extends IMessagePayload {
+  readonly type: 'VariantStagedChangesRemoved'
+}
+/**
+ *	Generated after a successful [Unpublish](/../api/projects/variants#unpublish) update action.
+ *
+ */
+export interface VariantUnpublishedMessagePayload extends IMessagePayload {
+  readonly type: 'VariantUnpublished'
+  /**
+   *	Reference to the Product containing the Variant that was unpublished.
+   *
+   *
+   */
+  readonly product: ProductReference
 }
