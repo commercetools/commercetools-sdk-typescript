@@ -56,6 +56,7 @@ export type ErrorObject =
   | AttributeDefinitionTypeConflictError
   | AttributeNameDoesNotExistError
   | BadGatewayError
+  | BulkOperationMaxItemsExceededError
   | CircularDependencyError
   | ConcurrentModificationError
   | ContentTooLargeError
@@ -315,6 +316,34 @@ export interface BadGatewayError extends IErrorObject {
    *
    */
   readonly message: string
+}
+/**
+ *	Returned when a bulk request contains more items than the allowed maximum.
+ *
+ *	Reduce the number of items in the request to at most `limit` and retry.
+ *
+ */
+export interface BulkOperationMaxItemsExceededError extends IErrorObject {
+  readonly code: 'BulkOperationMaxItemsExceeded'
+  [key: string]: any
+  /**
+   *	`"The bulk request exceeds the maximum allowed items of $limit."`
+   *
+   *
+   */
+  readonly message: string
+  /**
+   *	Maximum number of items allowed in a single bulk request.
+   *
+   *
+   */
+  readonly limit: number
+  /**
+   *	Number of items provided in the request.
+   *
+   *
+   */
+  readonly provided: number
 }
 /**
  *	Returned when a circular reference is detected among Extension dependencies.
@@ -2435,6 +2464,7 @@ export type GraphQLErrorObject =
   | GraphQLAttributeDefinitionTypeConflictError
   | GraphQLAttributeNameDoesNotExistError
   | GraphQLBadGatewayError
+  | GraphQLBulkOperationMaxItemsExceededError
   | GraphQLCircularDependencyError
   | GraphQLConcurrentModificationError
   | GraphQLContentTooLargeError
@@ -2651,6 +2681,28 @@ export interface GraphQLAttributeNameDoesNotExistError extends IGraphQLErrorObje
 export interface GraphQLBadGatewayError extends IGraphQLErrorObject {
   readonly code: 'BadGateway'
   [key: string]: any
+}
+/**
+ *	Returned when a bulk request contains more items than the allowed maximum.
+ *
+ *	Reduce the number of items in the request to at most `limit` and retry.
+ *
+ */
+export interface GraphQLBulkOperationMaxItemsExceededError extends IGraphQLErrorObject {
+  readonly code: 'BulkOperationMaxItemsExceeded'
+  [key: string]: any
+  /**
+   *	Maximum number of items allowed in a single bulk request.
+   *
+   *
+   */
+  readonly limit: number
+  /**
+   *	Number of items provided in the request.
+   *
+   *
+   */
+  readonly provided: number
 }
 /**
  *	Returned when a circular reference is detected among Extension dependencies.

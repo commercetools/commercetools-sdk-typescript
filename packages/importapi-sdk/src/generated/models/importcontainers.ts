@@ -15,7 +15,10 @@ export enum StrategyEnumValues {
 
 export type StrategyEnum = 'ttl' | (string & {})
 /**
- *	The retention policy of the ImportContainer. If not set, the ImportContainer does not expire.
+ *	Defines how long an [ImportContainer](ctp:import:type:ImportContainer) is kept before it is automatically deleted.
+ *	When you set `retentionPolicy` on an [ImportContainerDraft](ctp:import:type:ImportContainerDraft), the `timeToLive` value controls expiry.
+ *	When you omit `retentionPolicy` on create, the Import API applies a **default time to live of 72 hours** (see `expiresAt` on [ImportContainer](ctp:import:type:ImportContainer)).
+ *
  */
 export type RetentionPolicy = TimeToLiveRetentionPolicy
 export interface IRetentionPolicy {
@@ -46,6 +49,8 @@ export interface TimeToLiveRetentionPolicy extends IRetentionPolicy {
 /**
  *	Contains the resources to be imported. Unless `resourceType` is specified, the ImportContainer can import all of the supported [ImportResourceTypes](ctp:import:type:ImportResourceType).
  *
+ *	If the container was created **without** a `retentionPolicy`, it **expires 72 hours** after `createdAt`. If a `TimeToLiveRetentionPolicy` was set, expiry follows the configured `timeToLive` (between the minimum and maximum allowed values). The `expiresAt` field holds the calculated deletion time.
+ *
  */
 export interface ImportContainer {
   /**
@@ -65,7 +70,8 @@ export interface ImportContainer {
    */
   readonly version: number
   /**
-   *	The retention policy of the ImportContainer.
+   *	Retention policy for this ImportContainer. If not set, the ImportContainer will expire **72 hours** after creation.
+   *
    *
    */
   readonly retentionPolicy?: RetentionPolicy
@@ -80,13 +86,17 @@ export interface ImportContainer {
    */
   readonly lastModifiedAt: string
   /**
-   *	Date and time (UTC) the ImportContainer is automatically deleted. Only present if a `retentionPolicy` is set. ImportContainers without `expiresAt` are permanent until [manually deleted](#delete-importcontainer).
+   *	Date and time (UTC) when the ImportContainer is automatically deleted.
+   *	If no `retentionPolicy` was set at creation, this is **72 hours** after `createdAt`. If a `TimeToLiveRetentionPolicy` was set, it is derived from `timeToLive`.
+   *
    *
    */
   readonly expiresAt?: string
 }
 /**
- *	The representation sent to the server to create an [ImportContainer](#importcontainer).
+ *	The representation sent to the server to create an [ImportContainer](ctp:import:type:ImportContainer).
+ *
+ *	If you **omit** `retentionPolicy`, the new ImportContainer uses the default **72-hour** time to live. Set a [TimeToLiveRetentionPolicy](ctp:import:type:TimeToLiveRetentionPolicy) to use a custom duration (within the allowed minimum and maximum).
  *
  */
 export interface ImportContainerDraft {
@@ -103,7 +113,9 @@ export interface ImportContainerDraft {
    */
   readonly resourceType?: ImportResourceType
   /**
-   *	Set a retention policy to automatically delete the ImportContainer after a defined period.
+   *	Optional. When set, defines how long the ImportContainer is kept before automatic deletion.
+   *	When omitted, the ImportContainer receives the default **72-hour** lifetime.
+   *
    *
    */
   readonly retentionPolicy?: RetentionPolicy

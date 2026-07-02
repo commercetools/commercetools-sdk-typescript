@@ -20,6 +20,7 @@ import { ByProjectKeyInStoreKeyByStoreKeyQuotesRequestBuilder } from '../quotes/
 import { ByProjectKeyInStoreKeyByStoreKeyShippingMethodsRequestBuilder } from '../shipping-methods/by-project-key-in-store-key-by-store-key-shipping-methods-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyShoppingListsRequestBuilder } from '../shopping-lists/by-project-key-in-store-key-by-store-key-shopping-lists-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyStagedQuotesRequestBuilder } from '../staged-quotes/by-project-key-in-store-key-by-store-key-staged-quotes-request-builder'
+import { ByProjectKeyInStoreKeyByStoreKeyVariantProjectionsRequestBuilder } from '../variant-projections/by-project-key-in-store-key-by-store-key-variant-projections-request-builder'
 /**
  **/
 export class ByProjectKeyInStoreKeyByStoreKeyRequestBuilder {
@@ -201,6 +202,22 @@ export class ByProjectKeyInStoreKeyByStoreKeyRequestBuilder {
       executeRequest: this.args.executeRequest,
       baseUri: this.args.baseUri,
     })
+  }
+  /**
+   *	A Variant Projection is a lightweight, read-only representation of a single Product Variant
+   *	with embedded Product data such as name, slug, and description, scoped to a specific [Store](ctp:api:type:Store).
+   *
+   */
+  public variantProjections(): ByProjectKeyInStoreKeyByStoreKeyVariantProjectionsRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyVariantProjectionsRequestBuilder(
+      {
+        pathArgs: {
+          ...this.args.pathArgs,
+        },
+        executeRequest: this.args.executeRequest,
+        baseUri: this.args.baseUri,
+      }
+    )
   }
   /**
    *	Retrieves the authenticated customer.

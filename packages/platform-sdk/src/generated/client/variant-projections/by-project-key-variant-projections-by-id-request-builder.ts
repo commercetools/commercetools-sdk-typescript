@@ -3,13 +3,12 @@
  * Please don't change this file manually but run `rmf-codegen generate raml_file_path -o output_path -t typescript_client` to update it.
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
-import { ProductProjection } from '../../models/product'
+import { VariantProjection } from '../../models/variant'
 import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-import { ByProjectKeyProductProjectionsByIDVariantAttributesRequestBuilder } from '../variant-attributes/by-project-key-product-projections-by-id-variant-attributes-request-builder'
 /**
  **/
-export class ByProjectKeyProductProjectionsByIDRequestBuilder {
+export class ByProjectKeyVariantProjectionsByIDRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
@@ -20,29 +19,8 @@ export class ByProjectKeyProductProjectionsByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
-  public variantAttributes(): ByProjectKeyProductProjectionsByIDVariantAttributesRequestBuilder {
-    return new ByProjectKeyProductProjectionsByIDVariantAttributesRequestBuilder(
-      {
-        pathArgs: {
-          ...this.args.pathArgs,
-        },
-        executeRequest: this.args.executeRequest,
-        baseUri: this.args.baseUri,
-      }
-    )
-  }
-
   /**
-   *	Retrieves the [projected](/api/projects/productProjections#projection-dimensions) representation of a [Product](ctp:api:type:Product) by its ID.
-   *
-   *	By default, this endpoint returns the `current` representation of Products where the `published` flag is `true`.
-   *	If a Product is unpublished (`published=false`), the endpoint returns a [Not Found](/api/errors#404-not-found) error.
-   *
-   *	Required access scopes:
-   *
-   *	- To retrieve the current representation of published Products (published data), the `view_published_products:{projectKey}` scope is required.
-   *
-   *	- To retrieve the staged representation of Products (draft data) or access unpublished Products, the API Client must have the `view_products:{projectKey}` scope.
+   *	Retrieves a Variant Projection by its ID.
    *
    */
   public get(methodArgs?: {
@@ -55,7 +33,6 @@ export class ByProjectKeyProductProjectionsByIDRequestBuilder {
       priceChannel?: string
       priceRecurrencePolicy?: string
       localeProjection?: string | string[]
-      storeProjection?: string
       'filter[attributes]'?: string | string[]
       expand?: string | string[]
       [key: string]: QueryParam
@@ -63,12 +40,12 @@ export class ByProjectKeyProductProjectionsByIDRequestBuilder {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<ProductProjection> {
-    return new ApiRequest<ProductProjection>(
+  }): ApiRequest<VariantProjection> {
+    return new ApiRequest<VariantProjection>(
       {
         baseUri: this.args.baseUri,
         method: 'GET',
-        uriTemplate: '/{projectKey}/product-projections/{ID}',
+        uriTemplate: '/{projectKey}/variant-projections/{ID}',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,
@@ -79,9 +56,20 @@ export class ByProjectKeyProductProjectionsByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if the current or staged representation of a Product exists with the provided `id`. Returns a `200` status if the ProductProjection exists, or a `404` status otherwise.
+   *	Checks if a VariantProjection exists with the provided `id`. Returns a `200` status if the VariantProjection exists, or a `404` status otherwise.
+   *
    */
   public head(methodArgs?: {
+    queryArgs?: {
+      staged?: boolean
+      priceCurrency?: string
+      priceCountry?: string
+      priceCustomerGroup?: string
+      priceChannel?: string
+      localeProjection?: string | string[]
+      'filter[attributes]'?: string | string[]
+      [key: string]: QueryParam
+    }
     headers?: {
       [key: string]: string | string[]
     }
@@ -90,11 +78,12 @@ export class ByProjectKeyProductProjectionsByIDRequestBuilder {
       {
         baseUri: this.args.baseUri,
         method: 'HEAD',
-        uriTemplate: '/{projectKey}/product-projections/{ID}',
+        uriTemplate: '/{projectKey}/variant-projections/{ID}',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,
         },
+        queryParams: methodArgs?.queryArgs,
       },
       this.args.executeRequest
     )

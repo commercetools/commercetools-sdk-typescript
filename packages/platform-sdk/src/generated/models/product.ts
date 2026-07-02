@@ -33,6 +33,7 @@ import {
   TaxCategoryResourceIdentifier,
 } from './tax-category'
 import { FieldContainer, TypeResourceIdentifier } from './type'
+import { VariantReference, VariantResourceIdentifier } from './variant'
 import { WarningObject } from './warning'
 
 export interface Attribute {
@@ -363,11 +364,15 @@ export interface ProductData {
   /**
    *	The Master Variant of the Product.
    *
+   *	Omitted when the Project has the [ProductCatalogModel](ctp:api:type:ProductCatalogModel) `Modular`. Use the [Variants API](/projects/variants) instead.
+   *
    *
    */
   readonly masterVariant: ProductVariant
   /**
    *	Additional Product Variants.
+   *
+   *	Empty when the Project has the [ProductCatalogModel](ctp:api:type:ProductCatalogModel) `Modular`. Use the [Variants API](/projects/variants) instead.
    *
    *
    */
@@ -385,6 +390,12 @@ export interface ProductData {
    *
    */
   readonly attributes: Attribute[]
+  /**
+   *	Reference to the default [Variant](ctp:api:type:Variant) of the Product. Only available for Projects with [productCatalogModel](/projects/project#productcatalogmodel) set to `Modular`. The reference is automatically cleared when the referenced Variant is deleted; in that case, the response of the [Delete Variant](/projects/variants#delete-variant) request includes a `DefaultVariantDeleted` warning.
+   *
+   *
+   */
+  readonly defaultVariant?: VariantReference
 }
 export interface ProductDraft {
   /**
@@ -454,11 +465,15 @@ export interface ProductDraft {
   /**
    *	The Product Variant to be the Master Variant for the Product. Required if `variants` are provided or if the referenced Product Type contains any Variant-level [AttributeDefinition](ctp:api:type:AttributeDefinition) with `isRequired` set to `true`.
    *
+   *	Must not be provided when the Project has the [ProductCatalogModel](ctp:api:type:ProductCatalogModel) `Modular`. Use the [Variants API](/projects/variants) to create Variants instead.
+   *
    *
    */
   readonly masterVariant?: ProductVariantDraft
   /**
    *	The additional Product Variants for the Product.
+   *
+   *	Must not be provided when the Project has the [ProductCatalogModel](ctp:api:type:ProductCatalogModel) `Modular`. Use the [Variants API](/projects/variants) to create Variants instead.
    *
    *
    */
@@ -544,8 +559,12 @@ export interface ProductPagedQueryResponse {
   readonly results: Product[]
 }
 /**
- *	This mode determines the type of Prices used for [price selection](/api/pricing-and-discounts-overview#price-selection) by Line Items and Products.
+ *
+ *	This mode determines the type of Prices used for [price selection](/../api/pricing-and-discounts-overview#price-selection) by Line Items and Products.
  *	For more information about the difference between the Prices, see [Pricing](/api/pricing-and-discounts-overview).
+ *
+ *	In Projects with the [ProductCatalogModel](ctp:api:type:ProductCatalogModel) `Classic`, you can configure the price mode.
+ *	In Projects with the `Modular` catalog model, the price mode is always `Standalone` and cannot be configured.
  *
  */
 export enum ProductPriceModeEnumValues {
@@ -663,11 +682,15 @@ export interface ProductProjection extends BaseResource {
   /**
    *	The Master Variant of the [Product](ctp:api:type:Product).
    *
+   *	Omitted when the Project has the [ProductCatalogModel](ctp:api:type:ProductCatalogModel) `Modular`. Use the [Variant Projections API](/projects/variant-projections) instead.
+   *
    *
    */
   readonly masterVariant: ProductVariant
   /**
    *	Additional Product Variants.
+   *
+   *	Empty when the Project has the [ProductCatalogModel](ctp:api:type:ProductCatalogModel) `Modular`. Use the [Variant Projections API](/projects/variant-projections) instead.
    *
    *
    */
@@ -870,6 +893,7 @@ export type ProductUpdateAction =
   | ProductSetAttributeAction
   | ProductSetAttributeInAllVariantsAction
   | ProductSetCategoryOrderHintAction
+  | ProductSetDefaultVariantAction
   | ProductSetDescriptionAction
   | ProductSetDiscountedPriceAction
   | ProductSetImageLabelAction
@@ -895,6 +919,13 @@ export interface IProductUpdateAction {
    */
   readonly action: string
 }
+/**
+ *	Represents a Product Variant embedded in a [Product](ctp:api:type:Product).
+ *
+ *	Only available for Projects with the [ProductCatalogModel](ctp:api:type:ProductCatalogModel) `Classic`.
+ *	When the Project has the `Modular` catalog model, use the [Variants API](/projects/variants) instead.
+ *
+ */
 export interface ProductVariant {
   /**
    *	A unique, sequential identifier of the Product Variant within the Product.
@@ -989,6 +1020,8 @@ export interface ProductVariant {
 }
 /**
  *	The [InventoryEntry](ctp:api:type:InventoryEntry) information of the Product Variant. If there is a supply [Channel](ctp:api:type:Channel) for the InventoryEntry, then `channels` is returned. If not, then `isOnStock`, `restockableInDays`, and `availableQuantity` are returned.
+ *
+ *	Only available for Projects with the [ProductCatalogModel](ctp:api:type:ProductCatalogModel) `Classic`.
  *
  */
 export interface ProductVariantAvailability {
@@ -2134,6 +2167,25 @@ export interface ProductSetCategoryOrderHintAction extends IProductUpdateAction 
   readonly orderHint?: string
   /**
    *	If `true`, only the staged `categoryOrderHints` is updated. If `false`, both the current and staged `categoryOrderHints` are updated.
+   *
+   *
+   */
+  readonly staged?: boolean
+}
+/**
+ *	Sets the [defaultVariant](/projects/products#product) of the Product. Only available for Projects with [productCatalogModel](/projects/project#productcatalogmodel) set to `Modular`. The Variant must belong to the Product. If `variant` is omitted, any existing default Variant is cleared.
+ *
+ */
+export interface ProductSetDefaultVariantAction extends IProductUpdateAction {
+  readonly action: 'setDefaultVariant'
+  /**
+   *	The Variant to set as default. If empty, any existing value will be removed.
+   *
+   *
+   */
+  readonly variant?: VariantResourceIdentifier
+  /**
+   *	If `true`, only the staged `defaultVariant` is updated. If `false`, both the current and staged `defaultVariant` are updated.
    *
    *
    */

@@ -22,6 +22,7 @@ import { ProductTypeImport } from './producttypes'
 import { ProductVariantImport, ProductVariantPatch } from './productvariants'
 import { StandalonePriceImport } from './standalone-prices'
 import { TypeImport } from './types'
+import { VariantImport } from './variants'
 
 /**
  *	An import request batches multiple import resources of the same import resource type for processing by an Import Container.
@@ -45,6 +46,7 @@ export type ImportRequest =
   | ProductVariantPatchRequest
   | StandalonePriceImportRequest
   | TypeImportRequest
+  | VariantImportRequest
 export interface IImportRequest {
   /**
    *	The resource type that can be imported.
@@ -154,6 +156,21 @@ export interface StandalonePriceImportRequest extends IImportRequest {
    *
    */
   readonly resources: StandalonePriceImport[]
+}
+/**
+ *	The request body to [import Variants](ctp:import:endpoint:/{projectKey}/variants/import-containers/{importContainerKey}:POST). Contains data for Variants to be created or updated in a Project.
+ *
+ *	This import resource is only available for Projects with `productCatalogModel` set to `Modular`.
+ *
+ */
+export interface VariantImportRequest extends IImportRequest {
+  readonly type: 'variant'
+  /**
+   *	The Variant import resources of this request.
+   *
+   *
+   */
+  readonly resources: VariantImport[]
 }
 /**
  *	The request body to [import Orders](ctp:import:endpoint:/{projectKey}/orders/import-containers/{importContainerKey}:POST). Contains data for [Orders](ctp:api:type:Order) to be created in a Project.
