@@ -43,7 +43,7 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
-      uri: '/test_projectKey/product-projections/key=test_key/variant-attributes?filter%5Battributes%5D=filter%5Battributes%5D',
+      uri: '/test_projectKey/product-projections/key=test_key/variant-attributes?filter[attributes]=filter%5Battributes%5D',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .productProjections()
@@ -53,7 +53,7 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
-      uri: '/test_projectKey/product-projections/key=test_key/variant-attributes?filter%5BsupplyChannels%5D=filter%5BsupplyChannels%5D&filter[attributes]=filter%5Battributes%5D',
+      uri: '/test_projectKey/product-projections/key=test_key/variant-attributes?filter[supplyChannels]=filter%5BsupplyChannels%5D&filter[attributes]=filter%5Battributes%5D',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .productProjections()
