@@ -156,9 +156,9 @@ export class ByProjectKeyOrdersRequestBuilder {
   /**
    *	Creates an Order from a Cart.
    *
-   *	The Cart must have a shipping address set.
+   *	The Cart must have a shipping address set, regardless of the [TaxMode](ctp:api:type:TaxMode).
    *
-   *	The shipping address is used for tax calculation for a Cart with `Platform` [TaxMode](ctp:api:type:TaxMode).
+   *	For a Cart with `Platform` [TaxMode](ctp:api:type:TaxMode), the shipping address is used for tax calculation.
    *
    *	Creating an Order produces the [OrderCreated](ctp:api:type:OrderCreatedMessage) Message. If the Order is created from a Recurring Order schedule, the [OrderCreatedFromRecurringOrder](ctp:api:type:OrderCreatedFromRecurringOrderMessage) Message is generated instead of the [OrderCreated](ctp:api:type:OrderCreatedMessage) Message.
    *

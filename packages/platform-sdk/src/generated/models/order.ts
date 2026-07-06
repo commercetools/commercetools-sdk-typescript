@@ -487,7 +487,7 @@ export interface CustomLineItemImportDraft {
    */
   readonly slug: string
   /**
-   *	The number of items in the Custom Line Item. Can be a negative value.
+   *	Quantity of items in the Custom Line Item. Can be a negative value.
    *
    *
    */
@@ -623,7 +623,7 @@ export interface DeliveryItem {
    */
   readonly id: string
   /**
-   *	Number of Line Items or Custom Line Items delivered.
+   *	Quantity of Line Items or Custom Line Items delivered.
    *
    *
    */
@@ -645,7 +645,7 @@ export interface DiscountedLineItemPriceDraft {
 }
 export interface ItemState {
   /**
-   *	Number of Line Items or Custom Line Items in this State.
+   *	Quantity of Line Items or Custom Line Items in this State.
    *
    *
    */
@@ -686,7 +686,7 @@ export interface LineItemImportDraft {
    */
   readonly productId?: string
   /**
-   *	The number of Product Variants in the LineItem. Can be a negative value.
+   *	Quantity of the Product Variant. Can be a negative value.
    *
    *
    */
@@ -1918,7 +1918,7 @@ export interface IReturnItem {
    */
   readonly key?: string
   /**
-   *	Number of Line Items or Custom Line Items returned.
+   *	Quantity of Line Items or Custom Line Items returned.
    *
    *
    */
@@ -1981,7 +1981,7 @@ export interface CustomLineItemReturnItem extends IReturnItem {
    */
   readonly key?: string
   /**
-   *	Number of Custom Line Items returned.
+   *	Quantity of Custom Line Items returned.
    *
    *
    */
@@ -2046,7 +2046,7 @@ export interface LineItemReturnItem extends IReturnItem {
    */
   readonly key?: string
   /**
-   *	Number of Line Items returned.
+   *	Quantity of Line Items returned.
    *
    *
    */
@@ -2104,7 +2104,7 @@ export interface ReturnItemDraft {
    */
   readonly key?: string
   /**
-   *	Number of Line Items or Custom Line Items to return.
+   *	Quantity of Line Items or Custom Line Items to return.
    *
    *
    */
@@ -3506,6 +3506,8 @@ export interface OrderSetReturnShipmentStateAction extends IOrderUpdateAction {
   /**
    *	New shipment state of the [ReturnItem](ctp:api:type:ReturnItem).
    *
+   *	This update action can only transition Return Items from the `Returned` state to `BackInStock` or `Unusable`. The initial `Advised` and `Returned` states can only be set at creation time on [ReturnItemDraft](ctp:api:type:ReturnItemDraft).
+   *
    *
    */
   readonly shipmentState: ReturnShipmentState
@@ -3657,7 +3659,7 @@ export interface OrderTransitionCustomLineItemStateAction extends IOrderUpdateAc
    */
   readonly customLineItemKey?: string
   /**
-   *	Number of Custom Line Items that should transition [State](ctp:api:type:State).
+   *	Quantity of Custom Line Items that should transition [State](ctp:api:type:State).
    *
    *
    */
@@ -3700,7 +3702,7 @@ export interface OrderTransitionLineItemStateAction extends IOrderUpdateAction {
    */
   readonly lineItemKey?: string
   /**
-   *	Number of Line Items that should transition [State](ctp:api:type:State).
+   *	Quantity of Line Items that should transition [State](ctp:api:type:State).
    *
    *
    */

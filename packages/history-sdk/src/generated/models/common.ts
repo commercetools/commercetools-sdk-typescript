@@ -522,7 +522,7 @@ export interface DeliveryItem {
    */
   readonly id: string
   /**
-   *	Number of Line Items or Custom Line Items delivered.
+   *	Quantity of Line Items or Custom Line Items delivered.
    *
    *
    */
@@ -625,7 +625,7 @@ export interface DiscountedLineItemPrice {
 }
 export interface DiscountedLineItemPriceForQuantity {
   /**
-   *	Number of Line Items or Custom Line Items in the Cart.
+   *	Quantity of Line Items or Custom Line Items in the Cart.
    *
    *
    */
@@ -816,7 +816,7 @@ export interface ItemShippingTarget {
 }
 export interface ItemState {
   /**
-   *	Number of Line Items or Custom Line Items in this State.
+   *	Quantity of Line Items or Custom Line Items in this State.
    *
    *
    */
@@ -921,7 +921,7 @@ export interface LineItem {
    */
   readonly price: Price
   /**
-   *	Number of Line Items of the given Product Variant present in the [Cart](ctp:api:type:Cart) or [Order](ctp:api:type:Order).
+   *	Quantity of Line Items of the given Product Variant present in the [Cart](ctp:api:type:Cart) or [Order](ctp:api:type:Order).
    *
    *
    */
@@ -1747,7 +1747,7 @@ export interface ReturnItem {
    */
   readonly key?: string
   /**
-   *	Number of Line Items or Custom Line Items returned.
+   *	Quantity of Line Items or Custom Line Items returned.
    *
    *
    */

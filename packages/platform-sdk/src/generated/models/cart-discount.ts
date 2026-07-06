@@ -787,13 +787,13 @@ export interface MultiBuyLineItemsTarget extends ICartDiscountTarget {
    */
   readonly predicate: string
   /**
-   *	Number of Line Items to be present in order to trigger an application of this Discount.
+   *	Quantity of Line Items required to trigger an application of this Discount.
    *
    *
    */
   readonly triggerQuantity: number
   /**
-   *	Number of Line Items that are discounted per application of this Discount.
+   *	Quantity of Line Items discounted per application of this Discount.
    *	It must be less than or equal to the `triggerQuantity`.
    *
    *

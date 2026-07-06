@@ -230,7 +230,7 @@ export interface Cart extends BaseResource {
    */
   readonly billingAddress?: Address
   /**
-   *	Shipping address for a Cart with `Single` [ShippingMode](ctp:api:type:ShippingMode). Determines eligible [ShippingMethod](ctp:api:type:ShippingMethod) rates and Tax Rates of Line Items.
+   *	Shipping address for a Cart with `Single` [ShippingMode](ctp:api:type:ShippingMode). Determines eligible [ShippingMethod](ctp:api:type:ShippingMethod) rates. For a Cart with `Platform` [TaxMode](ctp:api:type:TaxMode), it also determines Tax Rates of Line Items.
    *
    *
    */
@@ -1299,7 +1299,7 @@ export interface DiscountedLineItemPrice {
 }
 export interface DiscountedLineItemPriceForQuantity {
   /**
-   *	Number of Line Items or Custom Line Items in the Cart.
+   *	Quantity of Line Items or Custom Line Items in the Cart.
    *
    *
    */
@@ -1572,7 +1572,7 @@ export interface LineItem {
    */
   readonly price: Price
   /**
-   *	Number of Line Items of the given Product Variant present in the [Cart](ctp:api:type:Cart) or [Order](ctp:api:type:Order).
+   *	Quantity of the Product Variant present in the [Cart](ctp:api:type:Cart) or [Order](ctp:api:type:Order).
    *
    *
    */
@@ -1729,7 +1729,7 @@ export interface LineItemDraft {
    */
   readonly quantity?: number
   /**
-   *	Date and time (UTC) the Product Variant is added to the Cart.
+   *	Date and time (UTC) the Line Item was added to the Cart.
    *	If not set, it defaults to the current date and time.
    *
    *	Optional for backwards compatibility reasons.
@@ -2549,7 +2549,7 @@ export interface CartAddItemShippingAddressAction extends ICartUpdateAction {
  *
  *	If the Line Items do not have a Price according to the [Product](ctp:api:type:Product) `priceMode` value for a selected currency and/or country, Customer Group, or Channel, a [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError) error is returned.
  *
- *	If the Line Items are added to a Cart bound to a Store with active Product Selections, the selected Product Variant (SKU) must be [available in that Store](/api/project-configuration-overview#products-available-in-store), otherwise an [InvalidInput](ctp:api:type:InvalidInputError) error is returned.
+ *	The Product Variant that is to be added as a Line Item must be [available in a Store](/api/project-configuration-overview#products-available-in-store), otherwise an [InvalidInput](ctp:api:type:InvalidInputError) error is returned.
  *
  */
 export interface CartAddLineItemAction extends ICartUpdateAction {
@@ -2592,7 +2592,7 @@ export interface CartAddLineItemAction extends ICartUpdateAction {
    */
   readonly quantity?: number
   /**
-   *	Date and time (UTC) the Product Variant is added to the Cart.
+   *	Date and time (UTC) the Line Item was added to the Cart.
    *	If not set, it defaults to the current date and time.
    *
    *	Optional for backwards compatibility reasons.
