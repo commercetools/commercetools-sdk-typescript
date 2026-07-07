@@ -60,8 +60,7 @@ export class ByProjectKeyByResourceTypeRequestBuilder {
       changes?: string | string[]
       stores?: string | string[]
       excludePlatformInitiatedChanges?:
-        | PlatformInitiatedChange
-        | PlatformInitiatedChange[]
+        PlatformInitiatedChange | PlatformInitiatedChange[]
       expand?: boolean
       [key: string]: QueryParam
     }

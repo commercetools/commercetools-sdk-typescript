@@ -37,9 +37,7 @@ export enum AnonymousCartSignInModeValues {
 }
 
 export type AnonymousCartSignInMode =
-  | 'MergeWithExistingCustomerCart'
-  | 'UseAsNewActiveCustomerCart'
-  | (string & {})
+  'MergeWithExistingCustomerCart' | 'UseAsNewActiveCustomerCart' | (string & {})
 export enum AuthenticationModeValues {
   ExternalAuth = 'ExternalAuth',
   Password = 'Password',

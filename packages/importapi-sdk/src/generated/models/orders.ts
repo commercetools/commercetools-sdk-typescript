@@ -239,10 +239,7 @@ export enum ShippingRateTierTypeValues {
 }
 
 export type ShippingRateTierType =
-  | 'CartClassification'
-  | 'CartScore'
-  | 'CartValue'
-  | (string & {})
+  'CartClassification' | 'CartScore' | 'CartValue' | (string & {})
 export type ShippingRatePriceTier = CartClassificationTier
 export interface IShippingRatePriceTier {
   /**
@@ -458,9 +455,7 @@ export enum ShippingMethodStateValues {
 }
 
 export type ShippingMethodState =
-  | 'DoesNotMatchCart'
-  | 'MatchesCart'
-  | (string & {})
+  'DoesNotMatchCart' | 'MatchesCart' | (string & {})
 /**
  *	Maps to an Order's `shippingInfo` property. This field is usually populated by the Cart associated with the Order, but when importing Orders you must provide a draft representation as a part of the OrderImport.
  *
@@ -687,11 +682,7 @@ export enum TaxModeValues {
 }
 
 export type TaxMode =
-  | 'Disabled'
-  | 'External'
-  | 'ExternalAmount'
-  | 'Platform'
-  | (string & {})
+  'Disabled' | 'External' | 'ExternalAmount' | 'Platform' | (string & {})
 /**
  *	Maps to `Order.orderState`.
  */
@@ -703,11 +694,7 @@ export enum OrderStateValues {
 }
 
 export type OrderState =
-  | 'Cancelled'
-  | 'Complete'
-  | 'Confirmed'
-  | 'Open'
-  | (string & {})
+  'Cancelled' | 'Complete' | 'Confirmed' | 'Open' | (string & {})
 /**
  *	Maps to `Order.shipmentState`.
  */
@@ -740,12 +727,7 @@ export enum PaymentStateValues {
 }
 
 export type PaymentState =
-  | 'BalanceDue'
-  | 'CreditOwed'
-  | 'Failed'
-  | 'Paid'
-  | 'Pending'
-  | (string & {})
+  'BalanceDue' | 'CreditOwed' | 'Failed' | 'Paid' | 'Pending' | (string & {})
 /**
  *	Maps to `Order.inventoryMode`.
  */
@@ -774,9 +756,7 @@ export enum TaxCalculationModeValues {
 }
 
 export type TaxCalculationMode =
-  | 'LineItemLevel'
-  | 'UnitPriceLevel'
-  | (string & {})
+  'LineItemLevel' | 'UnitPriceLevel' | (string & {})
 /**
  *	Maps to `Order.origin`.
  */
@@ -842,8 +822,7 @@ export enum ShippingRateInputTypeValues {
 
 export type ShippingRateInputType = 'Classification' | 'Score' | (string & {})
 export type ShippingRateInput =
-  | ClassificationShippingRateInput
-  | ScoreShippingRateInput
+  ClassificationShippingRateInput | ScoreShippingRateInput
 export interface IShippingRateInput {
   /**
    *

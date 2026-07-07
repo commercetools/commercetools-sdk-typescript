@@ -104,7 +104,7 @@ export interface CartDiscount extends BaseResource {
   /**
    *	Segment of the Cart that is discounted.
    *
-   *	Empty, if the `value` is `giftLineItem`.
+   *	Absent if the `value` is `giftLineItem`.
    *
    *
    */
@@ -283,6 +283,8 @@ export interface CartDiscountDraft {
   readonly custom?: CustomFieldsDraft
   /**
    *	Reference to a DiscountGroup that the CartDiscount must belong to.
+   *
+   *	A CartDiscount can only be added to a DiscountGroup if its `target.type` is `lineItems`, `customLineItems`, `multiBuyLineItems`, `multiBuyCustomLineItems`, or `pattern`; otherwise, an [InvalidInput](ctp:api:type:InvalidInputError) error is returned.
    *
    *
    */
@@ -1088,8 +1090,10 @@ export interface CartDiscountSetDescriptionAction extends ICartDiscountUpdateAct
 export interface CartDiscountSetDiscountGroupAction extends ICartDiscountUpdateAction {
   readonly action: 'setDiscountGroup'
   /**
-   *	Reference to a DiscountGroup that the Cart Discount must belong to.
+   *	Reference to a DiscountGroup that the CartDiscount must belong to.
    *	If empty, any existing value will be removed.
+   *
+   *	A CartDiscount can only be added to a DiscountGroup if its `target.type` is `lineItems`, `customLineItems`, `multiBuyLineItems`, `multiBuyCustomLineItems`, or `pattern`; otherwise, an [InvalidInput](ctp:api:type:InvalidInputError) error is returned.
    *
    *
    */

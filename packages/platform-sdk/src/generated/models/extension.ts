@@ -139,9 +139,7 @@ export interface ExtensionAdditionalContextDraft {
  *	Generic type for destinations.
  */
 export type ExtensionDestination =
-  | AWSLambdaDestination
-  | GoogleCloudFunctionDestination
-  | HttpDestination
+  AWSLambdaDestination | GoogleCloudFunctionDestination | HttpDestination
 export interface IExtensionDestination {
   /**
    *
@@ -435,8 +433,7 @@ export interface HttpDestination extends IExtensionDestination {
   readonly authentication?: HttpDestinationAuthentication
 }
 export type HttpDestinationAuthentication =
-  | AuthorizationHeaderAuthentication
-  | AzureFunctionsAuthentication
+  AuthorizationHeaderAuthentication | AzureFunctionsAuthentication
 export interface IHttpDestinationAuthentication {
   /**
    *

@@ -358,9 +358,7 @@ export enum EventSubscriptionResourceTypeIdValues {
 }
 
 export type EventSubscriptionResourceTypeId =
-  | 'checkout'
-  | 'import-api'
-  | (string & {})
+  'checkout' | 'import-api' | (string & {})
 /**
  *	Type of events supported by [EventSubscriptions](ctp:api:type:EventSubscription).
  *

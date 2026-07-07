@@ -723,6 +723,12 @@ export interface DiscountedPrice {
   /**
    *	Money value of the discounted price.
    *
+   *	- When a [relative Product Discount](ctp:api:type:ProductDiscountValueRelative) applies and the fractional part of the resulting discounted price is 0.5, the discounted price is [rounded half down](https://en.wikipedia.org/wiki/Rounding#Rounding_half_down).
+   *
+   *	  For example, a price of €1.01 (`centAmount: 101`) with a 50% discount (`permyriad: 5000`) calculates to €0.505. Since the fractional half-cent is exactly 0.5, it rounds down to €0.50 (`centAmount: 50`).
+   *
+   *	- When an [absolute Product Discount](ctp:api:type:ProductDiscountValueAbsolute) exceeds the price of the Product Variant, the resulting discounted price is set to `0`.
+   *
    *
    */
   readonly value: TypedMoney
@@ -805,9 +811,7 @@ export interface ImageDimensions {
  *
  */
 export type KeyReference =
-  | AssociateRoleKeyReference
-  | BusinessUnitKeyReference
-  | StoreKeyReference
+  AssociateRoleKeyReference | BusinessUnitKeyReference | StoreKeyReference
 export interface IKeyReference {
   /**
    *	Type of referenced resource.
@@ -918,13 +922,7 @@ export enum NonStandardCurrencyValues {
 }
 
 export type NonStandardCurrency =
-  | 'CZK0'
-  | 'HUF0'
-  | 'ILS0'
-  | 'KZT0'
-  | 'TRY0'
-  | 'TWD0'
-  | (string & {})
+  'CZK0' | 'HUF0' | 'ILS0' | 'KZT0' | 'TRY0' | 'TWD0' | (string & {})
 /**
  *	The representation for prices embedded in [LineItems](ctp:api:type:LineItem) and in [ProductVariants](ctp:api:type:ProductVariant) when the [ProductPriceMode](ctp:api:type:ProductPriceModeEnum) is `Embedded`.
  *	For the `Standalone` ProductPriceMode refer to [StandalonePrice](ctp:api:type:StandalonePrice).
@@ -979,11 +977,7 @@ export interface Price {
    */
   readonly validUntil?: string
   /**
-   *	Set if a matching [ProductDiscount](ctp:api:type:ProductDiscount) exists.
-   *	If set, the API uses the DiscountedPrice value for the [Line Item price selection](/api/pricing-and-discounts-overview#line-item-price-selection).
-   *	When a [relative discount](ctp:api:type:ProductDiscountValueRelative) has been applied and the fraction part of the DiscountedPrice `value` is 0.5, the `value` is rounded in favor of the customer with [half-down rounding](https://en.wikipedia.org/wiki/Rounding#Rounding_half_down).
-   *
-   *	If an [absolute discount](ctp:api:type:ProductDiscountValueAbsolute) value exceeds the price of the Product Variant, the discounted price is a negative value.
+   *	Set if a [ProductDiscount](ctp:api:type:ProductDiscount) applies. When present, the API uses the DiscountedPrice value for [Line Item price selection](/api/pricing-and-discounts-overview#line-item-price-selection).
    *
    *
    */
@@ -1489,7 +1483,7 @@ export interface ScopedPrice {
   /**
    *	Is set when a matching [ProductDiscount](ctp:api:type:ProductDiscount) exists. If set, the [Cart](ctp:api:type:Cart) uses the discounted value for the [Cart Price calculation](ctp:api:type:CartAddLineItemAction).
    *
-   *	When a [relative Product Discount](ctp:api:type:ProductDiscountValueRelative) is applied and the fractional part of the discounted Price is 0.5, the discounted Price is [rounded half down](https://en.wikipedia.org/wiki/Rounding#Rounding_half_down) in favor of the Customer.
+   *	When a [relative Product Discount](ctp:api:type:ProductDiscountValueRelative) is applied and the fractional part of the discounted Price is 0.5, the discounted Price is [rounded half down](https://en.wikipedia.org/wiki/Rounding#Rounding_half_down).
    *
    *
    */

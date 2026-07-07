@@ -138,9 +138,7 @@ export interface FacetRange {
   readonly mean: number
 }
 export type FacetResult =
-  | FilteredFacetResult
-  | RangeFacetResult
-  | TermFacetResult
+  FilteredFacetResult | RangeFacetResult | TermFacetResult
 export interface IFacetResult {
   /**
    *
@@ -1256,13 +1254,7 @@ export enum TermFacetResultTypeValues {
 }
 
 export type TermFacetResultType =
-  | 'boolean'
-  | 'date'
-  | 'datetime'
-  | 'number'
-  | 'text'
-  | 'time'
-  | (string & {})
+  'boolean' | 'date' | 'datetime' | 'number' | 'text' | 'time' | (string & {})
 /**
  *	Creates tokens by splitting the `text` field in [SearchKeyword](ctp:api:type:SearchKeyword) by whitespaces.
  *

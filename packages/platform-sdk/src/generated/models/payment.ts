@@ -520,11 +520,7 @@ export enum TransactionStateValues {
 }
 
 export type TransactionState =
-  | 'Failure'
-  | 'Initial'
-  | 'Pending'
-  | 'Success'
-  | (string & {})
+  'Failure' | 'Initial' | 'Pending' | 'Success' | (string & {})
 export enum TransactionTypeValues {
   Authorization = 'Authorization',
   CancelAuthorization = 'CancelAuthorization',

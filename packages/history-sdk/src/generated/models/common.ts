@@ -144,9 +144,7 @@ export enum AssociateRoleInheritanceModeValues {
 }
 
 export type AssociateRoleInheritanceMode =
-  | 'Disabled'
-  | 'Enabled'
-  | (string & {})
+  'Disabled' | 'Enabled' | (string & {})
 /**
  *	Specifies how an Attribute (or a set of Attributes) should be validated across all variants of a Product:
  *
@@ -159,11 +157,7 @@ export enum AttributeConstraintEnumValues {
 }
 
 export type AttributeConstraintEnum =
-  | 'CombinationUnique'
-  | 'None'
-  | 'SameForAll'
-  | 'Unique'
-  | (string & {})
+  'CombinationUnique' | 'None' | 'SameForAll' | 'Unique' | (string & {})
 export interface AttributeDefinition {
   /**
    *	Describes the Type of the Attribute.
@@ -282,9 +276,7 @@ export enum BusinessUnitAssociateModeValues {
 }
 
 export type BusinessUnitAssociateMode =
-  | 'Explicit'
-  | 'ExplicitAndFromParent'
-  | (string & {})
+  'Explicit' | 'ExplicitAndFromParent' | (string & {})
 /**
  *	Indicates whether the Business Unit can be edited and used in [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quote Requests](ctp:api:type:QuoteRequest), or [Quotes](ctp:api:type:Quote).
  *
@@ -548,7 +540,7 @@ export interface DirectDiscount {
   /**
    *	Segment of the Cart that is discounted.
    *
-   *	Empty when the `value` is set to `giftLineItem`.
+   *	Absent if the `value` is `giftLineItem`.
    *
    *
    */
@@ -833,9 +825,7 @@ export interface ItemState {
  *
  */
 export type KeyReference =
-  | AssociateRoleKeyReference
-  | BusinessUnitKeyReference
-  | StoreKeyReference
+  AssociateRoleKeyReference | BusinessUnitKeyReference | StoreKeyReference
 export interface IKeyReference {
   /**
    *	Type of referenced resource.
@@ -1091,11 +1081,7 @@ export enum OrderStateValues {
 }
 
 export type OrderState =
-  | 'Cancelled'
-  | 'Complete'
-  | 'Confirmed'
-  | 'Open'
-  | (string & {})
+  'Cancelled' | 'Complete' | 'Confirmed' | 'Open' | (string & {})
 /**
  *	Information regarding the appearance, content, and shipment of a Parcel.
  *
@@ -1189,12 +1175,7 @@ export enum PaymentStateValues {
 }
 
 export type PaymentState =
-  | 'BalanceDue'
-  | 'CreditOwed'
-  | 'Failed'
-  | 'Paid'
-  | 'Pending'
-  | (string & {})
+  'BalanceDue' | 'CreditOwed' | 'Failed' | 'Paid' | 'Pending' | (string & {})
 /**
  *	Permissions grant granular access to [Approval Rules](ctp:api:type:ApprovalRule), [Approval Flows](ctp:api:type:ApprovalFlow), [Business Units](ctp:api:type:BusinessUnit), [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), [Quote Requests](ctp:api:type:QuoteRequest), and [Shopping Lists](ctp:api:type:ShoppingList).
  *
@@ -1352,9 +1333,7 @@ export interface Price {
    */
   readonly validUntil?: string
   /**
-   *	Is set if a [ProductDiscount](ctp:api:type:ProductDiscount) has been applied.
-   *	If set, the API uses the DiscountedPrice value for the [Line Item price selection](/api/pricing-and-discounts-overview#line-item-price-selection).
-   *	When a [relative discount](ctp:api:type:ProductDiscountValueRelative) has been applied and the fraction part of the DiscountedPrice `value` is 0.5, the `value` is rounded in favor of the customer with [half-down rounding](https://en.wikipedia.org/wiki/Rounding#Rounding_half_down).
+   *	Set if a [ProductDiscount](ctp:api:type:ProductDiscount) applies. When present, the API uses the DiscountedPrice value for [Line Item price selection](/api/pricing-and-discounts-overview#line-item-price-selection).
    *
    *
    */
@@ -1493,11 +1472,7 @@ export enum ProductVariantSelectionTypeEnumValues {
 }
 
 export type ProductVariantSelectionTypeEnum =
-  | 'exclusion'
-  | 'includeAllExcept'
-  | 'includeOnly'
-  | 'inclusion'
-  | (string & {})
+  'exclusion' | 'includeAllExcept' | 'includeOnly' | 'inclusion' | (string & {})
 /**
  *	Predefined states tracking the status of the Quote Request in the negotiation process.
  *
@@ -1511,12 +1486,7 @@ export enum QuoteRequestStateValues {
 }
 
 export type QuoteRequestState =
-  | 'Accepted'
-  | 'Cancelled'
-  | 'Closed'
-  | 'Rejected'
-  | 'Submitted'
-  | (string & {})
+  'Accepted' | 'Cancelled' | 'Closed' | 'Rejected' | 'Submitted' | (string & {})
 /**
  *	Predefined states tracking the status of the Quote.
  *
@@ -1707,9 +1677,7 @@ export interface ResourceIdentifier {
   readonly typeId: ReferenceTypeId
 }
 export type _ResourceIdentifier =
-  | ResourceIdentifier
-  | BusinessUnitResourceIdentifier
-  | ZoneResourceIdentifier
+  ResourceIdentifier | BusinessUnitResourceIdentifier | ZoneResourceIdentifier
 /**
  *	Stores information about returns connected to an Order.
  *
@@ -1804,11 +1772,7 @@ export enum ReturnPaymentStateValues {
 }
 
 export type ReturnPaymentState =
-  | 'Initial'
-  | 'NonRefundable'
-  | 'NotRefunded'
-  | 'Refunded'
-  | (string & {})
+  'Initial' | 'NonRefundable' | 'NotRefunded' | 'Refunded' | (string & {})
 export enum ReturnShipmentStateValues {
   Advised = 'Advised',
   BackInStock = 'BackInStock',
@@ -1817,11 +1781,7 @@ export enum ReturnShipmentStateValues {
 }
 
 export type ReturnShipmentState =
-  | 'Advised'
-  | 'BackInStock'
-  | 'Returned'
-  | 'Unusable'
-  | (string & {})
+  'Advised' | 'BackInStock' | 'Returned' | 'Unusable' | (string & {})
 export interface ReviewRatingStatistics {
   /**
    *	Average rating of one target
@@ -1958,10 +1918,7 @@ export enum ShippingRateTierTypeValues {
 }
 
 export type ShippingRateTierType =
-  | 'CartClassification'
-  | 'CartScore'
-  | 'CartValue'
-  | (string & {})
+  'CartClassification' | 'CartScore' | 'CartValue' | (string & {})
 /**
  *	Describes how the Cart Discount interacts with other Discounts.
  *
@@ -1993,9 +1950,7 @@ export enum StateRoleEnumValues {
 }
 
 export type StateRoleEnum =
-  | 'Return'
-  | 'ReviewIncludedInStatistics'
-  | (string & {})
+  'Return' | 'ReviewIncludedInStatistics' | (string & {})
 /**
  *	Resource or object type the State can be assigned to.
  *
@@ -2086,9 +2041,7 @@ export enum TaxCalculationModeValues {
 }
 
 export type TaxCalculationMode =
-  | 'LineItemLevel'
-  | 'UnitPriceLevel'
-  | (string & {})
+  'LineItemLevel' | 'UnitPriceLevel' | (string & {})
 /**
  *	Indicates how taxes are set on the Cart.
  *
@@ -2101,11 +2054,7 @@ export enum TaxModeValues {
 }
 
 export type TaxMode =
-  | 'Disabled'
-  | 'External'
-  | 'ExternalAmount'
-  | 'Platform'
-  | (string & {})
+  'Disabled' | 'External' | 'ExternalAmount' | 'Platform' | (string & {})
 export interface TaxRate {
   /**
    *	Present if the TaxRate is part of a [TaxCategory](ctp:api:type:TaxCategory).
@@ -2366,11 +2315,7 @@ export enum TransactionStateValues {
 }
 
 export type TransactionState =
-  | 'Failure'
-  | 'Initial'
-  | 'Pending'
-  | 'Success'
-  | (string & {})
+  'Failure' | 'Initial' | 'Pending' | 'Success' | (string & {})
 export enum TransactionTypeValues {
   Authorization = 'Authorization',
   CancelAuthorization = 'CancelAuthorization',
@@ -2433,9 +2378,7 @@ export enum BusinessUnitApprovalRuleModeValues {
 }
 
 export type BusinessUnitApprovalRuleMode =
-  | 'Explicit'
-  | 'ExplicitAndFromParent'
-  | (string & {})
+  'Explicit' | 'ExplicitAndFromParent' | (string & {})
 /**
  *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [BusinessUnit](ctp:api:type:BusinessUnit). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](ctp:api:type:InvalidJsonInputError) error is returned.
  *
@@ -2856,6 +2799,9 @@ export interface DiscountedPrice {
   /**
    *	Money value of the discounted price.
    *
+   *	- When a [relative Product Discount](ctp:api:type:ProductDiscountValueRelative) applies and the fractional part of the resulting discounted price is 0.5, the discounted price is [rounded half down](https://en.wikipedia.org/wiki/Rounding#Rounding_half_down).
+   *	- When an [absolute Product Discount](ctp:api:type:ProductDiscountValueAbsolute) exceeds the price of the Product Variant, the resulting discounted price is set to `0`.
+   *
    *
    */
   readonly value: TypedMoney
@@ -2876,9 +2822,7 @@ export enum ShippingMethodStateValues {
 }
 
 export type ShippingMethodState =
-  | 'DoesNotMatchCart'
-  | 'MatchesCart'
-  | (string & {})
+  'DoesNotMatchCart' | 'MatchesCart' | (string & {})
 /**
  *	Roles defining how an [Associate](ctp:api:type:Associate) can interact with a Business Unit.
  *
@@ -3239,10 +3183,7 @@ export enum InventoryModeValues {
 }
 
 export type InventoryMode =
-  | 'None'
-  | 'ReserveOnOrder'
-  | 'TrackOnly'
-  | (string & {})
+  'None' | 'ReserveOnOrder' | 'TrackOnly' | (string & {})
 /**
  *	Indicates how a Line Item was added to a Cart.
  *
@@ -3264,10 +3205,7 @@ export enum LineItemPriceModeValues {
 }
 
 export type LineItemPriceMode =
-  | 'ExternalPrice'
-  | 'ExternalTotal'
-  | 'Platform'
-  | (string & {})
+  'ExternalPrice' | 'ExternalTotal' | 'Platform' | (string & {})
 /**
  *	Information about recurring orders and frequencies.
  *
@@ -3665,7 +3603,7 @@ export interface ScopedPrice {
   /**
    *	Is set when a matching [ProductDiscount](ctp:api:type:ProductDiscount) exists. If set, the [Cart](ctp:api:type:Cart) uses the discounted value for the [Cart Price calculation](ctp:api:type:CartAddLineItemAction).
    *
-   *	When a [relative Product Discount](ctp:api:type:ProductDiscountValueRelative) is applied and the fractional part of the discounted Price is 0.5, the discounted Price is [rounded half down](https://en.wikipedia.org/wiki/Rounding#Rounding_half_down) in favor of the Customer.
+   *	When a [relative Product Discount](ctp:api:type:ProductDiscountValueRelative) is applied and the fractional part of the discounted Price is 0.5, the discounted Price is [rounded half down](https://en.wikipedia.org/wiki/Rounding#Rounding_half_down).
    *
    *
    */
