@@ -1,5 +1,35 @@
 # @commercetools/importapi-sdk
 
+## 7.1.0
+
+### Minor Changes
+
+- [#1393](https://github.com/commercetools/commercetools-sdk-typescript/pull/1393) [`fbfca0e`](https://github.com/commercetools/commercetools-sdk-typescript/commit/fbfca0e1243dcf70aca604720b6003f0cd0bdf2e) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `VariantImportRequest`
+  - added type `VariantImport`
+  </details>
+
+  <details>
+  <summary>Added Resource(s)</summary>
+  - added resource `/{projectKey}/variants`
+  - added resource `/{projectKey}/variants/import-containers`
+  - added resource `/{projectKey}/variants/import-containers/{importContainerKey}`
+  </details>
+
+  <details>
+  <summary>Added Method(s)</summary>
+  - added method `apiRoot.withProjectKeyValue().variants().importContainers().withImportContainerKeyValue().post()`
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+  - added enum `variant` to type `ImportResourceType`
+  - added enum `variant` to type `ReferenceType`
+  </details>
+
 ## 7.0.0
 
 ### Major Changes
