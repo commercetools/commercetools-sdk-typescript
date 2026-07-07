@@ -13,7 +13,7 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
   return [
     {
       method: 'get',
-      uri: '/test_projectKey/in-store/key=test_storeKey/product-projections/key=test_key/variant-attributes?staged=true&filter[attributes]=filter%5Battributes%5D',
+      uri: '/test_projectKey/in-store/key=test_storeKey/product-projections/key=test_key/variant-attributes?staged=true&filter%5Battributes%5D=filter%5Battributes%5D',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
@@ -29,7 +29,7 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
-      uri: '/test_projectKey/in-store/key=test_storeKey/product-projections/key=test_key/variant-attributes?localeProjection=localeProjection&filter[attributes]=filter%5Battributes%5D',
+      uri: '/test_projectKey/in-store/key=test_storeKey/product-projections/key=test_key/variant-attributes?localeProjection=localeProjection&filter%5Battributes%5D=filter%5Battributes%5D',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
@@ -45,7 +45,7 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
-      uri: '/test_projectKey/in-store/key=test_storeKey/product-projections/key=test_key/variant-attributes?filter[attributes]=filter%5Battributes%5D',
+      uri: '/test_projectKey/in-store/key=test_storeKey/product-projections/key=test_key/variant-attributes?filter%5Battributes%5D=filter%5Battributes%5D',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
@@ -56,7 +56,7 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
-      uri: '/test_projectKey/in-store/key=test_storeKey/product-projections/key=test_key/variant-attributes?filter[supplyChannels]=filter%5BsupplyChannels%5D&filter[attributes]=filter%5Battributes%5D',
+      uri: '/test_projectKey/in-store/key=test_storeKey/product-projections/key=test_key/variant-attributes?filter%5BsupplyChannels%5D=filter%5BsupplyChannels%5D&filter%5Battributes%5D=filter%5Battributes%5D',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
@@ -77,11 +77,11 @@ describe('Testing ByProjectKeyInStoreKeyByStoreKeyProductProjectionsKeyByKeyVari
   const requestsToTest = getRequestsWithMethodParameters()
   requestsToTest.forEach((rm) => {
     test(`Testing => request method: ${rm.method} and url: ${rm.uri}`, async () => {
-      expect(rm.method.toLowerCase()).toBe(
-        rm.request.clientRequest().method.toLowerCase()
+      expect(rm.request.clientRequest().method.toLowerCase()).toBe(
+        rm.method.toLowerCase()
       )
-      expect(rm.uri.toLowerCase()).toBe(
-        rm.request.clientRequest().uri.toLowerCase()
+      expect(rm.request.clientRequest().uri.toLowerCase()).toBe(
+        rm.uri.toLowerCase()
       )
     })
   })

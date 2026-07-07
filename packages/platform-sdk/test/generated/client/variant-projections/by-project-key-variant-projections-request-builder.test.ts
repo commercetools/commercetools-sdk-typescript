@@ -81,7 +81,7 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
-      uri: '/test_projectKey/variant-projections?filter[attributes]=filter%5Battributes%5D',
+      uri: '/test_projectKey/variant-projections?filter%5Battributes%5D=filter%5Battributes%5D',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .variantProjections()
@@ -209,7 +209,7 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'head',
-      uri: '/test_projectKey/variant-projections?filter[attributes]=filter%5Battributes%5D',
+      uri: '/test_projectKey/variant-projections?filter%5Battributes%5D=filter%5Battributes%5D',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .variantProjections()
@@ -230,11 +230,11 @@ describe('Testing ByProjectKeyVariantProjectionsRequestBuilder Requests', () => 
   const requestsToTest = getRequestsWithMethodParameters()
   requestsToTest.forEach((rm) => {
     test(`Testing => request method: ${rm.method} and url: ${rm.uri}`, async () => {
-      expect(rm.method.toLowerCase()).toBe(
-        rm.request.clientRequest().method.toLowerCase()
+      expect(rm.request.clientRequest().method.toLowerCase()).toBe(
+        rm.method.toLowerCase()
       )
-      expect(rm.uri.toLowerCase()).toBe(
-        rm.request.clientRequest().uri.toLowerCase()
+      expect(rm.request.clientRequest().uri.toLowerCase()).toBe(
+        rm.uri.toLowerCase()
       )
     })
   })
