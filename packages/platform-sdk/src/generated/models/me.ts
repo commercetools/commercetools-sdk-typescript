@@ -654,13 +654,13 @@ export interface MyLineItemDraft {
    */
   readonly sku?: string
   /**
-   *	Number of Product Variants to add to the Cart.
+   *	Quantity of Product Variants to add to the Cart.
    *
    *
    */
   readonly quantity?: number
   /**
-   *	Date and time (UTC) the Product Variant is added to the Cart.
+   *	Date and time (UTC) the Product Variant was added to the Cart.
    *	If not set, it defaults to the current date and time.
    *
    *	Optional for backwards compatibility reasons.
@@ -1512,7 +1512,7 @@ export interface MyCartAddLineItemAction extends IMyCartUpdateAction {
    */
   readonly sku?: string
   /**
-   *	Number of Line Items to add to the Cart.
+   *	Quantity of Line Items to add to the Cart.
    *
    *
    */

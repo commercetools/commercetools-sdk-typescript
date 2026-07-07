@@ -30,7 +30,7 @@ import { Attribute } from './productvariants'
 
 export interface ItemState {
   /**
-   *	Number of Line Items or Custom Line Items in this State.
+   *	Quantity of Line Items or Custom Line Items in this State.
    *
    *
    */
@@ -353,7 +353,7 @@ export interface DeliveryItem {
    */
   readonly id: string
   /**
-   *	Number of Line Items or Custom Line Items delivered.
+   *	Quantity of Line Items or Custom Line Items delivered.
    *
    *
    */

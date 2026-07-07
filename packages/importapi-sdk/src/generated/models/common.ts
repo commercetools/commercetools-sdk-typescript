@@ -18,6 +18,7 @@ import { ProductTypeImport } from './producttypes'
 import { ProductVariantImport } from './productvariants'
 import { StandalonePriceImport } from './standalone-prices'
 import { TypeImport } from './types'
+import { VariantImport } from './variants'
 
 export interface Asset {
   /**
@@ -180,6 +181,7 @@ export type _ImportResource =
   | ProductVariantImport
   | StandalonePriceImport
   | TypeImport
+  | VariantImport
 /**
  *	References a resource by key.
  */
@@ -636,6 +638,7 @@ export enum ImportResourceTypeValues {
   ProductVariantPatch = 'product-variant-patch',
   StandalonePrice = 'standalone-price',
   Type = 'type',
+  Variant = 'variant',
 }
 
 export type ImportResourceType =
@@ -656,6 +659,7 @@ export type ImportResourceType =
   | 'product-variant-patch'
   | 'standalone-price'
   | 'type'
+  | 'variant'
   | (string & {})
 /**
  *	Type of referenced resource.
@@ -684,6 +688,7 @@ export enum ReferenceTypeValues {
   Store = 'store',
   TaxCategory = 'tax-category',
   Type = 'type',
+  Variant = 'variant',
 }
 
 export type ReferenceType =
@@ -709,6 +714,7 @@ export type ReferenceType =
   | 'store'
   | 'tax-category'
   | 'type'
+  | 'variant'
   | (string & {})
 /**
  *	Every [Import Operation](ctp:import:type:ImportOperation) is assigned one of the following states.

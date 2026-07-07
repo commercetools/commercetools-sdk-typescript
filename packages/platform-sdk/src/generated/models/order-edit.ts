@@ -722,7 +722,7 @@ export interface StagedOrderAddLineItemAction extends IStagedOrderUpdateAction {
    */
   readonly quantity?: number
   /**
-   *	Date and time (UTC) the Product Variant is added to the Cart.
+   *	Date and time (UTC) the Product Variant was added to the Cart.
    *	If not set, it defaults to the current date and time.
    *
    *	Optional for backwards compatibility reasons.
@@ -2481,6 +2481,8 @@ export interface StagedOrderSetReturnShipmentStateAction extends IStagedOrderUpd
   /**
    *	New shipment state of the [ReturnItem](ctp:api:type:ReturnItem).
    *
+   *	This update action can only transition Return Items from the `Returned` state to `BackInStock` or `Unusable`. The initial `Advised` and `Returned` states can only be set at creation time on [ReturnItemDraft](ctp:api:type:ReturnItemDraft).
+   *
    *
    */
   readonly shipmentState: ReturnShipmentState
@@ -2822,7 +2824,7 @@ export interface StagedOrderTransitionLineItemStateAction extends IStagedOrderUp
    */
   readonly lineItemKey?: string
   /**
-   *	Number of Line Items that should transition [State](ctp:api:type:State).
+   *	Quantity of Line Items that should transition [State](ctp:api:type:State).
    *
    *
    */

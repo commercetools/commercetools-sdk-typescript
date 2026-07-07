@@ -48,6 +48,8 @@ export * from './client/import-containers/by-project-key-standalone-prices-impor
 export * from './client/import-containers/by-project-key-standalone-prices-import-containers-request-builder'
 export * from './client/import-containers/by-project-key-types-import-containers-by-import-container-key-request-builder'
 export * from './client/import-containers/by-project-key-types-import-containers-request-builder'
+export * from './client/import-containers/by-project-key-variants-import-containers-by-import-container-key-request-builder'
+export * from './client/import-containers/by-project-key-variants-import-containers-request-builder'
 export * from './client/import-operations/by-project-key-import-containers-by-import-container-key-import-operations-request-builder'
 export * from './client/import-operations/by-project-key-import-operations-by-id-request-builder'
 export * from './client/import-operations/by-project-key-import-operations-request-builder'
@@ -65,6 +67,7 @@ export * from './client/product-variants/by-project-key-product-variants-request
 export * from './client/products/by-project-key-products-request-builder'
 export * from './client/standalone-prices/by-project-key-standalone-prices-request-builder'
 export * from './client/types/by-project-key-types-request-builder'
+export * from './client/variants/by-project-key-variants-request-builder'
 
 //models
 export * from './models/business-units'
@@ -90,6 +93,7 @@ export * from './models/producttypes'
 export * from './models/productvariants'
 export * from './models/standalone-prices'
 export * from './models/types'
+export * from './models/variants'
 
 //Common package
 export * from './shared/utils/common-types'

@@ -6,6 +6,7 @@
 import { ProductProjection } from '../../models/product'
 import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
+import { ByProjectKeyProductProjectionsKeyByKeyVariantAttributesRequestBuilder } from '../variant-attributes/by-project-key-product-projections-key-by-key-variant-attributes-request-builder'
 /**
  **/
 export class ByProjectKeyProductProjectionsKeyByKeyRequestBuilder {
@@ -19,6 +20,18 @@ export class ByProjectKeyProductProjectionsKeyByKeyRequestBuilder {
       baseUri?: string
     }
   ) {}
+  public variantAttributes(): ByProjectKeyProductProjectionsKeyByKeyVariantAttributesRequestBuilder {
+    return new ByProjectKeyProductProjectionsKeyByKeyVariantAttributesRequestBuilder(
+      {
+        pathArgs: {
+          ...this.args.pathArgs,
+        },
+        executeRequest: this.args.executeRequest,
+        baseUri: this.args.baseUri,
+      }
+    )
+  }
+
   /**
    *	Retrieves the [projected](/api/projects/productProjections#projection-dimensions) representation of a [Product](ctp:api:type:Product) by its Key.
    *

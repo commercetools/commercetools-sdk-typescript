@@ -166,6 +166,7 @@ import {
   TypeReference,
   TypeResourceIdentifier,
 } from './type'
+import { Variant, VariantReference, VariantResourceIdentifier } from './variant'
 import { Zone, ZoneReference, ZoneResourceIdentifier } from './zone'
 
 /**
@@ -638,6 +639,7 @@ export type _BaseResource =
   | Subscription
   | TaxCategory
   | Type
+  | Variant
   | Zone
 /**
  *	These objects represent information about which [API Client](/api/projects/api-clients) created or modified a resource. For more information, see [Client Logging](/api/general-concepts#client-logging).
@@ -1251,6 +1253,7 @@ export type Reference =
   | StoreReference
   | TaxCategoryReference
   | TypeReference
+  | VariantReference
   | ZoneReference
 export interface IReference {
   /**
@@ -1315,6 +1318,7 @@ export enum ReferenceTypeIdValues {
   Subscription = 'subscription',
   TaxCategory = 'tax-category',
   Type = 'type',
+  Variant = 'variant',
   Zone = 'zone',
 }
 
@@ -1363,6 +1367,7 @@ export type ReferenceTypeId =
   | 'subscription'
   | 'tax-category'
   | 'type'
+  | 'variant'
   | 'zone'
   | (string & {})
 /**
@@ -1405,6 +1410,7 @@ export type ResourceIdentifier =
   | StoreResourceIdentifier
   | TaxCategoryResourceIdentifier
   | TypeResourceIdentifier
+  | VariantResourceIdentifier
   | ZoneResourceIdentifier
 export interface IResourceIdentifier {
   /**

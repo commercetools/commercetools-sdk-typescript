@@ -121,9 +121,9 @@ export class ByProjectKeyInStoreKeyByStoreKeyOrdersRequestBuilder {
   }
   /**
    *	Creates an Order from a Cart in a [Store](ctp:api:type:Store).
-   *	The Cart must have a shipping address set.
+   *	The Cart must have a shipping address set, regardless of the [TaxMode](ctp:api:type:TaxMode).
    *
-   *	The shipping address is used for tax calculation for a Cart with `Platform` [TaxMode](ctp:api:type:TaxMode).
+   *	For a Cart with `Platform` [TaxMode](ctp:api:type:TaxMode), the shipping address is used for tax calculation.
    *
    *	Creating an Order produces the [OrderCreated](ctp:api:type:OrderCreatedMessage) Message.
    *

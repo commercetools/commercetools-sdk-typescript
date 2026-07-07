@@ -6,6 +6,7 @@
 import { ProductProjection } from '../../models/product'
 import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
+import { ByProjectKeyProductProjectionsByIDVariantAttributesRequestBuilder } from '../variant-attributes/by-project-key-product-projections-by-id-variant-attributes-request-builder'
 /**
  **/
 export class ByProjectKeyProductProjectionsByIDRequestBuilder {
@@ -19,6 +20,18 @@ export class ByProjectKeyProductProjectionsByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
+  public variantAttributes(): ByProjectKeyProductProjectionsByIDVariantAttributesRequestBuilder {
+    return new ByProjectKeyProductProjectionsByIDVariantAttributesRequestBuilder(
+      {
+        pathArgs: {
+          ...this.args.pathArgs,
+        },
+        executeRequest: this.args.executeRequest,
+        baseUri: this.args.baseUri,
+      }
+    )
+  }
+
   /**
    *	Retrieves the [projected](/api/projects/productProjections#projection-dimensions) representation of a [Product](ctp:api:type:Product) by its ID.
    *
