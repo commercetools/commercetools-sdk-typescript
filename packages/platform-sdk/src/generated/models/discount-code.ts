@@ -17,6 +17,7 @@ import {
   LocalizedString,
   Reference,
 } from './common'
+import { StoreKeyReference } from './store'
 import {
   CustomFields,
   CustomFieldsDraft,
@@ -90,6 +91,14 @@ export interface DiscountCode extends BaseResource {
    *
    */
   readonly cartDiscounts: CartDiscountReference[]
+  /**
+   *	Reference to the Stores the DiscountCode is associated with, derived from the `stores` field of each referenced [CartDiscount](ctp:api:type:CartDiscount).
+   *
+   *	The value of this field is [eventually consistent](/api/general-concepts#eventual-consistency).
+   *
+   *
+   */
+  readonly stores: StoreKeyReference[]
   /**
    *	DiscountCode can only be applied to Carts that match this predicate.
    *
