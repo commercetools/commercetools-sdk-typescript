@@ -62,6 +62,7 @@ export class ByProjectKeyByResourceTypeRequestBuilder {
       excludePlatformInitiatedChanges?:
         PlatformInitiatedChange | PlatformInitiatedChange[]
       expand?: boolean
+      withTotal?: boolean
       [key: string]: QueryParam
     }
     headers?: {

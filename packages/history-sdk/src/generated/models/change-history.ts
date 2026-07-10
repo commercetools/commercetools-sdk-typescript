@@ -111,10 +111,11 @@ export interface RecordPagedQueryResponse {
   /**
    *	Total number of results matching the query.
    *	This number is an estimation and not [strongly consistent](/api/general-concepts#strong-consistency).
+   *	Returned only when `withTotal` is set to `true` on the query.
    *
    *
    */
-  readonly total: number
+  readonly total?: number
   /**
    *	Number of [elements skipped](/api/general-concepts#offset).
    *
