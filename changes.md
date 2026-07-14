@@ -36,6 +36,14 @@
 
 </details>
 
+<details>
+<summary>Added Enum(s)</summary>
+
+- added enum `variant` to type `AttributeReferenceTypeId`
+- added enum `variant` to type `CustomFieldReferenceValue`
+
+</details>
+
 **History changes**
 
 <details>

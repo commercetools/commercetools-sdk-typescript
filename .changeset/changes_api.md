@@ -39,3 +39,11 @@
 - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().discountCodes().withId().head()`
 
 </details>
+
+<details>
+<summary>Added Enum(s)</summary>
+
+- added enum `variant` to type `AttributeReferenceTypeId`
+- added enum `variant` to type `CustomFieldReferenceValue`
+
+</details>
