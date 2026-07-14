@@ -108,6 +108,12 @@ export class ByProjectKeyStagedQuotesRequestBuilder {
   }
   /**
    *	Creates a StagedQuote in the Project.
+   *
+   *	- [InvalidOperation](ctp:api:type:InvalidOperationError) is returned in several cases, including the following:
+   *	    - The referenced Shipping Method is not active.
+   *	    - The referenced Shipping Method is scoped to a Store that differs from the Store referenced by the [Quote Request](ctp:api:type:QuoteRequest).
+   *	    - The referenced Shipping Method is scoped to a Store, but the [Quote Request](ctp:api:type:QuoteRequest) does not belong to a Store.
+   *
    */
   public post(methodArgs: {
     queryArgs?: {

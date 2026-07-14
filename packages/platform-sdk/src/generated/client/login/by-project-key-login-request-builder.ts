@@ -25,6 +25,12 @@ export class ByProjectKeyLoginRequestBuilder {
    *	If no active Cart exists, the anonymous Cart becomes the Customer's active Cart.
    *	If the Customer has multiple active Carts, the anonymous Cart is merged into the most recently modified active Cart.
    *
+   *	The anonymous Cart is not merged in any of the following cases:
+   *
+   *	  - The referenced Shipping Method is not active.
+   *	  - The referenced Shipping Method is scoped to a Store that differs from the Cart's Store.
+   *	  - The referenced Shipping Method is scoped to a Store, but the Cart does not belong to a Store.
+   *
    *	If an account with the given credentials is not found, an [InvalidCredentials](ctp:api:type:InvalidCredentialsError) error is returned.
    *
    */
