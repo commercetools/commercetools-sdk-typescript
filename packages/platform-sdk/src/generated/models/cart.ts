@@ -3027,7 +3027,7 @@ export interface CartLockCartAction extends ICartUpdateAction {
 export interface CartRecalculateAction extends ICartUpdateAction {
   readonly action: 'recalculate'
   /**
-   *	- Leave empty or set as `false` to update only the Prices and TaxRates of the Line Items.
+   *	- Leave empty or set as `false` to update only the Prices and TaxRates of the Line Items. Prices inside the `variant` are only updated if `updateProductData` is `true`.
    *	- Set as `true` to update the Product data (such as `name`, `variant`, `productType`, and Product Attributes) of the Line Items.
    *
    *

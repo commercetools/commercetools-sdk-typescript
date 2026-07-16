@@ -1674,8 +1674,8 @@ export interface MyCartChangeTaxModeAction extends IMyCartUpdateAction {
 export interface MyCartRecalculateAction extends IMyCartUpdateAction {
   readonly action: 'recalculate'
   /**
-   *	- Leave empty or set to `false` to only update the Prices and TaxRates of the Line Items.
-   *	- Set to `true` to update the Line Items' product data (like `name`, `variant` and `productType`) also.
+   *	- Leave empty or set as `false` to update only the Prices and TaxRates of the Line Items. Prices inside the `variant` are only updated if `updateProductData` is `true`.
+   *	- Set as `true` to update the Product data (such as `name`, `variant`, `productType`, and Product Attributes) of the Line Items.
    *
    *
    */
