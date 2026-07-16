@@ -26,6 +26,7 @@ import { ByProjectKeyInBusinessUnitKeyByBusinessUnitKeyRequestBuilder } from './
 import { ByProjectKeyInStoreKeyByStoreKeyRequestBuilder } from './in-store/by-project-key-in-store-key-by-store-key-request-builder'
 import { ByProjectKeyInventoryRequestBuilder } from './inventory/by-project-key-inventory-request-builder'
 import { ByProjectKeyLoginRequestBuilder } from './login/by-project-key-login-request-builder'
+import { ByProjectKeyMcpServersRequestBuilder } from './mcp-servers/by-project-key-mcp-servers-request-builder'
 import { ByProjectKeyMeRequestBuilder } from './me/by-project-key-me-request-builder'
 import { ByProjectKeyMessagesRequestBuilder } from './messages/by-project-key-messages-request-builder'
 import { ByProjectKeyOrdersRequestBuilder } from './orders/by-project-key-orders-request-builder'
@@ -647,6 +648,18 @@ export class ByProjectKeyRequestBuilder {
    */
   public attributeGroups(): ByProjectKeyAttributeGroupsRequestBuilder {
     return new ByProjectKeyAttributeGroupsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
+   *	Manage MCP Server configurations for a Project.
+   */
+  public mcpServers(): ByProjectKeyMcpServersRequestBuilder {
+    return new ByProjectKeyMcpServersRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },

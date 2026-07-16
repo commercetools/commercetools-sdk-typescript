@@ -73,6 +73,7 @@ import {
   InventoryEntryReference,
   InventoryEntryResourceIdentifier,
 } from './inventory'
+import { McpServer } from './mcp-server'
 import { Message } from './message'
 import { OrderReference, _Order } from './order'
 import {
@@ -613,6 +614,7 @@ export type _BaseResource =
   | DiscountGroup
   | Extension
   | InventoryEntry
+  | McpServer
   | Message
   | _Order
   | OrderEdit
