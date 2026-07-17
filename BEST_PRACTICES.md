@@ -40,7 +40,7 @@ offered by the SDK including security and vulnerability fixes.
 
 ## Documentation
 
-Ensure to read the [documentation](https://docs.commercetools.com/sdk/javascript-sdk) carefully in order
+Ensure to read the [documentation](https://docs.commercetools.com/dev-tooling/typescript-sdk) carefully in order
 to correctly and properly implement and/or integrate the SDK.
 
 ## Issues
@@ -107,7 +107,7 @@ const client = new ClientBuilder()
 
 Middleware is used to add functionality to the request object in the TypeScript SDK. You can add middleware when creating the TypeScript SDK client. Multiple middleware can be added using a chain of middleware builder methods.
 
-Please check [here](https://docs.commercetools.com/sdk/ts-sdk-middleware-v3) for more details.
+Please check [here](https://docs.commercetools.com/dev-tooling/ts-sdk-middleware) for more details.
 
 ## How to reuse client (connection)
 
@@ -221,7 +221,7 @@ In the commercetools JS/TS SDK the connection tears down automatically after eac
 
 The commercetools JS/TS client can be customized in a variety of ways, this can be achieved by passing in middleware options that can take different parameter values.
 Refer to the [Client Initialization](#client-initialization) section for details on how to create the client.
-To see how to configure the available middleware options and their configurations, please check [the official documentation](https://docs.commercetools.com/sdk/ts-sdk-middleware-v3).
+To see how to configure the available middleware options and their configurations, please check [the official documentation](https://docs.commercetools.com/dev-tooling/ts-sdk-middleware).
 
 ## Error Handling
 
