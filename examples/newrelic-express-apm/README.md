@@ -4,10 +4,10 @@ Example to show how the Newrelic APM can be used in the TypeScript SDK.
 
 ## Requirements
 
-- A Composable Commerce Project with a configured [API Client](https://docs.commercetools.com/sdk/js-sdk-getting-started).
+- A Composable Commerce Project with a configured [API Client](https://docs.commercetools.com/api/getting-started/create-api-client).
 - Your Project must have existing Products containing Variants, and at least one Customer.
 - If your Project is currently empty, you can install the [SUNRISE sample data](https://github.com/commercetools/commercetools-sunrise-data).
-- For Newrelic setup, follow the instructions stated on our [official documentation website](https://docs.commercetools.com/sdk/observability/newrelic#typescript-sdk) to properly install and set up the newrelic agent.
+- For Newrelic setup, follow the instructions stated on our [official documentation website](https://docs.commercetools.com/dev-tooling/observability/newrelic#typescript-sdk) to properly install and set up the newrelic agent.
 
 ## Installation
 

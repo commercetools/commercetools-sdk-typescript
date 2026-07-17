@@ -4,7 +4,7 @@ Example to show how the ME endpoints can be used with the TypeScript SDK.
 
 ## Requirements
 
-- A Composable Commerce Project with a configured [API Client](https://docs.commercetools.com/tutorials/getting-started#creating-an-api-client).
+- A Composable Commerce Project with a configured [API Client](https://docs.commercetools.com/api/getting-started/initial-setup#creating-an-api-client).
 - Your Project must have existing Products containing Variants, and at least one Customer.
 - If your Project is currently empty, you can install the [SUNRISE sample data](https://github.com/commercetools/commercetools-sunrise-data).
 
