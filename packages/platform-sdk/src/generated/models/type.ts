@@ -71,6 +71,7 @@ export enum CustomFieldReferenceValueValues {
   Review = 'review',
   ShippingMethod = 'shipping-method',
   State = 'state',
+  Variant = 'variant',
   Zone = 'zone',
 }
 
@@ -92,6 +93,7 @@ export type CustomFieldReferenceValue =
   | 'review'
   | 'shipping-method'
   | 'state'
+  | 'variant'
   | 'zone'
   | (string & {})
 /**

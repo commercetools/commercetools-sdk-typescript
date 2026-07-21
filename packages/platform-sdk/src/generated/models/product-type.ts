@@ -25,11 +25,7 @@ export enum AttributeConstraintEnumValues {
 }
 
 export type AttributeConstraintEnum =
-  | 'CombinationUnique'
-  | 'None'
-  | 'SameForAll'
-  | 'Unique'
-  | (string & {})
+  'CombinationUnique' | 'None' | 'SameForAll' | 'Unique' | (string & {})
 export enum AttributeConstraintEnumDraftValues {
   None = 'None',
 }
@@ -227,6 +223,7 @@ export enum AttributeReferenceTypeIdValues {
   Review = 'review',
   ShippingMethod = 'shipping-method',
   State = 'state',
+  Variant = 'variant',
   Zone = 'zone',
 }
 
@@ -246,6 +243,7 @@ export type AttributeReferenceTypeId =
   | 'review'
   | 'shipping-method'
   | 'state'
+  | 'variant'
   | 'zone'
   | (string & {})
 /**

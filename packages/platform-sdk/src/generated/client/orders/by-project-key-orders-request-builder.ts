@@ -172,7 +172,10 @@ export class ByProjectKeyOrdersRequestBuilder {
    *	- [DiscountCodeNonApplicable](ctp:api:type:DiscountCodeNonApplicableError)
    *	- [ShippingMethodDoesNotMatchCart](ctp:api:type:ShippingMethodDoesNotMatchCartError)
    *	- [InvalidItemShippingDetails](ctp:api:type:InvalidItemShippingDetailsError)
-   *	- [InvalidOperation](ctp:api:type:InvalidOperationError)
+   *	- [InvalidOperation](ctp:api:type:InvalidOperationError) is returned in several cases, including the following:
+   *	    - The referenced Shipping Method is not active.
+   *	    - The referenced Shipping Method is scoped to a Store that differs from the Cart's Store.
+   *	    - The referenced Shipping Method is scoped to a Store, but the Cart does not belong to a Store.
    *	- [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError)
    *	- [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError)
    *

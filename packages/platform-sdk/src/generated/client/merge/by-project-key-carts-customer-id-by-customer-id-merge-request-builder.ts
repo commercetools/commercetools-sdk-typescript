@@ -23,6 +23,11 @@ export class ByProjectKeyCartsCustomerIdByCustomerIdMergeRequestBuilder {
    *	Merges items from an anonymous Cart into the most recently modified active Cart of a Customer. If no active Cart exists, the anonymous Cart becomes the Customer's active Cart.
    *	For more information about merge mode behaviors, merge rules, and tax recalculation, see [Merge a Cart](/api/carts-orders-overview#merge-a-cart).
    *
+   *	- [InvalidOperation](ctp:api:type:InvalidOperationError) is returned in several cases, including the following:
+   *	    - The referenced Shipping Method is not active.
+   *	    - The referenced Shipping Method is scoped to a Store that differs from the Cart's Store.
+   *	    - The referenced Shipping Method is scoped to a Store, but the Cart does not belong to a Store.
+   *
    */
   public post(methodArgs: {
     body: MergeCartDraft

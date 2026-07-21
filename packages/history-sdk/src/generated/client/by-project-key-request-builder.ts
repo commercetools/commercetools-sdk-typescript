@@ -72,9 +72,9 @@ export class ByProjectKeyRequestBuilder {
       changes?: string | string[]
       stores?: string | string[]
       excludePlatformInitiatedChanges?:
-        | PlatformInitiatedChange
-        | PlatformInitiatedChange[]
+        PlatformInitiatedChange | PlatformInitiatedChange[]
       expand?: boolean
+      withTotal?: boolean
       [key: string]: QueryParam
     }
     headers?: {

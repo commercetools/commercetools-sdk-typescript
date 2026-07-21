@@ -199,9 +199,7 @@ export enum ApplicationAgreementTypeValues {
 }
 
 export type ApplicationAgreementType =
-  | 'MandatoryCheckbox'
-  | 'Text'
-  | (string & {})
+  'MandatoryCheckbox' | 'Text' | (string & {})
 export interface ApplicationDraft {
   /**
    *	User-defined unique identifier of the Application. `MinLength: 2 ​MaxLength: 256 ​Pattern: ^[A-Za-z0-9_-]+$`

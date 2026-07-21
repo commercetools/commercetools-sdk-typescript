@@ -376,9 +376,7 @@ export interface ShippingRateDraft {
   readonly tiers?: ShippingRatePriceTier[]
 }
 export type ShippingRatePriceTier =
-  | CartClassificationTier
-  | CartScoreTier
-  | CartValueTier
+  CartClassificationTier | CartScoreTier | CartValueTier
 export interface IShippingRatePriceTier {
   /**
    *
@@ -478,10 +476,7 @@ export enum ShippingRateTierTypeValues {
 }
 
 export type ShippingRateTierType =
-  | 'CartClassification'
-  | 'CartScore'
-  | 'CartValue'
-  | (string & {})
+  'CartClassification' | 'CartScore' | 'CartValue' | (string & {})
 /**
  *	Defines shipping rates in different currencies for a specific [Zone](ctp:api:type:Zone).
  *

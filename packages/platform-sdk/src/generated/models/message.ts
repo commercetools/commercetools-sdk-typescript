@@ -22758,8 +22758,7 @@ export interface ReviewStateTransitionMessage extends IMessage {
   readonly force: boolean
 }
 export type ShoppingListMessage =
-  | ShoppingListLineItemAddedMessage
-  | ShoppingListLineItemRemovedMessage
+  ShoppingListLineItemAddedMessage | ShoppingListLineItemRemovedMessage
 export interface IShoppingListMessage {
   /**
    *	Unique identifier of the Message. Can be used to track which Messages have been processed.

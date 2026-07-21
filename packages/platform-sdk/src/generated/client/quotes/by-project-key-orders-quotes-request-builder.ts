@@ -28,7 +28,10 @@ export class ByProjectKeyOrdersQuotesRequestBuilder {
    *
    *	- [CountryNotConfiguredInStore](ctp:api:type:CountryNotConfiguredInStoreError)
    *	- [InvalidItemShippingDetails](ctp:api:type:InvalidItemShippingDetailsError)
-   *	- [InvalidOperation](ctp:api:type:InvalidOperationError)
+   *	- [InvalidOperation](ctp:api:type:InvalidOperationError) is returned in several cases, including the following:
+   *	    - The referenced Shipping Method is not active.
+   *	    - The referenced Shipping Method is scoped to a Store that differs from the Store referenced by the [Quote](ctp:api:type:Quote).
+   *	    - The referenced Shipping Method is scoped to a Store, but the [Quote](ctp:api:type:Quote) does not belong to a Store.
    *	- [OutOfStock](ctp:api:type:OutOfStockError)
    *
    */

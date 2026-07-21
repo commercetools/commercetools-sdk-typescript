@@ -131,6 +131,8 @@ export class ByProjectKeyProductsRequestBuilder {
    *	If [Product price selection query parameters](/api/pricing-and-discounts-overview#product-price-selection) are provided, selected Prices will be added to the response.
    *	Produces the [ProductCreated](/projects/messages/product-catalog-messages#product-created) Message.
    *
+   *	A failed response can return an [OverlappingPriceValidity](ctp:api:type:OverlappingPriceValidityError) error.
+   *
    */
   public post(methodArgs: {
     queryArgs?: {

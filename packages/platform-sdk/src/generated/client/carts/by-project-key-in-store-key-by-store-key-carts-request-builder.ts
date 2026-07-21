@@ -146,11 +146,6 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsRequestBuilder {
   /**
    *	Creates a Cart in a [Store](ctp:api:type:Store).
    *
-   *	An [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned in one of the following cases:
-   *	  1. If the referenced Shipping Method has a predicate that does not match the Cart.
-   *	  2. If the referenced Shipping Method is not active.
-   *	  3. If the referenced Shipping Method is associated with a Store that is different from the Cart's Store.
-   *
    *	Specific Error Codes:
    *
    *	- [DiscountCodeNonApplicable](ctp:api:type:DiscountCodeNonApplicableError)
@@ -158,6 +153,10 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsRequestBuilder {
    *	- [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError)
    *	- [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError)
    *	- [CountryNotConfiguredInStore](ctp:api:type:CountryNotConfiguredInStoreError)
+   *	- [InvalidOperation](ctp:api:type:InvalidOperationError) is returned in several cases, including the following:
+   *	    - The referenced Shipping Method has a predicate that does not match the Cart.
+   *	    - The referenced Shipping Method is not active.
+   *	    - The referenced Shipping Method is scoped to a Store that differs from the Cart's Store.
    *
    */
   public post(methodArgs: {

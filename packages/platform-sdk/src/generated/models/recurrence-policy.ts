@@ -214,8 +214,7 @@ export interface DayOfMonthSchedule extends IRecurrencePolicySchedule {
   readonly day: number
 }
 export type RecurrencePolicyScheduleDraft =
-  | DayOfMonthScheduleDraft
-  | StandardScheduleDraft
+  DayOfMonthScheduleDraft | StandardScheduleDraft
 export interface IRecurrencePolicyScheduleDraft {
   /**
    *

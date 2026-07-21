@@ -141,6 +141,14 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
+      uri: '/test_projectKey/test_resourceType?withTotal=true',
+      request: apiRoot
+        .withProjectKeyValue({ projectKey: 'test_projectKey' })
+        .withResourceTypeValue({ resourceType: 'test_resourceType' })
+        .get({ queryArgs: { withTotal: true } }),
+    },
+    {
+      method: 'get',
       uri: '/test_projectKey/test_resourceType',
       request: apiRoot
         .withProjectKeyValue({ projectKey: 'test_projectKey' })

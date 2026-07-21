@@ -466,54 +466,53 @@ export interface IProductTailoringUpdateAction {
   readonly action: string
 }
 /**
- *	The tailoring of a [ProductVariant](ctp:api:type:ProductVariant).
+ *	The tailoring of a [ProductVariant](ctp:api:type:ProductVariant) or [Variant](ctp:api:type:Variant) ([BETA](/offering/compatibility#public-beta)).
  *
  */
 export interface ProductVariantTailoring {
   /**
-   *	The `id` of the tailored [ProductVariant](ctp:api:type:ProductVariant).
+   *	The `id` of the tailored [ProductVariant](ctp:api:type:ProductVariant) or [Variant](ctp:api:type:Variant) ([BETA](/offering/compatibility#public-beta)).
    *
    *
    */
   readonly id: number
   /**
    *	Images of the tailored Product Variant.
-   *	If present, these images will override the images of the corresponding [ProductVariant](ctp:api:type:ProductVariant) in total.
+   *	If present, these images will override the images of the corresponding [ProductVariant](ctp:api:type:ProductVariant) or [Variant](ctp:api:type:Variant) ([BETA](/offering/compatibility#public-beta)) in total.
    *
    *
    */
   readonly images?: Image[]
   /**
    *	Media assets of the tailored Product Variant.
-   *	If present, these assets will override the assets of the corresponding [ProductVariant](ctp:api:type:ProductVariant) in total.
+   *	If present, these assets will override the assets of the corresponding [ProductVariant](ctp:api:type:ProductVariant) or [Variant](ctp:api:type:Variant) ([BETA](/offering/compatibility#public-beta)) in total.
    *
    *
    */
   readonly assets?: Asset[]
   /**
    *	Attributes of the tailored Product Variant.
-   *	If present, these Attributes are selectively merged into the `attributes` of the corresponding [ProductVariant](ctp:api:type:ProductVariant):
+   *	If present, these Attributes are selectively merged into the `attributes` of the corresponding [ProductVariant](ctp:api:type:ProductVariant) or [Variant](ctp:api:type:Variant) ([BETA](/offering/compatibility#public-beta)):
    *
-   *	- If the ProductVariant contains an Attribute with the same `name`, its `value` is overwritten,
-   *	- otherwise the Attribute and its value are added to the ProductVariant.
+   *	- If the ProductVariant or Variant ([BETA](/offering/compatibility#public-beta)) contains an Attribute with the same `name`, its `value` is overwritten. Otherwise, the Attribute and its value are added to the ProductVariant or Variant ([BETA](/offering/compatibility#public-beta)).
    *
    *
    */
   readonly attributes?: ProductTailoringAttribute[]
 }
 /**
- *	Either `id` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists.
+ *	Either `id` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) or [Variant](ctp:api:type:Variant) ([BETA](/offering/compatibility#public-beta)) that exists.
  *
  */
 export interface ProductVariantTailoringDraft {
   /**
-   *	The `id` of the [ProductVariant](ctp:api:type:ProductVariant) to be tailored.
+   *	The `id` of the [ProductVariant](ctp:api:type:ProductVariant) or [Variant](ctp:api:type:Variant) ([BETA](/offering/compatibility#public-beta)) to be tailored.
    *
    *
    */
   readonly id?: number
   /**
-   *	The `sku` of the [ProductVariant](ctp:api:type:ProductVariant) to be tailored.
+   *	The `sku` of the [ProductVariant](ctp:api:type:ProductVariant) or [Variant](ctp:api:type:Variant) ([BETA](/offering/compatibility#public-beta)) to be tailored.
    *
    *
    */
@@ -532,29 +531,28 @@ export interface ProductVariantTailoringDraft {
   readonly assets?: Asset[]
   /**
    *	Attributes of the tailored Product Variant according to the respective [AttributeDefinition](ctp:api:type:AttributeDefinition).
-   *	If provided, these Attributes are selectively merged into the `attributes` of the corresponding [ProductVariant](ctp:api:type:ProductVariant):
+   *	If provided, these Attributes are selectively merged into the `attributes` of the corresponding [ProductVariant](ctp:api:type:ProductVariant) or [Variant](ctp:api:type:Variant) ([BETA](/offering/compatibility#public-beta)):
    *
-   *	- If the ProductVariant contains an Attribute with the same `name`, its `value` is overwritten,
-   *	- otherwise the Attribute and its value are added to the ProductVariant.
+   *	- If the ProductVariant or Variant ([BETA](/offering/compatibility#public-beta)) contains an Attribute with the same `name`, its `value` is overwritten. Otherwise, the Attribute and its value are added to the ProductVariant or Variant ([BETA](/offering/compatibility#public-beta)).
    *
    *
    */
   readonly attributes?: ProductTailoringAttribute[]
 }
 /**
- *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists.
+ *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) or [Variant](ctp:api:type:Variant) ([BETA](/offering/compatibility#public-beta)) that exists.
  *
  */
 export interface ProductTailoringAddAssetAction extends IProductTailoringUpdateAction {
   readonly action: 'addAsset'
   /**
-   *	The `id` of the tailored ProductVariant to update.
+   *	The `id` of the tailored ProductVariant or Variant ([BETA](/offering/compatibility#public-beta)) to update.
    *
    *
    */
   readonly variantId?: number
   /**
-   *	The `sku` of the tailored ProductVariant to update.
+   *	The `sku` of the tailored ProductVariant or Variant ([BETA](/offering/compatibility#public-beta)) to update.
    *
    *
    */
@@ -579,19 +577,19 @@ export interface ProductTailoringAddAssetAction extends IProductTailoringUpdateA
   readonly position?: number
 }
 /**
- *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists. Produces the [ProductTailoringImageAdded](/projects/messages/product-catalog-messages#product-tailoring-image-added) Message.
+ *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) or [Variant](ctp:api:type:Variant) ([BETA](/offering/compatibility#public-beta)) that exists. Produces the [ProductTailoringImageAdded](/projects/messages/product-catalog-messages#product-tailoring-image-added) Message.
  *
  */
 export interface ProductTailoringAddExternalImageAction extends IProductTailoringUpdateAction {
   readonly action: 'addExternalImage'
   /**
-   *	The `id` of the tailored ProductVariant to update.
+   *	The `id` of the tailored ProductVariant or Variant ([BETA](/offering/compatibility#public-beta)) to update.
    *
    *
    */
   readonly variantId?: number
   /**
-   *	The `sku` of the tailored ProductVariant to update.
+   *	The `sku` of the tailored ProductVariant or Variant ([BETA](/offering/compatibility#public-beta)) to update.
    *
    *
    */
@@ -610,20 +608,20 @@ export interface ProductTailoringAddExternalImageAction extends IProductTailorin
   readonly staged?: boolean
 }
 /**
- *	Either `id` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists.
+ *	Either `id` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) or [Variant](ctp:api:type:Variant) ([BETA](/offering/compatibility#public-beta)) that exists.
  *	Produces the [ProductVariantTailoringAdded](ctp:api:type:ProductVariantTailoringAddedMessage) Message.
  *
  */
 export interface ProductTailoringAddVariantAction extends IProductTailoringUpdateAction {
   readonly action: 'addVariant'
   /**
-   *	The `id` of the tailored ProductVariant to update.
+   *	The `id` of the tailored ProductVariant or Variant ([BETA](/offering/compatibility#public-beta)) to update.
    *
    *
    */
   readonly id?: number
   /**
-   *	The `sku` of the tailored ProductVariant to update.
+   *	The `sku` of the tailored ProductVariant or Variant ([BETA](/offering/compatibility#public-beta)) to update.
    *
    *
    */
@@ -729,19 +727,19 @@ export interface ProductTailoringChangeAssetOrderAction extends IProductTailorin
   readonly assetOrder: string[]
 }
 /**
- *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists.
+ *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) or [Variant](ctp:api:type:Variant) ([BETA](/offering/compatibility#public-beta)) that exists.
  *
  */
 export interface ProductTailoringMoveImageToPositionAction extends IProductTailoringUpdateAction {
   readonly action: 'moveImageToPosition'
   /**
-   *	The `id` of the tailored ProductVariant to update.
+   *	The `id` of the tailored ProductVariant or Variant ([BETA](/offering/compatibility#public-beta)) to update.
    *
    *
    */
   readonly variantId?: number
   /**
-   *	The `sku` of the tailored ProductVariant to update.
+   *	The `sku` of the tailored ProductVariant or Variant ([BETA](/offering/compatibility#public-beta)) to update.
    *
    *
    */
@@ -774,20 +772,20 @@ export interface ProductTailoringPublishAction extends IProductTailoringUpdateAc
   readonly action: 'publish'
 }
 /**
- *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists.
+ *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) or [Variant](ctp:api:type:Variant) ([BETA](/offering/compatibility#public-beta)) that exists.
  *	The Asset to remove must be specified using either `assetId` or `assetKey`.
  *
  */
 export interface ProductTailoringRemoveAssetAction extends IProductTailoringUpdateAction {
   readonly action: 'removeAsset'
   /**
-   *	The `id` of the tailored ProductVariant to update.
+   *	The `id` of the tailored ProductVariant or Variant ([BETA](/offering/compatibility#public-beta)) to update.
    *
    *
    */
   readonly variantId?: number
   /**
-   *	The `sku` of the tailored ProductVariant to update.
+   *	The `sku` of the tailored ProductVariant or Variant ([BETA](/offering/compatibility#public-beta)) to update.
    *
    *
    */
@@ -812,19 +810,19 @@ export interface ProductTailoringRemoveAssetAction extends IProductTailoringUpda
   readonly assetKey?: string
 }
 /**
- *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists.
+ *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) or [Variant](ctp:api:type:Variant) ([BETA](/offering/compatibility#public-beta)) that exists.
  *
  */
 export interface ProductTailoringRemoveImageAction extends IProductTailoringUpdateAction {
   readonly action: 'removeImage'
   /**
-   *	The `id` of the tailored ProductVariant to update.
+   *	The `id` of the tailored ProductVariant or Variant ([BETA](/offering/compatibility#public-beta)) to update.
    *
    *
    */
   readonly variantId?: number
   /**
-   *	The `sku` of the tailored ProductVariant to update.
+   *	The `sku` of the tailored ProductVariant or Variant ([BETA](/offering/compatibility#public-beta)) to update.
    *
    *
    */
@@ -850,13 +848,13 @@ export interface ProductTailoringRemoveImageAction extends IProductTailoringUpda
 export interface ProductTailoringRemoveVariantAction extends IProductTailoringUpdateAction {
   readonly action: 'removeVariant'
   /**
-   *	The `id` of the ProductVariant to remove from the Tailoring.
+   *	The `id` of the ProductVariant or Variant ([BETA](/offering/compatibility#public-beta)) to remove from the Tailoring.
    *
    *
    */
   readonly id?: number
   /**
-   *	The `sku` of the ProductVariant to remove from the Tailoring.
+   *	The `sku` of the ProductVariant or Variant ([BETA](/offering/compatibility#public-beta)) to remove from the Tailoring.
    *
    *
    */
@@ -1149,14 +1147,14 @@ export interface ProductTailoringSetAssetTagsAction extends IProductTailoringUpd
 export interface ProductTailoringSetAttributeAction extends IProductTailoringUpdateAction {
   readonly action: 'setAttribute'
   /**
-   *	The `id` of the ProductVariant to update.
+   *	The `id` of the ProductVariant or Variant ([BETA](/offering/compatibility#public-beta)) to update.
    *	Required if `sku` is absent.
    *
    *
    */
   readonly variantId?: number
   /**
-   *	The `sku` of the ProductVariant to update.
+   *	The `sku` of the ProductVariant or Variant ([BETA](/offering/compatibility#public-beta)) to update.
    *	Required if `variantId` is absent.
    *
    *
@@ -1250,28 +1248,28 @@ export interface ProductTailoringSetDescriptionAction extends IProductTailoringU
   readonly staged?: boolean
 }
 /**
- *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists. Produces the [ProductTailoringImagesSet](/projects/messages/product-catalog-messages#product-tailoring-images-set) Message.
+ *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) or [Variant](ctp:api:type:Variant) ([BETA](/offering/compatibility#public-beta)) that exists. Produces the [ProductTailoringImagesSet](/projects/messages/product-catalog-messages#product-tailoring-images-set) Message.
  *
  */
 export interface ProductTailoringSetExternalImagesAction extends IProductTailoringUpdateAction {
   readonly action: 'setImages'
   /**
-   *	The `id` of the tailored ProductVariant to update.
+   *	The `id` of the tailored ProductVariant or Variant ([BETA](/offering/compatibility#public-beta)) to update.
    *
    *
    */
   readonly variantId?: number
   /**
-   *	The `sku` of the tailored ProductVariant to update.
+   *	The `sku` of the tailored ProductVariant or Variant ([BETA](/offering/compatibility#public-beta)) to update.
    *
    *
    */
   readonly sku?: string
   /**
-   *	Images of the tailored ProductVariant.
+   *	Images of the tailored ProductVariant or Variant ([BETA](/offering/compatibility#public-beta)).
    *
-   *	Don't provide this field if you want to remove all images from the tailored Product Variant.
-   *	Set to `[]` (empty) if you want to hide all images of the original ProductVariant on the tailored ProductVariant.
+   *	Don't provide this field if you want to remove all images from the tailored ProductVariant or Variant ([BETA](/offering/compatibility#public-beta)).
+   *	Set to `[]` (empty) if you want to hide all images of the original ProductVariant or Variant ([BETA](/offering/compatibility#public-beta)) on the tailored ProductVariant or Variant ([BETA](/offering/compatibility#public-beta)).
    *
    *
    */
@@ -1284,19 +1282,19 @@ export interface ProductTailoringSetExternalImagesAction extends IProductTailori
   readonly staged?: boolean
 }
 /**
- *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists.
+ *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) or [Variant](ctp:api:type:Variant) ([BETA](/offering/compatibility#public-beta)) that exists.
  *
  */
 export interface ProductTailoringSetImageLabelAction extends IProductTailoringUpdateAction {
   readonly action: 'setImageLabel'
   /**
-   *	The `sku` of the tailored ProductVariant to update.
+   *	The `sku` of the tailored ProductVariant or Variant ([BETA](/offering/compatibility#public-beta)) to update.
    *
    *
    */
   readonly sku?: string
   /**
-   *	The `id` of the tailored ProductVariant to update.
+   *	The `id` of the tailored ProductVariant or Variant ([BETA](/offering/compatibility#public-beta)) to update.
    *
    *
    */

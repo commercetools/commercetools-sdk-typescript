@@ -117,6 +117,7 @@ export type ErrorObject =
   | ObjectNotFoundError
   | OutOfStockError
   | OverCapacityError
+  | OverlappingPriceValidityError
   | OverlappingStandalonePriceValidityError
   | PendingOperationError
   | PriceChangedError
@@ -873,9 +874,7 @@ export interface ErrorResponse {
   readonly errors?: ErrorObject[]
 }
 export type _ErrorResponse =
-  | ErrorResponse
-  | AuthErrorResponse
-  | ProductSearchErrorResponse
+  ErrorResponse | AuthErrorResponse | ProductSearchErrorResponse
 /**
  *	Represents errors related to authentication and authorization in a format conforming to the [OAuth 2.0 specification](https://datatracker.ietf.org/doc/html/rfc6749#section-5.2).
  *
@@ -1888,6 +1887,77 @@ export interface OverCapacityError extends IErrorObject {
 }
 /**
  *	Returned when a given Price validity period conflicts with an existing one.
+ *	Every Price of a Product Variant with the same combination of currency, country, Customer Group, and Channel must have non-overlapping validity periods (`validFrom` and `validUntil`).
+ *
+ *	The error is returned as a failed response to the [Create Product](ctp:api:endpoint:/{projectKey}/products:POST) or [Update Product](/api/projects/products#update-product) request.
+ *
+ */
+export interface OverlappingPriceValidityError extends IErrorObject {
+  readonly code: 'OverlappingPriceValidity'
+  [key: string]: any
+  /**
+   *	`"Two prices have overlapping validity periods."`
+   *
+   *
+   */
+  readonly message: string
+  /**
+   *	Unique identifier of the conflicting Embedded Price.
+   *
+   *
+   */
+  readonly conflictingPrice: string
+  /**
+   *	Currency code of the Price.
+   *
+   *
+   */
+  readonly currency: string
+  /**
+   *	Country code of the Price.
+   *
+   *
+   */
+  readonly country?: string
+  /**
+   *	[CustomerGroup](ctp:api:type:CustomerGroup) for which the Price is valid.
+   *
+   *
+   */
+  readonly customerGroup?: CustomerGroupResourceIdentifier
+  /**
+   *	[Channel](ctp:api:type:Channel) for which the Price is valid.
+   *
+   *
+   */
+  readonly channel?: ChannelResourceIdentifier
+  /**
+   *	Date and time (UTC) from which the Embedded Price is valid.
+   *
+   *
+   */
+  readonly validFrom?: string
+  /**
+   *	Date and time (UTC) until which the Embedded Price is valid.
+   *
+   *
+   */
+  readonly validUntil?: string
+  /**
+   *	Date and time (UTC) from which the conflicting Embedded Price is valid.
+   *
+   *
+   */
+  readonly conflictingValidFrom?: string
+  /**
+   *	Date and time (UTC) until which the conflicting Embedded Price is valid.
+   *
+   *
+   */
+  readonly conflictingValidUntil?: string
+}
+/**
+ *	Returned when a given Price validity period conflicts with an existing one.
  *	Every Standalone Price associated with the same SKU and with the same combination of currency, country, Customer Group, and Channel, must have non-overlapping validity periods (`validFrom` and `validUntil`).
  *
  *	The error is returned as a failed response to the [Create StandalonePrice](ctp:api:endpoint:/{projectKey}/standalone-prices:POST) request.
@@ -2525,6 +2595,7 @@ export type GraphQLErrorObject =
   | GraphQLObjectNotFoundError
   | GraphQLOutOfStockError
   | GraphQLOverCapacityError
+  | GraphQLOverlappingPriceValidityError
   | GraphQLOverlappingStandalonePriceValidityError
   | GraphQLPendingOperationError
   | GraphQLPriceChangedError
@@ -3806,6 +3877,71 @@ export interface GraphQLOutOfStockError extends IGraphQLErrorObject {
 export interface GraphQLOverCapacityError extends IGraphQLErrorObject {
   readonly code: 'OverCapacity'
   [key: string]: any
+}
+/**
+ *	Returned when a given Price validity period conflicts with an existing one.
+ *	Every Price of a Product Variant with the same combination of currency, country, Customer Group, and Channel must have non-overlapping validity periods (`validFrom` and `validUntil`).
+ *
+ *	The error is returned as a failed response to the [Create Product](ctp:api:endpoint:/{projectKey}/products:POST) or [Update Product](/api/projects/products#update-product) request.
+ *
+ */
+export interface GraphQLOverlappingPriceValidityError extends IGraphQLErrorObject {
+  readonly code: 'OverlappingPriceValidity'
+  [key: string]: any
+  /**
+   *	Unique identifier of the conflicting Embedded Price.
+   *
+   *
+   */
+  readonly conflictingPrice: string
+  /**
+   *	Currency code of the Price.
+   *
+   *
+   */
+  readonly currency: string
+  /**
+   *	Country code of the Price.
+   *
+   *
+   */
+  readonly country?: string
+  /**
+   *	[CustomerGroup](ctp:api:type:CustomerGroup) for which the Price is valid.
+   *
+   *
+   */
+  readonly customerGroup?: CustomerGroupResourceIdentifier
+  /**
+   *	[Channel](ctp:api:type:Channel) for which the Price is valid.
+   *
+   *
+   */
+  readonly channel?: ChannelResourceIdentifier
+  /**
+   *	Date and time (UTC) from which the Embedded Price is valid.
+   *
+   *
+   */
+  readonly validFrom?: string
+  /**
+   *	Date and time (UTC) until which the Embedded Price is valid.
+   *
+   *
+   */
+  readonly validUntil?: string
+  /**
+   *	Date and time (UTC) from which the conflicting Embedded Price is valid.
+   *
+   *
+   */
+  readonly conflictingValidFrom?: string
+  /**
+   *	Date and time (UTC) until which the conflicting Embedded Price is valid.
+   *
+   *
+   */
+  readonly conflictingValidUntil?: string
 }
 /**
  *	Returned when a given Price validity period conflicts with an existing one.

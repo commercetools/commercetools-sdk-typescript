@@ -93,10 +93,7 @@ export enum PaymentIntentOutcomeValues {
 }
 
 export type PaymentIntentOutcome =
-  | 'approved'
-  | 'received'
-  | 'rejected'
-  | (string & {})
+  'approved' | 'received' | 'rejected' | (string & {})
 /**
  *	Requests to [refund](/payments-lifecycle#refund) the given amount to the customer. Checkout will request the PSP or gift card management system to proceed with the financial process to refund the amount.
  *

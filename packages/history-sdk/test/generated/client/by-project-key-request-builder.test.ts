@@ -139,6 +139,13 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
+      uri: '/test_projectKey?withTotal=true',
+      request: apiRoot
+        .withProjectKeyValue({ projectKey: 'test_projectKey' })
+        .get({ queryArgs: { withTotal: true } }),
+    },
+    {
+      method: 'get',
       uri: '/test_projectKey',
       request: apiRoot
         .withProjectKeyValue({ projectKey: 'test_projectKey' })

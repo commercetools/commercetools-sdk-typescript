@@ -17,6 +17,7 @@ import {
   LocalizedString,
   Reference,
 } from './common'
+import { StoreKeyReference } from './store'
 import {
   CustomFields,
   CustomFieldsDraft,
@@ -91,6 +92,14 @@ export interface DiscountCode extends BaseResource {
    */
   readonly cartDiscounts: CartDiscountReference[]
   /**
+   *	Reference to the Stores the DiscountCode is associated with, derived from the `stores` field of each referenced [CartDiscount](ctp:api:type:CartDiscount).
+   *
+   *	The value of this field is [eventually consistent](/api/general-concepts#eventual-consistency).
+   *
+   *
+   */
+  readonly stores: StoreKeyReference[]
+  /**
    *	DiscountCode can only be applied to Carts that match this predicate.
    *
    *
@@ -111,7 +120,11 @@ export interface DiscountCode extends BaseResource {
   readonly references: Reference[]
   /**
    *	Number of times the DiscountCode can be applied.
+   *
    *	DiscountCode application is counted at the time of Order creation or edit. However, Order cancellation or deletion does not decrement the count.
+   *
+   *	If `maxApplicationsPerCustomer` is set, each application also counts toward this limit.
+   *
    *	This field does not limit discount applications for Orders created from a [Recurring Order](ctp:api:type:RecurringOrder).
    *
    *
@@ -119,7 +132,11 @@ export interface DiscountCode extends BaseResource {
   readonly maxApplications?: number
   /**
    *	Number of times the DiscountCode can be applied per Customer (anonymous Carts are not supported).
+   *
+   *	Each use also counts toward the `maxApplications` limit.
+   *
    *	DiscountCode application is counted at the time of Order creation or edit. However, Order cancellation or deletion does not decrement the count.
+   *
    *	This field does not limit discount applications for Orders created from a [Recurring Order](ctp:api:type:RecurringOrder).
    *
    *
@@ -206,6 +223,9 @@ export interface DiscountCodeDraft {
    *	Number of times the DiscountCode can be applied.
    *
    *	If not set, the DiscountCode can be applied any number of times.
+   *
+   *	If `maxApplicationsPerCustomer` is set, each application also counts toward this limit.
+   *
    *	This field does not limit discount applications for Orders created from a [Recurring Order](ctp:api:type:RecurringOrder).
    *
    *
@@ -215,6 +235,9 @@ export interface DiscountCodeDraft {
    *	Number of times the DiscountCode can be applied per Customer.
    *
    *	If not set, the DiscountCode can be applied any number of times.
+   *
+   *	Each use also counts toward the `maxApplications` limit.
+   *
    *	This field does not limit discount applications for Orders created from a [Recurring Order](ctp:api:type:RecurringOrder).
    *
    *
@@ -457,6 +480,9 @@ export interface DiscountCodeSetMaxApplicationsAction extends IDiscountCodeUpdat
    *	Value to set.
    *
    *	If empty, any existing value will be removed and the DiscountCode can be applied any number of times.
+   *
+   *	If `maxApplicationsPerCustomer` is set, each application also counts toward this limit.
+   *
    *	This field does not limit discount applications for Orders created from a [Recurring Order](ctp:api:type:RecurringOrder).
    *
    *
@@ -469,6 +495,9 @@ export interface DiscountCodeSetMaxApplicationsPerCustomerAction extends IDiscou
    *	Value to set.
    *
    *	If empty, any existing value will be removed and the DiscountCode can be applied any number of times.
+   *
+   *	Each use also counts toward the `maxApplications` limit.
+   *
    *	This field does not limit discount applications for Orders created from a [Recurring Order](ctp:api:type:RecurringOrder).
    *
    *
