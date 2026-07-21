@@ -44,7 +44,7 @@ We have a doc with a curated list of best practices designed to assist developer
 | [`platform-sdk`](/packages/platform-sdk)   | [![platform-sdk Version][platform-sdk-icon]][platform-sdk-version]    |
 | [`importapi-sdk`](/packages/importapi-sdk) | [![importapi-sdk Version][importapi-sdk-icon]][importapi-sdk-version] |
 | [`history-sdk`](/packages/history-sdk)     | [![history-sdk Version][history-sdk-icon]][history-sdk-version]       |
-| [`checkout-sdk`](/packages/checkout-sdk)     | [![checkout-sdk Version][checkout-sdk-icon]][checkout-sdk-version]       |
+| [`checkout-sdk`](/packages/checkout-sdk)   | [![checkout-sdk Version][checkout-sdk-icon]][checkout-sdk-version]    |
 | [`ts-client`](/packages/sdk-client-v3)     | [![client-sdk Version][sdk-client-icon]][sdk-client-version]          |
 
 [platform-sdk-version]: https://www.npmjs.com/package/@commercetools/platform-sdk

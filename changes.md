@@ -33,7 +33,9 @@
 <summary>Added Type(s)</summary>
 
 - added type `OverlappingPriceValidityError`
+- added type `UnauthorizedError`
 - added type `GraphQLOverlappingPriceValidityError`
+- added type `GraphQLUnauthorizedError`
 - added type `CommerceMcpServerConfig`
 - added type `CommerceMcpServerConfigDraft`
 - added type `McpServer`
