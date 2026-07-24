@@ -66,6 +66,9 @@
 - added type `McpServerSetToolCustomizationsAction`
 - added type `McpServerSetToolOutputFormattingAction`
 - added type `McpServerSetToolsAction`
+- added type `ProductTailoringKeySetMessage`
+- added type `ProductTailoringKeySetMessagePayload`
+- added type `ProductTailoringSetKeyAction`
 
 </details>
 
