@@ -4,10 +4,9 @@
   "engines": {
     "node": ">=22"
   },
-  "description": "commercetools Composable Commerce TypeScript SDK client.",
+  "description": "commercetools TypeScript SDK client.",
   "keywords": [
     "commercetools",
-    "composable commerce",
     "sdk",
     "typescript",
     "client",

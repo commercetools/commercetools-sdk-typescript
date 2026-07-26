@@ -326,6 +326,6 @@ See this [test](https://github.com/commercetools/commercetools-sdk-typescript/bl
 
 ## How to read or write fields not included in the SDK
 
-In some rare occasions some object properties can be returned by Composable Commerce that are not part of the SDK response specification. E.g the error response object has some entries which are not specified as part of the TS SDK error types. In this situation, the existing type can be extended with the missing property or ignored entirely. [See this issue](https://github.com/commercetools/commercetools-sdk-typescript/issues/247#issuecomment-1103705075) for more explanation on this.
+In some rare occasions some object properties can be returned that are not part of the SDK response specification. E.g the error response object has some entries which are not specified as part of the TS SDK error types. In this situation, the existing type can be extended with the missing property or ignored entirely. [See this issue](https://github.com/commercetools/commercetools-sdk-typescript/issues/247#issuecomment-1103705075) for more explanation on this.
 
 It is also noteworthy that this omission can be as a result of the entries not being part of the [official docs](https://docs.commercetools.com/api/errors) to get a clear type specification for these entries.

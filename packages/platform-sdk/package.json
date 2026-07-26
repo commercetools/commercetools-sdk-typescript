@@ -8,8 +8,8 @@
   "engines": {
     "node": ">=22"
   },
-  "description": "TypeScript definitions and SDK for commercetools Composable Commerce",
-  "keywords": ["commercetools", "composable commerce", "typescript", "sdk"],
+  "description": "TypeScript definitions and SDK for commercetools HTTP API",
+  "keywords": ["commercetools", "typescript", "sdk"],
   "homepage": "https://github.com/commercetools/commercetools-sdk-typescript",
   "bugs": "https://github.com/commercetools/commercetools-sdk-typescript/issues",
   "repository": {

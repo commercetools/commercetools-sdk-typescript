@@ -8,10 +8,9 @@
   "engines": {
     "node": ">=22"
   },
-  "description": "Typescript SDK for Composable Commerce Audit Log features",
+  "description": "Typescript SDK for commercetools Audit Log features",
   "keywords": [
     "commercetools",
-    "composable commerce",
     "typescript",
     "sdk",
     "history"

@@ -1,6 +1,6 @@
-# Composable Commerce TypeScript SDKs Generation
+# commercetools TypeScript SDKs Generation
 
-This repo contains Composable Commerce SDKs and this is a guide on how to generate the Typescript SDK.
+This repo contains commercetools SDKs and this is a guide on how to generate the Typescript SDK.
 
 ## Requirements
 
@@ -20,13 +20,13 @@ run `yarn generate` to generate the sdks. (make sure the environment variables a
 
 | Variable name |                                                    Description                                                     |
 | ------------- | :----------------------------------------------------------------------------------------------------------------: |
-| API_RAML_FILE | The path to Composable Commerce [HTTP API reference](https://github.com/commercetools/commercetools-api-reference) |
+| API_RAML_FILE | The path to commercetools [HTTP API reference](https://github.com/commercetools/commercetools-api-reference) |
 
 ## Test environnement variables
 
 | Variable name     |                  Description                   |
 | ----------------- | :--------------------------------------------: |
-| CTP_PROJECT_KEY   |        Composable Commerce Project key         |
+| CTP_PROJECT_KEY   |        commercetools Project key         |
 | CTP_CLIENT_ID     |                 the client id                  |
 | CTP_CLIENT_SECRET |               the client secret                |
 | CTP_API_URL       | the API url (contains infos about the region)  |
