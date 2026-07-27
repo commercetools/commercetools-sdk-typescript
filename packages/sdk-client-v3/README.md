@@ -1,4 +1,4 @@
-# Commercetools Composable Commerce (Improved) TypeScript SDK client
+# commercetools (Improved) TypeScript SDK client
 
 This is the new and improved Typescript SDK client.
 
@@ -85,7 +85,7 @@ const client: Client = new ClientBuilder()
 
 const apiRoot = createApiBuilderFromCtpClient(client)
 
-// calling the Composable Commerce `api` functions
+// calling the commercetools `api` functions
 // get project details
 apiRoot
   .withProjectKey({ projectKey })

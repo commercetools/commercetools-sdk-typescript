@@ -8,10 +8,9 @@
   "engines": {
     "node": ">=22"
   },
-  "description": "Typescript SDK for Composable Commerce Checkout API",
+  "description": "Typescript SDK for the commercetools Checkout API",
   "keywords": [
     "commercetools",
-    "composable commerce",
     "typescript",
     "sdk",
     "checkout"

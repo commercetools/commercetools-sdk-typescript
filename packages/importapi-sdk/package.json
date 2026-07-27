@@ -8,10 +8,9 @@
   "engines": {
     "node": ">=22"
   },
-  "description": "TypeScript SDK for Composable Commerce Import API features",
+  "description": "TypeScript SDK for commercetools Import API features",
   "keywords": [
     "commercetools",
-    "composable commerce",
     "typescript",
     "sdk",
     "import"
