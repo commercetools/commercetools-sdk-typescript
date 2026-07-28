@@ -6,6 +6,7 @@
 import { Variant, VariantUpdate } from '../../models/variant'
 import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
+import { ByProjectKeyVariantsByIDImagesRequestBuilder } from '../images/by-project-key-variants-by-id-images-request-builder'
 /**
  **/
 export class ByProjectKeyVariantsByIDRequestBuilder {
@@ -19,6 +20,16 @@ export class ByProjectKeyVariantsByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
+  public images(): ByProjectKeyVariantsByIDImagesRequestBuilder {
+    return new ByProjectKeyVariantsByIDImagesRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+
   /**
    *	Retrieves a Variant by its ID.
    *

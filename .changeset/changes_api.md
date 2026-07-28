@@ -9,6 +9,7 @@
 
 - added method `apiRoot.withProjectKey().mcpServers().get()`
 - added method `apiRoot.withProjectKey().mcpServers().post()`
+- added method `apiRoot.withProjectKey().variants().withId().images().post()`
 - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().discountCodes().get()`
 - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().discountCodes().head()`
 - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().discountCodes().withKey().get()`
@@ -30,6 +31,7 @@
 <summary>Added Property(s)</summary>
 
 - added property `stores` to type `DiscountCode`
+- added property `warnings` to type `Variant`
 
 </details>
 
@@ -73,6 +75,8 @@
 - added type `ProductTailoringKeySetMessage`
 - added type `ProductTailoringKeySetMessagePayload`
 - added type `ProductTailoringSetKeyAction`
+- added type `VariantMoveImageToPositionAction`
+- added type `VariantSetImageLabelAction`
 
 </details>
 
@@ -88,6 +92,7 @@
 <summary>Added Resource(s)</summary>
 
 - added resource `/{projectKey}/mcp-servers`
+- added resource `/{projectKey}/variants/{ID}/images`
 - added resource `/{projectKey}/in-store/key={storeKey}/discount-codes`
 - added resource `/{projectKey}/in-store/key={storeKey}/discount-codes/key={key}`
 - added resource `/{projectKey}/in-store/key={storeKey}/discount-codes/{ID}`

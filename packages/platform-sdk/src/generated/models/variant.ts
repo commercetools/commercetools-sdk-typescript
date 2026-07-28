@@ -24,6 +24,7 @@ import {
   ProductResourceIdentifier,
 } from './product'
 import { FieldContainer, TypeResourceIdentifier } from './type'
+import { WarningObject } from './warning'
 
 /**
  *	A Variant represents a single Variant with both current (published) and staged (draft) data.
@@ -105,6 +106,13 @@ export interface Variant extends BaseResource {
    *
    */
   readonly staged?: VariantData
+  /**
+   *	Warnings about processing of a request.
+   *	Appears in response to requests with response status code `202 Accepted`.
+   *
+   *
+   */
+  readonly warnings?: WarningObject[]
 }
 /**
  *	The request body for a bulk update of Variants.
@@ -588,6 +596,7 @@ export type VariantUpdateAction =
   | VariantAddExternalImageAction
   | VariantChangeAssetNameAction
   | VariantChangeAssetOrderAction
+  | VariantMoveImageToPositionAction
   | VariantPublishAction
   | VariantRemoveAssetAction
   | VariantRemoveImageAction
@@ -601,6 +610,7 @@ export type VariantUpdateAction =
   | VariantSetAssetsAction
   | VariantSetAttributeAction
   | VariantSetAttributesAction
+  | VariantSetImageLabelAction
   | VariantSetImagesAction
   | VariantSetKeyAction
   | VariantSetSkuAction
@@ -705,6 +715,31 @@ export interface VariantChangeAssetOrderAction extends IVariantUpdateAction {
    *
    */
   readonly assetOrder: string[]
+}
+/**
+ *	Moves a Variant's image to a new position.
+ *
+ */
+export interface VariantMoveImageToPositionAction extends IVariantUpdateAction {
+  readonly action: 'moveImageToPosition'
+  /**
+   *	The URL of the image to update.
+   *
+   *
+   */
+  readonly imageUrl: string
+  /**
+   *	Position in `images` where the image should be moved. Must be between `0` and the total number of images minus `1`.
+   *
+   *
+   */
+  readonly position: number
+  /**
+   *	If `true`, only the staged `images` is updated. If `false`, both the current and staged `images` is updated.
+   *
+   *
+   */
+  readonly staged?: boolean
 }
 /**
  *	Publishes the Variant by copying the staged data to the current data and setting the `published` flag to `true`. Staged will be empty.
@@ -1029,6 +1064,31 @@ export interface VariantSetAttributesAction extends IVariantUpdateAction {
   readonly attributes: Attribute[]
   /**
    *	If `true`, only the staged attributes are updated. If `false`, both the current and staged attributes are updated.
+   *
+   *
+   */
+  readonly staged?: boolean
+}
+/**
+ *	Sets the label of a Variant's image.
+ *
+ */
+export interface VariantSetImageLabelAction extends IVariantUpdateAction {
+  readonly action: 'setImageLabel'
+  /**
+   *	The URL of the image to set the label.
+   *
+   *
+   */
+  readonly imageUrl: string
+  /**
+   *	Value to set. If empty, any existing value will be removed.
+   *
+   *
+   */
+  readonly label?: string
+  /**
+   *	If `true`, only the staged image is updated. If `false`, both the current and staged image is updated.
    *
    *
    */
