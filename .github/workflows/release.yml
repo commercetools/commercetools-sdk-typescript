@@ -52,16 +52,19 @@ jobs:
       # Configure npm for OIDC authentication with trusted publishing
       # This must be done after CI setup to ensure npm is properly configured
 
-      # setup-node@v4 with registry-url automatically configures OIDC when id-token: write is set
+      # setup-node with registry-url automatically configures OIDC when id-token: write is set
       - name: Setup Node.js for npm publishing
         uses: actions/setup-node@v7
         with:
           node-version: "24"
           registry-url: "https://registry.npmjs.org"
 
-      - name: Building packages
-        run: yarn build
-
+      # Must run before any yarn command. setup-node writes an .npmrc containing
+      # `_authToken=${NODE_AUTH_TOKEN}` and points NPM_CONFIG_USERCONFIG at it. Since
+      # setup-node v7 no longer exports a dummy NODE_AUTH_TOKEN (actions/setup-node#1558)
+      # and we publish via OIDC rather than a token, that variable is undefined and
+      # yarn v1 hard-fails with "Failed to replace env in config: ${NODE_AUTH_TOKEN}".
+      # Dropping the auth line resolves that and leaves OIDC as the only auth mechanism.
       - name: Verify npm OIDC configuration
         run: |
           # Verify registry is set correctly
@@ -70,6 +73,9 @@ jobs:
           npm config delete //registry.npmjs.org/:_authToken || true
           # Verify npm can access the registry (this will use OIDC if configured)
           echo "npm OIDC authentication configured via setup-node action"
+
+      - name: Building packages
+        run: yarn build
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
