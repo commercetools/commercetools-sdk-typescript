@@ -2078,7 +2078,7 @@ export interface PriceChangedError extends IErrorObject {
    */
   readonly lineItems: string[]
   /**
-   *	`true` if the [ShippingRate](ctp:api:type:ShippingRate) has changed.
+   *	Whether the [ShippingRate](ctp:api:type:ShippingRate) has changed.
    *
    *
    */
@@ -4074,7 +4074,7 @@ export interface GraphQLPriceChangedError extends IGraphQLErrorObject {
    */
   readonly lineItems: string[]
   /**
-   *	`true` if the [ShippingRate](ctp:api:type:ShippingRate) has changed.
+   *	Whether the [ShippingRate](ctp:api:type:ShippingRate) has changed.
    *
    *
    */

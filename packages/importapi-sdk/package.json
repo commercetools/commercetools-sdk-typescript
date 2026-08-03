@@ -9,12 +9,7 @@
     "node": ">=22"
   },
   "description": "TypeScript SDK for commercetools Import API features",
-  "keywords": [
-    "commercetools",
-    "typescript",
-    "sdk",
-    "import"
-  ],
+  "keywords": ["commercetools", "typescript", "sdk", "import"],
   "homepage": "https://github.com/commercetools/commercetools-sdk-typescript/packages/importapi-sdk",
   "bugs": "https://github.com/commercetools/commercetools-sdk-typescript/issues",
   "repository": {

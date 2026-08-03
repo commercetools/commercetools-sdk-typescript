@@ -9,12 +9,7 @@
     "node": ">=22"
   },
   "description": "Typescript SDK for the commercetools Checkout API",
-  "keywords": [
-    "commercetools",
-    "typescript",
-    "sdk",
-    "checkout"
-  ],
+  "keywords": ["commercetools", "typescript", "sdk", "checkout"],
   "homepage": "https://github.com/commercetools/commercetools-sdk-typescript/packages/checkout-sdk",
   "bugs": "https://github.com/commercetools/commercetools-sdk-typescript/issues",
   "repository": {

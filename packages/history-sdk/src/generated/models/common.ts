@@ -176,7 +176,7 @@ export interface AttributeDefinition {
    */
   readonly label: LocalizedString
   /**
-   *	If `true`, the Attribute must have a value on a [ProductVariant](ctp:api:type:ProductVariant).
+   *	Whether the Attribute must have a value on a [ProductVariant](ctp:api:type:ProductVariant).
    *
    */
   readonly isRequired: boolean
@@ -204,7 +204,7 @@ export interface AttributeDefinition {
    */
   readonly inputHint: TextInputHint
   /**
-   *	If `true`, the Attribute's values are available in the [Product Search](/api/projects/product-search) or the [Product Projection Search](/api/projects/product-projection-search) API for use in full-text search queries, filters, and facets.
+   *	Whether the Attribute's values are available in the [Product Search](/api/projects/product-search) or the [Product Projection Search](/api/projects/product-projection-search) API for use in full-text search queries, filters, and facets.
    *	However, if an Attribute's `level` is set as `Product`, then Product Projection Search does **not support** the Attribute.
    *
    *	The exact features that are available with this flag depend on the specific [AttributeType](ctp:api:type:AttributeType).
@@ -767,8 +767,7 @@ export interface ItemShippingDetails {
    */
   readonly targets: ItemShippingTarget[]
   /**
-   *	- `true` if the quantity of Line Items or Custom Line Items is equal to the sum of sub-quantities defined in `targets`.
-   *	- `false` if the quantity of Line Items or Custom Line Items is not equal to the sum of sub-quantities defined in `targets`.
+   *	Whether the quantity of Line Items or Custom Line Items is equal to the sum of sub-quantities defined in `targets`.
    *	  Ordering a Cart when the value is `false` returns an [InvalidItemShippingDetails](ctp:api:type:InvalidItemShippingDetailsError) error.
    *
    *
@@ -1366,7 +1365,7 @@ export interface ProductSelectionSetting {
    */
   readonly productSelection: ProductSelectionReference
   /**
-   *	If `true`, all Products assigned to this Product Selection are part of the Store's assortment.
+   *	Whether all Products assigned to this Product Selection are part of the Store's assortment.
    *
    */
   readonly active: boolean
@@ -1892,7 +1891,7 @@ export interface ShippingRate {
    */
   readonly freeAbove?: CentPrecisionMoney
   /**
-   *	`true` if the ShippingRate matches given [Cart](ctp:api:type:Cart) or [Location](ctp:api:type:Location).
+   *	Whether the ShippingRate matches the given [Cart](ctp:api:type:Cart) or [Location](ctp:api:type:Location).
    *	Only appears in response to requests for [Get ShippingMethods for a Cart](ctp:api:endpoint:/{projectKey}/shipping-methods/matching-cart:GET) or
    *	[Get ShippingMethods for a Location](ctp:api:endpoint:/{projectKey}/shipping-methods/matching-location:GET).
    *
@@ -2083,7 +2082,7 @@ export interface TaxRate {
    */
   readonly amount: number
   /**
-   *	If `true`, tax is included in [Embedded Prices](ctp:api:type:Price) or [Standalone Prices](ctp:api:type:StandalonePrice), and the `taxedPrice` is present on [LineItems](ctp:api:type:LineItem). In this case, the `totalNet` price on [TaxedPrice](ctp:api:type:TaxedPrice) includes the TaxRate.
+   *	Whether tax is included in [Embedded Prices](ctp:api:type:Price) or [Standalone Prices](ctp:api:type:StandalonePrice), and the `taxedPrice` is present on [LineItems](ctp:api:type:LineItem). In this case, the `totalNet` price on [TaxedPrice](ctp:api:type:TaxedPrice) includes the TaxRate.
    *
    *
    */
@@ -2253,8 +2252,7 @@ export interface TrackingData {
    */
   readonly providerTransaction?: string
   /**
-   *	- If `true`, the Parcel is being returned.
-   *	- If `false`, the Parcel is being delivered to the customer.
+   *	Whether the Parcel is being returned. If `false`, the Parcel is being delivered to the customer.
    *
    *
    */
@@ -3425,7 +3423,7 @@ export interface ProductVariant {
    */
   readonly availability?: ProductVariantAvailability
   /**
-   *	`true` if the Product Variant matches the search query.
+   *	Whether the Product Variant matches the search query.
    *	Only available in response to a [Product Projection Search](/api/projects/product-projection-search) request.
    *
    *

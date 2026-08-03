@@ -1434,8 +1434,7 @@ export interface ItemShippingDetails {
    */
   readonly targets: ItemShippingTarget[]
   /**
-   *	- `true` if the quantity of Line Items or Custom Line Items is equal to the sum of sub-quantities defined in `targets`.
-   *	- `false` if the quantity of Line Items or Custom Line Items is not equal to the sum of sub-quantities defined in `targets`.
+   *	Whether the quantity of Line Items or Custom Line Items is equal to the sum of sub-quantities defined in `targets`.
    *	  Ordering a Cart when the value is `false` returns an [InvalidItemShippingDetails](ctp:api:type:InvalidItemShippingDetailsError) error.
    *
    *
@@ -1832,8 +1831,7 @@ export interface MergeCartDraft {
    */
   readonly mergeMode?: CartMergeMode
   /**
-   *	- If `true`, the [LineItem](ctp:api:type:LineItem) Product data (`name`, `variant`, and `productType`) of the returned Cart will be updated.
-   *	- If `false`, only the prices, discounts, and tax rates will be updated.
+   *	Whether the [LineItem](ctp:api:type:LineItem) Product data (`name`, `variant`, and `productType`) of the returned Cart will be updated. If `false`, only the prices, discounts, and tax rates will be updated.
    *
    *
    */

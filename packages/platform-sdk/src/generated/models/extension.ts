@@ -115,7 +115,7 @@ export type ExtensionAction = 'Create' | 'Update' | (string & {})
  */
 export interface ExtensionAdditionalContext {
   /**
-   *	Set to `true`, if the payload sent to the API Extension should include an [`oldResource`](ctp:api:type:ExtensionInput) field with the state of the resource before the update.
+   *	Whether the payload sent to the API Extension should include an [`oldResource`](ctp:api:type:ExtensionInput) field with the state of the resource before the update.
    *	This only applies to `Update` actions. For `Create` actions, `oldResource` is not included.
    *
    *
@@ -128,7 +128,7 @@ export interface ExtensionAdditionalContext {
  */
 export interface ExtensionAdditionalContextDraft {
   /**
-   *	Set to `true`, if the payload sent to the API Extension should include an [`oldResource`](ctp:api:type:ExtensionInput) field with the state of the resource before the update.
+   *	Whether the payload sent to the API Extension should include an [`oldResource`](ctp:api:type:ExtensionInput) field with the state of the resource before the update.
    *	This only applies to `Update` actions. For `Create` actions, `oldResource` is not included.
    *
    *

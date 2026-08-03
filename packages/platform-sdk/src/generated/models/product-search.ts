@@ -78,7 +78,7 @@ export interface ProductSearchMatchingVariantEntry {
 }
 export interface ProductSearchMatchingVariants {
   /**
-   *	`true` if all Variants of the returned Product match the search query, or if search query does not specify any expression for a [Product Variant field](/api/projects/product-search#field-levels).
+   *	Whether all Variants of the returned Product match the search query, or if search query does not specify any expression for a [Product Variant field](/api/projects/product-search#field-levels).
    *
    *	`false` if only a subset of the Product Variants match the search query.
    *
@@ -109,7 +109,7 @@ export interface ProductSearchProjectionParams {
    */
   readonly expand?: string[]
   /**
-   *	Set to `true` to retrieve the [staged](/api/projects/productProjections#current--staged) Product Projection
+   *	Whether to retrieve the [staged](/api/projects/productProjections#current--staged) Product Projection
    *
    *
    */

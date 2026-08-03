@@ -284,7 +284,7 @@ export interface Product extends BaseResource {
 }
 export interface ProductCatalogData {
   /**
-   *	If `true`, the `current` representation of the Product is retrievable in the [Product Projection](/projects/productProjections) endpoints and indexed for [Product Search](/api/projects/product-search).
+   *	Whether the `current` representation of the Product is retrievable in the [Product Projection](/projects/productProjections) endpoints and indexed for [Product Search](/api/projects/product-search).
    *
    *
    */
@@ -302,7 +302,7 @@ export interface ProductCatalogData {
    */
   readonly staged: ProductData
   /**
-   *	`true` if the `staged` data is different from the `current` data.
+   *	Whether the `staged` data is different from the `current` data.
    *
    *
    */
@@ -495,7 +495,7 @@ export interface ProductDraft {
    */
   readonly state?: StateResourceIdentifier
   /**
-   *	If `true`, the platform sets the `published` flag on the resulting [ProductCatalogData](ctp:api:type:ProductCatalogData) to `true`.
+   *	Whether the platform sets the `published` flag on the resulting [ProductCatalogData](ctp:api:type:ProductCatalogData) to `true`.
    *	This makes the current representation retrievable in [Product Projection](/projects/productProjections) endpoints and indexes it for [Product Search](/api/projects/product-search).
    *	You can also set this flag later using the [Publish](/projects/products#publish) update action.
    *
@@ -666,13 +666,13 @@ export interface ProductProjection extends BaseResource {
    */
   readonly searchKeywords?: SearchKeywords
   /**
-   *	`true` if the staged data is different from the current data.
+   *	Whether the staged data is different from the current data.
    *
    *
    */
   readonly hasStagedChanges?: boolean
   /**
-   *	`true` if the [Product](ctp:api:type:Product) is [published](ctp:api:type:CurrentStaged).
+   *	Whether the [Product](ctp:api:type:Product) is [published](ctp:api:type:CurrentStaged).
    *
    *
    */
@@ -987,7 +987,7 @@ export interface ProductVariant {
    */
   readonly availability?: ProductVariantAvailability
   /**
-   *	`true` if the Product Variant matches the search query.
+   *	Whether the Product Variant matches the search query.
    *	Only available in response to a [Product Projection Search](/api/projects/product-projection-search) request.
    *
    *
@@ -1030,7 +1030,7 @@ export interface ProductVariantAvailability {
    */
   readonly channels?: ProductVariantChannelAvailabilityMap
   /**
-   *	`true` if the Product Variant is in stock, based on an [InventoryEntry](ctp:api:type:InventoryEntry) that has no assigned supply [Channel](ctp:api:type:Channel).
+   *	Whether the Product Variant is in stock, based on an [InventoryEntry](ctp:api:type:InventoryEntry) that has no assigned supply [Channel](ctp:api:type:Channel).
    *	This value reflects global or default availability; it does not aggregate the channel-specific availabilities found in the `channels` field.
    *
    *
@@ -1281,7 +1281,7 @@ export interface ProductAddAssetAction extends IProductUpdateAction {
    */
   readonly sku?: string
   /**
-   *	If `true`, only the staged `assets` are updated. If `false`, both the current and staged `assets` are updated.
+   *	Whether only staged `assets` are updated. If `false`, both current and staged `assets` are updated.
    *
    *
    */
@@ -1324,7 +1324,7 @@ export interface ProductAddExternalImageAction extends IProductUpdateAction {
    */
   readonly image: Image
   /**
-   *	If `true`, only the staged `images` is updated. If `false`, both the current and staged `images` is updated.
+   *	Whether only staged `images` are updated. If `false`, both current and staged `images` are updated.
    *
    *
    */
@@ -1356,7 +1356,7 @@ export interface ProductAddPriceAction extends IProductUpdateAction {
    */
   readonly price: PriceDraft
   /**
-   *	If `true`, only the staged `prices` is updated. If `false`, both the current and staged `prices` are updated.
+   *	Whether only staged `prices` are updated. If `false`, both current and staged `prices` are updated.
    *
    *
    */
@@ -1380,7 +1380,7 @@ export interface ProductAddToCategoryAction extends IProductUpdateAction {
    */
   readonly orderHint?: string
   /**
-   *	If `true`, only the staged `categories` and `categoryOrderHints` are updated. If `false`, both the current and staged `categories` and `categoryOrderHints` are updated.
+   *	Whether only staged `categories` and `categoryOrderHints` are updated. If `false`, both current and staged `categories` and `categoryOrderHints` are updated.
    *
    *
    */
@@ -1418,7 +1418,7 @@ export interface ProductAddVariantAction extends IProductUpdateAction {
    */
   readonly attributes?: Attribute[]
   /**
-   *	If `true` the new Product Variant is only staged. If `false` the new Product Variant is both current and staged.
+   *	Whether the new Product Variant is only staged. If `false` the new Product Variant is both current and staged.
    *
    *
    */
@@ -1449,7 +1449,7 @@ export interface ProductChangeAssetNameAction extends IProductUpdateAction {
    */
   readonly sku?: string
   /**
-   *	If `true`, only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
+   *	Whether only the staged Asset is updated. If `false`, both the current and staged Asset are updated.
    *
    *
    */
@@ -1492,7 +1492,7 @@ export interface ProductChangeAssetOrderAction extends IProductUpdateAction {
    */
   readonly sku?: string
   /**
-   *	If `true`, only the staged `assets` is updated. If `false`, both the current and staged `assets` are updated.
+   *	Whether only staged `assets` are updated. If `false`, both current and staged `assets` are updated.
    *
    *
    */
@@ -1524,7 +1524,7 @@ export interface ProductChangeMasterVariantAction extends IProductUpdateAction {
    */
   readonly sku?: string
   /**
-   *	If `true`, only the staged Master Variant is changed. If `false`, both the current and staged Master Variant are changed.
+   *	Whether only the staged Master Variant is changed. If `false`, both the current and staged Master Variant are changed.
    *
    *
    */
@@ -1539,7 +1539,7 @@ export interface ProductChangeNameAction extends IProductUpdateAction {
    */
   readonly name: LocalizedString
   /**
-   *	If `true`, only the staged `name` is updated. If `false`, both the current and staged `name` are updated.
+   *	Whether only the staged `name` is updated. If `false`, both the current and staged `name` are updated.
    *
    *
    */
@@ -1564,7 +1564,7 @@ export interface ProductChangePriceAction extends IProductUpdateAction {
    */
   readonly price: PriceDraft
   /**
-   *	If `true`, only the staged Embedded Price is updated. If `false`, both the current and staged Embedded Price are updated.
+   *	Whether only the staged Embedded Price is updated. If `false`, both the current and staged Embedded Price are updated.
    *
    *
    */
@@ -1582,7 +1582,7 @@ export interface ProductChangeSlugAction extends IProductUpdateAction {
    */
   readonly slug: LocalizedString
   /**
-   *	If `true`, only the staged `slug` is updated. If `false`, both the current and staged `slug` are updated.
+   *	Whether only the staged `slug` is updated. If `false`, both the current and staged `slug` are updated.
    *
    *
    */
@@ -1619,7 +1619,7 @@ export interface ProductMoveImageToPositionAction extends IProductUpdateAction {
    */
   readonly position: number
   /**
-   *	If `true`, only the staged `images` is updated. If `false`, both the current and staged `images` is updated.
+   *	Whether only staged `images` are updated. If `false`, both current and staged `images` are updated.
    *
    *
    */
@@ -1659,7 +1659,7 @@ export interface ProductRemoveAssetAction extends IProductUpdateAction {
    */
   readonly sku?: string
   /**
-   *	If `true`, only the staged Asset is removed. If `false`, both the current and staged Asset is removed.
+   *	Whether only the staged Asset is removed. If `false`, both the current and staged Asset is removed.
    *
    *
    */
@@ -1689,7 +1689,7 @@ export interface ProductRemoveFromCategoryAction extends IProductUpdateAction {
    */
   readonly category: CategoryResourceIdentifier
   /**
-   *	If `true`, only the staged `categories` and `categoryOrderHints` are removed. If `false`, both the current and staged `categories` and `categoryOrderHints` are removed.
+   *	Whether only the staged `categories` and `categoryOrderHints` are removed. If `false`, both the current and staged `categories` and `categoryOrderHints` are removed.
    *
    *
    */
@@ -1723,7 +1723,7 @@ export interface ProductRemoveImageAction extends IProductUpdateAction {
    */
   readonly imageUrl: string
   /**
-   *	If `true`, only the staged image is removed. If `false`, both the current and staged image is removed.
+   *	Whether only the staged image is removed. If `false`, both the current image and staged image are removed.
    *
    *
    */
@@ -1738,7 +1738,7 @@ export interface ProductRemovePriceAction extends IProductUpdateAction {
    */
   readonly priceId: string
   /**
-   *	If `true`, only the staged Embedded Price is removed. If `false`, both the current and staged Embedded Price are removed.
+   *	Whether only the staged Embedded Price is removed. If `false`, both the current and staged Embedded Price are removed.
    *
    *
    */
@@ -1766,7 +1766,7 @@ export interface ProductRemoveVariantAction extends IProductUpdateAction {
    */
   readonly sku?: string
   /**
-   *	If `true`, only the staged ProductVariant is removed. If `false`, both the current and staged ProductVariant is removed.
+   *	Whether only the staged ProductVariant is removed. If `false`, both the current and staged ProductVariant is removed.
    *
    *
    */
@@ -1811,7 +1811,7 @@ export interface ProductSetAssetCustomFieldAction extends IProductUpdateAction {
    */
   readonly sku?: string
   /**
-   *	If `true`, only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
+   *	Whether only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
    *
    *
    */
@@ -1862,7 +1862,7 @@ export interface ProductSetAssetCustomTypeAction extends IProductUpdateAction {
    */
   readonly sku?: string
   /**
-   *	If `true`, only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
+   *	Whether only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
    *
    *
    */
@@ -1914,7 +1914,7 @@ export interface ProductSetAssetDescriptionAction extends IProductUpdateAction {
    */
   readonly sku?: string
   /**
-   *	If `true`, only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
+   *	Whether only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
    *
    *
    */
@@ -1957,7 +1957,7 @@ export interface ProductSetAssetKeyAction extends IProductUpdateAction {
    */
   readonly sku?: string
   /**
-   *	If `true`, only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
+   *	Whether only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
    *
    *
    */
@@ -1994,7 +1994,7 @@ export interface ProductSetAssetSourcesAction extends IProductUpdateAction {
    */
   readonly sku?: string
   /**
-   *	If `true`, only the staged Asset is updated. If `false` both the current and staged Asset is updated.
+   *	Whether only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
    *
    *
    */
@@ -2037,7 +2037,7 @@ export interface ProductSetAssetTagsAction extends IProductUpdateAction {
    */
   readonly sku?: string
   /**
-   *	If `true`, only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
+   *	Whether only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
    *
    *
    */
@@ -2101,7 +2101,7 @@ export interface ProductSetAttributeAction extends IProductUpdateAction {
    */
   readonly value?: any
   /**
-   *	If `true`, only the staged Attribute is set. If `false`, both the current and staged Attributes are set.
+   *	Whether only the staged Attribute is set. If `false`, both the current and staged Attributes are set.
    *
    *
    */
@@ -2137,7 +2137,7 @@ export interface ProductSetAttributeInAllVariantsAction extends IProductUpdateAc
    */
   readonly value?: any
   /**
-   *	If `true`, only the staged Attributes are set. If `false`, both the current and staged Attributes are set.
+   *	Whether only the staged Attributes are set. If `false`, both the current and staged Attributes are set.
    *
    *
    */
@@ -2158,7 +2158,7 @@ export interface ProductSetCategoryOrderHintAction extends IProductUpdateAction 
    */
   readonly orderHint?: string
   /**
-   *	If `true`, only the staged `categoryOrderHints` is updated. If `false`, both the current and staged `categoryOrderHints` are updated.
+   *	Whether only the staged `categoryOrderHints` is updated. If `false`, both the current and staged `categoryOrderHints` are updated.
    *
    *
    */
@@ -2177,7 +2177,7 @@ export interface ProductSetDefaultVariantAction extends IProductUpdateAction {
    */
   readonly variant?: VariantResourceIdentifier
   /**
-   *	If `true`, only the staged `defaultVariant` is updated. If `false`, both the current and staged `defaultVariant` are updated.
+   *	Whether only the staged `defaultVariant` is updated. If `false`, both the current and staged `defaultVariant` are updated.
    *
    *
    */
@@ -2192,7 +2192,7 @@ export interface ProductSetDescriptionAction extends IProductUpdateAction {
    */
   readonly description?: LocalizedString
   /**
-   *	If `true`, only the staged `description` is updated. If `false`, both the current and staged `description` are updated.
+   *	Whether only the staged `description` is updated. If `false`, both the current and staged `description` are updated.
    *
    *
    */
@@ -2211,7 +2211,7 @@ export interface ProductSetDiscountedPriceAction extends IProductUpdateAction {
    */
   readonly priceId: string
   /**
-   *	If `true`, only the staged Embedded Price is updated. If `false`, both the current and staged Embedded Price are updated.
+   *	Whether only the staged Embedded Price is updated. If `false`, both the current and staged Embedded Price are updated.
    *
    *
    */
@@ -2255,7 +2255,7 @@ export interface ProductSetImageLabelAction extends IProductUpdateAction {
    */
   readonly label?: string
   /**
-   *	If `true`, only the staged image is updated. If `false`, both the current and staged image is updated.
+   *	Whether only the staged image is updated. If `false`, both the current and staged image is updated.
    *
    *
    */
@@ -2281,7 +2281,7 @@ export interface ProductSetMetaDescriptionAction extends IProductUpdateAction {
    */
   readonly metaDescription?: LocalizedString
   /**
-   *	If `true`, only the staged `metaDescription` is updated. If `false`, both the current and staged `metaDescription` are updated.
+   *	Whether only the staged `metaDescription` is updated. If `false`, both the current and staged `metaDescription` are updated.
    *
    *
    */
@@ -2296,7 +2296,7 @@ export interface ProductSetMetaKeywordsAction extends IProductUpdateAction {
    */
   readonly metaKeywords?: LocalizedString
   /**
-   *	If `true`, only the staged `metaKeywords` is updated. If `false`, both the current and staged `metaKeywords` are updated.
+   *	Whether only the staged `metaKeywords` is updated. If `false`, both the current and staged `metaKeywords` are updated.
    *
    *
    */
@@ -2311,7 +2311,7 @@ export interface ProductSetMetaTitleAction extends IProductUpdateAction {
    */
   readonly metaTitle?: LocalizedString
   /**
-   *	If `true`, only the staged `metaTitle` is updated. If `false`, both the current and staged `metaTitle` are updated.
+   *	Whether only the staged `metaTitle` is updated. If `false`, both the current and staged `metaTitle` are updated.
    *
    *
    */
@@ -2330,7 +2330,7 @@ export interface ProductSetPriceKeyAction extends IProductUpdateAction {
    */
   readonly priceId: string
   /**
-   *	If `true`, only the staged [Embedded Price](ctp:api:type:Price) is updated. If `false`, both the current and staged Embedded Price are updated.
+   *	Whether only the staged [Embedded Price](ctp:api:type:Price) is updated. If `false`, both the current and staged Embedded Price are updated.
    *
    *
    */
@@ -2381,7 +2381,7 @@ export interface ProductSetPricesAction extends IProductUpdateAction {
    */
   readonly prices: PriceDraft[]
   /**
-   *	If `true`, only the staged ProductVariant is updated. If `false`, both the current and staged ProductVariant are updated.
+   *	Whether only the staged ProductVariant is updated. If `false`, both the current and staged ProductVariant are updated.
    *
    *
    */
@@ -2411,7 +2411,7 @@ export interface ProductSetProductAttributeAction extends IProductUpdateAction {
    */
   readonly value?: any
   /**
-   *	If `true`, only the staged Attribute is set. If `false`, both the current and staged Attributes are set.
+   *	Whether only the staged Attribute is set. If `false`, both the current and staged Attributes are set.
    *
    *
    */
@@ -2426,7 +2426,7 @@ export interface ProductSetProductPriceCustomFieldAction extends IProductUpdateA
    */
   readonly priceId: string
   /**
-   *	If `true`, only the staged Embedded Price Custom Field is updated. If `false`, both the current and staged Embedded Price Custom Field are updated.
+   *	Whether only the staged Embedded Price Custom Field is updated. If `false`, both the current and staged Embedded Price Custom Field are updated.
    *
    *
    */
@@ -2455,7 +2455,7 @@ export interface ProductSetProductPriceCustomTypeAction extends IProductUpdateAc
    */
   readonly priceId: string
   /**
-   *	If `true`, only the staged Embedded Price is updated. If `false`, both the current and staged Embedded Price is updated.
+   *	Whether only the staged Embedded Price is updated. If `false`, both the current and staged Embedded Price is updated.
    *
    *
    */
@@ -2501,7 +2501,7 @@ export interface ProductSetProductVariantKeyAction extends IProductUpdateAction 
    */
   readonly key?: string
   /**
-   *	If `true`, only the staged `key` is set. If `false`, both the current and staged `key` are set.
+   *	Whether only the staged `key` is set. If `false`, both the current and staged `key` are set.
    *
    *
    */
@@ -2516,7 +2516,7 @@ export interface ProductSetSearchKeywordsAction extends IProductUpdateAction {
    */
   readonly searchKeywords: SearchKeywords
   /**
-   *	If `true`, only the staged `searchKeywords` is updated. If `false`, both the current and staged `searchKeywords` are updated.
+   *	Whether only the staged `searchKeywords` is updated. If `false`, both the current and staged `searchKeywords` are updated.
    *
    *
    */
@@ -2543,7 +2543,7 @@ export interface ProductSetSkuAction extends IProductUpdateAction {
    */
   readonly sku?: string
   /**
-   *	If `true`, only the staged `sku` is updated. If `false`, both the current and staged `sku` are updated.
+   *	Whether only the staged `sku` is updated. If `false`, both the current and staged `sku` are updated.
    *
    *
    */
@@ -2575,7 +2575,7 @@ export interface ProductTransitionStateAction extends IProductUpdateAction {
    */
   readonly state?: StateResourceIdentifier
   /**
-   *	If `true`, validations are disabled.
+   *	Whether validations are disabled.
    *
    *
    */

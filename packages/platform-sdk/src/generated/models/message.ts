@@ -7414,7 +7414,7 @@ export interface CustomerEmailTokenCreatedMessage extends IMessage {
    */
   readonly value?: string
   /**
-   *	If `true`, all email tokens issued previously for the Customer are invalidated.
+   *	Whether all email tokens issued previously for the Customer are invalidated.
    *
    *
    */
@@ -8435,7 +8435,7 @@ export interface CustomerPasswordTokenCreatedMessage extends IMessage {
    */
   readonly value?: string
   /**
-   *	If `true`, all password tokens issued previously for the Customer are invalidated.
+   *	Whether all password tokens issued previously for the Customer are invalidated.
    *
    *
    */
@@ -19344,7 +19344,7 @@ export interface ProductTailoringCreatedMessage extends IMessage {
    */
   readonly attributes?: ProductTailoringAttribute[]
   /**
-   *	`true` if the ProductTailoring is published.
+   *	Whether the ProductTailoring is published.
    *
    *
    */
@@ -20384,7 +20384,7 @@ export interface ProductVariantDeletedMessage extends IMessage {
    */
   readonly removedImageUrls: string[]
   /**
-   *	If `true`, this message informs that only the staged ProductVariant has been removed by the update action.
+   *	Whether this message informs that only the staged ProductVariant has been removed by the update action.
    *	If `false`, both the current and staged ProductVariant have been removed.
    *
    *
@@ -27829,7 +27829,7 @@ export interface CustomerEmailTokenCreatedMessagePayload extends IMessagePayload
    */
   readonly value?: string
   /**
-   *	If `true`, all email tokens issued previously for the Customer are invalidated.
+   *	Whether all email tokens issued previously for the Customer are invalidated.
    *
    *
    */
@@ -28052,7 +28052,7 @@ export interface CustomerPasswordTokenCreatedMessagePayload extends IMessagePayl
    */
   readonly value?: string
   /**
-   *	If `true`, all password tokens issued previously for the Customer are invalidated.
+   *	Whether all password tokens issued previously for the Customer are invalidated.
    *
    *
    */
@@ -31032,7 +31032,7 @@ export interface ProductTailoringCreatedMessagePayload extends IMessagePayload {
    */
   readonly attributes?: ProductTailoringAttribute[]
   /**
-   *	`true` if the ProductTailoring is published.
+   *	Whether the ProductTailoring is published.
    *
    *
    */
@@ -31388,7 +31388,7 @@ export interface ProductVariantDeletedMessagePayload extends IMessagePayload {
    */
   readonly removedImageUrls: string[]
   /**
-   *	If `true`, this message informs that only the staged ProductVariant has been removed by the update action.
+   *	Whether this message informs that only the staged ProductVariant has been removed by the update action.
    *	If `false`, both the current and staged ProductVariant have been removed.
    *
    *

@@ -200,7 +200,7 @@ export interface OrderEditDraft {
    */
   readonly comment?: string
   /**
-   *	Set to `true` if you want to [preview](ctp:api:type:OrderEditPreviewSuccess) the edited Order first without persisting it (dry run).
+   *	Whether to [preview](ctp:api:type:OrderEditPreviewSuccess) the edited Order first without persisting it (dry run).
    *	A dry run allows checking for potential [errors](ctp:api:type:OrderEditPreviewFailure) when trying to apply the `stagedActions`.
    *
    *	Order [API Extensions](/api/projects/api-extensions), if any, are also called in dry runs.
@@ -377,7 +377,7 @@ export interface OrderEditUpdate {
    */
   readonly actions: OrderEditUpdateAction[]
   /**
-   *	If set to `true`, the Order Edit is applied on the [Order](ctp:api:type:Order) without persisting it.
+   *	Whether the Order Edit is applied on the [Order](ctp:api:type:Order) without persisting it.
    *
    *
    */
@@ -2864,7 +2864,7 @@ export interface StagedOrderTransitionStateAction extends IStagedOrderUpdateActi
    */
   readonly state: StateResourceIdentifier
   /**
-   *	Set to `true` to turn off validation.
+   *	Whether to turn off validation.
    *
    *
    */

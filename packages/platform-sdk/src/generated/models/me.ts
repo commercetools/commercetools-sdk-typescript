@@ -732,7 +732,7 @@ export interface MyOrderFromQuoteDraft {
    */
   readonly version: number
   /**
-   *	Set to `true`, if the `quoteState` of the referenced [Quote](ctp:api:type:Quote) should be set to `Accepted`.
+   *	Whether the `quoteState` of the referenced [Quote](ctp:api:type:Quote) should be set to `Accepted`.
    *
    *
    */

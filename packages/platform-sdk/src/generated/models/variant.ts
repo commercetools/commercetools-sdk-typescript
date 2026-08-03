@@ -90,7 +90,7 @@ export interface Variant extends BaseResource {
    */
   readonly product: ProductReference
   /**
-   *	`true` if the Variant is published, `false` if it is unpublished.
+   *	Whether the Variant is published, `false` if it is unpublished.
    *
    *
    */
@@ -511,7 +511,7 @@ export interface VariantProjection {
    */
   readonly price?: Price
   /**
-   *	`true` if this Variant is the default Variant of its [Product](ctp:api:type:Product) (see [Product.defaultVariant](/projects/products#product)). `false` otherwise.
+   *	Whether this Variant is the default Variant of its [Product](ctp:api:type:Product) (see [Product.defaultVariant](/projects/products#product)).
    *
    *
    */
@@ -642,7 +642,7 @@ export interface IVariantUpdateAction {
 export interface VariantAddAssetAction extends IVariantUpdateAction {
   readonly action: 'addAsset'
   /**
-   *	If `true`, only the staged `assets` are updated. If `false`, both the current and staged `assets` are updated.
+   *	Whether only the staged `assets` are updated. If `false`, both the current and staged `assets` are updated.
    *
    *
    */
@@ -674,7 +674,7 @@ export interface VariantAddExternalImageAction extends IVariantUpdateAction {
    */
   readonly image: Image
   /**
-   *	If `true`, only the staged `images` is updated. If `false`, both the current and staged `images` is updated.
+   *	Whether only the staged `images` is updated. If `false`, both the current and staged `images` are updated.
    *
    *
    */
@@ -687,7 +687,7 @@ export interface VariantAddExternalImageAction extends IVariantUpdateAction {
 export interface VariantChangeAssetNameAction extends IVariantUpdateAction {
   readonly action: 'changeAssetName'
   /**
-   *	If `true`, only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
+   *	Whether only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
    *
    *
    */
@@ -718,7 +718,7 @@ export interface VariantChangeAssetNameAction extends IVariantUpdateAction {
 export interface VariantChangeAssetOrderAction extends IVariantUpdateAction {
   readonly action: 'changeAssetOrder'
   /**
-   *	If `true`, only the staged `assets` is updated. If `false`, both the current and staged `assets` are updated.
+   *	Whether only the staged `assets` is updated. If `false`, both the current and staged `assets` are updated.
    *
    *
    */
@@ -771,7 +771,7 @@ export interface VariantPublishAction extends IVariantUpdateAction {
 export interface VariantRemoveAssetAction extends IVariantUpdateAction {
   readonly action: 'removeAsset'
   /**
-   *	If `true`, only the staged Asset is removed. If `false`, both the current and staged Asset is removed.
+   *	Whether only the staged Asset is removed. If `false`, both the current and staged Asset is removed.
    *
    *
    */
@@ -802,7 +802,7 @@ export interface VariantRemoveImageAction extends IVariantUpdateAction {
    */
   readonly imageUrl: string
   /**
-   *	If `true`, only the staged image is removed. If `false`, both the current and staged image is removed.
+   *	Whether only the staged image is removed. If `false`, both the current and staged image is removed.
    *
    *
    */
@@ -823,7 +823,7 @@ export interface VariantRemoveStagedChangesAction extends IVariantUpdateAction {
 export interface VariantSetAssetCustomFieldAction extends IVariantUpdateAction {
   readonly action: 'setAssetCustomField'
   /**
-   *	If `true`, only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
+   *	Whether only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
    *
    *
    */
@@ -862,7 +862,7 @@ export interface VariantSetAssetCustomFieldAction extends IVariantUpdateAction {
 export interface VariantSetAssetCustomTypeAction extends IVariantUpdateAction {
   readonly action: 'setAssetCustomType'
   /**
-   *	If `true`, only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
+   *	Whether only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
    *
    *
    */
@@ -900,7 +900,7 @@ export interface VariantSetAssetCustomTypeAction extends IVariantUpdateAction {
 export interface VariantSetAssetDescriptionAction extends IVariantUpdateAction {
   readonly action: 'setAssetDescription'
   /**
-   *	If `true`, only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
+   *	Whether only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
    *
    *
    */
@@ -931,7 +931,7 @@ export interface VariantSetAssetDescriptionAction extends IVariantUpdateAction {
 export interface VariantSetAssetKeyAction extends IVariantUpdateAction {
   readonly action: 'setAssetKey'
   /**
-   *	If `true`, only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
+   *	Whether only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
    *
    *
    */
@@ -956,7 +956,7 @@ export interface VariantSetAssetKeyAction extends IVariantUpdateAction {
 export interface VariantSetAssetSourcesAction extends IVariantUpdateAction {
   readonly action: 'setAssetSources'
   /**
-   *	If `true`, only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
+   *	Whether only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
    *
    *
    */
@@ -987,7 +987,7 @@ export interface VariantSetAssetSourcesAction extends IVariantUpdateAction {
 export interface VariantSetAssetTagsAction extends IVariantUpdateAction {
   readonly action: 'setAssetTags'
   /**
-   *	If `true`, only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
+   *	Whether only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
    *
    *
    */
@@ -1024,7 +1024,7 @@ export interface VariantSetAssetsAction extends IVariantUpdateAction {
    */
   readonly assets: AssetDraft[]
   /**
-   *	If `true`, only the staged assets are set. If `false`, both the current and staged assets are updated.
+   *	Whether only the staged assets are set. If `false`, both the current and staged assets are updated.
    *
    *
    */
@@ -1058,7 +1058,7 @@ export interface VariantSetAttributeAction extends IVariantUpdateAction {
    */
   readonly value?: any
   /**
-   *	If `true`, only the staged Attribute is set. If `false`, both the current and staged Attributes are set.
+   *	Whether only the staged Attribute is set. If `false`, both the current and staged Attributes are set.
    *
    *
    */
@@ -1077,7 +1077,7 @@ export interface VariantSetAttributesAction extends IVariantUpdateAction {
    */
   readonly attributes: Attribute[]
   /**
-   *	If `true`, only the staged attributes are updated. If `false`, both the current and staged attributes are updated.
+   *	Whether only the staged attributes are updated. If `false`, both the current and staged attributes are updated.
    *
    *
    */
@@ -1122,7 +1122,7 @@ export interface VariantSetImagesAction extends IVariantUpdateAction {
    */
   readonly images: Image[]
   /**
-   *	If `true`, only the staged images are updated. If `false`, both the current and staged images are updated.
+   *	Whether only the staged images are updated. If `false`, both the current and staged images are updated.
    *
    *
    */
@@ -1156,7 +1156,7 @@ export interface VariantSetSkuAction extends IVariantUpdateAction {
    */
   readonly sku?: string
   /**
-   *	If `true`, only the staged `sku` is updated. If `false`, both the current and staged `sku` are updated.
+   *	Whether only the staged `sku` is updated. If `false`, both the current and staged `sku` are updated.
    *
    *
    */

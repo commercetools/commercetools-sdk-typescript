@@ -308,7 +308,7 @@ export interface StateAddRolesAction extends IStateUpdateAction {
 export interface StateChangeInitialAction extends IStateUpdateAction {
   readonly action: 'changeInitial'
   /**
-   *	Set to `true` for defining the State as initial State in a state machine and making it the first step in a workflow.
+   *	Whether to define the State as the initial State in a state machine and make it the first step in a workflow.
    *
    *
    */
