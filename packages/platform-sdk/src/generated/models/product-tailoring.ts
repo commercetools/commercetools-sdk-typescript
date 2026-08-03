@@ -451,6 +451,7 @@ export type ProductTailoringUpdateAction =
   | ProductTailoringSetDescriptionAction
   | ProductTailoringSetExternalImagesAction
   | ProductTailoringSetImageLabelAction
+  | ProductTailoringSetKeyAction
   | ProductTailoringSetMetaAttributesAction
   | ProductTailoringSetMetaDescriptionAction
   | ProductTailoringSetMetaKeywordsAction
@@ -1317,6 +1318,19 @@ export interface ProductTailoringSetImageLabelAction extends IProductTailoringUp
    *
    */
   readonly staged?: boolean
+}
+/**
+ *	Generates the [ProductTailoringKeySet](ctp:api:type:ProductTailoringKeySetMessage) Message.
+ *
+ */
+export interface ProductTailoringSetKeyAction extends IProductTailoringUpdateAction {
+  readonly action: 'setKey'
+  /**
+   *	Value to set. Must be unique. If empty, any existing value will be removed.
+   *
+   *
+   */
+  readonly key?: string
 }
 /**
  *	Updates all meta attributes at the same time.

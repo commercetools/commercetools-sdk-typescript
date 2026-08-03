@@ -141,6 +141,7 @@ export type ErrorObject =
   | ShippingMethodDoesNotMatchCartError
   | StoreCartDiscountsLimitReachedError
   | SyntaxErrorError
+  | UnauthorizedError
   | ValidityLockConflictError
 export interface IErrorObject {
   [key: string]: any
@@ -2449,6 +2450,31 @@ export interface SyntaxErrorError extends IErrorObject {
   readonly message: string
 }
 /**
+ *	Returned when one of the following conditions occurs:
+ *
+ *	- A Customer reference (for example, `associates[*].customer` or `inheritedAssociates[*].customer`) is expanded on the [My Business Unit](/api/projects/me-business-units) endpoint.
+ *	- A [Cart Discount](ctp:api:type:CartDiscount) cannot be modified due to missing permissions for its assigned [Stores](ctp:api:type:Store).
+ *
+ */
+export interface UnauthorizedError extends IErrorObject {
+  readonly code: 'Unauthorized'
+  [key: string]: any
+  /**
+   *	`"Customer reference expansion not permitted on my business unit"` or `"Not allowed to edit this CartDiscount."`
+   *
+   *
+   */
+  readonly message: string
+  /**
+   *	Keys of [Stores](ctp:api:type:Store) for which the required permission to modify is missing.
+   *
+   *	This field is returned only for [Cart Discounts](ctp:api:type:CartDiscount).
+   *
+   *
+   */
+  readonly storesWithoutPermission?: string[]
+}
+/**
  *	Returned when a modification is already in progress for the combination of SKU and price scope fields (but potentially different validity period) for a Standalone Price.
  *	Retry the same request after 300 ms.
  *
@@ -2619,6 +2645,7 @@ export type GraphQLErrorObject =
   | GraphQLShippingMethodDoesNotMatchCartError
   | GraphQLStoreCartDiscountsLimitReachedError
   | GraphQLSyntaxErrorError
+  | GraphQLUnauthorizedError
   | GraphQLValidityLockConflictError
 export interface IGraphQLErrorObject {
   [key: string]: any
@@ -4296,6 +4323,25 @@ export interface GraphQLStoreCartDiscountsLimitReachedError extends IGraphQLErro
 export interface GraphQLSyntaxErrorError extends IGraphQLErrorObject {
   readonly code: 'SyntaxError'
   [key: string]: any
+}
+/**
+ *	Returned when one of the following conditions occurs:
+ *
+ *	- A Customer reference (for example, `associates[*].customer` or `inheritedAssociates[*].customer`) is expanded on the [My Business Unit](/api/projects/me-business-units) endpoint.
+ *	- A [Cart Discount](ctp:api:type:CartDiscount) cannot be modified due to missing permissions for its assigned [Stores](ctp:api:type:Store).
+ *
+ */
+export interface GraphQLUnauthorizedError extends IGraphQLErrorObject {
+  readonly code: 'Unauthorized'
+  [key: string]: any
+  /**
+   *	Keys of [Stores](ctp:api:type:Store) for which the required permission to modify is missing.
+   *
+   *	This field is returned only for [Cart Discounts](ctp:api:type:CartDiscount).
+   *
+   *
+   */
+  readonly storesWithoutPermission?: string[]
 }
 /**
  *	Returned when a modification is already in progress for the combination of SKU and price scope fields (but potentially different validity period) for a Standalone Price.
