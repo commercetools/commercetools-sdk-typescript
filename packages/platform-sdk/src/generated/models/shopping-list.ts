@@ -227,7 +227,7 @@ export interface ShoppingListLineItem {
    */
   readonly custom?: CustomFields
   /**
-   *	If the Product or Product Variant is deleted, `deactivatedAt` is the date and time (UTC) of deletion.
+   *	If the Product or Product Variant is deleted or unpublished, `deactivatedAt` is the date and time (UTC) this occurred.
    *
    *	This data is updated in an [eventual consistent manner](/general-concepts#eventual-consistency) when the Product Variant cannot be ordered anymore.
    *
