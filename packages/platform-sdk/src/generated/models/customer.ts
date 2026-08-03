@@ -289,7 +289,7 @@ export interface CustomerCreateEmailToken {
    */
   readonly ttlMinutes: number
   /**
-   *	If set to `true`, all email tokens issued previously for the Customer will be invalidated.
+   *	Whether all email tokens issued previously for the Customer will be invalidated.
    *
    *
    */
@@ -309,7 +309,7 @@ export interface CustomerCreatePasswordResetToken {
    */
   readonly ttlMinutes?: number
   /**
-   *	If set to `true`, all password tokens issued previously for the Customer will be invalidated.
+   *	Whether all password tokens issued previously for the Customer will be invalidated.
    *
    *
    */
@@ -451,7 +451,7 @@ export interface CustomerDraft {
    */
   readonly billingAddresses?: number[]
   /**
-   *	Set to `true` if the email address of the Customer has been verified already.
+   *	Whether the email address of the Customer has been verified already.
    *	The intended use is to leave this field unset upon sign-up of the Customer and initiate the [email verification](#email-verification-of-customer) afterwards.
    *
    *
@@ -723,8 +723,7 @@ export interface CustomerSignin {
    */
   readonly anonymousId?: string
   /**
-   *	- If `true`, the [LineItem](ctp:api:type:LineItem) Product data (`name`, `variant`, and `productType`) of the returned Cart will be updated.
-   *	- If `false`, only the prices, discounts, and tax rates will be updated.
+   *	Whether the [LineItem](ctp:api:type:LineItem) Product data (`name`, `variant`, and `productType`) of the returned Cart will be updated. If `false`, only the prices, discounts, and tax rates will be updated.
    *
    *
    */
@@ -756,7 +755,7 @@ export interface CustomerToken {
    */
   readonly expiresAt: string
   /**
-   *	If `true`, all tokens issued previously for the Customer will be invalidated.
+   *	Whether all tokens issued previously for the Customer will be invalidated.
    *
    *
    */
@@ -895,8 +894,7 @@ export interface MyCustomerSignin {
    */
   readonly activeCartSignInMode?: AnonymousCartSignInMode
   /**
-   *	- If `true`, the [LineItem](ctp:api:type:LineItem) Product data (`name`, `variant`, and `productType`) of the returned Cart is updated.
-   *	- If `false`, only the prices, discounts, and tax rates are updated.
+   *	Whether the [LineItem](ctp:api:type:LineItem) Product data (`name`, `variant`, and `productType`) of the returned Cart is updated. If `false`, only the prices, discounts, and tax rates are updated.
    *
    *
    */

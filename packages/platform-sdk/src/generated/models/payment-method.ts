@@ -193,7 +193,7 @@ export interface PaymentMethodDraft {
    */
   readonly paymentMethodStatus?: PaymentMethodStatus
   /**
-   *	Set to `true` if the PaymentMethod should be the default.
+   *	Whether the PaymentMethod should be the default.
    *
    *	The default applies per Customer, Business Unit, or the combination of both (Associate).
    *

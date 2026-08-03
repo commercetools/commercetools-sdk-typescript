@@ -967,7 +967,7 @@ export interface ResourceDeletedDeliveryPayload extends IDeliveryPayload {
    */
   readonly modifiedAt: string
   /**
-   *	`true` if the `dataErasure` [parameter](/api/gdpr#data-erasure-of-personal-data) on the `DELETE` request was set to `true`.
+   *	Whether the `dataErasure` [parameter](/api/gdpr#data-erasure-of-personal-data) on the `DELETE` request was set to `true`.
    *
    *
    */

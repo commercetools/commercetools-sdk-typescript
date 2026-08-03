@@ -335,8 +335,7 @@ export interface TrackingData {
    */
   readonly providerTransaction?: string
   /**
-   *	- If `true`, the Parcel is being returned.
-   *	- If `false`, the Parcel is being delivered to the customer.
+   *	Whether the Parcel is being returned. If `false`, the Parcel is being delivered to the customer.
    *
    *
    */

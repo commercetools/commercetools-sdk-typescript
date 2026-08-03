@@ -774,7 +774,7 @@ export interface RecurringOrderTransitionStateAction extends IRecurringOrderUpda
    */
   readonly state: StateResourceIdentifier
   /**
-   *	Set to `true` to turn off validation.
+   *	Whether to turn off validation.
    *
    *
    */

@@ -295,7 +295,7 @@ export interface QuoteDraft {
    */
   readonly stagedQuoteVersion: number
   /**
-   *	If `true`, the `stagedQuoteState` of the referenced [StagedQuote](ctp:api:type:StagedQuote) will be set to `Sent`.
+   *	Whether the `stagedQuoteState` of the referenced [StagedQuote](ctp:api:type:StagedQuote) will be set to `Sent`.
    *
    *
    */

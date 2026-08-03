@@ -997,7 +997,7 @@ export interface PaymentTransitionStateAction extends IPaymentUpdateAction {
    */
   readonly state: StateResourceIdentifier
   /**
-   *	Set to `true` to skip validations when transitioning to the new State.
+   *	Whether to skip validations when transitioning to the new State.
    *
    */
   readonly force?: boolean

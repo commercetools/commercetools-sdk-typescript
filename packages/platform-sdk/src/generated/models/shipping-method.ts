@@ -121,7 +121,7 @@ export interface ShippingMethod extends BaseResource {
    */
   readonly active: boolean
   /**
-   *	If `true`, this ShippingMethod is the [Project](ctp:api:type:Project)'s default ShippingMethod. When retrieving [matching Shipping Methods](/projects/shippingMethods#get-matching-shipping-methods), it is returned as the first item in the array. This flag does not automatically apply the Shipping Method to Carts.
+   *	Whether this ShippingMethod is the [Project](ctp:api:type:Project)'s default ShippingMethod. When retrieving [matching Shipping Methods](/projects/shippingMethods#get-matching-shipping-methods), it is returned as the first item in the array. This flag does not automatically apply the Shipping Method to Carts.
    *
    *
    */
@@ -184,13 +184,13 @@ export interface ShippingMethodDraft {
    */
   readonly zoneRates: ZoneRateDraft[]
   /**
-   *	If set to `true`, the ShippingMethod can be used during the creation or update of a Cart or Order.
+   *	Whether the ShippingMethod can be used during the creation or update of a Cart or Order.
    *
    *
    */
   readonly active?: boolean
   /**
-   *	If set to `true`, the ShippingMethod will be the [Project](ctp:api:type:Project)'s default ShippingMethod. When retrieving [matching Shipping Methods](/projects/shippingMethods#get-matching-shipping-methods), it is returned as the first item in the array. This flag does not automatically apply the Shipping Method to Carts.
+   *	Whether the ShippingMethod will be the [Project](ctp:api:type:Project)'s default ShippingMethod. When retrieving [matching Shipping Methods](/projects/shippingMethods#get-matching-shipping-methods), it is returned as the first item in the array. This flag does not automatically apply the Shipping Method to Carts.
    *
    *
    */
@@ -345,7 +345,7 @@ export interface ShippingRate {
    */
   readonly freeAbove?: CentPrecisionMoney
   /**
-   *	`true` if the ShippingRate matches given [Cart](ctp:api:type:Cart) or [Location](ctp:api:type:Location).
+   *	Whether the ShippingRate matches given [Cart](ctp:api:type:Cart) or [Location](ctp:api:type:Location).
    *	Only appears in response to requests for [Get ShippingMethods for a Cart](ctp:api:endpoint:/{projectKey}/shipping-methods/matching-cart:GET) or
    *	[Get ShippingMethods for a Location](ctp:api:endpoint:/{projectKey}/shipping-methods/matching-location:GET).
    *

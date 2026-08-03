@@ -83,7 +83,7 @@ export interface Record {
    */
   readonly businessUnit?: KeyReference
   /**
-   *	`true` if no change was detected.
+   *	Whether no change was detected.
    *
    *	The version number of the resource can be increased even without any change in the resource.
    *
@@ -242,7 +242,7 @@ export interface ErrorResponse {
  */
 export interface ModifiedBy {
   /**
-   *	`true` if the change was made using the Merchant Center.
+   *	Whether the change was made using the Merchant Center.
    *
    *
    */

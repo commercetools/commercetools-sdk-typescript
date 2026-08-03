@@ -92,7 +92,7 @@ export interface ProductDiscount extends BaseResource {
    */
   readonly sortOrder: string
   /**
-   *	If `true` the Product Discount is applied to Products matching the `predicate`.
+   *	Whether the Product Discount is applied to Products matching the `predicate`.
    *
    *
    */
@@ -158,7 +158,7 @@ export interface ProductDiscountDraft {
    */
   readonly sortOrder: string
   /**
-   *	Set to `true` to activate the ProductDiscount, set to `false` to deactivate it (even though the `predicate` matches).
+   *	Whether to activate the ProductDiscount. To deactivate it even though the `predicate` matches, set to `false`.
    *
    *
    */

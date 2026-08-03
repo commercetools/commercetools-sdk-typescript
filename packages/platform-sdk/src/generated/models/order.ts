@@ -1172,7 +1172,7 @@ export interface OrderFromQuoteDraft {
    */
   readonly version: number
   /**
-   *	If `true`, the `quoteState` of the referenced [Quote](ctp:api:type:Quote) will be set to `Accepted`.
+   *	Whether the `quoteState` of the referenced [Quote](ctp:api:type:Quote) will be set to `Accepted`.
    *
    *
    */
@@ -2305,8 +2305,7 @@ export interface TrackingData {
    */
   readonly providerTransaction?: string
   /**
-   *	- If `true`, the Parcel is being returned.
-   *	- If `false`, the Parcel is being delivered to the customer.
+   *	Whether the Parcel is being returned. If `false`, the Parcel is being delivered to the customer.
    *
    *
    */
@@ -3726,7 +3725,7 @@ export interface OrderTransitionStateAction extends IOrderUpdateAction {
    */
   readonly state: StateResourceIdentifier
   /**
-   *	Set to `true` to turn off validation.
+   *	Whether to turn off validation.
    *
    *
    */

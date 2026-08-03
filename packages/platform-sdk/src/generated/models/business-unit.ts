@@ -1392,7 +1392,7 @@ export interface BusinessUnitChangeAssociateModeAction extends IBusinessUnitUpda
    */
   readonly associateMode: BusinessUnitAssociateMode
   /**
-   *	If set to `true` during a change to `associateMode="Explicit"`, all inherited Associates will be converted to explicit Associates.
+   *	Whether all inherited Associates are converted to explicit Associates during a change to `associateMode="Explicit"`.
    *
    *
    */

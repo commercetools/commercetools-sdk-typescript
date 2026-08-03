@@ -103,7 +103,7 @@ export interface ProductTailoringImport extends ImportResource {
    */
   readonly slug?: LocalizedString
   /**
-   *	Set to `true` to publish the ProductTailoring immediately. Otherwise, the tailored product information is just staged.
+   *	Whether to publish the ProductTailoring immediately. Otherwise, the tailored product information is just staged.
    *
    *
    */

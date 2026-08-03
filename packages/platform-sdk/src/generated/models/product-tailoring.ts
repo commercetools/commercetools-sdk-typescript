@@ -80,7 +80,7 @@ export interface ProductTailoring extends BaseResource {
    */
   readonly product: ProductReference
   /**
-   *	If `true`, the tailored information contained in the `current` [ProductTailoringData](ctp:api:type:ProductTailoringData) is provided when [retrieving the ProductProjection in Store](/api/projects/product-tailoring#retrieve-product-projection-with-tailored-information).
+   *	Whether the tailored information contained in the `current` [ProductTailoringData](ctp:api:type:ProductTailoringData) is provided when [retrieving the ProductProjection in Store](/api/projects/product-tailoring#retrieve-product-projection-with-tailored-information).
    *	For information not part of the ProductTailoringData, the original information contained in the [ProductData](ctp:api:type:ProductData) is provided.
    *	If `false`, only the original information contained in the ProductData is provided.
    *
@@ -100,7 +100,7 @@ export interface ProductTailoring extends BaseResource {
    */
   readonly staged: ProductTailoringData
   /**
-   *	`true` if the `staged` data is different from the `current` data.
+   *	Whether the `staged` data is different from the `current` data.
    *
    *
    */
@@ -258,7 +258,7 @@ export interface ProductTailoringDraft {
    */
   readonly slug?: LocalizedString
   /**
-   *	Set to `true` to [publish](/api/projects/product-tailoring#stage-and-publish-tailored-product-information) the ProductTailoring immediately.
+   *	Whether to [publish](/api/projects/product-tailoring#stage-and-publish-tailored-product-information) the ProductTailoring immediately.
    *	Otherwise, the tailored product information is just staged.
    *
    *
@@ -333,7 +333,7 @@ export interface ProductTailoringInStoreDraft {
    */
   readonly slug?: LocalizedString
   /**
-   *	If `true`, the ProductTailoring is published immediately.
+   *	Whether the ProductTailoring is published immediately.
    *
    *
    */
@@ -559,7 +559,7 @@ export interface ProductTailoringAddAssetAction extends IProductTailoringUpdateA
    */
   readonly sku?: string
   /**
-   *	If `true`, only the staged `assets` are updated. If `false`, both the current and staged `assets` are updated.
+   *	Whether only the staged `assets` are updated. If `false`, both the current and staged `assets` are updated.
    *
    *
    */
@@ -602,7 +602,7 @@ export interface ProductTailoringAddExternalImageAction extends IProductTailorin
    */
   readonly image: Image
   /**
-   *	If `true`, only the staged `images` is updated. If `false`, both the current and staged `images` is updated.
+   *	Whether only the staged `images` is updated. If `false`, both the current and staged `images` are updated.
    *
    *
    */
@@ -646,7 +646,7 @@ export interface ProductTailoringAddVariantAction extends IProductTailoringUpdat
    */
   readonly attributes?: ProductTailoringAttribute[]
   /**
-   *	If `true` the new Product Variant Tailoring is only staged. If `false` the new Product Variant Tailoring is both current and staged.
+   *	Whether the new Product Variant Tailoring is only staged. If `false` the new Product Variant Tailoring is both current and staged.
    *
    *
    */
@@ -672,7 +672,7 @@ export interface ProductTailoringChangeAssetNameAction extends IProductTailoring
    */
   readonly sku?: string
   /**
-   *	If `true`, only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
+   *	Whether only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
    *
    *
    */
@@ -715,7 +715,7 @@ export interface ProductTailoringChangeAssetOrderAction extends IProductTailorin
    */
   readonly sku?: string
   /**
-   *	If `true`, only the staged `assets` is updated. If `false`, both the current and staged `assets` are updated.
+   *	Whether only the staged `assets` is updated. If `false`, both the current and staged `assets` are updated.
    *
    *
    */
@@ -758,7 +758,7 @@ export interface ProductTailoringMoveImageToPositionAction extends IProductTailo
    */
   readonly position: number
   /**
-   *	If `true`, only the staged `images` is updated. If `false`, both the current and staged `images` is updated.
+   *	Whether only the staged `images` is updated. If `false`, both the current and staged `images` are updated.
    *
    *
    */
@@ -792,7 +792,7 @@ export interface ProductTailoringRemoveAssetAction extends IProductTailoringUpda
    */
   readonly sku?: string
   /**
-   *	If `true`, only the staged Asset is removed. If `false`, both the current and staged Asset is removed.
+   *	Whether only the staged Asset is removed. If `false`, both the current and staged Asset is removed.
    *
    *
    */
@@ -835,7 +835,7 @@ export interface ProductTailoringRemoveImageAction extends IProductTailoringUpda
    */
   readonly imageUrl: string
   /**
-   *	If `true`, only the staged image is removed. If `false`, both the current and staged image is removed.
+   *	Whether only the staged image is removed. If `false`, both the current and staged image is removed.
    *
    *
    */
@@ -861,7 +861,7 @@ export interface ProductTailoringRemoveVariantAction extends IProductTailoringUp
    */
   readonly sku?: string
   /**
-   *	If `true`, only the staged Product Variant Tailoring is removed. If `false`, both the current and staged Product Variant Tailoring is removed.
+   *	Whether only the staged Product Variant Tailoring is removed. If `false`, both the current and staged Product Variant Tailoring is removed.
    *
    *
    */
@@ -887,7 +887,7 @@ export interface ProductTailoringSetAssetCustomFieldAction extends IProductTailo
    */
   readonly sku?: string
   /**
-   *	If `true`, only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
+   *	Whether only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
    *
    *
    */
@@ -939,7 +939,7 @@ export interface ProductTailoringSetAssetCustomTypeAction extends IProductTailor
    */
   readonly sku?: string
   /**
-   *	If `true`, only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
+   *	Whether only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
    *
    *
    */
@@ -992,7 +992,7 @@ export interface ProductTailoringSetAssetDescriptionAction extends IProductTailo
    */
   readonly sku?: string
   /**
-   *	If `true`, only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
+   *	Whether only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
    *
    *
    */
@@ -1035,7 +1035,7 @@ export interface ProductTailoringSetAssetKeyAction extends IProductTailoringUpda
    */
   readonly sku?: string
   /**
-   *	If `true`, only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
+   *	Whether only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
    *
    *
    */
@@ -1073,7 +1073,7 @@ export interface ProductTailoringSetAssetSourcesAction extends IProductTailoring
    */
   readonly sku?: string
   /**
-   *	If `true`, only the staged Asset is updated. If `false` both the current and staged Asset is updated.
+   *	Whether only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
    *
    *
    */
@@ -1117,7 +1117,7 @@ export interface ProductTailoringSetAssetTagsAction extends IProductTailoringUpd
    */
   readonly sku?: string
   /**
-   *	If `true`, only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
+   *	Whether only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
    *
    *
    */
@@ -1186,7 +1186,7 @@ export interface ProductTailoringSetAttributeAction extends IProductTailoringUpd
    */
   readonly value?: any
   /**
-   *	If `true`, only the staged Attribute is set. If `false`, both current and staged Attribute is set.
+   *	Whether only the staged Attribute is set. If `false`, both current and staged Attribute is set.
    *
    *
    */
@@ -1223,7 +1223,7 @@ export interface ProductTailoringSetAttributeInAllVariantsAction extends IProduc
    */
   readonly value?: any
   /**
-   *	If `true`, only the staged Attributes are set. If `false`, both the current and staged Attributes are set.
+   *	Whether only the staged Attributes are set. If `false`, both the current and staged Attributes are set.
    *
    *
    */
@@ -1242,7 +1242,7 @@ export interface ProductTailoringSetDescriptionAction extends IProductTailoringU
    */
   readonly description?: LocalizedString
   /**
-   *	If `true`, only the staged `description` is updated. If `false`, both the current and staged `description` are updated.
+   *	Whether only the staged `description` is updated. If `false`, both the current and staged `description` are updated.
    *
    *
    */
@@ -1276,7 +1276,7 @@ export interface ProductTailoringSetExternalImagesAction extends IProductTailori
    */
   readonly images?: Image[]
   /**
-   *	If `true`, only the staged `images` is updated. If `false`, both the current and staged `images` is updated.
+   *	Whether only the staged `images` is updated. If `false`, both the current and staged `images` are updated.
    *
    *
    */
@@ -1313,7 +1313,7 @@ export interface ProductTailoringSetImageLabelAction extends IProductTailoringUp
    */
   readonly label?: string
   /**
-   *	If `true`, only the staged image is updated. If `false`, both the current and staged image is updated.
+   *	Whether only the staged image is updated. If `false`, both the current and staged image is updated.
    *
    *
    */
@@ -1356,7 +1356,7 @@ export interface ProductTailoringSetMetaAttributesAction extends IProductTailori
    */
   readonly metaKeywords?: LocalizedString
   /**
-   *	If `true`, only the staged attributes are updated. If `false`, both the current and staged attributes are updated.
+   *	Whether only the staged attributes are updated. If `false`, both the current and staged attributes are updated.
    *
    *
    */
@@ -1371,7 +1371,7 @@ export interface ProductTailoringSetMetaDescriptionAction extends IProductTailor
    */
   readonly metaDescription?: LocalizedString
   /**
-   *	If `true`, only the staged `metaDescription` is updated. If `false`, both the current and staged `metaDescription` are updated.
+   *	Whether only the staged `metaDescription` is updated. If `false`, both the current and staged `metaDescription` are updated.
    *
    *
    */
@@ -1386,7 +1386,7 @@ export interface ProductTailoringSetMetaKeywordsAction extends IProductTailoring
    */
   readonly metaKeywords?: LocalizedString
   /**
-   *	If `true`, only the staged `metaKeywords` is updated. If `false`, both the current and staged `metaKeywords` are updated.
+   *	Whether only the staged `metaKeywords` is updated. If `false`, both the current and staged `metaKeywords` are updated.
    *
    *
    */
@@ -1401,7 +1401,7 @@ export interface ProductTailoringSetMetaTitleAction extends IProductTailoringUpd
    */
   readonly metaTitle?: LocalizedString
   /**
-   *	If `true`, only the staged `metaTitle` is updated. If `false`, both the current and staged `metaTitle` are updated.
+   *	Whether only the staged `metaTitle` is updated. If `false`, both the current and staged `metaTitle` are updated.
    *
    *
    */
@@ -1420,7 +1420,7 @@ export interface ProductTailoringSetNameAction extends IProductTailoringUpdateAc
    */
   readonly name?: LocalizedString
   /**
-   *	If `true`, only the staged `name` is updated. If `false`, both the current and staged `name` are updated.
+   *	Whether only the staged `name` is updated. If `false`, both the current and staged `name` are updated.
    *
    *
    */
@@ -1452,7 +1452,7 @@ export interface ProductTailoringSetProductAttributeAction extends IProductTailo
    */
   readonly value?: any
   /**
-   *	If `true`, then only the staged Attribute is set. If `false`, then both the current and staged Attributes are set.
+   *	Whether only the staged Attribute is set. If `false`, both the current and staged Attributes are set.
    *
    *
    */
@@ -1471,7 +1471,7 @@ export interface ProductTailoringSetSlugAction extends IProductTailoringUpdateAc
    */
   readonly slug?: LocalizedString
   /**
-   *	If `true`, only the staged `slug` is updated. If `false`, both the current and staged `slug` are updated.
+   *	Whether only the staged `slug` is updated. If `false`, both the current and staged `slug` are updated.
    *
    *
    */

@@ -33,7 +33,7 @@ export interface ProductSelectionSetting {
    */
   readonly productSelection: ProductSelectionReference
   /**
-   *	If `true`, all Products assigned to this Product Selection are part of the Store's assortment.
+   *	Whether all Products assigned to this Product Selection are part of the Store's assortment.
    *
    */
   readonly active: boolean
@@ -45,7 +45,7 @@ export interface ProductSelectionSettingDraft {
    */
   readonly productSelection: ProductSelectionResourceIdentifier
   /**
-   *	Set to `true` if all Products assigned to the Product Selection should become part of the Store's assortment.
+   *	Whether all Products assigned to the Product Selection should become part of the Store's assortment.
    *
    *
    */
@@ -370,7 +370,7 @@ export interface StoreAddProductSelectionAction extends IStoreUpdateAction {
    */
   readonly productSelection: ProductSelectionResourceIdentifier
   /**
-   *	Set to `true` to make all Products assigned to the referenced Product Selection available in the Store.
+   *	Whether to make all Products assigned to the referenced Product Selection available in the Store.
    *
    *
    */
@@ -406,7 +406,7 @@ export interface StoreChangeProductSelectionAction extends IStoreUpdateAction {
    */
   readonly productSelection: ProductSelectionResourceIdentifier
   /**
-   *	Set to `true` if all Products assigned to the Product Selection should become part of the Store's assortment.
+   *	Whether all Products assigned to the Product Selection should become part of the Store's assortment.
    *
    *
    */

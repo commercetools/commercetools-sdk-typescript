@@ -9,12 +9,7 @@
     "node": ">=22"
   },
   "description": "Typescript SDK for commercetools Audit Log features",
-  "keywords": [
-    "commercetools",
-    "typescript",
-    "sdk",
-    "history"
-  ],
+  "keywords": ["commercetools", "typescript", "sdk", "history"],
   "homepage": "https://github.com/commercetools/commercetools-sdk-typescript/packages/history-sdk",
   "bugs": "https://github.com/commercetools/commercetools-sdk-typescript/issues",
   "repository": {

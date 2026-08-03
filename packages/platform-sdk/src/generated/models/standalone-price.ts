@@ -173,7 +173,7 @@ export interface StandalonePrice extends BaseResource {
    */
   readonly staged?: StagedStandalonePrice
   /**
-   *	If set to `true`, the StandalonePrice is considered during [Product price selection](/api/pricing-and-discounts-overview#product-price-selection).
+   *	Whether the StandalonePrice is considered during [Product price selection](/api/pricing-and-discounts-overview#product-price-selection).
    *	If set to `false`, the StandalonePrice is not considered during [Product price selection](/api/pricing-and-discounts-overview#product-price-selection) and any associated Line Items in a Cart cannot be ordered.
    *
    *
@@ -441,7 +441,7 @@ export interface StandalonePriceChangeValueAction extends IStandalonePriceUpdate
    */
   readonly value: _Money
   /**
-   *	If set to `true` the update action applies to the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice). If set to `false`, the update action applies to the current [StandalonePrice](ctp:api:type:StandalonePrice).
+   *	Whether the update action applies to the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice). If set to `false`, the update action applies to the current [StandalonePrice](ctp:api:type:StandalonePrice).
    *
    *
    */

@@ -49,7 +49,7 @@ export interface AttributeDefinition {
    */
   readonly label: LocalizedString
   /**
-   *	If `true`, the Attribute must have a value on a [ProductVariant](ctp:api:type:ProductVariant).
+   *	Whether the Attribute must have a value on a [ProductVariant](ctp:api:type:ProductVariant).
    *
    */
   readonly isRequired: boolean
@@ -77,7 +77,7 @@ export interface AttributeDefinition {
    */
   readonly inputHint: TextInputHint
   /**
-   *	If `true`, the Attribute's values are available in the [Product Search](/api/projects/product-search) or the [Product Projection Search](/api/projects/product-projection-search) API for use in full-text search queries, filters, and facets.
+   *	Whether the Attribute's values are available in the [Product Search](/api/projects/product-search) or the [Product Projection Search](/api/projects/product-projection-search) API for use in full-text search queries, filters, and facets.
    *	However, if an Attribute's `level` is set as `Product`, then Product Projection Search does **not support** the Attribute.
    *	To use the Attribute in search, filters, or facets, set `isSearchable` to `true` for all AttributeDefinitions with the same `name` across different ProductTypes.
    *	If the `isSearchable` values are different, the Attribute isn't available for search, filters, or facets.
@@ -117,7 +117,7 @@ export interface AttributeDefinitionDraft {
    */
   readonly label: LocalizedString
   /**
-   *	Set to `true` if the Attribute is required to have a value on a [ProductVariant](ctp:api:type:ProductVariant).
+   *	Whether the Attribute is required to have a value on a [ProductVariant](ctp:api:type:ProductVariant).
    *
    *
    */
