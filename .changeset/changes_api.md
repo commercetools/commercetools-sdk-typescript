@@ -32,6 +32,8 @@
 
 - added property `stores` to type `DiscountCode`
 - added property `warnings` to type `Variant`
+- added property `categories` to type `VariantProjection`
+- added property `categoryOrderHints` to type `VariantProjection`
 
 </details>
 

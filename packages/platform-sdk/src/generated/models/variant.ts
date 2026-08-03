@@ -4,6 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+import { CategoryReference } from './category'
 import {
   Asset,
   AssetDraft,
@@ -20,6 +21,7 @@ import {
 import { ErrorObject } from './error'
 import {
   Attribute,
+  CategoryOrderHints,
   ProductReference,
   ProductResourceIdentifier,
 } from './product'
@@ -459,6 +461,18 @@ export interface VariantProjection {
    *
    */
   readonly description?: LocalizedString
+  /**
+   *	[Categories](ctp:api:type:Category) assigned to the parent [Product](ctp:api:type:Product).
+   *
+   *
+   */
+  readonly categories: CategoryReference[]
+  /**
+   *	Order of the parent [Product](ctp:api:type:Product) in [Categories](ctp:api:type:Category).
+   *
+   *
+   */
+  readonly categoryOrderHints?: CategoryOrderHints
   /**
    *	User-defined unique identifier of the [Variant](ctp:api:type:Variant).
    *
