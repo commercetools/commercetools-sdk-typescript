@@ -126,4 +126,53 @@ describe('executor', () => {
       )
     })
   })
+
+  describe('request timeout', () => {
+    afterEach(() => {
+      jest.useRealTimers()
+    })
+
+    test('aborts the request and reinitializes the abort controller once the timeout elapses', async () => {
+      jest.useFakeTimers()
+
+      const controllers: Array<AbortController> = []
+      const getAbortController = jest.fn(() => {
+        const controller = new AbortController()
+        controllers.push(controller)
+        return controller
+      })
+
+      // Hold the request open so the timeout is guaranteed to fire while it is
+      // still in flight, rather than racing a response that resolves instantly.
+      let resolveRequest!: (response: typeof mockResponse) => void
+      const httpClient = jest.fn(
+        () =>
+          new Promise<typeof mockResponse>((resolve) => {
+            resolveRequest = resolve
+          })
+      )
+
+      const pending = executor(
+        createExecutorConfig({ httpClient, getAbortController, timeout: 10 })
+      )
+
+      // Let the executor reach `execute()`; by then the timer has been armed.
+      for (let i = 0; i < 10 && httpClient.mock.calls.length === 0; i++) {
+        await Promise.resolve()
+      }
+      expect(httpClient).toHaveBeenCalledTimes(1)
+      expect(controllers).toHaveLength(1)
+
+      await jest.advanceTimersByTimeAsync(10)
+
+      expect(controllers[0].signal.aborted).toBe(true)
+      expect(controllers).toHaveLength(2)
+      expect(controllers[1].signal.aborted).toBe(false)
+
+      resolveRequest(mockResponse)
+      await expect(pending).resolves.toEqual(
+        expect.objectContaining({ data: { ok: true }, statusCode: 200 })
+      )
+    })
+  })
 })
