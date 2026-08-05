@@ -1,5 +1,116 @@
 # @commercetools/platform-sdk
 
+## 9.3.0
+
+### Minor Changes
+
+- [#1404](https://github.com/commercetools/commercetools-sdk-typescript/pull/1404) [`1fe16bb`](https://github.com/commercetools/commercetools-sdk-typescript/commit/1fe16bb1f4a2345c25caa4875c8bac092d659c9b) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Method(s)</summary>
+  - added method `apiRoot.withProjectKey().mcpServers().get()`
+  - added method `apiRoot.withProjectKey().mcpServers().post()`
+  - added method `apiRoot.withProjectKey().variants().withId().images().post()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().discountCodes().get()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().discountCodes().head()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().discountCodes().withKey().get()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().discountCodes().withKey().head()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().discountCodes().withId().get()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().discountCodes().withId().head()`
+  - added method `apiRoot.withProjectKey().mcpServers().types().get()`
+  - added method `apiRoot.withProjectKey().mcpServers().withKey().get()`
+  - added method `apiRoot.withProjectKey().mcpServers().withKey().post()`
+  - added method `apiRoot.withProjectKey().mcpServers().withKey().delete()`
+  - added method `apiRoot.withProjectKey().mcpServers().withId().get()`
+  - added method `apiRoot.withProjectKey().mcpServers().withId().post()`
+  - added method `apiRoot.withProjectKey().mcpServers().withId().delete()`
+  - added method `apiRoot.withProjectKey().mcpServers().types().withMcpServerType().get()`
+
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+  - added property `stores` to type `DiscountCode`
+  - added property `warnings` to type `Variant`
+  - added property `categories` to type `VariantProjection`
+  - added property `categoryOrderHints` to type `VariantProjection`
+
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `OverlappingPriceValidityError`
+  - added type `UnauthorizedError`
+  - added type `GraphQLOverlappingPriceValidityError`
+  - added type `GraphQLUnauthorizedError`
+  - added type `CommerceMcpServerConfig`
+  - added type `CommerceMcpServerConfigDraft`
+  - added type `McpServer`
+  - added type `McpServerConfig`
+  - added type `McpServerConfigDraft`
+  - added type `McpServerDraft`
+  - added type `McpServerJsonOutputFiltering`
+  - added type `McpServerJsonOutputFilteringMatcher`
+  - added type `McpServerPagedQueryResponse`
+  - added type `McpServerState`
+  - added type `McpServerTool`
+  - added type `McpServerToolOutputFormatting`
+  - added type `McpServerType`
+  - added type `McpServerTypeTool`
+  - added type `McpServerUpdate`
+  - added type `McpServerUpdateAction`
+  - added type `ParameterOverride`
+  - added type `RemoveToolCustomizationTarget`
+  - added type `ToolCustomization`
+  - added type `McpServerAddToolAction`
+  - added type `McpServerAddToolCustomizationAction`
+  - added type `McpServerRemoveToolAction`
+  - added type `McpServerRemoveToolCustomizationAction`
+  - added type `McpServerSetDescriptionAction`
+  - added type `McpServerSetJsonOutputFilteringAction`
+  - added type `McpServerSetNameAction`
+  - added type `McpServerSetStateAction`
+  - added type `McpServerSetToolCustomizationsAction`
+  - added type `McpServerSetToolOutputFormattingAction`
+  - added type `McpServerSetToolsAction`
+  - added type `ProductTailoringKeySetMessage`
+  - added type `ProductTailoringKeySetMessagePayload`
+  - added type `ProductTailoringSetKeyAction`
+  - added type `VariantMoveImageToPositionAction`
+  - added type `VariantSetImageLabelAction`
+
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+  - added enum `variant` to type `AttributeReferenceTypeId`
+  - added enum `variant` to type `CustomFieldReferenceValue`
+
+  </details>
+
+  <details>
+  <summary>Added Resource(s)</summary>
+  - added resource `/{projectKey}/mcp-servers`
+  - added resource `/{projectKey}/variants/{ID}/images`
+  - added resource `/{projectKey}/in-store/key={storeKey}/discount-codes`
+  - added resource `/{projectKey}/in-store/key={storeKey}/discount-codes/key={key}`
+  - added resource `/{projectKey}/in-store/key={storeKey}/discount-codes/{ID}`
+  - added resource `/{projectKey}/mcp-servers/types`
+  - added resource `/{projectKey}/mcp-servers/key={key}`
+  - added resource `/{projectKey}/mcp-servers/{ID}`
+  - added resource `/{projectKey}/mcp-servers/types/{mcpServerType}`
+
+  </details>
+
+### Patch Changes
+
+- [#1424](https://github.com/commercetools/commercetools-sdk-typescript/pull/1424) [`021e5fd`](https://github.com/commercetools/commercetools-sdk-typescript/commit/021e5fd52af058cc26174bd248a5019e511ba3af) Thanks [@industrian](https://github.com/industrian)! - Remove Composable Commerce branding
+
+- [#1426](https://github.com/commercetools/commercetools-sdk-typescript/pull/1426) [`4437269`](https://github.com/commercetools/commercetools-sdk-typescript/commit/4437269408f5a863187a65bba68a8354b9fc0a60) Thanks [@ajimae](https://github.com/ajimae)! - Release a new version of the SDKs, including the latest generated documentation updates
+
+- Updated dependencies [[`021e5fd`](https://github.com/commercetools/commercetools-sdk-typescript/commit/021e5fd52af058cc26174bd248a5019e511ba3af)]:
+  - @commercetools/ts-client@5.0.1
+
 ## 9.2.0
 
 ### Minor Changes
@@ -8206,6 +8317,7 @@
   - added property `cartVersion` to type `MyQuoteRequestDraft`
   - added property `createdAt` to type `AssignedProductSelection`
   - added property `quoteState` to type `Quote`
+
   </details>
 
   <details>
