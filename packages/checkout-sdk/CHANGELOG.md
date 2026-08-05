@@ -1,5 +1,16 @@
 # @commercetools/checkout-sdk
 
+## 2.0.1
+
+### Patch Changes
+
+- [#1424](https://github.com/commercetools/commercetools-sdk-typescript/pull/1424) [`021e5fd`](https://github.com/commercetools/commercetools-sdk-typescript/commit/021e5fd52af058cc26174bd248a5019e511ba3af) Thanks [@industrian](https://github.com/industrian)! - Remove Composable Commerce branding
+
+- [#1426](https://github.com/commercetools/commercetools-sdk-typescript/pull/1426) [`4437269`](https://github.com/commercetools/commercetools-sdk-typescript/commit/4437269408f5a863187a65bba68a8354b9fc0a60) Thanks [@ajimae](https://github.com/ajimae)! - Release a new version of the SDKs, including the latest generated documentation updates
+
+- Updated dependencies [[`021e5fd`](https://github.com/commercetools/commercetools-sdk-typescript/commit/021e5fd52af058cc26174bd248a5019e511ba3af)]:
+  - @commercetools/ts-client@5.0.1
+
 ## 2.0.0
 
 ### Major Changes

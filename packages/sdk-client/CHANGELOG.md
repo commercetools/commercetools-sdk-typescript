@@ -1,5 +1,11 @@
 # @commercetools/sdk-client-v2
 
+## 4.0.1
+
+### Patch Changes
+
+- [#1424](https://github.com/commercetools/commercetools-sdk-typescript/pull/1424) [`021e5fd`](https://github.com/commercetools/commercetools-sdk-typescript/commit/021e5fd52af058cc26174bd248a5019e511ba3af) Thanks [@industrian](https://github.com/industrian)! - Remove Composable Commerce branding
+
 ## 4.0.0
 
 ### Major Changes

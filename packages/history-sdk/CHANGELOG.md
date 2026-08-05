@@ -1,5 +1,34 @@
 # @commercetools/history-sdk
 
+## 6.1.0
+
+### Minor Changes
+
+- [#1404](https://github.com/commercetools/commercetools-sdk-typescript/pull/1404) [`1fe16bb`](https://github.com/commercetools/commercetools-sdk-typescript/commit/1fe16bb1f4a2345c25caa4875c8bac092d659c9b) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **History changes**
+
+  <details>
+  <summary>Added QueryParameter(s)</summary>
+  - added query parameter `withTotal` to method `get /{projectKey}`
+  - added query parameter `withTotal` to method `get /{projectKey}/{resourceType}`
+  - added query parameter `withTotal` to method `get /{projectKey}/{resourceType}/{ID}`
+
+  </details>
+
+  <details>
+  <summary>Required Property(s)</summary>
+  - changed property `total` of type `RecordPagedQueryResponse` to be optional
+
+  </details>
+
+### Patch Changes
+
+- [#1424](https://github.com/commercetools/commercetools-sdk-typescript/pull/1424) [`021e5fd`](https://github.com/commercetools/commercetools-sdk-typescript/commit/021e5fd52af058cc26174bd248a5019e511ba3af) Thanks [@industrian](https://github.com/industrian)! - Remove Composable Commerce branding
+
+- [#1426](https://github.com/commercetools/commercetools-sdk-typescript/pull/1426) [`4437269`](https://github.com/commercetools/commercetools-sdk-typescript/commit/4437269408f5a863187a65bba68a8354b9fc0a60) Thanks [@ajimae](https://github.com/ajimae)! - Release a new version of the SDKs, including the latest generated documentation updates
+
+- Updated dependencies [[`021e5fd`](https://github.com/commercetools/commercetools-sdk-typescript/commit/021e5fd52af058cc26174bd248a5019e511ba3af)]:
+  - @commercetools/ts-client@5.0.1
+
 ## 6.0.0
 
 ### Major Changes
