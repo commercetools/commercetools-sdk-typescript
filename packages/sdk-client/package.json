@@ -46,7 +46,7 @@
     "common-tags": "1.8.2",
     "dotenv": "17.4.2",
     "jest": "30.4.2",
-    "nock": "14.0.15",
+    "nock": "14.0.17",
     "organize-imports-cli": "1.0.2"
   },
   "scripts": {
