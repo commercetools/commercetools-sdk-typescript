@@ -71,6 +71,12 @@ export interface McpServer extends BaseResource {
    */
   readonly description?: LocalizedString
   /**
+   *	Determines how AI agents authenticate when connecting to the MCP Server.
+   *
+   *
+   */
+  readonly authenticationMode: McpServerAuthenticationMode
+  /**
    *	State of the MCP Server. A `Disabled` MCP Server rejects all AI agent tool requests.
    *
    *
@@ -83,6 +89,17 @@ export interface McpServer extends BaseResource {
    */
   readonly mcpServer: McpServerConfig
 }
+/**
+ *	Determines how AI agents authenticate when connecting to the MCP Server.
+ *
+ */
+export enum McpServerAuthenticationModeValues {
+  ClientCredentials = 'ClientCredentials',
+  CommercetoolsIdentity = 'CommercetoolsIdentity',
+}
+
+export type McpServerAuthenticationMode =
+  'ClientCredentials' | 'CommercetoolsIdentity' | (string & {})
 /**
  *	Connection configuration of an MCP Server. The `type` discriminator determines the concrete configuration shape and the set of tools available for this MCP Server. Only [CommerceMcpServerConfig](ctp:api:type:CommerceMcpServerConfig) is supported.
  *
@@ -214,6 +231,12 @@ export interface McpServerDraft {
    */
   readonly description?: LocalizedString
   /**
+   *	Determines how AI agents authenticate when connecting to the MCP Server.
+   *
+   *
+   */
+  readonly authenticationMode?: McpServerAuthenticationMode
+  /**
    *	State of the MCP Server.
    *
    *
@@ -323,7 +346,7 @@ export interface McpServerPagedQueryResponse {
   readonly results: McpServer[]
 }
 /**
- *	State of the MCP Server. A `Disabled` MCP Server rejects all AI agent tool requests while keeping its configuration editable. Defaults to `Enabled` when not provided on creation.
+ *	State of the MCP Server. A `Disabled` MCP Server rejects all AI agent tool requests while keeping its configuration editable.
  *
  */
 export enum McpServerStateValues {
@@ -679,6 +702,7 @@ export type McpServerUpdateAction =
   | McpServerAddToolCustomizationAction
   | McpServerRemoveToolAction
   | McpServerRemoveToolCustomizationAction
+  | McpServerSetAuthenticationModeAction
   | McpServerSetDescriptionAction
   | McpServerSetJsonOutputFilteringAction
   | McpServerSetNameAction
@@ -818,6 +842,19 @@ export interface McpServerRemoveToolCustomizationAction extends IMcpServerUpdate
    *
    */
   readonly toolCustomization: RemoveToolCustomizationTarget
+}
+/**
+ *	Sets the [authentication mode](ctp:api:type:McpServerAuthenticationMode) of the MCP Server. This action has no effect if the MCP Server already uses the given authentication mode, and in that case the `version` of the MCP Server stays the same.
+ *
+ */
+export interface McpServerSetAuthenticationModeAction extends IMcpServerUpdateAction {
+  readonly action: 'setAuthenticationMode'
+  /**
+   *	New authentication mode to set.
+   *
+   *
+   */
+  readonly authenticationMode: McpServerAuthenticationMode
 }
 /**
  *	Sets the localized description of the MCP Server.
