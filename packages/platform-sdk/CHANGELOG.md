@@ -1,5 +1,32 @@
 # @commercetools/platform-sdk
 
+## 9.4.0
+
+### Minor Changes
+
+- [#1439](https://github.com/commercetools/commercetools-sdk-typescript/pull/1439) [`7c21e89`](https://github.com/commercetools/commercetools-sdk-typescript/commit/7c21e8984cb7315c24e6a61918faafe5205c30c3) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Property(s)</summary>
+  - added property `authenticationMode` to type `McpServer`
+  - added property `authenticationMode` to type `McpServerDraft`
+
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `McpServerAuthenticationMode`
+  - added type `McpServerSetAuthenticationModeAction`
+
+  </details>
+
+### Patch Changes
+
+- [#1442](https://github.com/commercetools/commercetools-sdk-typescript/pull/1442) [`1db61fe`](https://github.com/commercetools/commercetools-sdk-typescript/commit/1db61fea985f0358a41e5655266336987f931f37) Thanks [@ajimae](https://github.com/ajimae)! - Make platform SDK use configured client host url
+
+- Updated dependencies [[`1db61fe`](https://github.com/commercetools/commercetools-sdk-typescript/commit/1db61fea985f0358a41e5655266336987f931f37)]:
+  - @commercetools/ts-client@5.0.2
+
 ## 9.3.0
 
 ### Minor Changes
