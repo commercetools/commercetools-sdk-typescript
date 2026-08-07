@@ -386,12 +386,12 @@ export interface IProductSelectionUpdateAction {
   readonly action: string
 }
 /**
- *	Only Product Variants with the explicitly listed SKUs are part of a Product Selection with `IndividualExclusion` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).
+ *	Defines the Product Variants that are excluded from a Product Selection with `IndividualExclusion` [ProductSelectionMode](ctp:api:type:ProductSelectionMode). Product Variants not listed remain available in the Product Selection.
  *
  */
 export interface ProductVariantExclusion {
   /**
-   *	Non-empty array of SKUs representing Product Variants to be included in the Product Selection with `IndividualExclusion` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).
+   *	Non-empty array of SKUs representing Product Variants to be excluded from the Product Selection with `IndividualExclusion` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).
    *
    *
    */
@@ -600,7 +600,7 @@ export interface ProductSelectionSetVariantExclusionAction extends IProductSelec
    */
   readonly product: ProductResourceIdentifier
   /**
-   *	Determines which Variants of the previously excluded Product are to be included in the Product Selection with `IndividualExclusion` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).
+   *	Determines which Variants of the previously excluded Product are to be excluded from the Product Selection with `IndividualExclusion` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).
    *	Leave it empty to unset an existing Variant Exclusion.
    *
    *
