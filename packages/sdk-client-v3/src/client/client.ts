@@ -130,9 +130,12 @@ export function process<T extends object = any>(
   })
 }
 
-export default function createClient(middlewares: ClientOptions): Client {
-  _options = middlewares
-  validateClient(middlewares)
+export default function createClient({
+  middlewares,
+  baseUri,
+}: ClientOptions): Client {
+  _options = { middlewares, baseUri }
+  validateClient({ middlewares })
 
   let _maskSensitiveHeaderData = true
 
@@ -161,7 +164,7 @@ export default function createClient(middlewares: ClientOptions): Client {
     },
   }
 
-  const dispatch = compose(middlewares)(resolver.resolve as any)
+  const dispatch = compose({ middlewares })(resolver.resolve as any)
   return {
     process,
     execute(request: ClientRequest): Promise<ClientResult> {
@@ -181,5 +184,6 @@ export default function createClient(middlewares: ClientOptions): Client {
         }
       })
     },
+    baseUri,
   }
 }

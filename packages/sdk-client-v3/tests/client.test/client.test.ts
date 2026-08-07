@@ -20,7 +20,9 @@ const createPayloadResult = (tot: number, startingId = 0) => ({
 
 describe('validate options', () => {
   test('middlewares is required', () => {
-    expect(() => createClient(null)).toThrow('Missing required options')
+    expect(() => createClient({} as any)).toThrow(
+      'You need to provide at least one middleware'
+    )
   })
 
   test('middlewares must be an array', () => {
