@@ -1,5 +1,11 @@
 # @commercetools/ts-client
 
+## 5.0.2
+
+### Patch Changes
+
+- [#1442](https://github.com/commercetools/commercetools-sdk-typescript/pull/1442) [`1db61fe`](https://github.com/commercetools/commercetools-sdk-typescript/commit/1db61fea985f0358a41e5655266336987f931f37) Thanks [@ajimae](https://github.com/ajimae)! - Make platform SDK use configured client host url
+
 ## 5.0.1
 
 ### Patch Changes
