@@ -45,6 +45,12 @@ generate_history:
 generate_checkout:
 	$(MAKE) -C packages LIB_NAME="checkout" GEN_RAML_FILE=../$(CHECKOUT_RAML) generate_sdk
 
+# Regenerates the typed GraphQL query builder from the committed GraphQL schema.
+# Not part of `build`: that chain is driven by the RAML specs, while schema.graphqls
+# tracks the GraphQL API and is refreshed independently.
+gen_graphql_builder: yarn_install
+	yarn workspace @commercetools/graphql-sdk generate
+
 check_pending:
 	git status --porcelain -- ':(exclude)*gen.properties'
 	@echo "CHANGES_PENDING=$(CHANGES_PENDING)" >> $GITHUB_ENV
