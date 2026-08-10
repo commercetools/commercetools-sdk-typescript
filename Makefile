@@ -5,9 +5,9 @@ IMPORT_RAML ?= $(RAML_FILE)
 HISTORY_RAML ?= $(RAML_FILE)
 CHECKOUT_RAML ?= $(RAML_FILE)
 
-.PHONY: build build_api_sdk build_import_sdk build_import_sdk build_history_sdk build_checkout_sdk gen_api_sdk gen_import_sdk gen_history_sdk gen_checkout_sdk
+.PHONY: build build_api_sdk build_import_sdk build_import_sdk build_history_sdk build_checkout_sdk gen_api_sdk gen_import_sdk gen_history_sdk gen_checkout_sdk gen_graphql_builder
 
-build: codegen_install gen_api_sdk gen_import_sdk gen_history_sdk gen_checkout_sdk post_process prettify verify
+build: codegen_install gen_api_sdk gen_import_sdk gen_history_sdk gen_checkout_sdk gen_graphql_builder post_process prettify verify
 build_api_sdk: codegen_install gen_api_sdk post_process prettify verify
 build_import_sdk: codegen_install gen_import_sdk post_process prettify verify
 build_history_sdk: codegen_install gen_history_sdk post_process prettify verify
@@ -46,8 +46,12 @@ generate_checkout:
 	$(MAKE) -C packages LIB_NAME="checkout" GEN_RAML_FILE=../$(CHECKOUT_RAML) generate_sdk
 
 # Regenerates the typed GraphQL query builder from the committed GraphQL schema.
-# Not part of `build`: that chain is driven by the RAML specs, while schema.graphqls
-# tracks the GraphQL API and is refreshed independently.
+#
+# Part of `build` so that the generated client always matches schema.graphqls: the SDK
+# generator workflow in commercetools-api-reference copies api-specs/graphql/schema.sdl
+# over schema.graphqls and then runs `make build`, the same way it does for the Java and
+# .NET SDKs. Those two generate their client at compile time (DGS codegen, ZeroQL), while
+# here the generated client is committed, so it has to be refreshed by this chain.
 gen_graphql_builder: yarn_install
 	yarn workspace @commercetools/graphql-sdk generate
 

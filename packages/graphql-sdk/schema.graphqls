@@ -1,97 +1,70 @@
-scalar Date
 scalar DateTime
-scalar Json
 scalar Long
+scalar Locale
+scalar JsonPrimitive
+scalar Date
+scalar Json
 scalar SearchValueType
 scalar Time
 scalar BigDecimal
 scalar Country
 scalar Currency
 scalar KeyReferenceInput
-scalar Locale
-scalar Set
 scalar YearMonth
-type Product implements Versioned & ReviewTarget & ReferenceExpandable {
+type LocalizedString {
+    locale: Locale!
+    value: String!
+}
+
+type Initiator {
+    isPlatformClient: Boolean
+    clientId: String
+    externalUserId: String
+    anonymousId: String
+    customerRef: Reference
+    userRef: Reference
+    associateRef: Reference
+    attributedTo: Attribution
+}
+
+type Attribution {
+    clientId: String
+    source: AttributionSource!
+    userRef: Reference
+}
+
+type Reference {
+    typeId: String!
     id: String!
-    key: String
-    version: Long!
-    productTypeRef: Reference!
-    productType: ProductTypeDefinition
-    masterData: ProductCatalogData!
-    skus: [String!]!
-    createdAt: DateTime!
-    lastModifiedAt: DateTime!
-    stateRef: Reference
-    state: State
-    priceMode: PriceMode
-    taxCategoryRef: Reference
-    taxCategory: TaxCategory
-    reviewRatingStatistics: ReviewRatingStatistics
-    productSelectionRefs(where: String, sort: [String!], limit: Int, offset: Int): SelectionOfProductQueryResult!
-    createdBy: Initiator
-    lastModifiedBy: Initiator
 }
 
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
-type ProductPagedSearchResponse {
-    total: Long!
-    offset: Int
-    limit: Int
-    results: [ProductSearchResult!]!
-    facets: [ProductSearchFacetResult!]!
-}
-
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
-type ProductSearchFacetResultBucket implements ProductSearchFacetResult {
-    name: String!
-    buckets: [ProductSearchFacetResultBucketEntry!]!
-}
-
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
-type ProductSearchFacetResultBucketEntry {
-    key: String!
+type McpServerQueryResult {
+    limit: Int!
+    offset: Int!
     count: Int!
-}
-
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
-type ProductSearchFacetResultCount implements ProductSearchFacetResult {
-    name: String!
-    value: Long!
-}
-
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
-type ProductSearchFacetResultStats implements ProductSearchFacetResult {
-    name: String!
-    min: Json!
-    max: Json!
-    mean: Json
-    sum: Json
-    count: Long!
-}
-
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
-type ProductSearchResult {
-    id: String!
-    product: Product!
+    total: Long!
+    exists: Boolean!
+    results: [McpServer!]!
 }
 
 type Query {
     """
   BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
   """
-  productsSearch(query: SearchQueryInput, postFilter: SearchQueryInput, sort: [SearchSortingInput!], limit: Int, offset: Int, markMatchingVariants: Boolean, facets: [ProductSearchFacetExpressionInput!]): ProductPagedSearchResponse
+  mcpServer(id: String, key: String): McpServer
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  mcpServers(sort: [String!], limit: Int, offset: Int): McpServerQueryResult!
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  mcpServerTypes: [McpServerTypeCatalogEntry!]!
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  mcpServerType(type: McpServerType!, majorVersion: String): McpServerTypeCatalogEntry
+    productsSearch(query: SearchQueryInput,, postFilter: SearchQueryInput,, sort: [SearchSortingInput!],, limit: Int,, offset: Int,, markMatchingVariants: Boolean,, facets: [ProductSearchFacetExpressionInput!],): ProductPagedSearchResponse
     """
   This field can only be used with an access token created with the password flow or with an anonymous session.
   
@@ -460,7 +433,1485 @@ type Query {
     key: String
   ): PaymentMethod
     paymentMethods(where: String, sort: [String!], limit: Int, offset: Int): PaymentMethodQueryResult!
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  variant(
+    """Queries for a current variant with specified SKU"""
+    sku: String
+    """Queries for a staged variant with specified SKU"""
+    stagedSku: String
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): Variant
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  variants(
+    where: String
+    sort: [String!]
+    limit: Int
+    offset: Int
+    """Queries with specified Product ID"""
+    productId: String
+  ): VariantQueryResult!
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  productProjectionVariantAttributes(
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+    staged: Boolean! = false
+    """
+    The names of the attributes to include. At least one needs to be specified.
+    """
+    includeAttributeNames: [String!]!
+    localeProjection: [Locale!]
+    """
+    The IDs of channels to include.
+    
+    If no channels is provided only the `noChannel` is returned.
+    """
+    includeChannelIds: [String!]
+  ): ProductProjectionVariantAttributes
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  
+  Query a single variant projection by id, key, or sku and other args
+  """
+  variantProjection(
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+    """Queries for a variant projection with specified SKU"""
+    sku: String
+    """
+    If true, queries staged projections. If false (default), queries current (published) projections.
+    """
+    staged: Boolean! = false
+    """
+    Filters localized fields (name, slug, description, attribute labels) to the specified locales
+    """
+    localeProjection: [Locale!]
+  ): VariantProjection
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  
+  Query variant projections with filtering and pagination
+  """
+  variantProjections(
+    where: String
+    sort: [String!]
+    limit: Int
+    offset: Int
+    """
+    If true, queries staged projections. If false (default), queries current (published) projections.
+    """
+    staged: Boolean! = false
+    """Filters variant projections by product ID"""
+    productId: String
+    """
+    Filters localized fields (name, slug, description, attribute labels) to the specified locales
+    """
+    localeProjection: [Locale!]
+    """
+    The names of the attributes to include.
+    
+    If neither `includeNames` nor `excludeNames` are provided, then all attributes are returned.
+    """
+    includeNames: [String!]
+    """
+    The names of the attributes to exclude.
+    
+    If neither `includeNames` nor `excludeNames` are provided, then all attributes are returned.
+    """
+    excludeNames: [String!]
+  ): VariantProjectionQueryResult!
     productSelectionAssignments(where: String, sort: [String!], limit: Int, offset: Int): ProductAssignmentQueryResult!
+}
+
+type Mutation {
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  createMcpServer(draft: McpServerDraft!): McpServer
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  updateMcpServer(id: String, key: String, version: Long!, actions: [McpServerUpdateAction!]!): McpServer
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  deleteMcpServer(id: String, key: String, version: Long!): McpServer
+    createCustomerGroup(draft: CustomerGroupDraft!): CustomerGroup
+    updateCustomerGroup(
+    version: Long!
+    actions: [CustomerGroupUpdateAction!]!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): CustomerGroup
+    deleteCustomerGroup(
+    version: Long!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): CustomerGroup
+    createCategory(draft: CategoryDraft!): Category
+    updateCategory(
+    version: Long!
+    actions: [CategoryUpdateAction!]!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): Category
+    deleteCategory(
+    version: Long!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): Category
+    createChannel(draft: ChannelDraft!): Channel
+    updateChannel(
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+    version: Long!
+    actions: [ChannelUpdateAction!]!
+  ): Channel
+    deleteChannel(
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+    version: Long!
+  ): Channel
+    createOrUpdateCustomObject(draft: CustomObjectDraft!): CustomObject
+    deleteCustomObject(
+    version: Long
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+    container: String
+    personalDataErasure: Boolean = false
+  ): CustomObject
+    createProductType(draft: ProductTypeDraft!): ProductTypeDefinition
+    updateProductType(
+    version: Long!
+    actions: [ProductTypeUpdateAction!]!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): ProductTypeDefinition
+    deleteProductType(
+    version: Long!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): ProductTypeDefinition
+    createTypeDefinition(draft: TypeDefinitionDraft!): TypeDefinition
+    updateTypeDefinition(
+    version: Long!
+    actions: [TypeUpdateAction!]!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): TypeDefinition
+    deleteTypeDefinition(
+    version: Long!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): TypeDefinition
+    createShippingMethod(draft: ShippingMethodDraft!): ShippingMethod
+    updateShippingMethod(
+    version: Long!
+    actions: [ShippingMethodUpdateAction!]!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): ShippingMethod
+    deleteShippingMethod(
+    version: Long!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): ShippingMethod
+    createZone(draft: CreateZone!): Zone
+    updateZone(
+    version: Long!
+    actions: [ZoneUpdateAction!]!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): Zone
+    deleteZone(
+    version: Long!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): Zone
+    createTaxCategory(draft: TaxCategoryDraft!): TaxCategory
+    updateTaxCategory(
+    version: Long!
+    actions: [TaxCategoryUpdateAction!]!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): TaxCategory
+    deleteTaxCategory(
+    version: Long!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): TaxCategory
+    createDiscountCode(draft: DiscountCodeDraft!): DiscountCode
+    updateDiscountCode(
+    version: Long!
+    actions: [DiscountCodeUpdateAction!]!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): DiscountCode
+    deleteDiscountCode(
+    version: Long!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): DiscountCode
+    createCartDiscount(
+    draft: CartDiscountDraft!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+  ): CartDiscount
+    updateCartDiscount(
+    version: Long!
+    actions: [CartDiscountUpdateAction!]!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): CartDiscount
+    deleteCartDiscount(
+    version: Long!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): CartDiscount
+    createProductDiscount(draft: ProductDiscountDraft!): ProductDiscount
+    updateProductDiscount(
+    version: Long!
+    actions: [ProductDiscountUpdateAction!]!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): ProductDiscount
+    deleteProductDiscount(
+    version: Long!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): ProductDiscount
+    createDiscountGroup(draft: DiscountGroupDraft!): DiscountGroup
+    updateDiscountGroup(
+    version: Long!
+    actions: [DiscountGroupUpdateAction!]!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): DiscountGroup
+    deleteDiscountGroup(
+    version: Long!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): DiscountGroup
+    createAttributeGroup(draft: AttributeGroupDraft!): AttributeGroup
+    updateAttributeGroup(
+    version: Long!
+    actions: [AttributeGroupUpdateAction!]!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): AttributeGroup
+    deleteAttributeGroup(
+    version: Long!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): AttributeGroup
+    createProduct(draft: ProductDraft!): Product
+    updateProduct(
+    version: Long!
+    actions: [ProductUpdateAction!]!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): Product
+    deleteProduct(
+    version: Long!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): Product
+    createState(draft: StateDraft!): State
+    updateState(
+    version: Long!
+    actions: [StateUpdateAction!]!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): State
+    deleteState(
+    version: Long!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): State
+    """
+  Creates a customer. If an anonymous cart is given then the cart is assigned to the created customer and the version number of the Cart will increase. If the id of an anonymous session is given, all carts and orders will be assigned to the created customer.
+  """
+  customerSignUp(
+    draft: CustomerSignUpDraft!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+  ): CustomerSignInResult!
+    """
+  Retrieves the authenticated customer (a customer that matches the given email/password pair).
+  
+  There may be carts and orders created before the sign in that should be assigned to the customer account. With the `anonymousCartId`, a single anonymous cart can be assigned. With the `anonymousId`, all orders and carts that have this `anonymousId` set will be assigned to the customer.
+  If both `anonymousCartId` and `anonymousId` are given, the anonymous cart must have the `anonymousId`.
+  
+  Additionally, there might also exist one or more active customer carts from an earlier session. On customer sign in there are several ways how to proceed with this cart and the cart referenced by the `anonymousCartId`.
+  
+  * If the customer does not have a cart yet, the anonymous cart becomes the customer's cart.
+  * If the customer already has one or more carts, the content of the anonymous cart will be copied to the customer's active cart that has been modified most recently.
+  
+    In this case the `CartState` of the anonymous cart gets changed to `Merged` while the customer's cart remains the `Active` cart.
+  
+    If a `LineItem` in the anonymous cart matches an existing line item, or a `CustomLineItem` matches an existing custom line item in the customer's cart, the maximum quantity of both line items is used as the new quantity.
+  
+    `ItemShippingDetails` are copied from the item with the highest quantity.
+  
+    If `itemShippingAddresses` are different in the two carts, the resulting cart contains the addresses of both the customer cart and the anonymous cart.
+  
+    Note, that it is not possible to merge carts that differ in their currency (set during creation of the cart).
+  
+  If a cart is is returned as part of the `CustomerSignInResult`, it has been recalculated (it will have up-to-date prices, taxes and discounts, and invalid line items have been removed).
+  """
+  customerSignIn(
+    draft: CustomerSignInDraft!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+  ): CustomerSignInResult!
+    updateCustomer(
+    version: Long!
+    actions: [CustomerUpdateAction!]!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): Customer
+    deleteCustomer(
+    version: Long!
+    personalDataErasure: Boolean = false
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): Customer
+    customerChangePassword(
+    id: String!
+    version: Long!
+    currentPassword: String!
+    newPassword: String!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+  ): Customer
+    """
+  The following workflow can be used to reset the customer’s password:
+  
+  1. Create a password reset token and send it embedded in a link to the customer.
+  2. When the customer clicks on the link, you may optionally retrieve customer by password token.
+  3. When the customer entered new password, use reset customer’s password to reset the password.
+  """
+  customerResetPassword(
+    version: Long
+    tokenValue: String!
+    newPassword: String!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+  ): Customer
+    """Verifies customer's email using a token."""
+  customerConfirmEmail(
+    version: Long
+    tokenValue: String!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+  ): Customer
+    """
+  The token value is used to reset the password of the customer with the given email. The token is valid for the time-to-live period (TTL).
+  """
+  customerCreatePasswordResetToken(
+    email: String!
+    """The validity of the created token in minutes."""
+    ttlMinutes: Int
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+    """
+    Invalidate older, previously created tokens when a new token is created.
+    """
+    invalidateOlderTokens: Boolean! = false
+  ): CustomerPasswordToken
+    customerCreateEmailVerificationToken(
+    id: String!
+    version: Long
+    """The validity of the created token in minutes."""
+    ttlMinutes: Int!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+    """
+    Invalidate older, previously created tokens when a new token is created.
+    """
+    invalidateOlderTokens: Boolean! = false
+  ): CustomerEmailToken!
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta If used with an access token for Anonymous Sessions, all orders and carts belonging to the anonymousId will be assigned to the newly created customer.
+  """
+  customerSignMeUp(
+    draft: CustomerSignMeUpDraft!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+  ): CustomerSignInResult!
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  
+  Retrieves the authenticated customer (a customer that matches the given email/password pair).
+  
+  If used with an access token for Anonymous Sessions, all orders and carts belonging to the `anonymousId` will be assigned to the newly created customer.
+  
+  * If the customer does not have a cart yet, the anonymous cart that was modified most recently becomes the customer's cart.
+  * If the customer already has a cart, the most recently modified anonymous cart will be handled according to the `AnonymousCartSignInMode`.
+  
+  If a cart is is returned as part of the `CustomerSignInResult`, it has been recalculated (it will have up-to-date prices, taxes and discounts, and invalid line items have been removed).
+  """
+  customerSignMeIn(
+    draft: CustomerSignMeInDraft!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+  ): CustomerSignInResult!
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta Signs up a new customer and associates it with the business unit.
+  """
+  signUpInMyBusinessUnit(draft: SignUpInMyBusinessUnitDraft!): CustomerSignInResult!
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  updateMyCustomer(
+    version: Long!
+    actions: [MyCustomerUpdateAction!]!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+  ): Customer
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  deleteMyCustomer(
+    version: Long!
+    personalDataErasure: Boolean = false
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+  ): Customer
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  customerChangeMyPassword(
+    version: Long!
+    currentPassword: String!
+    newPassword: String!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+  ): Customer
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  customerConfirmMyEmail(
+    tokenValue: String!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+  ): Customer
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  customerResetMyPassword(
+    tokenValue: String!
+    newPassword: String!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+  ): Customer
+    createInventoryEntry(draft: InventoryEntryDraft!): InventoryEntry
+    updateInventoryEntry(
+    version: Long!
+    actions: [InventoryEntryUpdateAction!]!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): InventoryEntry
+    deleteInventoryEntry(
+    version: Long!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): InventoryEntry
+    createCart(
+    draft: CartDraft!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+    """Create/modify entity as an associate in business-unit."""
+    asAssociate: AsAssociateArgument
+  ): Cart
+    updateCart(
+    version: Long!
+    actions: [CartUpdateAction!]!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+    """Create/modify entity as an associate in business-unit."""
+    asAssociate: AsAssociateArgument
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): Cart
+    deleteCart(
+    version: Long!
+    personalDataErasure: Boolean = false
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+    """Create/modify entity as an associate in business-unit."""
+    asAssociate: AsAssociateArgument
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): Cart
+    replicateCart(
+    reference: ReferenceInput!
+    key: String
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+    """Create/modify entity as an associate in business-unit."""
+    asAssociate: AsAssociateArgument
+  ): Cart
+    mergeCart(
+    customerId: String!
+    draft: MergeCartDraft!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+  ): Cart
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  createMyCart(
+    draft: MyCartDraft!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+  ): Cart
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  updateMyCart(
+    id: String!
+    version: Long!
+    actions: [MyCartUpdateAction!]!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+  ): Cart
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  deleteMyCart(
+    id: String!
+    version: Long!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+  ): Cart
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  replicateMyCart(reference: ReferenceInput!): Cart
+    createOrderFromCart(
+    draft: OrderCartCommand!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+    """Create/modify entity as an associate in business-unit."""
+    asAssociate: AsAssociateArgument
+  ): Order
+    updateOrder(
+    version: Long!
+    actions: [OrderUpdateAction!]!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+    """Create/modify entity as an associate in business-unit."""
+    asAssociate: AsAssociateArgument
+    """Queries with specified ID"""
+    id: String
+    orderNumber: String
+  ): Order
+    deleteOrder(
+    version: Long!
+    personalDataErasure: Boolean = false
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+    """Queries with specified ID"""
+    id: String
+    orderNumber: String
+  ): Order
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  createMyOrderFromCart(
+    draft: OrderMyCartCommand!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+  ): Order
+    createOrderFromQuote(
+    draft: OrderQuoteCommand!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+    """Create/modify entity as an associate in business-unit."""
+    asAssociate: AsAssociateArgument
+  ): Order
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  createMyOrderFromQuote(draft: OrderMyQuoteCommand!): Order
+    importOrder(draft: ImportOrderDraft!): Order
+    createOrderEdit(draft: OrderEditDraft!): OrderEdit
+    updateOrderEdit(
+    version: Long!
+    actions: [OrderEditUpdateAction!]!
+    dryRun: Boolean = false
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): OrderEdit
+    deleteOrderEdit(
+    version: Long!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): OrderEdit
+    applyOrderEdit(
+    """The id of the OrderEdit to apply."""
+    id: String!
+    """Current version of the OrderEdit."""
+    editVersion: Long!
+    """Current version of the referenced Order."""
+    resourceVersion: Long!
+  ): OrderEdit
+    createShoppingList(
+    draft: ShoppingListDraft!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+    """Create/modify entity as an associate in business-unit."""
+    asAssociate: AsAssociateArgument
+  ): ShoppingList
+    updateShoppingList(
+    version: Long!
+    actions: [ShoppingListUpdateAction!]!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+    """Create/modify entity as an associate in business-unit."""
+    asAssociate: AsAssociateArgument
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): ShoppingList
+    deleteShoppingList(
+    version: Long!
+    personalDataErasure: Boolean = false
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+    """Create/modify entity as an associate in business-unit."""
+    asAssociate: AsAssociateArgument
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): ShoppingList
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  createMyShoppingList(
+    draft: MyShoppingListDraft!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+  ): ShoppingList
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  updateMyShoppingList(
+    version: Long!
+    actions: [MyShoppingListUpdateAction!]!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): ShoppingList
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  deleteMyShoppingList(
+    version: Long!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): ShoppingList
+    createPayment(draft: PaymentDraft!): Payment
+    updatePayment(
+    version: Long!
+    actions: [PaymentUpdateAction!]!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): Payment
+    deletePayment(
+    version: Long!
+    personalDataErasure: Boolean = false
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): Payment
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  createMyPayment(draft: MyPaymentDraft!): MyPayment
+    updateMyPayment(id: String!, version: Long!, actions: [MyPaymentUpdateAction!]!): MyPayment
+    deleteMyPayment(id: String!, version: Long!): MyPayment
+    createProductSelection(draft: CreateProductSelectionDraft!): ProductSelection
+    updateProductSelection(version: Long!, actions: [ProductSelectionUpdateAction!]!, """Queries with specified ID"""
+    id: String, """Queries with specified key"""
+    key: String): ProductSelection
+    deleteProductSelection(
+    version: Long!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): ProductSelection
+    createProductTailoring(
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+    draft: ProductTailoringDraft!
+  ): ProductTailoring
+    updateProductTailoring(
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+    """Queries with specified Product ID"""
+    productId: String
+    """Queries with specified Product key"""
+    productKey: String
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+    actions: [ProductTailoringUpdateAction!]!
+    version: Long!
+  ): ProductTailoring
+    deleteProductTailoring(
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+    """Queries with specified Product ID"""
+    productId: String
+    """Queries with specified Product key"""
+    productKey: String
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+    version: Long!
+  ): ProductTailoring
+    updateProject(version: Long!, actions: [ProjectSettingsUpdateAction!]!): ProjectProjection
+    createStore(draft: CreateStore!): Store
+    updateStore(
+    version: Long!
+    actions: [StoreUpdateAction!]!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): Store
+    deleteStore(
+    version: Long!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): Store
+    createReview(draft: ReviewDraft!): Review
+    updateReview(
+    version: Long!
+    actions: [ReviewUpdateAction!]!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): Review
+    deleteReview(
+    version: Long!
+    personalDataErasure: Boolean = false
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): Review
+    createSubscription(draft: SubscriptionDraft!): CommercetoolsSubscription
+    updateSubscription(
+    version: Long!
+    actions: [SubscriptionUpdateAction!]!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): CommercetoolsSubscription
+    deleteSubscription(
+    version: Long!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): CommercetoolsSubscription
+    createExtension(draft: ExtensionDraft!): Extension
+    updateExtension(
+    version: Long!
+    actions: [ExtensionUpdateAction!]!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): Extension
+    deleteExtension(
+    version: Long!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): Extension
+    createApiClient(draft: CreateApiClient!): APIClientWithSecret
+    deleteApiClient(id: String!): APIClientWithoutSecret
+    createStandalonePrice(draft: CreateStandalonePrice!): StandalonePrice
+    updateStandalonePrice(
+    version: Long!
+    actions: [StandalonePriceUpdateAction!]!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): StandalonePrice
+    deleteStandalonePrice(
+    version: Long!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): StandalonePrice
+    createQuoteRequest(
+    draft: QuoteRequestDraft!
+    """Create/modify entity as an associate in business-unit."""
+    asAssociate: AsAssociateArgument
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+  ): QuoteRequest
+    updateQuoteRequest(
+    version: Long!
+    """Create/modify entity as an associate in business-unit."""
+    asAssociate: AsAssociateArgument
+    actions: [QuoteRequestUpdateAction!]!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): QuoteRequest
+    deleteQuoteRequest(
+    version: Long!
+    personalDataErasure: Boolean = false
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): QuoteRequest
+    createMyQuoteRequest(draft: MyQuoteRequestDraft!): QuoteRequest
+    updateMyQuoteRequest(
+    version: Long!
+    actions: [MyQuoteRequestUpdateAction!]!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): QuoteRequest
+    createStagedQuote(
+    draft: StagedQuoteDraft!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+  ): StagedQuote
+    updateStagedQuote(
+    version: Long!
+    actions: [StagedQuoteUpdateAction!]!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): StagedQuote
+    deleteStagedQuote(
+    version: Long!
+    personalDataErasure: Boolean = false
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): StagedQuote
+    createQuote(
+    draft: QuoteDraft!
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+  ): Quote
+    updateQuote(
+    version: Long!
+    actions: [QuoteUpdateAction!]!
+    """Create/modify entity as an associate in business-unit."""
+    asAssociate: AsAssociateArgument
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): Quote
+    deleteQuote(
+    version: Long!
+    personalDataErasure: Boolean = false
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): Quote
+    updateMyQuote(
+    version: Long!
+    actions: [MyQuoteUpdateAction!]!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): Quote
+    createApprovalRule(
+    draft: ApprovalRuleDraft!
+    """Create/modify entity as an associate in business-unit."""
+    asAssociate: AsAssociateArgument!
+  ): ApprovalRule
+    updateApprovalRule(
+    version: Long!
+    actions: [ApprovalRuleUpdateAction!]!
+    """Create/modify entity as an associate in business-unit."""
+    asAssociate: AsAssociateArgument!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): ApprovalRule
+    updateApprovalFlow(
+    version: Long!
+    actions: [ApprovalFlowUpdateAction!]!
+    """Create/modify entity as an associate in business-unit."""
+    asAssociate: AsAssociateArgument!
+    id: String!
+  ): ApprovalFlow
+    createBusinessUnit(
+    draft: BusinessUnitDraft!
+    """Create/modify entity as an associate in business-unit."""
+    asAssociate: AsAssociateArgument
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+  ): BusinessUnit
+    updateBusinessUnit(
+    version: Long!
+    actions: [BusinessUnitUpdateAction!]!
+    """Create/modify entity as an associate in business-unit."""
+    asAssociate: AsAssociateArgument
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): BusinessUnit
+    deleteBusinessUnit(
+    version: Long!
+    personalDataErasure: Boolean = false
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): BusinessUnit
+    createMyBusinessUnit(draft: MyBusinessUnitDraft!): BusinessUnit
+    updateMyBusinessUnit(
+    version: Long!
+    actions: [MyBusinessUnitUpdateAction!]!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): BusinessUnit
+    createAssociateRole(draft: AssociateRoleDraft!): AssociateRole
+    updateAssociateRole(
+    version: Long!
+    actions: [AssociateRoleUpdateAction!]!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): AssociateRole
+    deleteAssociateRole(
+    version: Long!
+    personalDataErasure: Boolean = false
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): AssociateRole
+    createRecurringOrder(draft: RecurringOrderDraft!): RecurringOrder
+    updateRecurringOrder(
+    version: Long!
+    actions: [RecurringOrderUpdateAction!]!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): RecurringOrder
+    deleteRecurringOrder(
+    version: Long!
+    personalDataErasure: Boolean = false
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): RecurringOrder
+    createRecurrencePolicy(draft: RecurrencePolicyDraft!): RecurrencePolicy
+    updateRecurrencePolicy(
+    version: Long!
+    actions: [RecurrencePolicyUpdateAction!]!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): RecurrencePolicy
+    deleteRecurrencePolicy(
+    version: Long!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): RecurrencePolicy
+    createPaymentMethod(draft: PaymentMethodDraft!): PaymentMethod
+    updatePaymentMethod(
+    version: Long!
+    actions: [PaymentMethodUpdateAction!]!
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): PaymentMethod
+    deletePaymentMethod(
+    version: Long!
+    personalDataErasure: Boolean = false
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): PaymentMethod
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  createVariant(draft: VariantDraft!): Variant
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  updateVariant(
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+    actions: [VariantUpdateAction!]!
+    version: Long!
+  ): Variant
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  deleteVariant(
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+    version: Long!
+  ): VariantDeletionResult
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  bulkUpdateVariants(input: BulkUpdateVariantsInput!): BulkUpdateVariantsResponse!
+}
+
+type McpServer {
+    id: String!
+    version: Long!
+    key: String!
+    """
+  Localized name. Pass `locale` for a single-locale read, or
+  `acceptLanguage` to try each locale in order and return the first match.
+  Returns null when the resource has no name or no matching locale.
+  """
+  name(locale: Locale, acceptLanguage: [Locale!]): String
+    """All locale entries of `name` as (locale, value) pairs."""
+  nameAllLocales: [LocalizedString!]!
+    """Localized description. Same resolution semantics as `name`."""
+  description(locale: Locale, acceptLanguage: [Locale!]): String
+    """All locale entries of `description` as (locale, value) pairs."""
+  descriptionAllLocales: [LocalizedString!]!
+    authenticationMode: McpServerAuthenticationMode!
+    state: McpServerState!
+    createdAt: DateTime!
+    lastModifiedAt: DateTime!
+    versionModifiedAt: DateTime!
+    createdBy: Initiator
+    lastModifiedBy: Initiator
+    mcpServer: McpServerConfig!
+}
+
+"""
+One match group for `McpServerJsonOutputFiltering`. Selects fields three ways,
+each with a fixed case-sensitivity rule:
+`fieldPaths` (exact dotted path, e.g. `customer.password`) and `fieldNames`
+(exact name at any depth, e.g. `password`) match **case-sensitively**;
+`fieldNameContains` (substring of a field name at any depth, e.g. `secret`)
+matches **case-insensitively** to widen the net for the fuzzy matcher.
+All optional.
+"""
+type McpServerJsonOutputFilteringMatcher {
+    fieldPaths: [String!]
+    fieldNames: [String!]
+    fieldNameContains: [String!]
+}
+
+"""
+Response field-filtering rules the gateway applies to `tools/call` results.
+`redact` replaces matched values with a placeholder; `drop` removes matched
+fields; `fieldPathsToKeep` exempts exact paths from both; `redactedWith`
+overrides the redaction placeholder.
+"""
+type McpServerJsonOutputFiltering {
+    redact: McpServerJsonOutputFilteringMatcher
+    drop: McpServerJsonOutputFilteringMatcher
+    fieldPathsToKeep: [String!]
+    redactedWith: String
+}
+
+type CommerceMcpServerConfig implements McpServerConfig {
+    type: McpServerType!
+    majorVersion: String!
+    url: String!
+    tools: [String!]!
+    toolCustomizations: [ToolCustomization!]!
+    jsonOutputFiltering: McpServerJsonOutputFiltering
+    toolOutputFormatting: McpServerToolOutputFormatting
+}
+
+"""
+Skeleton shopper-facing MCP server config. Carries only the shared
+`McpServerConfig` fields — no response-shaping (`jsonOutputFiltering`,
+`toolOutputFormatting`) yet, as the skeleton exposes a single demo tool.
+Those fields can be added later without breaking existing clients.
+"""
+type UcpShopperMcpServerConfig implements McpServerConfig {
+    type: McpServerType!
+    majorVersion: String!
+    url: String!
+    tools: [String!]!
+    toolCustomizations: [ToolCustomization!]!
+}
+
+"""
+Customization applied to a single tool at `tools/list` and `tools/call`
+time. At least one of `description` or a non-empty `parameters` list MUST
+be present; a customization with neither has no effect and is rejected at
+write time. Parameter names within `parameters` MUST be unique.
+"""
+type ToolCustomization {
+    tool: String!
+    description: String
+    parameters: [ParameterOverride!]!
+}
+
+"""
+Override applied to a single parameter of a tool's input schema. At least
+one of `description`, `const`, `default`, or `enum` MUST be present.
+`const` is mutually exclusive with both `default` and `enum`.
+"""
+type ParameterOverride {
+    name: String!
+    description: String
+    """
+  Pins the parameter to a fixed value. Mutually exclusive with `default` and `enum`.
+  """
+  const: JsonPrimitive
+    """
+  Default value applied when the caller omits the parameter. Mutually exclusive with `const`.
+  """
+  default: JsonPrimitive
+    """
+  Restricts accepted values to this set. Mutually exclusive with `const`.
+  """
+  enum: [JsonPrimitive!]
+}
+
+type McpServerTypeCatalogEntry {
+    type: McpServerType!
+    majorVersion: String!
+    tools: [McpServerCatalogTool!]!
+}
+
+type McpServerCatalogTool {
+    name: String!
+    description: String
+    operationType: McpToolOperationType
+    groups: [String!]
+}
+
+type Product implements Versioned & ReviewTarget & ReferenceExpandable {
+    id: String!
+    key: String
+    version: Long!
+    productTypeRef: Reference!
+    productType: ProductTypeDefinition
+    masterData: ProductCatalogData!
+    skus: [String!]!
+    createdAt: DateTime!
+    lastModifiedAt: DateTime!
+    stateRef: Reference
+    state: State
+    priceMode: PriceMode
+    taxCategoryRef: Reference
+    taxCategory: TaxCategory
+    reviewRatingStatistics: ReviewRatingStatistics
+    productSelectionRefs(where: String, sort: [String!], limit: Int, offset: Int): SelectionOfProductQueryResult!
+    createdBy: Initiator
+    lastModifiedBy: Initiator
+}
+
+type ProductPagedSearchResponse {
+    total: Long!
+    offset: Int
+    limit: Int
+    results: [ProductSearchResult!]!
+    facets: [ProductSearchFacetResult!]!
+}
+
+type ProductSearchFacetResultBucket implements ProductSearchFacetResult {
+    name: String!
+    buckets: [ProductSearchFacetResultBucketEntry!]!
+}
+
+type ProductSearchFacetResultBucketEntry {
+    key: String!
+    count: Int!
+}
+
+type ProductSearchFacetResultCount implements ProductSearchFacetResult {
+    name: String!
+    value: Long!
+}
+
+type ProductSearchFacetResultStats implements ProductSearchFacetResult {
+    name: String!
+    min: Json
+    max: Json
+    mean: Json
+    sum: Json
+    count: Long!
+}
+
+type ProductSearchResult {
+    id: String!
+    product(localesProjection: [String!], storeProjection: String): Product!
 }
 
 type BusinessUnit implements Versioned & ReferenceExpandable {
@@ -1151,12 +2602,6 @@ type AttributeReference {
     key: String!
 }
 
-type Attribution {
-    clientId: String
-    source: AttributionSource!
-    userRef: Reference
-}
-
 type AuthorizationHeader implements HttpDestinationAuthentication {
     headerValue: String!
     type: String!
@@ -1193,6 +2638,40 @@ type BooleanField implements CustomField {
 
 type BooleanType implements FieldType {
     name: String!
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+type BulkUpdateVariantsItemError {
+    code: String
+    message: String
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+type BulkUpdateVariantsItemResult {
+    status: BulkUpdateVariantsItemStatus!
+    resource: BulkUpdateVariantsResource
+    errors: [BulkUpdateVariantsItemError!]
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+type BulkUpdateVariantsResource {
+    id: String!
+    version: Long!
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+type BulkUpdateVariantsResponse {
+    successCount: Int!
+    failureCount: Int!
+    results: [BulkUpdateVariantsItemResult!]!
 }
 
 type BusinessUnitAddressAdded implements MessagePayload {
@@ -1491,6 +2970,35 @@ type BusinessUnitTypeSet implements MessagePayload {
     type: String!
 }
 
+type CannotChangeReservationExpiryTypedWarning implements TypedWarning {
+    lineItemId: String!
+    type: String!
+    code: TypedWarningCode!
+    message: String!
+}
+
+type CannotCreateReservationTypedWarning implements TypedWarning {
+    productId: String!
+    sku: String
+    quantity: Long!
+    supplyChannelRef: Reference
+    type: String!
+    code: TypedWarningCode!
+    message: String!
+}
+
+type CannotUpdateReservationTypedWarning implements TypedWarning {
+    lineItemId: String!
+    productId: String!
+    sku: String
+    reservedQuantity: Long!
+    requestedQuantity: Long!
+    supplyChannelRef: Reference
+    type: String!
+    code: TypedWarningCode!
+    message: String!
+}
+
 """
 A shopping cart holds product variants and can be ordered. Each cart either belongs to a registered customer or is an anonymous cart.
 """
@@ -1547,6 +3055,10 @@ type Cart implements Versioned & ReferenceExpandable {
     totalLineItemQuantity: Long
     recurringPaymentConfiguration: RecurringPaymentConfiguration
     freezeStrategy: FreezeStrategy
+    """
+  Warnings from the latest cart mutation. Not persisted and only available in mutation responses.
+  """
+  warnings: [TypedWarning!]!
     id: String!
     version: Long!
     createdAt: DateTime!
@@ -1688,6 +3200,12 @@ type CartDiscountVisualizationSearchConfiguration {
     lastModifiedAt: DateTime!
 }
 
+type CartEstimatedDeliverySet implements MessagePayload {
+    estimatedDelivery: EstimatedDelivery
+    shippingKey: String
+    type: String!
+}
+
 type CartFrozen implements MessagePayload {
     type: String!
 }
@@ -1709,6 +3227,10 @@ type CartLock {
     clientId: String!
 }
 
+type CartLocked implements MessagePayload {
+    type: String!
+}
+
 type CartPurchaseOrderNumberSet implements MessagePayload {
     purchaseOrderNumber: String
     oldPurchaseOrderNumber: String
@@ -1728,6 +3250,10 @@ type CartScoreType implements ShippingRateInputType {
 }
 
 type CartUnfrozen implements MessagePayload {
+    type: String!
+}
+
+type CartUnlocked implements MessagePayload {
     type: String!
 }
 
@@ -2639,6 +4165,12 @@ type DayOfMonthSchedule implements RecurrencePolicySchedule {
     type: String!
 }
 
+type DefaultVariantDeletedTypedWarning implements TypedWarning {
+    type: String!
+    code: TypedWarningCode!
+    message: String!
+}
+
 type Delivery {
     id: String!
     key: String
@@ -2780,6 +4312,8 @@ type DiscountCode implements Versioned & ReferenceExpandable {
   How many times this discount code was applied (only applications that were part of a successful checkout are considered)
   """
   applicationCount: Long!
+    storesRef: [KeyReference!]!
+    stores: [Store!]!
     cartDiscountRefs: [Reference!]!
     id: String!
     version: Long!
@@ -2988,6 +4522,11 @@ type EnumValue {
     label: String!
 }
 
+type EstimatedDelivery {
+    from: DateTime
+    until: DateTime
+}
+
 type EventBridgeDestination implements Destination {
     source: String!
     region: String!
@@ -3011,6 +4550,10 @@ type Extension implements Versioned & ReferenceExpandable {
     destination: ExtensionDestination!
     triggers: [Trigger!]!
     timeoutInMs: Int
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  dependenciesRef: [Reference!]!
     """
   BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
   """
@@ -3109,6 +4652,12 @@ type FixedPriceDiscountValue implements CartDiscountValue {
     money: [BaseMoney!]!
 }
 
+type GeneralTypedWarning implements TypedWarning {
+    type: String!
+    code: TypedWarningCode!
+    message: String!
+}
+
 type GiftLineItemValue implements CartDiscountValue {
     type: String!
     variantId: Int!
@@ -3148,6 +4697,12 @@ type Image {
     label: String
 }
 
+type ImageProcessingOngoingTypedWarning implements TypedWarning {
+    type: String!
+    code: TypedWarningCode!
+    message: String!
+}
+
 type ImageProductSearch {
     url: String!
     dimensions: DimensionsProductSearch!
@@ -3158,14 +4713,14 @@ type ImportStagedOrderCustomLineItemStateOutput implements StagedOrderUpdateActi
     type: String!
     customLineItemId: String
     customLineItemKey: String
-    state: Set!
+    state: [ItemState!]!
 }
 
 type ImportStagedOrderLineItemStateOutput implements StagedOrderUpdateActionOutput {
     type: String!
     lineItemId: String
     lineItemKey: String
-    state: Set!
+    state: [ItemState!]!
 }
 
 type InStore implements CartDiscountQueryInterface & CartQueryInterface & CustomerActiveCartInterface & OrderQueryInterface & CustomerQueryInterface & ShippingMethodsByCartInterface & MeFieldInterface {
@@ -3183,6 +4738,13 @@ type InStore implements CartDiscountQueryInterface & CartQueryInterface & Custom
     key: String
   ): CartDiscount
     cartDiscounts(where: String, sort: [String!], limit: Int, offset: Int): CartDiscountQueryResult!
+    discountCode(
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+  ): DiscountCode
+    discountCodes(where: String, sort: [String!], limit: Int, offset: Int): DiscountCodeQueryResult!
     product(
     projectExpandedProducts: Boolean = false
     localeProjection: [Locale!]
@@ -3264,6 +4826,81 @@ type InStore implements CartDiscountQueryInterface & CartQueryInterface & Custom
     key: String
   ): BusinessUnit
     businessUnits(where: String, sort: [String!], limit: Int, offset: Int): BusinessUnitQueryResult!
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  productProjectionVariantAttributes(
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+    staged: Boolean! = false
+    """
+    The names of the attributes to include. At least one needs to be specified.
+    """
+    includeAttributeNames: [String!]!
+    localeProjection: [Locale!]
+    """
+    The IDs of channels to include.
+    
+    If no channels is provided only the `noChannel` is returned.
+    """
+    includeChannelIds: [String!]
+  ): ProductProjectionVariantAttributes
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  
+  Query a single variant projection by id, key, or sku and other args
+  """
+  variantProjection(
+    """Queries with specified ID"""
+    id: String
+    """Queries with specified key"""
+    key: String
+    """Queries for a variant projection with specified SKU"""
+    sku: String
+    """
+    If true, queries staged projections. If false (default), queries current (published) projections.
+    """
+    staged: Boolean! = false
+    """
+    Filters localized fields (name, slug, description, attribute labels) to the specified locales
+    """
+    localeProjection: [Locale!]
+  ): VariantProjection
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  
+  Query variant projections with filtering and pagination
+  """
+  variantProjections(
+    where: String
+    sort: [String!]
+    limit: Int
+    offset: Int
+    """
+    If true, queries staged projections. If false (default), queries current (published) projections.
+    """
+    staged: Boolean! = false
+    """Filters variant projections by product ID"""
+    productId: String
+    """
+    Filters localized fields (name, slug, description, attribute labels) to the specified locales
+    """
+    localeProjection: [Locale!]
+    """
+    The names of the attributes to include.
+    
+    If neither `includeNames` nor `excludeNames` are provided, then all attributes are returned.
+    """
+    includeNames: [String!]
+    """
+    The names of the attributes to exclude.
+    
+    If neither `includeNames` nor `excludeNames` are provided, then all attributes are returned.
+    """
+    excludeNames: [String!]
+  ): VariantProjectionQueryResult!
 }
 
 type InStoreMe implements MeQueryInterface & CartQueryInterface & ActiveCartInterface & OrderQueryInterface & ShoppingListQueryInterface {
@@ -3323,17 +4960,6 @@ type InheritedAssociateRoleAssignment {
 type InheritedStore {
     store: Store
     storeRef: KeyReference!
-}
-
-type Initiator {
-    isPlatformClient: Boolean
-    externalUserId: String
-    anonymousId: String
-    attributedTo: Attribution
-    clientId: String
-    customerRef: Reference
-    userRef: Reference
-    associateRef: Reference
 }
 
 type InterfaceInteractionsRaw {
@@ -3546,7 +5172,10 @@ type LineItem {
   ): String
     productSlugAllLocales: [LocalizedString!]
     productType: ProductTypeDefinition
-    productTypeRef: Reference
+    """
+  Reference to the product type of the line item, carrying the snapshot `version` captured when the line item was added.
+  """
+  productTypeRef: VersionedReference
     variant: ProductVariant
     price: ProductPrice!
     taxedPrice: TaxedItemPrice
@@ -3565,6 +5194,8 @@ type LineItem {
     priceMode: LineItemPriceMode!
     custom: CustomFieldsType
     inventoryMode: InventoryMode
+    reservation: Reservation
+    reservationRef: Reference
     shippingDetails: ItemShippingDetails
     perMethodTaxRate: [MethodTaxRate!]!
     taxedPricePortions: [MethodTaxedPrice!]!
@@ -3723,11 +5354,6 @@ type LocalizedEnumValue {
     acceptLanguage: [Locale!]
   ): String
     labelAllLocales: [LocalizedString!]!
-}
-
-type LocalizedString {
-    locale: Locale!
-    value: String!
 }
 
 type LocalizedStringAttribute implements Attribute {
@@ -3941,1153 +5567,6 @@ type MultiBuyLineItemsTarget implements CartDiscountTarget {
     maxOccurrence: Int
     selectionMode: SelectionMode!
     type: String!
-}
-
-type Mutation {
-    createCustomerGroup(draft: CustomerGroupDraft!): CustomerGroup
-    updateCustomerGroup(
-    version: Long!
-    actions: [CustomerGroupUpdateAction!]!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): CustomerGroup
-    deleteCustomerGroup(
-    version: Long!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): CustomerGroup
-    createCategory(draft: CategoryDraft!): Category
-    updateCategory(
-    version: Long!
-    actions: [CategoryUpdateAction!]!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): Category
-    deleteCategory(
-    version: Long!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): Category
-    createChannel(draft: ChannelDraft!): Channel
-    updateChannel(
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-    version: Long!
-    actions: [ChannelUpdateAction!]!
-  ): Channel
-    deleteChannel(
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-    version: Long!
-  ): Channel
-    createOrUpdateCustomObject(draft: CustomObjectDraft!): CustomObject
-    deleteCustomObject(
-    version: Long
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-    container: String
-    personalDataErasure: Boolean = false
-  ): CustomObject
-    createProductType(draft: ProductTypeDraft!): ProductTypeDefinition
-    updateProductType(
-    version: Long!
-    actions: [ProductTypeUpdateAction!]!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): ProductTypeDefinition
-    deleteProductType(
-    version: Long!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): ProductTypeDefinition
-    createTypeDefinition(draft: TypeDefinitionDraft!): TypeDefinition
-    updateTypeDefinition(
-    version: Long!
-    actions: [TypeUpdateAction!]!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): TypeDefinition
-    deleteTypeDefinition(
-    version: Long!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): TypeDefinition
-    createShippingMethod(draft: ShippingMethodDraft!): ShippingMethod
-    updateShippingMethod(
-    version: Long!
-    actions: [ShippingMethodUpdateAction!]!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): ShippingMethod
-    deleteShippingMethod(
-    version: Long!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): ShippingMethod
-    createZone(draft: CreateZone!): Zone
-    updateZone(
-    version: Long!
-    actions: [ZoneUpdateAction!]!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): Zone
-    deleteZone(
-    version: Long!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): Zone
-    createTaxCategory(draft: TaxCategoryDraft!): TaxCategory
-    updateTaxCategory(
-    version: Long!
-    actions: [TaxCategoryUpdateAction!]!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): TaxCategory
-    deleteTaxCategory(
-    version: Long!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): TaxCategory
-    createDiscountCode(draft: DiscountCodeDraft!): DiscountCode
-    updateDiscountCode(
-    version: Long!
-    actions: [DiscountCodeUpdateAction!]!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): DiscountCode
-    deleteDiscountCode(
-    version: Long!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): DiscountCode
-    createCartDiscount(
-    draft: CartDiscountDraft!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-  ): CartDiscount
-    updateCartDiscount(
-    version: Long!
-    actions: [CartDiscountUpdateAction!]!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): CartDiscount
-    deleteCartDiscount(
-    version: Long!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): CartDiscount
-    createProductDiscount(draft: ProductDiscountDraft!): ProductDiscount
-    updateProductDiscount(
-    version: Long!
-    actions: [ProductDiscountUpdateAction!]!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): ProductDiscount
-    deleteProductDiscount(
-    version: Long!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): ProductDiscount
-    createDiscountGroup(draft: DiscountGroupDraft!): DiscountGroup
-    updateDiscountGroup(
-    version: Long!
-    actions: [DiscountGroupUpdateAction!]!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): DiscountGroup
-    deleteDiscountGroup(
-    version: Long!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): DiscountGroup
-    createAttributeGroup(draft: AttributeGroupDraft!): AttributeGroup
-    updateAttributeGroup(
-    version: Long!
-    actions: [AttributeGroupUpdateAction!]!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): AttributeGroup
-    deleteAttributeGroup(
-    version: Long!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): AttributeGroup
-    createProduct(draft: ProductDraft!): Product
-    updateProduct(
-    version: Long!
-    actions: [ProductUpdateAction!]!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): Product
-    deleteProduct(
-    version: Long!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): Product
-    createState(draft: StateDraft!): State
-    updateState(
-    version: Long!
-    actions: [StateUpdateAction!]!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): State
-    deleteState(
-    version: Long!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): State
-    """
-  Creates a customer. If an anonymous cart is given then the cart is assigned to the created customer and the version number of the Cart will increase. If the id of an anonymous session is given, all carts and orders will be assigned to the created customer.
-  """
-  customerSignUp(
-    draft: CustomerSignUpDraft!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-  ): CustomerSignInResult!
-    """
-  Retrieves the authenticated customer (a customer that matches the given email/password pair).
-  
-  There may be carts and orders created before the sign in that should be assigned to the customer account. With the `anonymousCartId`, a single anonymous cart can be assigned. With the `anonymousId`, all orders and carts that have this `anonymousId` set will be assigned to the customer.
-  If both `anonymousCartId` and `anonymousId` are given, the anonymous cart must have the `anonymousId`.
-  
-  Additionally, there might also exist one or more active customer carts from an earlier session. On customer sign in there are several ways how to proceed with this cart and the cart referenced by the `anonymousCartId`.
-  
-  * If the customer does not have a cart yet, the anonymous cart becomes the customer's cart.
-  * If the customer already has one or more carts, the content of the anonymous cart will be copied to the customer's active cart that has been modified most recently.
-  
-    In this case the `CartState` of the anonymous cart gets changed to `Merged` while the customer's cart remains the `Active` cart.
-  
-    If a `LineItem` in the anonymous cart matches an existing line item, or a `CustomLineItem` matches an existing custom line item in the customer's cart, the maximum quantity of both line items is used as the new quantity.
-  
-    `ItemShippingDetails` are copied from the item with the highest quantity.
-  
-    If `itemShippingAddresses` are different in the two carts, the resulting cart contains the addresses of both the customer cart and the anonymous cart.
-  
-    Note, that it is not possible to merge carts that differ in their currency (set during creation of the cart).
-  
-  If a cart is is returned as part of the `CustomerSignInResult`, it has been recalculated (it will have up-to-date prices, taxes and discounts, and invalid line items have been removed).
-  """
-  customerSignIn(
-    draft: CustomerSignInDraft!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-  ): CustomerSignInResult!
-    updateCustomer(
-    version: Long!
-    actions: [CustomerUpdateAction!]!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): Customer
-    deleteCustomer(
-    version: Long!
-    personalDataErasure: Boolean = false
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): Customer
-    customerChangePassword(
-    id: String!
-    version: Long!
-    currentPassword: String!
-    newPassword: String!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-  ): Customer
-    """
-  The following workflow can be used to reset the customer’s password:
-  
-  1. Create a password reset token and send it embedded in a link to the customer.
-  2. When the customer clicks on the link, you may optionally retrieve customer by password token.
-  3. When the customer entered new password, use reset customer’s password to reset the password.
-  """
-  customerResetPassword(
-    version: Long
-    tokenValue: String!
-    newPassword: String!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-  ): Customer
-    """Verifies customer's email using a token."""
-  customerConfirmEmail(
-    version: Long
-    tokenValue: String!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-  ): Customer
-    """
-  The token value is used to reset the password of the customer with the given email. The token is valid for the time-to-live period (TTL).
-  """
-  customerCreatePasswordResetToken(
-    email: String!
-    """The validity of the created token in minutes."""
-    ttlMinutes: Int
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-    """
-    Invalidate older, previously created tokens when a new token is created.
-    """
-    invalidateOlderTokens: Boolean! = false
-  ): CustomerPasswordToken
-    customerCreateEmailVerificationToken(
-    id: String!
-    version: Long
-    """The validity of the created token in minutes."""
-    ttlMinutes: Int!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-    """
-    Invalidate older, previously created tokens when a new token is created.
-    """
-    invalidateOlderTokens: Boolean! = false
-  ): CustomerEmailToken!
-    """
-  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta If used with an access token for Anonymous Sessions, all orders and carts belonging to the anonymousId will be assigned to the newly created customer.
-  """
-  customerSignMeUp(
-    draft: CustomerSignMeUpDraft!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-  ): CustomerSignInResult!
-    """
-  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-  
-  Retrieves the authenticated customer (a customer that matches the given email/password pair).
-  
-  If used with an access token for Anonymous Sessions, all orders and carts belonging to the `anonymousId` will be assigned to the newly created customer.
-  
-  * If the customer does not have a cart yet, the anonymous cart that was modified most recently becomes the customer's cart.
-  * If the customer already has a cart, the most recently modified anonymous cart will be handled according to the `AnonymousCartSignInMode`.
-  
-  If a cart is is returned as part of the `CustomerSignInResult`, it has been recalculated (it will have up-to-date prices, taxes and discounts, and invalid line items have been removed).
-  """
-  customerSignMeIn(
-    draft: CustomerSignMeInDraft!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-  ): CustomerSignInResult!
-    """
-  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta Signs up a new customer and associates it with the business unit.
-  """
-  signUpInMyBusinessUnit(draft: SignUpInMyBusinessUnitDraft!): CustomerSignInResult!
-    """
-  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-  """
-  updateMyCustomer(
-    version: Long!
-    actions: [MyCustomerUpdateAction!]!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-  ): Customer
-    """
-  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-  """
-  deleteMyCustomer(
-    version: Long!
-    personalDataErasure: Boolean = false
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-  ): Customer
-    """
-  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-  """
-  customerChangeMyPassword(
-    version: Long!
-    currentPassword: String!
-    newPassword: String!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-  ): Customer
-    """
-  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-  """
-  customerConfirmMyEmail(
-    tokenValue: String!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-  ): Customer
-    """
-  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-  """
-  customerResetMyPassword(
-    tokenValue: String!
-    newPassword: String!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-  ): Customer
-    createInventoryEntry(draft: InventoryEntryDraft!): InventoryEntry
-    updateInventoryEntry(
-    version: Long!
-    actions: [InventoryEntryUpdateAction!]!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): InventoryEntry
-    deleteInventoryEntry(
-    version: Long!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): InventoryEntry
-    createCart(
-    draft: CartDraft!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-    """Create/modify entity as an associate in business-unit."""
-    asAssociate: AsAssociateArgument
-  ): Cart
-    updateCart(
-    version: Long!
-    actions: [CartUpdateAction!]!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-    """Create/modify entity as an associate in business-unit."""
-    asAssociate: AsAssociateArgument
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): Cart
-    deleteCart(
-    version: Long!
-    personalDataErasure: Boolean = false
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-    """Create/modify entity as an associate in business-unit."""
-    asAssociate: AsAssociateArgument
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): Cart
-    replicateCart(
-    reference: ReferenceInput!
-    key: String
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-    """Create/modify entity as an associate in business-unit."""
-    asAssociate: AsAssociateArgument
-  ): Cart
-    mergeCart(
-    customerId: String!
-    draft: MergeCartDraft!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-  ): Cart
-    """
-  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-  """
-  createMyCart(
-    draft: MyCartDraft!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-  ): Cart
-    """
-  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-  """
-  updateMyCart(
-    id: String!
-    version: Long!
-    actions: [MyCartUpdateAction!]!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-  ): Cart
-    """
-  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-  """
-  deleteMyCart(
-    id: String!
-    version: Long!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-  ): Cart
-    """
-  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-  """
-  replicateMyCart(reference: ReferenceInput!): Cart
-    createOrderFromCart(
-    draft: OrderCartCommand!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-    """Create/modify entity as an associate in business-unit."""
-    asAssociate: AsAssociateArgument
-  ): Order
-    updateOrder(
-    version: Long!
-    actions: [OrderUpdateAction!]!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-    """Create/modify entity as an associate in business-unit."""
-    asAssociate: AsAssociateArgument
-    """Queries with specified ID"""
-    id: String
-    orderNumber: String
-  ): Order
-    deleteOrder(
-    version: Long!
-    personalDataErasure: Boolean = false
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-    """Queries with specified ID"""
-    id: String
-    orderNumber: String
-  ): Order
-    """
-  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-  """
-  createMyOrderFromCart(
-    draft: OrderMyCartCommand!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-  ): Order
-    createOrderFromQuote(
-    draft: OrderQuoteCommand!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-    """Create/modify entity as an associate in business-unit."""
-    asAssociate: AsAssociateArgument
-  ): Order
-    """
-  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-  """
-  createMyOrderFromQuote(draft: OrderMyQuoteCommand!): Order
-    importOrder(draft: ImportOrderDraft!): Order
-    createOrderEdit(draft: OrderEditDraft!): OrderEdit
-    updateOrderEdit(
-    version: Long!
-    actions: [OrderEditUpdateAction!]!
-    dryRun: Boolean = false
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): OrderEdit
-    deleteOrderEdit(
-    version: Long!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): OrderEdit
-    createShoppingList(
-    draft: ShoppingListDraft!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-    """Create/modify entity as an associate in business-unit."""
-    asAssociate: AsAssociateArgument
-  ): ShoppingList
-    updateShoppingList(
-    version: Long!
-    actions: [ShoppingListUpdateAction!]!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-    """Create/modify entity as an associate in business-unit."""
-    asAssociate: AsAssociateArgument
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): ShoppingList
-    deleteShoppingList(
-    version: Long!
-    personalDataErasure: Boolean = false
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-    """Create/modify entity as an associate in business-unit."""
-    asAssociate: AsAssociateArgument
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): ShoppingList
-    """
-  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-  """
-  createMyShoppingList(
-    draft: MyShoppingListDraft!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-  ): ShoppingList
-    """
-  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-  """
-  updateMyShoppingList(
-    version: Long!
-    actions: [MyShoppingListUpdateAction!]!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): ShoppingList
-    """
-  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-  """
-  deleteMyShoppingList(
-    version: Long!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): ShoppingList
-    createPayment(draft: PaymentDraft!): Payment
-    updatePayment(
-    version: Long!
-    actions: [PaymentUpdateAction!]!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): Payment
-    deletePayment(
-    version: Long!
-    personalDataErasure: Boolean = false
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): Payment
-    """
-  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-  """
-  createMyPayment(draft: MyPaymentDraft!): MyPayment
-    updateMyPayment(id: String!, version: Long!, actions: [MyPaymentUpdateAction!]!): MyPayment
-    deleteMyPayment(id: String!, version: Long!): MyPayment
-    createProductSelection(draft: CreateProductSelectionDraft!): ProductSelection
-    updateProductSelection(version: Long!, actions: [ProductSelectionUpdateAction!]!, """Queries with specified ID"""
-    id: String, """Queries with specified key"""
-    key: String): ProductSelection
-    deleteProductSelection(
-    version: Long!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): ProductSelection
-    createProductTailoring(
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-    draft: ProductTailoringDraft!
-  ): ProductTailoring
-    updateProductTailoring(
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-    """Queries with specified Product ID"""
-    productId: String
-    """Queries with specified Product key"""
-    productKey: String
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-    actions: [ProductTailoringUpdateAction!]!
-    version: Long!
-  ): ProductTailoring
-    deleteProductTailoring(
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-    """Queries with specified Product ID"""
-    productId: String
-    """Queries with specified Product key"""
-    productKey: String
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-    version: Long!
-  ): ProductTailoring
-    updateProject(version: Long!, actions: [ProjectSettingsUpdateAction!]!): ProjectProjection
-    createStore(draft: CreateStore!): Store
-    updateStore(
-    version: Long!
-    actions: [StoreUpdateAction!]!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): Store
-    deleteStore(
-    version: Long!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): Store
-    createReview(draft: ReviewDraft!): Review
-    updateReview(
-    version: Long!
-    actions: [ReviewUpdateAction!]!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): Review
-    deleteReview(
-    version: Long!
-    personalDataErasure: Boolean = false
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): Review
-    createSubscription(draft: SubscriptionDraft!): CommercetoolsSubscription
-    updateSubscription(
-    version: Long!
-    actions: [SubscriptionUpdateAction!]!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): CommercetoolsSubscription
-    deleteSubscription(
-    version: Long!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): CommercetoolsSubscription
-    createExtension(draft: ExtensionDraft!): Extension
-    updateExtension(
-    version: Long!
-    actions: [ExtensionUpdateAction!]!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): Extension
-    deleteExtension(
-    version: Long!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): Extension
-    createApiClient(draft: CreateApiClient!): APIClientWithSecret
-    deleteApiClient(id: String!): APIClientWithoutSecret
-    createStandalonePrice(draft: CreateStandalonePrice!): StandalonePrice
-    updateStandalonePrice(
-    version: Long!
-    actions: [StandalonePriceUpdateAction!]!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): StandalonePrice
-    deleteStandalonePrice(
-    version: Long!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): StandalonePrice
-    createQuoteRequest(
-    draft: QuoteRequestDraft!
-    """Create/modify entity as an associate in business-unit."""
-    asAssociate: AsAssociateArgument
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-  ): QuoteRequest
-    updateQuoteRequest(
-    version: Long!
-    """Create/modify entity as an associate in business-unit."""
-    asAssociate: AsAssociateArgument
-    actions: [QuoteRequestUpdateAction!]!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): QuoteRequest
-    deleteQuoteRequest(
-    version: Long!
-    personalDataErasure: Boolean = false
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): QuoteRequest
-    createMyQuoteRequest(draft: MyQuoteRequestDraft!): QuoteRequest
-    updateMyQuoteRequest(
-    version: Long!
-    actions: [MyQuoteRequestUpdateAction!]!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): QuoteRequest
-    createStagedQuote(
-    draft: StagedQuoteDraft!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-  ): StagedQuote
-    updateStagedQuote(
-    version: Long!
-    actions: [StagedQuoteUpdateAction!]!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): StagedQuote
-    deleteStagedQuote(
-    version: Long!
-    personalDataErasure: Boolean = false
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): StagedQuote
-    createQuote(
-    draft: QuoteDraft!
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-  ): Quote
-    updateQuote(
-    version: Long!
-    actions: [QuoteUpdateAction!]!
-    """Create/modify entity as an associate in business-unit."""
-    asAssociate: AsAssociateArgument
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): Quote
-    deleteQuote(
-    version: Long!
-    personalDataErasure: Boolean = false
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): Quote
-    updateMyQuote(
-    version: Long!
-    actions: [MyQuoteUpdateAction!]!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): Quote
-    createApprovalRule(
-    draft: ApprovalRuleDraft!
-    """Create/modify entity as an associate in business-unit."""
-    asAssociate: AsAssociateArgument!
-  ): ApprovalRule
-    updateApprovalRule(
-    version: Long!
-    actions: [ApprovalRuleUpdateAction!]!
-    """Create/modify entity as an associate in business-unit."""
-    asAssociate: AsAssociateArgument!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): ApprovalRule
-    updateApprovalFlow(
-    version: Long!
-    actions: [ApprovalFlowUpdateAction!]!
-    """Create/modify entity as an associate in business-unit."""
-    asAssociate: AsAssociateArgument!
-    id: String!
-  ): ApprovalFlow
-    createBusinessUnit(
-    draft: BusinessUnitDraft!
-    """Create/modify entity as an associate in business-unit."""
-    asAssociate: AsAssociateArgument
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-  ): BusinessUnit
-    updateBusinessUnit(
-    version: Long!
-    actions: [BusinessUnitUpdateAction!]!
-    """Create/modify entity as an associate in business-unit."""
-    asAssociate: AsAssociateArgument
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): BusinessUnit
-    deleteBusinessUnit(
-    version: Long!
-    personalDataErasure: Boolean = false
-    """
-    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
-    """
-    storeKey: KeyReferenceInput
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): BusinessUnit
-    createMyBusinessUnit(draft: MyBusinessUnitDraft!): BusinessUnit
-    updateMyBusinessUnit(
-    version: Long!
-    actions: [MyBusinessUnitUpdateAction!]!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): BusinessUnit
-    createAssociateRole(draft: AssociateRoleDraft!): AssociateRole
-    updateAssociateRole(
-    version: Long!
-    actions: [AssociateRoleUpdateAction!]!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): AssociateRole
-    deleteAssociateRole(
-    version: Long!
-    personalDataErasure: Boolean = false
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): AssociateRole
-    createRecurringOrder(draft: RecurringOrderDraft!): RecurringOrder
-    updateRecurringOrder(
-    version: Long!
-    actions: [RecurringOrderUpdateAction!]!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): RecurringOrder
-    deleteRecurringOrder(
-    version: Long!
-    personalDataErasure: Boolean = false
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): RecurringOrder
-    createRecurrencePolicy(draft: RecurrencePolicyDraft!): RecurrencePolicy
-    updateRecurrencePolicy(
-    version: Long!
-    actions: [RecurrencePolicyUpdateAction!]!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): RecurrencePolicy
-    deleteRecurrencePolicy(
-    version: Long!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): RecurrencePolicy
-    createPaymentMethod(draft: PaymentMethodDraft!): PaymentMethod
-    updatePaymentMethod(
-    version: Long!
-    actions: [PaymentMethodUpdateAction!]!
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): PaymentMethod
-    deletePaymentMethod(
-    version: Long!
-    personalDataErasure: Boolean = false
-    """Queries with specified ID"""
-    id: String
-    """Queries with specified key"""
-    key: String
-  ): PaymentMethod
 }
 
 """
@@ -5399,6 +5878,12 @@ type OrderEditQueryResult {
     results: [OrderEdit!]!
 }
 
+type OrderEstimatedDeliverySet implements MessagePayload & OrderMessagePayload {
+    estimatedDelivery: EstimatedDelivery
+    shippingKey: String
+    type: String!
+}
+
 type OrderExcerpt {
     totalPrice: Money!
     taxedPrice: TaxedPrice
@@ -5439,7 +5924,7 @@ type OrderLineItemRemoved implements MessagePayload & OrderMessagePayload {
     lineItemKey: String
     removedQuantity: Long!
     newQuantity: Long!
-    newState: Set!
+    newState: [ItemState!]!
     newTotalPrice: Money!
     newPrice: ProductPrice
     newShippingDetails: ItemShippingDetails
@@ -6141,10 +6626,18 @@ type ProductData {
   ): ProductVariant
     skus: [String!]!
     attributesRaw: [RawProductAttribute!]!
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  defaultVariantRef: Reference
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  defaultVariant: Variant
 }
 
 type ProductDeleted implements MessagePayload {
-    removedImageUrls: Set!
+    removedImageUrls: [String!]!
     currentProjection: ProductProjectionMessagePayload
     type: String!
 }
@@ -6609,6 +7102,16 @@ type ProductProjectionSearchResult {
     facets: [FacetResultValue!]!
 }
 
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+type ProductProjectionVariantAttributes {
+    productId: String!
+    productKey: String
+    attributes: [VariantAttributeDefinition!]!
+    variants: [VariantAttributeVariant!]!
+}
+
 type ProductPublished implements MessagePayload {
     productProjection: ProductProjectionMessagePayload!
     removedImageUrls: [String!]!
@@ -6637,7 +7140,7 @@ type ProductRemovedFromCategory implements MessagePayload {
 }
 
 type ProductRevertedStagedChanges implements MessagePayload {
-    removedImageUrls: Set!
+    removedImageUrls: [String!]!
     type: String!
 }
 
@@ -7059,6 +7562,15 @@ type ProductTailoringImagesSet implements MessagePayload {
     type: String!
 }
 
+type ProductTailoringKeySet implements MessagePayload {
+    key: String
+    oldKey: String
+    storeRef: KeyReference!
+    productRef: Reference!
+    productKey: String
+    type: String!
+}
+
 type ProductTailoringNameSet implements MessagePayload {
     storeRef: KeyReference!
     productRef: Reference!
@@ -7268,7 +7780,7 @@ type ProductVariantAvailabilityWithChannels {
 }
 
 type ProductVariantDeleted implements MessagePayload {
-    removedImageUrls: Set!
+    removedImageUrls: [String!]!
     variant: ProductVariant
     staged: Boolean
     type: String!
@@ -7360,6 +7872,10 @@ type ProjectProjection {
   BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
   """
   inventory: InventoryConfiguration!
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  productCatalogModel: ProductCatalogModel
 }
 
 type PurchaseOrderNumberSet implements MessagePayload & OrderMessagePayload {
@@ -7850,11 +8366,6 @@ type RecurringPaymentConfiguration {
     paymentAllocations: [RecurringPaymentAllocation!]!
 }
 
-type Reference {
-    typeId: String!
-    id: String!
-}
-
 type ReferenceAttribute implements Attribute {
     typeId: String!
     id: String!
@@ -7957,6 +8468,26 @@ type RemoveStagedOrderParcelFromDeliveryOutput implements StagedOrderUpdateActio
 type RemoveStagedOrderPaymentOutput implements StagedOrderUpdateActionOutput {
     type: String!
     paymentResId: ResourceIdentifier!
+}
+
+"""
+A Reservation holds inventory of an InventoryEntry for a Cart line item until the reservation expires or the Cart is ordered.
+"""
+type Reservation implements Versioned {
+    inventoryEntry: InventoryEntry
+    inventoryEntryRef: Reference!
+    lineItemId: String!
+    quantity: Long!
+    ownerRef: Reference!
+    state: ReservationState!
+    inventoryMode: String!
+    expiresAt: DateTime
+    id: String!
+    version: Long!
+    createdAt: DateTime!
+    lastModifiedAt: DateTime!
+    createdBy: Initiator
+    lastModifiedBy: Initiator
 }
 
 type ResourceIdentifier {
@@ -8253,6 +8784,7 @@ type SetStagedOrderCustomShippingMethodOutput implements StagedOrderUpdateAction
     taxCategoryResId: ResourceIdentifier
     externalTaxRate: ExternalTaxRateDraftOutput
     custom: CustomFieldsCommand
+    estimatedDelivery: EstimatedDelivery
 }
 
 type SetStagedOrderCustomTypeOutput implements StagedOrderUpdateActionOutput {
@@ -8322,6 +8854,12 @@ type SetStagedOrderDeliveryItemsOutput implements StagedOrderUpdateActionOutput 
 type SetStagedOrderDirectDiscountsOutput implements StagedOrderUpdateActionOutput {
     type: String!
     discounts: [DirectDiscountDraftOutput!]!
+}
+
+type SetStagedOrderEstimatedDeliveryOutput implements StagedOrderUpdateActionOutput {
+    type: String!
+    estimatedDelivery: EstimatedDelivery
+    shippingKey: String
 }
 
 type SetStagedOrderItemShippingAddressCustomFieldOutput implements StagedOrderUpdateActionOutput {
@@ -8537,6 +9075,7 @@ type SetStagedOrderShippingMethodOutput implements StagedOrderUpdateActionOutput
     type: String!
     shippingMethodResId: ResourceIdentifier
     externalTaxRate: ExternalTaxRateDraftOutput
+    estimatedDelivery: EstimatedDelivery
 }
 
 type SetStagedOrderShippingMethodTaxAmountOutput implements StagedOrderUpdateActionOutput {
@@ -8588,6 +9127,7 @@ type ShippingInfo {
     deliveries: [Delivery!]!
     discountedPrice: DiscountedLineItemPrice
     shippingMethodState: ShippingMethodState!
+    estimatedDelivery: EstimatedDelivery
     shippingMethod: ShippingMethod
     shippingMethodRef: Reference
     taxCategory: TaxCategory
@@ -8602,9 +9142,12 @@ type ShippingMethod implements Versioned & ReferenceExpandable {
     isDefault: Boolean!
     predicate: String
     key: String
+    carrier: String
     taxCategoryRef: Reference
     localizedDescriptionAllLocales: [LocalizedString!]
     localizedNameAllLocales: [LocalizedString!]
+    storesRef: [KeyReference!]!
+    stores: [Store!]!
     localizedDescription(
     """
     String is defined for different locales. This argument specifies the desired locale.
@@ -8641,6 +9184,7 @@ type ShippingMethodLimitWithCurrent implements LimitWithCurrent {
 }
 
 type ShippingMethodLimitsProjection {
+    stores: Limit!
     total: ShippingMethodLimitWithCurrent!
 }
 
@@ -9138,11 +9682,27 @@ type Store implements Versioned & ReferenceExpandable {
     distributionChannels: [Channel!]!
     supplyChannelsRef: [Reference!]!
     supplyChannels: [Channel!]!
+    storefront: Storefront
     createdAt: DateTime!
     lastModifiedAt: DateTime!
     custom: CustomFieldsType
     createdBy: Initiator
     lastModifiedBy: Initiator
+}
+
+type StoreCheckoutUrlTemplateSet implements MessagePayload {
+    checkoutUrlTemplate: String
+    type: String!
+}
+
+type StoreContactUrlSet implements MessagePayload {
+    contactUrl: String
+    type: String!
+}
+
+type StoreCookiePolicyUrlSet implements MessagePayload {
+    cookiePolicyUrl: String
+    type: String!
 }
 
 type StoreCountriesChanged implements MessagePayload {
@@ -9172,6 +9732,7 @@ type StoreCreated implements MessagePayload {
     distributionChannels: [Channel!]!
     supplyChannels: [Channel!]!
     countries: [StoreCountry!]
+    storefront: Storefront
     distributionChannelsRef: [Reference!]!
     supplyChannelsRef: [Reference!]!
     productSelectionsRef: [Reference!]!
@@ -9188,6 +9749,16 @@ type StoreDistributionChannelsChanged implements MessagePayload {
     removedDistributionChannels: [Channel!]
     addedDistributionChannelsRef: [Reference!]
     removedDistributionChannelsRef: [Reference!]
+    type: String!
+}
+
+type StoreFaqUrlSet implements MessagePayload {
+    faqUrl: String
+    type: String!
+}
+
+type StoreImprintUrlSet implements MessagePayload {
+    imprintUrl: String
     type: String!
 }
 
@@ -9225,6 +9796,16 @@ type StoreNameSet implements MessagePayload {
     type: String!
 }
 
+type StoreOrderUrlTemplateSet implements MessagePayload {
+    orderUrlTemplate: String
+    type: String!
+}
+
+type StorePrivacyPolicyUrlSet implements MessagePayload {
+    privacyPolicyUrl: String
+    type: String!
+}
+
 type StoreProductSelectionsChanged implements MessagePayload {
     addedProductSelections: [ProductSelectionSetting!]
     removedProductSelections: [ProductSelectionSetting!]
@@ -9240,12 +9821,40 @@ type StoreQueryResult {
     results: [Store!]!
 }
 
+type StoreRefundPolicyUrlSet implements MessagePayload {
+    refundPolicyUrl: String
+    type: String!
+}
+
+type StoreShippingPolicyUrlSet implements MessagePayload {
+    shippingPolicyUrl: String
+    type: String!
+}
+
 type StoreSupplyChannelsChanged implements MessagePayload {
     addedSupplyChannels: [Channel!]
     removedSupplyChannels: [Channel!]
     addedSupplyChannelsRef: [Reference!]
     removedSupplyChannelsRef: [Reference!]
     type: String!
+}
+
+type StoreTermsOfServiceUrlSet implements MessagePayload {
+    termsOfServiceUrl: String
+    type: String!
+}
+
+type Storefront {
+    checkoutUrlTemplate: String
+    orderUrlTemplate: String
+    termsOfServiceUrl: String
+    privacyPolicyUrl: String
+    refundPolicyUrl: String
+    shippingPolicyUrl: String
+    cookiePolicyUrl: String
+    imprintUrl: String
+    faqUrl: String
+    contactUrl: String
 }
 
 type StringAttribute implements Attribute {
@@ -9576,6 +10185,82 @@ type ValueFacetResult implements FacetResult {
     type: String!
 }
 
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+type Variant implements Versioned {
+    productRef: Reference!
+    product: Product
+    variantId: Int!
+    key: String
+    current: VariantData!
+    staged: VariantData
+    published: Boolean!
+    id: String!
+    version: Long!
+    createdAt: DateTime!
+    lastModifiedAt: DateTime!
+    createdBy: Initiator
+    lastModifiedBy: Initiator
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+type VariantAttributeAvailability {
+    noChannel: VariantAttributeSimpleAvailability
+    channels: [VariantAttributeChannelAvailability!]!
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+type VariantAttributeChannelAvailability {
+    channelRef: Reference!
+    availability: VariantAttributeSimpleAvailability!
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+type VariantAttributeDefinition {
+    name: String!
+    type: String!
+    label(
+    """
+    String is defined for different locales. This argument specifies the desired locale.
+    """
+    locale: Locale
+    """
+    List of languages the client is able to understand, and which locale variant is preferred.
+    """
+    acceptLanguage: [Locale!]
+  ): String
+    labelAllLocales: [LocalizedString!]!
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+type VariantAttributeSimpleAvailability {
+    isOnStock: Boolean!
+    availableQuantity: Long!
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+type VariantAttributeVariant {
+    id: String!
+    sku: String
+    key: String
+    availability: VariantAttributeAvailability
+    attributesRaw: [RawAttribute!]!
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
 type VariantCreated implements MessagePayload {
     id: String!
     productId: String!
@@ -9589,16 +10274,60 @@ type VariantCreated implements MessagePayload {
     type: String!
 }
 
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+type VariantData {
+    sku: String
+    images: [Image!]!
+    """This field contains raw attributes data"""
+  attributesRaw(
+    """
+    The names of the attributes to include.
+    
+    If neither `includeNames` nor `excludeNames` are provided, then all attributes are returned.
+    """
+    includeNames: [String!]
+    """
+    The names of the attributes to exclude.
+    
+    If neither `includeNames` nor `excludeNames` are provided, then all attributes are returned.
+    """
+    excludeNames: [String!]
+  ): [RawAttribute!]!
+    assets: [Asset!]!
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
 type VariantDeleted implements MessagePayload {
     type: String!
 }
 
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+type VariantDeletionResult {
+    variant: Variant!
+    """
+  Warnings produced while deleting the variant. Only available in the mutation response.
+  """
+  warnings: [TypedWarning!]!
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
 type VariantImageAdded implements MessagePayload {
     image: Image!
     staged: Boolean!
     type: String!
 }
 
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
 type VariantImagesSet implements MessagePayload {
     staged: Boolean!
     images: [Image!]!
@@ -9606,16 +10335,112 @@ type VariantImagesSet implements MessagePayload {
     type: String!
 }
 
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
 type VariantKeySet implements MessagePayload {
     key: String
     oldKey: String
     type: String!
 }
 
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+
+A variant projection with embedded product data
+"""
+type VariantProjection {
+    id: String!
+    staged: Boolean!
+    default: Boolean!
+    variantId: Int!
+    version: Long!
+    createdAt: DateTime!
+    productRef: Reference!
+    key: String
+    sku: String
+    images: [Image!]!
+    assets: [Asset!]!
+    """
+  This field contains attributes data. Use includeNames/excludeNames query arguments to filter.
+  """
+  attributes(
+    """
+    The names of the attributes to include.
+    
+    If neither `includeNames` nor `excludeNames` are provided, then all attributes are returned.
+    """
+    includeNames: [String!]
+    """
+    The names of the attributes to exclude.
+    
+    If neither `includeNames` nor `excludeNames` are provided, then all attributes are returned.
+    """
+    excludeNames: [String!]
+  ): [RawAttribute!]!
+    name(
+    """
+    String is defined for different locales. This argument specifies the desired locale.
+    """
+    locale: Locale
+    """
+    List of languages the client is able to understand, and which locale variant is preferred.
+    """
+    acceptLanguage: [Locale!]
+  ): String
+    nameAllLocales: [LocalizedString!]!
+    slug(
+    """
+    String is defined for different locales. This argument specifies the desired locale.
+    """
+    locale: Locale
+    """
+    List of languages the client is able to understand, and which locale variant is preferred.
+    """
+    acceptLanguage: [Locale!]
+  ): String
+    slugAllLocales: [LocalizedString!]!
+    description(
+    """
+    String is defined for different locales. This argument specifies the desired locale.
+    """
+    locale: Locale
+    """
+    List of languages the client is able to understand, and which locale variant is preferred.
+    """
+    acceptLanguage: [Locale!]
+  ): String
+    descriptionAllLocales: [LocalizedString!]
+    """Returns a single price based on the price selection rules."""
+  price(currency: Currency!, country: Country, customerGroupId: String, customerGroupAssignmentIds: [String!], channelId: String, date: DateTime, recurrencePolicyId: String): ProductPrice
+}
+
+type VariantProjectionQueryResult {
+    offset: Int!
+    count: Int!
+    total: Long!
+    exists: Boolean!
+    results: [VariantProjection!]!
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
 type VariantPublished implements MessagePayload {
     type: String!
 }
 
+type VariantQueryResult {
+    offset: Int!
+    count: Int!
+    total: Long!
+    exists: Boolean!
+    results: [Variant!]!
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
 type VariantSkuSet implements MessagePayload {
     sku: String
     oldSku: String
@@ -9623,6 +10448,9 @@ type VariantSkuSet implements MessagePayload {
     type: String!
 }
 
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
 type VariantStagedChangesRemoved implements MessagePayload {
     type: String!
 }
@@ -9632,9 +10460,18 @@ type VariantTailoring {
     assets: [Asset!]
 }
 
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
 type VariantUnpublished implements MessagePayload {
     productRef: Reference!
     type: String!
+}
+
+type VersionedReference {
+    typeId: String!
+    id: String!
+    version: Long
 }
 
 type WhitespaceSuggestTokenizer implements SuggestTokenizer {
@@ -9682,9 +10519,14 @@ type ZoneRate {
     zone: Zone
 }
 
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
+interface McpServerConfig {
+    type: McpServerType!
+    majorVersion: String!
+    url: String!
+    tools: [String!]!
+    toolCustomizations: [ToolCustomization!]!
+}
+
 interface ProductSearchFacetResult {
     name: String!
 }
@@ -9841,6 +10683,12 @@ interface CustomField {
 
 interface FieldType {
     name: String!
+}
+
+"""A non-fatal warning that occurred during a mutation."""
+interface TypedWarning {
+    code: TypedWarningCode!
+    message: String!
 }
 
 interface ShippingRateInputType {
@@ -10067,6 +10915,30 @@ interface ShippingRatePriceTier {
     type: String!
 }
 
+enum AttributionSource {
+  Export
+  Import
+  ManagedCommerceMCP
+}
+enum McpServerType {
+  CommerceMCP
+  UCPShopperMCP
+}
+enum McpServerAuthenticationMode {
+  CommercetoolsIdentity
+  ClientCredentials
+}
+enum McpServerState {
+  Enabled
+  Disabled
+}
+enum McpServerToolOutputFormatting {
+  JsonToTabular
+}
+enum McpToolOperationType {
+  read
+  write
+}
 enum ProductSearchFacetScopeEnum {
   """ProductSearchFacetScopeEnum 'all' type."""
   all
@@ -10334,10 +11206,6 @@ enum TextInputHint {
   SingleLine
   MultiLine
 }
-enum AttributionSource {
-  Export
-  Import
-}
 enum AuthenticationMode {
   ExternalAuth
   Password
@@ -10349,6 +11217,14 @@ enum AwsAuthenticationMode {
 enum ChosenDiscountType {
   CartDiscount
   ProductDiscount
+}
+enum VersionControl {
+  On
+  Off
+}
+enum BulkUpdateVariantsItemStatus {
+  Success
+  Fail
 }
 enum BusinessUnitStatus {
   Active
@@ -10373,6 +11249,14 @@ enum BusinessUnitConfigurationStatus {
 enum BusinessUnitSearchStatus {
   Activated
   Deactivated
+}
+enum TypedWarningCode {
+  CannotChangeReservationExpiry
+  CannotCreateReservation
+  CannotUpdateReservation
+  DefaultVariantDeleted
+  General
+  ImageProcessingOngoing
 }
 enum TaxMode {
   """No taxes are added to the cart."""
@@ -10699,6 +11583,12 @@ enum PriceMode {
   """
   Standalone
 }
+enum ProductCatalogModel {
+  """Default. Variants embedded in products."""
+  Classic
+  """Variants as separate entities."""
+  Modular
+}
 enum PublishScope {
   """Publishes the complete staged projection"""
   All
@@ -10711,6 +11601,16 @@ enum RecurringOrderState {
   Expired
   Failed
   Paused
+}
+enum ReservationState {
+  CommitInProgress
+  Committed
+  Created
+  CreationInProgress
+  Expired
+  Released
+  UpdateInProgress
+  Updated
 }
 enum SearchIndexingStatus {
   Activated
@@ -10727,9 +11627,170 @@ enum ShippingMethodState {
   """
   MatchesCart
 }
+input LocalizedStringItemInputType {
+    locale: Locale!
+    value: String!
+}
+
+input McpServerJsonOutputFilteringMatcherInput {
+    fieldPaths: [String!]
+    fieldNames: [String!]
+    fieldNameContains: [String!]
+}
+
+input McpServerJsonOutputFilteringInput {
+    redact: McpServerJsonOutputFilteringMatcherInput
+    drop: McpServerJsonOutputFilteringMatcherInput
+    fieldPathsToKeep: [String!]
+    redactedWith: String
+}
+
+input McpServerDraft {
+    key: String!
+    name: [LocalizedStringItemInputType!]
+    description: [LocalizedStringItemInputType!]
+    authenticationMode: McpServerAuthenticationMode
+    """
+  Initial state of the MCP server. Defaults to `Disabled` when omitted, so a
+  newly created server is inert until a user deliberately enables it.
+  """
+  state: McpServerState
+    mcpServer: McpServerConfigDraft!
+}
+
+input McpServerConfigDraft {
+    commerce: CommerceMcpServerConfigDraft
+    ucpShopper: UcpShopperMcpServerConfigDraft
+}
+
+input CommerceMcpServerConfigDraft {
+    majorVersion: String!
+    tools: [String!]!
+    toolCustomizations: [ToolCustomizationDraft!]
+    jsonOutputFiltering: McpServerJsonOutputFilteringInput
+    toolOutputFormatting: McpServerToolOutputFormatting
+}
+
 """
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+Draft for a shopper-facing UCP MCP server. Mirrors the shared fields of
+`CommerceMcpServerConfigDraft` without the response-shaping options the
+skeleton does not yet support.
 """
+input UcpShopperMcpServerConfigDraft {
+    majorVersion: String!
+    tools: [String!]!
+    toolCustomizations: [ToolCustomizationDraft!]
+}
+
+"""
+Draft for `ToolCustomization`. At least one of `description` or a
+non-empty `parameters` list MUST be present; parameter names within
+`parameters` MUST be unique. The `tool` field is validated against the
+server's `(type, majorVersion)` tool set at write time.
+"""
+input ToolCustomizationDraft {
+    tool: String!
+    description: String
+    parameters: [ParameterOverrideDraft!]
+}
+
+"""
+Draft for `ParameterOverride`. At least one of `description`, `const`,
+`default`, or `enum` MUST be present. `const` is mutually exclusive
+with both `default` and `enum`.
+"""
+input ParameterOverrideDraft {
+    name: String!
+    description: String
+    """
+  Pins the parameter to a fixed value. Mutually exclusive with `default` and `enum`.
+  """
+  const: JsonPrimitive
+    """
+  Default value applied when the caller omits the parameter. Mutually exclusive with `const`.
+  """
+  default: JsonPrimitive
+    """
+  Restricts accepted values to this set. Mutually exclusive with `const`.
+  """
+  enum: [JsonPrimitive!]
+}
+
+input McpServerUpdateAction {
+    setTools: SetMcpServerTools
+    addTool: AddMcpServerTool
+    removeTool: RemoveMcpServerTool
+    setToolCustomizations: SetMcpServerToolCustomizations
+    addToolCustomization: AddMcpServerToolCustomization
+    removeToolCustomization: RemoveMcpServerToolCustomization
+    setName: SetMcpServerName
+    setDescription: SetMcpServerDescription
+    setState: SetMcpServerState
+    setAuthenticationMode: SetMcpServerAuthenticationMode
+    setJsonOutputFiltering: SetMcpServerJsonOutputFiltering
+    setToolOutputFormatting: SetMcpServerToolOutputFormatting
+}
+
+input SetMcpServerTools {
+    tools: [String!]!
+}
+
+input AddMcpServerTool {
+    tool: String!
+}
+
+input RemoveMcpServerTool {
+    tool: String!
+}
+
+input SetMcpServerToolCustomizations {
+    toolCustomizations: [ToolCustomizationDraft!]!
+}
+
+input AddMcpServerToolCustomization {
+    toolCustomization: ToolCustomizationDraft!
+}
+
+input RemoveMcpServerToolCustomization {
+    toolCustomization: RemoveToolCustomizationTarget!
+}
+
+input RemoveToolCustomizationTarget {
+    tool: String!
+}
+
+input SetMcpServerName {
+    name: [LocalizedStringItemInputType!]
+}
+
+input SetMcpServerDescription {
+    description: [LocalizedStringItemInputType!]
+}
+
+input SetMcpServerState {
+    state: McpServerState!
+}
+
+input SetMcpServerAuthenticationMode {
+    authenticationMode: McpServerAuthenticationMode!
+}
+
+"""
+Sets or clears `mcpServer.jsonOutputFiltering`. Omitting the value clears the
+field; the whole object is replaced atomically when a value is provided.
+"""
+input SetMcpServerJsonOutputFiltering {
+    jsonOutputFiltering: McpServerJsonOutputFilteringInput
+}
+
+"""
+Sets or clears `mcpServer.toolOutputFormatting`. Omitting the value clears the
+field.
+"""
+input SetMcpServerToolOutputFormatting {
+    toolOutputFormatting: McpServerToolOutputFormatting
+}
+
 input ProductSearchFacetCountExpressionInput {
     name: String!
     scope: ProductSearchFacetScopeEnum = all
@@ -10737,17 +11798,11 @@ input ProductSearchFacetCountExpressionInput {
     level: ProductSearchFacetCountLevelEnum = products
 }
 
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
 input ProductSearchFacetDistinctBucketSortExpressionInput {
     by: ProductSearchFacetDistinctBucketSortBy!
     order: SearchSortOrder
 }
 
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
 input ProductSearchFacetDistinctExpressionInput {
     name: String!
     scope: ProductSearchFacetScopeEnum
@@ -10762,9 +11817,6 @@ input ProductSearchFacetDistinctExpressionInput {
     missing: String
 }
 
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
 input ProductSearchFacetExpressionInput {
     count: ProductSearchFacetCountExpressionInput
     distinct: ProductSearchFacetDistinctExpressionInput
@@ -10772,32 +11824,25 @@ input ProductSearchFacetExpressionInput {
     stats: ProductSearchFacetStatsExpressionInput
 }
 
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
 input ProductSearchFacetRangesExpressionInput {
     name: String!
     scope: ProductSearchFacetScopeEnum
     filter: SearchQueryInput
     level: ProductSearchFacetCountLevelEnum
     field: String!
-    ranges: [ProductSearchFacetRangesFacetRangeInput!]!
+    ranges: ProductSearchFacetRangesFacetRangeInput!
     language: String
     fieldType: SearchFieldType
 }
 
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
 input ProductSearchFacetRangesFacetRangeInput {
-    from: String
-    to: String
-    key: String
+    date: [SearchFacetDateRangeValue!]
+    datetime: [SearchFacetDateTimeRangeValue!]
+    time: [SearchFacetTimeRangeValue!]
+    long: [SearchFacetLongRangeValue!]
+    float: [SearchFacetFloatRangeValue!]
 }
 
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
 input ProductSearchFacetStatsExpressionInput {
     name: String!
     scope: ProductSearchFacetScopeEnum
@@ -10806,9 +11851,6 @@ input ProductSearchFacetStatsExpressionInput {
     fieldType: SearchFieldType
 }
 
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
 input SearchAnyValueExpressionInput {
     field: String!
     boost: Float
@@ -10819,9 +11861,6 @@ input SearchAnyValueExpressionInput {
     caseInsensitive: Boolean
 }
 
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
 input SearchDateRangeExpressionInput {
     field: String!
     boost: Float
@@ -10832,9 +11871,6 @@ input SearchDateRangeExpressionInput {
     lt: Date
 }
 
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
 input SearchDateTimeRangeExpressionInput {
     field: String!
     boost: Float
@@ -10845,9 +11881,6 @@ input SearchDateTimeRangeExpressionInput {
     lt: DateTime
 }
 
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
 input SearchExistsInput {
     field: String!
     boost: Float
@@ -10855,9 +11888,36 @@ input SearchExistsInput {
     language: String
 }
 
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
+input SearchFacetDateRangeValue {
+    from: Date
+    to: Date
+    key: String
+}
+
+input SearchFacetDateTimeRangeValue {
+    from: DateTime
+    to: DateTime
+    key: String
+}
+
+input SearchFacetFloatRangeValue {
+    from: Float
+    to: Float
+    key: String
+}
+
+input SearchFacetLongRangeValue {
+    from: Long
+    to: Long
+    key: String
+}
+
+input SearchFacetTimeRangeValue {
+    from: Time
+    to: Time
+    key: String
+}
+
 input SearchFilterExpressionInput {
     and: [SearchQueryInput!]
     or: [SearchQueryInput!]
@@ -10873,9 +11933,6 @@ input SearchFilterExpressionInput {
     fuzzy: SearchFuzzyExpressionInput
 }
 
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
 input SearchFullTextExpressionInput {
     field: String!
     boost: Float
@@ -10885,9 +11942,6 @@ input SearchFullTextExpressionInput {
     mustMatch: SearchMatchType
 }
 
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
 input SearchFullTextPrefixInput {
     field: String!
     boost: Float
@@ -10897,9 +11951,6 @@ input SearchFullTextPrefixInput {
     mustMatch: SearchMatchType
 }
 
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
 input SearchFuzzyExpressionInput {
     field: String!
     boost: Float
@@ -10910,9 +11961,6 @@ input SearchFuzzyExpressionInput {
     mustMatch: SearchMatchType
 }
 
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
 input SearchLongRangeExpressionInput {
     field: String!
     boost: Float
@@ -10923,9 +11971,6 @@ input SearchLongRangeExpressionInput {
     lt: Long
 }
 
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
 input SearchNumberRangeExpressionInput {
     field: String!
     boost: Float
@@ -10936,9 +11981,6 @@ input SearchNumberRangeExpressionInput {
     lt: Float
 }
 
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
 input SearchQueryInput {
     and: [SearchQueryInput!]
     or: [SearchQueryInput!]
@@ -10954,9 +11996,6 @@ input SearchQueryInput {
     fuzzy: SearchFuzzyExpressionInput
 }
 
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
 input SearchQueryRangeExpressionInput {
     date: SearchDateRangeExpressionInput
     datetime: SearchDateTimeRangeExpressionInput
@@ -10965,9 +12004,6 @@ input SearchQueryRangeExpressionInput {
     float: SearchNumberRangeExpressionInput
 }
 
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
 input SearchSortingInput {
     field: String!
     language: String
@@ -10977,9 +12013,6 @@ input SearchSortingInput {
     filter: SearchFilterExpressionInput
 }
 
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
 input SearchTimeRangeExpressionInput {
     field: String!
     boost: Float
@@ -11109,6 +12142,7 @@ input AddCartShippingMethod {
     shippingRateInput: ShippingRateInputDraft
     custom: CustomFieldsDraft
     deliveries: [DeliveryDraft!] = []
+    estimatedDelivery: EstimatedDeliveryDraft
 }
 
 input AddCartShoppingList {
@@ -11310,6 +12344,10 @@ input AddShippingMethodShippingRate {
     shippingRate: ShippingRateDraft!
 }
 
+input AddShippingMethodStore {
+    store: ResourceIdentifierInput!
+}
+
 input AddShippingMethodZone {
     zone: ResourceIdentifierInput!
 }
@@ -11447,6 +12485,23 @@ input AddTypeFieldDefinition {
 input AddTypeLocalizedEnumValue {
     fieldName: String!
     value: LocalizedEnumValueInput!
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input AddVariantAsset {
+    staged: Boolean = true
+    position: Int
+    asset: AssetDraftInput!
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input AddVariantExternalImage {
+    image: ImageInput!
+    staged: Boolean = true
 }
 
 input AddZoneLocation {
@@ -11698,6 +12753,24 @@ input BaseMoneyInput {
 input BaseSearchKeywordInput {
     whitespace: WhitespaceSuggestTokenizerInput
     custom: CustomSuggestTokenizerInput
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input BulkUpdateVariantsInput {
+    items: [BulkUpdateVariantsItemInput!]!
+    actions: [VariantBulkAction!]!
+    versionControl: VersionControl = On
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input BulkUpdateVariantsItemInput {
+    id: String
+    key: String
+    version: Long
 }
 
 input BusinessUnitDraft {
@@ -11959,6 +13032,7 @@ input CartUpdateAction {
     setCustomerId: SetCartCustomerId
     setDeleteDaysAfterLastModification: SetCartDeleteDaysAfterLastModification
     setDirectDiscounts: SetCartDirectDiscounts
+    setEstimatedDelivery: SetCartEstimatedDelivery
     setItemShippingAddressCustomField: SetCartItemShippingAddressCustomField
     setItemShippingAddressCustomType: SetCartItemShippingAddressCustomType
     setLineItemCustomField: SetCartLineItemCustomField
@@ -12666,6 +13740,24 @@ input ChangeTypeName {
     name: [LocalizedStringItemInputType!]!
 }
 
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input ChangeVariantAssetName {
+    staged: Boolean = true
+    name: [LocalizedStringItemInputType!]!
+    assetKey: String
+    assetId: String
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input ChangeVariantAssetOrder {
+    staged: Boolean = true
+    assetOrder: [String!]!
+}
+
 input ChangeZoneName {
     name: String!
 }
@@ -12771,6 +13863,7 @@ input CreateStore {
     supplyChannels: [ResourceIdentifierInput!]
     productSelections: [ProductSelectionSettingDraft!]
     custom: CustomFieldsDraft
+    storefront: StorefrontInput
 }
 
 input CreateZone {
@@ -13188,6 +14281,11 @@ input EnumValueInput {
     label: String!
 }
 
+input EstimatedDeliveryDraft {
+    from: DateTime
+    until: DateTime
+}
+
 input EventBridgeDestinationInput {
     region: String!
     accountId: String!
@@ -13233,6 +14331,10 @@ input ExtensionDraft {
     """
   BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
   """
+  dependencies: [ResourceIdentifierInput!]
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
   additionalContext: ExtensionAdditionalContextInput
     """
   BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
@@ -13251,6 +14353,10 @@ input ExtensionUpdateAction {
   BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
   """
   setExpansionPaths: SetExtensionExpansionPaths
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  setDependencies: SetExtensionDependencies
     setKey: SetExtensionKey
     setTimeoutInMs: SetExtensionTimeoutInMs
 }
@@ -13422,6 +14528,8 @@ input ImportOrderDraft {
     inventoryMode: InventoryMode = None
     shippingDetails: ItemShippingDetailsDraft
     taxCalculationMode: TaxCalculationMode = LineItemLevel
+    priceRoundingMode: RoundingMode = HalfEven
+    taxRoundingMode: RoundingMode = HalfEven
     origin: CartOrigin = Customer
     itemShippingAddresses: [AddressInput!] = []
     state: ReferenceInput
@@ -13548,6 +14656,7 @@ input LineItemImportDraft {
     distributionChannel: ResourceIdentifierInput
     taxRate: TaxRateInput
     variant: ProductVariantImportDraft!
+    inventoryMode: InventoryMode
     state: [ItemStateDraftType!]
     custom: CustomFieldsDraft
     shippingDetails: ItemShippingDetailsDraft
@@ -13575,11 +14684,6 @@ input LocalizedEnumValueDraft {
 input LocalizedEnumValueInput {
     key: String!
     label: [LocalizedStringItemInputType!]!
-}
-
-input LocalizedStringItemInputType {
-    locale: Locale!
-    value: String!
 }
 
 input LockCart {
@@ -13620,6 +14724,15 @@ input MoneyDraft {
 input MoneyInput {
     currencyCode: Currency!
     centAmount: Long!
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input MoveImageToPosition {
+    imageUrl: String!
+    position: Int!
+    staged: Boolean = true
 }
 
 input MoveProductImageToPosition {
@@ -14406,6 +15519,7 @@ input ProductTailoringUpdateAction {
     setAttributeInAllVariants: SetProductTailoringAttributeInAllVariants
     setDescription: SetProductTailoringDescription
     setImageLabel: SetProductTailoringImageLabel
+    setKey: SetProductTailoringKey
     setMetaAttributes: SetProductTailoringMetaAttributes
     setMetaDescription: SetProductTailoringMetaDescription
     setMetaKeywords: SetProductTailoringMetaKeywords
@@ -14477,6 +15591,10 @@ input ProductUpdateAction {
     setAssetSources: SetProductAssetSources
     setAssetTags: SetProductAssetTags
     setCategoryOrderHint: SetProductCategoryOrderHint
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  setDefaultVariant: SetProductDefaultVariant
     setDiscountedPrice: SetProductDiscountedPrice
     setAttribute: SetProductAttribute
     setAttributeInAllVariants: SetProductAttributeInAllVariants
@@ -14572,6 +15690,10 @@ input ProjectSettingsUpdateAction {
   BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
   """
   setReleaseExpiredReservations: SetProjectSettingsReleaseExpiredReservations
+    """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  setProductCatalogModel: SetProjectSettingsProductCatalogModel
 }
 
 input PublishProduct {
@@ -14579,6 +15701,13 @@ input PublishProduct {
 }
 
 input PublishTailoring {
+    dummy: String
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input PublishVariant {
     dummy: String
 }
 
@@ -14949,6 +16078,10 @@ input RemoveShippingMethodShippingRate {
     shippingRate: ShippingRateDraft!
 }
 
+input RemoveShippingMethodStore {
+    store: ResourceIdentifierInput!
+}
+
 input RemoveShippingMethodZone {
     zone: ResourceIdentifierInput!
 }
@@ -15031,6 +16164,23 @@ input RemoveStoreSupplyChannel {
 
 input RemoveTypeFieldDefinition {
     fieldName: String!
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input RemoveVariantAsset {
+    assetId: String
+    assetKey: String
+    staged: Boolean = true
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input RemoveVariantImage {
+    imageUrl: String!
+    staged: Boolean = true
 }
 
 input RemoveZoneLocation {
@@ -15386,6 +16536,7 @@ input SetCartCustomShippingMethod {
     taxCategory: ResourceIdentifierInput
     externalTaxRate: ExternalTaxRateDraft
     custom: CustomFieldsDraft
+    estimatedDelivery: EstimatedDeliveryDraft
 }
 
 input SetCartCustomType {
@@ -15459,6 +16610,11 @@ input SetCartDiscountValidFromAndUntil {
 
 input SetCartDiscountValidUntil {
     validUntil: DateTime
+}
+
+input SetCartEstimatedDelivery {
+    estimatedDelivery: EstimatedDeliveryDraft
+    shippingKey: String
 }
 
 input SetCartItemShippingAddressCustomField {
@@ -15593,6 +16749,7 @@ input SetCartShippingCustomType {
 input SetCartShippingMethod {
     shippingMethod: ResourceIdentifierInput
     externalTaxRate: ExternalTaxRateDraft
+    estimatedDelivery: EstimatedDeliveryDraft
 }
 
 input SetCartShippingMethodTaxAmount {
@@ -15922,6 +17079,13 @@ BETA: This feature can be subject to change and should be used carefully in prod
 """
 input SetExtensionAdditionalContext {
     additionalContext: ExtensionAdditionalContextInput!
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input SetExtensionDependencies {
+    dependencies: [ResourceIdentifierInput!]!
 }
 
 """
@@ -16565,6 +17729,14 @@ input SetProductCategoryOrderHint {
     staged: Boolean = true
 }
 
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input SetProductDefaultVariant {
+    variant: ResourceIdentifierInput
+    staged: Boolean = true
+}
+
 input SetProductDescription {
     description: [LocalizedStringItemInputType!]
     staged: Boolean = true
@@ -16793,6 +17965,10 @@ input SetProductTailoringImages {
     staged: Boolean = true
 }
 
+input SetProductTailoringKey {
+    key: String
+}
+
 input SetProductTailoringMetaAttributes {
     metaDescription: [LocalizedStringItemInputType!]
     metaKeywords: [LocalizedStringItemInputType!]
@@ -16849,6 +18025,13 @@ BETA: This feature can be subject to change and should be used carefully in prod
 """
 input SetProjectSettingsMyBusinessUnitAssociateRoleOnCreation {
     associateRole: ResourceIdentifierInput
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input SetProjectSettingsProductCatalogModel {
+    productCatalogModel: ProductCatalogModel!
 }
 
 """
@@ -17024,6 +18207,10 @@ input SetSearchKeywords {
     staged: Boolean
 }
 
+input SetShippingMethodCarrier {
+    carrier: String
+}
+
 input SetShippingMethodCustomField {
     name: String!
     value: String
@@ -17054,6 +18241,10 @@ input SetShippingMethodLocalizedName {
 
 input SetShippingMethodPredicate {
     predicate: String
+}
+
+input SetShippingMethodStores {
+    stores: [ResourceIdentifierInput!]!
 }
 
 input SetShoppingListAnonymousId {
@@ -17209,6 +18400,7 @@ input SetStagedOrderCustomShippingMethod {
     taxCategory: ResourceIdentifierInput
     externalTaxRate: ExternalTaxRateDraft
     custom: CustomFieldsDraft
+    estimatedDelivery: EstimatedDeliveryDraft
 }
 
 input SetStagedOrderCustomType {
@@ -17276,6 +18468,11 @@ input SetStagedOrderDeliveryItems {
 
 input SetStagedOrderDirectDiscounts {
     discounts: [DirectDiscountDraft!]!
+}
+
+input SetStagedOrderEstimatedDelivery {
+    estimatedDelivery: EstimatedDeliveryDraft
+    shippingKey: String
 }
 
 input SetStagedOrderItemShippingAddressCustomField {
@@ -17477,6 +18674,7 @@ input SetStagedOrderShippingCustomType {
 input SetStagedOrderShippingMethod {
     shippingMethod: ResourceIdentifierInput
     externalTaxRate: ExternalTaxRateDraft
+    estimatedDelivery: EstimatedDeliveryDraft
 }
 
 input SetStagedOrderShippingMethodTaxAmount {
@@ -17563,6 +18761,18 @@ input SetStateTransitions {
     transitions: [ResourceIdentifierInput!]
 }
 
+input SetStoreCheckoutUrlTemplate {
+    checkoutUrlTemplate: String
+}
+
+input SetStoreContactUrl {
+    contactUrl: String
+}
+
+input SetStoreCookiePolicyUrl {
+    cookiePolicyUrl: String
+}
+
 input SetStoreCountries {
     countries: [StoreCountryInput!]
 }
@@ -17583,6 +18793,14 @@ input SetStoreDistributionChannels {
     distributionChannels: [ResourceIdentifierInput!]
 }
 
+input SetStoreFaqUrl {
+    faqUrl: String
+}
+
+input SetStoreImprintUrl {
+    imprintUrl: String
+}
+
 input SetStoreLanguages {
     languages: [Locale!]
 }
@@ -17591,12 +18809,32 @@ input SetStoreName {
     name: [LocalizedStringItemInputType!]
 }
 
+input SetStoreOrderUrlTemplate {
+    orderUrlTemplate: String
+}
+
+input SetStorePrivacyPolicyUrl {
+    privacyPolicyUrl: String
+}
+
 input SetStoreProductSelections {
     productSelections: [ProductSelectionSettingInActionInput!]
 }
 
+input SetStoreRefundPolicyUrl {
+    refundPolicyUrl: String
+}
+
+input SetStoreShippingPolicyUrl {
+    shippingPolicyUrl: String
+}
+
 input SetStoreSupplyChannels {
     supplyChannels: [ResourceIdentifierInput!]
+}
+
+input SetStoreTermsOfServiceUrl {
+    termsOfServiceUrl: String
 }
 
 input SetSubscriptionChanges {
@@ -17621,6 +18859,126 @@ input SetTaxCategoryKey {
 
 input SetTypeDescription {
     description: [LocalizedStringItemInputType!]
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input SetVariantAssetCustomField {
+    staged: Boolean = true
+    value: String
+    name: String!
+    assetKey: String
+    assetId: String
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input SetVariantAssetCustomType {
+    staged: Boolean = true
+    typeId: String
+    typeKey: String
+    type: ResourceIdentifierInput
+    fields: [CustomFieldInput!]
+    assetKey: String
+    assetId: String
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input SetVariantAssetDescription {
+    staged: Boolean = true
+    description: [LocalizedStringItemInputType!]
+    assetKey: String
+    assetId: String
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input SetVariantAssetKey {
+    staged: Boolean = true
+    assetKey: String
+    assetId: String!
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input SetVariantAssetSources {
+    staged: Boolean = true
+    sources: [AssetSourceInput!] = []
+    assetKey: String
+    assetId: String
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input SetVariantAssetTags {
+    staged: Boolean = true
+    tags: [String!] = []
+    assetKey: String
+    assetId: String
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input SetVariantAssets {
+    assets: [AssetDraftInput!] = []
+    staged: Boolean = true
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input SetVariantAttribute {
+    name: String!
+    value: String
+    staged: Boolean = true
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input SetVariantAttributes {
+    attributes: [ProductAttributeInput!] = []
+    staged: Boolean = true
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input SetVariantImageLabel {
+    imageUrl: String!
+    label: String
+    staged: Boolean = true
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input SetVariantImages {
+    images: [ImageInput!] = []
+    staged: Boolean = true
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input SetVariantKey {
+    key: String
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input SetVariantSku {
+    sku: String
+    staged: Boolean = true
 }
 
 input SetZoneDescription {
@@ -17668,6 +19026,8 @@ input ShippingMethodDraft {
     predicate: String
     key: String
     custom: CustomFieldsDraft
+    stores: [ResourceIdentifierInput!]
+    carrier: String
 }
 
 input ShippingMethodTargetDraft {
@@ -17681,14 +19041,17 @@ input ShippingMethodTargetDraftType {
 }
 
 input ShippingMethodUpdateAction {
+    addStore: AddShippingMethodStore
     addShippingRate: AddShippingMethodShippingRate
     addZone: AddShippingMethodZone
     changeActive: ChangeShippingMethodActive
     changeIsDefault: ChangeShippingMethodIsDefault
     changeName: ChangeShippingMethodName
     changeTaxCategory: ChangeShippingMethodTaxCategory
+    removeStore: RemoveShippingMethodStore
     removeShippingRate: RemoveShippingMethodShippingRate
     removeZone: RemoveShippingMethodZone
+    setCarrier: SetShippingMethodCarrier
     setCustomField: SetShippingMethodCustomField
     setCustomType: SetShippingMethodCustomType
     """This action is deprecated in favor of using 'setLocalizedDescription'"""
@@ -17697,6 +19060,7 @@ input ShippingMethodUpdateAction {
     setLocalizedDescription: SetShippingMethodLocalizedDescription
     setLocalizedName: SetShippingMethodLocalizedName
     setPredicate: SetShippingMethodPredicate
+    setStores: SetShippingMethodStores
 }
 
 input ShippingRateDraft {
@@ -17879,6 +19243,7 @@ input StagedOrderUpdateAction {
     setDeliveryCustomType: SetStagedOrderDeliveryCustomType
     setDeliveryItems: SetStagedOrderDeliveryItems
     setDirectDiscounts: SetStagedOrderDirectDiscounts
+    setEstimatedDelivery: SetStagedOrderEstimatedDelivery
     setItemShippingAddressCustomField: SetStagedOrderItemShippingAddressCustomField
     setItemShippingAddressCustomType: SetStagedOrderItemShippingAddressCustomType
     setLineItemCustomField: SetStagedOrderLineItemCustomField
@@ -18014,13 +19379,36 @@ input StoreUpdateAction {
     removeDistributionChannel: RemoveStoreDistributionChannel
     removeSupplyChannel: RemoveStoreSupplyChannel
     setProductSelections: SetStoreProductSelections
+    setCheckoutUrlTemplate: SetStoreCheckoutUrlTemplate
+    setContactUrl: SetStoreContactUrl
+    setCookiePolicyUrl: SetStoreCookiePolicyUrl
     setCountries: SetStoreCountries
     setCustomField: SetStoreCustomField
     setCustomType: SetStoreCustomType
     setDistributionChannels: SetStoreDistributionChannels
+    setFaqUrl: SetStoreFaqUrl
+    setImprintUrl: SetStoreImprintUrl
     setLanguages: SetStoreLanguages
     setName: SetStoreName
+    setOrderUrlTemplate: SetStoreOrderUrlTemplate
+    setPrivacyPolicyUrl: SetStorePrivacyPolicyUrl
+    setRefundPolicyUrl: SetStoreRefundPolicyUrl
+    setShippingPolicyUrl: SetStoreShippingPolicyUrl
     setSupplyChannels: SetStoreSupplyChannels
+    setTermsOfServiceUrl: SetStoreTermsOfServiceUrl
+}
+
+input StorefrontInput {
+    checkoutUrlTemplate: String
+    orderUrlTemplate: String
+    termsOfServiceUrl: String
+    privacyPolicyUrl: String
+    refundPolicyUrl: String
+    shippingPolicyUrl: String
+    cookiePolicyUrl: String
+    imprintUrl: String
+    faqUrl: String
+    contactUrl: String
 }
 
 input SubRateDraft {
@@ -18296,6 +19684,13 @@ input UnpublishTailoring {
     dummy: String
 }
 
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input UnpublishVariant {
+    dummy: String
+}
+
 input UpdateCartItemShippingAddress {
     address: AddressInput!
 }
@@ -18323,6 +19718,56 @@ input UpdateStagedOrderSyncInfo {
 input ValueFilterInput {
     path: String!
     values: [String!]!
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input VariantBulkAction {
+    publish: PublishVariant
+    unpublish: UnpublishVariant
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input VariantDraft {
+    key: String
+    product: ResourceIdentifierInput!
+    sku: String
+    attributes: [ProductAttributeInput!] = []
+    assets: [AssetDraftInput!] = []
+    images: [ImageInput!] = []
+    publish: Boolean = false
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input VariantUpdateAction {
+    publish: PublishVariant
+    unpublish: UnpublishVariant
+    removeStagedChanges: RemoveStagedChanges
+    removeAsset: RemoveVariantAsset
+    moveImageToPosition: MoveImageToPosition
+    addExternalImage: AddVariantExternalImage
+    addAsset: AddVariantAsset
+    changeAssetName: ChangeVariantAssetName
+    changeAssetOrder: ChangeVariantAssetOrder
+    removeImage: RemoveVariantImage
+    setAssets: SetVariantAssets
+    setAttribute: SetVariantAttribute
+    setAttributes: SetVariantAttributes
+    setImageLabel: SetVariantImageLabel
+    setImages: SetVariantImages
+    setKey: SetVariantKey
+    setSku: SetVariantSku
+    setAssetCustomField: SetVariantAssetCustomField
+    setAssetCustomType: SetVariantAssetCustomType
+    setAssetDescription: SetVariantAssetDescription
+    setAssetKey: SetVariantAssetKey
+    setAssetSources: SetVariantAssetSources
+    setAssetTags: SetVariantAssetTags
 }
 
 input WhitespaceSuggestTokenizerInput {

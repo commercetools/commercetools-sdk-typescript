@@ -178,15 +178,28 @@ if (body.errors) { /* body.errors[0].message, .locations, .path, .extensions */ 
 `ApiRequest`. It exposes `clientRequest()` for the resolved HTTP request and `requestBody()` for the
 GraphQL body, which is useful in tests and when logging.
 
-## Regenerating after a schema change
+## Where the schema comes from
 
-`schema.graphqls` is committed in this package. After updating it:
+`schema.graphqls` is committed in this package and is a copy of `api-specs/graphql/schema.sdl`
+in [commercetools-api-reference](https://github.com/commercetools/commercetools-api-reference),
+with the `implements` clause stripped from `type Query`.
+
+Keeping it current is not a manual job. The `SDK Generator` workflow in that repository runs on
+every change to `api-specs/**`, copies the schema into this package and then runs `make build` —
+exactly what it already does for the Java and .NET SDKs. The refresh arrives as part of the usual
+`build(codegen): updating SDK` pull request.
+
+To refresh it by hand, or after editing the schema locally:
 
 ```bash
 make gen_graphql_builder
 ```
 
-This runs [genql](https://genql.dev) over the schema and rewrites `src/builder/generated`, the same
-way the Java SDK runs DGS codegen and the .NET SDK runs the ZeroQL source generator. The scalar
-mapping matches those two SDKs (`Long` → `number`, `Country`/`Locale` → `string`, `Json` →
-`unknown`, and so on).
+This runs [genql](https://genql.dev) over the schema and rewrites `src/builder/generated`. It is
+also part of `make build`, so the generated client can never drift from the schema next to it.
+The Java and .NET SDKs get that for free because they generate their client at compile time (DGS
+codegen and the ZeroQL source generator); here the generated client is committed, so the build
+chain has to refresh it.
+
+The scalar mapping matches those two SDKs (`Long` → `number`, `Country`/`Locale` → `string`,
+`Json` → `unknown`, and so on).
