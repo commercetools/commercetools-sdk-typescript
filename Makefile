@@ -47,11 +47,10 @@ generate_checkout:
 
 # Regenerates the typed GraphQL query builder from the committed GraphQL schema.
 #
-# Part of `build` so that the generated client always matches schema.graphqls: the SDK
-# generator workflow in commercetools-api-reference copies api-specs/graphql/schema.sdl
-# over schema.graphqls and then runs `make build`, the same way it does for the Java and
-# .NET SDKs. Those two generate their client at compile time (DGS codegen, ZeroQL), while
-# here the generated client is committed, so it has to be refreshed by this chain.
+# Part of `build` so that the committed client can never drift from schema.graphqls: the
+# SDK generator workflow in commercetools-api-reference copies api-specs/graphql/schema.sdl
+# over schema.graphqls and then runs `make build`, so this target has to be in that chain
+# for the regenerated client to land in the same commit as the schema it came from.
 gen_graphql_builder: yarn_install
 	yarn workspace @commercetools/graphql-sdk generate
 
