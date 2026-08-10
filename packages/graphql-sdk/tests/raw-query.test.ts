@@ -224,3 +224,58 @@ describe('GraphQLApiRequest', () => {
     ).rejects.toThrow('GraphQL request failed.')
   })
 })
+
+describe('defensive paths', () => {
+  it('returns undefined when the request builder exposes no clientRequest', () => {
+    const post = jest.fn().mockReturnValue({ execute: jest.fn() })
+
+    const request = createGraphQLClient({ post }).rawQuery(document)
+
+    expect(request.clientRequest()).toBeUndefined()
+  })
+
+  it('resolves with undefined when executeOrThrow gets no response at all', async () => {
+    const { apiRoot } = createApiRoot(null)
+
+    await expect(
+      createGraphQLClient(apiRoot).rawQuery(document).executeOrThrow()
+    ).resolves.toBeUndefined()
+  })
+
+  it('resolves with undefined when the body carries neither data nor errors', async () => {
+    const { apiRoot } = createApiRoot({ statusCode: 200, body: {} })
+
+    await expect(
+      createGraphQLClient(apiRoot).rawQuery(document).executeOrThrow()
+    ).resolves.toBeUndefined()
+  })
+})
+
+describe('GraphQLRequestError', () => {
+  it('keeps `data` undefined when the response carries no body', () => {
+    const error = new GraphQLRequestError(
+      [{ message: 'boom' }],
+      undefined as any
+    )
+
+    expect(error.data).toBeUndefined()
+    expect(error.message).toBe('GraphQL request failed: boom')
+  })
+
+  it('skips error entries that are empty or missing a message', () => {
+    const error = new GraphQLRequestError(
+      [{ message: '' } as any, undefined as any, { message: 'the real one' }],
+      { body: {} }
+    )
+
+    expect(error.message).toBe('GraphQL request failed: the real one')
+  })
+
+  it('falls back to a generic message when the errors array is missing', () => {
+    const error = new GraphQLRequestError(undefined as any, { body: {} })
+
+    expect(error.message).toBe('GraphQL request failed.')
+    expect(error).toBeInstanceOf(GraphQLRequestError)
+    expect(error).toBeInstanceOf(Error)
+  })
+})

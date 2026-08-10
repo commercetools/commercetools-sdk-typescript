@@ -267,3 +267,78 @@ describe('fluent query building', () => {
     expect(request.requestBody().query).toContain('customers')
   })
 })
+
+describe('the chain proxy', () => {
+  it('selects the __typename meta field', async () => {
+    const { apiRoot, executeRequest } = createApiRoot()
+
+    await createGraphQLClient(apiRoot)
+      .query({
+        customers: (customers) =>
+          customers.results((result) => result.id().typename()),
+      })
+      .execute()
+
+    expect(executeRequest.mock.calls[0][0].body.query).toContain('__typename')
+  })
+
+  it('selects a scalar field when its optional argument is left undefined', async () => {
+    const { apiRoot, executeRequest } = createApiRoot()
+
+    await createGraphQLClient(apiRoot)
+      .query({
+        categories: (categories) =>
+          categories.results((result) => result.id().name(undefined)),
+      })
+      .execute()
+
+    const request = executeRequest.mock.calls[0][0]
+
+    expect(request.body.query.replace(/\s+/g, ' ')).toContain('{id,name}')
+    expect(request.body.variables).toEqual({})
+  })
+
+  it('does not expose symbol properties as chain methods', () => {
+    const { apiRoot } = createApiRoot()
+
+    createGraphQLClient(apiRoot).query({
+      customers: (customers) => {
+        // Something reaching for a well known symbol - a spread, a `console.log`, a test
+        // matcher - must not be handed a selection method for it.
+        expect((customers as any)[Symbol.toPrimitive]).toBeUndefined()
+        expect((customers as any)[Symbol.iterator]).toBeUndefined()
+
+        return customers.total()
+      },
+    })
+  })
+
+  it('rejects a selection callback that returns a plain object', () => {
+    const { apiRoot } = createApiRoot()
+
+    expect(() =>
+      createGraphQLClient(apiRoot).query({
+        customers: () => ({ total: true }) as any,
+      })
+    ).toThrow(/must return the chain it was given/)
+  })
+
+  it('rejects a selection callback that returns null', () => {
+    const { apiRoot } = createApiRoot()
+
+    expect(() =>
+      createGraphQLClient(apiRoot).query({ customers: () => null as any })
+    ).toThrow(/must return the chain it was given/)
+  })
+
+  it('rejects a nested selection callback that does not return its chain', () => {
+    const { apiRoot } = createApiRoot()
+
+    expect(() =>
+      createGraphQLClient(apiRoot).query({
+        customers: (customers) =>
+          customers.results((() => 'nope') as any) as any,
+      })
+    ).toThrow(/must return the chain it was given/)
+  })
+})
