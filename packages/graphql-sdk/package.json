@@ -1,0 +1,57 @@
+{
+  "name": "@commercetools/graphql-sdk",
+  "version": "0.0.0",
+  "private": false,
+  "engines": {
+    "node": ">=22"
+  },
+  "description": "Type-safe GraphQL support for the commercetools TypeScript SDK, with a schema derived query builder.",
+  "keywords": [
+    "commercetools",
+    "typescript",
+    "sdk",
+    "graphql",
+    "query-builder",
+    "typed-document-node",
+    "codegen"
+  ],
+  "homepage": "https://github.com/commercetools/commercetools-sdk-typescript",
+  "bugs": "https://github.com/commercetools/commercetools-sdk-typescript/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/commercetools/commercetools-sdk-typescript"
+  },
+  "license": "MIT",
+  "author": "Chukwuemeka Ajima <meeky.ae@gmail.com>",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/commercetools-graphql-sdk.cjs.js",
+  "module": "dist/commercetools-graphql-sdk.esm.js",
+  "browser": {
+    "./dist/commercetools-graphql-sdk.cjs.js": "./dist/commercetools-graphql-sdk.browser.cjs.js",
+    "./dist/commercetools-graphql-sdk.esm.js": "./dist/commercetools-graphql-sdk.browser.esm.js"
+  },
+  "files": ["dist", "schema.graphqls", "CHANGELOG.md", "LICENSE"],
+  "dependencies": {
+    "@graphql-typed-document-node/core": "^3.2.0"
+  },
+  "peerDependencies": {
+    "graphql": "^15.0.0 || ^16.0.0"
+  },
+  "devDependencies": {
+    "@commercetools/history-sdk": "^6.1.0",
+    "@commercetools/platform-sdk": "^9.3.0",
+    "@genql/cli": "6.3.4",
+    "graphql": "16.12.0",
+    "organize-imports-cli": "1.0.2"
+  },
+  "scripts": {
+    "generate-builder": "genql --schema ./schema.graphqls --output ./src/builder/generated --sort --scalar BigDecimal:number --scalar Country:string --scalar Currency:string --scalar Date:string --scalar DateTime:string --scalar Json:unknown --scalar KeyReferenceInput:string --scalar Locale:string --scalar Long:number --scalar SearchValueType:unknown --scalar Set:unknown --scalar Time:string --scalar YearMonth:string",
+    "generate": "yarn generate-builder",
+    "organize_imports": "find src -type f -name '*.ts' -not -path 'src/builder/generated/*' | xargs organize-imports-cli",
+    "postbuild": "yarn organize_imports",
+    "post_process_generate": "yarn organize_imports",
+    "docs": "typedoc --out docs"
+  }
+}
