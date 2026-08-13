@@ -5397,22 +5397,11 @@ input ExistsFilterInput {
 }
 
 type Extension implements ReferenceExpandable & Versioned {
-  """
-  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-  """
   additionalContext: ExtensionAdditionalContext
   createdAt: DateTime!
   createdBy: Initiator
-
-  """
-  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-  """
   dependenciesRef: [Reference!]!
   destination: ExtensionDestination!
-
-  """
-  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-  """
   expansionPaths: [String!]!
   id: String!
   key: String
@@ -5427,9 +5416,6 @@ type ExtensionAdditionalContext {
   includeOldResource: Boolean!
 }
 
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
 input ExtensionAdditionalContextInput {
   includeOldResource: Boolean
 }
@@ -5445,20 +5431,9 @@ input ExtensionDestinationInput {
 }
 
 input ExtensionDraft {
-  """
-  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-  """
   additionalContext: ExtensionAdditionalContextInput
-
-  """
-  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-  """
   dependencies: [ResourceIdentifierInput!]
   destination: ExtensionDestinationInput!
-
-  """
-  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-  """
   expansionPaths: [String!]
   key: String
   timeoutInMs: Int
@@ -5481,20 +5456,8 @@ type ExtensionQueryResult {
 input ExtensionUpdateAction {
   changeDestination: ChangeExtensionDestination
   changeTriggers: ChangeExtensionTriggers
-
-  """
-  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-  """
   setAdditionalContext: SetExtensionAdditionalContext
-
-  """
-  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-  """
   setDependencies: SetExtensionDependencies
-
-  """
-  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-  """
   setExpansionPaths: SetExtensionExpansionPaths
   setKey: SetExtensionKey
   setTimeoutInMs: SetExtensionTimeoutInMs
@@ -10554,6 +10517,11 @@ type ProductCatalogData {
 enum ProductCatalogModel {
   """Default. Variants embedded in products."""
   Classic
+
+  """
+  Transitional. Modular variants are used by default for reads (e.g. carts), for testing secondary systems before switching fully to Modular, while classic variant updates remain allowed.
+  """
+  InMigration
 
   """Variants as separate entities."""
   Modular
@@ -15743,23 +15711,14 @@ input SetDiscountGroupSortOrder {
   sortOrder: String!
 }
 
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
 input SetExtensionAdditionalContext {
   additionalContext: ExtensionAdditionalContextInput!
 }
 
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
 input SetExtensionDependencies {
   dependencies: [ResourceIdentifierInput!]!
 }
 
-"""
-BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-"""
 input SetExtensionExpansionPaths {
   expansionPaths: [String!]!
 }

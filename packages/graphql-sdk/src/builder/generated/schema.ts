@@ -2765,14 +2765,11 @@ export interface EventSubscription {
 }
 
 export interface Extension {
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     additionalContext: (ExtensionAdditionalContext | null)
     createdAt: Scalars['DateTime']
     createdBy: (Initiator | null)
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     dependenciesRef: Reference[]
     destination: ExtensionDestination
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     expansionPaths: Scalars['String'][]
     id: Scalars['String']
     key: (Scalars['String'] | null)
@@ -4996,7 +4993,7 @@ export interface ProductCatalogData {
     __typename: 'ProductCatalogData'
 }
 
-export type ProductCatalogModel = 'Classic' | 'Modular'
+export type ProductCatalogModel = 'Classic' | 'InMigration' | 'Modular'
 
 export interface ProductCreated {
     productProjection: ProductProjectionMessagePayload
@@ -13071,14 +13068,11 @@ export interface ExcludeProductSelectionProduct {product: ResourceIdentifierInpu
 export interface ExistsFilterInput {path: Scalars['String']}
 
 export interface ExtensionGenqlSelection{
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     additionalContext?: ExtensionAdditionalContextGenqlSelection
     createdAt?: boolean | number
     createdBy?: InitiatorGenqlSelection
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     dependenciesRef?: ReferenceGenqlSelection
     destination?: ExtensionDestinationGenqlSelection
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     expansionPaths?: boolean | number
     id?: boolean | number
     key?: boolean | number
@@ -13097,8 +13091,6 @@ export interface ExtensionAdditionalContextGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface ExtensionAdditionalContextInput {includeOldResource?: (Scalars['Boolean'] | null)}
 
 export interface ExtensionDestinationGenqlSelection{
@@ -13112,13 +13104,7 @@ export interface ExtensionDestinationGenqlSelection{
 
 export interface ExtensionDestinationInput {AWSLambda?: (AWSLambdaDestinationInput | null),GoogleCloudFunction?: (GoogleCloudFunctionDestinationInput | null),HTTP?: (HttpDestinationInput | null)}
 
-export interface ExtensionDraft {
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
-additionalContext?: (ExtensionAdditionalContextInput | null),
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
-dependencies?: (ResourceIdentifierInput[] | null),destination: ExtensionDestinationInput,
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
-expansionPaths?: (Scalars['String'][] | null),key?: (Scalars['String'] | null),timeoutInMs?: (Scalars['Int'] | null),triggers: TriggerInput[]}
+export interface ExtensionDraft {additionalContext?: (ExtensionAdditionalContextInput | null),dependencies?: (ResourceIdentifierInput[] | null),destination: ExtensionDestinationInput,expansionPaths?: (Scalars['String'][] | null),key?: (Scalars['String'] | null),timeoutInMs?: (Scalars['Int'] | null),triggers: TriggerInput[]}
 
 export interface ExtensionLimitsProjectionGenqlSelection{
     maxExtensionsUpdateActions?: LimitGenqlSelection
@@ -13137,13 +13123,7 @@ export interface ExtensionQueryResultGenqlSelection{
     __scalar?: boolean | number
 }
 
-export interface ExtensionUpdateAction {changeDestination?: (ChangeExtensionDestination | null),changeTriggers?: (ChangeExtensionTriggers | null),
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
-setAdditionalContext?: (SetExtensionAdditionalContext | null),
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
-setDependencies?: (SetExtensionDependencies | null),
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
-setExpansionPaths?: (SetExtensionExpansionPaths | null),setKey?: (SetExtensionKey | null),setTimeoutInMs?: (SetExtensionTimeoutInMs | null)}
+export interface ExtensionUpdateAction {changeDestination?: (ChangeExtensionDestination | null),changeTriggers?: (ChangeExtensionTriggers | null),setAdditionalContext?: (SetExtensionAdditionalContext | null),setDependencies?: (SetExtensionDependencies | null),setExpansionPaths?: (SetExtensionExpansionPaths | null),setKey?: (SetExtensionKey | null),setTimeoutInMs?: (SetExtensionTimeoutInMs | null)}
 
 export interface ExternalDiscountValueGenqlSelection{
     type?: boolean | number
@@ -20637,16 +20617,10 @@ export interface SetDiscountGroupName {name?: (LocalizedStringItemInputType[] | 
 
 export interface SetDiscountGroupSortOrder {sortOrder: Scalars['String']}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetExtensionAdditionalContext {additionalContext: ExtensionAdditionalContextInput}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetExtensionDependencies {dependencies: ResourceIdentifierInput[]}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetExtensionExpansionPaths {expansionPaths: Scalars['String'][]}
 
 export interface SetExtensionKey {key?: (Scalars['String'] | null)}
@@ -32175,6 +32149,7 @@ export const enumPriceSelectionMode = {
 
 export const enumProductCatalogModel = {
    Classic: 'Classic' as const,
+   InMigration: 'InMigration' as const,
    Modular: 'Modular' as const
 }
 
