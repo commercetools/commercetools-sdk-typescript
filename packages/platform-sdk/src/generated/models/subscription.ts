@@ -1118,7 +1118,7 @@ export interface SubscriptionSetEventsAction extends ISubscriptionUpdateAction {
 export interface SubscriptionSetKeyAction extends ISubscriptionUpdateAction {
   readonly action: 'setKey'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */

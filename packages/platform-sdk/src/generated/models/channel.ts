@@ -336,7 +336,7 @@ export interface ChannelRemoveRolesAction extends IChannelUpdateAction {
 export interface ChannelSetAddressAction extends IChannelUpdateAction {
   readonly action: 'setAddress'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */

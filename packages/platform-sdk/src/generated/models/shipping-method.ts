@@ -664,7 +664,8 @@ export interface ShippingMethodSetCustomTypeAction extends IShippingMethodUpdate
 export interface ShippingMethodSetDescriptionAction extends IShippingMethodUpdateAction {
   readonly action: 'setDescription'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
+   *
    *
    */
   readonly description?: string
@@ -680,7 +681,8 @@ export interface ShippingMethodSetKeyAction extends IShippingMethodUpdateAction 
 export interface ShippingMethodSetLocalizedDescriptionAction extends IShippingMethodUpdateAction {
   readonly action: 'setLocalizedDescription'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
+   *
    *
    */
   readonly localizedDescription?: LocalizedString
@@ -688,7 +690,8 @@ export interface ShippingMethodSetLocalizedDescriptionAction extends IShippingMe
 export interface ShippingMethodSetLocalizedNameAction extends IShippingMethodUpdateAction {
   readonly action: 'setLocalizedName'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
+   *
    *
    */
   readonly localizedName?: LocalizedString
@@ -703,7 +706,7 @@ export interface ShippingMethodSetPredicateAction extends IShippingMethodUpdateA
 }
 /**
  *	Sets the Stores the ShippingMethod is associated with.
- *	If empty, the ShippingMethod becomes a global ShippingMethod.
+ *	Set `stores` to an empty array to make the ShippingMethod a global ShippingMethod.
  *
  */
 export interface ShippingMethodSetStoresAction extends IShippingMethodUpdateAction {
@@ -711,7 +714,7 @@ export interface ShippingMethodSetStoresAction extends IShippingMethodUpdateActi
   /**
    *	ResourceIdentifiers of the Stores to set.
    *	Overrides the current list of Stores.
-   *	If empty, any existing values are removed.
+   *	Set to an empty array to remove all existing values.
    *
    *
    */

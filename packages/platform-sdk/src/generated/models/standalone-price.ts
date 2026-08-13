@@ -513,7 +513,7 @@ export interface StandalonePriceSetCustomTypeAction extends IStandalonePriceUpda
 export interface StandalonePriceSetDiscountedPriceAction extends IStandalonePriceUpdateAction {
   readonly action: 'setDiscountedPrice'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *	The referenced [ProductDiscount](ctp:api:type:ProductDiscount) must be of type external, active, and its predicate must match the referenced Price.
    *
@@ -528,7 +528,7 @@ export interface StandalonePriceSetDiscountedPriceAction extends IStandalonePric
 export interface StandalonePriceSetKeyAction extends IStandalonePriceUpdateAction {
   readonly action: 'setKey'
   /**
-   *	Value to set. Must be unique. If empty, any existing value will be removed.
+   *	Value to set. Must be unique. If omitted, any existing value is removed.
    *
    *
    */
@@ -541,7 +541,7 @@ export interface StandalonePriceSetKeyAction extends IStandalonePriceUpdateActio
 export interface StandalonePriceSetPriceTiersAction extends IStandalonePriceUpdateAction {
   readonly action: 'setPriceTiers'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. Set to an empty array to remove any existing value.
    *	The `minimumQuantity` of the PriceTiers must be unique and greater than `1`, otherwise an [InvalidField](ctp:api:type:InvalidFieldError) error is returned.
    *
    *
@@ -560,7 +560,7 @@ export interface StandalonePriceSetValidFromAction extends IStandalonePriceUpdat
   readonly action: 'setValidFrom'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -578,14 +578,14 @@ export interface StandalonePriceSetValidFromAndUntilAction extends IStandalonePr
   readonly action: 'setValidFromAndUntil'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
   readonly validFrom?: string
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -603,7 +603,7 @@ export interface StandalonePriceSetValidUntilAction extends IStandalonePriceUpda
   readonly action: 'setValidUntil'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */

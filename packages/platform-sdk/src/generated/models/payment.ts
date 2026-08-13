@@ -639,7 +639,7 @@ export interface PaymentChangeTransactionTimestampAction extends IPaymentUpdateA
 export interface PaymentSetAnonymousIdAction extends IPaymentUpdateAction {
   readonly action: 'setAnonymousId'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -684,7 +684,7 @@ export interface PaymentSetCustomerAction extends IPaymentUpdateAction {
   readonly action: 'setCustomer'
   /**
    *	Value to set.
-   *	If empty, any existing reference is removed.
+   *	If omitted, any existing reference is removed.
    *
    *
    */
@@ -733,7 +733,7 @@ export interface PaymentSetMethodInfoAction extends IPaymentUpdateAction {
   readonly paymentInterface?: string
   /**
    *	Payment method to use—for example, a credit card or direct debit.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *	Setting this field is equivalent to the `setMethodInfoMethod` action and will generate the [PaymentMethodInfoMethodSet](ctp:api:type:PaymentMethodInfoMethodSetMessage) Message.
    *
@@ -742,7 +742,7 @@ export interface PaymentSetMethodInfoAction extends IPaymentUpdateAction {
   readonly method?: string
   /**
    *	Name of the Payment Method.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *	Setting this field is equivalent to the `setMethodInfoName` action and will generate the [PaymentMethodInfoNameSet](ctp:api:type:PaymentMethodInfoNameSetMessage) Message.
    *
@@ -751,7 +751,7 @@ export interface PaymentSetMethodInfoAction extends IPaymentUpdateAction {
   readonly name?: LocalizedString
   /**
    *	Tokenized payment method information of the Payment Method.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *	Setting this field is equivalent to the `setMethodInfoToken` action and will generate the [PaymentMethodInfoTokenSet](ctp:api:type:PaymentMethodInfoTokenSetMessage) Message.
    *
@@ -760,7 +760,7 @@ export interface PaymentSetMethodInfoAction extends IPaymentUpdateAction {
   readonly token?: PaymentMethodToken
   /**
    *	Account or instance of the payment interface when multiple accounts are used (per interface).
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *	Setting this field is equivalent to the `setMethodInfoInterfaceAccount` action and will generate the [PaymentMethodInfoInterfaceAccountSet](ctp:api:type:PaymentMethodInfoInterfaceAccountSetMessage) Message.
    *
@@ -769,7 +769,7 @@ export interface PaymentSetMethodInfoAction extends IPaymentUpdateAction {
   readonly interfaceAccount?: string
   /**
    *	Custom Fields for the PaymentMethodInfo.
-   *	If not provided, any existing Custom Fields will be removed, including the Custom Type.
+   *	If omitted, any existing Custom Fields are removed, including the Custom Type.
    *
    *	Setting this field is equivalent to the `setMethodInfoCustomType` and `setMethodInfoCustomField` actions, and will generate the following Messages:
    *
@@ -830,7 +830,7 @@ export interface PaymentSetMethodInfoInterfaceAccountAction extends IPaymentUpda
   readonly action: 'setMethodInfoInterfaceAccount'
   /**
    *	New account or instance of the payment interface.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -858,7 +858,7 @@ export interface PaymentSetMethodInfoMethodAction extends IPaymentUpdateAction {
   readonly action: 'setMethodInfoMethod'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -872,7 +872,7 @@ export interface PaymentSetMethodInfoNameAction extends IPaymentUpdateAction {
   readonly action: 'setMethodInfoName'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -886,7 +886,7 @@ export interface PaymentSetMethodInfoTokenAction extends IPaymentUpdateAction {
   readonly action: 'setMethodInfoToken'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -898,7 +898,7 @@ export interface PaymentSetMethodInfoTokenAction extends IPaymentUpdateAction {
 export interface PaymentSetStatusInterfaceCodeAction extends IPaymentUpdateAction {
   readonly action: 'setStatusInterfaceCode'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -907,7 +907,7 @@ export interface PaymentSetStatusInterfaceCodeAction extends IPaymentUpdateActio
 export interface PaymentSetStatusInterfaceTextAction extends IPaymentUpdateAction {
   readonly action: 'setStatusInterfaceText'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. Set to an empty string to remove any existing value.
    *
    *
    */

@@ -1374,7 +1374,7 @@ export interface ProductAddToCategoryAction extends IProductUpdateAction {
    */
   readonly category: CategoryResourceIdentifier
   /**
-   *	A string representing a number between 0 and 1. Must start with `0.` and cannot end with `0`. If empty, any existing value will be removed.
+   *	A string representing a number between 0 and 1. Must start with `0.` and cannot end with `0`. If omitted, any existing value is removed.
    *
    *
    */
@@ -1932,7 +1932,7 @@ export interface ProductSetAssetDescriptionAction extends IProductUpdateAction {
    */
   readonly assetKey?: string
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -1969,7 +1969,7 @@ export interface ProductSetAssetKeyAction extends IProductUpdateAction {
    */
   readonly assetId: string
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -2086,7 +2086,7 @@ export interface ProductSetAttributeAction extends IProductUpdateAction {
    */
   readonly name: string
   /**
-   *	Value to set for the Attribute. If empty, any existing value will be removed.
+   *	Value to set for the Attribute. If omitted, any existing value is removed.
    *
    *	The [AttributeType](ctp:api:type:AttributeType) determines the format of the Attribute `value` to be provided:
    *
@@ -2120,7 +2120,7 @@ export interface ProductSetAttributeInAllVariantsAction extends IProductUpdateAc
    */
   readonly name: string
   /**
-   *	Value to set for the Attributes. If empty, any existing value will be removed.
+   *	Value to set for the Attributes. If omitted, any existing value is removed.
    *
    *	The [AttributeType](ctp:api:type:AttributeType) determines the format of the Attribute `value` to be provided:
    *
@@ -2152,7 +2152,7 @@ export interface ProductSetCategoryOrderHintAction extends IProductUpdateAction 
    */
   readonly categoryId: string
   /**
-   *	A string representing a number between 0 and 1. Must start with `0.` and cannot end with `0`. If empty, any existing value will be removed.
+   *	A string representing a number between 0 and 1. Must start with `0.` and cannot end with `0`. If omitted, any existing value is removed.
    *
    *
    */
@@ -2171,7 +2171,7 @@ export interface ProductSetCategoryOrderHintAction extends IProductUpdateAction 
 export interface ProductSetDefaultVariantAction extends IProductUpdateAction {
   readonly action: 'setDefaultVariant'
   /**
-   *	The Variant to set as default. If empty, any existing value will be removed.
+   *	The Variant to set as default. If omitted, any existing value is removed.
    *
    *
    */
@@ -2186,7 +2186,7 @@ export interface ProductSetDefaultVariantAction extends IProductUpdateAction {
 export interface ProductSetDescriptionAction extends IProductUpdateAction {
   readonly action: 'setDescription'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -2217,7 +2217,7 @@ export interface ProductSetDiscountedPriceAction extends IProductUpdateAction {
    */
   readonly staged?: boolean
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *	The referenced [ProductDiscount](ctp:api:type:ProductDiscount) must have the Type `external`, be active, and its predicate must match the referenced Price.
    *
    *
@@ -2249,7 +2249,7 @@ export interface ProductSetImageLabelAction extends IProductUpdateAction {
    */
   readonly imageUrl: string
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -2264,7 +2264,7 @@ export interface ProductSetImageLabelAction extends IProductUpdateAction {
 export interface ProductSetKeyAction extends IProductUpdateAction {
   readonly action: 'setKey'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *	To update a Product using the [Import API](/api/import-export/overview) and the [Merchant Center](/merchant-center/import-data), the Product `key` must match the pattern `^[A-Za-z0-9_-]{2,256}$`.
    *
@@ -2275,7 +2275,7 @@ export interface ProductSetKeyAction extends IProductUpdateAction {
 export interface ProductSetMetaDescriptionAction extends IProductUpdateAction {
   readonly action: 'setMetaDescription'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -2290,7 +2290,7 @@ export interface ProductSetMetaDescriptionAction extends IProductUpdateAction {
 export interface ProductSetMetaKeywordsAction extends IProductUpdateAction {
   readonly action: 'setMetaKeywords'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -2305,7 +2305,7 @@ export interface ProductSetMetaKeywordsAction extends IProductUpdateAction {
 export interface ProductSetMetaTitleAction extends IProductUpdateAction {
   readonly action: 'setMetaTitle'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -2336,7 +2336,7 @@ export interface ProductSetPriceKeyAction extends IProductUpdateAction {
    */
   readonly staged?: boolean
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -2396,7 +2396,7 @@ export interface ProductSetProductAttributeAction extends IProductUpdateAction {
    */
   readonly name: string
   /**
-   *	Value to set for the Attribute. If empty, any existing value will be removed.
+   *	Value to set for the Attribute. If omitted, any existing value is removed.
    *
    *	The [AttributeType](ctp:api:type:AttributeType) determines the format of the Attribute `value` to be provided:
    *
@@ -2495,7 +2495,7 @@ export interface ProductSetProductVariantKeyAction extends IProductUpdateAction 
    */
   readonly sku?: string
   /**
-   *	Value to set. Must be unique among ProductVariants in the same Product. If empty, any existing value will be removed.
+   *	Value to set. Must be unique among ProductVariants in the same Product. If omitted, any existing value is removed.
    *
    *
    */
@@ -2537,7 +2537,7 @@ export interface ProductSetSkuAction extends IProductUpdateAction {
    */
   readonly variantId: number
   /**
-   *	Value to set. Must be unique across all ProductVariants in a Project. If empty, any existing value will be removed.
+   *	Value to set. Must be unique across all ProductVariants in a Project. If omitted, any existing value is removed.
    *
    *
    */
@@ -2556,7 +2556,7 @@ export interface ProductSetSkuAction extends IProductUpdateAction {
 export interface ProductSetTaxCategoryAction extends IProductUpdateAction {
   readonly action: 'setTaxCategory'
   /**
-   *	The Tax Category to set. If empty, any existing value will be removed.
+   *	The Tax Category to set. If omitted, any existing value is removed.
    *
    *
    */

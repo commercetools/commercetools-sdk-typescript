@@ -458,7 +458,7 @@ export interface ProductDiscountChangeValueAction extends IProductDiscountUpdate
 export interface ProductDiscountSetDescriptionAction extends IProductDiscountUpdateAction {
   readonly action: 'setDescription'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -467,7 +467,7 @@ export interface ProductDiscountSetDescriptionAction extends IProductDiscountUpd
 export interface ProductDiscountSetKeyAction extends IProductDiscountUpdateAction {
   readonly action: 'setKey'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -477,7 +477,7 @@ export interface ProductDiscountSetValidFromAction extends IProductDiscountUpdat
   readonly action: 'setValidFrom'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *	Take [Eventual Consistency](/api/general-concepts#eventual-consistency) into account for calculated discount values.
    *
    *
@@ -505,7 +505,7 @@ export interface ProductDiscountSetValidUntilAction extends IProductDiscountUpda
   readonly action: 'setValidUntil'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *	Take [Eventual Consistency](/api/general-concepts#eventual-consistency) into account for calculated undiscounted values.
    *
    *

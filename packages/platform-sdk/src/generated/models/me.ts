@@ -1762,7 +1762,7 @@ export interface MyCartSetBillingAddressAction extends IMyCartUpdateAction {
   readonly action: 'setBillingAddress'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -1790,7 +1790,7 @@ export interface MyCartSetCountryAction extends IMyCartUpdateAction {
   readonly action: 'setCountry'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *	If the Cart is bound to a `store`, the provided value must be included in the [Store's](ctp:api:type:Store) `countries`.
    *	Otherwise a [CountryNotConfiguredInStore](ctp:api:type:CountryNotConfiguredInStoreError) error is returned.
@@ -1838,7 +1838,7 @@ export interface MyCartSetCustomerEmailAction extends IMyCartUpdateAction {
   readonly action: 'setCustomerEmail'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -1854,7 +1854,7 @@ export interface MyCartSetDeleteDaysAfterLastModificationAction extends IMyCartU
   readonly action: 'setDeleteDaysAfterLastModification'
   /**
    *	Value to set.
-   *	If not provided, the default value for this field configured in [Project settings](ctp:api:type:CartsConfiguration) is assigned.
+   *	If omitted, the default value for this field configured in [Project settings](ctp:api:type:CartsConfiguration) is assigned.
    *
    *
    */
@@ -1962,7 +1962,7 @@ export interface MyCartSetLineItemShippingDetailsAction extends IMyCartUpdateAct
   readonly lineItemKey?: string
   /**
    *	Value to set.
-   *	If empty, the existing value is removed.
+   *	If omitted, the existing value is removed.
    *
    *
    */
@@ -2002,7 +2002,7 @@ export interface MyCartSetLocaleAction extends IMyCartUpdateAction {
   /**
    *	Value to set.
    *	Must be one of the [Project](ctp:api:type:Project)'s `languages`.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -2037,7 +2037,7 @@ export interface MyCartSetShippingMethodAction extends IMyCartUpdateAction {
   readonly action: 'setShippingMethod'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *	[InvalidOperation](ctp:api:type:InvalidOperationError) error is returned in one of the following cases:
    *	  1. If the referenced Shipping Method has a predicate that does not match the Cart.
@@ -2228,7 +2228,7 @@ export interface MyCustomerSetCompanyNameAction extends IMyCustomerUpdateAction 
   readonly action: 'setCompanyName'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -2285,7 +2285,7 @@ export interface MyCustomerSetDateOfBirthAction extends IMyCustomerUpdateAction 
   readonly action: 'setDateOfBirth'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -2339,7 +2339,7 @@ export interface MyCustomerSetFirstNameAction extends IMyCustomerUpdateAction {
   readonly action: 'setFirstName'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -2353,7 +2353,7 @@ export interface MyCustomerSetLastNameAction extends IMyCustomerUpdateAction {
   readonly action: 'setLastName'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -2373,7 +2373,7 @@ export interface MyCustomerSetMiddleNameAction extends IMyCustomerUpdateAction {
   readonly action: 'setMiddleName'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -2383,7 +2383,7 @@ export interface MyCustomerSetSalutationAction extends IMyCustomerUpdateAction {
   readonly action: 'setSalutation'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -2397,7 +2397,7 @@ export interface MyCustomerSetTitleAction extends IMyCustomerUpdateAction {
   readonly action: 'setTitle'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -2407,7 +2407,7 @@ export interface MyCustomerSetVatIdAction extends IMyCustomerUpdateAction {
   readonly action: 'setVatId'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -2507,7 +2507,7 @@ export interface MyPaymentSetMethodInfoInterfaceAccountAction extends IMyPayment
   readonly action: 'setMethodInfoInterfaceAccount'
   /**
    *	New account or instance of the payment interface.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -2527,7 +2527,7 @@ export interface MyPaymentSetMethodInfoMethodAction extends IMyPaymentUpdateActi
   readonly action: 'setMethodInfoMethod'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -2537,7 +2537,7 @@ export interface MyPaymentSetMethodInfoNameAction extends IMyPaymentUpdateAction
   readonly action: 'setMethodInfoName'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -2835,7 +2835,7 @@ export interface MyShoppingListSetCustomTypeAction extends IMyShoppingListUpdate
 export interface MyShoppingListSetDeleteDaysAfterLastModificationAction extends IMyShoppingListUpdateAction {
   readonly action: 'setDeleteDaysAfterLastModification'
   /**
-   *	Value to set. If not provided, the default value for this field configured in [Project settings](ctp:api:type:ShoppingListsConfiguration) is assigned.
+   *	Value to set. If omitted, the default value for this field configured in [Project settings](ctp:api:type:ShoppingListsConfiguration) is assigned.
    *
    *
    */
@@ -2844,7 +2844,7 @@ export interface MyShoppingListSetDeleteDaysAfterLastModificationAction extends 
 export interface MyShoppingListSetDescriptionAction extends IMyShoppingListUpdateAction {
   readonly action: 'setDescription'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -2977,7 +2977,7 @@ export interface MyShoppingListSetTextLineItemDescriptionAction extends IMyShopp
    */
   readonly textLineItemKey?: string
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */

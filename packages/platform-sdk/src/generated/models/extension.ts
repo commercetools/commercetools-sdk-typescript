@@ -521,7 +521,7 @@ export interface ExtensionSetExpansionPathsAction extends IExtensionUpdateAction
 export interface ExtensionSetKeyAction extends IExtensionUpdateAction {
   readonly action: 'setKey'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */

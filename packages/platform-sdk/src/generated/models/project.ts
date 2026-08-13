@@ -630,7 +630,7 @@ export interface ProjectSetDiscountsConfigurationAction extends IProjectUpdateAc
 export interface ProjectSetExternalOAuthAction extends IProjectUpdateAction {
   readonly action: 'setExternalOAuth'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -686,7 +686,7 @@ export interface ProjectSetReservationExpirationInMinutesAction extends IProject
 export interface ProjectSetShippingRateInputTypeAction extends IProjectUpdateAction {
   readonly action: 'setShippingRateInputType'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */

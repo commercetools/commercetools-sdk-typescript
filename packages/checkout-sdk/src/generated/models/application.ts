@@ -19,7 +19,7 @@ export interface AllowedOrigins {
    */
   readonly allowAll: boolean
   /**
-   *	Value of the URL to set. If empty, any existing value will be removed.
+   *	Origins to allow. Set to an empty array to remove any existing origins.
    *
    *
    */
@@ -586,7 +586,7 @@ export interface SetApplicationAgreementTypeUpdateAction extends IApplicationUpd
 export interface SetApplicationAgreementsUpdateAction extends IApplicationUpdateAction {
   readonly action: 'setAgreements'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -631,7 +631,7 @@ export interface SetCountriesUpdateAction extends IApplicationUpdateAction {
 export interface SetDescriptionUpdateAction extends IApplicationUpdateAction {
   readonly action: 'setDescription'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. Set to an empty object to remove any existing value.
    *
    *
    */
@@ -649,7 +649,7 @@ export interface SetDiscountsConfigurationUpdateAction extends IApplicationUpdat
 export interface SetPaymentReturnUrlUpdateAction extends IApplicationUpdateAction {
   readonly action: 'setPaymentReturnUrl'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */

@@ -438,7 +438,7 @@ export interface OrderEditSetCommentAction extends IOrderEditUpdateAction {
   readonly action: 'setComment'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -483,7 +483,7 @@ export interface OrderEditSetKeyAction extends IOrderEditUpdateAction {
   readonly action: 'setKey'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -700,7 +700,7 @@ export interface StagedOrderAddLineItemAction extends IStagedOrderUpdateAction {
   readonly productId?: string
   /**
    *	`id` of the [ProductVariant](ctp:api:type:ProductVariant) in the Product.
-   *	If not provided, the Master Variant is used.
+   *	If omitted, the Master Variant is used.
    *
    *	Either the `productId` and `variantId`, or `sku` must be provided.
    *
@@ -1317,7 +1317,7 @@ export interface StagedOrderSetBillingAddressAction extends IStagedOrderUpdateAc
   readonly action: 'setBillingAddress'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -1367,7 +1367,7 @@ export interface StagedOrderSetBillingAddressCustomTypeAction extends IStagedOrd
 export interface StagedOrderSetBusinessUnitAction extends IStagedOrderUpdateAction {
   readonly action: 'setBusinessUnit'
   /**
-   *	New Business Unit to assign to the Order. If empty, any existing value is removed.
+   *	New Business Unit to assign to the Order. If omitted, any existing value is removed.
    *
    *	If the referenced Business Unit does not exist, a [ReferencedResourceNotFound](ctp:api:type:ReferencedResourceNotFoundError) error is returned.
    *
@@ -1383,7 +1383,7 @@ export interface StagedOrderSetCountryAction extends IStagedOrderUpdateAction {
   readonly action: 'setCountry'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *	If the Cart is bound to a `store`, the provided value must be included in the [Store](ctp:api:type:Store)'s `countries`.
    *	Otherwise a [CountryNotConfiguredInStore](ctp:api:type:CountryNotConfiguredInStoreError) error is returned.
@@ -1484,7 +1484,7 @@ export interface StagedOrderSetCustomLineItemShippingDetailsAction extends IStag
   readonly customLineItemKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -1510,7 +1510,7 @@ export interface StagedOrderSetCustomLineItemTaxAmountAction extends IStagedOrde
   readonly customLineItemKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -1543,7 +1543,7 @@ export interface StagedOrderSetCustomLineItemTaxRateAction extends IStagedOrderU
   readonly customLineItemKey?: string
   /**
    *	Value to set.
-   *	If empty, an existing value is removed.
+   *	If omitted, an existing value is removed.
    *
    *
    */
@@ -1623,7 +1623,7 @@ export interface StagedOrderSetCustomerEmailAction extends IStagedOrderUpdateAct
   readonly action: 'setCustomerEmail'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -1640,7 +1640,7 @@ export interface StagedOrderSetCustomerGroupAction extends IStagedOrderUpdateAct
   readonly action: 'setCustomerGroup'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -1657,7 +1657,7 @@ export interface StagedOrderSetCustomerIdAction extends IStagedOrderUpdateAction
   readonly action: 'setCustomerId'
   /**
    *	`id` of an existing [Customer](ctp:api:type:Customer).
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -1687,7 +1687,7 @@ export interface StagedOrderSetDeliveryAddressAction extends IStagedOrderUpdateA
   readonly deliveryKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -1851,7 +1851,7 @@ export interface StagedOrderSetDeliveryItemsAction extends IStagedOrderUpdateAct
   readonly deliveryKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	Set to an empty array to remove any existing value.
    *
    *
    */
@@ -1867,7 +1867,7 @@ export interface StagedOrderSetDirectDiscountsAction extends IStagedOrderUpdateA
   /**
    *	- If set, all existing Direct Discounts are replaced.
    *	  The discounts apply in the order they are added to the list.
-   *	- If empty, all existing Direct Discounts are removed and all affected prices on the Order are recalculated.
+   *	- If set to an empty array, all existing Direct Discounts are removed and all affected prices on the Order are recalculated.
    *
    *
    */
@@ -2052,7 +2052,7 @@ export interface StagedOrderSetLineItemShippingDetailsAction extends IStagedOrde
   readonly lineItemKey?: string
   /**
    *	Value to set.
-   *	If empty, the existing value is removed.
+   *	If omitted, the existing value is removed.
    *
    *
    */
@@ -2078,7 +2078,7 @@ export interface StagedOrderSetLineItemTaxAmountAction extends IStagedOrderUpdat
   readonly lineItemKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -2111,7 +2111,7 @@ export interface StagedOrderSetLineItemTaxRateAction extends IStagedOrderUpdateA
   readonly lineItemKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -2155,7 +2155,7 @@ export interface StagedOrderSetLocaleAction extends IStagedOrderUpdateAction {
   /**
    *	Value to set.
    *	Must be one of the [Project](ctp:api:type:Project)'s languages.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -2281,7 +2281,7 @@ export interface StagedOrderSetParcelItemsAction extends IStagedOrderUpdateActio
   readonly parcelKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	Set to an empty array to remove any existing value.
    *
    *
    */
@@ -2311,7 +2311,7 @@ export interface StagedOrderSetParcelMeasurementsAction extends IStagedOrderUpda
   readonly parcelKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -2341,7 +2341,7 @@ export interface StagedOrderSetParcelTrackingDataAction extends IStagedOrderUpda
   readonly parcelKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -2368,7 +2368,7 @@ export interface StagedOrderSetReturnInfoAction extends IStagedOrderUpdateAction
   readonly action: 'setReturnInfo'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -2498,7 +2498,7 @@ export interface StagedOrderSetShippingAddressAction extends IStagedOrderUpdateA
   readonly action: 'setShippingAddress'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -2669,7 +2669,7 @@ export interface StagedOrderSetShippingCustomTypeAction extends IStagedOrderUpda
 export interface StagedOrderSetShippingMethodAction extends IStagedOrderUpdateAction {
   readonly action: 'setShippingMethod'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *	If the referenced Shipping Method has a predicate that does not match the Cart, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    *
@@ -2697,7 +2697,7 @@ export interface StagedOrderSetShippingMethodTaxAmountAction extends IStagedOrde
    */
   readonly shippingKey?: string
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -2719,7 +2719,7 @@ export interface StagedOrderSetShippingMethodTaxRateAction extends IStagedOrderU
   readonly shippingKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -2754,7 +2754,7 @@ export interface StagedOrderSetShippingRateInputAction extends IStagedOrderUpdat
 export interface StagedOrderSetStoreAction extends IStagedOrderUpdateAction {
   readonly action: 'setStore'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *	If `store` references the same Store the Order is currently assigned to or if you try to remove the value when no Store is currently assigned, a `400` error is returned.
    *

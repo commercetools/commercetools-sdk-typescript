@@ -863,7 +863,7 @@ export interface McpServerSetAuthenticationModeAction extends IMcpServerUpdateAc
 export interface McpServerSetDescriptionAction extends IMcpServerUpdateAction {
   readonly action: 'setDescription'
   /**
-   *	Value to set. If empty or absent, the existing description is removed.
+   *	Value to set. If omitted, the existing description is removed.
    *
    *
    */
@@ -889,7 +889,7 @@ export interface McpServerSetJsonOutputFilteringAction extends IMcpServerUpdateA
 export interface McpServerSetNameAction extends IMcpServerUpdateAction {
   readonly action: 'setName'
   /**
-   *	Value to set. If empty or absent, the existing name is removed.
+   *	Value to set. If omitted, the existing name is removed.
    *
    *
    */

@@ -812,7 +812,7 @@ export interface TypeRemoveFieldDefinitionAction extends ITypeUpdateAction {
 export interface TypeSetDescriptionAction extends ITypeUpdateAction {
   readonly action: 'setDescription'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */

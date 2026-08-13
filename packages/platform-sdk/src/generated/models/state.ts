@@ -347,7 +347,7 @@ export interface StateSetDescriptionAction extends IStateUpdateAction {
   readonly action: 'setDescription'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	Set to an empty object to remove any existing value.
    *
    *
    */
@@ -357,7 +357,7 @@ export interface StateSetNameAction extends IStateUpdateAction {
   readonly action: 'setName'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	Set to an empty object to remove any existing value.
    *
    *
    */
@@ -367,7 +367,7 @@ export interface StateSetRolesAction extends IStateUpdateAction {
   readonly action: 'setRoles'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	Set to an empty array to remove any existing value.
    *
    *
    */
@@ -377,7 +377,7 @@ export interface StateSetTransitionsAction extends IStateUpdateAction {
   readonly action: 'setTransitions'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *	Possible transformations of the current State to other States of the same `type` (for example, _Initial_ -> _Shipped_).
    *	When performing a `transitionState` update action and `transitions` is set, the currently referenced State must have a transition to the new State.

@@ -230,7 +230,7 @@ export interface DiscountGroupSetDescriptionAction extends IDiscountGroupUpdateA
   readonly action: 'setDescription'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -270,7 +270,7 @@ export interface DiscountGroupSetNameAction extends IDiscountGroupUpdateAction {
   readonly action: 'setName'
   /**
    *	New value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */

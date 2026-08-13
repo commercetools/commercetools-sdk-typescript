@@ -2541,7 +2541,7 @@ export interface CartAddLineItemAction extends ICartUpdateAction {
   readonly productId?: string
   /**
    *	`id` of the [ProductVariant](ctp:api:type:ProductVariant) in the Product.
-   *	If not provided, the Master Variant is used.
+   *	If omitted, the Master Variant is used.
    *
    *	Either the `productId` and `variantId`, or `sku` must be provided.
    *
@@ -3151,7 +3151,7 @@ export interface CartSetAnonymousIdAction extends ICartUpdateAction {
   readonly action: 'setAnonymousId'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3161,7 +3161,7 @@ export interface CartSetBillingAddressAction extends ICartUpdateAction {
   readonly action: 'setBillingAddress'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3243,7 +3243,7 @@ export interface CartSetCountryAction extends ICartUpdateAction {
   readonly action: 'setCountry'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *	If the Cart is bound to a `store`, the provided value must be included in the [Store's](ctp:api:type:Store) `countries`.
    *	Otherwise a [CountryNotConfiguredInStore](ctp:api:type:CountryNotConfiguredInStoreError) error is returned.
@@ -3349,7 +3349,7 @@ export interface CartSetCustomLineItemRecurrenceInfoAction extends ICartUpdateAc
   readonly customLineItemKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3371,7 +3371,7 @@ export interface CartSetCustomLineItemShippingDetailsAction extends ICartUpdateA
   readonly customLineItemKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3397,7 +3397,7 @@ export interface CartSetCustomLineItemTaxAmountAction extends ICartUpdateAction 
   readonly customLineItemKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3430,7 +3430,7 @@ export interface CartSetCustomLineItemTaxRateAction extends ICartUpdateAction {
   readonly customLineItemKey?: string
   /**
    *	Value to set.
-   *	If empty, an existing value is removed.
+   *	If omitted, an existing value is removed.
    *
    *
    */
@@ -3510,7 +3510,7 @@ export interface CartSetCustomerEmailAction extends ICartUpdateAction {
   readonly action: 'setCustomerEmail'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3527,7 +3527,7 @@ export interface CartSetCustomerGroupAction extends ICartUpdateAction {
   readonly action: 'setCustomerGroup'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3545,7 +3545,7 @@ export interface CartSetCustomerIdAction extends ICartUpdateAction {
   /**
    *	`id` of an existing [Customer](ctp:api:type:Customer).
    *	If the Customer is assigned to a [CustomerGroup](ctp:api:type:CustomerGroup), this update action also sets the value for the `customerGroup` field.
-   *	If empty, the update action removes the value for both `customerId` and `customerGroup`.
+   *	If omitted, the update action removes the value for both `customerId` and `customerGroup`.
    *
    *
    */
@@ -3563,7 +3563,7 @@ export interface CartSetDeleteDaysAfterLastModificationAction extends ICartUpdat
   readonly action: 'setDeleteDaysAfterLastModification'
   /**
    *	Value to set.
-   *	If not provided, the default value for this field configured in [Project settings](ctp:api:type:CartsConfiguration) is assigned.
+   *	If omitted, the default value for this field configured in [Project settings](ctp:api:type:CartsConfiguration) is assigned.
    *
    *
    */
@@ -3579,7 +3579,7 @@ export interface CartSetDirectDiscountsAction extends ICartUpdateAction {
   /**
    *	- If set, all existing Direct Discounts are replaced.
    *	  The discounts apply in the order they are added to the list.
-   *	- If empty, all existing Direct Discounts are removed and all affected prices on the Cart or Order are recalculated.
+   *	- If set to an empty array, all existing Direct Discounts are removed and all affected prices on the Cart or Order are recalculated.
    *
    *
    */
@@ -3636,7 +3636,7 @@ export interface CartSetKeyAction extends ICartUpdateAction {
   readonly action: 'setKey'
   /**
    *	Value to set.
-   *	If empty, any existing key will be removed.
+   *	If omitted, any existing key is removed.
    *
    *
    */
@@ -3803,7 +3803,7 @@ export interface CartSetLineItemRecurrenceInfoAction extends ICartUpdateAction {
   readonly lineItemKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3825,7 +3825,7 @@ export interface CartSetLineItemShippingDetailsAction extends ICartUpdateAction 
   readonly lineItemKey?: string
   /**
    *	Value to set.
-   *	If empty, the existing value is removed.
+   *	If omitted, the existing value is removed.
    *
    *
    */
@@ -3880,7 +3880,7 @@ export interface CartSetLineItemTaxAmountAction extends ICartUpdateAction {
   readonly lineItemKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3913,7 +3913,7 @@ export interface CartSetLineItemTaxRateAction extends ICartUpdateAction {
   readonly lineItemKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3958,7 +3958,7 @@ export interface CartSetLocaleAction extends ICartUpdateAction {
   /**
    *	Value to set.
    *	Must be one of the [Project](ctp:api:type:Project)'s `languages`.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3972,7 +3972,7 @@ export interface CartSetPurchaseOrderNumberAction extends ICartUpdateAction {
   readonly action: 'setPurchaseOrderNumber'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -4112,7 +4112,7 @@ export interface CartSetShippingMethodAction extends ICartUpdateAction {
   readonly action: 'setShippingMethod'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *	[InvalidOperation](ctp:api:type:InvalidOperationError) error is returned in one of the following cases:
    *	  1. If the referenced Shipping Method has a predicate that does not match the Cart.
@@ -4146,7 +4146,7 @@ export interface CartSetShippingMethodTaxAmountAction extends ICartUpdateAction 
   readonly shippingKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -4168,7 +4168,7 @@ export interface CartSetShippingMethodTaxRateAction extends ICartUpdateAction {
   readonly shippingKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */

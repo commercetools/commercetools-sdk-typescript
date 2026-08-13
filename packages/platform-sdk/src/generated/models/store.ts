@@ -566,7 +566,7 @@ export interface StoreSetProductSelectionsAction extends IStoreUpdateAction {
    *	Value to set.
    *
    *	- If provided, Product Selections for which `active` is set to `true` are available in the Store.
-   *	- If not provided or provided as empty array, the action removes all Product Selections from this Store, meaning all Products in the [Project](ctp:api:type:Project) are available in this Store.
+   *	- If omitted or provided as empty array, the action removes all Product Selections from this Store, meaning all Products in the [Project](ctp:api:type:Project) are available in this Store.
    *
    *
    */

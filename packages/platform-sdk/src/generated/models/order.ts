@@ -2645,7 +2645,7 @@ export interface OrderSetBillingAddressAction extends IOrderUpdateAction {
   readonly action: 'setBillingAddress'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -2695,7 +2695,7 @@ export interface OrderSetBillingAddressCustomTypeAction extends IOrderUpdateActi
 export interface OrderSetBusinessUnitAction extends IOrderUpdateAction {
   readonly action: 'setBusinessUnit'
   /**
-   *	New Business Unit to assign to the Order. If empty, any existing value is removed.
+   *	New Business Unit to assign to the Order. If omitted, any existing value is removed.
    *
    *	If the referenced Business Unit does not exist, a [ReferencedResourceNotFound](ctp:api:type:ReferencedResourceNotFoundError) error is returned.
    *
@@ -2795,7 +2795,7 @@ export interface OrderSetCustomLineItemShippingDetailsAction extends IOrderUpdat
   readonly customLineItemKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -2829,7 +2829,7 @@ export interface OrderSetCustomerEmailAction extends IOrderUpdateAction {
   readonly action: 'setCustomerEmail'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -2846,7 +2846,7 @@ export interface OrderSetCustomerIdAction extends IOrderUpdateAction {
   readonly action: 'setCustomerId'
   /**
    *	`id` of an existing [Customer](ctp:api:type:Customer).
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -2876,7 +2876,7 @@ export interface OrderSetDeliveryAddressAction extends IOrderUpdateAction {
   readonly deliveryKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3040,7 +3040,7 @@ export interface OrderSetDeliveryItemsAction extends IOrderUpdateAction {
   readonly deliveryKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	Set to an empty array to remove any existing value.
    *
    *
    */
@@ -3168,7 +3168,7 @@ export interface OrderSetLineItemShippingDetailsAction extends IOrderUpdateActio
   readonly lineItemKey?: string
   /**
    *	Value to set.
-   *	If empty, the existing value is removed.
+   *	If omitted, the existing value is removed.
    *
    *
    */
@@ -3179,7 +3179,7 @@ export interface OrderSetLocaleAction extends IOrderUpdateAction {
   /**
    *	Value to set.
    *	Must be one of the [Project](ctp:api:type:Project)'s languages.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3287,7 +3287,7 @@ export interface OrderSetParcelItemsAction extends IOrderUpdateAction {
   readonly parcelKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	Set to an empty array to remove any existing value.
    *
    *
    */
@@ -3317,7 +3317,7 @@ export interface OrderSetParcelMeasurementsAction extends IOrderUpdateAction {
   readonly parcelKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3347,7 +3347,7 @@ export interface OrderSetParcelTrackingDataAction extends IOrderUpdateAction {
   readonly parcelKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3361,7 +3361,7 @@ export interface OrderSetPurchaseOrderNumberAction extends IOrderUpdateAction {
   readonly action: 'setPurchaseOrderNumber'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3375,7 +3375,7 @@ export interface OrderSetReturnInfoAction extends IOrderUpdateAction {
   readonly action: 'setReturnInfo'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3505,7 +3505,7 @@ export interface OrderSetShippingAddressAction extends IOrderUpdateAction {
   readonly action: 'setShippingAddress'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3614,7 +3614,7 @@ export interface OrderSetStoreAction extends IOrderUpdateAction {
   readonly action: 'setStore'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *	If `store` references the same Store the Order is currently assigned to or if you try to remove the value when no Store is currently assigned, a `400` error is returned.
    *

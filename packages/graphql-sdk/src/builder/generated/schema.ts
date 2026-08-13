@@ -8,6 +8,7 @@ export type Scalars = {
     Boolean: boolean,
     Country: string,
     Currency: string,
+    CurrencyCode: any,
     Date: string,
     DateTime: string,
     Float: number,
@@ -1608,6 +1609,14 @@ export interface ChannelQueryResult {
     results: Channel[]
     total: Scalars['Long']
     __typename: 'ChannelQueryResult'
+}
+
+
+/** Reference to a Channel by its id. */
+export interface ChannelReference {
+    id: Scalars['String']
+    typeId: Scalars['String']
+    __typename: 'ChannelReference'
 }
 
 export interface ChannelReferenceIdentifier {
@@ -8219,6 +8228,14 @@ export interface StoreImprintUrlSet {
     __typename: 'StoreImprintUrlSet'
 }
 
+
+/** Reference to a Store by its key. */
+export interface StoreKeyReference {
+    key: Scalars['String']
+    typeId: Scalars['String']
+    __typename: 'StoreKeyReference'
+}
+
 export interface StoreLanguagesChanged {
     addedLanguages: (Scalars['Locale'][] | null)
     removedLanguages: (Scalars['Locale'][] | null)
@@ -8629,13 +8646,19 @@ export type TypedWarningCode = 'CannotChangeReservationExpiry' | 'CannotCreateRe
 
 
 /**
- * Skeleton shopper-facing MCP server config. Carries only the shared
- * `McpServerConfig` fields — no response-shaping (`jsonOutputFiltering`,
- * `toolOutputFormatting`) yet, as the skeleton exposes a single demo tool.
- * Those fields can be added later without breaking existing clients.
+ * A shopper-facing MCP server configuration. Alongside the shared
+ * `McpServerConfig` fields, it carries the shopper-context fields — store,
+ * country, locale, distribution channel, supply channel, and currency — that
+ * scope a shopper session to a specific store and price context.
  */
 export interface UcpShopperMcpServerConfig {
+    country: Scalars['Country']
+    currencyCode: Scalars['CurrencyCode']
+    distributionChannel: ChannelReference
+    locale: Scalars['Locale']
     majorVersion: Scalars['String']
+    store: StoreKeyReference
+    supplyChannel: ChannelReference
     toolCustomizations: ToolCustomization[]
     tools: Scalars['String'][]
     type: McpServerType
@@ -11458,6 +11481,15 @@ export interface ChannelQueryResultGenqlSelection{
     __scalar?: boolean | number
 }
 
+
+/** Reference to a Channel by its id. */
+export interface ChannelReferenceGenqlSelection{
+    id?: boolean | number
+    typeId?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
 export interface ChannelReferenceIdentifierGenqlSelection{
     id?: boolean | number
     key?: boolean | number
@@ -11465,6 +11497,10 @@ export interface ChannelReferenceIdentifierGenqlSelection{
     __typename?: boolean | number
     __scalar?: boolean | number
 }
+
+
+/** Input reference to a Channel by its id. */
+export interface ChannelReferenceInput {id: Scalars['String']}
 
 export interface ChannelUpdateAction {addRoles?: (AddChannelRoles | null),changeDescription?: (ChangeChannelDescription | null),changeKey?: (ChangeChannelKey | null),changeName?: (ChangeChannelName | null),removeRoles?: (RemoveChannelRoles | null),setAddress?: (SetChannelAddress | null),setAddressCustomField?: (SetChannelAddressCustomField | null),setAddressCustomType?: (SetChannelAddressCustomType | null),setCustomField?: (SetChannelCustomField | null),setCustomType?: (SetChannelCustomType | null),setGeoLocation?: (SetChannelGeoLocation | null),setRoles?: (SetChannelRoles | null)}
 
@@ -14271,7 +14307,7 @@ export interface McpServerTypeCatalogEntryGenqlSelection{
     __scalar?: boolean | number
 }
 
-export interface McpServerUpdateAction {addTool?: (AddMcpServerTool | null),addToolCustomization?: (AddMcpServerToolCustomization | null),removeTool?: (RemoveMcpServerTool | null),removeToolCustomization?: (RemoveMcpServerToolCustomization | null),setAuthenticationMode?: (SetMcpServerAuthenticationMode | null),setDescription?: (SetMcpServerDescription | null),setJsonOutputFiltering?: (SetMcpServerJsonOutputFiltering | null),setName?: (SetMcpServerName | null),setState?: (SetMcpServerState | null),setToolCustomizations?: (SetMcpServerToolCustomizations | null),setToolOutputFormatting?: (SetMcpServerToolOutputFormatting | null),setTools?: (SetMcpServerTools | null)}
+export interface McpServerUpdateAction {addTool?: (AddMcpServerTool | null),addToolCustomization?: (AddMcpServerToolCustomization | null),removeTool?: (RemoveMcpServerTool | null),removeToolCustomization?: (RemoveMcpServerToolCustomization | null),setAuthenticationMode?: (SetMcpServerAuthenticationMode | null),setCountry?: (SetMcpServerCountry | null),setCurrencyCode?: (SetMcpServerCurrencyCode | null),setDescription?: (SetMcpServerDescription | null),setDistributionChannel?: (SetMcpServerDistributionChannel | null),setJsonOutputFiltering?: (SetMcpServerJsonOutputFiltering | null),setLocale?: (SetMcpServerLocale | null),setName?: (SetMcpServerName | null),setState?: (SetMcpServerState | null),setStore?: (SetMcpServerStore | null),setSupplyChannel?: (SetMcpServerSupplyChannel | null),setToolCustomizations?: (SetMcpServerToolCustomizations | null),setToolOutputFormatting?: (SetMcpServerToolOutputFormatting | null),setTools?: (SetMcpServerTools | null)}
 
 export interface MeGenqlSelection{
     activeCart?: CartGenqlSelection
@@ -20639,7 +20675,13 @@ export interface SetLineItemRecurrenceInfo {lineItemId: Scalars['String'],recurr
 
 export interface SetMcpServerAuthenticationMode {authenticationMode: McpServerAuthenticationMode}
 
+export interface SetMcpServerCountry {country: Scalars['Country']}
+
+export interface SetMcpServerCurrencyCode {currencyCode: Scalars['CurrencyCode']}
+
 export interface SetMcpServerDescription {description?: (LocalizedStringItemInputType[] | null)}
+
+export interface SetMcpServerDistributionChannel {distributionChannel: ChannelReferenceInput}
 
 
 /**
@@ -20648,9 +20690,15 @@ export interface SetMcpServerDescription {description?: (LocalizedStringItemInpu
  */
 export interface SetMcpServerJsonOutputFiltering {jsonOutputFiltering?: (McpServerJsonOutputFilteringInput | null)}
 
+export interface SetMcpServerLocale {locale: Scalars['Locale']}
+
 export interface SetMcpServerName {name?: (LocalizedStringItemInputType[] | null)}
 
 export interface SetMcpServerState {state: McpServerState}
+
+export interface SetMcpServerStore {store: StoreKeyReferenceInput}
+
+export interface SetMcpServerSupplyChannel {supplyChannel: ChannelReferenceInput}
 
 export interface SetMcpServerToolCustomizations {toolCustomizations: ToolCustomizationDraft[]}
 
@@ -22841,6 +22889,19 @@ export interface StoreImprintUrlSetGenqlSelection{
     __scalar?: boolean | number
 }
 
+
+/** Reference to a Store by its key. */
+export interface StoreKeyReferenceGenqlSelection{
+    key?: boolean | number
+    typeId?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** Input reference to a Store by its key. */
+export interface StoreKeyReferenceInput {key: Scalars['String']}
+
 export interface StoreLanguagesChangedGenqlSelection{
     addedLanguages?: boolean | number
     removedLanguages?: boolean | number
@@ -23426,13 +23487,19 @@ export interface TypedWarningGenqlSelection{
 
 
 /**
- * Skeleton shopper-facing MCP server config. Carries only the shared
- * `McpServerConfig` fields — no response-shaping (`jsonOutputFiltering`,
- * `toolOutputFormatting`) yet, as the skeleton exposes a single demo tool.
- * Those fields can be added later without breaking existing clients.
+ * A shopper-facing MCP server configuration. Alongside the shared
+ * `McpServerConfig` fields, it carries the shopper-context fields — store,
+ * country, locale, distribution channel, supply channel, and currency — that
+ * scope a shopper session to a specific store and price context.
  */
 export interface UcpShopperMcpServerConfigGenqlSelection{
+    country?: boolean | number
+    currencyCode?: boolean | number
+    distributionChannel?: ChannelReferenceGenqlSelection
+    locale?: boolean | number
     majorVersion?: boolean | number
+    store?: StoreKeyReferenceGenqlSelection
+    supplyChannel?: ChannelReferenceGenqlSelection
     toolCustomizations?: ToolCustomizationGenqlSelection
     tools?: boolean | number
     type?: boolean | number
@@ -23447,7 +23514,7 @@ export interface UcpShopperMcpServerConfigGenqlSelection{
  * `CommerceMcpServerConfigDraft` without the response-shaping options the
  * skeleton does not yet support.
  */
-export interface UcpShopperMcpServerConfigDraft {majorVersion: Scalars['String'],toolCustomizations?: (ToolCustomizationDraft[] | null),tools: Scalars['String'][]}
+export interface UcpShopperMcpServerConfigDraft {country: Scalars['Country'],currencyCode: Scalars['CurrencyCode'],distributionChannel: ChannelReferenceInput,locale: Scalars['Locale'],majorVersion: Scalars['String'],store: StoreKeyReferenceInput,supplyChannel: ChannelReferenceInput,toolCustomizations?: (ToolCustomizationDraft[] | null),tools: Scalars['String'][]}
 
 export interface UnfreezeCart {dummy?: (Scalars['String'] | null)}
 
@@ -25427,6 +25494,14 @@ export interface setKey {key?: (Scalars['String'] | null)}
     export const isChannelQueryResult = (obj?: { __typename?: any } | null): obj is ChannelQueryResult => {
       if (!obj?.__typename) throw new Error('__typename is missing in "isChannelQueryResult"')
       return ChannelQueryResult_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ChannelReference_possibleTypes: string[] = ['ChannelReference']
+    export const isChannelReference = (obj?: { __typename?: any } | null): obj is ChannelReference => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isChannelReference"')
+      return ChannelReference_possibleTypes.includes(obj.__typename)
     }
     
 
@@ -31091,6 +31166,14 @@ export interface setKey {key?: (Scalars['String'] | null)}
     export const isStoreImprintUrlSet = (obj?: { __typename?: any } | null): obj is StoreImprintUrlSet => {
       if (!obj?.__typename) throw new Error('__typename is missing in "isStoreImprintUrlSet"')
       return StoreImprintUrlSet_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const StoreKeyReference_possibleTypes: string[] = ['StoreKeyReference']
+    export const isStoreKeyReference = (obj?: { __typename?: any } | null): obj is StoreKeyReference => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isStoreKeyReference"')
+      return StoreKeyReference_possibleTypes.includes(obj.__typename)
     }
     
 

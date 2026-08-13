@@ -1081,7 +1081,7 @@ export interface CartDiscountSetCustomTypeAction extends ICartDiscountUpdateActi
 export interface CartDiscountSetDescriptionAction extends ICartDiscountUpdateAction {
   readonly action: 'setDescription'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -1091,7 +1091,7 @@ export interface CartDiscountSetDiscountGroupAction extends ICartDiscountUpdateA
   readonly action: 'setDiscountGroup'
   /**
    *	Reference to a DiscountGroup that the CartDiscount must belong to.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *	A CartDiscount can only be added to a DiscountGroup if its `target.type` is `lineItems`, `customLineItems`, `multiBuyLineItems`, `multiBuyCustomLineItems`, or `pattern`; otherwise, an [InvalidInput](ctp:api:type:InvalidInputError) error is returned.
    *
@@ -1110,7 +1110,7 @@ export interface CartDiscountSetDiscountGroupAction extends ICartDiscountUpdateA
 export interface CartDiscountSetKeyAction extends ICartDiscountUpdateAction {
   readonly action: 'setKey'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -1140,7 +1140,7 @@ export interface CartDiscountSetStoresAction extends ICartDiscountUpdateAction {
   /**
    *	[Stores](ctp:api:type:Store) to set.
    *	Overrides the current list of Stores.
-   *	If empty, any existing values will be removed.
+   *	Set to an empty array to remove all existing values.
    *
    *	A failed update can return the following errors:
    *
@@ -1155,7 +1155,7 @@ export interface CartDiscountSetValidFromAction extends ICartDiscountUpdateActio
   readonly action: 'setValidFrom'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -1165,14 +1165,14 @@ export interface CartDiscountSetValidFromAndUntilAction extends ICartDiscountUpd
   readonly action: 'setValidFromAndUntil'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
   readonly validFrom?: string
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -1182,7 +1182,7 @@ export interface CartDiscountSetValidUntilAction extends ICartDiscountUpdateActi
   readonly action: 'setValidUntil'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */

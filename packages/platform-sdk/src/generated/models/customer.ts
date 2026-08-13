@@ -1184,7 +1184,7 @@ export interface CustomerSetCompanyNameAction extends ICustomerUpdateAction {
   readonly action: 'setCompanyName'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -1243,7 +1243,7 @@ export interface CustomerSetCustomerGroupAction extends ICustomerUpdateAction {
   readonly action: 'setCustomerGroup'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -1284,7 +1284,7 @@ export interface CustomerSetDateOfBirthAction extends ICustomerUpdateAction {
   readonly action: 'setDateOfBirth'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -1342,7 +1342,7 @@ export interface CustomerSetExternalIdAction extends ICustomerUpdateAction {
   readonly action: 'setExternalId'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -1355,7 +1355,7 @@ export interface CustomerSetExternalIdAction extends ICustomerUpdateAction {
 export interface CustomerSetFirstNameAction extends ICustomerUpdateAction {
   readonly action: 'setFirstName'
   /**
-   *	Value to set. If empty, any existing value is removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -1377,7 +1377,7 @@ export interface CustomerSetKeyAction extends ICustomerUpdateAction {
 export interface CustomerSetLastNameAction extends ICustomerUpdateAction {
   readonly action: 'setLastName'
   /**
-   *	Value to set. If empty, any existing value is removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -1396,7 +1396,7 @@ export interface CustomerSetLocaleAction extends ICustomerUpdateAction {
 export interface CustomerSetMiddleNameAction extends ICustomerUpdateAction {
   readonly action: 'setMiddleName'
   /**
-   *	Value to set. If empty, any existing value is removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -1405,7 +1405,7 @@ export interface CustomerSetMiddleNameAction extends ICustomerUpdateAction {
 export interface CustomerSetSalutationAction extends ICustomerUpdateAction {
   readonly action: 'setSalutation'
   /**
-   *	Value to set. If empty, any existing value is removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -1434,7 +1434,7 @@ export interface CustomerSetStoresAction extends ICustomerUpdateAction {
 export interface CustomerSetTitleAction extends ICustomerUpdateAction {
   readonly action: 'setTitle'
   /**
-   *	Value to set. If empty, any existing value is removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -1444,7 +1444,7 @@ export interface CustomerSetVatIdAction extends ICustomerUpdateAction {
   readonly action: 'setVatId'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */

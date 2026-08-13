@@ -383,7 +383,7 @@ export interface TaxCategoryReplaceTaxRateAction extends ITaxCategoryUpdateActio
 export interface TaxCategorySetDescriptionAction extends ITaxCategoryUpdateAction {
   readonly action: 'setDescription'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -392,7 +392,7 @@ export interface TaxCategorySetDescriptionAction extends ITaxCategoryUpdateActio
 export interface TaxCategorySetKeyAction extends ITaxCategoryUpdateAction {
   readonly action: 'setKey'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */

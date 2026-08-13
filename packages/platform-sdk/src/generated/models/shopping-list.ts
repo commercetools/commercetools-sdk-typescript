@@ -795,7 +795,7 @@ export interface ShoppingListRemoveTextLineItemAction extends IShoppingListUpdat
 export interface ShoppingListSetAnonymousIdAction extends IShoppingListUpdateAction {
   readonly action: 'setAnonymousId'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -852,7 +852,7 @@ export interface ShoppingListSetCustomTypeAction extends IShoppingListUpdateActi
 export interface ShoppingListSetCustomerAction extends IShoppingListUpdateAction {
   readonly action: 'setCustomer'
   /**
-   *	The [Customer](ctp:api:type:Customer) the ShoppingList should be associated to. If empty, any existing value will be removed.
+   *	The [Customer](ctp:api:type:Customer) the ShoppingList should be associated to. If omitted, any existing value is removed.
    *
    *
    */
@@ -865,7 +865,7 @@ export interface ShoppingListSetCustomerAction extends IShoppingListUpdateAction
 export interface ShoppingListSetDeleteDaysAfterLastModificationAction extends IShoppingListUpdateAction {
   readonly action: 'setDeleteDaysAfterLastModification'
   /**
-   *	Value to set. If not provided, the default value for this field configured in [Project settings](ctp:api:type:ShoppingListsConfiguration) is assigned.
+   *	Value to set. If omitted, the default value for this field configured in [Project settings](ctp:api:type:ShoppingListsConfiguration) is assigned.
    *
    *
    */
@@ -874,7 +874,7 @@ export interface ShoppingListSetDeleteDaysAfterLastModificationAction extends IS
 export interface ShoppingListSetDescriptionAction extends IShoppingListUpdateAction {
   readonly action: 'setDescription'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -883,7 +883,8 @@ export interface ShoppingListSetDescriptionAction extends IShoppingListUpdateAct
 export interface ShoppingListSetKeyAction extends IShoppingListUpdateAction {
   readonly action: 'setKey'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
+   *
    *
    */
   readonly key?: string
@@ -950,7 +951,7 @@ export interface ShoppingListSetLineItemCustomTypeAction extends IShoppingListUp
 export interface ShoppingListSetSlugAction extends IShoppingListUpdateAction {
   readonly action: 'setSlug'
   /**
-   *	Value to set. If empty, any existing value will be removed. Each slug is unique across a Project, but a ShoppingList can have the same slug for different languages. Must match the pattern `^[A-Za-z0-9_-]{2,256}+$`
+   *	Value to set. If omitted, any existing value is removed. Each slug is unique across a Project, but a ShoppingList can have the same slug for different languages. Must match the pattern `^[A-Za-z0-9_-]{2,256}+$`
    *
    *
    */
@@ -959,7 +960,7 @@ export interface ShoppingListSetSlugAction extends IShoppingListUpdateAction {
 export interface ShoppingListSetStoreAction extends IShoppingListUpdateAction {
   readonly action: 'setStore'
   /**
-   *	The [Store](ctp:api:type:Store) the ShoppingList should be assigned to. If empty, any existing value will be removed.
+   *	The [Store](ctp:api:type:Store) the ShoppingList should be assigned to. If omitted, any existing value is removed.
    *
    *
    */
@@ -1039,7 +1040,7 @@ export interface ShoppingListSetTextLineItemDescriptionAction extends IShoppingL
    */
   readonly textLineItemKey?: string
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */

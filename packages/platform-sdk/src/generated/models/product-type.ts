@@ -916,7 +916,7 @@ export interface ProductTypeSetInputTipAction extends IProductTypeUpdateAction {
    */
   readonly attributeName: string
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -925,7 +925,7 @@ export interface ProductTypeSetInputTipAction extends IProductTypeUpdateAction {
 export interface ProductTypeSetKeyAction extends IProductTypeUpdateAction {
   readonly action: 'setKey'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    */
   readonly key?: string

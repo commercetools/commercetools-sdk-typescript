@@ -918,7 +918,7 @@ export interface VariantSetAssetDescriptionAction extends IVariantUpdateAction {
    */
   readonly assetKey?: string
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -943,7 +943,7 @@ export interface VariantSetAssetKeyAction extends IVariantUpdateAction {
    */
   readonly assetId: string
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -1043,7 +1043,7 @@ export interface VariantSetAttributeAction extends IVariantUpdateAction {
    */
   readonly name: string
   /**
-   *	Value to set for the Attribute. If empty, any existing value will be removed.
+   *	Value to set for the Attribute. If omitted, any existing value is removed.
    *
    *	The [AttributeType](ctp:api:type:AttributeType) determines the format of the Attribute `value` to be provided:
    *
@@ -1096,7 +1096,7 @@ export interface VariantSetImageLabelAction extends IVariantUpdateAction {
    */
   readonly imageUrl: string
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */

@@ -3590,10 +3590,21 @@ type ChannelQueryResult {
   total: Long!
 }
 
+"""Reference to a Channel by its id."""
+type ChannelReference {
+  id: String!
+  typeId: String!
+}
+
 type ChannelReferenceIdentifier {
   id: String
   key: String
   typeId: String!
+}
+
+"""Input reference to a Channel by its id."""
+input ChannelReferenceInput {
+  id: String!
 }
 
 enum ChannelRole {
@@ -3834,6 +3845,8 @@ input CreateZone {
 }
 
 scalar Currency
+
+scalar CurrencyCode
 
 interface CustomField {
   name: String!
@@ -7028,10 +7041,16 @@ input McpServerUpdateAction {
   removeTool: RemoveMcpServerTool
   removeToolCustomization: RemoveMcpServerToolCustomization
   setAuthenticationMode: SetMcpServerAuthenticationMode
+  setCountry: SetMcpServerCountry
+  setCurrencyCode: SetMcpServerCurrencyCode
   setDescription: SetMcpServerDescription
+  setDistributionChannel: SetMcpServerDistributionChannel
   setJsonOutputFiltering: SetMcpServerJsonOutputFiltering
+  setLocale: SetMcpServerLocale
   setName: SetMcpServerName
   setState: SetMcpServerState
+  setStore: SetMcpServerStore
+  setSupplyChannel: SetMcpServerSupplyChannel
   setToolCustomizations: SetMcpServerToolCustomizations
   setToolOutputFormatting: SetMcpServerToolOutputFormatting
   setTools: SetMcpServerTools
@@ -15802,8 +15821,20 @@ input SetMcpServerAuthenticationMode {
   authenticationMode: McpServerAuthenticationMode!
 }
 
+input SetMcpServerCountry {
+  country: Country!
+}
+
+input SetMcpServerCurrencyCode {
+  currencyCode: CurrencyCode!
+}
+
 input SetMcpServerDescription {
   description: [LocalizedStringItemInputType!]
+}
+
+input SetMcpServerDistributionChannel {
+  distributionChannel: ChannelReferenceInput!
 }
 
 """
@@ -15814,12 +15845,24 @@ input SetMcpServerJsonOutputFiltering {
   jsonOutputFiltering: McpServerJsonOutputFilteringInput
 }
 
+input SetMcpServerLocale {
+  locale: Locale!
+}
+
 input SetMcpServerName {
   name: [LocalizedStringItemInputType!]
 }
 
 input SetMcpServerState {
   state: McpServerState!
+}
+
+input SetMcpServerStore {
+  store: StoreKeyReferenceInput!
+}
+
+input SetMcpServerSupplyChannel {
+  supplyChannel: ChannelReferenceInput!
 }
 
 input SetMcpServerToolCustomizations {
@@ -19250,6 +19293,17 @@ type StoreImprintUrlSet implements MessagePayload {
   type: String!
 }
 
+"""Reference to a Store by its key."""
+type StoreKeyReference {
+  key: String!
+  typeId: String!
+}
+
+"""Input reference to a Store by its key."""
+input StoreKeyReferenceInput {
+  key: String!
+}
+
 type StoreLanguagesChanged implements MessagePayload {
   addedLanguages: [Locale!]
   removedLanguages: [Locale!]
@@ -20060,13 +20114,19 @@ enum TypedWarningCode {
 }
 
 """
-Skeleton shopper-facing MCP server config. Carries only the shared
-`McpServerConfig` fields — no response-shaping (`jsonOutputFiltering`,
-`toolOutputFormatting`) yet, as the skeleton exposes a single demo tool.
-Those fields can be added later without breaking existing clients.
+A shopper-facing MCP server configuration. Alongside the shared
+`McpServerConfig` fields, it carries the shopper-context fields — store,
+country, locale, distribution channel, supply channel, and currency — that
+scope a shopper session to a specific store and price context.
 """
 type UcpShopperMcpServerConfig implements McpServerConfig {
+  country: Country!
+  currencyCode: CurrencyCode!
+  distributionChannel: ChannelReference!
+  locale: Locale!
   majorVersion: String!
+  store: StoreKeyReference!
+  supplyChannel: ChannelReference!
   toolCustomizations: [ToolCustomization!]!
   tools: [String!]!
   type: McpServerType!
@@ -20079,7 +20139,13 @@ Draft for a shopper-facing UCP MCP server. Mirrors the shared fields of
 skeleton does not yet support.
 """
 input UcpShopperMcpServerConfigDraft {
+  country: Country!
+  currencyCode: CurrencyCode!
+  distributionChannel: ChannelReferenceInput!
+  locale: Locale!
   majorVersion: String!
+  store: StoreKeyReferenceInput!
+  supplyChannel: ChannelReferenceInput!
   toolCustomizations: [ToolCustomizationDraft!]
   tools: [String!]!
 }
