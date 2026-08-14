@@ -105,6 +105,10 @@ export interface StateDraft {
   /**
    *	User-defined unique identifier for the State.
    *
+   *	If set to an empty value, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
+   *	If the value is used by another State in the Project, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
+   *
    *
    */
   readonly key: string
@@ -301,6 +305,10 @@ export interface StateAddRolesAction extends IStateUpdateAction {
   /**
    *	Value to append to the array.
    *
+   *	If the specified roles are already present, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
+   *	If a specified role is not applicable to the State's `type`, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
    *
    */
   readonly roles: StateRoleEnum[]
@@ -310,6 +318,8 @@ export interface StateChangeInitialAction extends IStateUpdateAction {
   /**
    *	Whether to define the State as the initial State in a state machine and make it the first step in a workflow.
    *
+   *	If the new value is the same as the current value, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
    *
    */
   readonly initial: boolean
@@ -318,7 +328,10 @@ export interface StateChangeKeyAction extends IStateUpdateAction {
   readonly action: 'changeKey'
   /**
    *	New value to set.
-   *	Must not be empty.
+   *
+   *	If set to an empty value, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
+   *	If the value is used by another State in the Project, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
    *
    *
    */
@@ -330,6 +343,8 @@ export interface StateChangeTypeAction extends IStateUpdateAction {
    *	Resource or object types the State shall be assigned to.
    *	Must not be empty.
    *
+   *	If the new value is the same as the current value, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
    *
    */
   readonly type: StateTypeEnum
@@ -339,6 +354,8 @@ export interface StateRemoveRolesAction extends IStateUpdateAction {
   /**
    *	Roles to remove from the State.
    *
+   *	If none of the specified roles are already present, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
    *
    */
   readonly roles: StateRoleEnum[]
@@ -347,6 +364,8 @@ export interface StateSetDescriptionAction extends IStateUpdateAction {
   readonly action: 'setDescription'
   /**
    *	Value to set.
+   *	If the new value is the same as the current value, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
    *	Set to an empty object to remove any existing value.
    *
    *
@@ -357,6 +376,8 @@ export interface StateSetNameAction extends IStateUpdateAction {
   readonly action: 'setName'
   /**
    *	Value to set.
+   *	If the new value is the same as the current value, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
    *	Set to an empty object to remove any existing value.
    *
    *
@@ -367,6 +388,9 @@ export interface StateSetRolesAction extends IStateUpdateAction {
   readonly action: 'setRoles'
   /**
    *	Value to set.
+   *	If the new value is the same as the current value, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *	If a specified role is not applicable to the State's `type`, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
    *	Set to an empty array to remove any existing value.
    *
    *
@@ -386,6 +410,8 @@ export interface StateSetTransitionsAction extends IStateUpdateAction {
    *	If `transitions` is not set, the validation is turned off.
    *
    *	When performing a `transitionState` update action, any other State of the same `type` can be transitioned to.
+   *
+   *	If the new value is the same as the current value, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    *
    */

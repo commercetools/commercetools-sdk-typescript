@@ -530,14 +530,14 @@ export interface ProjectChangeCustomerSearchStatusAction extends IProjectUpdateA
    */
   readonly status: CustomerSearchStatus
 }
-/**
- *	Removing a language used by a [Store](ctp:api:type:Store) returns a [LanguageUsedInStores](ctp:api:type:LanguageUsedInStoresError) error.
- *
- */
 export interface ProjectChangeLanguagesAction extends IProjectUpdateAction {
   readonly action: 'changeLanguages'
   /**
-   *	New value to set. Must not be empty.
+   *	New value to set.
+   *
+   *	If set to an empty value, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
+   *	If a language in use by a [Store](ctp:api:type:Store) is removed, a [LanguageUsedInStores](ctp:api:type:LanguageUsedInStoresError) error is returned.
    *
    *
    */

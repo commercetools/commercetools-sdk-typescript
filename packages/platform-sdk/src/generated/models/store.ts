@@ -158,6 +158,8 @@ export interface StoreDraft {
   /**
    *	Languages defined in [Project](ctp:api:type:Project). Only languages defined in the Project can be used.
    *
+   *	If a language is not configured for the Project, a [ProjectNotConfiguredForLanguages](ctp:api:type:ProjectNotConfiguredForLanguagesError) error is returned.
+   *
    *
    */
   readonly languages?: string[]
@@ -170,11 +172,15 @@ export interface StoreDraft {
   /**
    *	ResourceIdentifier of a Channel with `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
    *
+   *	If the referenced Channel does not have this role, a [MissingRoleOnChannel](ctp:api:type:MissingRoleOnChannelError) error is returned.
+   *
    *
    */
   readonly distributionChannels?: ChannelResourceIdentifier[]
   /**
    *	ResourceIdentifier of a Channel with `InventorySupply` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
+   *
+   *	If the referenced Channel does not have this role, a [MissingRoleOnChannel](ctp:api:type:MissingRoleOnChannelError) error is returned.
    *
    *
    */
@@ -531,13 +537,14 @@ export interface StoreSetDistributionChannelsAction extends IStoreUpdateAction {
 }
 /**
  *	This update action produces the [StoreLanguagesChanged](ctp:api:type:StoreLanguagesChangedMessage) Message.
- *	Adding a language other than the ones defined in the [Project](ctp:api:type:Project) returns a [ProjectNotConfiguredForLanguages](ctp:api:type:ProjectNotConfiguredForLanguagesError) error.
  *
  */
 export interface StoreSetLanguagesAction extends IStoreUpdateAction {
   readonly action: 'setLanguages'
   /**
    *	Value to set.
+   *
+   *	If a language is not configured for the Project, a [ProjectNotConfiguredForLanguages](ctp:api:type:ProjectNotConfiguredForLanguagesError) error is returned.
    *
    *
    */

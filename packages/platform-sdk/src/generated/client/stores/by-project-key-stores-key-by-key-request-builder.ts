@@ -89,6 +89,12 @@ export class ByProjectKeyStoresKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	If the Store is referenced by a resource, a [ReferenceExists](ctp:api:type:ReferenceExistsError) error is returned.
+   *
+   *	To avoid dependency conflicts, first delete all active and anonymous Carts that reference the Store, then delete all Orders.
+   *
+   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

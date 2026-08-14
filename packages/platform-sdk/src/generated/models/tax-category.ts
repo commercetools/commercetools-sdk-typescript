@@ -93,6 +93,8 @@ export interface TaxCategoryDraft {
   /**
    *	Name of the TaxCategory.
    *
+   *	If the provided name is used by another TaxCategory in the Project, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
    *
    */
   readonly name: string
@@ -110,6 +112,8 @@ export interface TaxCategoryDraft {
   readonly rates?: TaxRateDraft[]
   /**
    *	User-defined unique identifier for the TaxCategory.
+   *
+   *	If the value is used by another TaxCategory in the Project, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
    *
    *
    */
@@ -283,8 +287,8 @@ export interface TaxRateDraft {
   readonly name: string
   /**
    *	Tax rate.
-   *	Must be supplied if no `subRates` are specified.
-   *	If `subRates` are specified, this field can be omitted or it must be the sum of amounts of all `subRates`.
+   *
+   *	Either `amount` or `subRates` must be defined. If both are defined, the value of this field must be equal to the sum of the `subRates` amounts; otherwise, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    *
    */
@@ -298,25 +302,31 @@ export interface TaxRateDraft {
   /**
    *	Country in which the tax rate is applied in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
    *
+   *	If the provided combination of `country` and `state` exists for the TaxCategory, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
+   *
    *
    */
   readonly country: string
   /**
    *	State within the country, such as Texas in the United States.
-   *	The value is case-sensitive and must use the same casing as the `state` value in the Cart `shippingAddress`.
+   *	The value is case-sensitive and must use the same casing as the `state` value in the Cart `shippingAddress`. Empty strings are treated as if `state` was omitted.
+   *
+   *	If the provided combination of `country` and `state` exists for the TaxCategory, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
    *
    *
    */
   readonly state?: string
   /**
-   *	Used when the total tax is a combination of multiple taxes (for example, local, state/provincial, and/or federal taxes). The total of all subrates must equal the TaxRate `amount`.
+   *	Used when the total tax is a combination of multiple taxes (for example, local, state/provincial, and/or federal taxes). If `amount` is defined, the total of all subrates must equal `amount`.
    *	These subrates are used to calculate the `taxPortions` field of a [Cart](ctp:api:type:Cart) or [Order](ctp:api:type:Order) and the `taxedPrice` field of [LineItems](ctp:api:type:LineItem), [CustomLineItems](ctp:api:type:CustomLineItem), and [ShippingInfos](ctp:api:type:ShippingInfo).
    *
    *
    */
   readonly subRates?: SubRate[]
   /**
-   *	User-defined identifier of the TaxRate. Must be unique within the TaxCategory containing it.
+   *	User-defined identifier of the TaxRate.
+   *
+   *	If the provided key is used by another TaxRate in the TaxCategory, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
    *
    *
    */
@@ -334,7 +344,9 @@ export interface TaxCategoryAddTaxRateAction extends ITaxCategoryUpdateAction {
 export interface TaxCategoryChangeNameAction extends ITaxCategoryUpdateAction {
   readonly action: 'changeName'
   /**
-   *	New value to set. Must not be empty.
+   *	New value to set.
+   *
+   *	If the provided name is used by another TaxCategory in the Project, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    *
    */
@@ -343,15 +355,17 @@ export interface TaxCategoryChangeNameAction extends ITaxCategoryUpdateAction {
 export interface TaxCategoryRemoveTaxRateAction extends ITaxCategoryUpdateAction {
   readonly action: 'removeTaxRate'
   /**
-   *	ID of the TaxRate to remove.
-   *	Either `taxRateId` or `taxRateKey` is required for this update action.
+   *	ID of the TaxRate to remove. Either `taxRateId` or `taxRateKey` must be provided.
+   *
+   *	If the referenced TaxRate does not exist within the TaxCategory, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    *
    */
   readonly taxRateId?: string
   /**
-   *	Key of the TaxRate to remove.
-   *	Either `taxRateId` or `taxRateKey` is required for this update action.
+   *	Key of the TaxRate to remove. Either `taxRateId` or `taxRateKey` must be provided.
+   *
+   *	If the referenced TaxRate does not exist within the TaxCategory, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    *
    */
@@ -361,14 +375,18 @@ export interface TaxCategoryReplaceTaxRateAction extends ITaxCategoryUpdateActio
   readonly action: 'replaceTaxRate'
   /**
    *	ID of the TaxRate to replace.
-   *	Either `taxRateId` or `taxRateKey` is required for this update action.
+   *	Either `taxRateId` or `taxRateKey` must be provided.
+   *
+   *	If the referenced TaxRate does not exist within the TaxCategory, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    *
    */
   readonly taxRateId?: string
   /**
    *	Key of the TaxRate to replace.
-   *	Either `taxRateId` or `taxRateKey` is required for this update action.
+   *	Either `taxRateId` or `taxRateKey` must be provided.
+   *
+   *	If the referenced TaxRate does not exist within the TaxCategory, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    *
    */
@@ -393,6 +411,8 @@ export interface TaxCategorySetKeyAction extends ITaxCategoryUpdateAction {
   readonly action: 'setKey'
   /**
    *	Value to set. If omitted, any existing value is removed.
+   *
+   *	If the value is used by another TaxCategory in the Project, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
    *
    *
    */
