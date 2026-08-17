@@ -120,10 +120,29 @@ customer.key.isNotDefined() //                    key is not defined
 category.name.locale('en').is('Peter') //         name(en = "Peter")
 customer.custom((c) => c.field('size').is('M')) // custom(fields(size = "M"))
 not(customer.isEmailVerified.is(true)) //         not (isEmailVerified = true)
+channel.geoLocation.withinCircle(13.3, 52.5, 1000) // geoLocation within circle(13.3, 52.5, 1000)
 ```
 
 `and` and `or` parenthesise each operand, so the grouping is in the predicate rather than left to
-the reader. `not` is imported from the package.
+the reader. `not` is imported from the package. A geolocation is compared against a circle given
+as longitude, latitude and a radius in metres, which the API does not accept inside an `or`.
+
+An Attribute or Custom Field value is a `Json` in the schema, so its own fields cannot be checked
+the way a resource's are. Any name is accepted there, and the value is descended into the same way
+an object field is, which is how a Money, Enum or Reference Attribute is matched:
+
+```ts
+variant.attributes((attribute) =>
+  attribute.name
+    .is('price')
+    .and(
+      attribute.value((value) =>
+        value.centAmount.isGreaterThan(999).and(value.currencyCode.is('EUR'))
+      )
+    )
+)
+// attributes((name = "price") and (value((centAmount > 999) and (currencyCode = "EUR"))))
+```
 
 A predicate the API would reject is a compile error, including the two that are easy to get wrong:
 a Reference exposes only `id` and `typeId` inside a predicate, never the fields of the resource it

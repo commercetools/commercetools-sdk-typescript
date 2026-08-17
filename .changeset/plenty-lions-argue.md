@@ -16,4 +16,6 @@ customers.where((customer) =>
 ```
 
 Field names come from the resource, operators from what the field holds, so a predicate the API
-would reject is a compile error.
+would reject is a compile error. Attribute and Custom Field values are descended into for the
+types the schema cannot express (`value(centAmount = 999 and currencyCode = "EUR")`), and a
+GeoJSON field is matched with `withinCircle(longitude, latitude, radiusInMeters)`.

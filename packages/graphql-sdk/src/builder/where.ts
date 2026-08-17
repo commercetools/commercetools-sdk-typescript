@@ -14,6 +14,8 @@
  * ```
  */
 
+import type { Geometry } from './generated'
+
 /** Marker making a built predicate distinguishable from any other object. */
 declare const PREDICATE: unique symbol
 
@@ -148,9 +150,54 @@ export interface Localized {
 
 /**
  * A field the schema types as `Json`, such as an Attribute or Custom Field value. The API
- * compares it against whatever the field actually holds, so every literal is accepted.
+ * compares it against whatever the field actually holds, so every literal is accepted, and the
+ * value is descended into when what it holds is an object.
+ *
+ * The names inside such a value are not in the schema, so they cannot be checked the way the
+ * fields of a resource are. Every one of them is again an {@link AnyValue}.
  */
-export interface AnyValue extends Comparable<Literal>, Localized {}
+export interface JsonFields {
+  readonly [name: string]: AnyValue
+}
+
+/**
+ * A field the schema types as `Json`, such as an Attribute or Custom Field value. The API
+ * compares it against whatever the field actually holds, so every literal is accepted.
+ *
+ * Values that hold an object are descended into, which is how a Money, Enum or Reference
+ * Attribute is addressed:
+ *
+ * ```ts
+ * variant.attributes((a) =>
+ *   a.name
+ *     .is('price')
+ *     .and(a.value((v) => v.centAmount.is(999).and(v.currencyCode.is('EUR'))))
+ * )
+ * ```
+ *
+ * @see https://docs.commercetools.com/api/predicates/query#on-attributes
+ */
+export interface AnyValue extends Comparable<Literal>, Localized {
+  /** `field(<inner>)`, for example `value(centAmount = 999 and currencyCode = "EUR")`. */
+  (select: (value: JsonFields) => Predicate): Predicate
+}
+
+/**
+ * A GeoJSON field, which a predicate compares only against a circle. The two first parameters
+ * are the longitude and the latitude of its centre, the third its radius in metres.
+ *
+ * The API does not support this inside an `or`, and orders the results by distance.
+ *
+ * @see https://docs.commercetools.com/api/predicates/query#query-predicates-by-example
+ */
+export interface GeoLocation extends Defined {
+  /** `field within circle(longitude, latitude, radius)` */
+  withinCircle(
+    longitude: number,
+    latitude: number,
+    radiusInMeters: number
+  ): Predicate
+}
 
 /**
  * A reference field. Inside a predicate a Reference exposes only `id` and `typeId`, and a
@@ -294,9 +341,11 @@ type PlainFieldFor<TResource, TField extends keyof TResource> =
 type FieldFor<TResource, TField extends keyof TResource & string> =
   IsLocalized<TResource, TField> extends true
     ? Localized
-    : [ReferenceTargetOf<TResource, TField>] extends [never]
-      ? PlainFieldFor<TResource, TField>
-      : ReferenceField<ReferenceTargetOf<TResource, TField>>
+    : [Nullable<TResource[TField]>] extends [Geometry]
+      ? GeoLocation
+      : [ReferenceTargetOf<TResource, TField>] extends [never]
+        ? PlainFieldFor<TResource, TField>
+        : ReferenceField<ReferenceTargetOf<TResource, TField>>
 
 /**
  * The predicate members of a resource: one per field of its response representation, typed by
@@ -332,8 +381,13 @@ export type HasWhereResource<TResult> = [WhereResourceOf<TResult>] extends [
 // ------------------------------------------------------------------ the runtime
 
 /**
- * The operators of one field. `wrap` is how the expression is embedded in its parent, which is
- * what turns `en = "Peter"` into `name(en = "Peter")` for a localized field.
+ * One field: the operators it can be compared with, and the descent into whatever it holds.
+ * `wrap` is how the expression is embedded in its parent, which is what turns `en = "Peter"`
+ * into `name(en = "Peter")` for a localized field.
+ *
+ * The result is callable because descending is a call, `addresses(city = "Berlin")`. Which of
+ * the two a field allows is decided by the type; at run time both are always here, since the
+ * names inside a value the schema types as `Json` are not known until they are used.
  */
 function leaf(
   subject: string,
@@ -349,7 +403,10 @@ function leaf(
 
   const bare = (suffix: string) => () => predicate(wrap(`${subject} ${suffix}`))
 
-  return {
+  const descend = (select: (inner: unknown) => Predicate) =>
+    predicate(wrap(`${subject}(${sourceOf(select(createPredicateRoot()))})`))
+
+  return Object.assign(descend, {
     is: binary('='),
     isNot: binary('!='),
     isLessThan: binary('<'),
@@ -366,7 +423,17 @@ function leaf(
     isNotDefined: bare('is not defined'),
     locale: (locale: string) =>
       leaf(locale, (expression) => `${subject}(${expression})`),
-  }
+    withinCircle: (
+      longitude: number,
+      latitude: number,
+      radiusInMeters: number
+    ) =>
+      predicate(
+        wrap(
+          `${subject} within circle(${longitude}, ${latitude}, ${radiusInMeters})`
+        )
+      ),
+  })
 }
 
 /**
@@ -393,13 +460,7 @@ export function createPredicateRoot(): any {
             leaf(name, (expression) => `fields(${expression})`)
         }
 
-        const name = PREDICATE_NAMES[property] ?? property
-
-        return Object.assign(
-          (select: (inner: unknown) => Predicate) =>
-            predicate(`${name}(${sourceOf(select(createPredicateRoot()))})`),
-          leaf(name)
-        )
+        return leaf(PREDICATE_NAMES[property] ?? property)
       },
     }
   )

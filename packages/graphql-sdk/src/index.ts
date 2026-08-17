@@ -21,6 +21,8 @@ export type {
   Defined,
   Emptiable,
   Equality,
+  GeoLocation,
+  JsonFields,
   Localized,
   Predicate,
   PredicateRoot,

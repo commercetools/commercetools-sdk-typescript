@@ -4,6 +4,7 @@ import type { Predicate, ResourcePredicate } from '../src'
 import type {
   Cart,
   Category,
+  Channel,
   Customer,
   Product,
 } from '../src/builder/generated'
@@ -249,6 +250,124 @@ describe('the predicate builder', () => {
     )
   })
 
+  it('descends into an attribute value that holds an object', () => {
+    // A Money attribute: `value(centAmount = 999 and currencyCode = "EUR")`.
+    expect(
+      build<Product>((p) =>
+        p.masterData((d) =>
+          d.current((current) =>
+            current.variants((v) =>
+              v.attributes((a) =>
+                a.name
+                  .is('price')
+                  .and(
+                    a.value((value) =>
+                      value.centAmount
+                        .isGreaterThan(999)
+                        .and(value.currencyCode.is('EUR'))
+                    )
+                  )
+              )
+            )
+          )
+        )
+      )
+    ).toBe(
+      'masterData(current(variants(attributes((name = "price") and (value((centAmount > 999) and (currencyCode = "EUR")))))))'
+    )
+  })
+
+  it('descends into an enum and a reference attribute value', () => {
+    expect(
+      build<Product>((p) =>
+        p.masterData((d) =>
+          d.current((current) =>
+            current.masterVariant((v) =>
+              v.attributes((a) =>
+                a.name.is('size').and(a.value((value) => value.key.is('m')))
+              )
+            )
+          )
+        )
+      )
+    ).toBe(
+      'masterData(current(masterVariant(attributes((name = "size") and (value(key = "m"))))))'
+    )
+    expect(
+      build<Product>((p) =>
+        p.masterData((d) =>
+          d.current((current) =>
+            current.masterVariant((v) =>
+              v.attributes((a) =>
+                a.name
+                  .is('manufacturer')
+                  .and(
+                    a.value((value) =>
+                      value.typeId.is('product').and(value.id.is('product-id'))
+                    )
+                  )
+              )
+            )
+          )
+        )
+      )
+    ).toBe(
+      'masterData(current(masterVariant(attributes((name = "manufacturer") and (value((typeId = "product") and (id = "product-id")))))))'
+    )
+  })
+
+  it('descends into a custom field that holds an object', () => {
+    expect(
+      build<Customer>((c) =>
+        c.custom((x) => x.field('budget')((v) => v.centAmount.isLessThan(1000)))
+      )
+    ).toBe('custom(fields(budget(centAmount < 1000)))')
+  })
+
+  it('nests inside an attribute value to any depth', () => {
+    expect(
+      build<Product>((p) =>
+        p.masterData((d) =>
+          d.current((current) =>
+            current.variants((v) =>
+              v.attributes((a) =>
+                a.name
+                  .is('warranty')
+                  .and(a.value((value) => value.duration((x) => x.years.is(2))))
+              )
+            )
+          )
+        )
+      )
+    ).toBe(
+      'masterData(current(variants(attributes((name = "warranty") and (value(duration(years = 2)))))))'
+    )
+  })
+
+  it('matches a geolocation within a circle', () => {
+    expect(
+      build<Channel>((c) => c.geoLocation.withinCircle(13.3777, 52.51627, 1000))
+    ).toBe('geoLocation within circle(13.3777, 52.51627, 1000)')
+  })
+
+  it('combines a geolocation with another condition', () => {
+    expect(
+      build<Channel>((c) =>
+        c.key
+          .is('berlin-warehouse')
+          .and(c.geoLocation.withinCircle(13.3777, 52.51627, 1000))
+      )
+    ).toBe(
+      '(key = "berlin-warehouse") and (geoLocation within circle(13.3777, 52.51627, 1000))'
+    )
+  })
+
+  it('checks whether a geolocation is set at all', () => {
+    expect(build<Channel>((c) => c.geoLocation.isDefined())).toBe(
+      'geoLocation is defined'
+    )
+  })
+
   it('rejects a callback that does not return a predicate', () => {
     expect(() => build<Customer>(() => undefined as any)).toThrow(
       /must return a predicate/
@@ -309,6 +428,14 @@ function predicatesThatMustNotCompile() {
       )
     )
   )
+
+  // A GeoJSON field is compared against a circle, never descended into or compared with a
+  // literal, however the schema types it.
+  // @ts-expect-error `type` is a field of the Point, not of the predicate.
+  build<Channel>((c) => c.geoLocation((g) => g.type.is('Point')))
+
+  // @ts-expect-error a geolocation has no equality operator.
+  build<Channel>((c) => c.geoLocation.is('Point'))
 }
 
 describe('what the predicate builder refuses to compile', () => {
