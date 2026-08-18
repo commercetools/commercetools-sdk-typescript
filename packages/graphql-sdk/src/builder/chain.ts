@@ -1,11 +1,12 @@
 /**
  * A fluent, chainable projection builder over the generated schema selection types.
  *
- * This is the TypeScript counterpart of the Java SDK's projection roots
- * (`root -> root.results().firstName()`) and the .NET SDK's ZeroQL selectors
- * (`c => new { c.FirstName }`), with one difference: the accumulated selection is tracked
- * in the type, so the result contains exactly the fields that were chained and nothing else.
+ * The accumulated selection is tracked in the type, so the result contains exactly the fields
+ * that were chained and nothing else.
  */
+
+import type { HasWhereResource, Predicate, WhereBuilder } from './where'
+import { resolveWhere } from './where'
 
 /** Marker carrying the accumulated selection of a chain. */
 declare const SELECTION: unique symbol
@@ -37,7 +38,7 @@ type FieldsOf<TSelection> = Omit<
 >
 
 /**
- * A scalar field that also takes arguments - a localized string such as `name(locale:)` -
+ * A scalar field that also takes arguments, such as a localized string like `name(locale:)`,
  * is `{ __args: ... } | boolean | number`, so the union carrying `boolean` is what marks a
  * field as scalar, not the whole type being assignable to it.
  */
@@ -46,14 +47,45 @@ type IsScalarField<TField> = boolean extends TField ? true : false
 /** The `__args` member of a field type, for the fields that have one. */
 type ArgsPartOf<TField> = Extract<NonNullable<TField>, { __args: any }>
 
-type ArgMethods<TSelection, TFields, TArgs> = {
-  [TArg in keyof ArgsOf<TSelection>]-?: (
-    value: NonNullable<ArgsOf<TSelection>[TArg]>
-  ) => Chain<
-    TSelection,
-    TFields,
-    TArgs & { [P in TArg]: NonNullable<ArgsOf<TSelection>[TArg]> }
-  >
+/**
+ * `where` takes a [Query Predicate](https://docs.commercetools.com/api/predicates/query), which
+ * the builder in `./where` can assemble. The predicate string stays a plain overload, so it is
+ * still the way to express anything the builder does not cover, and existing calls are untouched.
+ *
+ * The builder overload only appears once the resource being filtered is known, which it is for
+ * every paged query field, from the element type of its `results`.
+ */
+type WhereMethod<TSelection, TFields, TArgs, TResult, TPredicate> =
+  HasWhereResource<TResult> extends true
+    ? {
+        (
+          predicate: TPredicate
+        ): Chain<TSelection, TFields, TArgs & { where: TPredicate }, TResult>
+        (
+          build: WhereBuilder<TResult>
+        ): Chain<TSelection, TFields, TArgs & { where: TPredicate }, TResult>
+      }
+    : (
+        predicate: TPredicate
+      ) => Chain<TSelection, TFields, TArgs & { where: TPredicate }, TResult>
+
+type ArgMethods<TSelection, TFields, TArgs, TResult> = {
+  [TArg in keyof ArgsOf<TSelection>]-?: TArg extends 'where'
+    ? WhereMethod<
+        TSelection,
+        TFields,
+        TArgs,
+        TResult,
+        NonNullable<ArgsOf<TSelection>[TArg]>
+      >
+    : (
+        value: NonNullable<ArgsOf<TSelection>[TArg]>
+      ) => Chain<
+        TSelection,
+        TFields,
+        TArgs & { [P in TArg]: NonNullable<ArgsOf<TSelection>[TArg]> },
+        TResult
+      >
 }
 
 /**
@@ -66,16 +98,30 @@ type ScalarFieldMethod<
   TSelection,
   TFields,
   TArgs,
+  TResult,
   TField extends PropertyKey,
 > = [ArgsPartOf<TFieldType>] extends [never]
-  ? () => Chain<TSelection, TFields & { [P in TField]: true }, TArgs>
+  ? () => Chain<TSelection, TFields & { [P in TField]: true }, TArgs, TResult>
   : (
       select?: (
         chain: Chain<ArgsPartOf<TFieldType>, {}, {}>
       ) => ChainMarker<any, any>
-    ) => Chain<TSelection, TFields & { [P in TField]: true }, TArgs>
+    ) => Chain<TSelection, TFields & { [P in TField]: true }, TArgs, TResult>
 
-type FieldMethods<TSelection, TFields, TArgs> = {
+/**
+ * The response type of a field, which is what the `where` of a nested chain is derived from.
+ * A list resolves to its element type, so `results` on a query result hands back the resource
+ * itself. `unknown` when the response type is not known, which switches `where` back to taking
+ * only a predicate string.
+ */
+export type ResultFieldOf<TResult, TField> =
+  TField extends keyof NonNullable<TResult>
+    ? NonNullable<TResult>[TField] extends readonly (infer TItem)[]
+      ? TItem
+      : NonNullable<NonNullable<TResult>[TField]>
+    : unknown
+
+type FieldMethods<TSelection, TFields, TArgs, TResult> = {
   [TField in keyof FieldsOf<TSelection>]-?: IsScalarField<
     FieldsOf<TSelection>[TField]
   > extends true
@@ -84,36 +130,48 @@ type FieldMethods<TSelection, TFields, TArgs> = {
         TSelection,
         TFields,
         TArgs,
+        TResult,
         TField
       >
     : <TSubChain extends ChainMarker<any, any>>(
         select: (
-          chain: Chain<NonNullable<FieldsOf<TSelection>[TField]>, {}, {}>
+          chain: Chain<
+            NonNullable<FieldsOf<TSelection>[TField]>,
+            {},
+            {},
+            ResultFieldOf<TResult, TField>
+          >
         ) => TSubChain
       ) => Chain<
         TSelection,
         TFields & { [P in TField]: SelectionOf<TSubChain> },
-        TArgs
+        TArgs,
+        TResult
       >
 }
 
-interface ChainExtras<TSelection, TFields, TArgs> {
+interface ChainExtras<TSelection, TFields, TArgs, TResult> {
   /**
-   * Selects every scalar field of this type, the equivalent of the Java SDK's
-   * unprojected response models.
+   * Selects every scalar field of this type.
    */
-  all(): Chain<TSelection, TFields & { __scalar: true }, TArgs>
+  all(): Chain<TSelection, TFields & { __scalar: true }, TArgs, TResult>
   /** Selects the `__typename` meta field. */
-  typename(): Chain<TSelection, TFields & { __typename: true }, TArgs>
+  typename(): Chain<TSelection, TFields & { __typename: true }, TArgs, TResult>
 }
 
-export type Chain<TSelection, TFields = {}, TArgs = {}> = ArgMethods<
+/**
+ * `TResult` is the response type matching `TSelection`, carried along so that `where` knows
+ * which resource it filters over. It defaults to `unknown`, which leaves every member behaving
+ * exactly as it did before it was threaded through.
+ */
+export type Chain<
   TSelection,
-  TFields,
-  TArgs
-> &
-  FieldMethods<TSelection, TFields, TArgs> &
-  ChainExtras<TSelection, TFields, TArgs> &
+  TFields = {},
+  TArgs = {},
+  TResult = unknown,
+> = ArgMethods<TSelection, TFields, TArgs, TResult> &
+  FieldMethods<TSelection, TFields, TArgs, TResult> &
+  ChainExtras<TSelection, TFields, TArgs, TResult> &
   ChainMarker<TFields, TArgs>
 
 /** Reads the plain genql selection object out of a chain at runtime. */
@@ -131,6 +189,12 @@ function build(state: ChainState): Record<string, unknown> {
 }
 
 /**
+ * Arguments whose string value a callback can build instead, rather than the callback being a
+ * projection. `where` takes a query predicate, which is what `./where` assembles.
+ */
+const PREDICATE_ARGS = new Set(['where'])
+
+/**
  * Creates a chain.
  *
  * Which kind of member is being called is decided from the call itself, which is
@@ -139,6 +203,9 @@ function build(state: ChainState): Record<string, unknown> {
  * - no argument            -> a scalar field, selected as `true`
  * - a function argument    -> an object field, recursed into
  * - any other argument     -> a field argument, collected into `__args`
+ *
+ * The one exception is a {@link PREDICATE_ARGS} argument given a function, which builds the
+ * argument's own string rather than projecting anything.
  */
 export function createChain(): any {
   const state: ChainState = { fields: {}, args: {} }
@@ -180,6 +247,13 @@ export function createChain(): any {
           }
 
           if (typeof value === 'function') {
+            if (PREDICATE_ARGS.has(property)) {
+              state.args[property] = resolveWhere(
+                value as (resource: unknown) => Predicate
+              )
+              return proxy
+            }
+
             state.fields[property] = resolveChain(
               (value as (chain: unknown) => unknown)(createChain())
             )

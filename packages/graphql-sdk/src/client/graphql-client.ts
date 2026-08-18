@@ -1,4 +1,9 @@
-import type { Chain, ChainMarker, SelectionOf } from '../builder/chain'
+import type {
+  Chain,
+  ChainMarker,
+  ResultFieldOf,
+  SelectionOf,
+} from '../builder/chain'
 import { createChain, resolveChain } from '../builder/chain'
 import {
   generateMutationOp,
@@ -24,10 +29,19 @@ import { GraphQLApiRequest } from './graphql-api-request'
  * ```ts
  * { customers: customers => customers.where('firstName="Martha"').total() }
  * ```
+ *
+ * `TRootResult` is the response type of the root, `Query` or `Mutation`, which is field for
+ * field parallel to its selection type. Pairing the two is what lets `where` offer a predicate
+ * builder for the resource being filtered.
  */
-type RootSelectors<TRootSelection> = {
+type RootSelectors<TRootSelection, TRootResult> = {
   [TField in keyof TRootSelection]?: (
-    chain: Chain<NonNullable<TRootSelection[TField]>, {}, {}>
+    chain: Chain<
+      NonNullable<TRootSelection[TField]>,
+      {},
+      {},
+      ResultFieldOf<TRootResult, TField>
+    >
   ) => ChainMarker<any, any>
 }
 
@@ -69,9 +83,7 @@ function isApiRoot(
  * The typed GraphQL client for the commercetools APIs.
  *
  * Field names, arguments and the shape of the result all come from the commercetools GraphQL
- * schema, so no GraphQL string is written by hand and a typo is a compile error. This is the
- * counterpart of the Java SDK's `commercetools-graphql-api` module and the .NET SDK's
- * `commercetools.Sdk.GraphQL.Api` project.
+ * schema, so no GraphQL string is written by hand and a typo is a compile error.
  *
  * The client does not open its own HTTP connection: every request is handed to the generated
  * request builder, so authentication, middlewares, retries and correlation ids of the api root
@@ -98,8 +110,14 @@ export class GraphQLClient {
    *   })
    *   .executeOrThrow()
    * ```
+   *
+   * `where` also takes a callback, which builds the same predicate through a checked builder:
+   *
+   * ```ts
+   * customers.where(customer => customer.firstName.is('Martha'))
+   * ```
    */
-  public query<TSelectors extends RootSelectors<QueryGenqlSelection>>(
+  public query<TSelectors extends RootSelectors<QueryGenqlSelection, Query>>(
     selectors: TSelectors
   ): GraphQLApiRequest<FieldsSelection<Query, RootResult<TSelectors>>> {
     const operation = generateQueryOp(toSelection(selectors) as any)
@@ -118,7 +136,9 @@ export class GraphQLClient {
    *   .executeOrThrow()
    * ```
    */
-  public mutate<TSelectors extends RootSelectors<MutationGenqlSelection>>(
+  public mutate<
+    TSelectors extends RootSelectors<MutationGenqlSelection, Mutation>,
+  >(
     selectors: TSelectors
   ): GraphQLApiRequest<FieldsSelection<Mutation, RootResult<TSelectors>>> {
     const operation = generateMutationOp(toSelection(selectors) as any)
@@ -127,11 +147,11 @@ export class GraphQLClient {
   }
 
   /**
-   * Escape hatch for an operation that is not expressed through the builder, the counterpart of
-   * the Java SDK's `GraphQL.query(String)`. Queries and mutations both go through it, and the
-   * returned request is the same one {@link query} and {@link mutate} return.
+   * Escape hatch for an operation that is not expressed through the builder. Queries and
+   * mutations both go through it, and the returned request is the same one {@link query} and
+   * {@link mutate} return.
    *
-   * A `TypedDocumentNode` - the interface produced by GraphQL Code Generator and gql.tada - keeps
+   * A `TypedDocumentNode`, the interface produced by GraphQL Code Generator and gql.tada, keeps
    * the variables checked and the response data typed; a plain string resolves to `any`.
    *
    * ```ts
@@ -169,8 +189,7 @@ export class GraphQLClient {
 }
 
 /**
- * Creates a {@link GraphQLClient} on top of an existing api root, the counterpart of the .NET
- * SDK's `apiRoot.GraphQLClient()` extension.
+ * Creates a {@link GraphQLClient} on top of an existing api root.
  *
  * ```ts
  * const apiRoot = createApiBuilderFromCtpClient(client).withProjectKey({ projectKey })
