@@ -1483,6 +1483,8 @@ export interface ItemShippingTarget {
    *
    *	It connects Line Item or Custom Line Item quantities with individual Shipping Methods.
    *
+   *	Required when the Cart has `Multiple` [ShippingMode](ctp:api:type:ShippingMode). Omitting this field in that case returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
+   *
    */
   readonly shippingMethodKey?: string
 }
