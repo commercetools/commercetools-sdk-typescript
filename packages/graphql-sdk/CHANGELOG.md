@@ -1,5 +1,27 @@
 # @commercetools/graphql-sdk
 
+## 0.1.1
+
+### Patch Changes
+
+- [#1452](https://github.com/commercetools/commercetools-sdk-typescript/pull/1452) [`d75faf7`](https://github.com/commercetools/commercetools-sdk-typescript/commit/d75faf7d6b70cf910f716f8e7750662a4209f31a) Thanks [@ajimae](https://github.com/ajimae)! - Add an optional fluent builder for the `where` query predicate.
+
+  `where` keeps taking a predicate string exactly as before, and now also takes a callback that
+  builds one through a checked builder derived from the resource being filtered:
+
+  ```ts
+  customers.where((customer) =>
+    customer.firstName
+      .is('Martha')
+      .and(customer.addresses((address) => address.city.is('Berlin')))
+  )
+  ```
+
+  Field names come from the resource, operators from what the field holds, so a predicate the API
+  would reject is a compile error. Attribute and Custom Field values are descended into for the
+  types the schema cannot express (`value(centAmount = 999 and currencyCode = "EUR")`), and a
+  GeoJSON field is matched with `withinCircle(longitude, latitude, radiusInMeters)`.
+
 ## 0.1.0
 
 ### Minor Changes
