@@ -789,6 +789,7 @@ export type CartUpdateAction =
   | CartSetCustomerIdAction
   | CartSetDeleteDaysAfterLastModificationAction
   | CartSetDirectDiscountsAction
+  | CartSetEstimatedDeliveryAction
   | CartSetItemShippingAddressCustomFieldAction
   | CartSetItemShippingAddressCustomTypeAction
   | CartSetKeyAction
@@ -1316,6 +1317,26 @@ export interface DiscountedTotalPricePortion {
    *
    */
   readonly discountedAmount: TypedMoney
+}
+/**
+ *	Estimated time window during which a shipment is expected to be delivered.
+ *	The window is anchored to the selected Shipping Method and the shipping destination.
+ *
+ */
+export interface EstimatedDelivery {
+  /**
+   *	Date and time (UTC) of the earliest expected delivery.
+   *
+   *
+   */
+  readonly from?: string
+  /**
+   *	Date and time (UTC) of the latest expected delivery.
+   *	When both `from` and `until` are set, `until` must be equal to or later than `from`.
+   *
+   *
+   */
+  readonly until?: string
 }
 export interface ExternalLineItemTotalPrice {
   /**
@@ -2070,6 +2091,13 @@ export interface ShippingInfo {
    *
    */
   readonly shippingMethodState: ShippingMethodState
+  /**
+   *	Estimated time window during which the shipment is expected to be delivered.
+   *	This value is removed if the Cart's `shippingAddress` changes.
+   *
+   *
+   */
+  readonly estimatedDelivery?: EstimatedDelivery
 }
 /**
  *	Determines whether the selected [ShippingMethod](ctp:api:type:ShippingMethod) is allowed for the Cart. For more information, see [Predicates](/shipping-delivery-overview#predicates).
@@ -2708,6 +2736,12 @@ export interface CartAddShippingMethodAction extends ICartUpdateAction {
    *
    */
   readonly custom?: CustomFieldsDraft
+  /**
+   *	Estimated time window during which this shipment is expected to be delivered.
+   *
+   *
+   */
+  readonly estimatedDelivery?: EstimatedDelivery
 }
 /**
  *	Adds all [LineItems](ctp:api:type:LineItem) of a [ShoppingList](ctp:api:type:ShoppingList) to the Cart.
@@ -3489,6 +3523,13 @@ export interface CartSetCustomShippingMethodAction extends ICartUpdateAction {
    *
    */
   readonly custom?: CustomFieldsDraft
+  /**
+   *	Estimated time window during which the shipment is expected to be delivered.
+   *	If not set, any existing estimate on the Cart's [ShippingInfo](ctp:api:type:ShippingInfo) is cleared.
+   *
+   *
+   */
+  readonly estimatedDelivery?: EstimatedDelivery
 }
 export interface CartSetCustomTypeAction extends ICartUpdateAction {
   readonly action: 'setCustomType'
@@ -3586,6 +3627,29 @@ export interface CartSetDirectDiscountsAction extends ICartUpdateAction {
    *
    */
   readonly discounts: DirectDiscountDraft[]
+}
+/**
+ *	Sets the estimated delivery window on the Cart's [ShippingInfo](ctp:api:type:ShippingInfo).
+ *
+ *	This update action produces the [CartEstimatedDeliverySet](ctp:api:type:CartEstimatedDeliverySetMessage) Message.
+ *
+ */
+export interface CartSetEstimatedDeliveryAction extends ICartUpdateAction {
+  readonly action: 'setEstimatedDelivery'
+  /**
+   *	`key` of the [Shipping](ctp:api:type:Shipping) to update.
+   *	This is required and valid only for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	An [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned if `shippingKey` is provided for Carts with `Single` ShippingMode, or omitted for Carts with `Multiple` ShippingMode.
+   *
+   *
+   */
+  readonly shippingKey?: string
+  /**
+   *	Value to set. If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly estimatedDelivery?: EstimatedDelivery
 }
 export interface CartSetItemShippingAddressCustomFieldAction extends ICartUpdateAction {
   readonly action: 'setItemShippingAddressCustomField'
@@ -4131,6 +4195,13 @@ export interface CartSetShippingMethodAction extends ICartUpdateAction {
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
+  /**
+   *	Estimated time window during which the shipment is expected to be delivered.
+   *	If not set, any existing estimate on the Cart's [ShippingInfo](ctp:api:type:ShippingInfo) is cleared.
+   *
+   *
+   */
+  readonly estimatedDelivery?: EstimatedDelivery
 }
 /**
  *	A Shipping Method tax amount can be set if the Cart has the `ExternalAmount` [TaxMode](ctp:api:type:TaxMode).

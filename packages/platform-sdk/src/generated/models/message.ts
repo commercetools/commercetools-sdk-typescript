@@ -26,6 +26,7 @@ import {
   CustomLineItem,
   DiscountCodeState,
   DiscountedLineItemPriceForQuantity,
+  EstimatedDelivery,
   ItemShippingDetails,
   LineItem,
   MethodTaxedPrice,
@@ -207,6 +208,7 @@ export type Message =
   | CartDiscountStoreAddedMessage
   | CartDiscountStoreRemovedMessage
   | CartDiscountStoresSetMessage
+  | CartEstimatedDeliverySetMessage
   | CartFrozenMessage
   | CartLockedMessage
   | CartPurchaseOrderNumberSetMessage
@@ -303,6 +305,7 @@ export type Message =
   | OrderDiscountCodeRemovedMessage
   | OrderDiscountCodeStateSetMessage
   | OrderEditAppliedMessage
+  | OrderEstimatedDeliverySetMessage
   | OrderImportedMessage
   | OrderLineItemAddedMessage
   | OrderLineItemDiscountSetMessage
@@ -456,14 +459,24 @@ export type Message =
   | StandalonePriceValidFromSetMessage
   | StandalonePriceValidUntilSetMessage
   | StandalonePriceValueChangedMessage
+  | StoreCheckoutUrlTemplateSetMessage
+  | StoreContactUrlSetMessage
+  | StoreCookiePolicyUrlSetMessage
   | StoreCountriesChangedMessage
   | StoreCreatedMessage
   | StoreDeletedMessage
   | StoreDistributionChannelsChangedMessage
+  | StoreFaqUrlSetMessage
+  | StoreImprintUrlSetMessage
   | StoreLanguagesChangedMessage
   | StoreNameSetMessage
+  | StoreOrderUrlTemplateSetMessage
+  | StorePrivacyPolicyUrlSetMessage
   | StoreProductSelectionsChangedMessage
+  | StoreRefundPolicyUrlSetMessage
+  | StoreShippingPolicyUrlSetMessage
   | StoreSupplyChannelsChangedMessage
+  | StoreTermsOfServiceUrlSetMessage
   | VariantCreatedMessage
   | VariantDeletedMessage
   | VariantImageAddedMessage
@@ -5217,6 +5230,82 @@ export interface CartDiscountStoresSetMessage extends IMessage {
    *
    */
   readonly stores: StoreKeyReference[]
+}
+/**
+ *	Generated after a successful [Set Estimated Delivery](ctp:api:type:CartSetEstimatedDeliveryAction) update action.
+ *
+ */
+export interface CartEstimatedDeliverySetMessage extends IMessage {
+  readonly type: 'CartEstimatedDeliverySet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Estimated delivery window on the [Cart](ctp:api:type:Cart) after the [Set Estimated Delivery](ctp:api:type:CartSetEstimatedDeliveryAction) update action.
+   *
+   *
+   */
+  readonly estimatedDelivery?: EstimatedDelivery
+  /**
+   *	`key` of the [Shipping](ctp:api:type:Shipping) that was updated. Only present for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Generated after a successful [Freeze Cart](ctp:api:type:CartFreezeCartAction) update action.
@@ -10041,6 +10130,7 @@ export type OrderMessage =
   | OrderDiscountCodeRemovedMessage
   | OrderDiscountCodeStateSetMessage
   | OrderEditAppliedMessage
+  | OrderEstimatedDeliverySetMessage
   | OrderImportedMessage
   | OrderLineItemAddedMessage
   | OrderLineItemDiscountSetMessage
@@ -12669,6 +12759,82 @@ export interface OrderEditAppliedMessage extends IOrderMessage {
    *
    */
   readonly result: OrderEditApplied
+}
+/**
+ *	Generated after a successful [Set Estimated Delivery](ctp:api:type:OrderSetEstimatedDeliveryAction) update action.
+ *
+ */
+export interface OrderEstimatedDeliverySetMessage extends IOrderMessage {
+  readonly type: 'OrderEstimatedDeliverySet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Estimated delivery window on the [Order](ctp:api:type:Order) after the [Set Estimated Delivery](ctp:api:type:OrderSetEstimatedDeliveryAction) update action.
+   *
+   *
+   */
+  readonly estimatedDelivery?: EstimatedDelivery
+  /**
+   *	`key` of the [Shipping](ctp:api:type:Shipping) that was updated. Only present for Orders with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Generated after a successful [Order Import](ctp:api:endpoint:/{projectKey}/orders/import:POST).
@@ -24603,6 +24769,216 @@ export interface StandalonePriceValueChangedMessage extends IMessage {
   readonly oldValue?: TypedMoney
 }
 /**
+ *	Generated after a successful [Set Checkout Url Template](ctp:api:type:StoreSetCheckoutUrlTemplateAction) update action.
+ *
+ */
+export interface StoreCheckoutUrlTemplateSetMessage extends IMessage {
+  readonly type: 'StoreCheckoutUrlTemplateSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The `checkoutUrlTemplate` of the [Store](ctp:api:type:Store) after the [Set Checkout Url Template](ctp:api:type:StoreSetCheckoutUrlTemplateAction) update action.
+   *
+   *
+   */
+  readonly checkoutUrlTemplate?: string
+}
+/**
+ *	Generated after a successful [Set Contact Url](ctp:api:type:StoreSetContactUrlAction) update action.
+ *
+ */
+export interface StoreContactUrlSetMessage extends IMessage {
+  readonly type: 'StoreContactUrlSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The `contactUrl` of the [Store](ctp:api:type:Store) after the [Set Contact Url](ctp:api:type:StoreSetContactUrlAction) update action.
+   *
+   *
+   */
+  readonly contactUrl?: string
+}
+/**
+ *	Generated after a successful [Set Cookie Policy Url](ctp:api:type:StoreSetCookiePolicyUrlAction) update action.
+ *
+ */
+export interface StoreCookiePolicyUrlSetMessage extends IMessage {
+  readonly type: 'StoreCookiePolicyUrlSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The `cookiePolicyUrl` of the [Store](ctp:api:type:Store) after the [Set Cookie Policy Url](ctp:api:type:StoreSetCookiePolicyUrlAction) update action.
+   *
+   *
+   */
+  readonly cookiePolicyUrl?: string
+}
+/**
  *	Generated after a successful [Add Country](ctp:api:type:StoreAddCountryAction),
  *	[Remove Country](ctp:api:type:StoreRemoveCountryAction), or
  *	[Set Countries](ctp:api:type:StoreSetCountriesAction) update action.
@@ -24928,6 +25304,146 @@ export interface StoreDistributionChannelsChangedMessage extends IMessage {
   readonly removedDistributionChannels?: ChannelReference[]
 }
 /**
+ *	Generated after a successful [Set Faq Url](ctp:api:type:StoreSetFaqUrlAction) update action.
+ *
+ */
+export interface StoreFaqUrlSetMessage extends IMessage {
+  readonly type: 'StoreFaqUrlSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The `faqUrl` of the [Store](ctp:api:type:Store) after the [Set Faq Url](ctp:api:type:StoreSetFaqUrlAction) update action.
+   *
+   *
+   */
+  readonly faqUrl?: string
+}
+/**
+ *	Generated after a successful [Set Imprint Url](ctp:api:type:StoreSetImprintUrlAction) update action.
+ *
+ */
+export interface StoreImprintUrlSetMessage extends IMessage {
+  readonly type: 'StoreImprintUrlSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The `imprintUrl` of the [Store](ctp:api:type:Store) after the [Set Imprint Url](ctp:api:type:StoreSetImprintUrlAction) update action.
+   *
+   *
+   */
+  readonly imprintUrl?: string
+}
+/**
  *	Generated after a successful [Set Languages](ctp:api:type:StoreSetLanguagesAction) update action.
  *
  */
@@ -25080,6 +25596,146 @@ export interface StoreNameSetMessage extends IMessage {
   readonly nameAllLocales?: LocalizedString[]
 }
 /**
+ *	Generated after a successful [Set Order Url Template](ctp:api:type:StoreSetOrderUrlTemplateAction) update action.
+ *
+ */
+export interface StoreOrderUrlTemplateSetMessage extends IMessage {
+  readonly type: 'StoreOrderUrlTemplateSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The `orderUrlTemplate` of the [Store](ctp:api:type:Store) after the [Set Order Url Template](ctp:api:type:StoreSetOrderUrlTemplateAction) update action.
+   *
+   *
+   */
+  readonly orderUrlTemplate?: string
+}
+/**
+ *	Generated after a successful [Set Privacy Policy Url](ctp:api:type:StoreSetPrivacyPolicyUrlAction) update action.
+ *
+ */
+export interface StorePrivacyPolicyUrlSetMessage extends IMessage {
+  readonly type: 'StorePrivacyPolicyUrlSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The `privacyPolicyUrl` of the [Store](ctp:api:type:Store) after the [Set Privacy Policy Url](ctp:api:type:StoreSetPrivacyPolicyUrlAction) update action.
+   *
+   *
+   */
+  readonly privacyPolicyUrl?: string
+}
+/**
  *	Generated by a successful [Add Product Selection](ctp:api:type:StoreAddProductSelectionAction),
  *	[Remove Product Selection](ctp:api:type:StoreRemoveProductSelectionAction),
  *	[Set Product Selections](ctp:api:type:StoreSetProductSelectionsAction),
@@ -25165,6 +25821,146 @@ export interface StoreProductSelectionsChangedMessage extends IMessage {
   readonly updatedProductSelections?: ProductSelectionSetting[]
 }
 /**
+ *	Generated after a successful [Set Refund Policy Url](ctp:api:type:StoreSetRefundPolicyUrlAction) update action.
+ *
+ */
+export interface StoreRefundPolicyUrlSetMessage extends IMessage {
+  readonly type: 'StoreRefundPolicyUrlSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The `refundPolicyUrl` of the [Store](ctp:api:type:Store) after the [Set Refund Policy Url](ctp:api:type:StoreSetRefundPolicyUrlAction) update action.
+   *
+   *
+   */
+  readonly refundPolicyUrl?: string
+}
+/**
+ *	Generated after a successful [Set Shipping Policy Url](ctp:api:type:StoreSetShippingPolicyUrlAction) update action.
+ *
+ */
+export interface StoreShippingPolicyUrlSetMessage extends IMessage {
+  readonly type: 'StoreShippingPolicyUrlSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The `shippingPolicyUrl` of the [Store](ctp:api:type:Store) after the [Set Shipping Policy Url](ctp:api:type:StoreSetShippingPolicyUrlAction) update action.
+   *
+   *
+   */
+  readonly shippingPolicyUrl?: string
+}
+/**
  *	Generated after a successful [Add Supply Channel](ctp:api:type:StoreAddSupplyChannelAction),
  *	[Remove Supply Channel](ctp:api:type:StoreRemoveSupplyChannelAction), or
  *	[Set Supply Channels](ctp:api:type:StoreSetSupplyChannelsAction) update action.
@@ -25240,6 +26036,76 @@ export interface StoreSupplyChannelsChangedMessage extends IMessage {
    *
    */
   readonly removedSupplyChannels?: ChannelReference[]
+}
+/**
+ *	Generated after a successful [Set Terms Of Service Url](ctp:api:type:StoreSetTermsOfServiceUrlAction) update action.
+ *
+ */
+export interface StoreTermsOfServiceUrlSetMessage extends IMessage {
+  readonly type: 'StoreTermsOfServiceUrlSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The `termsOfServiceUrl` of the [Store](ctp:api:type:Store) after the [Set Terms Of Service Url](ctp:api:type:StoreSetTermsOfServiceUrlAction) update action.
+   *
+   *
+   */
+  readonly termsOfServiceUrl?: string
 }
 /**
  *	User-provided identifiers present on the resource for which the Message is created. The value of the identifier stored in the Message corresponds to the one that was set on the resource at the version shown in `resourceVersion`.
@@ -26038,6 +26904,7 @@ export type MessagePayload =
   | CartDiscountStoreAddedMessagePayload
   | CartDiscountStoreRemovedMessagePayload
   | CartDiscountStoresSetMessagePayload
+  | CartEstimatedDeliverySetMessagePayload
   | CartFrozenMessagePayload
   | CartLockedMessagePayload
   | CartPurchaseOrderNumberSetMessagePayload
@@ -26134,6 +27001,7 @@ export type MessagePayload =
   | OrderDiscountCodeRemovedMessagePayload
   | OrderDiscountCodeStateSetMessagePayload
   | OrderEditAppliedMessagePayload
+  | OrderEstimatedDeliverySetMessagePayload
   | OrderImportedMessagePayload
   | OrderLineItemAddedMessagePayload
   | OrderLineItemDiscountSetMessagePayload
@@ -26288,14 +27156,24 @@ export type MessagePayload =
   | StandalonePriceValidFromSetMessagePayload
   | StandalonePriceValidUntilSetMessagePayload
   | StandalonePriceValueChangedMessagePayload
+  | StoreCheckoutUrlTemplateSetMessagePayload
+  | StoreContactUrlSetMessagePayload
+  | StoreCookiePolicyUrlSetMessagePayload
   | StoreCountriesChangedMessagePayload
   | StoreCreatedMessagePayload
   | StoreDeletedMessagePayload
   | StoreDistributionChannelsChangedMessagePayload
+  | StoreFaqUrlSetMessagePayload
+  | StoreImprintUrlSetMessagePayload
   | StoreLanguagesChangedMessagePayload
   | StoreNameSetMessagePayload
+  | StoreOrderUrlTemplateSetMessagePayload
+  | StorePrivacyPolicyUrlSetMessagePayload
   | StoreProductSelectionsChangedMessagePayload
+  | StoreRefundPolicyUrlSetMessagePayload
+  | StoreShippingPolicyUrlSetMessagePayload
   | StoreSupplyChannelsChangedMessagePayload
+  | StoreTermsOfServiceUrlSetMessagePayload
   | VariantCreatedMessagePayload
   | VariantDeletedMessagePayload
   | VariantImageAddedMessagePayload
@@ -27342,6 +28220,25 @@ export interface CartDiscountStoresSetMessagePayload extends IMessagePayload {
    *
    */
   readonly stores: StoreKeyReference[]
+}
+/**
+ *	Generated after a successful [Set Estimated Delivery](ctp:api:type:CartSetEstimatedDeliveryAction) update action.
+ *
+ */
+export interface CartEstimatedDeliverySetMessagePayload extends IMessagePayload {
+  readonly type: 'CartEstimatedDeliverySet'
+  /**
+   *	Estimated delivery window on the [Cart](ctp:api:type:Cart) after the [Set Estimated Delivery](ctp:api:type:CartSetEstimatedDeliveryAction) update action.
+   *
+   *
+   */
+  readonly estimatedDelivery?: EstimatedDelivery
+  /**
+   *	`key` of the [Shipping](ctp:api:type:Shipping) that was updated. Only present for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Generated after a successful [Freeze Cart](ctp:api:type:CartFreezeCartAction) update action.
@@ -28442,6 +29339,7 @@ export type OrderMessagePayload =
   | OrderDiscountCodeRemovedMessagePayload
   | OrderDiscountCodeStateSetMessagePayload
   | OrderEditAppliedMessagePayload
+  | OrderEstimatedDeliverySetMessagePayload
   | OrderImportedMessagePayload
   | OrderLineItemAddedMessagePayload
   | OrderLineItemDiscountSetMessagePayload
@@ -29187,6 +30085,25 @@ export interface OrderEditAppliedMessagePayload extends IOrderMessagePayload {
    *
    */
   readonly result: OrderEditApplied
+}
+/**
+ *	Generated after a successful [Set Estimated Delivery](ctp:api:type:OrderSetEstimatedDeliveryAction) update action.
+ *
+ */
+export interface OrderEstimatedDeliverySetMessagePayload extends IOrderMessagePayload {
+  readonly type: 'OrderEstimatedDeliverySet'
+  /**
+   *	Estimated delivery window on the [Order](ctp:api:type:Order) after the [Set Estimated Delivery](ctp:api:type:OrderSetEstimatedDeliveryAction) update action.
+   *
+   *
+   */
+  readonly estimatedDelivery?: EstimatedDelivery
+  /**
+   *	`key` of the [Shipping](ctp:api:type:Shipping) that was updated. Only present for Orders with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Generated after a successful [Order Import](ctp:api:endpoint:/{projectKey}/orders/import:POST).
@@ -32423,6 +33340,45 @@ export interface StandalonePriceValueChangedMessagePayload extends IMessagePaylo
   readonly oldValue?: TypedMoney
 }
 /**
+ *	Generated after a successful [Set Checkout Url Template](ctp:api:type:StoreSetCheckoutUrlTemplateAction) update action.
+ *
+ */
+export interface StoreCheckoutUrlTemplateSetMessagePayload extends IMessagePayload {
+  readonly type: 'StoreCheckoutUrlTemplateSet'
+  /**
+   *	The `checkoutUrlTemplate` of the [Store](ctp:api:type:Store) after the [Set Checkout Url Template](ctp:api:type:StoreSetCheckoutUrlTemplateAction) update action.
+   *
+   *
+   */
+  readonly checkoutUrlTemplate?: string
+}
+/**
+ *	Generated after a successful [Set Contact Url](ctp:api:type:StoreSetContactUrlAction) update action.
+ *
+ */
+export interface StoreContactUrlSetMessagePayload extends IMessagePayload {
+  readonly type: 'StoreContactUrlSet'
+  /**
+   *	The `contactUrl` of the [Store](ctp:api:type:Store) after the [Set Contact Url](ctp:api:type:StoreSetContactUrlAction) update action.
+   *
+   *
+   */
+  readonly contactUrl?: string
+}
+/**
+ *	Generated after a successful [Set Cookie Policy Url](ctp:api:type:StoreSetCookiePolicyUrlAction) update action.
+ *
+ */
+export interface StoreCookiePolicyUrlSetMessagePayload extends IMessagePayload {
+  readonly type: 'StoreCookiePolicyUrlSet'
+  /**
+   *	The `cookiePolicyUrl` of the [Store](ctp:api:type:Store) after the [Set Cookie Policy Url](ctp:api:type:StoreSetCookiePolicyUrlAction) update action.
+   *
+   *
+   */
+  readonly cookiePolicyUrl?: string
+}
+/**
  *	Generated after a successful [Add Country](ctp:api:type:StoreAddCountryAction),
  *	[Remove Country](ctp:api:type:StoreRemoveCountryAction), or
  *	[Set Countries](ctp:api:type:StoreSetCountriesAction) update action.
@@ -32520,6 +33476,32 @@ export interface StoreDistributionChannelsChangedMessagePayload extends IMessage
   readonly removedDistributionChannels?: ChannelReference[]
 }
 /**
+ *	Generated after a successful [Set Faq Url](ctp:api:type:StoreSetFaqUrlAction) update action.
+ *
+ */
+export interface StoreFaqUrlSetMessagePayload extends IMessagePayload {
+  readonly type: 'StoreFaqUrlSet'
+  /**
+   *	The `faqUrl` of the [Store](ctp:api:type:Store) after the [Set Faq Url](ctp:api:type:StoreSetFaqUrlAction) update action.
+   *
+   *
+   */
+  readonly faqUrl?: string
+}
+/**
+ *	Generated after a successful [Set Imprint Url](ctp:api:type:StoreSetImprintUrlAction) update action.
+ *
+ */
+export interface StoreImprintUrlSetMessagePayload extends IMessagePayload {
+  readonly type: 'StoreImprintUrlSet'
+  /**
+   *	The `imprintUrl` of the [Store](ctp:api:type:Store) after the [Set Imprint Url](ctp:api:type:StoreSetImprintUrlAction) update action.
+   *
+   *
+   */
+  readonly imprintUrl?: string
+}
+/**
  *	Generated after a successful [Set Languages](ctp:api:type:StoreSetLanguagesAction) update action.
  *
  */
@@ -32558,6 +33540,32 @@ export interface StoreNameSetMessagePayload extends IMessagePayload {
   readonly nameAllLocales?: LocalizedString[]
 }
 /**
+ *	Generated after a successful [Set Order Url Template](ctp:api:type:StoreSetOrderUrlTemplateAction) update action.
+ *
+ */
+export interface StoreOrderUrlTemplateSetMessagePayload extends IMessagePayload {
+  readonly type: 'StoreOrderUrlTemplateSet'
+  /**
+   *	The `orderUrlTemplate` of the [Store](ctp:api:type:Store) after the [Set Order Url Template](ctp:api:type:StoreSetOrderUrlTemplateAction) update action.
+   *
+   *
+   */
+  readonly orderUrlTemplate?: string
+}
+/**
+ *	Generated after a successful [Set Privacy Policy Url](ctp:api:type:StoreSetPrivacyPolicyUrlAction) update action.
+ *
+ */
+export interface StorePrivacyPolicyUrlSetMessagePayload extends IMessagePayload {
+  readonly type: 'StorePrivacyPolicyUrlSet'
+  /**
+   *	The `privacyPolicyUrl` of the [Store](ctp:api:type:Store) after the [Set Privacy Policy Url](ctp:api:type:StoreSetPrivacyPolicyUrlAction) update action.
+   *
+   *
+   */
+  readonly privacyPolicyUrl?: string
+}
+/**
  *	Generated by a successful [Add Product Selection](ctp:api:type:StoreAddProductSelectionAction),
  *	[Remove Product Selection](ctp:api:type:StoreRemoveProductSelectionAction),
  *	[Set Product Selections](ctp:api:type:StoreSetProductSelectionsAction),
@@ -32586,6 +33594,32 @@ export interface StoreProductSelectionsChangedMessagePayload extends IMessagePay
   readonly updatedProductSelections?: ProductSelectionSetting[]
 }
 /**
+ *	Generated after a successful [Set Refund Policy Url](ctp:api:type:StoreSetRefundPolicyUrlAction) update action.
+ *
+ */
+export interface StoreRefundPolicyUrlSetMessagePayload extends IMessagePayload {
+  readonly type: 'StoreRefundPolicyUrlSet'
+  /**
+   *	The `refundPolicyUrl` of the [Store](ctp:api:type:Store) after the [Set Refund Policy Url](ctp:api:type:StoreSetRefundPolicyUrlAction) update action.
+   *
+   *
+   */
+  readonly refundPolicyUrl?: string
+}
+/**
+ *	Generated after a successful [Set Shipping Policy Url](ctp:api:type:StoreSetShippingPolicyUrlAction) update action.
+ *
+ */
+export interface StoreShippingPolicyUrlSetMessagePayload extends IMessagePayload {
+  readonly type: 'StoreShippingPolicyUrlSet'
+  /**
+   *	The `shippingPolicyUrl` of the [Store](ctp:api:type:Store) after the [Set Shipping Policy Url](ctp:api:type:StoreSetShippingPolicyUrlAction) update action.
+   *
+   *
+   */
+  readonly shippingPolicyUrl?: string
+}
+/**
  *	Generated after a successful [Add Supply Channel](ctp:api:type:StoreAddSupplyChannelAction),
  *	[Remove Supply Channel](ctp:api:type:StoreRemoveSupplyChannelAction), or
  *	[Set Supply Channels](ctp:api:type:StoreSetSupplyChannelsAction) update action.
@@ -32604,6 +33638,19 @@ export interface StoreSupplyChannelsChangedMessagePayload extends IMessagePayloa
    *
    */
   readonly removedSupplyChannels?: ChannelReference[]
+}
+/**
+ *	Generated after a successful [Set Terms Of Service Url](ctp:api:type:StoreSetTermsOfServiceUrlAction) update action.
+ *
+ */
+export interface StoreTermsOfServiceUrlSetMessagePayload extends IMessagePayload {
+  readonly type: 'StoreTermsOfServiceUrlSet'
+  /**
+   *	The `termsOfServiceUrl` of the [Store](ctp:api:type:Store) after the [Set Terms Of Service Url](ctp:api:type:StoreSetTermsOfServiceUrlAction) update action.
+   *
+   *
+   */
+  readonly termsOfServiceUrl?: string
 }
 /**
  *	Generated after a successful [Create Variant](/../api/projects/variants#create-variant) request.

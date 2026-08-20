@@ -140,6 +140,12 @@ export interface Store extends BaseResource {
    *
    */
   readonly custom?: CustomFields
+  /**
+   *	Customer-facing URLs and policy links for the Store's storefront.
+   *
+   *
+   */
+  readonly storefront?: Storefront
 }
 export interface StoreDraft {
   /**
@@ -202,6 +208,12 @@ export interface StoreDraft {
    *
    */
   readonly custom?: CustomFieldsDraft
+  /**
+   *	Customer-facing URLs and policy links for the Store's storefront.
+   *
+   *
+   */
+  readonly storefront?: Storefront
 }
 /**
  *	[KeyReference](ctp:api:type:KeyReference) to a [Store](ctp:api:type:Store).
@@ -319,19 +331,98 @@ export type StoreUpdateAction =
   | StoreRemoveDistributionChannelAction
   | StoreRemoveProductSelectionAction
   | StoreRemoveSupplyChannelAction
+  | StoreSetCheckoutUrlTemplateAction
+  | StoreSetContactUrlAction
+  | StoreSetCookiePolicyUrlAction
   | StoreSetCountriesAction
   | StoreSetCustomFieldAction
   | StoreSetCustomTypeAction
   | StoreSetDistributionChannelsAction
+  | StoreSetFaqUrlAction
+  | StoreSetImprintUrlAction
   | StoreSetLanguagesAction
   | StoreSetNameAction
+  | StoreSetOrderUrlTemplateAction
+  | StoreSetPrivacyPolicyUrlAction
   | StoreSetProductSelectionsAction
+  | StoreSetRefundPolicyUrlAction
+  | StoreSetShippingPolicyUrlAction
   | StoreSetSupplyChannelsAction
+  | StoreSetTermsOfServiceUrlAction
 export interface IStoreUpdateAction {
   /**
    *
    */
   readonly action: string
+}
+/**
+ *	Customer-facing URLs and policy links for the Store's storefront.
+ *	All fields are optional and only present when set.
+ *
+ */
+export interface Storefront {
+  /**
+   *	[RFC 6570](https://datatracker.ietf.org/doc/html/rfc6570) URI template for the customer-facing checkout page.
+   *	Must contain the `checkoutId` variable, for example `https://example.com/checkout/{checkoutId}`.
+   *
+   *
+   */
+  readonly checkoutUrlTemplate?: string
+  /**
+   *	[RFC 6570](https://datatracker.ietf.org/doc/html/rfc6570) URI template for the customer-facing order status page.
+   *	Must contain the `orderId` variable, for example `https://example.com/orders/{orderId}`.
+   *
+   *
+   */
+  readonly orderUrlTemplate?: string
+  /**
+   *	Absolute `https` URL of the storefront's terms of service page.
+   *
+   *
+   */
+  readonly termsOfServiceUrl?: string
+  /**
+   *	Absolute `https` URL of the storefront's privacy policy page.
+   *
+   *
+   */
+  readonly privacyPolicyUrl?: string
+  /**
+   *	Absolute `https` URL of the storefront's refund policy page.
+   *
+   *
+   */
+  readonly refundPolicyUrl?: string
+  /**
+   *	Absolute `https` URL of the storefront's shipping policy page.
+   *
+   *
+   */
+  readonly shippingPolicyUrl?: string
+  /**
+   *	Absolute `https` URL of the storefront's cookie policy page.
+   *
+   *
+   */
+  readonly cookiePolicyUrl?: string
+  /**
+   *	Absolute `https` URL of the storefront's imprint (legal notice) page.
+   *
+   *
+   */
+  readonly imprintUrl?: string
+  /**
+   *	Absolute `https` URL of the storefront's FAQ page.
+   *
+   *
+   */
+  readonly faqUrl?: string
+  /**
+   *	Absolute `https` URL of the storefront's contact page.
+   *
+   *
+   */
+  readonly contactUrl?: string
 }
 /**
  *	This update action produces the [StoreCountriesChanged](ctp:api:type:StoreCountriesChangedMessage) Message.
@@ -472,6 +563,46 @@ export interface StoreRemoveSupplyChannelAction extends IStoreUpdateAction {
   readonly supplyChannel: ChannelResourceIdentifier
 }
 /**
+ *	This update action produces the [StoreCheckoutUrlTemplateSet](ctp:api:type:StoreCheckoutUrlTemplateSetMessage) Message.
+ *
+ */
+export interface StoreSetCheckoutUrlTemplateAction extends IStoreUpdateAction {
+  readonly action: 'setCheckoutUrlTemplate'
+  /**
+   *	Value to set. Must be an [RFC 6570](https://datatracker.ietf.org/doc/html/rfc6570) URI template containing the `checkoutId` variable.
+   *	If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly checkoutUrlTemplate?: string
+}
+/**
+ *	This update action produces the [StoreContactUrlSet](ctp:api:type:StoreContactUrlSetMessage) Message.
+ *
+ */
+export interface StoreSetContactUrlAction extends IStoreUpdateAction {
+  readonly action: 'setContactUrl'
+  /**
+   *	Value to set. Must be an absolute `https` URL. If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly contactUrl?: string
+}
+/**
+ *	This update action produces the [StoreCookiePolicyUrlSet](ctp:api:type:StoreCookiePolicyUrlSetMessage) Message.
+ *
+ */
+export interface StoreSetCookiePolicyUrlAction extends IStoreUpdateAction {
+  readonly action: 'setCookiePolicyUrl'
+  /**
+   *	Value to set. Must be an absolute `https` URL. If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly cookiePolicyUrl?: string
+}
+/**
  *	This update action produces the [StoreCountriesChanged](ctp:api:type:StoreCountriesChangedMessage) Message.
  *
  */
@@ -536,6 +667,32 @@ export interface StoreSetDistributionChannelsAction extends IStoreUpdateAction {
   readonly distributionChannels?: ChannelResourceIdentifier[]
 }
 /**
+ *	This update action produces the [StoreFaqUrlSet](ctp:api:type:StoreFaqUrlSetMessage) Message.
+ *
+ */
+export interface StoreSetFaqUrlAction extends IStoreUpdateAction {
+  readonly action: 'setFaqUrl'
+  /**
+   *	Value to set. Must be an absolute `https` URL. If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly faqUrl?: string
+}
+/**
+ *	This update action produces the [StoreImprintUrlSet](ctp:api:type:StoreImprintUrlSetMessage) Message.
+ *
+ */
+export interface StoreSetImprintUrlAction extends IStoreUpdateAction {
+  readonly action: 'setImprintUrl'
+  /**
+   *	Value to set. Must be an absolute `https` URL. If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly imprintUrl?: string
+}
+/**
  *	This update action produces the [StoreLanguagesChanged](ctp:api:type:StoreLanguagesChangedMessage) Message.
  *
  */
@@ -564,6 +721,33 @@ export interface StoreSetNameAction extends IStoreUpdateAction {
   readonly name?: LocalizedString
 }
 /**
+ *	This update action produces the [StoreOrderUrlTemplateSet](ctp:api:type:StoreOrderUrlTemplateSetMessage) Message.
+ *
+ */
+export interface StoreSetOrderUrlTemplateAction extends IStoreUpdateAction {
+  readonly action: 'setOrderUrlTemplate'
+  /**
+   *	Value to set. Must be an [RFC 6570](https://datatracker.ietf.org/doc/html/rfc6570) URI template containing the `orderId` variable.
+   *	If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly orderUrlTemplate?: string
+}
+/**
+ *	This update action produces the [StorePrivacyPolicyUrlSet](ctp:api:type:StorePrivacyPolicyUrlSetMessage) Message.
+ *
+ */
+export interface StoreSetPrivacyPolicyUrlAction extends IStoreUpdateAction {
+  readonly action: 'setPrivacyPolicyUrl'
+  /**
+   *	Value to set. Must be an absolute `https` URL. If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly privacyPolicyUrl?: string
+}
+/**
  *	Instead of adding or removing [Product Selections](/api/projects/product-selections) individually, you can also change all the Store's Product Selections in one go using this update action. The Store will only contain the Product Selections specified in the request.
  *
  */
@@ -580,6 +764,32 @@ export interface StoreSetProductSelectionsAction extends IStoreUpdateAction {
   readonly productSelections?: ProductSelectionSettingDraft[]
 }
 /**
+ *	This update action produces the [StoreRefundPolicyUrlSet](ctp:api:type:StoreRefundPolicyUrlSetMessage) Message.
+ *
+ */
+export interface StoreSetRefundPolicyUrlAction extends IStoreUpdateAction {
+  readonly action: 'setRefundPolicyUrl'
+  /**
+   *	Value to set. Must be an absolute `https` URL. If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly refundPolicyUrl?: string
+}
+/**
+ *	This update action produces the [StoreShippingPolicyUrlSet](ctp:api:type:StoreShippingPolicyUrlSetMessage) Message.
+ *
+ */
+export interface StoreSetShippingPolicyUrlAction extends IStoreUpdateAction {
+  readonly action: 'setShippingPolicyUrl'
+  /**
+   *	Value to set. Must be an absolute `https` URL. If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly shippingPolicyUrl?: string
+}
+/**
  *	Setting a supply channel produces the [StoreSupplyChannelsChanged](ctp:api:type:StoreSupplyChannelsChangedMessage) Message.
  *
  *	Setting a [Channel](ctp:api:type:Channel) without the `InventorySupply` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum) returns a [MissingRoleOnChannel](ctp:api:type:MissingRoleOnChannelError) error.
@@ -594,4 +804,17 @@ export interface StoreSetSupplyChannelsAction extends IStoreUpdateAction {
    *
    */
   readonly supplyChannels?: ChannelResourceIdentifier[]
+}
+/**
+ *	This update action produces the [StoreTermsOfServiceUrlSet](ctp:api:type:StoreTermsOfServiceUrlSetMessage) Message.
+ *
+ */
+export interface StoreSetTermsOfServiceUrlAction extends IStoreUpdateAction {
+  readonly action: 'setTermsOfServiceUrl'
+  /**
+   *	Value to set. Must be an absolute `https` URL. If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly termsOfServiceUrl?: string
 }

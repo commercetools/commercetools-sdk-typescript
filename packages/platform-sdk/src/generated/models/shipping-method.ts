@@ -144,6 +144,12 @@ export interface ShippingMethod extends BaseResource {
    *
    */
   readonly stores: StoreKeyReference[]
+  /**
+   *	Name of the carrier that delivers the parcel, for example `DHL`.
+   *
+   *
+   */
+  readonly carrier?: string
 }
 export interface ShippingMethodDraft {
   /**
@@ -215,6 +221,12 @@ export interface ShippingMethodDraft {
    *
    */
   readonly stores?: StoreResourceIdentifier[]
+  /**
+   *	Name of the carrier that delivers the parcel, for example `DHL`.
+   *
+   *
+   */
+  readonly carrier?: string
 }
 /**
  *	[PagedQueryResult](/general-concepts#pagedqueryresult) with `results` containing an array of [ShippingMethod](ctp:api:type:ShippingMethod).
@@ -319,6 +331,7 @@ export type ShippingMethodUpdateAction =
   | ShippingMethodRemoveShippingRateAction
   | ShippingMethodRemoveStoreAction
   | ShippingMethodRemoveZoneAction
+  | ShippingMethodSetCarrierAction
   | ShippingMethodSetCustomFieldAction
   | ShippingMethodSetCustomTypeAction
   | ShippingMethodSetDescriptionAction
@@ -621,6 +634,14 @@ export interface ShippingMethodRemoveZoneAction extends IShippingMethodUpdateAct
    *
    */
   readonly zone: ZoneResourceIdentifier
+}
+export interface ShippingMethodSetCarrierAction extends IShippingMethodUpdateAction {
+  readonly action: 'setCarrier'
+  /**
+   *	Name of the carrier that delivers the parcel, for example `DHL`. If `carrier` is absent or `null`, it is removed if it exists.
+   *
+   */
+  readonly carrier?: string
 }
 /**
  *	This action sets, overwrites, or removes any existing [Custom Field](/projects/custom-fields) for an existing ShippingMethod.

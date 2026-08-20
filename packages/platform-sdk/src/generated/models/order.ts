@@ -19,6 +19,7 @@ import {
   DiscountOnTotalPrice,
   DiscountTypeCombination,
   DiscountedLineItemPortionDraft,
+  EstimatedDelivery,
   InventoryMode,
   ItemShippingDetailsDraft,
   LineItem,
@@ -1650,6 +1651,7 @@ export type OrderUpdateAction =
   | OrderSetDeliveryCustomFieldAction
   | OrderSetDeliveryCustomTypeAction
   | OrderSetDeliveryItemsAction
+  | OrderSetEstimatedDeliveryAction
   | OrderSetItemShippingAddressCustomFieldAction
   | OrderSetItemShippingAddressCustomTypeAction
   | OrderSetLineItemCustomFieldAction
@@ -3045,6 +3047,29 @@ export interface OrderSetDeliveryItemsAction extends IOrderUpdateAction {
    *
    */
   readonly items: DeliveryItem[]
+}
+/**
+ *	Sets the estimated delivery window on the Order's [ShippingInfo](ctp:api:type:ShippingInfo).
+ *
+ *	This update action produces the [OrderEstimatedDeliverySet](ctp:api:type:OrderEstimatedDeliverySetMessage) Message.
+ *
+ */
+export interface OrderSetEstimatedDeliveryAction extends IOrderUpdateAction {
+  readonly action: 'setEstimatedDelivery'
+  /**
+   *	`key` of the [Shipping](ctp:api:type:Shipping) to update.
+   *	This is required and valid only for Orders with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	An [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned if `shippingKey` is provided for Orders with `Single` ShippingMode, or omitted for Orders with `Multiple` ShippingMode.
+   *
+   *
+   */
+  readonly shippingKey?: string
+  /**
+   *	Value to set. If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly estimatedDelivery?: EstimatedDelivery
 }
 export interface OrderSetItemShippingAddressCustomFieldAction extends IOrderUpdateAction {
   readonly action: 'setItemShippingAddressCustomField'
