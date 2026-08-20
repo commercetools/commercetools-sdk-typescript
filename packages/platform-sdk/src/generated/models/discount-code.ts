@@ -180,6 +180,9 @@ export interface DiscountCodeDraft {
    *
    *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing Discount Codes with the [Import API](/api/import-export/overview) and the [Merchant Center](/merchant-center/import-data).
    *
+   *	If the value is used by another Discount Code, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
+   *
+   *
    */
   readonly key?: string
   /**
@@ -197,6 +200,8 @@ export interface DiscountCodeDraft {
   /**
    *	User-defined unique identifier for the DiscountCode that can be [added to the Cart](/api/projects/carts#add-discountcode) to apply the related [CartDiscounts](ctp:api:type:CartDiscount).
    *	It cannot be modified after the DiscountCode is created.
+   *
+   *	If the value is used by another Discount Code, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
    *
    *
    */
@@ -469,8 +474,9 @@ export interface DiscountCodeSetDescriptionAction extends IDiscountCodeUpdateAct
 export interface DiscountCodeSetKeyAction extends IDiscountCodeUpdateAction {
   readonly action: 'setKey'
   /**
-   *	Unique value to set.
-   *	If omitted, any existing value is removed.
+   *	Value to set. If omitted, any existing value is removed.
+   *
+   *	If the value is used by another Discount Code, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
    *
    *
    */

@@ -1621,12 +1621,13 @@ export interface MatchingPriceNotFoundError extends IErrorObject {
   readonly channel?: ChannelReference
 }
 /**
- *	Returned when a Cart Discount cannot be created or activated as the [limit](/api/limits#cart-discounts) for active Cart Discounts has been reached.
+ *	Returned when an action fails because the Project has reached its [limit](/api/limits#cart-discounts) for active Cart Discounts.
  *
  *	The error is returned as a failed response to:
  *
  *	- [Create CartDiscount](ctp:api:endpoint:/{projectKey}/cart-discounts:POST) and [Create CartDiscount in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/cart-discounts:POST) requests
  *	- [Change IsActive](ctp:api:type:CartDiscountChangeIsActiveAction) update action
+ *	- [Change RequiresDiscountCode](ctp:api:type:CartDiscountChangeRequiresDiscountCodeAction) update action
  *
  */
 export interface MaxCartDiscountsReachedError extends IErrorObject {
@@ -3713,12 +3714,13 @@ export interface GraphQLMatchingPriceNotFoundError extends IGraphQLErrorObject {
   readonly channel?: ChannelReference
 }
 /**
- *	Returned when a Cart Discount cannot be created or activated as the [limit](/api/limits#cart-discounts) for active Cart Discounts has been reached.
+ *	Returned when an action fails because the Project has reached its [limit](/api/limits#cart-discounts) for active Cart Discounts.
  *
  *	The error is returned as a failed response to:
  *
  *	- [Create CartDiscount](ctp:api:endpoint:/{projectKey}/cart-discounts:POST) and [Create CartDiscount in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/cart-discounts:POST) requests
  *	- [Change IsActive](ctp:api:type:CartDiscountChangeIsActiveAction) update action
+ *	- [Change RequiresDiscountCode](ctp:api:type:CartDiscountChangeRequiresDiscountCodeAction) update action
  *
  */
 export interface GraphQLMaxCartDiscountsReachedError extends IGraphQLErrorObject {

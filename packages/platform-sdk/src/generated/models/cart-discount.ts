@@ -194,6 +194,8 @@ export interface CartDiscountDraft {
   /**
    *	User-defined unique identifier for the CartDiscount.
    *
+   *	If the value is used by another Cart Discount, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
+   *
    *
    */
   readonly key?: string
@@ -226,7 +228,7 @@ export interface CartDiscountDraft {
   /**
    *	Value between `0` and `1` that determines the order in which the CartDiscounts will be applied; a CartDiscount with a higher value will be prioritized.
    *
-   *	It must be unique among all CartDiscounts and DiscountGroups.
+   *	If the value is used by another Cart Discount or Discount Group, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
    *
    *	If the CartDiscount is part of a DiscountGroup, it will use the sort order of the DiscountGroup.
    *
@@ -931,10 +933,9 @@ export interface CartDiscountAddStoreAction extends ICartDiscountUpdateAction {
   /**
    *	[Store](ctp:api:type:Store) to add.
    *
-   *	A failed update can return the following errors:
+   *	If the referenced Stores exceed the [limit](/api/limits#cart-discounts-stores), a [MaxStoreReferencesReached](ctp:api:type:MaxStoreReferencesReachedError) error is returned.
    *
-   *	- If the referenced Stores exceed the [limit](/api/limits#cart-discounts-stores), a [MaxStoreReferencesReached](ctp:api:type:MaxStoreReferencesReachedError) error is returned.
-   *	- If the referenced Stores exceed the [limit](/api/limits#cart-discounts) for Cart Discounts that do not require a Discount Code, a [StoreCartDiscountsLimitReached](ctp:api:type:StoreCartDiscountsLimitReachedError) error is returned.
+   *	If the referenced Stores exceed the [limit](/api/limits#cart-discounts) for Cart Discounts that do not require a Discount Code, a [StoreCartDiscountsLimitReached](ctp:api:type:StoreCartDiscountsLimitReachedError) error is returned.
    *
    *
    */
@@ -973,8 +974,9 @@ export interface CartDiscountChangeNameAction extends ICartDiscountUpdateAction 
 export interface CartDiscountChangeRequiresDiscountCodeAction extends ICartDiscountUpdateAction {
   readonly action: 'changeRequiresDiscountCode'
   /**
-   *	New value to set.
-   *	If set to `true`, the Discount can only be used in connection with a [DiscountCode](ctp:api:type:DiscountCode).
+   *	New value to set. If `true`, the Cart Discount can only be used with a [DiscountCode](ctp:api:type:DiscountCode).
+   *
+   *	When set to `false`, if the number of active Cart Discounts without a Discount Code exceeds the [limit](/api/limits#cart-discounts), a [MaxCartDiscountsReached](ctp:api:type:MaxCartDiscountsReachedError) error is returned.
    *
    *
    */
@@ -985,6 +987,8 @@ export interface CartDiscountChangeSortOrderAction extends ICartDiscountUpdateAc
   /**
    *	New value to set (between `0` and `1`).
    *	A Discount with a higher sortOrder is prioritized.
+   *
+   *	If the value is used by another Cart Discount or Discount Group, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
    *
    *
    */
@@ -1112,6 +1116,8 @@ export interface CartDiscountSetKeyAction extends ICartDiscountUpdateAction {
   /**
    *	Value to set. If omitted, any existing value is removed.
    *
+   *	If the value is used by another Cart Discount, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
+   *
    *
    */
   readonly key?: string
@@ -1142,10 +1148,9 @@ export interface CartDiscountSetStoresAction extends ICartDiscountUpdateAction {
    *	Overrides the current list of Stores.
    *	Set to an empty array to remove all existing values.
    *
-   *	A failed update can return the following errors:
+   *	If the referenced Stores exceed the [limit](/api/limits#cart-discounts-stores), a [MaxStoreReferencesReached](ctp:api:type:MaxStoreReferencesReachedError) error is returned.
    *
-   *	- If the referenced Stores exceed the [limit](/api/limits#cart-discounts-stores), a [MaxStoreReferencesReached](ctp:api:type:MaxStoreReferencesReachedError) error is returned.
-   *	- If the referenced Stores exceed the [limit](/api/limits#cart-discounts) for Cart Discounts that do not require a Discount Code, a [StoreCartDiscountsLimitReached](ctp:api:type:StoreCartDiscountsLimitReachedError) error is returned.
+   *	If the referenced Stores exceed the [limit](/api/limits#cart-discounts) for Cart Discounts that do not require a Discount Code, a [StoreCartDiscountsLimitReached](ctp:api:type:StoreCartDiscountsLimitReachedError) error is returned.
    *
    *
    */

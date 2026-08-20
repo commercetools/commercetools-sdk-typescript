@@ -1352,6 +1352,12 @@ export interface ProductAddPriceAction extends IProductUpdateAction {
   /**
    *	Embedded Price to add to the Product Variant.
    *
+   *	If the key of the Price is used by another Embedded Price on the ProductVariant, a [DuplicatePriceKey](ctp:api:type:DuplicatePriceKeyError) error is returned.
+   *
+   *	If this Embedded Price has the same price scope as an existing Embedded Price on the ProductVariant, a [DuplicatePriceScope](ctp:api:type:DuplicatePriceScopeError) error is returned.
+   *
+   *	If this Embedded Price has overlapping validity periods within the same price scope, an [OverlappingPriceValidity](ctp:api:type:OverlappingPriceValidityError) error is returned. An Embedded Price without validity period does not conflict with an Embedded Price defined for a time period.
+   *
    *
    */
   readonly price: PriceDraft
@@ -1559,6 +1565,12 @@ export interface ProductChangePriceAction extends IProductUpdateAction {
   readonly priceId: string
   /**
    *	Value to set.
+   *
+   *	If the key of the Price is used by another Embedded Price on the ProductVariant, a [DuplicatePriceKey](ctp:api:type:DuplicatePriceKeyError) error is returned.
+   *
+   *	If the new Embedded Price has the same price scope as another Embedded Price on the ProductVariant, a [DuplicatePriceScope](ctp:api:type:DuplicatePriceScopeError) error is returned.
+   *
+   *	If the new Embedded Price has overlapping validity periods within the same price scope, an [OverlappingPriceValidity](ctp:api:type:OverlappingPriceValidityError) error is returned. An Embedded Price without validity period does not conflict with an Embedded Price defined for a time period.
    *
    *
    */
@@ -2338,6 +2350,8 @@ export interface ProductSetPriceKeyAction extends IProductUpdateAction {
   /**
    *	Value to set. If omitted, any existing value is removed.
    *
+   *	If the value is used by another Embedded Price on the same ProductVariant, a [DuplicatePriceKey](ctp:api:type:DuplicatePriceKeyError) error is returned.
+   *
    *
    */
   readonly key?: string
@@ -2375,7 +2389,12 @@ export interface ProductSetPricesAction extends IProductUpdateAction {
   readonly sku?: string
   /**
    *	The Embedded Prices to set.
-   *	Each Price must have its unique Price scope (with same currency, country, Customer Group, Channel, `validFrom` and `validUntil`).
+   *
+   *	If any two Embedded Prices in this array have the same key, a [DuplicatePriceKey](ctp:api:type:DuplicatePriceKeyError) error is returned.
+   *
+   *	If any two Embedded Prices in this array have the same price scope, a [DuplicatePriceScope](ctp:api:type:DuplicatePriceScopeError) error is returned.
+   *
+   *	If any two Embedded Prices in this array have overlapping validity periods within the same price scope, an [OverlappingPriceValidity](ctp:api:type:OverlappingPriceValidityError) error is returned. An Embedded Price without validity period does not conflict with an Embedded Price defined for a time period.
    *
    *
    */
