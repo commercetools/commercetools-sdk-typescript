@@ -2574,7 +2574,7 @@ export interface DiscountCodeQueryResult {
 
 export type DiscountCodeState = 'ApplicationStoppedByGroupBestDeal' | 'ApplicationStoppedByPreviousDiscount' | 'DoesNotMatchCart' | 'MatchesCart' | 'MaxApplicationReached' | 'NotActive' | 'NotValid'
 
-export type DiscountCombinationMode = 'BestDeal' | 'BestDealWithoutDirectDiscounts' | 'Stacking'
+export type DiscountCombinationMode = 'BestDeal' | 'Stacking'
 
 
 /** Allowing to group discounts. */
@@ -31979,7 +31979,6 @@ export const enumDiscountCodeState = {
 
 export const enumDiscountCombinationMode = {
    BestDeal: 'BestDeal' as const,
-   BestDealWithoutDirectDiscounts: 'BestDealWithoutDirectDiscounts' as const,
    Stacking: 'Stacking' as const
 }
 

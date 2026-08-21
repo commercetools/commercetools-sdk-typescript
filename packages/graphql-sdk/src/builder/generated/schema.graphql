@@ -5120,7 +5120,6 @@ input DiscountCodeUpdateAction {
 
 enum DiscountCombinationMode {
   BestDeal
-  BestDealWithoutDirectDiscounts
   Stacking
 }
 
