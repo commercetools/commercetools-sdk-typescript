@@ -5996,7 +5996,15 @@ type InStore implements CartDiscountQueryInterface & CartQueryInterface & Custom
     localeProjection: [Locale!]
     staged: Boolean! = false
   ): ProductProjectionVariantAttributes
+  productSelection(
+    """Queries with specified ID"""
+    id: String
+
+    """Queries with specified key"""
+    key: String
+  ): ProductSelection
   productSelectionAssignments(limit: Int, offset: Int, sort: [String!], where: String): ProductAssignmentQueryResult!
+  productSelections(limit: Int, offset: Int, sort: [String!], where: String): ProductSelectionQueryResult!
   productTailoring(
     """Queries with specified ID"""
     id: String

@@ -2984,7 +2984,9 @@ export interface InStore {
     product: (Product | null)
     /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     productProjectionVariantAttributes: (ProductProjectionVariantAttributes | null)
+    productSelection: (ProductSelection | null)
     productSelectionAssignments: ProductAssignmentQueryResult
+    productSelections: ProductSelectionQueryResult
     productTailoring: (ProductTailoring | null)
     productTailoringList: ProductTailoringQueryResult
     quote: (Quote | null)
@@ -13503,7 +13505,13 @@ export interface InStoreGenqlSelection{
     includeChannelIds?: (Scalars['String'][] | null), 
     /** Queries with specified key */
     key?: (Scalars['String'] | null), localeProjection?: (Scalars['Locale'][] | null), staged?: Scalars['Boolean']} })
+    productSelection?: (ProductSelectionGenqlSelection & { __args?: {
+    /** Queries with specified ID */
+    id?: (Scalars['String'] | null), 
+    /** Queries with specified key */
+    key?: (Scalars['String'] | null)} })
     productSelectionAssignments?: (ProductAssignmentQueryResultGenqlSelection & { __args?: {limit?: (Scalars['Int'] | null), offset?: (Scalars['Int'] | null), sort?: (Scalars['String'][] | null), where?: (Scalars['String'] | null)} })
+    productSelections?: (ProductSelectionQueryResultGenqlSelection & { __args?: {limit?: (Scalars['Int'] | null), offset?: (Scalars['Int'] | null), sort?: (Scalars['String'][] | null), where?: (Scalars['String'] | null)} })
     productTailoring?: (ProductTailoringGenqlSelection & { __args?: {
     /** Queries with specified ID */
     id?: (Scalars['String'] | null), 

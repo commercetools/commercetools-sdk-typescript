@@ -13077,8 +13077,37 @@ export default {
                     ]
                 }
             ],
+            "productSelection": [
+                1111,
+                {
+                    "id": [
+                        2118
+                    ],
+                    "key": [
+                        2118
+                    ]
+                }
+            ],
             "productSelectionAssignments": [
                 1039,
+                {
+                    "limit": [
+                        753
+                    ],
+                    "offset": [
+                        753
+                    ],
+                    "sort": [
+                        2118,
+                        "[String!]"
+                    ],
+                    "where": [
+                        2118
+                    ]
+                }
+            ],
+            "productSelections": [
+                1119,
                 {
                     "limit": [
                         753
