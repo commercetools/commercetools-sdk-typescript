@@ -1408,7 +1408,11 @@ type Attribution {
 enum AttributionSource {
   Export
   Import
+  IntakeAgent
   ManagedCommerceMCP
+  ProductEnrichmentAgent
+  PromotionsAgent
+  StarterAgent
 }
 
 enum AuthenticationMode {
@@ -4006,6 +4010,7 @@ input CustomLineItemImportDraft {
   state: [ItemStateDraftType!]
   taxCategory: ResourceIdentifierInput
   taxRate: TaxRateInput
+  taxedPrice: TaxedPriceDraft
 }
 
 enum CustomLineItemPriceMode {
@@ -6623,6 +6628,7 @@ input LineItemImportDraft {
   state: [ItemStateDraftType!]
   supplyChannel: ResourceIdentifierInput
   taxRate: TaxRateInput
+  taxedPrice: TaxedPriceDraft
   variant: ProductVariantImportDraft!
 }
 
@@ -18148,6 +18154,7 @@ input ShippingInfoImportDraft {
   shippingRate: ShippingRateDraft!
   taxCategory: ResourceIdentifierInput
   taxRate: TaxRateInput
+  taxedPrice: TaxedPriceDraft
 }
 
 type ShippingMethod implements ReferenceExpandable & Versioned {

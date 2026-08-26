@@ -8801,6 +8801,9 @@ export default {
             "taxRate": [
                 2153
             ],
+            "taxedPrice": [
+                2156
+            ],
             "__typename": [
                 2118
             ]
@@ -14332,6 +14335,9 @@ export default {
             ],
             "taxRate": [
                 2153
+            ],
+            "taxedPrice": [
+                2156
             ],
             "variant": [
                 1160
@@ -39813,6 +39819,9 @@ export default {
             ],
             "taxRate": [
                 2153
+            ],
+            "taxedPrice": [
+                2156
             ],
             "__typename": [
                 2118

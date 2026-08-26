@@ -631,7 +631,7 @@ export interface Attribution {
     __typename: 'Attribution'
 }
 
-export type AttributionSource = 'Export' | 'Import' | 'ManagedCommerceMCP'
+export type AttributionSource = 'Export' | 'Import' | 'IntakeAgent' | 'ManagedCommerceMCP' | 'ProductEnrichmentAgent' | 'PromotionsAgent' | 'StarterAgent'
 
 export type AuthenticationMode = 'ExternalAuth' | 'Password'
 
@@ -11769,7 +11769,7 @@ export interface CustomLineItemDraftOutputGenqlSelection{
     __scalar?: boolean | number
 }
 
-export interface CustomLineItemImportDraft {custom?: (CustomFieldsDraft | null),key?: (Scalars['String'] | null),money: BaseMoneyInput,name: LocalizedStringItemInputType[],priceMode?: (CustomLineItemPriceMode | null),quantity: Scalars['Long'],shippingDetails?: (ItemShippingDetailsDraft | null),slug: Scalars['String'],state?: (ItemStateDraftType[] | null),taxCategory?: (ResourceIdentifierInput | null),taxRate?: (TaxRateInput | null)}
+export interface CustomLineItemImportDraft {custom?: (CustomFieldsDraft | null),key?: (Scalars['String'] | null),money: BaseMoneyInput,name: LocalizedStringItemInputType[],priceMode?: (CustomLineItemPriceMode | null),quantity: Scalars['Long'],shippingDetails?: (ItemShippingDetailsDraft | null),slug: Scalars['String'],state?: (ItemStateDraftType[] | null),taxCategory?: (ResourceIdentifierInput | null),taxRate?: (TaxRateInput | null),taxedPrice?: (TaxedPriceDraft | null)}
 
 
 /** The RecurrenceInfo returned in a CustomLineItem */
@@ -13983,7 +13983,7 @@ export interface LineItemDraftOutputGenqlSelection{
     __scalar?: boolean | number
 }
 
-export interface LineItemImportDraft {custom?: (CustomFieldsDraft | null),distributionChannel?: (ResourceIdentifierInput | null),inventoryMode?: (InventoryMode | null),key?: (Scalars['String'] | null),name: LocalizedStringItemInputType[],price: ProductPriceDataInput,productId?: (Scalars['String'] | null),quantity: Scalars['Long'],shippingDetails?: (ItemShippingDetailsDraft | null),state?: (ItemStateDraftType[] | null),supplyChannel?: (ResourceIdentifierInput | null),taxRate?: (TaxRateInput | null),variant: ProductVariantImportDraft}
+export interface LineItemImportDraft {custom?: (CustomFieldsDraft | null),distributionChannel?: (ResourceIdentifierInput | null),inventoryMode?: (InventoryMode | null),key?: (Scalars['String'] | null),name: LocalizedStringItemInputType[],price: ProductPriceDataInput,productId?: (Scalars['String'] | null),quantity: Scalars['Long'],shippingDetails?: (ItemShippingDetailsDraft | null),state?: (ItemStateDraftType[] | null),supplyChannel?: (ResourceIdentifierInput | null),taxRate?: (TaxRateInput | null),taxedPrice?: (TaxedPriceDraft | null),variant: ProductVariantImportDraft}
 
 
 /** The RecurrenceInfo returned in a LineItem */
@@ -21943,7 +21943,7 @@ export interface ShippingInfoGenqlSelection{
     __scalar?: boolean | number
 }
 
-export interface ShippingInfoImportDraft {deliveries?: DeliveryDraft[],discountedPrice?: (DiscountedLineItemPriceDraft | null),price: MoneyInput,shippingMethod?: (ResourceIdentifierInput | null),shippingMethodName: Scalars['String'],shippingMethodState?: ShippingMethodState,shippingRate: ShippingRateDraft,taxCategory?: (ResourceIdentifierInput | null),taxRate?: (TaxRateInput | null)}
+export interface ShippingInfoImportDraft {deliveries?: DeliveryDraft[],discountedPrice?: (DiscountedLineItemPriceDraft | null),price: MoneyInput,shippingMethod?: (ResourceIdentifierInput | null),shippingMethodName: Scalars['String'],shippingMethodState?: ShippingMethodState,shippingRate: ShippingRateDraft,taxCategory?: (ResourceIdentifierInput | null),taxRate?: (TaxRateInput | null),taxedPrice?: (TaxedPriceDraft | null)}
 
 export interface ShippingMethodGenqlSelection{
     active?: boolean | number
@@ -31874,7 +31874,11 @@ export const enumAttributeConstraint = {
 export const enumAttributionSource = {
    Export: 'Export' as const,
    Import: 'Import' as const,
-   ManagedCommerceMCP: 'ManagedCommerceMCP' as const
+   IntakeAgent: 'IntakeAgent' as const,
+   ManagedCommerceMCP: 'ManagedCommerceMCP' as const,
+   ProductEnrichmentAgent: 'ProductEnrichmentAgent' as const,
+   PromotionsAgent: 'PromotionsAgent' as const,
+   StarterAgent: 'StarterAgent' as const
 }
 
 export const enumAuthenticationMode = {
