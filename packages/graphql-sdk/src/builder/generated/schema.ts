@@ -8654,8 +8654,15 @@ export interface UcpShopperMcpServerConfig {
     country: Scalars['Country']
     currencyCode: Scalars['CurrencyCode']
     distributionChannel: ChannelReference
+    inventoryMode: (InventoryMode | null)
     locale: Scalars['Locale']
     majorVersion: Scalars['String']
+    /**
+     * When true, search_catalog requires actual on-hand stock in the resolved
+     * supply channel, instead of merely a carried inventory entry.
+     * lookup_catalog/get_product are unaffected either way. Defaults to false.
+     */
+    requireStockForChannel: Scalars['Boolean']
     store: StoreKeyReference
     supplyChannel: ChannelReference
     toolCustomizations: ToolCustomization[]
@@ -14295,7 +14302,7 @@ export interface McpServerTypeCatalogEntryGenqlSelection{
     __scalar?: boolean | number
 }
 
-export interface McpServerUpdateAction {addTool?: (AddMcpServerTool | null),addToolCustomization?: (AddMcpServerToolCustomization | null),removeTool?: (RemoveMcpServerTool | null),removeToolCustomization?: (RemoveMcpServerToolCustomization | null),setAuthenticationMode?: (SetMcpServerAuthenticationMode | null),setCountry?: (SetMcpServerCountry | null),setCurrencyCode?: (SetMcpServerCurrencyCode | null),setDescription?: (SetMcpServerDescription | null),setDistributionChannel?: (SetMcpServerDistributionChannel | null),setJsonOutputFiltering?: (SetMcpServerJsonOutputFiltering | null),setLocale?: (SetMcpServerLocale | null),setName?: (SetMcpServerName | null),setState?: (SetMcpServerState | null),setStore?: (SetMcpServerStore | null),setSupplyChannel?: (SetMcpServerSupplyChannel | null),setToolCustomizations?: (SetMcpServerToolCustomizations | null),setToolOutputFormatting?: (SetMcpServerToolOutputFormatting | null),setTools?: (SetMcpServerTools | null)}
+export interface McpServerUpdateAction {addTool?: (AddMcpServerTool | null),addToolCustomization?: (AddMcpServerToolCustomization | null),removeTool?: (RemoveMcpServerTool | null),removeToolCustomization?: (RemoveMcpServerToolCustomization | null),setAuthenticationMode?: (SetMcpServerAuthenticationMode | null),setCountry?: (SetMcpServerCountry | null),setCurrencyCode?: (SetMcpServerCurrencyCode | null),setDescription?: (SetMcpServerDescription | null),setDistributionChannel?: (SetMcpServerDistributionChannel | null),setInventoryMode?: (SetMcpServerInventoryMode | null),setJsonOutputFiltering?: (SetMcpServerJsonOutputFiltering | null),setLocale?: (SetMcpServerLocale | null),setName?: (SetMcpServerName | null),setRequireStockForChannel?: (SetMcpServerRequireStockForChannel | null),setState?: (SetMcpServerState | null),setStore?: (SetMcpServerStore | null),setSupplyChannel?: (SetMcpServerSupplyChannel | null),setToolCustomizations?: (SetMcpServerToolCustomizations | null),setToolOutputFormatting?: (SetMcpServerToolOutputFormatting | null),setTools?: (SetMcpServerTools | null)}
 
 export interface MeGenqlSelection{
     activeCart?: CartGenqlSelection
@@ -20665,6 +20672,8 @@ export interface SetMcpServerDescription {description?: (LocalizedStringItemInpu
 
 export interface SetMcpServerDistributionChannel {distributionChannel: ChannelReferenceInput}
 
+export interface SetMcpServerInventoryMode {inventoryMode: InventoryMode}
+
 
 /**
  * Sets or clears `mcpServer.jsonOutputFiltering`. Omitting the value clears the
@@ -20675,6 +20684,8 @@ export interface SetMcpServerJsonOutputFiltering {jsonOutputFiltering?: (McpServ
 export interface SetMcpServerLocale {locale: Scalars['Locale']}
 
 export interface SetMcpServerName {name?: (LocalizedStringItemInputType[] | null)}
+
+export interface SetMcpServerRequireStockForChannel {requireStockForChannel: Scalars['Boolean']}
 
 export interface SetMcpServerState {state: McpServerState}
 
@@ -23478,8 +23489,15 @@ export interface UcpShopperMcpServerConfigGenqlSelection{
     country?: boolean | number
     currencyCode?: boolean | number
     distributionChannel?: ChannelReferenceGenqlSelection
+    inventoryMode?: boolean | number
     locale?: boolean | number
     majorVersion?: boolean | number
+    /**
+     * When true, search_catalog requires actual on-hand stock in the resolved
+     * supply channel, instead of merely a carried inventory entry.
+     * lookup_catalog/get_product are unaffected either way. Defaults to false.
+     */
+    requireStockForChannel?: boolean | number
     store?: StoreKeyReferenceGenqlSelection
     supplyChannel?: ChannelReferenceGenqlSelection
     toolCustomizations?: ToolCustomizationGenqlSelection
@@ -23496,7 +23514,9 @@ export interface UcpShopperMcpServerConfigGenqlSelection{
  * `CommerceMcpServerConfigDraft` without the response-shaping options the
  * skeleton does not yet support.
  */
-export interface UcpShopperMcpServerConfigDraft {country: Scalars['Country'],currencyCode: Scalars['CurrencyCode'],distributionChannel: ChannelReferenceInput,locale: Scalars['Locale'],majorVersion: Scalars['String'],store: StoreKeyReferenceInput,supplyChannel: ChannelReferenceInput,toolCustomizations?: (ToolCustomizationDraft[] | null),tools: Scalars['String'][]}
+export interface UcpShopperMcpServerConfigDraft {country: Scalars['Country'],currencyCode: Scalars['CurrencyCode'],distributionChannel: ChannelReferenceInput,inventoryMode?: (InventoryMode | null),locale: Scalars['Locale'],majorVersion: Scalars['String'],
+/** Defaults to false when omitted. */
+requireStockForChannel?: (Scalars['Boolean'] | null),store: StoreKeyReferenceInput,supplyChannel: ChannelReferenceInput,toolCustomizations?: (ToolCustomizationDraft[] | null),tools: Scalars['String'][]}
 
 export interface UnfreezeCart {dummy?: (Scalars['String'] | null)}
 
