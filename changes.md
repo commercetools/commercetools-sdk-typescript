@@ -15,8 +15,52 @@
 </details>
 
 <details>
+<summary>Added Resource(s)</summary>
+
+- added resource `/{projectKey}/agents`
+- added resource `/{projectKey}/agents/intake`
+- added resource `/{projectKey}/agents/intake/v1`
+- added resource `/{projectKey}/agents/intake/v1/responses`
+
+</details>
+
+<details>
+<summary>Added Method(s)</summary>
+
+- added method `apiRoot.withProjectKey().agents().intake().v1().responses().post()`
+
+</details>
+
+<details>
 <summary>Added Type(s)</summary>
 
+- added type `AgentBusinessUnitAmbiguousError`
+- added type `AgentBusinessUnitLimitExceededError`
+- added type `AgentBusinessUnitUnresolvedError`
+- added type `AgentExtractionFailedError`
+- added type `AgentFeatureDisabledError`
+- added type `AgentFileNotProcessedWarning`
+- added type `AgentMissingCountryError`
+- added type `AgentMissingCustomerEmailError`
+- added type `AgentMissingEntityTypeError`
+- added type `AgentNoLineItemsExtractedError`
+- added type `AgentOutOfScopeError`
+- added type `AgentProductSearchNotEnabledError`
+- added type `AgentProductsNotFoundError`
+- added type `AgentProductsNotFoundWarning`
+- added type `AgentQuoteRequestCreationFailedError`
+- added type `AgentResponsesAuthError`
+- added type `AgentResponsesCartSuccess`
+- added type `AgentResponsesErrorResponse`
+- added type `AgentResponsesMultipartRequest`
+- added type `AgentResponsesOutputType`
+- added type `AgentResponsesPayload`
+- added type `AgentResponsesQuoteRequestSuccess`
+- added type `AgentResponsesRequest`
+- added type `AgentResponsesSuccess`
+- added type `AgentStoreAmbiguousError`
+- added type `AgentStoreDistributionChannelsUnsupportedError`
+- added type `AgentStoreUnresolvedError`
 - added type `EstimatedDelivery`
 - added type `CartSetEstimatedDeliveryAction`
 - added type `CartEstimatedDeliverySetMessage`

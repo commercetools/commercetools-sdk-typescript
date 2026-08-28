@@ -4,6 +4,26 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+import {
+  AgentBusinessUnitAmbiguousError,
+  AgentBusinessUnitLimitExceededError,
+  AgentBusinessUnitUnresolvedError,
+  AgentExtractionFailedError,
+  AgentFeatureDisabledError,
+  AgentMissingCountryError,
+  AgentMissingCustomerEmailError,
+  AgentMissingEntityTypeError,
+  AgentNoLineItemsExtractedError,
+  AgentOutOfScopeError,
+  AgentProductSearchNotEnabledError,
+  AgentProductsNotFoundError,
+  AgentQuoteRequestCreationFailedError,
+  AgentResponsesAuthError,
+  AgentResponsesErrorResponse,
+  AgentStoreAmbiguousError,
+  AgentStoreDistributionChannelsUnsupportedError,
+  AgentStoreUnresolvedError,
+} from './agent'
 import { Permission } from './associate-role'
 import { BusinessUnitResourceIdentifier } from './business-unit'
 import {
@@ -50,6 +70,22 @@ export interface ErrorByExtension {
  *	Represents a single error. Multiple errors may be included in an [ErrorResponse](ctp:api:type:ErrorResponse).
  */
 export type ErrorObject =
+  | AgentBusinessUnitAmbiguousError
+  | AgentBusinessUnitLimitExceededError
+  | AgentBusinessUnitUnresolvedError
+  | AgentExtractionFailedError
+  | AgentFeatureDisabledError
+  | AgentMissingCountryError
+  | AgentMissingCustomerEmailError
+  | AgentMissingEntityTypeError
+  | AgentNoLineItemsExtractedError
+  | AgentOutOfScopeError
+  | AgentProductSearchNotEnabledError
+  | AgentProductsNotFoundError
+  | AgentQuoteRequestCreationFailedError
+  | AgentStoreAmbiguousError
+  | AgentStoreDistributionChannelsUnsupportedError
+  | AgentStoreUnresolvedError
   | AnonymousIdAlreadyInUseError
   | AssociateMissingPermissionError
   | AttributeDefinitionAlreadyExistsError
@@ -875,7 +911,10 @@ export interface ErrorResponse {
   readonly errors?: ErrorObject[]
 }
 export type _ErrorResponse =
-  ErrorResponse | AuthErrorResponse | ProductSearchErrorResponse
+  | ErrorResponse
+  | AgentResponsesErrorResponse
+  | _AuthErrorResponse
+  | ProductSearchErrorResponse
 /**
  *	Represents errors related to authentication and authorization in a format conforming to the [OAuth 2.0 specification](https://datatracker.ietf.org/doc/html/rfc6749#section-5.2).
  *
@@ -899,6 +938,7 @@ export interface AuthErrorResponse extends ErrorResponse {
    */
   readonly errors: ErrorObject[]
 }
+export type _AuthErrorResponse = AuthErrorResponse | AgentResponsesAuthError
 /**
  *	Returned when a modification is already in progress for the exact combination of SKU and price scope fields for a Standalone Price.
  *	Retry the same request after 300 ms.
