@@ -1,33 +1,20 @@
 **Api changes**
 
 <details>
-<summary>Added Property(s)</summary>
+<summary>MarkDeprecated Type(s)</summary>
 
-- added property `estimatedDelivery` to type `ShippingInfo`
-- added property `estimatedDelivery` to type `CartAddShippingMethodAction`
-- added property `estimatedDelivery` to type `CartSetCustomShippingMethodAction`
-- added property `estimatedDelivery` to type `CartSetShippingMethodAction`
-- added property `carrier` to type `ShippingMethod`
-- added property `carrier` to type `ShippingMethodDraft`
-- added property `storefront` to type `Store`
-- added property `storefront` to type `StoreDraft`
-
-</details>
-
-<details>
-<summary>Added Resource(s)</summary>
-
-- added resource `/{projectKey}/agents`
-- added resource `/{projectKey}/agents/intake`
-- added resource `/{projectKey}/agents/intake/v1`
-- added resource `/{projectKey}/agents/intake/v1/responses`
-
-</details>
-
-<details>
-<summary>Added Method(s)</summary>
-
-- added method `apiRoot.withProjectKey().agents().intake().v1().responses().post()`
+- marked type `FacetRange` as deprecated
+- marked type `FacetResult` as deprecated
+- marked type `FacetResults` as deprecated
+- marked type `FacetTerm` as deprecated
+- marked type `FacetTypes` as deprecated
+- marked type `FilteredFacetResult` as deprecated
+- marked type `ProductProjectionPagedSearchResponse` as deprecated
+- marked type `RangeFacetResult` as deprecated
+- marked type `Suggestion` as deprecated
+- marked type `SuggestionResult` as deprecated
+- marked type `TermFacetResult` as deprecated
+- marked type `TermFacetResultType` as deprecated
 
 </details>
 
@@ -100,5 +87,58 @@
 - added type `StoreSetRefundPolicyUrlAction`
 - added type `StoreSetShippingPolicyUrlAction`
 - added type `StoreSetTermsOfServiceUrlAction`
+
+</details>
+
+<details>
+<summary>Added Property(s)</summary>
+
+- added property `estimatedDelivery` to type `ShippingInfo`
+- added property `estimatedDelivery` to type `CartAddShippingMethodAction`
+- added property `estimatedDelivery` to type `CartSetCustomShippingMethodAction`
+- added property `estimatedDelivery` to type `CartSetShippingMethodAction`
+- added property `carrier` to type `ShippingMethod`
+- added property `carrier` to type `ShippingMethodDraft`
+- added property `storefront` to type `Store`
+- added property `storefront` to type `StoreDraft`
+
+</details>
+
+<details>
+<summary>MarkDeprecated Property(s)</summary>
+
+- marked property `FacetResult::type` as deprecated
+- marked property `FacetResults::/^[a-z].*$/` as deprecated
+- marked property `FilteredFacetResult::type` as deprecated
+- marked property `ProductProjectionPagedSearchResponse::facets` as deprecated
+- marked property `RangeFacetResult::type` as deprecated
+- marked property `TermFacetResult::type` as deprecated
+- marked property `TermFacetResult::dataType` as deprecated
+
+</details>
+
+<details>
+<summary>Added Resource(s)</summary>
+
+- added resource `/{projectKey}/agents`
+- added resource `/{projectKey}/agents/intake`
+- added resource `/{projectKey}/agents/intake/v1`
+- added resource `/{projectKey}/agents/intake/v1/responses`
+
+</details>
+
+<details>
+<summary>Added Method(s)</summary>
+
+- added method `apiRoot.withProjectKey().agents().intake().v1().responses().post()`
+
+</details>
+
+<details>
+<summary>MarkDeprecated Method(s)</summary>
+
+- marked method `post /{projectKey}/product-projections/search` as deprecated
+- marked method `get /{projectKey}/product-projections/search` as deprecated
+- marked method `get /{projectKey}/product-projections/suggest` as deprecated
 
 </details>

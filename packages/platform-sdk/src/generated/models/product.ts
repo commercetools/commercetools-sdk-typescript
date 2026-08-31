@@ -141,7 +141,7 @@ export type FacetResult =
   FilteredFacetResult | RangeFacetResult | TermFacetResult
 export interface IFacetResult {
   /**
-   *
+   *	@deprecated
    */
   readonly type: FacetTypes
 }
@@ -804,7 +804,7 @@ export interface ProductProjectionPagedSearchResponse {
    *
    *	Only present if at least one `facet` parameter was provided with the search request.
    *
-   *
+   *	@deprecated
    */
   readonly facets?: FacetResults
 }
@@ -1205,7 +1205,7 @@ export interface TermFacetResult extends IFacetResult {
   /**
    *	Data type to which the facet is applied.
    *
-   *
+   *	@deprecated
    */
   readonly dataType: TermFacetResultType
   /**
