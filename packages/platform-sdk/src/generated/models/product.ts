@@ -558,7 +558,7 @@ export interface ProductPagedQueryResponse {
 }
 /**
  *
- *	This mode determines the type of Prices used for [price selection](/../api/pricing-and-discounts-overview#price-selection) by Line Items and Products.
+ *	This mode determines the type of Prices used for [price selection](/api/pricing-and-discounts-overview#price-selection) by Line Items and Products.
  *	For more information about the difference between the Prices, see [Pricing](/api/pricing-and-discounts-overview).
  *
  *	In Projects with the [ProductCatalogModel](ctp:api:type:ProductCatalogModel) `Classic`, you can configure the price mode.

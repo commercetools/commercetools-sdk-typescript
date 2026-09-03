@@ -12603,7 +12603,7 @@ export interface OrderDiscountCodeRemovedMessage extends IOrderMessage {
   readonly discountCode: DiscountCodeReference
 }
 /**
- *	Generated after the [DiscountCodeState](ctp:api:type:DiscountCodeState) changes due to a [recalculation](/api/projects/carts#recalculate).
+ *	Generated after the [DiscountCodeState](ctp:api:type:DiscountCodeState) changes due to a [recalculation](ctp:api:type:CartRecalculateAction).
  *
  */
 export interface OrderDiscountCodeStateSetMessage extends IOrderMessage {
@@ -13084,7 +13084,7 @@ export interface OrderLineItemDiscountSetMessage extends IOrderMessage {
   readonly taxedPricePortions: MethodTaxedPrice[]
 }
 /**
- *	Generated after a successful [Set LineItem DistributionChannel](/api/projects/order-edits#set-lineitem-distributionchannel) update action.
+ *	Generated after a successful [Set LineItem DistributionChannel](ctp:api:type:StagedOrderSetLineItemDistributionChannelAction) update action.
  *
  */
 export interface OrderLineItemDistributionChannelSetMessage extends IOrderMessage {
@@ -17230,7 +17230,7 @@ export interface ProductDeletedMessage extends IMessage {
   readonly currentProjection?: ProductProjection
 }
 /**
- *	Generated after a successful [Add External Image](ctp:api:type:ProductAddExternalImageAction) update action or after the successful [upload of an image](/api/projects/products#upload-product-image).
+ *	Generated after a successful [Add External Image](ctp:api:type:ProductAddExternalImageAction) update action or after the successful [upload of an image](ctp:api:endpoint:/{projectKey}/products/{id}/images:POST).
  *
  */
 export interface ProductImageAddedMessage extends IMessage {
@@ -19373,8 +19373,8 @@ export interface ProductStateTransitionMessage extends IMessage {
   readonly force: boolean
 }
 /**
- *	Generated after a successful [Create Product Tailoring](/api/projects/product-tailoring#create-producttailoring) or
- *	[Create Product Tailoring in Store](/api/projects/product-tailoring#create-producttailoring-in-store) request.
+ *	Generated after a successful [Create Product Tailoring](ctp:api:endpoint:/{projectKey}/product-tailoring:POST) or
+ *	[Create Product Tailoring in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/product-tailoring:POST) request.
  *
  */
 export interface ProductTailoringCreatedMessage extends IMessage {
@@ -26149,7 +26149,7 @@ export interface UserProvidedIdentifiers {
   readonly containerAndKey?: ContainerAndKey
 }
 /**
- *	Generated after a successful [Create Variant](/../api/projects/variants#create-variant) request.
+ *	Generated after a successful [Create Variant](ctp:api:endpoint:/{projectKey}/variants:POST) request.
  *
  */
 export interface VariantCreatedMessage extends IMessage {
@@ -26262,7 +26262,7 @@ export interface VariantCreatedMessage extends IMessage {
   readonly publish: boolean
 }
 /**
- *	Generated after a successful [Delete Variant](/../api/projects/variants#delete-variant) request.
+ *	Generated after a successful [Delete Variant](/api/projects/variants#delete-variant) request.
  *
  */
 export interface VariantDeletedMessage extends IMessage {
@@ -26560,7 +26560,7 @@ export interface VariantKeySetMessage extends IMessage {
   readonly oldKey?: string
 }
 /**
- *	Generated after a successful [Publish](/../api/projects/variants#publish) update action.
+ *	Generated after a successful [Publish](ctp:api:type:VariantPublishAction) update action.
  *
  */
 export interface VariantPublishedMessage extends IMessage {
@@ -26706,7 +26706,7 @@ export interface VariantSkuSetMessage extends IMessage {
   readonly staged: boolean
 }
 /**
- *	Generated after a successful [Staged Changes Removed](/../api/projects/variants#remove-staged-changes) update action.
+ *	Generated after a successful [Staged Changes Removed](ctp:api:type:VariantRemoveStagedChangesAction) update action.
  *
  */
 export interface VariantStagedChangesRemovedMessage extends IMessage {
@@ -26770,7 +26770,7 @@ export interface VariantStagedChangesRemovedMessage extends IMessage {
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
 }
 /**
- *	Generated after a successful [Unpublish](/../api/projects/variants#unpublish) update action.
+ *	Generated after a successful [Unpublish](ctp:api:type:VariantUnpublishAction) update action.
  *
  */
 export interface VariantUnpublishedMessage extends IMessage {
@@ -30043,7 +30043,7 @@ export interface OrderDiscountCodeRemovedMessagePayload extends IOrderMessagePay
   readonly discountCode: DiscountCodeReference
 }
 /**
- *	Generated after the [DiscountCodeState](ctp:api:type:DiscountCodeState) changes due to a [recalculation](/api/projects/carts#recalculate).
+ *	Generated after the [DiscountCodeState](ctp:api:type:DiscountCodeState) changes due to a [recalculation](ctp:api:type:CartRecalculateAction).
  *
  */
 export interface OrderDiscountCodeStateSetMessagePayload extends IOrderMessagePayload {
@@ -30182,7 +30182,7 @@ export interface OrderLineItemDiscountSetMessagePayload extends IOrderMessagePay
   readonly taxedPricePortions: MethodTaxedPrice[]
 }
 /**
- *	Generated after a successful [Set LineItem DistributionChannel](/api/projects/order-edits#set-lineitem-distributionchannel) update action.
+ *	Generated after a successful [Set LineItem DistributionChannel](ctp:api:type:StagedOrderSetLineItemDistributionChannelAction) update action.
  *
  */
 export interface OrderLineItemDistributionChannelSetMessagePayload extends IOrderMessagePayload {
@@ -31250,7 +31250,7 @@ export interface ProductDeletedMessagePayload extends IMessagePayload {
   readonly currentProjection?: ProductProjection
 }
 /**
- *	Generated after a successful [Add External Image](ctp:api:type:ProductAddExternalImageAction) update action or after the successful [upload of an image](/api/projects/products#upload-product-image).
+ *	Generated after a successful [Add External Image](ctp:api:type:ProductAddExternalImageAction) update action or after the successful [upload of an image](ctp:api:endpoint:/{projectKey}/products/{id}/images:POST).
  *
  */
 export interface ProductImageAddedMessagePayload extends IMessagePayload {
@@ -31869,8 +31869,8 @@ export interface ProductStateTransitionMessagePayload extends IMessagePayload {
   readonly force: boolean
 }
 /**
- *	Generated after a successful [Create Product Tailoring](/api/projects/product-tailoring#create-producttailoring) or
- *	[Create Product Tailoring in Store](/api/projects/product-tailoring#create-producttailoring-in-store) request.
+ *	Generated after a successful [Create Product Tailoring](ctp:api:endpoint:/{projectKey}/product-tailoring:POST) or
+ *	[Create Product Tailoring in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/product-tailoring:POST) request.
  *
  */
 export interface ProductTailoringCreatedMessagePayload extends IMessagePayload {
@@ -33653,7 +33653,7 @@ export interface StoreTermsOfServiceUrlSetMessagePayload extends IMessagePayload
   readonly termsOfServiceUrl?: string
 }
 /**
- *	Generated after a successful [Create Variant](/../api/projects/variants#create-variant) request.
+ *	Generated after a successful [Create Variant](ctp:api:endpoint:/{projectKey}/variants:POST) request.
  *
  */
 export interface VariantCreatedMessagePayload extends IMessagePayload {
@@ -33714,7 +33714,7 @@ export interface VariantCreatedMessagePayload extends IMessagePayload {
   readonly publish: boolean
 }
 /**
- *	Generated after a successful [Delete Variant](/../api/projects/variants#delete-variant) request.
+ *	Generated after a successful [Delete Variant](/api/projects/variants#delete-variant) request.
  *
  */
 export interface VariantDeletedMessagePayload extends IMessagePayload {
@@ -33784,7 +33784,7 @@ export interface VariantKeySetMessagePayload extends IMessagePayload {
   readonly oldKey?: string
 }
 /**
- *	Generated after a successful [Publish](/../api/projects/variants#publish) update action.
+ *	Generated after a successful [Publish](ctp:api:type:VariantPublishAction) update action.
  *
  */
 export interface VariantPublishedMessagePayload extends IMessagePayload {
@@ -33816,14 +33816,14 @@ export interface VariantSkuSetMessagePayload extends IMessagePayload {
   readonly staged: boolean
 }
 /**
- *	Generated after a successful [Staged Changes Removed](/../api/projects/variants#remove-staged-changes) update action.
+ *	Generated after a successful [Staged Changes Removed](ctp:api:type:VariantRemoveStagedChangesAction) update action.
  *
  */
 export interface VariantStagedChangesRemovedMessagePayload extends IMessagePayload {
   readonly type: 'VariantStagedChangesRemoved'
 }
 /**
- *	Generated after a successful [Unpublish](/../api/projects/variants#unpublish) update action.
+ *	Generated after a successful [Unpublish](ctp:api:type:VariantUnpublishAction) update action.
  *
  */
 export interface VariantUnpublishedMessagePayload extends IMessagePayload {

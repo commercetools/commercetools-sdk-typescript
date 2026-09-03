@@ -362,18 +362,18 @@ export interface VariantDraft {
   readonly assets?: AssetDraft[]
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [Variant](ctp:api:type:Variant).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with results containing an array of [Variant](ctp:api:type:Variant).
  *
  */
 export interface VariantPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -386,10 +386,10 @@ export interface VariantPagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	Unless absolutely necessary, use the query parameter `withTotal=false` to improve performance by deactivating the calculation of this field.
-   *	When the results are filtered with a [Query Predicate](ctp:api:type:QueryPredicate), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -504,7 +504,7 @@ export interface VariantProjection {
    */
   readonly attributes: Attribute[]
   /**
-   *	The selected price based on the [price selection](/../api/projects/productProjections#prices) query parameters.
+   *	The selected price based on the [price selection](/api/projects/productProjections#prices) query parameters.
    *	Only present when price selection parameters are provided.
    *
    *
@@ -519,7 +519,7 @@ export interface VariantProjection {
 }
 export interface VariantProjectionPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
@@ -532,16 +532,16 @@ export interface VariantProjectionPagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
   readonly total?: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -566,14 +566,14 @@ export interface VariantReference extends IReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded Variant. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for Variants.
+   *	Contains the representation of the expanded Variant. Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for Variants.
    *
    *
    */
   readonly obj?: Variant
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Variant](ctp:api:type:Variant). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Variant](ctp:api:type:Variant). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](ctp:api:type:InvalidJsonInputError) error is returned.
  *
  */
 export interface VariantResourceIdentifier extends IResourceIdentifier {
@@ -841,7 +841,7 @@ export interface VariantSetAssetCustomFieldAction extends IVariantUpdateAction {
    */
   readonly assetKey?: string
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -880,14 +880,14 @@ export interface VariantSetAssetCustomTypeAction extends IVariantUpdateAction {
    */
   readonly assetKey?: string
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the Asset with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the Asset with [Custom Fields](/api/projects/custom-fields).
    *	If absent, any existing Type and Custom Fields are removed from the Asset.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Asset.
+   *	Sets the [Custom Fields](/api/projects/custom-fields) fields for the Asset.
    *
    *
    */
