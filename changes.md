@@ -87,6 +87,8 @@
 - added type `StoreSetRefundPolicyUrlAction`
 - added type `StoreSetShippingPolicyUrlAction`
 - added type `StoreSetTermsOfServiceUrlAction`
+- added type `TypeRemoveEnumValuesAction`
+- added type `TypeRemoveLocalizedEnumValuesAction`
 
 </details>
 
