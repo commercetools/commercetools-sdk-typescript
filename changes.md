@@ -97,6 +97,9 @@
 - added property `estimatedDelivery` to type `CartAddShippingMethodAction`
 - added property `estimatedDelivery` to type `CartSetCustomShippingMethodAction`
 - added property `estimatedDelivery` to type `CartSetShippingMethodAction`
+- added property `taxedPrice` to type `CustomLineItemImportDraft`
+- added property `taxedPrice` to type `LineItemImportDraft`
+- added property `taxedPrice` to type `ShippingInfoImportDraft`
 - added property `carrier` to type `ShippingMethod`
 - added property `carrier` to type `ShippingMethodDraft`
 - added property `storefront` to type `Store`

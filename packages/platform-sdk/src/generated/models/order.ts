@@ -501,11 +501,19 @@ export interface CustomLineItemImportDraft {
    */
   readonly money: _Money
   /**
-   *	The tax rate used to calculate the `taxedPrice` of the Order.
+   *	The tax rate used to calculate the `taxedPrice` of the Custom Line Item if `taxedPrice` is not provided.
    *
    *
    */
   readonly taxRate?: TaxRate
+  /**
+   *	Taxed price of the Custom Line Item. If provided, the values are stored as-is on the resulting [CustomLineItem](ctp:api:type:CustomLineItem) instead of being derived from `money`, `quantity`, and `taxRate`.
+   *
+   *	Can only be set if `taxRate` is also set.
+   *
+   *
+   */
+  readonly taxedPrice?: TaxedPriceDraft
   /**
    *	Include a value to associate a Tax Category with the Custom Line Item.
    *
@@ -698,10 +706,17 @@ export interface LineItemImportDraft {
    */
   readonly price: PriceDraft
   /**
-   *	The tax rate used to calculate the `taxedPrice` of the Order.
+   *	The tax rate used to calculate the `taxedPrice` of the Line Item if `taxedPrice` is not provided.
    *
    */
   readonly taxRate?: TaxRate
+  /**
+   *	Taxed price of the Line Item. If provided, the values are stored as-is on the resulting [LineItem](ctp:api:type:LineItem) instead of being derived from `price`, `quantity`, and `taxRate`.
+   *
+   *	Can only be set if `taxRate` is also set.
+   *
+   */
+  readonly taxedPrice?: TaxedPriceDraft
   /**
    *	The Channel used to [select a Price](/api/pricing-and-discounts-overview#line-item-price-selection).
    *	This Channel must have the `ProductDistribution` role.
@@ -2210,6 +2225,12 @@ export interface ShippingInfoImportDraft {
    *
    */
   readonly taxRate?: TaxRate
+  /**
+   *	Taxed price of the Shipping Method. If provided, the values are stored as-is on the resulting [ShippingInfo](ctp:api:type:ShippingInfo) instead of being derived from `price` and `taxRate`.
+   *
+   *
+   */
+  readonly taxedPrice?: TaxedPriceDraft
   /**
    *	Include a value to associate a Tax Category with the shipping information.
    *
