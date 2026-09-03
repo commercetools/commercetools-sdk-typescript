@@ -505,7 +505,7 @@ export interface TypePagedQueryResponse {
    *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](ctp:api:type:QueryPredicate), `total` is subject to a [limit](/api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -531,7 +531,7 @@ export interface TypeReference extends IReference {
   readonly id: string
   /**
    *	Contains the representation of the expanded Type.
-   *	Only present in responses to requests with [Reference Expansion](ctp:api:type:Expansion) for Types.
+   *	Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for Types.
    *
    *
    */

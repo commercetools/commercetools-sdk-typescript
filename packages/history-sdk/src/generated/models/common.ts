@@ -3397,7 +3397,7 @@ export interface ProductVariant {
   readonly attributes?: Attribute[]
   /**
    *	Only available when [price selection](/api/pricing-and-discounts-overview#price-selection) is used.
-   *	Cannot be used in a [Query Predicate](ctp:api:type:QueryPredicate).
+   *	Cannot be used in a [Query Predicate](/api/predicates/query).
    *
    *
    */
@@ -3446,7 +3446,7 @@ export interface ProductVariant {
   readonly scopedPriceDiscounted?: boolean
   /**
    *	Only available when [Product price selection](/api/pricing-and-discounts-overview#product-price-selection) is used.
-   *	Cannot be used in a [Query Predicate](ctp:api:type:QueryPredicate).
+   *	Cannot be used in a [Query Predicate](/api/predicates/query).
    *
    *
    */

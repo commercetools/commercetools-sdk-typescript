@@ -97,6 +97,15 @@
 </details>
 
 <details>
+<summary>Removed Type(s)</summary>
+
+- :warning: removed type `Expansion`
+- :warning: removed type `QueryPredicate`
+- :warning: removed type `Sort`
+
+</details>
+
+<details>
 <summary>Added Property(s)</summary>
 
 - added property `estimatedDelivery` to type `ShippingInfo`
@@ -110,6 +119,13 @@
 - added property `carrier` to type `ShippingMethodDraft`
 - added property `storefront` to type `Store`
 - added property `storefront` to type `StoreDraft`
+
+</details>
+
+<details>
+<summary>Changed Property(s)</summary>
+
+- :warning: changed property `expand` of type `ProductSearchProjectionParams` from type `Expansion[]` to `string[]`
 
 </details>
 

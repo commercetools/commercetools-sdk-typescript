@@ -618,7 +618,7 @@ export interface CustomerReference extends IReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded Customer. Only present in responses to requests with [Reference Expansion](ctp:api:type:Expansion) for Customers.
+   *	Contains the representation of the expanded Customer. Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for Customers.
    *
    *
    */
