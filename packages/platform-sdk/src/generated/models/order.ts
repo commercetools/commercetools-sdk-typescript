@@ -2667,7 +2667,8 @@ export interface OrderRemovePaymentAction extends IOrderUpdateAction {
 export interface OrderSetBillingAddressAction extends IOrderUpdateAction {
   readonly action: 'setBillingAddress'
   /**
-   *	Value to set.
+   *	Value to set. It replaces the entire address, including [Custom Fields](ctp:api:type:CustomFields) if `custom` is not included. To preserve Custom Fields, include the `custom` object in the request.
+   *
    *	If omitted, any existing value is removed.
    *
    *
@@ -2898,7 +2899,8 @@ export interface OrderSetDeliveryAddressAction extends IOrderUpdateAction {
    */
   readonly deliveryKey?: string
   /**
-   *	Value to set.
+   *	Value to set. It replaces the entire address, including [Custom Fields](ctp:api:type:CustomFields) if `custom` is not included. To preserve Custom Fields, include the `custom` object in the request.
+   *
    *	If omitted, any existing value is removed.
    *
    *
@@ -3550,7 +3552,8 @@ export interface OrderSetReturnShipmentStateAction extends IOrderUpdateAction {
 export interface OrderSetShippingAddressAction extends IOrderUpdateAction {
   readonly action: 'setShippingAddress'
   /**
-   *	Value to set.
+   *	Value to set. It replaces the entire address, including [Custom Fields](ctp:api:type:CustomFields) if `custom` is not included. To preserve Custom Fields, include the `custom` object in the request.
+   *
    *	If omitted, any existing value is removed.
    *
    *

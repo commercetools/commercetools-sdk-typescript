@@ -3196,7 +3196,8 @@ export interface CartSetAnonymousIdAction extends ICartUpdateAction {
 export interface CartSetBillingAddressAction extends ICartUpdateAction {
   readonly action: 'setBillingAddress'
   /**
-   *	Value to set.
+   *	Value to set. It replaces the entire address, including [Custom Fields](ctp:api:type:CustomFields) if `custom` is not included. To preserve Custom Fields, include the `custom` object in the request.
+   *
    *	If omitted, any existing value is removed.
    *
    *
@@ -4071,7 +4072,8 @@ export interface CartSetReservationExpirationInMinutesAction extends ICartUpdate
 export interface CartSetShippingAddressAction extends ICartUpdateAction {
   readonly action: 'setShippingAddress'
   /**
-   *	Value to set.
+   *	Value to set. It replaces the entire address, including [Custom Fields](ctp:api:type:CustomFields) if `custom` is not included. To preserve Custom Fields, include the `custom` object in the request.
+   *
    *	If not set, the shipping address is unset, and the `taxedPrice` and `taxRate` are unset in all Line Items of the Cart.
    *
    *
