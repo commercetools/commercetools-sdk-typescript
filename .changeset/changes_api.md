@@ -112,6 +112,22 @@
 - added property `estimatedDelivery` to type `CartAddShippingMethodAction`
 - added property `estimatedDelivery` to type `CartSetCustomShippingMethodAction`
 - added property `estimatedDelivery` to type `CartSetShippingMethodAction`
+- added property `product` to type `VariantCreatedMessage`
+- added property `product` to type `VariantDeletedMessage`
+- added property `product` to type `VariantImageAddedMessage`
+- added property `product` to type `VariantImagesSetMessage`
+- added property `product` to type `VariantKeySetMessage`
+- added property `product` to type `VariantPublishedMessage`
+- added property `product` to type `VariantSkuSetMessage`
+- added property `product` to type `VariantStagedChangesRemovedMessage`
+- added property `product` to type `VariantCreatedMessagePayload`
+- added property `product` to type `VariantDeletedMessagePayload`
+- added property `product` to type `VariantImageAddedMessagePayload`
+- added property `product` to type `VariantImagesSetMessagePayload`
+- added property `product` to type `VariantKeySetMessagePayload`
+- added property `product` to type `VariantPublishedMessagePayload`
+- added property `product` to type `VariantSkuSetMessagePayload`
+- added property `product` to type `VariantStagedChangesRemovedMessagePayload`
 - added property `taxedPrice` to type `CustomLineItemImportDraft`
 - added property `taxedPrice` to type `LineItemImportDraft`
 - added property `taxedPrice` to type `ShippingInfoImportDraft`
@@ -119,6 +135,14 @@
 - added property `carrier` to type `ShippingMethodDraft`
 - added property `storefront` to type `Store`
 - added property `storefront` to type `StoreDraft`
+
+</details>
+
+<details>
+<summary>Removed Property(s)</summary>
+
+- :warning: removed property `productId` from type `VariantCreatedMessage`
+- :warning: removed property `productId` from type `VariantCreatedMessagePayload`
 
 </details>
 

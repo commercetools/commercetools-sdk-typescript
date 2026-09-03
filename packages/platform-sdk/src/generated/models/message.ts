@@ -26213,11 +26213,11 @@ export interface VariantCreatedMessage extends IMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	Unique identifier of the Product to which the Variant belongs.
+   *	Reference to the Product containing the Variant.
    *
    *
    */
-  readonly productId: string
+  readonly product: ProductReference
   /**
    *	Unique identifier of the Variant within its parent Product.
    *
@@ -26324,6 +26324,12 @@ export interface VariantDeletedMessage extends IMessage {
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
 }
 /**
  *	Generated after a successful [Add External Image](ctp:api:type:VariantAddExternalImageAction) update action.
@@ -26388,6 +26394,12 @@ export interface VariantImageAddedMessage extends IMessage {
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
   /**
    *	[Image](ctp:api:type:Image) that was added.
    *
@@ -26464,6 +26476,12 @@ export interface VariantImagesSetMessage extends IMessage {
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
   /**
    *	The images that were set on the Variant.
    *
@@ -26547,6 +26565,12 @@ export interface VariantKeySetMessage extends IMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
    *	The key that was set on the Variant.
    *
    *
@@ -26622,6 +26646,12 @@ export interface VariantPublishedMessage extends IMessage {
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
 }
 /**
  *	Generated after a successful [Set SKU](ctp:api:type:VariantSetSkuAction) update action.
@@ -26686,6 +26716,12 @@ export interface VariantSkuSetMessage extends IMessage {
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
   /**
    *	The SKU that was set on the Variant.
    *
@@ -26768,6 +26804,12 @@ export interface VariantStagedChangesRemovedMessage extends IMessage {
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
 }
 /**
  *	Generated after a successful [Unpublish](ctp:api:type:VariantUnpublishAction) update action.
@@ -26833,7 +26875,7 @@ export interface VariantUnpublishedMessage extends IMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	Reference to the Product containing the Variant that was unpublished.
+   *	Reference to the Product containing the Variant.
    *
    *
    */
@@ -33659,17 +33701,17 @@ export interface StoreTermsOfServiceUrlSetMessagePayload extends IMessagePayload
 export interface VariantCreatedMessagePayload extends IMessagePayload {
   readonly type: 'VariantCreated'
   /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
    *	Unique identifier of the Variant.
    *
    *
    */
   readonly id: string
-  /**
-   *	Unique identifier of the Product to which the Variant belongs.
-   *
-   *
-   */
-  readonly productId: string
   /**
    *	Unique identifier of the Variant within its parent Product.
    *
@@ -33719,6 +33761,12 @@ export interface VariantCreatedMessagePayload extends IMessagePayload {
  */
 export interface VariantDeletedMessagePayload extends IMessagePayload {
   readonly type: 'VariantDeleted'
+  /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
 }
 /**
  *	Generated after a successful [Add External Image](ctp:api:type:VariantAddExternalImageAction) update action.
@@ -33726,6 +33774,12 @@ export interface VariantDeletedMessagePayload extends IMessagePayload {
  */
 export interface VariantImageAddedMessagePayload extends IMessagePayload {
   readonly type: 'VariantImageAdded'
+  /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
   /**
    *	[Image](ctp:api:type:Image) that was added.
    *
@@ -33745,6 +33799,12 @@ export interface VariantImageAddedMessagePayload extends IMessagePayload {
  */
 export interface VariantImagesSetMessagePayload extends IMessagePayload {
   readonly type: 'VariantImagesSet'
+  /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
   /**
    *	The images that were set on the Variant.
    *
@@ -33771,6 +33831,12 @@ export interface VariantImagesSetMessagePayload extends IMessagePayload {
 export interface VariantKeySetMessagePayload extends IMessagePayload {
   readonly type: 'VariantKeySet'
   /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
    *	The key that was set on the Variant.
    *
    *
@@ -33789,6 +33855,12 @@ export interface VariantKeySetMessagePayload extends IMessagePayload {
  */
 export interface VariantPublishedMessagePayload extends IMessagePayload {
   readonly type: 'VariantPublished'
+  /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
 }
 /**
  *	Generated after a successful [Set SKU](ctp:api:type:VariantSetSkuAction) update action.
@@ -33796,6 +33868,12 @@ export interface VariantPublishedMessagePayload extends IMessagePayload {
  */
 export interface VariantSkuSetMessagePayload extends IMessagePayload {
   readonly type: 'VariantSkuSet'
+  /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
   /**
    *	The SKU that was set on the Variant.
    *
@@ -33821,6 +33899,12 @@ export interface VariantSkuSetMessagePayload extends IMessagePayload {
  */
 export interface VariantStagedChangesRemovedMessagePayload extends IMessagePayload {
   readonly type: 'VariantStagedChangesRemoved'
+  /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
 }
 /**
  *	Generated after a successful [Unpublish](ctp:api:type:VariantUnpublishAction) update action.
@@ -33829,7 +33913,7 @@ export interface VariantStagedChangesRemovedMessagePayload extends IMessagePaylo
 export interface VariantUnpublishedMessagePayload extends IMessagePayload {
   readonly type: 'VariantUnpublished'
   /**
-   *	Reference to the Product containing the Variant that was unpublished.
+   *	Reference to the Product containing the Variant.
    *
    *
    */
