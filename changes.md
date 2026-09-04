@@ -1,6 +1,15 @@
 **Api changes**
 
 <details>
+<summary>Removed Type(s)</summary>
+
+- :warning: removed type `Expansion`
+- :warning: removed type `QueryPredicate`
+- :warning: removed type `Sort`
+
+</details>
+
+<details>
 <summary>MarkDeprecated Type(s)</summary>
 
 - marked type `FacetRange` as deprecated
@@ -93,15 +102,6 @@
 </details>
 
 <details>
-<summary>Removed Type(s)</summary>
-
-- :warning: removed type `Expansion`
-- :warning: removed type `QueryPredicate`
-- :warning: removed type `Sort`
-
-</details>
-
-<details>
 <summary>Added Property(s)</summary>
 
 - added property `estimatedDelivery` to type `ShippingInfo`
@@ -135,21 +135,6 @@
 </details>
 
 <details>
-<summary>Removed Property(s)</summary>
-
-- :warning: removed property `productId` from type `VariantCreatedMessage`
-- :warning: removed property `productId` from type `VariantCreatedMessagePayload`
-
-</details>
-
-<details>
-<summary>Changed Property(s)</summary>
-
-- :warning: changed property `expand` of type `ProductSearchProjectionParams` from type `Expansion[]` to `string[]`
-
-</details>
-
-<details>
 <summary>MarkDeprecated Property(s)</summary>
 
 - marked property `FacetResult::type` as deprecated
@@ -163,10 +148,17 @@
 </details>
 
 <details>
-<summary>Added Enum(s)</summary>
+<summary>Changed Property(s)</summary>
 
-- added enum `variant` to type `ChangeSubscriptionResourceTypeId`
-- added enum `variant` to type `MessageSubscriptionResourceTypeId`
+- :warning: changed property `expand` of type `ProductSearchProjectionParams` from type `Expansion[]` to `string[]`
+
+</details>
+
+<details>
+<summary>Removed Property(s)</summary>
+
+- :warning: removed property `productId` from type `VariantCreatedMessage`
+- :warning: removed property `productId` from type `VariantCreatedMessagePayload`
 
 </details>
 
@@ -181,9 +173,10 @@
 </details>
 
 <details>
-<summary>Added Method(s)</summary>
+<summary>Added Enum(s)</summary>
 
-- added method `apiRoot.withProjectKey().agents().intake().v1().responses().post()`
+- added enum `variant` to type `ChangeSubscriptionResourceTypeId`
+- added enum `variant` to type `MessageSubscriptionResourceTypeId`
 
 </details>
 
@@ -193,5 +186,12 @@
 - marked method `post /{projectKey}/product-projections/search` as deprecated
 - marked method `get /{projectKey}/product-projections/search` as deprecated
 - marked method `get /{projectKey}/product-projections/suggest` as deprecated
+
+</details>
+
+<details>
+<summary>Added Method(s)</summary>
+
+- added method `apiRoot.withProjectKey().agents().intake().v1().responses().post()`
 
 </details>
