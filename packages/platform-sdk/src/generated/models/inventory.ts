@@ -409,7 +409,8 @@ export interface InventoryEntrySetCustomTypeAction extends IInventoryEntryUpdate
 export interface InventoryEntrySetExpectedDeliveryAction extends IInventoryEntryUpdateAction {
   readonly action: 'setExpectedDelivery'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
+   *
    *
    */
   readonly expectedDelivery?: string
@@ -439,7 +440,7 @@ export interface InventoryEntrySetInventoryLimitsAction extends IInventoryEntryU
 export interface InventoryEntrySetKeyAction extends IInventoryEntryUpdateAction {
   readonly action: 'setKey'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -469,7 +470,8 @@ export interface InventoryEntrySetReorderPointAction extends IInventoryEntryUpda
 export interface InventoryEntrySetReservationExpirationInMinutesAction extends IInventoryEntryUpdateAction {
   readonly action: 'setReservationExpirationInMinutes'
   /**
-   *	Value to set, must be a positive integer. If empty, any existing value will be removed.
+   *	Value to set, must be a positive integer. If omitted, any existing value is removed.
+   *
    *
    */
   readonly reservationExpirationInMinutes?: number
@@ -477,7 +479,8 @@ export interface InventoryEntrySetReservationExpirationInMinutesAction extends I
 export interface InventoryEntrySetRestockableInDaysAction extends IInventoryEntryUpdateAction {
   readonly action: 'setRestockableInDays'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
+   *
    *
    */
   readonly restockableInDays?: number
@@ -503,7 +506,7 @@ export interface InventoryEntrySetSafetyStockAction extends IInventoryEntryUpdat
 export interface InventoryEntrySetSupplyChannelAction extends IInventoryEntryUpdateAction {
   readonly action: 'setSupplyChannel'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    */
   readonly supplyChannel?: ChannelResourceIdentifier

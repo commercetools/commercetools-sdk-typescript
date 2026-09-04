@@ -681,7 +681,7 @@ export interface RecurringOrderSetCustomTypeAction extends IRecurringOrderUpdate
 export interface RecurringOrderSetExpiresAtAction extends IRecurringOrderUpdateAction {
   readonly action: 'setExpiresAt'
   /**
-   *	Date and time (UTC) the Recurring Order should expire. If empty, any existing value will be removed.
+   *	Date and time (UTC) the Recurring Order should expire. If omitted, any existing value is removed.
    *
    *	If the date or time is extended or removed when the [RecurringOrderState](ctp:api:type:RecurringOrderState) is `Expired`, the state will be updated to `Active`.
    *
@@ -697,7 +697,7 @@ export interface RecurringOrderSetKeyAction extends IRecurringOrderUpdateAction 
   readonly action: 'setKey'
   /**
    *	Value to set.
-   *	If empty, any existing key will be removed.
+   *	If omitted, any existing key is removed.
    *
    *
    */

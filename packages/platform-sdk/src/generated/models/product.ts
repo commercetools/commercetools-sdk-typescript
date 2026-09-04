@@ -141,7 +141,7 @@ export type FacetResult =
   FilteredFacetResult | RangeFacetResult | TermFacetResult
 export interface IFacetResult {
   /**
-   *
+   *	@deprecated
    */
   readonly type: FacetTypes
 }
@@ -544,7 +544,7 @@ export interface ProductPagedQueryResponse {
    *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](ctp:api:type:QueryPredicate), `total` is subject to a [limit](/api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -558,7 +558,7 @@ export interface ProductPagedQueryResponse {
 }
 /**
  *
- *	This mode determines the type of Prices used for [price selection](/../api/pricing-and-discounts-overview#price-selection) by Line Items and Products.
+ *	This mode determines the type of Prices used for [price selection](/api/pricing-and-discounts-overview#price-selection) by Line Items and Products.
  *	For more information about the difference between the Prices, see [Pricing](/api/pricing-and-discounts-overview).
  *
  *	In Projects with the [ProductCatalogModel](ctp:api:type:ProductCatalogModel) `Classic`, you can configure the price mode.
@@ -804,7 +804,7 @@ export interface ProductProjectionPagedSearchResponse {
    *
    *	Only present if at least one `facet` parameter was provided with the search request.
    *
-   *
+   *	@deprecated
    */
   readonly facets?: FacetResults
 }
@@ -961,7 +961,7 @@ export interface ProductVariant {
   readonly attributes?: Attribute[]
   /**
    *	Only present when [price selection](/api/pricing-and-discounts-overview#price-selection) is applied.
-   *	Cannot be used in a [Query Predicate](ctp:api:type:QueryPredicate).
+   *	Cannot be used in a [Query Predicate](/api/predicates/query).
    *
    *
    */
@@ -1010,7 +1010,7 @@ export interface ProductVariant {
   readonly scopedPriceDiscounted?: boolean
   /**
    *	Only available when [Product price selection](/api/pricing-and-discounts-overview#product-price-selection) is used.
-   *	Cannot be used in a [Query Predicate](ctp:api:type:QueryPredicate).
+   *	Cannot be used in a [Query Predicate](/api/predicates/query).
    *
    *
    */
@@ -1205,7 +1205,7 @@ export interface TermFacetResult extends IFacetResult {
   /**
    *	Data type to which the facet is applied.
    *
-   *
+   *	@deprecated
    */
   readonly dataType: TermFacetResultType
   /**
@@ -1352,6 +1352,12 @@ export interface ProductAddPriceAction extends IProductUpdateAction {
   /**
    *	Embedded Price to add to the Product Variant.
    *
+   *	If the key of the Price is used by another Embedded Price on the ProductVariant, a [DuplicatePriceKey](ctp:api:type:DuplicatePriceKeyError) error is returned.
+   *
+   *	If this Embedded Price has the same price scope as an existing Embedded Price on the ProductVariant, a [DuplicatePriceScope](ctp:api:type:DuplicatePriceScopeError) error is returned.
+   *
+   *	If this Embedded Price has overlapping validity periods within the same price scope, an [OverlappingPriceValidity](ctp:api:type:OverlappingPriceValidityError) error is returned. An Embedded Price without validity period does not conflict with an Embedded Price defined for a time period.
+   *
    *
    */
   readonly price: PriceDraft
@@ -1374,7 +1380,7 @@ export interface ProductAddToCategoryAction extends IProductUpdateAction {
    */
   readonly category: CategoryResourceIdentifier
   /**
-   *	A string representing a number between 0 and 1. Must start with `0.` and cannot end with `0`. If empty, any existing value will be removed.
+   *	A string representing a number between 0 and 1. Must start with `0.` and cannot end with `0`. If omitted, any existing value is removed.
    *
    *
    */
@@ -1559,6 +1565,12 @@ export interface ProductChangePriceAction extends IProductUpdateAction {
   readonly priceId: string
   /**
    *	Value to set.
+   *
+   *	If the key of the Price is used by another Embedded Price on the ProductVariant, a [DuplicatePriceKey](ctp:api:type:DuplicatePriceKeyError) error is returned.
+   *
+   *	If the new Embedded Price has the same price scope as another Embedded Price on the ProductVariant, a [DuplicatePriceScope](ctp:api:type:DuplicatePriceScopeError) error is returned.
+   *
+   *	If the new Embedded Price has overlapping validity periods within the same price scope, an [OverlappingPriceValidity](ctp:api:type:OverlappingPriceValidityError) error is returned. An Embedded Price without validity period does not conflict with an Embedded Price defined for a time period.
    *
    *
    */
@@ -1932,7 +1944,7 @@ export interface ProductSetAssetDescriptionAction extends IProductUpdateAction {
    */
   readonly assetKey?: string
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -1969,7 +1981,7 @@ export interface ProductSetAssetKeyAction extends IProductUpdateAction {
    */
   readonly assetId: string
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -2086,7 +2098,7 @@ export interface ProductSetAttributeAction extends IProductUpdateAction {
    */
   readonly name: string
   /**
-   *	Value to set for the Attribute. If empty, any existing value will be removed.
+   *	Value to set for the Attribute. If omitted, any existing value is removed.
    *
    *	The [AttributeType](ctp:api:type:AttributeType) determines the format of the Attribute `value` to be provided:
    *
@@ -2120,7 +2132,7 @@ export interface ProductSetAttributeInAllVariantsAction extends IProductUpdateAc
    */
   readonly name: string
   /**
-   *	Value to set for the Attributes. If empty, any existing value will be removed.
+   *	Value to set for the Attributes. If omitted, any existing value is removed.
    *
    *	The [AttributeType](ctp:api:type:AttributeType) determines the format of the Attribute `value` to be provided:
    *
@@ -2152,7 +2164,7 @@ export interface ProductSetCategoryOrderHintAction extends IProductUpdateAction 
    */
   readonly categoryId: string
   /**
-   *	A string representing a number between 0 and 1. Must start with `0.` and cannot end with `0`. If empty, any existing value will be removed.
+   *	A string representing a number between 0 and 1. Must start with `0.` and cannot end with `0`. If omitted, any existing value is removed.
    *
    *
    */
@@ -2171,7 +2183,7 @@ export interface ProductSetCategoryOrderHintAction extends IProductUpdateAction 
 export interface ProductSetDefaultVariantAction extends IProductUpdateAction {
   readonly action: 'setDefaultVariant'
   /**
-   *	The Variant to set as default. If empty, any existing value will be removed.
+   *	The Variant to set as default. If omitted, any existing value is removed.
    *
    *
    */
@@ -2186,7 +2198,7 @@ export interface ProductSetDefaultVariantAction extends IProductUpdateAction {
 export interface ProductSetDescriptionAction extends IProductUpdateAction {
   readonly action: 'setDescription'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -2217,7 +2229,7 @@ export interface ProductSetDiscountedPriceAction extends IProductUpdateAction {
    */
   readonly staged?: boolean
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *	The referenced [ProductDiscount](ctp:api:type:ProductDiscount) must have the Type `external`, be active, and its predicate must match the referenced Price.
    *
    *
@@ -2249,7 +2261,7 @@ export interface ProductSetImageLabelAction extends IProductUpdateAction {
    */
   readonly imageUrl: string
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -2264,7 +2276,7 @@ export interface ProductSetImageLabelAction extends IProductUpdateAction {
 export interface ProductSetKeyAction extends IProductUpdateAction {
   readonly action: 'setKey'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *	To update a Product using the [Import API](/api/import-export/overview) and the [Merchant Center](/merchant-center/import-data), the Product `key` must match the pattern `^[A-Za-z0-9_-]{2,256}$`.
    *
@@ -2275,7 +2287,7 @@ export interface ProductSetKeyAction extends IProductUpdateAction {
 export interface ProductSetMetaDescriptionAction extends IProductUpdateAction {
   readonly action: 'setMetaDescription'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -2290,7 +2302,7 @@ export interface ProductSetMetaDescriptionAction extends IProductUpdateAction {
 export interface ProductSetMetaKeywordsAction extends IProductUpdateAction {
   readonly action: 'setMetaKeywords'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -2305,7 +2317,7 @@ export interface ProductSetMetaKeywordsAction extends IProductUpdateAction {
 export interface ProductSetMetaTitleAction extends IProductUpdateAction {
   readonly action: 'setMetaTitle'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -2336,7 +2348,9 @@ export interface ProductSetPriceKeyAction extends IProductUpdateAction {
    */
   readonly staged?: boolean
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
+   *
+   *	If the value is used by another Embedded Price on the same ProductVariant, a [DuplicatePriceKey](ctp:api:type:DuplicatePriceKeyError) error is returned.
    *
    *
    */
@@ -2375,7 +2389,12 @@ export interface ProductSetPricesAction extends IProductUpdateAction {
   readonly sku?: string
   /**
    *	The Embedded Prices to set.
-   *	Each Price must have its unique Price scope (with same currency, country, Customer Group, Channel, `validFrom` and `validUntil`).
+   *
+   *	If any two Embedded Prices in this array have the same key, a [DuplicatePriceKey](ctp:api:type:DuplicatePriceKeyError) error is returned.
+   *
+   *	If any two Embedded Prices in this array have the same price scope, a [DuplicatePriceScope](ctp:api:type:DuplicatePriceScopeError) error is returned.
+   *
+   *	If any two Embedded Prices in this array have overlapping validity periods within the same price scope, an [OverlappingPriceValidity](ctp:api:type:OverlappingPriceValidityError) error is returned. An Embedded Price without validity period does not conflict with an Embedded Price defined for a time period.
    *
    *
    */
@@ -2396,7 +2415,7 @@ export interface ProductSetProductAttributeAction extends IProductUpdateAction {
    */
   readonly name: string
   /**
-   *	Value to set for the Attribute. If empty, any existing value will be removed.
+   *	Value to set for the Attribute. If omitted, any existing value is removed.
    *
    *	The [AttributeType](ctp:api:type:AttributeType) determines the format of the Attribute `value` to be provided:
    *
@@ -2495,7 +2514,7 @@ export interface ProductSetProductVariantKeyAction extends IProductUpdateAction 
    */
   readonly sku?: string
   /**
-   *	Value to set. Must be unique among ProductVariants in the same Product. If empty, any existing value will be removed.
+   *	Value to set. Must be unique among ProductVariants in the same Product. If omitted, any existing value is removed.
    *
    *
    */
@@ -2537,7 +2556,7 @@ export interface ProductSetSkuAction extends IProductUpdateAction {
    */
   readonly variantId: number
   /**
-   *	Value to set. Must be unique across all ProductVariants in a Project. If empty, any existing value will be removed.
+   *	Value to set. Must be unique across all ProductVariants in a Project. If omitted, any existing value is removed.
    *
    *
    */
@@ -2556,7 +2575,7 @@ export interface ProductSetSkuAction extends IProductUpdateAction {
 export interface ProductSetTaxCategoryAction extends IProductUpdateAction {
   readonly action: 'setTaxCategory'
   /**
-   *	The Tax Category to set. If empty, any existing value will be removed.
+   *	The Tax Category to set. If omitted, any existing value is removed.
    *
    *
    */

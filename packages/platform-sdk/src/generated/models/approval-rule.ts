@@ -384,7 +384,7 @@ export interface ApprovalRuleSetDescriptionAction extends IApprovalRuleUpdateAct
 export interface ApprovalRuleSetKeyAction extends IApprovalRuleUpdateAction {
   readonly action: 'setKey'
   /**
-   *	Value to set. Must be unique within a Business Unit. If empty, any existing value will be removed.
+   *	Value to set. Must be unique within a Business Unit. If omitted, any existing value is removed.
    *
    *
    */

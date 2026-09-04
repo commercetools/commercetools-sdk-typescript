@@ -1010,7 +1010,7 @@ export interface ProductTailoringSetAssetDescriptionAction extends IProductTailo
    */
   readonly assetKey?: string
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -1047,7 +1047,7 @@ export interface ProductTailoringSetAssetKeyAction extends IProductTailoringUpda
    */
   readonly assetId: string
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -1168,7 +1168,7 @@ export interface ProductTailoringSetAttributeAction extends IProductTailoringUpd
    */
   readonly name: string
   /**
-   *	Value to set for the Attribute. If empty, any existing value will be removed.
+   *	Value to set for the Attribute. If omitted, any existing value is removed.
    *
    *	The [AttributeType](ctp:api:type:AttributeType) determines the format of the Attribute `value` to be provided:
    *
@@ -1205,7 +1205,7 @@ export interface ProductTailoringSetAttributeInAllVariantsAction extends IProduc
    */
   readonly name: string
   /**
-   *	Value to set for the Attributes. If empty, any existing value will be removed.
+   *	Value to set for the Attributes. If omitted, any existing value is removed.
    *
    *	The [AttributeType](ctp:api:type:AttributeType) determines the format of the Attribute `value` to be provided:
    *
@@ -1236,7 +1236,7 @@ export interface ProductTailoringSetAttributeInAllVariantsAction extends IProduc
 export interface ProductTailoringSetDescriptionAction extends IProductTailoringUpdateAction {
   readonly action: 'setDescription'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -1307,7 +1307,7 @@ export interface ProductTailoringSetImageLabelAction extends IProductTailoringUp
    */
   readonly imageUrl: string
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -1326,7 +1326,7 @@ export interface ProductTailoringSetImageLabelAction extends IProductTailoringUp
 export interface ProductTailoringSetKeyAction extends IProductTailoringUpdateAction {
   readonly action: 'setKey'
   /**
-   *	Value to set. Must be unique. If empty, any existing value will be removed.
+   *	Value to set. Must be unique. If omitted, any existing value is removed.
    *
    *
    */
@@ -1338,19 +1338,19 @@ export interface ProductTailoringSetKeyAction extends IProductTailoringUpdateAct
 export interface ProductTailoringSetMetaAttributesAction extends IProductTailoringUpdateAction {
   readonly action: 'setMetaAttributes'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
   readonly metaTitle?: LocalizedString
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
   readonly metaDescription?: LocalizedString
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -1365,7 +1365,7 @@ export interface ProductTailoringSetMetaAttributesAction extends IProductTailori
 export interface ProductTailoringSetMetaDescriptionAction extends IProductTailoringUpdateAction {
   readonly action: 'setMetaDescription'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -1380,7 +1380,7 @@ export interface ProductTailoringSetMetaDescriptionAction extends IProductTailor
 export interface ProductTailoringSetMetaKeywordsAction extends IProductTailoringUpdateAction {
   readonly action: 'setMetaKeywords'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -1395,7 +1395,7 @@ export interface ProductTailoringSetMetaKeywordsAction extends IProductTailoring
 export interface ProductTailoringSetMetaTitleAction extends IProductTailoringUpdateAction {
   readonly action: 'setMetaTitle'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -1414,7 +1414,7 @@ export interface ProductTailoringSetMetaTitleAction extends IProductTailoringUpd
 export interface ProductTailoringSetNameAction extends IProductTailoringUpdateAction {
   readonly action: 'setName'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -1435,7 +1435,7 @@ export interface ProductTailoringSetProductAttributeAction extends IProductTailo
    */
   readonly name: string
   /**
-   *	Value to set for the Attribute. If empty, then any existing value will be removed.
+   *	Value to set for the Attribute. If omitted, then any existing value is removed.
    *
    *	[AttributeType](ctp:api:type:AttributeType) determines the format of the Attribute `value` to be provided:
    *
@@ -1465,7 +1465,7 @@ export interface ProductTailoringSetProductAttributeAction extends IProductTailo
 export interface ProductTailoringSetSlugAction extends IProductTailoringUpdateAction {
   readonly action: 'setSlug'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */

@@ -129,6 +129,8 @@ export interface ProductDiscountDraft {
   /**
    *	User-defined unique identifier for the ProductDiscount.
    *
+   *	If the value is used by another Product Discount, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
+   *
    *
    */
   readonly key?: string
@@ -152,7 +154,8 @@ export interface ProductDiscountDraft {
   readonly predicate: string
   /**
    *	Decimal value between 0 and 1 (passed as String literal) that defines the order of ProductDiscounts to apply in case more than one is applicable and active. A ProductDiscount with a higher `sortOrder` is prioritized.
-   *	The value must be **unique** among all ProductDiscounts in the [Project](ctp:api:type:Project).
+   *
+   *	If the value is used by another Product Discount, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
    *
    *
    */
@@ -442,6 +445,8 @@ export interface ProductDiscountChangeSortOrderAction extends IProductDiscountUp
    *	The string value must be a number between `0` and `1`.
    *	A Discount with a higher sortOrder is prioritized.
    *
+   *	If the value is used by another Product Discount, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
+   *
    *
    */
   readonly sortOrder: string
@@ -458,7 +463,7 @@ export interface ProductDiscountChangeValueAction extends IProductDiscountUpdate
 export interface ProductDiscountSetDescriptionAction extends IProductDiscountUpdateAction {
   readonly action: 'setDescription'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -467,7 +472,9 @@ export interface ProductDiscountSetDescriptionAction extends IProductDiscountUpd
 export interface ProductDiscountSetKeyAction extends IProductDiscountUpdateAction {
   readonly action: 'setKey'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
+   *
+   *	If the value is used by another Product Discount, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
    *
    *
    */
@@ -477,7 +484,7 @@ export interface ProductDiscountSetValidFromAction extends IProductDiscountUpdat
   readonly action: 'setValidFrom'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *	Take [Eventual Consistency](/api/general-concepts#eventual-consistency) into account for calculated discount values.
    *
    *
@@ -505,7 +512,7 @@ export interface ProductDiscountSetValidUntilAction extends IProductDiscountUpda
   readonly action: 'setValidUntil'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *	Take [Eventual Consistency](/api/general-concepts#eventual-consistency) into account for calculated undiscounted values.
    *
    *

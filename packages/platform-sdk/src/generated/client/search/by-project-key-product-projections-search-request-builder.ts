@@ -23,6 +23,9 @@ export class ByProjectKeyProductProjectionsSearchRequestBuilder {
    *	To avoid URL length restrictions, this method passes the same query parameters as defined in the [GET](ctp:api:endpoint:/{projectKey}/product-projections/search:GET) method, within the request body in URL-encoded format.
    *
    */
+  /**
+   * @deprecated
+   **/
   public post(methodArgs: {
     body: string
     headers?: {
@@ -51,6 +54,9 @@ export class ByProjectKeyProductProjectionsSearchRequestBuilder {
    *	For funnel searches on Product Listing Pages, where users select multiple filters, we recommend the [POST](ctp:api:endpoint:/{projectKey}/product-projections/search:POST) method which passes the query parameters within the request body, avoiding URL length restrictions.
    *
    */
+  /**
+   * @deprecated
+   **/
   public get(methodArgs?: {
     queryArgs?: {
       markMatchingVariants?: boolean

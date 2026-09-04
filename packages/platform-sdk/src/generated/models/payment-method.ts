@@ -387,7 +387,7 @@ export interface PaymentMethodSetInterfaceAccountAction extends IPaymentMethodUp
   readonly action: 'setInterfaceAccount'
   /**
    *	New account or instance of the payment interface.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -401,7 +401,7 @@ export interface PaymentMethodSetKeyAction extends IPaymentMethodUpdateAction {
   readonly action: 'setKey'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -415,7 +415,7 @@ export interface PaymentMethodSetMethodAction extends IPaymentMethodUpdateAction
   readonly action: 'setMethod'
   /**
    *	New payment method—for example, a credit card or direct debit.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -429,7 +429,7 @@ export interface PaymentMethodSetNameAction extends IPaymentMethodUpdateAction {
   readonly action: 'setName'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -443,7 +443,7 @@ export interface PaymentMethodSetPaymentInterfaceAction extends IPaymentMethodUp
   readonly action: 'setPaymentInterface'
   /**
    *	New payment service that processes the Payment—for example, a PSP.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */

@@ -89,6 +89,10 @@ export class ByProjectKeyTaxCategoriesByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	If the TaxCategory is referenced by a resource, a [ReferenceExists](ctp:api:type:ReferenceExistsError) error is returned.
+   *
+   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

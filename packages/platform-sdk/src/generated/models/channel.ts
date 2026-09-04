@@ -113,13 +113,17 @@ export interface ChannelDraft {
   /**
    *	User-defined unique identifier for the Channel.
    *
+   *	If set to an empty value, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
+   *	If the value is used by another Channel in the Project, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
+   *
    *
    */
   readonly key: string
   /**
    *	Roles of the Channel.
-   *	Each channel must have at least one role.
-   *	If not specified, then `InventorySupply` is assigned by default.
+   *
+   *	The Channel must have at least one role. If set to an empty array, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    *
    */
@@ -293,6 +297,8 @@ export interface ChannelAddRolesAction extends IChannelUpdateAction {
   /**
    *	Value to append to the array.
    *
+   *	If the specified roles are already present, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
    *
    */
   readonly roles: ChannelRoleEnum[]
@@ -300,7 +306,11 @@ export interface ChannelAddRolesAction extends IChannelUpdateAction {
 export interface ChannelChangeDescriptionAction extends IChannelUpdateAction {
   readonly action: 'changeDescription'
   /**
-   *	New value to set. Must not be empty.
+   *	New value to set.
+   *
+   *	If set to an empty value, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
+   *	If the new value is the same as the current value, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    *
    */
@@ -309,7 +319,11 @@ export interface ChannelChangeDescriptionAction extends IChannelUpdateAction {
 export interface ChannelChangeKeyAction extends IChannelUpdateAction {
   readonly action: 'changeKey'
   /**
-   *	New value to set. Must not be empty.
+   *	New value to set.
+   *
+   *	If set to an empty value, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
+   *	If the value is used by another Channel in the Project, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
    *
    *
    */
@@ -318,7 +332,11 @@ export interface ChannelChangeKeyAction extends IChannelUpdateAction {
 export interface ChannelChangeNameAction extends IChannelUpdateAction {
   readonly action: 'changeName'
   /**
-   *	New value to set. Must not be empty.
+   *	New value to set.
+   *
+   *	If set to an empty value, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
+   *	If the new value is the same as the current value, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    *
    */
@@ -329,6 +347,10 @@ export interface ChannelRemoveRolesAction extends IChannelUpdateAction {
   /**
    *	Value to remove from the array.
    *
+   *	If none of the specified roles are already present, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
+   *	If all roles from the Channel are removed, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
    *
    */
   readonly roles: ChannelRoleEnum[]
@@ -336,12 +358,16 @@ export interface ChannelRemoveRolesAction extends IChannelUpdateAction {
 export interface ChannelSetAddressAction extends IChannelUpdateAction {
   readonly action: 'setAddress'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
   readonly address?: _BaseAddress
 }
+/**
+ *	To set a Custom Field for a Channel, `Channel.address` must be set; otherwise, an [InvalidInput](ctp:api:type:InvalidInputError) error is returned.
+ *
+ */
 export interface ChannelSetAddressCustomFieldAction extends IChannelUpdateAction {
   readonly action: 'setAddressCustomField'
   /**
@@ -359,6 +385,10 @@ export interface ChannelSetAddressCustomFieldAction extends IChannelUpdateAction
    */
   readonly value?: any
 }
+/**
+ *	To set a Custom Type for a Channel, `Channel.address` must be set; otherwise, an [InvalidInput](ctp:api:type:InvalidInputError) error is returned.
+ *
+ */
 export interface ChannelSetAddressCustomTypeAction extends IChannelUpdateAction {
   readonly action: 'setAddressCustomType'
   /**
@@ -424,7 +454,9 @@ export interface ChannelSetGeoLocationAction extends IChannelUpdateAction {
 export interface ChannelSetRolesAction extends IChannelUpdateAction {
   readonly action: 'setRoles'
   /**
-   *	Value to set. If not specified, then `InventorySupply` is assigned by default.
+   *	Value to set. If set to an empty array, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
+   *	 If the new value is the same as the current value, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    *
    */

@@ -530,14 +530,14 @@ export interface ProjectChangeCustomerSearchStatusAction extends IProjectUpdateA
    */
   readonly status: CustomerSearchStatus
 }
-/**
- *	Removing a language used by a [Store](ctp:api:type:Store) returns a [LanguageUsedInStores](ctp:api:type:LanguageUsedInStoresError) error.
- *
- */
 export interface ProjectChangeLanguagesAction extends IProjectUpdateAction {
   readonly action: 'changeLanguages'
   /**
-   *	New value to set. Must not be empty.
+   *	New value to set.
+   *
+   *	If set to an empty value, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
+   *	If a language in use by a [Store](ctp:api:type:Store) is removed, a [LanguageUsedInStores](ctp:api:type:LanguageUsedInStoresError) error is returned.
    *
    *
    */
@@ -576,11 +576,19 @@ export interface ProjectChangePriceRoundingModeAction extends IProjectUpdateActi
    */
   readonly priceRoundingMode: RoundingMode
 }
+/**
+ *	[Product Projection Search](/api/projects/product-projection-search) is **deprecated**.
+ *	For Projects created after 31 August 2026, the `"ProductProjectionsSearch"` mode cannot be activated. Use `ProductsSearch` instead.
+ *	For such Projects, setting `enabled` to `true` with `mode` `"ProductProjectionsSearch"` returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
+ *
+ */
 export interface ProjectChangeProductSearchIndexingEnabledAction extends IProjectUpdateAction {
   readonly action: 'changeProductSearchIndexingEnabled'
   /**
-   *	- If `false`, the indexing of [Product](ctp:api:type:Product) information will stop and the [Product Projection Search](/api/projects/product-projection-search) as well as the [Search Term Suggestions](/api/projects/search-term-suggestions) API will no longer be available for this Project. The Project's [SearchIndexingConfiguration](ctp:api:type:SearchIndexingConfiguration) `status` for `products` will be changed to `"Deactivated"`.
-   *	- If `true`, the indexing of [Product](ctp:api:type:Product) information will start and the [Product Projection Search](/api/projects/product-projection-search) as well as the [Search Term Suggestions](/api/projects/search-term-suggestions) API will become available soon after for this Project. Proportional to the amount of information being indexed, the Project's [SearchIndexingConfiguration](ctp:api:type:SearchIndexingConfiguration) `status` for `products` will be shown as `"Indexing"` during this time. As soon as the indexing has finished, the configuration status will be changed to `"Activated"` making the aforementioned APIs fully available for this Project.
+   *	Whether to enable product indexing for the storefront search APIs selected by `mode`.
+   *
+   *	- If `true`, indexing starts for the selected API and the corresponding status changes to `"Indexing"`. After indexing finishes, the status changes to `"Activated"` and the selected API becomes available.
+   *	- If `false`, indexing stops and the selected API become unavailable. The corresponding [SearchIndexingConfiguration](ctp:api:type:SearchIndexingConfiguration) `status` changes to `"Deactivated"`.
    *
    *
    */
@@ -630,7 +638,7 @@ export interface ProjectSetDiscountsConfigurationAction extends IProjectUpdateAc
 export interface ProjectSetExternalOAuthAction extends IProjectUpdateAction {
   readonly action: 'setExternalOAuth'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -686,7 +694,7 @@ export interface ProjectSetReservationExpirationInMinutesAction extends IProject
 export interface ProjectSetShippingRateInputTypeAction extends IProjectUpdateAction {
   readonly action: 'setShippingRateInputType'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */

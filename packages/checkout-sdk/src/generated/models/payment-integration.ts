@@ -413,7 +413,7 @@ export interface PaymentIntegrationUpdateActions {
 export interface SetAutomatedReversalConfigurationPredicateUpdateAction extends IPaymentIntegrationUpdateAction {
   readonly action: 'setAutomatedReversalConfigurationPredicate'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -452,7 +452,7 @@ export interface SetAutomatedReversalConfigurationUpdateAction extends IPaymentI
 export interface SetDisplayInfoDescriptionUpdateAction extends IPaymentIntegrationUpdateAction {
   readonly action: 'setDisplayInfoDescription'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -465,7 +465,7 @@ export interface SetDisplayInfoDescriptionUpdateAction extends IPaymentIntegrati
 export interface SetDisplayInfoLabelUpdateAction extends IPaymentIntegrationUpdateAction {
   readonly action: 'setDisplayInfoLabel'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -478,7 +478,7 @@ export interface SetDisplayInfoLabelUpdateAction extends IPaymentIntegrationUpda
 export interface SetDisplayInfoLogoUrlUpdateAction extends IPaymentIntegrationUpdateAction {
   readonly action: 'setDisplayInfoLogoUrl'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -491,7 +491,7 @@ export interface SetDisplayInfoLogoUrlUpdateAction extends IPaymentIntegrationUp
 export interface SetDisplayInfoPayButtonTextUpdateAction extends IPaymentIntegrationUpdateAction {
   readonly action: 'setDisplayInfoPayButtonText'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -500,7 +500,7 @@ export interface SetDisplayInfoPayButtonTextUpdateAction extends IPaymentIntegra
 export interface SetDisplayInfoUpdateAction extends IPaymentIntegrationUpdateAction {
   readonly action: 'setDisplayInfo'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -513,7 +513,7 @@ export interface SetDisplayInfoUpdateAction extends IPaymentIntegrationUpdateAct
 export interface SetKeyUpdateAction extends IPaymentIntegrationUpdateAction {
   readonly action: 'setKey'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -539,7 +539,7 @@ export interface SetNameUpdateAction extends IPaymentIntegrationUpdateAction {
 export interface SetPredicateUpdateAction extends IPaymentIntegrationUpdateAction {
   readonly action: 'setPredicate'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -552,7 +552,7 @@ export interface SetPredicateUpdateAction extends IPaymentIntegrationUpdateActio
 export interface SetSortingInfoUpdateAction extends IPaymentIntegrationUpdateAction {
   readonly action: 'setSortingInfo'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */

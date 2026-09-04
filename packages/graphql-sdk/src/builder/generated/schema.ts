@@ -8,6 +8,7 @@ export type Scalars = {
     Boolean: boolean,
     Country: string,
     Currency: string,
+    CurrencyCode: any,
     Date: string,
     DateTime: string,
     Float: number,
@@ -630,7 +631,7 @@ export interface Attribution {
     __typename: 'Attribution'
 }
 
-export type AttributionSource = 'Export' | 'Import' | 'ManagedCommerceMCP'
+export type AttributionSource = 'Export' | 'Import' | 'IntakeAgent' | 'ManagedCommerceMCP' | 'ProductEnrichmentAgent' | 'PromotionsAgent' | 'StarterAgent'
 
 export type AuthenticationMode = 'ExternalAuth' | 'Password'
 
@@ -1158,6 +1159,7 @@ export interface Cart {
     customerId: (Scalars['String'] | null)
     deleteDaysAfterLastModification: (Scalars['Int'] | null)
     directDiscounts: DirectDiscount[]
+    directDiscountsIgnoreCartDiscounts: (Scalars['Boolean'] | null)
     discountCodes: DiscountCodeInfo[]
     discountOnTotalPrice: (DiscountOnTotalPrice | null)
     discountTypeCombination: (DiscountTypeCombination | null)
@@ -1608,6 +1610,14 @@ export interface ChannelQueryResult {
     results: Channel[]
     total: Scalars['Long']
     __typename: 'ChannelQueryResult'
+}
+
+
+/** Reference to a Channel by its id. */
+export interface ChannelReference {
+    id: Scalars['String']
+    typeId: Scalars['String']
+    __typename: 'ChannelReference'
 }
 
 export interface ChannelReferenceIdentifier {
@@ -2482,12 +2492,14 @@ export interface DimensionsProductSearch {
 
 export interface DirectDiscount {
     id: Scalars['String']
+    participateInBestDealSelection: (Scalars['Boolean'] | null)
     target: (CartDiscountTarget | null)
     value: CartDiscountValue
     __typename: 'DirectDiscount'
 }
 
 export interface DirectDiscountDraftOutput {
+    participateInBestDealSelection: (Scalars['Boolean'] | null)
     target: (CartDiscountTarget | null)
     value: CartDiscountValue
     __typename: 'DirectDiscountDraftOutput'
@@ -2756,14 +2768,11 @@ export interface EventSubscription {
 }
 
 export interface Extension {
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     additionalContext: (ExtensionAdditionalContext | null)
     createdAt: Scalars['DateTime']
     createdBy: (Initiator | null)
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     dependenciesRef: Reference[]
     destination: ExtensionDestination
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     expansionPaths: Scalars['String'][]
     id: Scalars['String']
     key: (Scalars['String'] | null)
@@ -2978,7 +2987,9 @@ export interface InStore {
     product: (Product | null)
     /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     productProjectionVariantAttributes: (ProductProjectionVariantAttributes | null)
+    productSelection: (ProductSelection | null)
     productSelectionAssignments: ProductAssignmentQueryResult
+    productSelections: ProductSelectionQueryResult
     productTailoring: (ProductTailoring | null)
     productTailoringList: ProductTailoringQueryResult
     quote: (Quote | null)
@@ -4021,6 +4032,7 @@ export interface Order {
     customerGroupRef: (Reference | null)
     customerId: (Scalars['String'] | null)
     directDiscounts: DirectDiscount[]
+    directDiscountsIgnoreCartDiscounts: (Scalars['Boolean'] | null)
     discountCodes: DiscountCodeInfo[]
     discountOnTotalPrice: (DiscountOnTotalPrice | null)
     discountTypeCombination: (DiscountTypeCombination | null)
@@ -4987,7 +4999,7 @@ export interface ProductCatalogData {
     __typename: 'ProductCatalogData'
 }
 
-export type ProductCatalogModel = 'Classic' | 'Modular'
+export type ProductCatalogModel = 'Classic' | 'InMigration' | 'Modular'
 
 export interface ProductCreated {
     productProjection: ProductProjectionMessagePayload
@@ -6192,6 +6204,8 @@ export interface Quote {
     customerRef: (Reference | null)
     /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     directDiscounts: DirectDiscount[]
+    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
+    directDiscountsIgnoreCartDiscounts: (Scalars['Boolean'] | null)
     id: Scalars['String']
     inventoryMode: InventoryMode
     itemShippingAddresses: Address[]
@@ -6281,6 +6295,8 @@ export interface QuoteRequest {
     customerRef: (Reference | null)
     /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     directDiscounts: DirectDiscount[]
+    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
+    directDiscountsIgnoreCartDiscounts: (Scalars['Boolean'] | null)
     id: Scalars['String']
     inventoryMode: InventoryMode
     itemShippingAddresses: Address[]
@@ -7278,6 +7294,12 @@ export interface SetStagedOrderDeliveryItemsOutput {
     __typename: 'SetStagedOrderDeliveryItemsOutput'
 }
 
+export interface SetStagedOrderDirectDiscountsIgnoreCartDiscountsOutput {
+    directDiscountsIgnoreCartDiscounts: (Scalars['Boolean'] | null)
+    type: Scalars['String']
+    __typename: 'SetStagedOrderDirectDiscountsIgnoreCartDiscountsOutput'
+}
+
 export interface SetStagedOrderDirectDiscountsOutput {
     discounts: DirectDiscountDraftOutput[]
     type: Scalars['String']
@@ -7593,6 +7615,7 @@ export interface ShippingInfo {
     deliveries: Delivery[]
     discountedPrice: (DiscountedLineItemPrice | null)
     estimatedDelivery: (EstimatedDelivery | null)
+    message: (Scalars['String'] | null)
     price: Money
     shippingMethod: (ShippingMethod | null)
     shippingMethodName: Scalars['String']
@@ -7822,7 +7845,7 @@ export interface Stacking {
 
 export type StackingMode = 'Stacking' | 'StopAfterThisDiscount'
 
-export type StagedOrderUpdateActionOutput = (AddStagedOrderCustomLineItemOutput | AddStagedOrderDeliveryOutput | AddStagedOrderDiscountCodeOutput | AddStagedOrderItemShippingAddressOutput | AddStagedOrderLineItemOutput | AddStagedOrderParcelToDeliveryOutput | AddStagedOrderPaymentOutput | AddStagedOrderReturnInfoOutput | AddStagedOrderShoppingListOutput | ChangeStagedOrderCustomLineItemMoneyOutput | ChangeStagedOrderCustomLineItemQuantityOutput | ChangeStagedOrderLineItemQuantityOutput | ChangeStagedOrderOrderStateOutput | ChangeStagedOrderPaymentStateOutput | ChangeStagedOrderPriceRoundingModeOutput | ChangeStagedOrderShipmentStateOutput | ChangeStagedOrderTaxCalculationModeOutput | ChangeStagedOrderTaxModeOutput | ChangeStagedOrderTaxRoundingModeOutput | ImportStagedOrderCustomLineItemStateOutput | ImportStagedOrderLineItemStateOutput | RecalculateStagedOrderOutput | RemoveStagedOrderCustomLineItemOutput | RemoveStagedOrderDeliveryOutput | RemoveStagedOrderDiscountCodeOutput | RemoveStagedOrderItemShippingAddressOutput | RemoveStagedOrderLineItemOutput | RemoveStagedOrderParcelFromDeliveryOutput | RemoveStagedOrderPaymentOutput | SetStagedOrderBillingAddressCustomFieldOutput | SetStagedOrderBillingAddressCustomTypeOutput | SetStagedOrderBillingAddressOutput | SetStagedOrderBusinessUnitOutput | SetStagedOrderCountryOutput | SetStagedOrderCustomFieldOutput | SetStagedOrderCustomLineItemCustomFieldOutput | SetStagedOrderCustomLineItemCustomTypeOutput | SetStagedOrderCustomLineItemShippingDetailsOutput | SetStagedOrderCustomLineItemTaxAmountOutput | SetStagedOrderCustomLineItemTaxRateOutput | SetStagedOrderCustomShippingMethodOutput | SetStagedOrderCustomTypeOutput | SetStagedOrderCustomerEmailOutput | SetStagedOrderCustomerGroupOutput | SetStagedOrderCustomerIdOutput | SetStagedOrderDeliveryAddressCustomFieldOutput | SetStagedOrderDeliveryAddressCustomTypeOutput | SetStagedOrderDeliveryAddressOutput | SetStagedOrderDeliveryCustomFieldOutput | SetStagedOrderDeliveryCustomTypeOutput | SetStagedOrderDeliveryItemsOutput | SetStagedOrderDirectDiscountsOutput | SetStagedOrderEstimatedDeliveryOutput | SetStagedOrderItemShippingAddressCustomFieldOutput | SetStagedOrderItemShippingAddressCustomTypeOutput | SetStagedOrderLineItemCustomFieldOutput | SetStagedOrderLineItemCustomTypeOutput | SetStagedOrderLineItemDistributionChannelOutput | SetStagedOrderLineItemPriceOutput | SetStagedOrderLineItemShippingDetailsOutput | SetStagedOrderLineItemTaxAmountOutput | SetStagedOrderLineItemTaxRateOutput | SetStagedOrderLineItemTotalPriceOutput | SetStagedOrderLocaleOutput | SetStagedOrderOrderNumberOutput | SetStagedOrderOrderTotalTaxOutput | SetStagedOrderParcelCustomFieldOutput | SetStagedOrderParcelCustomTypeOutput | SetStagedOrderParcelItemsOutput | SetStagedOrderParcelMeasurementsOutput | SetStagedOrderParcelTrackingDataOutput | SetStagedOrderPurchaseOrderNumberOutput | SetStagedOrderReturnInfoOutput | SetStagedOrderReturnItemCustomFieldOutput | SetStagedOrderReturnItemCustomTypeOutput | SetStagedOrderReturnPaymentStateOutput | SetStagedOrderReturnShipmentStateOutput | SetStagedOrderShippingAddressAndCustomShippingMethodOutput | SetStagedOrderShippingAddressAndShippingMethodOutput | SetStagedOrderShippingAddressCustomFieldOutput | SetStagedOrderShippingAddressCustomTypeOutput | SetStagedOrderShippingAddressOutput | SetStagedOrderShippingCustomFieldOutput | SetStagedOrderShippingCustomTypeOutput | SetStagedOrderShippingMethodOutput | SetStagedOrderShippingMethodTaxAmountOutput | SetStagedOrderShippingMethodTaxRateOutput | SetStagedOrderShippingRateInputOutput | SetStagedOrderStoreOutput | TransitionStagedOrderCustomLineItemStateOutput | TransitionStagedOrderLineItemStateOutput | TransitionStagedOrderStateOutput | UpdateStagedOrderItemShippingAddressOutput | UpdateStagedOrderSyncInfoOutput) & { __isUnion?: true }
+export type StagedOrderUpdateActionOutput = (AddStagedOrderCustomLineItemOutput | AddStagedOrderDeliveryOutput | AddStagedOrderDiscountCodeOutput | AddStagedOrderItemShippingAddressOutput | AddStagedOrderLineItemOutput | AddStagedOrderParcelToDeliveryOutput | AddStagedOrderPaymentOutput | AddStagedOrderReturnInfoOutput | AddStagedOrderShoppingListOutput | ChangeStagedOrderCustomLineItemMoneyOutput | ChangeStagedOrderCustomLineItemQuantityOutput | ChangeStagedOrderLineItemQuantityOutput | ChangeStagedOrderOrderStateOutput | ChangeStagedOrderPaymentStateOutput | ChangeStagedOrderPriceRoundingModeOutput | ChangeStagedOrderShipmentStateOutput | ChangeStagedOrderTaxCalculationModeOutput | ChangeStagedOrderTaxModeOutput | ChangeStagedOrderTaxRoundingModeOutput | ImportStagedOrderCustomLineItemStateOutput | ImportStagedOrderLineItemStateOutput | RecalculateStagedOrderOutput | RemoveStagedOrderCustomLineItemOutput | RemoveStagedOrderDeliveryOutput | RemoveStagedOrderDiscountCodeOutput | RemoveStagedOrderItemShippingAddressOutput | RemoveStagedOrderLineItemOutput | RemoveStagedOrderParcelFromDeliveryOutput | RemoveStagedOrderPaymentOutput | SetStagedOrderBillingAddressCustomFieldOutput | SetStagedOrderBillingAddressCustomTypeOutput | SetStagedOrderBillingAddressOutput | SetStagedOrderBusinessUnitOutput | SetStagedOrderCountryOutput | SetStagedOrderCustomFieldOutput | SetStagedOrderCustomLineItemCustomFieldOutput | SetStagedOrderCustomLineItemCustomTypeOutput | SetStagedOrderCustomLineItemShippingDetailsOutput | SetStagedOrderCustomLineItemTaxAmountOutput | SetStagedOrderCustomLineItemTaxRateOutput | SetStagedOrderCustomShippingMethodOutput | SetStagedOrderCustomTypeOutput | SetStagedOrderCustomerEmailOutput | SetStagedOrderCustomerGroupOutput | SetStagedOrderCustomerIdOutput | SetStagedOrderDeliveryAddressCustomFieldOutput | SetStagedOrderDeliveryAddressCustomTypeOutput | SetStagedOrderDeliveryAddressOutput | SetStagedOrderDeliveryCustomFieldOutput | SetStagedOrderDeliveryCustomTypeOutput | SetStagedOrderDeliveryItemsOutput | SetStagedOrderDirectDiscountsIgnoreCartDiscountsOutput | SetStagedOrderDirectDiscountsOutput | SetStagedOrderEstimatedDeliveryOutput | SetStagedOrderItemShippingAddressCustomFieldOutput | SetStagedOrderItemShippingAddressCustomTypeOutput | SetStagedOrderLineItemCustomFieldOutput | SetStagedOrderLineItemCustomTypeOutput | SetStagedOrderLineItemDistributionChannelOutput | SetStagedOrderLineItemPriceOutput | SetStagedOrderLineItemShippingDetailsOutput | SetStagedOrderLineItemTaxAmountOutput | SetStagedOrderLineItemTaxRateOutput | SetStagedOrderLineItemTotalPriceOutput | SetStagedOrderLocaleOutput | SetStagedOrderOrderNumberOutput | SetStagedOrderOrderTotalTaxOutput | SetStagedOrderParcelCustomFieldOutput | SetStagedOrderParcelCustomTypeOutput | SetStagedOrderParcelItemsOutput | SetStagedOrderParcelMeasurementsOutput | SetStagedOrderParcelTrackingDataOutput | SetStagedOrderPurchaseOrderNumberOutput | SetStagedOrderReturnInfoOutput | SetStagedOrderReturnItemCustomFieldOutput | SetStagedOrderReturnItemCustomTypeOutput | SetStagedOrderReturnPaymentStateOutput | SetStagedOrderReturnShipmentStateOutput | SetStagedOrderShippingAddressAndCustomShippingMethodOutput | SetStagedOrderShippingAddressAndShippingMethodOutput | SetStagedOrderShippingAddressCustomFieldOutput | SetStagedOrderShippingAddressCustomTypeOutput | SetStagedOrderShippingAddressOutput | SetStagedOrderShippingCustomFieldOutput | SetStagedOrderShippingCustomTypeOutput | SetStagedOrderShippingMethodOutput | SetStagedOrderShippingMethodTaxAmountOutput | SetStagedOrderShippingMethodTaxRateOutput | SetStagedOrderShippingRateInputOutput | SetStagedOrderStoreOutput | TransitionStagedOrderCustomLineItemStateOutput | TransitionStagedOrderLineItemStateOutput | TransitionStagedOrderStateOutput | UpdateStagedOrderItemShippingAddressOutput | UpdateStagedOrderSyncInfoOutput) & { __isUnion?: true }
 
 export interface StagedQuote {
     businessUnit: (BusinessUnit | null)
@@ -8217,6 +8240,14 @@ export interface StoreImprintUrlSet {
     imprintUrl: (Scalars['String'] | null)
     type: Scalars['String']
     __typename: 'StoreImprintUrlSet'
+}
+
+
+/** Reference to a Store by its key. */
+export interface StoreKeyReference {
+    key: Scalars['String']
+    typeId: Scalars['String']
+    __typename: 'StoreKeyReference'
 }
 
 export interface StoreLanguagesChanged {
@@ -8629,13 +8660,26 @@ export type TypedWarningCode = 'CannotChangeReservationExpiry' | 'CannotCreateRe
 
 
 /**
- * Skeleton shopper-facing MCP server config. Carries only the shared
- * `McpServerConfig` fields — no response-shaping (`jsonOutputFiltering`,
- * `toolOutputFormatting`) yet, as the skeleton exposes a single demo tool.
- * Those fields can be added later without breaking existing clients.
+ * A shopper-facing MCP server configuration. Alongside the shared
+ * `McpServerConfig` fields, it carries the shopper-context fields — store,
+ * country, locale, distribution channel, supply channel, and currency — that
+ * scope a shopper session to a specific store and price context.
  */
 export interface UcpShopperMcpServerConfig {
+    country: Scalars['Country']
+    currencyCode: Scalars['CurrencyCode']
+    distributionChannel: ChannelReference
+    inventoryMode: (InventoryMode | null)
+    locale: Scalars['Locale']
     majorVersion: Scalars['String']
+    /**
+     * When true, search_catalog requires actual on-hand stock in the resolved
+     * supply channel, instead of merely a carried inventory entry.
+     * lookup_catalog/get_product are unaffected either way. Defaults to false.
+     */
+    requireStockForChannel: Scalars['Boolean']
+    store: StoreKeyReference
+    supplyChannel: ChannelReference
     toolCustomizations: ToolCustomization[]
     tools: Scalars['String'][]
     type: McpServerType
@@ -8747,7 +8791,7 @@ export interface VariantCreated {
     id: Scalars['String']
     images: Image[]
     key: (Scalars['String'] | null)
-    productId: Scalars['String']
+    productRef: Reference
     publish: Scalars['Boolean']
     sku: (Scalars['String'] | null)
     type: Scalars['String']
@@ -8769,6 +8813,7 @@ export interface VariantData {
 
 /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantDeleted {
+    productRef: Reference
     type: Scalars['String']
     __typename: 'VariantDeleted'
 }
@@ -8786,6 +8831,7 @@ export interface VariantDeletionResult {
 /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantImageAdded {
     image: Image
+    productRef: Reference
     staged: Scalars['Boolean']
     type: Scalars['String']
     __typename: 'VariantImageAdded'
@@ -8796,6 +8842,7 @@ export interface VariantImageAdded {
 export interface VariantImagesSet {
     images: Image[]
     oldImages: Image[]
+    productRef: Reference
     staged: Scalars['Boolean']
     type: Scalars['String']
     __typename: 'VariantImagesSet'
@@ -8806,6 +8853,7 @@ export interface VariantImagesSet {
 export interface VariantKeySet {
     key: (Scalars['String'] | null)
     oldKey: (Scalars['String'] | null)
+    productRef: Reference
     type: Scalars['String']
     __typename: 'VariantKeySet'
 }
@@ -8853,6 +8901,7 @@ export interface VariantProjectionQueryResult {
 
 /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantPublished {
+    productRef: Reference
     type: Scalars['String']
     __typename: 'VariantPublished'
 }
@@ -8870,6 +8919,7 @@ export interface VariantQueryResult {
 /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantSkuSet {
     oldSku: (Scalars['String'] | null)
+    productRef: Reference
     sku: (Scalars['String'] | null)
     staged: Scalars['Boolean']
     type: Scalars['String']
@@ -8879,6 +8929,7 @@ export interface VariantSkuSet {
 
 /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantStagedChangesRemoved {
+    productRef: Reference
     type: Scalars['String']
     __typename: 'VariantStagedChangesRemoved'
 }
@@ -10551,6 +10602,7 @@ export interface CartGenqlSelection{
     customerId?: boolean | number
     deleteDaysAfterLastModification?: boolean | number
     directDiscounts?: DirectDiscountGenqlSelection
+    directDiscountsIgnoreCartDiscounts?: boolean | number
     discountCodes?: DiscountCodeInfoGenqlSelection
     discountOnTotalPrice?: DiscountOnTotalPriceGenqlSelection
     discountTypeCombination?: DiscountTypeCombinationGenqlSelection
@@ -10808,7 +10860,7 @@ export interface CartDiscountVisualizationSearchConfigurationGenqlSelection{
     __scalar?: boolean | number
 }
 
-export interface CartDraft {anonymousId?: (Scalars['String'] | null),billingAddress?: (AddressInput | null),businessUnit?: (ResourceIdentifierInput | null),country?: (Scalars['Country'] | null),currency: Scalars['Currency'],custom?: (CustomFieldsDraft | null),customLineItems?: (CustomLineItemDraft[] | null),customShipping?: (CustomShippingDraft[] | null),customerEmail?: (Scalars['String'] | null),customerGroup?: (ResourceIdentifierInput | null),customerId?: (Scalars['String'] | null),deleteDaysAfterLastModification?: (Scalars['Int'] | null),discountCodes?: (Scalars['String'][] | null),externalTaxRateForShippingMethod?: (ExternalTaxRateDraft | null),inventoryMode?: (InventoryMode | null),itemShippingAddresses?: (AddressInput[] | null),key?: (Scalars['String'] | null),lineItems?: (LineItemDraft[] | null),locale?: (Scalars['Locale'] | null),origin?: (CartOrigin | null),priceRoundingMode?: (RoundingMode | null),purchaseOrderNumber?: (Scalars['String'] | null),shipping?: (ShippingDraft[] | null),shippingAddress?: (AddressInput | null),shippingMethod?: (ResourceIdentifierInput | null),shippingMode?: (ShippingMode | null),shippingRateInput?: (ShippingRateInputDraft | null),store?: (ResourceIdentifierInput | null),taxCalculationMode?: (TaxCalculationMode | null),taxMode?: (TaxMode | null),taxRoundingMode?: (RoundingMode | null)}
+export interface CartDraft {anonymousId?: (Scalars['String'] | null),billingAddress?: (AddressInput | null),businessUnit?: (ResourceIdentifierInput | null),country?: (Scalars['Country'] | null),currency: Scalars['Currency'],custom?: (CustomFieldsDraft | null),customLineItems?: (CustomLineItemDraft[] | null),customShipping?: (CustomShippingDraft[] | null),customerEmail?: (Scalars['String'] | null),customerGroup?: (ResourceIdentifierInput | null),customerId?: (Scalars['String'] | null),deleteDaysAfterLastModification?: (Scalars['Int'] | null),directDiscountsIgnoreCartDiscounts?: (Scalars['Boolean'] | null),discountCodes?: (Scalars['String'][] | null),externalTaxRateForShippingMethod?: (ExternalTaxRateDraft | null),inventoryMode?: (InventoryMode | null),itemShippingAddresses?: (AddressInput[] | null),key?: (Scalars['String'] | null),lineItems?: (LineItemDraft[] | null),locale?: (Scalars['Locale'] | null),origin?: (CartOrigin | null),priceRoundingMode?: (RoundingMode | null),purchaseOrderNumber?: (Scalars['String'] | null),shipping?: (ShippingDraft[] | null),shippingAddress?: (AddressInput | null),shippingMethod?: (ResourceIdentifierInput | null),shippingMode?: (ShippingMode | null),shippingRateInput?: (ShippingRateInputDraft | null),store?: (ResourceIdentifierInput | null),taxCalculationMode?: (TaxCalculationMode | null),taxMode?: (TaxMode | null),taxRoundingMode?: (RoundingMode | null)}
 
 export interface CartEstimatedDeliverySetGenqlSelection{
     estimatedDelivery?: EstimatedDeliveryGenqlSelection
@@ -10903,7 +10955,7 @@ export interface CartUnlockedGenqlSelection{
     __scalar?: boolean | number
 }
 
-export interface CartUpdateAction {addCustomLineItem?: (AddCartCustomLineItem | null),addCustomShippingMethod?: (AddCartCustomShippingMethod | null),addDiscountCode?: (AddCartDiscountCode | null),addItemShippingAddress?: (AddCartItemShippingAddress | null),addLineItem?: (AddCartLineItem | null),addPayment?: (AddCartPayment | null),addRecurringPaymentAllocation?: (AddRecurringPaymentAllocation | null),addShippingMethod?: (AddCartShippingMethod | null),addShoppingList?: (AddCartShoppingList | null),applyDeltaToCustomLineItemShippingDetailsTargets?: (ApplyCartDeltaToCustomLineItemShippingDetailsTargets | null),applyDeltaToLineItemShippingDetailsTargets?: (ApplyCartDeltaToLineItemShippingDetailsTargets | null),changeCustomLineItemMoney?: (ChangeCartCustomLineItemMoney | null),changeCustomLineItemPriceMode?: (ChangeCartCustomLineItemPriceMode | null),changeCustomLineItemQuantity?: (ChangeCartCustomLineItemQuantity | null),changeLineItemQuantity?: (ChangeCartLineItemQuantity | null),changeLineItemsOrder?: (ChangeCartLineItemsOrder | null),changePriceRoundingMode?: (ChangeCartPriceRoundingMode | null),changeTaxCalculationMode?: (ChangeCartTaxCalculationMode | null),changeTaxMode?: (ChangeCartTaxMode | null),changeTaxRoundingMode?: (ChangeCartTaxRoundingMode | null),freezeCart?: (FreezeCart | null),lockCart?: (LockCart | null),recalculate?: (RecalculateCart | null),removeCustomLineItem?: (RemoveCartCustomLineItem | null),removeDiscountCode?: (RemoveCartDiscountCode | null),removeItemShippingAddress?: (RemoveCartItemShippingAddress | null),removeLineItem?: (RemoveCartLineItem | null),removePayment?: (RemoveCartPayment | null),removeRecurringPaymentAllocation?: (RemoveRecurringPaymentAllocation | null),removeShippingMethod?: (RemoveCartShippingMethod | null),setAnonymousId?: (SetCartAnonymousId | null),setBillingAddress?: (SetCartBillingAddress | null),setBillingAddressCustomField?: (SetCartBillingAddressCustomField | null),setBillingAddressCustomType?: (SetCartBillingAddressCustomType | null),setBusinessUnit?: (SetCartBusinessUnit | null),setCartTotalTax?: (SetCartTotalTax | null),setCountry?: (SetCartCountry | null),setCustomField?: (SetCartCustomField | null),setCustomLineItemCustomField?: (SetCartCustomLineItemCustomField | null),setCustomLineItemCustomType?: (SetCartCustomLineItemCustomType | null),setCustomLineItemRecurrenceInfo?: (SetCustomLineItemRecurrenceInfo | null),setCustomLineItemShippingDetails?: (SetCartCustomLineItemShippingDetails | null),setCustomLineItemTaxAmount?: (SetCartCustomLineItemTaxAmount | null),setCustomLineItemTaxRate?: (SetCartCustomLineItemTaxRate | null),setCustomShippingMethod?: (SetCartCustomShippingMethod | null),setCustomType?: (SetCartCustomType | null),setCustomerEmail?: (SetCartCustomerEmail | null),setCustomerGroup?: (SetCartCustomerGroup | null),setCustomerId?: (SetCartCustomerId | null),setDeleteDaysAfterLastModification?: (SetCartDeleteDaysAfterLastModification | null),setDirectDiscounts?: (SetCartDirectDiscounts | null),setEstimatedDelivery?: (SetCartEstimatedDelivery | null),setItemShippingAddressCustomField?: (SetCartItemShippingAddressCustomField | null),setItemShippingAddressCustomType?: (SetCartItemShippingAddressCustomType | null),setKey?: (SetCartKey | null),setLineItemCustomField?: (SetCartLineItemCustomField | null),setLineItemCustomType?: (SetCartLineItemCustomType | null),setLineItemDistributionChannel?: (SetCartLineItemDistributionChannel | null),setLineItemInventoryMode?: (SetCartLineItemInventoryMode | null),setLineItemPrice?: (SetCartLineItemPrice | null),setLineItemRecurrenceInfo?: (SetLineItemRecurrenceInfo | null),setLineItemShippingDetails?: (SetCartLineItemShippingDetails | null),setLineItemSupplyChannel?: (SetCartLineItemSupplyChannel | null),setLineItemTaxAmount?: (SetCartLineItemTaxAmount | null),setLineItemTaxRate?: (SetCartLineItemTaxRate | null),setLineItemTotalPrice?: (SetCartLineItemTotalPrice | null),setLocale?: (SetCartLocale | null),setPurchaseOrderNumber?: (SetCartPurchaseOrderNumber | null),setRecurringPaymentConfiguration?: (SetRecurringPaymentConfiguration | null),setRecurringPaymentStrategy?: (SetRecurringPaymentStrategy | null),
+export interface CartUpdateAction {addCustomLineItem?: (AddCartCustomLineItem | null),addCustomShippingMethod?: (AddCartCustomShippingMethod | null),addDiscountCode?: (AddCartDiscountCode | null),addItemShippingAddress?: (AddCartItemShippingAddress | null),addLineItem?: (AddCartLineItem | null),addPayment?: (AddCartPayment | null),addRecurringPaymentAllocation?: (AddRecurringPaymentAllocation | null),addShippingMethod?: (AddCartShippingMethod | null),addShoppingList?: (AddCartShoppingList | null),applyDeltaToCustomLineItemShippingDetailsTargets?: (ApplyCartDeltaToCustomLineItemShippingDetailsTargets | null),applyDeltaToLineItemShippingDetailsTargets?: (ApplyCartDeltaToLineItemShippingDetailsTargets | null),changeCustomLineItemMoney?: (ChangeCartCustomLineItemMoney | null),changeCustomLineItemPriceMode?: (ChangeCartCustomLineItemPriceMode | null),changeCustomLineItemQuantity?: (ChangeCartCustomLineItemQuantity | null),changeLineItemQuantity?: (ChangeCartLineItemQuantity | null),changeLineItemsOrder?: (ChangeCartLineItemsOrder | null),changePriceRoundingMode?: (ChangeCartPriceRoundingMode | null),changeTaxCalculationMode?: (ChangeCartTaxCalculationMode | null),changeTaxMode?: (ChangeCartTaxMode | null),changeTaxRoundingMode?: (ChangeCartTaxRoundingMode | null),freezeCart?: (FreezeCart | null),lockCart?: (LockCart | null),recalculate?: (RecalculateCart | null),removeCustomLineItem?: (RemoveCartCustomLineItem | null),removeDiscountCode?: (RemoveCartDiscountCode | null),removeItemShippingAddress?: (RemoveCartItemShippingAddress | null),removeLineItem?: (RemoveCartLineItem | null),removePayment?: (RemoveCartPayment | null),removeRecurringPaymentAllocation?: (RemoveRecurringPaymentAllocation | null),removeShippingMethod?: (RemoveCartShippingMethod | null),setAnonymousId?: (SetCartAnonymousId | null),setBillingAddress?: (SetCartBillingAddress | null),setBillingAddressCustomField?: (SetCartBillingAddressCustomField | null),setBillingAddressCustomType?: (SetCartBillingAddressCustomType | null),setBusinessUnit?: (SetCartBusinessUnit | null),setCartTotalTax?: (SetCartTotalTax | null),setCountry?: (SetCartCountry | null),setCustomField?: (SetCartCustomField | null),setCustomLineItemCustomField?: (SetCartCustomLineItemCustomField | null),setCustomLineItemCustomType?: (SetCartCustomLineItemCustomType | null),setCustomLineItemRecurrenceInfo?: (SetCustomLineItemRecurrenceInfo | null),setCustomLineItemShippingDetails?: (SetCartCustomLineItemShippingDetails | null),setCustomLineItemTaxAmount?: (SetCartCustomLineItemTaxAmount | null),setCustomLineItemTaxRate?: (SetCartCustomLineItemTaxRate | null),setCustomShippingMethod?: (SetCartCustomShippingMethod | null),setCustomType?: (SetCartCustomType | null),setCustomerEmail?: (SetCartCustomerEmail | null),setCustomerGroup?: (SetCartCustomerGroup | null),setCustomerId?: (SetCartCustomerId | null),setDeleteDaysAfterLastModification?: (SetCartDeleteDaysAfterLastModification | null),setDirectDiscounts?: (SetCartDirectDiscounts | null),setDirectDiscountsIgnoreCartDiscounts?: (SetCartDirectDiscountsIgnoreCartDiscounts | null),setEstimatedDelivery?: (SetCartEstimatedDelivery | null),setItemShippingAddressCustomField?: (SetCartItemShippingAddressCustomField | null),setItemShippingAddressCustomType?: (SetCartItemShippingAddressCustomType | null),setKey?: (SetCartKey | null),setLineItemCustomField?: (SetCartLineItemCustomField | null),setLineItemCustomType?: (SetCartLineItemCustomType | null),setLineItemDistributionChannel?: (SetCartLineItemDistributionChannel | null),setLineItemInventoryMode?: (SetCartLineItemInventoryMode | null),setLineItemPrice?: (SetCartLineItemPrice | null),setLineItemRecurrenceInfo?: (SetLineItemRecurrenceInfo | null),setLineItemShippingDetails?: (SetCartLineItemShippingDetails | null),setLineItemSupplyChannel?: (SetCartLineItemSupplyChannel | null),setLineItemTaxAmount?: (SetCartLineItemTaxAmount | null),setLineItemTaxRate?: (SetCartLineItemTaxRate | null),setLineItemTotalPrice?: (SetCartLineItemTotalPrice | null),setLocale?: (SetCartLocale | null),setPurchaseOrderNumber?: (SetCartPurchaseOrderNumber | null),setRecurringPaymentConfiguration?: (SetRecurringPaymentConfiguration | null),setRecurringPaymentStrategy?: (SetRecurringPaymentStrategy | null),
 /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 setReservationExpirationInMinutes?: (SetCartReservationExpirationInMinutes | null),setShippingAddress?: (SetCartShippingAddress | null),setShippingAddressCustomField?: (SetCartShippingAddressCustomField | null),setShippingAddressCustomType?: (SetCartShippingAddressCustomType | null),setShippingCustomField?: (SetCartShippingCustomField | null),setShippingCustomType?: (SetCartShippingCustomType | null),setShippingMethod?: (SetCartShippingMethod | null),setShippingMethodTaxAmount?: (SetCartShippingMethodTaxAmount | null),setShippingMethodTaxRate?: (SetCartShippingMethodTaxRate | null),setShippingRateInput?: (SetCartShippingRateInput | null),unfreezeCart?: (UnfreezeCart | null),unlockCart?: (UnlockCart | null),updateItemShippingAddress?: (UpdateCartItemShippingAddress | null)}
 
@@ -11458,6 +11510,15 @@ export interface ChannelQueryResultGenqlSelection{
     __scalar?: boolean | number
 }
 
+
+/** Reference to a Channel by its id. */
+export interface ChannelReferenceGenqlSelection{
+    id?: boolean | number
+    typeId?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
 export interface ChannelReferenceIdentifierGenqlSelection{
     id?: boolean | number
     key?: boolean | number
@@ -11465,6 +11526,10 @@ export interface ChannelReferenceIdentifierGenqlSelection{
     __typename?: boolean | number
     __scalar?: boolean | number
 }
+
+
+/** Input reference to a Channel by its id. */
+export interface ChannelReferenceInput {id: Scalars['String']}
 
 export interface ChannelUpdateAction {addRoles?: (AddChannelRoles | null),changeDescription?: (ChangeChannelDescription | null),changeKey?: (ChangeChannelKey | null),changeName?: (ChangeChannelName | null),removeRoles?: (RemoveChannelRoles | null),setAddress?: (SetChannelAddress | null),setAddressCustomField?: (SetChannelAddressCustomField | null),setAddressCustomType?: (SetChannelAddressCustomType | null),setCustomField?: (SetChannelCustomField | null),setCustomType?: (SetChannelCustomType | null),setGeoLocation?: (SetChannelGeoLocation | null),setRoles?: (SetChannelRoles | null)}
 
@@ -11734,7 +11799,7 @@ export interface CustomLineItemDraftOutputGenqlSelection{
     __scalar?: boolean | number
 }
 
-export interface CustomLineItemImportDraft {custom?: (CustomFieldsDraft | null),key?: (Scalars['String'] | null),money: BaseMoneyInput,name: LocalizedStringItemInputType[],priceMode?: (CustomLineItemPriceMode | null),quantity: Scalars['Long'],shippingDetails?: (ItemShippingDetailsDraft | null),slug: Scalars['String'],state?: (ItemStateDraftType[] | null),taxCategory?: (ResourceIdentifierInput | null),taxRate?: (TaxRateInput | null)}
+export interface CustomLineItemImportDraft {custom?: (CustomFieldsDraft | null),key?: (Scalars['String'] | null),money: BaseMoneyInput,name: LocalizedStringItemInputType[],priceMode?: (CustomLineItemPriceMode | null),quantity: Scalars['Long'],shippingDetails?: (ItemShippingDetailsDraft | null),slug: Scalars['String'],state?: (ItemStateDraftType[] | null),taxCategory?: (ResourceIdentifierInput | null),taxRate?: (TaxRateInput | null),taxedPrice?: (TaxedPriceDraft | null)}
 
 
 /** The RecurrenceInfo returned in a CustomLineItem */
@@ -12636,15 +12701,17 @@ export interface DimensionsProductSearchGenqlSelection{
 
 export interface DirectDiscountGenqlSelection{
     id?: boolean | number
+    participateInBestDealSelection?: boolean | number
     target?: CartDiscountTargetGenqlSelection
     value?: CartDiscountValueGenqlSelection
     __typename?: boolean | number
     __scalar?: boolean | number
 }
 
-export interface DirectDiscountDraft {target?: (CartDiscountTargetInput | null),value: CartDiscountValueInput}
+export interface DirectDiscountDraft {participateInBestDealSelection?: (Scalars['Boolean'] | null),target?: (CartDiscountTargetInput | null),value: CartDiscountValueInput}
 
 export interface DirectDiscountDraftOutputGenqlSelection{
+    participateInBestDealSelection?: boolean | number
     target?: CartDiscountTargetGenqlSelection
     value?: CartDiscountValueGenqlSelection
     __typename?: boolean | number
@@ -13035,14 +13102,11 @@ export interface ExcludeProductSelectionProduct {product: ResourceIdentifierInpu
 export interface ExistsFilterInput {path: Scalars['String']}
 
 export interface ExtensionGenqlSelection{
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     additionalContext?: ExtensionAdditionalContextGenqlSelection
     createdAt?: boolean | number
     createdBy?: InitiatorGenqlSelection
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     dependenciesRef?: ReferenceGenqlSelection
     destination?: ExtensionDestinationGenqlSelection
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     expansionPaths?: boolean | number
     id?: boolean | number
     key?: boolean | number
@@ -13061,8 +13125,6 @@ export interface ExtensionAdditionalContextGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface ExtensionAdditionalContextInput {includeOldResource?: (Scalars['Boolean'] | null)}
 
 export interface ExtensionDestinationGenqlSelection{
@@ -13076,13 +13138,7 @@ export interface ExtensionDestinationGenqlSelection{
 
 export interface ExtensionDestinationInput {AWSLambda?: (AWSLambdaDestinationInput | null),GoogleCloudFunction?: (GoogleCloudFunctionDestinationInput | null),HTTP?: (HttpDestinationInput | null)}
 
-export interface ExtensionDraft {
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
-additionalContext?: (ExtensionAdditionalContextInput | null),
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
-dependencies?: (ResourceIdentifierInput[] | null),destination: ExtensionDestinationInput,
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
-expansionPaths?: (Scalars['String'][] | null),key?: (Scalars['String'] | null),timeoutInMs?: (Scalars['Int'] | null),triggers: TriggerInput[]}
+export interface ExtensionDraft {additionalContext?: (ExtensionAdditionalContextInput | null),dependencies?: (ResourceIdentifierInput[] | null),destination: ExtensionDestinationInput,expansionPaths?: (Scalars['String'][] | null),key?: (Scalars['String'] | null),timeoutInMs?: (Scalars['Int'] | null),triggers: TriggerInput[]}
 
 export interface ExtensionLimitsProjectionGenqlSelection{
     maxExtensionsUpdateActions?: LimitGenqlSelection
@@ -13101,13 +13157,7 @@ export interface ExtensionQueryResultGenqlSelection{
     __scalar?: boolean | number
 }
 
-export interface ExtensionUpdateAction {changeDestination?: (ChangeExtensionDestination | null),changeTriggers?: (ChangeExtensionTriggers | null),
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
-setAdditionalContext?: (SetExtensionAdditionalContext | null),
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
-setDependencies?: (SetExtensionDependencies | null),
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
-setExpansionPaths?: (SetExtensionExpansionPaths | null),setKey?: (SetExtensionKey | null),setTimeoutInMs?: (SetExtensionTimeoutInMs | null)}
+export interface ExtensionUpdateAction {changeDestination?: (ChangeExtensionDestination | null),changeTriggers?: (ChangeExtensionTriggers | null),setAdditionalContext?: (SetExtensionAdditionalContext | null),setDependencies?: (SetExtensionDependencies | null),setExpansionPaths?: (SetExtensionExpansionPaths | null),setKey?: (SetExtensionKey | null),setTimeoutInMs?: (SetExtensionTimeoutInMs | null)}
 
 export interface ExternalDiscountValueGenqlSelection{
     type?: boolean | number
@@ -13487,7 +13537,13 @@ export interface InStoreGenqlSelection{
     includeChannelIds?: (Scalars['String'][] | null), 
     /** Queries with specified key */
     key?: (Scalars['String'] | null), localeProjection?: (Scalars['Locale'][] | null), staged?: Scalars['Boolean']} })
+    productSelection?: (ProductSelectionGenqlSelection & { __args?: {
+    /** Queries with specified ID */
+    id?: (Scalars['String'] | null), 
+    /** Queries with specified key */
+    key?: (Scalars['String'] | null)} })
     productSelectionAssignments?: (ProductAssignmentQueryResultGenqlSelection & { __args?: {limit?: (Scalars['Int'] | null), offset?: (Scalars['Int'] | null), sort?: (Scalars['String'][] | null), where?: (Scalars['String'] | null)} })
+    productSelections?: (ProductSelectionQueryResultGenqlSelection & { __args?: {limit?: (Scalars['Int'] | null), offset?: (Scalars['Int'] | null), sort?: (Scalars['String'][] | null), where?: (Scalars['String'] | null)} })
     productTailoring?: (ProductTailoringGenqlSelection & { __args?: {
     /** Queries with specified ID */
     id?: (Scalars['String'] | null), 
@@ -13959,7 +14015,7 @@ export interface LineItemDraftOutputGenqlSelection{
     __scalar?: boolean | number
 }
 
-export interface LineItemImportDraft {custom?: (CustomFieldsDraft | null),distributionChannel?: (ResourceIdentifierInput | null),inventoryMode?: (InventoryMode | null),key?: (Scalars['String'] | null),name: LocalizedStringItemInputType[],price: ProductPriceDataInput,productId?: (Scalars['String'] | null),quantity: Scalars['Long'],shippingDetails?: (ItemShippingDetailsDraft | null),state?: (ItemStateDraftType[] | null),supplyChannel?: (ResourceIdentifierInput | null),taxRate?: (TaxRateInput | null),variant: ProductVariantImportDraft}
+export interface LineItemImportDraft {custom?: (CustomFieldsDraft | null),distributionChannel?: (ResourceIdentifierInput | null),inventoryMode?: (InventoryMode | null),key?: (Scalars['String'] | null),name: LocalizedStringItemInputType[],price: ProductPriceDataInput,productId?: (Scalars['String'] | null),quantity: Scalars['Long'],shippingDetails?: (ItemShippingDetailsDraft | null),state?: (ItemStateDraftType[] | null),supplyChannel?: (ResourceIdentifierInput | null),taxRate?: (TaxRateInput | null),taxedPrice?: (TaxedPriceDraft | null),variant: ProductVariantImportDraft}
 
 
 /** The RecurrenceInfo returned in a LineItem */
@@ -14271,7 +14327,7 @@ export interface McpServerTypeCatalogEntryGenqlSelection{
     __scalar?: boolean | number
 }
 
-export interface McpServerUpdateAction {addTool?: (AddMcpServerTool | null),addToolCustomization?: (AddMcpServerToolCustomization | null),removeTool?: (RemoveMcpServerTool | null),removeToolCustomization?: (RemoveMcpServerToolCustomization | null),setAuthenticationMode?: (SetMcpServerAuthenticationMode | null),setDescription?: (SetMcpServerDescription | null),setJsonOutputFiltering?: (SetMcpServerJsonOutputFiltering | null),setName?: (SetMcpServerName | null),setState?: (SetMcpServerState | null),setToolCustomizations?: (SetMcpServerToolCustomizations | null),setToolOutputFormatting?: (SetMcpServerToolOutputFormatting | null),setTools?: (SetMcpServerTools | null)}
+export interface McpServerUpdateAction {addTool?: (AddMcpServerTool | null),addToolCustomization?: (AddMcpServerToolCustomization | null),removeTool?: (RemoveMcpServerTool | null),removeToolCustomization?: (RemoveMcpServerToolCustomization | null),setAuthenticationMode?: (SetMcpServerAuthenticationMode | null),setCountry?: (SetMcpServerCountry | null),setCurrencyCode?: (SetMcpServerCurrencyCode | null),setDescription?: (SetMcpServerDescription | null),setDistributionChannel?: (SetMcpServerDistributionChannel | null),setInventoryMode?: (SetMcpServerInventoryMode | null),setJsonOutputFiltering?: (SetMcpServerJsonOutputFiltering | null),setLocale?: (SetMcpServerLocale | null),setName?: (SetMcpServerName | null),setRequireStockForChannel?: (SetMcpServerRequireStockForChannel | null),setState?: (SetMcpServerState | null),setStore?: (SetMcpServerStore | null),setSupplyChannel?: (SetMcpServerSupplyChannel | null),setToolCustomizations?: (SetMcpServerToolCustomizations | null),setToolOutputFormatting?: (SetMcpServerToolOutputFormatting | null),setTools?: (SetMcpServerTools | null)}
 
 export interface MeGenqlSelection{
     activeCart?: CartGenqlSelection
@@ -15738,6 +15794,7 @@ export interface OrderGenqlSelection{
     customerGroupRef?: ReferenceGenqlSelection
     customerId?: boolean | number
     directDiscounts?: DirectDiscountGenqlSelection
+    directDiscountsIgnoreCartDiscounts?: boolean | number
     discountCodes?: DiscountCodeInfoGenqlSelection
     discountOnTotalPrice?: DiscountOnTotalPriceGenqlSelection
     discountTypeCombination?: DiscountTypeCombinationGenqlSelection
@@ -18942,6 +18999,8 @@ export interface QuoteGenqlSelection{
     customerRef?: ReferenceGenqlSelection
     /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     directDiscounts?: DirectDiscountGenqlSelection
+    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
+    directDiscountsIgnoreCartDiscounts?: boolean | number
     id?: boolean | number
     inventoryMode?: boolean | number
     itemShippingAddresses?: AddressGenqlSelection
@@ -19051,6 +19110,8 @@ export interface QuoteRequestGenqlSelection{
     customerRef?: ReferenceGenqlSelection
     /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     directDiscounts?: DirectDiscountGenqlSelection
+    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
+    directDiscountsIgnoreCartDiscounts?: boolean | number
     id?: boolean | number
     inventoryMode?: boolean | number
     itemShippingAddresses?: AddressGenqlSelection
@@ -19889,7 +19950,15 @@ export interface RemoveStoreSupplyChannel {supplyChannel: ResourceIdentifierInpu
 
 export interface RemoveToolCustomizationTarget {tool: Scalars['String']}
 
+
+/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
+export interface RemoveTypeEnumValues {fieldName: Scalars['String'],keys: Scalars['String'][]}
+
 export interface RemoveTypeFieldDefinition {fieldName: Scalars['String']}
+
+
+/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
+export interface RemoveTypeLocalizedEnumValues {fieldName: Scalars['String'],keys: Scalars['String'][]}
 
 
 /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
@@ -20399,6 +20468,8 @@ export interface SetCartDeleteDaysAfterLastModification {deleteDaysAfterLastModi
 
 export interface SetCartDirectDiscounts {discounts: DirectDiscountDraft[]}
 
+export interface SetCartDirectDiscountsIgnoreCartDiscounts {directDiscountsIgnoreCartDiscounts?: (Scalars['Boolean'] | null)}
+
 export interface SetCartDiscountCustomField {name: Scalars['String'],value?: (Scalars['String'] | null)}
 
 export interface SetCartDiscountCustomType {fields?: (CustomFieldInput[] | null),type?: (ResourceIdentifierInput | null),typeId?: (Scalars['String'] | null),typeKey?: (Scalars['String'] | null)}
@@ -20601,16 +20672,10 @@ export interface SetDiscountGroupName {name?: (LocalizedStringItemInputType[] | 
 
 export interface SetDiscountGroupSortOrder {sortOrder: Scalars['String']}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetExtensionAdditionalContext {additionalContext: ExtensionAdditionalContextInput}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetExtensionDependencies {dependencies: ResourceIdentifierInput[]}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetExtensionExpansionPaths {expansionPaths: Scalars['String'][]}
 
 export interface SetExtensionKey {key?: (Scalars['String'] | null)}
@@ -20639,7 +20704,15 @@ export interface SetLineItemRecurrenceInfo {lineItemId: Scalars['String'],recurr
 
 export interface SetMcpServerAuthenticationMode {authenticationMode: McpServerAuthenticationMode}
 
+export interface SetMcpServerCountry {country: Scalars['Country']}
+
+export interface SetMcpServerCurrencyCode {currencyCode: Scalars['CurrencyCode']}
+
 export interface SetMcpServerDescription {description?: (LocalizedStringItemInputType[] | null)}
+
+export interface SetMcpServerDistributionChannel {distributionChannel: ChannelReferenceInput}
+
+export interface SetMcpServerInventoryMode {inventoryMode: InventoryMode}
 
 
 /**
@@ -20648,9 +20721,17 @@ export interface SetMcpServerDescription {description?: (LocalizedStringItemInpu
  */
 export interface SetMcpServerJsonOutputFiltering {jsonOutputFiltering?: (McpServerJsonOutputFilteringInput | null)}
 
+export interface SetMcpServerLocale {locale: Scalars['Locale']}
+
 export interface SetMcpServerName {name?: (LocalizedStringItemInputType[] | null)}
 
+export interface SetMcpServerRequireStockForChannel {requireStockForChannel: Scalars['Boolean']}
+
 export interface SetMcpServerState {state: McpServerState}
+
+export interface SetMcpServerStore {store: StoreKeyReferenceInput}
+
+export interface SetMcpServerSupplyChannel {supplyChannel: ChannelReferenceInput}
 
 export interface SetMcpServerToolCustomizations {toolCustomizations: ToolCustomizationDraft[]}
 
@@ -21335,6 +21416,15 @@ export interface SetStagedOrderDeliveryItemsOutputGenqlSelection{
 
 export interface SetStagedOrderDirectDiscounts {discounts: DirectDiscountDraft[]}
 
+export interface SetStagedOrderDirectDiscountsIgnoreCartDiscounts {directDiscountsIgnoreCartDiscounts?: (Scalars['Boolean'] | null)}
+
+export interface SetStagedOrderDirectDiscountsIgnoreCartDiscountsOutputGenqlSelection{
+    directDiscountsIgnoreCartDiscounts?: boolean | number
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
 export interface SetStagedOrderDirectDiscountsOutputGenqlSelection{
     discounts?: DirectDiscountDraftOutputGenqlSelection
     type?: boolean | number
@@ -21899,6 +21989,7 @@ export interface ShippingInfoGenqlSelection{
     deliveries?: DeliveryGenqlSelection
     discountedPrice?: DiscountedLineItemPriceGenqlSelection
     estimatedDelivery?: EstimatedDeliveryGenqlSelection
+    message?: boolean | number
     price?: MoneyGenqlSelection
     shippingMethod?: ShippingMethodGenqlSelection
     shippingMethodName?: boolean | number
@@ -21913,7 +22004,7 @@ export interface ShippingInfoGenqlSelection{
     __scalar?: boolean | number
 }
 
-export interface ShippingInfoImportDraft {deliveries?: DeliveryDraft[],discountedPrice?: (DiscountedLineItemPriceDraft | null),price: MoneyInput,shippingMethod?: (ResourceIdentifierInput | null),shippingMethodName: Scalars['String'],shippingMethodState?: ShippingMethodState,shippingRate: ShippingRateDraft,taxCategory?: (ResourceIdentifierInput | null),taxRate?: (TaxRateInput | null)}
+export interface ShippingInfoImportDraft {deliveries?: DeliveryDraft[],discountedPrice?: (DiscountedLineItemPriceDraft | null),price: MoneyInput,shippingMethod?: (ResourceIdentifierInput | null),shippingMethodName: Scalars['String'],shippingMethodState?: ShippingMethodState,shippingRate: ShippingRateDraft,taxCategory?: (ResourceIdentifierInput | null),taxRate?: (TaxRateInput | null),taxedPrice?: (TaxedPriceDraft | null)}
 
 export interface ShippingMethodGenqlSelection{
     active?: boolean | number
@@ -22273,7 +22364,7 @@ export interface StackingGenqlSelection{
     __scalar?: boolean | number
 }
 
-export interface StagedOrderUpdateAction {addCustomLineItem?: (AddStagedOrderCustomLineItem | null),addDelivery?: (AddStagedOrderDelivery | null),addDiscountCode?: (AddStagedOrderDiscountCode | null),addItemShippingAddress?: (AddStagedOrderItemShippingAddress | null),addLineItem?: (AddStagedOrderLineItem | null),addParcelToDelivery?: (AddStagedOrderParcelToDelivery | null),addPayment?: (AddStagedOrderPayment | null),addReturnInfo?: (AddStagedOrderReturnInfo | null),addShoppingList?: (AddStagedOrderShoppingList | null),changeCustomLineItemMoney?: (ChangeStagedOrderCustomLineItemMoney | null),changeCustomLineItemQuantity?: (ChangeStagedOrderCustomLineItemQuantity | null),changeLineItemQuantity?: (ChangeStagedOrderLineItemQuantity | null),changeOrderState?: (ChangeStagedOrderOrderState | null),changePaymentState?: (ChangeStagedOrderPaymentState | null),changePriceRoundingMode?: (ChangeStagedOrderPriceRoundingMode | null),changeShipmentState?: (ChangeStagedOrderShipmentState | null),changeTaxCalculationMode?: (ChangeStagedOrderTaxCalculationMode | null),changeTaxMode?: (ChangeStagedOrderTaxMode | null),changeTaxRoundingMode?: (ChangeStagedOrderTaxRoundingMode | null),importCustomLineItemState?: (ImportStagedOrderCustomLineItemState | null),importLineItemState?: (ImportStagedOrderLineItemState | null),removeCustomLineItem?: (RemoveStagedOrderCustomLineItem | null),removeDelivery?: (RemoveStagedOrderDelivery | null),removeDiscountCode?: (RemoveStagedOrderDiscountCode | null),removeItemShippingAddress?: (RemoveStagedOrderItemShippingAddress | null),removeLineItem?: (RemoveStagedOrderLineItem | null),removeParcelFromDelivery?: (RemoveStagedOrderParcelFromDelivery | null),removePayment?: (RemoveStagedOrderPayment | null),setBillingAddress?: (SetStagedOrderBillingAddress | null),setBillingAddressCustomField?: (SetStagedOrderBillingAddressCustomField | null),setBillingAddressCustomType?: (SetStagedOrderBillingAddressCustomType | null),setBusinessUnit?: (SetStagedOrderBusinessUnit | null),setCountry?: (SetStagedOrderCountry | null),setCustomField?: (SetStagedOrderCustomField | null),setCustomLineItemCustomField?: (SetStagedOrderCustomLineItemCustomField | null),setCustomLineItemCustomType?: (SetStagedOrderCustomLineItemCustomType | null),setCustomLineItemShippingDetails?: (SetStagedOrderCustomLineItemShippingDetails | null),setCustomLineItemTaxAmount?: (SetStagedOrderCustomLineItemTaxAmount | null),setCustomLineItemTaxRate?: (SetStagedOrderCustomLineItemTaxRate | null),setCustomShippingMethod?: (SetStagedOrderCustomShippingMethod | null),setCustomType?: (SetStagedOrderCustomType | null),setCustomerEmail?: (SetStagedOrderCustomerEmail | null),setCustomerGroup?: (SetStagedOrderCustomerGroup | null),setCustomerId?: (SetStagedOrderCustomerId | null),setDeliveryAddress?: (SetStagedOrderDeliveryAddress | null),setDeliveryAddressCustomField?: (SetStagedOrderDeliveryAddressCustomField | null),setDeliveryAddressCustomType?: (SetStagedOrderDeliveryAddressCustomType | null),setDeliveryCustomField?: (SetStagedOrderDeliveryCustomField | null),setDeliveryCustomType?: (SetStagedOrderDeliveryCustomType | null),setDeliveryItems?: (SetStagedOrderDeliveryItems | null),setDirectDiscounts?: (SetStagedOrderDirectDiscounts | null),setEstimatedDelivery?: (SetStagedOrderEstimatedDelivery | null),setItemShippingAddressCustomField?: (SetStagedOrderItemShippingAddressCustomField | null),setItemShippingAddressCustomType?: (SetStagedOrderItemShippingAddressCustomType | null),setLineItemCustomField?: (SetStagedOrderLineItemCustomField | null),setLineItemCustomType?: (SetStagedOrderLineItemCustomType | null),setLineItemDistributionChannel?: (SetStagedOrderLineItemDistributionChannel | null),setLineItemPrice?: (SetStagedOrderLineItemPrice | null),setLineItemShippingDetails?: (SetStagedOrderLineItemShippingDetails | null),setLineItemTaxAmount?: (SetStagedOrderLineItemTaxAmount | null),setLineItemTaxRate?: (SetStagedOrderLineItemTaxRate | null),setLineItemTotalPrice?: (SetStagedOrderLineItemTotalPrice | null),setLocale?: (SetStagedOrderLocale | null),setOrderNumber?: (SetStagedOrderOrderNumber | null),setOrderTotalTax?: (SetStagedOrderOrderTotalTax | null),setParcelCustomField?: (SetStagedOrderParcelCustomField | null),setParcelCustomType?: (SetStagedOrderParcelCustomType | null),setParcelItems?: (SetStagedOrderParcelItems | null),setParcelMeasurements?: (SetStagedOrderParcelMeasurements | null),setParcelTrackingData?: (SetStagedOrderParcelTrackingData | null),setPurchaseOrderNumber?: (SetStagedOrderPurchaseOrderNumber | null),setReturnInfo?: (SetStagedOrderReturnInfo | null),setReturnItemCustomField?: (SetStagedOrderReturnItemCustomField | null),setReturnItemCustomType?: (SetStagedOrderReturnItemCustomType | null),setReturnPaymentState?: (SetStagedOrderReturnPaymentState | null),setReturnShipmentState?: (SetStagedOrderReturnShipmentState | null),setShippingAddress?: (SetStagedOrderShippingAddress | null),setShippingAddressAndCustomShippingMethod?: (SetStagedOrderShippingAddressAndCustomShippingMethod | null),setShippingAddressAndShippingMethod?: (SetStagedOrderShippingAddressAndShippingMethod | null),setShippingAddressCustomField?: (SetStagedOrderShippingAddressCustomField | null),setShippingAddressCustomType?: (SetStagedOrderShippingAddressCustomType | null),setShippingCustomField?: (SetStagedOrderShippingCustomField | null),setShippingCustomType?: (SetStagedOrderShippingCustomType | null),setShippingMethod?: (SetStagedOrderShippingMethod | null),setShippingMethodTaxAmount?: (SetStagedOrderShippingMethodTaxAmount | null),setShippingMethodTaxRate?: (SetStagedOrderShippingMethodTaxRate | null),setShippingRateInput?: (SetStagedOrderShippingRateInput | null),setStore?: (SetStagedOrderStore | null),transitionCustomLineItemState?: (TransitionStagedOrderCustomLineItemState | null),transitionLineItemState?: (TransitionStagedOrderLineItemState | null),transitionState?: (TransitionStagedOrderState | null),updateItemShippingAddress?: (UpdateStagedOrderItemShippingAddress | null),updateSyncInfo?: (UpdateStagedOrderSyncInfo | null)}
+export interface StagedOrderUpdateAction {addCustomLineItem?: (AddStagedOrderCustomLineItem | null),addDelivery?: (AddStagedOrderDelivery | null),addDiscountCode?: (AddStagedOrderDiscountCode | null),addItemShippingAddress?: (AddStagedOrderItemShippingAddress | null),addLineItem?: (AddStagedOrderLineItem | null),addParcelToDelivery?: (AddStagedOrderParcelToDelivery | null),addPayment?: (AddStagedOrderPayment | null),addReturnInfo?: (AddStagedOrderReturnInfo | null),addShoppingList?: (AddStagedOrderShoppingList | null),changeCustomLineItemMoney?: (ChangeStagedOrderCustomLineItemMoney | null),changeCustomLineItemQuantity?: (ChangeStagedOrderCustomLineItemQuantity | null),changeLineItemQuantity?: (ChangeStagedOrderLineItemQuantity | null),changeOrderState?: (ChangeStagedOrderOrderState | null),changePaymentState?: (ChangeStagedOrderPaymentState | null),changePriceRoundingMode?: (ChangeStagedOrderPriceRoundingMode | null),changeShipmentState?: (ChangeStagedOrderShipmentState | null),changeTaxCalculationMode?: (ChangeStagedOrderTaxCalculationMode | null),changeTaxMode?: (ChangeStagedOrderTaxMode | null),changeTaxRoundingMode?: (ChangeStagedOrderTaxRoundingMode | null),importCustomLineItemState?: (ImportStagedOrderCustomLineItemState | null),importLineItemState?: (ImportStagedOrderLineItemState | null),removeCustomLineItem?: (RemoveStagedOrderCustomLineItem | null),removeDelivery?: (RemoveStagedOrderDelivery | null),removeDiscountCode?: (RemoveStagedOrderDiscountCode | null),removeItemShippingAddress?: (RemoveStagedOrderItemShippingAddress | null),removeLineItem?: (RemoveStagedOrderLineItem | null),removeParcelFromDelivery?: (RemoveStagedOrderParcelFromDelivery | null),removePayment?: (RemoveStagedOrderPayment | null),setBillingAddress?: (SetStagedOrderBillingAddress | null),setBillingAddressCustomField?: (SetStagedOrderBillingAddressCustomField | null),setBillingAddressCustomType?: (SetStagedOrderBillingAddressCustomType | null),setBusinessUnit?: (SetStagedOrderBusinessUnit | null),setCountry?: (SetStagedOrderCountry | null),setCustomField?: (SetStagedOrderCustomField | null),setCustomLineItemCustomField?: (SetStagedOrderCustomLineItemCustomField | null),setCustomLineItemCustomType?: (SetStagedOrderCustomLineItemCustomType | null),setCustomLineItemShippingDetails?: (SetStagedOrderCustomLineItemShippingDetails | null),setCustomLineItemTaxAmount?: (SetStagedOrderCustomLineItemTaxAmount | null),setCustomLineItemTaxRate?: (SetStagedOrderCustomLineItemTaxRate | null),setCustomShippingMethod?: (SetStagedOrderCustomShippingMethod | null),setCustomType?: (SetStagedOrderCustomType | null),setCustomerEmail?: (SetStagedOrderCustomerEmail | null),setCustomerGroup?: (SetStagedOrderCustomerGroup | null),setCustomerId?: (SetStagedOrderCustomerId | null),setDeliveryAddress?: (SetStagedOrderDeliveryAddress | null),setDeliveryAddressCustomField?: (SetStagedOrderDeliveryAddressCustomField | null),setDeliveryAddressCustomType?: (SetStagedOrderDeliveryAddressCustomType | null),setDeliveryCustomField?: (SetStagedOrderDeliveryCustomField | null),setDeliveryCustomType?: (SetStagedOrderDeliveryCustomType | null),setDeliveryItems?: (SetStagedOrderDeliveryItems | null),setDirectDiscounts?: (SetStagedOrderDirectDiscounts | null),setDirectDiscountsIgnoreCartDiscounts?: (SetStagedOrderDirectDiscountsIgnoreCartDiscounts | null),setEstimatedDelivery?: (SetStagedOrderEstimatedDelivery | null),setItemShippingAddressCustomField?: (SetStagedOrderItemShippingAddressCustomField | null),setItemShippingAddressCustomType?: (SetStagedOrderItemShippingAddressCustomType | null),setLineItemCustomField?: (SetStagedOrderLineItemCustomField | null),setLineItemCustomType?: (SetStagedOrderLineItemCustomType | null),setLineItemDistributionChannel?: (SetStagedOrderLineItemDistributionChannel | null),setLineItemPrice?: (SetStagedOrderLineItemPrice | null),setLineItemShippingDetails?: (SetStagedOrderLineItemShippingDetails | null),setLineItemTaxAmount?: (SetStagedOrderLineItemTaxAmount | null),setLineItemTaxRate?: (SetStagedOrderLineItemTaxRate | null),setLineItemTotalPrice?: (SetStagedOrderLineItemTotalPrice | null),setLocale?: (SetStagedOrderLocale | null),setOrderNumber?: (SetStagedOrderOrderNumber | null),setOrderTotalTax?: (SetStagedOrderOrderTotalTax | null),setParcelCustomField?: (SetStagedOrderParcelCustomField | null),setParcelCustomType?: (SetStagedOrderParcelCustomType | null),setParcelItems?: (SetStagedOrderParcelItems | null),setParcelMeasurements?: (SetStagedOrderParcelMeasurements | null),setParcelTrackingData?: (SetStagedOrderParcelTrackingData | null),setPurchaseOrderNumber?: (SetStagedOrderPurchaseOrderNumber | null),setReturnInfo?: (SetStagedOrderReturnInfo | null),setReturnItemCustomField?: (SetStagedOrderReturnItemCustomField | null),setReturnItemCustomType?: (SetStagedOrderReturnItemCustomType | null),setReturnPaymentState?: (SetStagedOrderReturnPaymentState | null),setReturnShipmentState?: (SetStagedOrderReturnShipmentState | null),setShippingAddress?: (SetStagedOrderShippingAddress | null),setShippingAddressAndCustomShippingMethod?: (SetStagedOrderShippingAddressAndCustomShippingMethod | null),setShippingAddressAndShippingMethod?: (SetStagedOrderShippingAddressAndShippingMethod | null),setShippingAddressCustomField?: (SetStagedOrderShippingAddressCustomField | null),setShippingAddressCustomType?: (SetStagedOrderShippingAddressCustomType | null),setShippingCustomField?: (SetStagedOrderShippingCustomField | null),setShippingCustomType?: (SetStagedOrderShippingCustomType | null),setShippingMethod?: (SetStagedOrderShippingMethod | null),setShippingMethodTaxAmount?: (SetStagedOrderShippingMethodTaxAmount | null),setShippingMethodTaxRate?: (SetStagedOrderShippingMethodTaxRate | null),setShippingRateInput?: (SetStagedOrderShippingRateInput | null),setStore?: (SetStagedOrderStore | null),transitionCustomLineItemState?: (TransitionStagedOrderCustomLineItemState | null),transitionLineItemState?: (TransitionStagedOrderLineItemState | null),transitionState?: (TransitionStagedOrderState | null),updateItemShippingAddress?: (UpdateStagedOrderItemShippingAddress | null),updateSyncInfo?: (UpdateStagedOrderSyncInfo | null)}
 
 export interface StagedOrderUpdateActionOutputGenqlSelection{
     type?: boolean | number
@@ -22328,6 +22419,7 @@ export interface StagedOrderUpdateActionOutputGenqlSelection{
     on_SetStagedOrderDeliveryCustomFieldOutput?: SetStagedOrderDeliveryCustomFieldOutputGenqlSelection
     on_SetStagedOrderDeliveryCustomTypeOutput?: SetStagedOrderDeliveryCustomTypeOutputGenqlSelection
     on_SetStagedOrderDeliveryItemsOutput?: SetStagedOrderDeliveryItemsOutputGenqlSelection
+    on_SetStagedOrderDirectDiscountsIgnoreCartDiscountsOutput?: SetStagedOrderDirectDiscountsIgnoreCartDiscountsOutputGenqlSelection
     on_SetStagedOrderDirectDiscountsOutput?: SetStagedOrderDirectDiscountsOutputGenqlSelection
     on_SetStagedOrderEstimatedDeliveryOutput?: SetStagedOrderEstimatedDeliveryOutputGenqlSelection
     on_SetStagedOrderItemShippingAddressCustomFieldOutput?: SetStagedOrderItemShippingAddressCustomFieldOutputGenqlSelection
@@ -22840,6 +22932,19 @@ export interface StoreImprintUrlSetGenqlSelection{
     __typename?: boolean | number
     __scalar?: boolean | number
 }
+
+
+/** Reference to a Store by its key. */
+export interface StoreKeyReferenceGenqlSelection{
+    key?: boolean | number
+    typeId?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** Input reference to a Store by its key. */
+export interface StoreKeyReferenceInput {key: Scalars['String']}
 
 export interface StoreLanguagesChangedGenqlSelection{
     addedLanguages?: boolean | number
@@ -23407,7 +23512,11 @@ export interface TypeDefinitionQueryResultGenqlSelection{
     __scalar?: boolean | number
 }
 
-export interface TypeUpdateAction {addEnumValue?: (AddTypeEnumValue | null),addFieldDefinition?: (AddTypeFieldDefinition | null),addLocalizedEnumValue?: (AddTypeLocalizedEnumValue | null),changeEnumValueLabel?: (ChangeTypeEnumValueLabel | null),changeEnumValueOrder?: (ChangeTypeEnumValueOrder | null),changeFieldDefinitionOrder?: (ChangeTypeFieldDefinitionOrder | null),changeInputHint?: (ChangeTypeInputHint | null),changeKey?: (ChangeTypeKey | null),changeLabel?: (ChangeTypeLabel | null),changeLocalizedEnumValueLabel?: (ChangeTypeLocalizedEnumValueLabel | null),changeLocalizedEnumValueOrder?: (ChangeTypeLocalizedEnumValueOrder | null),changeName?: (ChangeTypeName | null),removeFieldDefinition?: (RemoveTypeFieldDefinition | null),setDescription?: (SetTypeDescription | null)}
+export interface TypeUpdateAction {addEnumValue?: (AddTypeEnumValue | null),addFieldDefinition?: (AddTypeFieldDefinition | null),addLocalizedEnumValue?: (AddTypeLocalizedEnumValue | null),changeEnumValueLabel?: (ChangeTypeEnumValueLabel | null),changeEnumValueOrder?: (ChangeTypeEnumValueOrder | null),changeFieldDefinitionOrder?: (ChangeTypeFieldDefinitionOrder | null),changeInputHint?: (ChangeTypeInputHint | null),changeKey?: (ChangeTypeKey | null),changeLabel?: (ChangeTypeLabel | null),changeLocalizedEnumValueLabel?: (ChangeTypeLocalizedEnumValueLabel | null),changeLocalizedEnumValueOrder?: (ChangeTypeLocalizedEnumValueOrder | null),changeName?: (ChangeTypeName | null),
+/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
+removeEnumValues?: (RemoveTypeEnumValues | null),removeFieldDefinition?: (RemoveTypeFieldDefinition | null),
+/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
+removeLocalizedEnumValues?: (RemoveTypeLocalizedEnumValues | null),setDescription?: (SetTypeDescription | null)}
 
 
 /** A non-fatal warning that occurred during a mutation. */
@@ -23426,13 +23535,26 @@ export interface TypedWarningGenqlSelection{
 
 
 /**
- * Skeleton shopper-facing MCP server config. Carries only the shared
- * `McpServerConfig` fields — no response-shaping (`jsonOutputFiltering`,
- * `toolOutputFormatting`) yet, as the skeleton exposes a single demo tool.
- * Those fields can be added later without breaking existing clients.
+ * A shopper-facing MCP server configuration. Alongside the shared
+ * `McpServerConfig` fields, it carries the shopper-context fields — store,
+ * country, locale, distribution channel, supply channel, and currency — that
+ * scope a shopper session to a specific store and price context.
  */
 export interface UcpShopperMcpServerConfigGenqlSelection{
+    country?: boolean | number
+    currencyCode?: boolean | number
+    distributionChannel?: ChannelReferenceGenqlSelection
+    inventoryMode?: boolean | number
+    locale?: boolean | number
     majorVersion?: boolean | number
+    /**
+     * When true, search_catalog requires actual on-hand stock in the resolved
+     * supply channel, instead of merely a carried inventory entry.
+     * lookup_catalog/get_product are unaffected either way. Defaults to false.
+     */
+    requireStockForChannel?: boolean | number
+    store?: StoreKeyReferenceGenqlSelection
+    supplyChannel?: ChannelReferenceGenqlSelection
     toolCustomizations?: ToolCustomizationGenqlSelection
     tools?: boolean | number
     type?: boolean | number
@@ -23447,7 +23569,9 @@ export interface UcpShopperMcpServerConfigGenqlSelection{
  * `CommerceMcpServerConfigDraft` without the response-shaping options the
  * skeleton does not yet support.
  */
-export interface UcpShopperMcpServerConfigDraft {majorVersion: Scalars['String'],toolCustomizations?: (ToolCustomizationDraft[] | null),tools: Scalars['String'][]}
+export interface UcpShopperMcpServerConfigDraft {country: Scalars['Country'],currencyCode: Scalars['CurrencyCode'],distributionChannel: ChannelReferenceInput,inventoryMode?: (InventoryMode | null),locale: Scalars['Locale'],majorVersion: Scalars['String'],
+/** Defaults to false when omitted. */
+requireStockForChannel?: (Scalars['Boolean'] | null),store: StoreKeyReferenceInput,supplyChannel: ChannelReferenceInput,toolCustomizations?: (ToolCustomizationDraft[] | null),tools: Scalars['String'][]}
 
 export interface UnfreezeCart {dummy?: (Scalars['String'] | null)}
 
@@ -23599,7 +23723,7 @@ export interface VariantCreatedGenqlSelection{
     id?: boolean | number
     images?: ImageGenqlSelection
     key?: boolean | number
-    productId?: boolean | number
+    productRef?: ReferenceGenqlSelection
     publish?: boolean | number
     sku?: boolean | number
     type?: boolean | number
@@ -23635,6 +23759,7 @@ export interface VariantDataGenqlSelection{
 
 /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantDeletedGenqlSelection{
+    productRef?: ReferenceGenqlSelection
     type?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
@@ -23658,6 +23783,7 @@ export interface VariantDraft {assets?: (AssetDraftInput[] | null),attributes?: 
 /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantImageAddedGenqlSelection{
     image?: ImageGenqlSelection
+    productRef?: ReferenceGenqlSelection
     staged?: boolean | number
     type?: boolean | number
     __typename?: boolean | number
@@ -23669,6 +23795,7 @@ export interface VariantImageAddedGenqlSelection{
 export interface VariantImagesSetGenqlSelection{
     images?: ImageGenqlSelection
     oldImages?: ImageGenqlSelection
+    productRef?: ReferenceGenqlSelection
     staged?: boolean | number
     type?: boolean | number
     __typename?: boolean | number
@@ -23680,6 +23807,7 @@ export interface VariantImagesSetGenqlSelection{
 export interface VariantKeySetGenqlSelection{
     key?: boolean | number
     oldKey?: boolean | number
+    productRef?: ReferenceGenqlSelection
     type?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
@@ -23754,6 +23882,7 @@ export interface VariantProjectionQueryResultGenqlSelection{
 
 /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantPublishedGenqlSelection{
+    productRef?: ReferenceGenqlSelection
     type?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
@@ -23773,6 +23902,7 @@ export interface VariantQueryResultGenqlSelection{
 /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantSkuSetGenqlSelection{
     oldSku?: boolean | number
+    productRef?: ReferenceGenqlSelection
     sku?: boolean | number
     staged?: boolean | number
     type?: boolean | number
@@ -23783,6 +23913,7 @@ export interface VariantSkuSetGenqlSelection{
 
 /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantStagedChangesRemovedGenqlSelection{
+    productRef?: ReferenceGenqlSelection
     type?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
@@ -25427,6 +25558,14 @@ export interface setKey {key?: (Scalars['String'] | null)}
     export const isChannelQueryResult = (obj?: { __typename?: any } | null): obj is ChannelQueryResult => {
       if (!obj?.__typename) throw new Error('__typename is missing in "isChannelQueryResult"')
       return ChannelQueryResult_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ChannelReference_possibleTypes: string[] = ['ChannelReference']
+    export const isChannelReference = (obj?: { __typename?: any } | null): obj is ChannelReference => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isChannelReference"')
+      return ChannelReference_possibleTypes.includes(obj.__typename)
     }
     
 
@@ -30207,6 +30346,14 @@ export interface setKey {key?: (Scalars['String'] | null)}
     
 
 
+    const SetStagedOrderDirectDiscountsIgnoreCartDiscountsOutput_possibleTypes: string[] = ['SetStagedOrderDirectDiscountsIgnoreCartDiscountsOutput']
+    export const isSetStagedOrderDirectDiscountsIgnoreCartDiscountsOutput = (obj?: { __typename?: any } | null): obj is SetStagedOrderDirectDiscountsIgnoreCartDiscountsOutput => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isSetStagedOrderDirectDiscountsIgnoreCartDiscountsOutput"')
+      return SetStagedOrderDirectDiscountsIgnoreCartDiscountsOutput_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
     const SetStagedOrderDirectDiscountsOutput_possibleTypes: string[] = ['SetStagedOrderDirectDiscountsOutput']
     export const isSetStagedOrderDirectDiscountsOutput = (obj?: { __typename?: any } | null): obj is SetStagedOrderDirectDiscountsOutput => {
       if (!obj?.__typename) throw new Error('__typename is missing in "isSetStagedOrderDirectDiscountsOutput"')
@@ -30759,7 +30906,7 @@ export interface setKey {key?: (Scalars['String'] | null)}
     
 
 
-    const StagedOrderUpdateActionOutput_possibleTypes: string[] = ['AddStagedOrderCustomLineItemOutput','AddStagedOrderDeliveryOutput','AddStagedOrderDiscountCodeOutput','AddStagedOrderItemShippingAddressOutput','AddStagedOrderLineItemOutput','AddStagedOrderParcelToDeliveryOutput','AddStagedOrderPaymentOutput','AddStagedOrderReturnInfoOutput','AddStagedOrderShoppingListOutput','ChangeStagedOrderCustomLineItemMoneyOutput','ChangeStagedOrderCustomLineItemQuantityOutput','ChangeStagedOrderLineItemQuantityOutput','ChangeStagedOrderOrderStateOutput','ChangeStagedOrderPaymentStateOutput','ChangeStagedOrderPriceRoundingModeOutput','ChangeStagedOrderShipmentStateOutput','ChangeStagedOrderTaxCalculationModeOutput','ChangeStagedOrderTaxModeOutput','ChangeStagedOrderTaxRoundingModeOutput','ImportStagedOrderCustomLineItemStateOutput','ImportStagedOrderLineItemStateOutput','RecalculateStagedOrderOutput','RemoveStagedOrderCustomLineItemOutput','RemoveStagedOrderDeliveryOutput','RemoveStagedOrderDiscountCodeOutput','RemoveStagedOrderItemShippingAddressOutput','RemoveStagedOrderLineItemOutput','RemoveStagedOrderParcelFromDeliveryOutput','RemoveStagedOrderPaymentOutput','SetStagedOrderBillingAddressCustomFieldOutput','SetStagedOrderBillingAddressCustomTypeOutput','SetStagedOrderBillingAddressOutput','SetStagedOrderBusinessUnitOutput','SetStagedOrderCountryOutput','SetStagedOrderCustomFieldOutput','SetStagedOrderCustomLineItemCustomFieldOutput','SetStagedOrderCustomLineItemCustomTypeOutput','SetStagedOrderCustomLineItemShippingDetailsOutput','SetStagedOrderCustomLineItemTaxAmountOutput','SetStagedOrderCustomLineItemTaxRateOutput','SetStagedOrderCustomShippingMethodOutput','SetStagedOrderCustomTypeOutput','SetStagedOrderCustomerEmailOutput','SetStagedOrderCustomerGroupOutput','SetStagedOrderCustomerIdOutput','SetStagedOrderDeliveryAddressCustomFieldOutput','SetStagedOrderDeliveryAddressCustomTypeOutput','SetStagedOrderDeliveryAddressOutput','SetStagedOrderDeliveryCustomFieldOutput','SetStagedOrderDeliveryCustomTypeOutput','SetStagedOrderDeliveryItemsOutput','SetStagedOrderDirectDiscountsOutput','SetStagedOrderEstimatedDeliveryOutput','SetStagedOrderItemShippingAddressCustomFieldOutput','SetStagedOrderItemShippingAddressCustomTypeOutput','SetStagedOrderLineItemCustomFieldOutput','SetStagedOrderLineItemCustomTypeOutput','SetStagedOrderLineItemDistributionChannelOutput','SetStagedOrderLineItemPriceOutput','SetStagedOrderLineItemShippingDetailsOutput','SetStagedOrderLineItemTaxAmountOutput','SetStagedOrderLineItemTaxRateOutput','SetStagedOrderLineItemTotalPriceOutput','SetStagedOrderLocaleOutput','SetStagedOrderOrderNumberOutput','SetStagedOrderOrderTotalTaxOutput','SetStagedOrderParcelCustomFieldOutput','SetStagedOrderParcelCustomTypeOutput','SetStagedOrderParcelItemsOutput','SetStagedOrderParcelMeasurementsOutput','SetStagedOrderParcelTrackingDataOutput','SetStagedOrderPurchaseOrderNumberOutput','SetStagedOrderReturnInfoOutput','SetStagedOrderReturnItemCustomFieldOutput','SetStagedOrderReturnItemCustomTypeOutput','SetStagedOrderReturnPaymentStateOutput','SetStagedOrderReturnShipmentStateOutput','SetStagedOrderShippingAddressAndCustomShippingMethodOutput','SetStagedOrderShippingAddressAndShippingMethodOutput','SetStagedOrderShippingAddressCustomFieldOutput','SetStagedOrderShippingAddressCustomTypeOutput','SetStagedOrderShippingAddressOutput','SetStagedOrderShippingCustomFieldOutput','SetStagedOrderShippingCustomTypeOutput','SetStagedOrderShippingMethodOutput','SetStagedOrderShippingMethodTaxAmountOutput','SetStagedOrderShippingMethodTaxRateOutput','SetStagedOrderShippingRateInputOutput','SetStagedOrderStoreOutput','TransitionStagedOrderCustomLineItemStateOutput','TransitionStagedOrderLineItemStateOutput','TransitionStagedOrderStateOutput','UpdateStagedOrderItemShippingAddressOutput','UpdateStagedOrderSyncInfoOutput']
+    const StagedOrderUpdateActionOutput_possibleTypes: string[] = ['AddStagedOrderCustomLineItemOutput','AddStagedOrderDeliveryOutput','AddStagedOrderDiscountCodeOutput','AddStagedOrderItemShippingAddressOutput','AddStagedOrderLineItemOutput','AddStagedOrderParcelToDeliveryOutput','AddStagedOrderPaymentOutput','AddStagedOrderReturnInfoOutput','AddStagedOrderShoppingListOutput','ChangeStagedOrderCustomLineItemMoneyOutput','ChangeStagedOrderCustomLineItemQuantityOutput','ChangeStagedOrderLineItemQuantityOutput','ChangeStagedOrderOrderStateOutput','ChangeStagedOrderPaymentStateOutput','ChangeStagedOrderPriceRoundingModeOutput','ChangeStagedOrderShipmentStateOutput','ChangeStagedOrderTaxCalculationModeOutput','ChangeStagedOrderTaxModeOutput','ChangeStagedOrderTaxRoundingModeOutput','ImportStagedOrderCustomLineItemStateOutput','ImportStagedOrderLineItemStateOutput','RecalculateStagedOrderOutput','RemoveStagedOrderCustomLineItemOutput','RemoveStagedOrderDeliveryOutput','RemoveStagedOrderDiscountCodeOutput','RemoveStagedOrderItemShippingAddressOutput','RemoveStagedOrderLineItemOutput','RemoveStagedOrderParcelFromDeliveryOutput','RemoveStagedOrderPaymentOutput','SetStagedOrderBillingAddressCustomFieldOutput','SetStagedOrderBillingAddressCustomTypeOutput','SetStagedOrderBillingAddressOutput','SetStagedOrderBusinessUnitOutput','SetStagedOrderCountryOutput','SetStagedOrderCustomFieldOutput','SetStagedOrderCustomLineItemCustomFieldOutput','SetStagedOrderCustomLineItemCustomTypeOutput','SetStagedOrderCustomLineItemShippingDetailsOutput','SetStagedOrderCustomLineItemTaxAmountOutput','SetStagedOrderCustomLineItemTaxRateOutput','SetStagedOrderCustomShippingMethodOutput','SetStagedOrderCustomTypeOutput','SetStagedOrderCustomerEmailOutput','SetStagedOrderCustomerGroupOutput','SetStagedOrderCustomerIdOutput','SetStagedOrderDeliveryAddressCustomFieldOutput','SetStagedOrderDeliveryAddressCustomTypeOutput','SetStagedOrderDeliveryAddressOutput','SetStagedOrderDeliveryCustomFieldOutput','SetStagedOrderDeliveryCustomTypeOutput','SetStagedOrderDeliveryItemsOutput','SetStagedOrderDirectDiscountsIgnoreCartDiscountsOutput','SetStagedOrderDirectDiscountsOutput','SetStagedOrderEstimatedDeliveryOutput','SetStagedOrderItemShippingAddressCustomFieldOutput','SetStagedOrderItemShippingAddressCustomTypeOutput','SetStagedOrderLineItemCustomFieldOutput','SetStagedOrderLineItemCustomTypeOutput','SetStagedOrderLineItemDistributionChannelOutput','SetStagedOrderLineItemPriceOutput','SetStagedOrderLineItemShippingDetailsOutput','SetStagedOrderLineItemTaxAmountOutput','SetStagedOrderLineItemTaxRateOutput','SetStagedOrderLineItemTotalPriceOutput','SetStagedOrderLocaleOutput','SetStagedOrderOrderNumberOutput','SetStagedOrderOrderTotalTaxOutput','SetStagedOrderParcelCustomFieldOutput','SetStagedOrderParcelCustomTypeOutput','SetStagedOrderParcelItemsOutput','SetStagedOrderParcelMeasurementsOutput','SetStagedOrderParcelTrackingDataOutput','SetStagedOrderPurchaseOrderNumberOutput','SetStagedOrderReturnInfoOutput','SetStagedOrderReturnItemCustomFieldOutput','SetStagedOrderReturnItemCustomTypeOutput','SetStagedOrderReturnPaymentStateOutput','SetStagedOrderReturnShipmentStateOutput','SetStagedOrderShippingAddressAndCustomShippingMethodOutput','SetStagedOrderShippingAddressAndShippingMethodOutput','SetStagedOrderShippingAddressCustomFieldOutput','SetStagedOrderShippingAddressCustomTypeOutput','SetStagedOrderShippingAddressOutput','SetStagedOrderShippingCustomFieldOutput','SetStagedOrderShippingCustomTypeOutput','SetStagedOrderShippingMethodOutput','SetStagedOrderShippingMethodTaxAmountOutput','SetStagedOrderShippingMethodTaxRateOutput','SetStagedOrderShippingRateInputOutput','SetStagedOrderStoreOutput','TransitionStagedOrderCustomLineItemStateOutput','TransitionStagedOrderLineItemStateOutput','TransitionStagedOrderStateOutput','UpdateStagedOrderItemShippingAddressOutput','UpdateStagedOrderSyncInfoOutput']
     export const isStagedOrderUpdateActionOutput = (obj?: { __typename?: any } | null): obj is StagedOrderUpdateActionOutput => {
       if (!obj?.__typename) throw new Error('__typename is missing in "isStagedOrderUpdateActionOutput"')
       return StagedOrderUpdateActionOutput_possibleTypes.includes(obj.__typename)
@@ -31091,6 +31238,14 @@ export interface setKey {key?: (Scalars['String'] | null)}
     export const isStoreImprintUrlSet = (obj?: { __typename?: any } | null): obj is StoreImprintUrlSet => {
       if (!obj?.__typename) throw new Error('__typename is missing in "isStoreImprintUrlSet"')
       return StoreImprintUrlSet_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const StoreKeyReference_possibleTypes: string[] = ['StoreKeyReference']
+    export const isStoreKeyReference = (obj?: { __typename?: any } | null): obj is StoreKeyReference => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isStoreKeyReference"')
+      return StoreKeyReference_possibleTypes.includes(obj.__typename)
     }
     
 
@@ -31809,7 +31964,11 @@ export const enumAttributeConstraint = {
 export const enumAttributionSource = {
    Export: 'Export' as const,
    Import: 'Import' as const,
-   ManagedCommerceMCP: 'ManagedCommerceMCP' as const
+   IntakeAgent: 'IntakeAgent' as const,
+   ManagedCommerceMCP: 'ManagedCommerceMCP' as const,
+   ProductEnrichmentAgent: 'ProductEnrichmentAgent' as const,
+   PromotionsAgent: 'PromotionsAgent' as const,
+   StarterAgent: 'StarterAgent' as const
 }
 
 export const enumAuthenticationMode = {
@@ -32092,6 +32251,7 @@ export const enumPriceSelectionMode = {
 
 export const enumProductCatalogModel = {
    Classic: 'Classic' as const,
+   InMigration: 'InMigration' as const,
    Modular: 'Modular' as const
 }
 

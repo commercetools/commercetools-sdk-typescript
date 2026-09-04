@@ -144,6 +144,12 @@ export interface ShippingMethod extends BaseResource {
    *
    */
   readonly stores: StoreKeyReference[]
+  /**
+   *	Name of the carrier that delivers the parcel, for example `DHL`.
+   *
+   *
+   */
+  readonly carrier?: string
 }
 export interface ShippingMethodDraft {
   /**
@@ -215,6 +221,12 @@ export interface ShippingMethodDraft {
    *
    */
   readonly stores?: StoreResourceIdentifier[]
+  /**
+   *	Name of the carrier that delivers the parcel, for example `DHL`.
+   *
+   *
+   */
+  readonly carrier?: string
 }
 /**
  *	[PagedQueryResult](/general-concepts#pagedqueryresult) with `results` containing an array of [ShippingMethod](ctp:api:type:ShippingMethod).
@@ -319,6 +331,7 @@ export type ShippingMethodUpdateAction =
   | ShippingMethodRemoveShippingRateAction
   | ShippingMethodRemoveStoreAction
   | ShippingMethodRemoveZoneAction
+  | ShippingMethodSetCarrierAction
   | ShippingMethodSetCustomFieldAction
   | ShippingMethodSetCustomTypeAction
   | ShippingMethodSetDescriptionAction
@@ -622,6 +635,14 @@ export interface ShippingMethodRemoveZoneAction extends IShippingMethodUpdateAct
    */
   readonly zone: ZoneResourceIdentifier
 }
+export interface ShippingMethodSetCarrierAction extends IShippingMethodUpdateAction {
+  readonly action: 'setCarrier'
+  /**
+   *	Name of the carrier that delivers the parcel, for example `DHL`. If `carrier` is absent or `null`, it is removed if it exists.
+   *
+   */
+  readonly carrier?: string
+}
 /**
  *	This action sets, overwrites, or removes any existing [Custom Field](/projects/custom-fields) for an existing ShippingMethod.
  *
@@ -664,7 +685,8 @@ export interface ShippingMethodSetCustomTypeAction extends IShippingMethodUpdate
 export interface ShippingMethodSetDescriptionAction extends IShippingMethodUpdateAction {
   readonly action: 'setDescription'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
+   *
    *
    */
   readonly description?: string
@@ -680,7 +702,8 @@ export interface ShippingMethodSetKeyAction extends IShippingMethodUpdateAction 
 export interface ShippingMethodSetLocalizedDescriptionAction extends IShippingMethodUpdateAction {
   readonly action: 'setLocalizedDescription'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
+   *
    *
    */
   readonly localizedDescription?: LocalizedString
@@ -688,7 +711,8 @@ export interface ShippingMethodSetLocalizedDescriptionAction extends IShippingMe
 export interface ShippingMethodSetLocalizedNameAction extends IShippingMethodUpdateAction {
   readonly action: 'setLocalizedName'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
+   *
    *
    */
   readonly localizedName?: LocalizedString
@@ -703,7 +727,7 @@ export interface ShippingMethodSetPredicateAction extends IShippingMethodUpdateA
 }
 /**
  *	Sets the Stores the ShippingMethod is associated with.
- *	If empty, the ShippingMethod becomes a global ShippingMethod.
+ *	Set `stores` to an empty array to make the ShippingMethod a global ShippingMethod.
  *
  */
 export interface ShippingMethodSetStoresAction extends IShippingMethodUpdateAction {
@@ -711,7 +735,7 @@ export interface ShippingMethodSetStoresAction extends IShippingMethodUpdateActi
   /**
    *	ResourceIdentifiers of the Stores to set.
    *	Overrides the current list of Stores.
-   *	If empty, any existing values are removed.
+   *	Set to an empty array to remove all existing values.
    *
    *
    */

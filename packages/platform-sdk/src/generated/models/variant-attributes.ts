@@ -52,7 +52,7 @@ export interface VariantAttributesAttributeMetadata {
   readonly name: string
   /**
    *	Localized label of the Attribute as defined in the [ProductType](ctp:api:type:ProductType).
-   *	Subject to [locale projection](/../api/projects/productProjections#locales) if `localeProjection` is specified.
+   *	Subject to [locale projection](/api/projects/productProjections#locales) if `localeProjection` is specified.
    *
    *
    */
