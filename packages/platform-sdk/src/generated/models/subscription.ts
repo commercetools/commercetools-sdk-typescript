@@ -75,6 +75,7 @@ export enum ChangeSubscriptionResourceTypeIdValues {
   Subscription = 'subscription',
   TaxCategory = 'tax-category',
   Type = 'type',
+  Variant = 'variant',
   Zone = 'zone',
 }
 
@@ -119,6 +120,7 @@ export type ChangeSubscriptionResourceTypeId =
   | 'subscription'
   | 'tax-category'
   | 'type'
+  | 'variant'
   | 'zone'
   | (string & {})
 /**
@@ -468,6 +470,7 @@ export enum MessageSubscriptionResourceTypeIdValues {
   StagedQuote = 'staged-quote',
   StandalonePrice = 'standalone-price',
   Store = 'store',
+  Variant = 'variant',
 }
 
 export type MessageSubscriptionResourceTypeId =
@@ -493,6 +496,7 @@ export type MessageSubscriptionResourceTypeId =
   | 'staged-quote'
   | 'standalone-price'
   | 'store'
+  | 'variant'
   | (string & {})
 export interface PayloadNotIncluded {
   /**

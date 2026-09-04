@@ -167,6 +167,14 @@
 </details>
 
 <details>
+<summary>Added Enum(s)</summary>
+
+- added enum `variant` to type `ChangeSubscriptionResourceTypeId`
+- added enum `variant` to type `MessageSubscriptionResourceTypeId`
+
+</details>
+
+<details>
 <summary>Added Resource(s)</summary>
 
 - added resource `/{projectKey}/agents`
