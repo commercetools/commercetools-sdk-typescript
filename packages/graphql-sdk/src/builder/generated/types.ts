@@ -39856,6 +39856,9 @@ export default {
             "estimatedDelivery": [
                 673
             ],
+            "message": [
+                2125
+            ],
             "price": [
                 853
             ],

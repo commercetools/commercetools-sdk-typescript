@@ -18184,6 +18184,7 @@ type ShippingInfo {
   deliveries: [Delivery!]!
   discountedPrice: DiscountedLineItemPrice
   estimatedDelivery: EstimatedDelivery
+  message: String
   price: Money!
   shippingMethod: ShippingMethod
   shippingMethodName: String!

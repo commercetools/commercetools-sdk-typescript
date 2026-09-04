@@ -7615,6 +7615,7 @@ export interface ShippingInfo {
     deliveries: Delivery[]
     discountedPrice: (DiscountedLineItemPrice | null)
     estimatedDelivery: (EstimatedDelivery | null)
+    message: (Scalars['String'] | null)
     price: Money
     shippingMethod: (ShippingMethod | null)
     shippingMethodName: Scalars['String']
@@ -21988,6 +21989,7 @@ export interface ShippingInfoGenqlSelection{
     deliveries?: DeliveryGenqlSelection
     discountedPrice?: DiscountedLineItemPriceGenqlSelection
     estimatedDelivery?: EstimatedDeliveryGenqlSelection
+    message?: boolean | number
     price?: MoneyGenqlSelection
     shippingMethod?: ShippingMethodGenqlSelection
     shippingMethodName?: boolean | number
