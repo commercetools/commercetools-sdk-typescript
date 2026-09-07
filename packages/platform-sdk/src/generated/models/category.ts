@@ -522,7 +522,7 @@ export interface CategorySetAssetDescriptionAction extends ICategoryUpdateAction
    */
   readonly assetKey?: string
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -541,7 +541,7 @@ export interface CategorySetAssetKeyAction extends ICategoryUpdateAction {
    */
   readonly assetId: string
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -627,7 +627,7 @@ export interface CategorySetCustomTypeAction extends ICategoryUpdateAction {
 export interface CategorySetDescriptionAction extends ICategoryUpdateAction {
   readonly action: 'setDescription'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -640,7 +640,7 @@ export interface CategorySetDescriptionAction extends ICategoryUpdateAction {
 export interface CategorySetExternalIdAction extends ICategoryUpdateAction {
   readonly action: 'setExternalId'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -649,7 +649,7 @@ export interface CategorySetExternalIdAction extends ICategoryUpdateAction {
 export interface CategorySetKeyAction extends ICategoryUpdateAction {
   readonly action: 'setKey'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */

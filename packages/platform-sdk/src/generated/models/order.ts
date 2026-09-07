@@ -19,6 +19,7 @@ import {
   DiscountOnTotalPrice,
   DiscountTypeCombination,
   DiscountedLineItemPortionDraft,
+  EstimatedDelivery,
   InventoryMode,
   ItemShippingDetailsDraft,
   LineItem,
@@ -500,11 +501,19 @@ export interface CustomLineItemImportDraft {
    */
   readonly money: _Money
   /**
-   *	The tax rate used to calculate the `taxedPrice` of the Order.
+   *	The tax rate used to calculate the `taxedPrice` of the Custom Line Item if `taxedPrice` is not provided.
    *
    *
    */
   readonly taxRate?: TaxRate
+  /**
+   *	Taxed price of the Custom Line Item. If provided, the values are stored as-is on the resulting [CustomLineItem](ctp:api:type:CustomLineItem) instead of being derived from `money`, `quantity`, and `taxRate`.
+   *
+   *	Can only be set if `taxRate` is also set.
+   *
+   *
+   */
+  readonly taxedPrice?: TaxedPriceDraft
   /**
    *	Include a value to associate a Tax Category with the Custom Line Item.
    *
@@ -697,10 +706,17 @@ export interface LineItemImportDraft {
    */
   readonly price: PriceDraft
   /**
-   *	The tax rate used to calculate the `taxedPrice` of the Order.
+   *	The tax rate used to calculate the `taxedPrice` of the Line Item if `taxedPrice` is not provided.
    *
    */
   readonly taxRate?: TaxRate
+  /**
+   *	Taxed price of the Line Item. If provided, the values are stored as-is on the resulting [LineItem](ctp:api:type:LineItem) instead of being derived from `price`, `quantity`, and `taxRate`.
+   *
+   *	Can only be set if `taxRate` is also set.
+   *
+   */
+  readonly taxedPrice?: TaxedPriceDraft
   /**
    *	The Channel used to [select a Price](/api/pricing-and-discounts-overview#line-item-price-selection).
    *	This Channel must have the `ProductDistribution` role.
@@ -1420,7 +1436,7 @@ export interface OrderPagedQueryResponse {
    *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](ctp:api:type:QueryPredicate), `total` is subject to a [limit](/api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -1650,6 +1666,7 @@ export type OrderUpdateAction =
   | OrderSetDeliveryCustomFieldAction
   | OrderSetDeliveryCustomTypeAction
   | OrderSetDeliveryItemsAction
+  | OrderSetEstimatedDeliveryAction
   | OrderSetItemShippingAddressCustomFieldAction
   | OrderSetItemShippingAddressCustomTypeAction
   | OrderSetLineItemCustomFieldAction
@@ -2209,6 +2226,12 @@ export interface ShippingInfoImportDraft {
    */
   readonly taxRate?: TaxRate
   /**
+   *	Taxed price of the Shipping Method. If provided, the values are stored as-is on the resulting [ShippingInfo](ctp:api:type:ShippingInfo) instead of being derived from `price` and `taxRate`.
+   *
+   *
+   */
+  readonly taxedPrice?: TaxedPriceDraft
+  /**
    *	Include a value to associate a Tax Category with the shipping information.
    *
    *
@@ -2644,8 +2667,9 @@ export interface OrderRemovePaymentAction extends IOrderUpdateAction {
 export interface OrderSetBillingAddressAction extends IOrderUpdateAction {
   readonly action: 'setBillingAddress'
   /**
-   *	Value to set.
-   *	If empty, any existing value is removed.
+   *	Value to set. It replaces the entire address, including [Custom Fields](ctp:api:type:CustomFields) if `custom` is not included. To preserve Custom Fields, include the `custom` object in the request.
+   *
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -2695,7 +2719,7 @@ export interface OrderSetBillingAddressCustomTypeAction extends IOrderUpdateActi
 export interface OrderSetBusinessUnitAction extends IOrderUpdateAction {
   readonly action: 'setBusinessUnit'
   /**
-   *	New Business Unit to assign to the Order. If empty, any existing value is removed.
+   *	New Business Unit to assign to the Order. If omitted, any existing value is removed.
    *
    *	If the referenced Business Unit does not exist, a [ReferencedResourceNotFound](ctp:api:type:ReferencedResourceNotFoundError) error is returned.
    *
@@ -2795,7 +2819,7 @@ export interface OrderSetCustomLineItemShippingDetailsAction extends IOrderUpdat
   readonly customLineItemKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -2829,7 +2853,7 @@ export interface OrderSetCustomerEmailAction extends IOrderUpdateAction {
   readonly action: 'setCustomerEmail'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -2846,7 +2870,7 @@ export interface OrderSetCustomerIdAction extends IOrderUpdateAction {
   readonly action: 'setCustomerId'
   /**
    *	`id` of an existing [Customer](ctp:api:type:Customer).
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -2875,8 +2899,9 @@ export interface OrderSetDeliveryAddressAction extends IOrderUpdateAction {
    */
   readonly deliveryKey?: string
   /**
-   *	Value to set.
-   *	If empty, any existing value is removed.
+   *	Value to set. It replaces the entire address, including [Custom Fields](ctp:api:type:CustomFields) if `custom` is not included. To preserve Custom Fields, include the `custom` object in the request.
+   *
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3040,11 +3065,34 @@ export interface OrderSetDeliveryItemsAction extends IOrderUpdateAction {
   readonly deliveryKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	Set to an empty array to remove any existing value.
    *
    *
    */
   readonly items: DeliveryItem[]
+}
+/**
+ *	Sets the estimated delivery window on the Order's [ShippingInfo](ctp:api:type:ShippingInfo).
+ *
+ *	This update action produces the [OrderEstimatedDeliverySet](ctp:api:type:OrderEstimatedDeliverySetMessage) Message.
+ *
+ */
+export interface OrderSetEstimatedDeliveryAction extends IOrderUpdateAction {
+  readonly action: 'setEstimatedDelivery'
+  /**
+   *	`key` of the [Shipping](ctp:api:type:Shipping) to update.
+   *	This is required and valid only for Orders with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	An [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned if `shippingKey` is provided for Orders with `Single` ShippingMode, or omitted for Orders with `Multiple` ShippingMode.
+   *
+   *
+   */
+  readonly shippingKey?: string
+  /**
+   *	Value to set. If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly estimatedDelivery?: EstimatedDelivery
 }
 export interface OrderSetItemShippingAddressCustomFieldAction extends IOrderUpdateAction {
   readonly action: 'setItemShippingAddressCustomField'
@@ -3168,7 +3216,7 @@ export interface OrderSetLineItemShippingDetailsAction extends IOrderUpdateActio
   readonly lineItemKey?: string
   /**
    *	Value to set.
-   *	If empty, the existing value is removed.
+   *	If omitted, the existing value is removed.
    *
    *
    */
@@ -3179,7 +3227,7 @@ export interface OrderSetLocaleAction extends IOrderUpdateAction {
   /**
    *	Value to set.
    *	Must be one of the [Project](ctp:api:type:Project)'s languages.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3287,7 +3335,7 @@ export interface OrderSetParcelItemsAction extends IOrderUpdateAction {
   readonly parcelKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	Set to an empty array to remove any existing value.
    *
    *
    */
@@ -3317,7 +3365,7 @@ export interface OrderSetParcelMeasurementsAction extends IOrderUpdateAction {
   readonly parcelKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3347,7 +3395,7 @@ export interface OrderSetParcelTrackingDataAction extends IOrderUpdateAction {
   readonly parcelKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3361,7 +3409,7 @@ export interface OrderSetPurchaseOrderNumberAction extends IOrderUpdateAction {
   readonly action: 'setPurchaseOrderNumber'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3375,7 +3423,7 @@ export interface OrderSetReturnInfoAction extends IOrderUpdateAction {
   readonly action: 'setReturnInfo'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3504,8 +3552,9 @@ export interface OrderSetReturnShipmentStateAction extends IOrderUpdateAction {
 export interface OrderSetShippingAddressAction extends IOrderUpdateAction {
   readonly action: 'setShippingAddress'
   /**
-   *	Value to set.
-   *	If empty, any existing value is removed.
+   *	Value to set. It replaces the entire address, including [Custom Fields](ctp:api:type:CustomFields) if `custom` is not included. To preserve Custom Fields, include the `custom` object in the request.
+   *
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3614,7 +3663,7 @@ export interface OrderSetStoreAction extends IOrderUpdateAction {
   readonly action: 'setStore'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *	If `store` references the same Store the Order is currently assigned to or if you try to remove the value when no Store is currently assigned, a `400` error is returned.
    *

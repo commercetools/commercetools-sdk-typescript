@@ -872,7 +872,7 @@ export interface ProductTypeChangePlainEnumValueOrderAction extends IProductType
   readonly values: AttributePlainEnumValue[]
 }
 /**
- *	Removes an AttributeDefinition and also deletes all corresponding Attributes on all [Products](/projects/products) with this ProductType. The removal of the Attributes is [eventually consistent](/general-concepts#eventual-consistency).
+ *	Removes an AttributeDefinition and also deletes all corresponding Attributes on all [Products](/projects/products) with this ProductType. Data from deleted Attributes cannot be recovered. The removal of the Attributes is [eventually consistent](/general-concepts#eventual-consistency).
  *
  *	Do not remove an AttributeDefinition and add a new AttributeDefinition with the same `name` in the same update request. Because the removal is eventually consistent, wait until it is complete before sending another update request for the ProductType.
  *
@@ -916,7 +916,7 @@ export interface ProductTypeSetInputTipAction extends IProductTypeUpdateAction {
    */
   readonly attributeName: string
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -925,7 +925,7 @@ export interface ProductTypeSetInputTipAction extends IProductTypeUpdateAction {
 export interface ProductTypeSetKeyAction extends IProductTypeUpdateAction {
   readonly action: 'setKey'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    */
   readonly key?: string

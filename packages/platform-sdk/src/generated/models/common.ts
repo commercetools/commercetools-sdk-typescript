@@ -1012,6 +1012,8 @@ export interface PriceDraft {
   /**
    *	User-defined identifier for the Price. It must be unique per [ProductVariant](ctp:api:type:ProductVariant).
    *
+   *	If the value is used by another Embedded Price on the same ProductVariant, a [DuplicatePriceKey](ctp:api:type:DuplicatePriceKeyError) error is returned.
+   *
    *
    */
   readonly key?: string

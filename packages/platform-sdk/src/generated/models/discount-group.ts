@@ -93,6 +93,8 @@ export interface DiscountGroupDraft {
   /**
    *	User-defined unique identifier for the DiscountGroup.
    *
+   *	If the value is used by another Discount Group, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
+   *
    *
    */
   readonly key: string
@@ -105,7 +107,7 @@ export interface DiscountGroupDraft {
   /**
    *	Value between `0` and `1` that determines the order in which the CartDiscount from the DiscountGroup will be applied; a CartDiscount with a higher value will be prioritized.
    *
-   *	The sort order must be unique among all DiscountGroups and CartDiscounts.
+   *	If the value is used by another Cart Discount or Discount Group, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
    *
    *
    */
@@ -230,7 +232,7 @@ export interface DiscountGroupSetDescriptionAction extends IDiscountGroupUpdateA
   readonly action: 'setDescription'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -262,6 +264,8 @@ export interface DiscountGroupSetKeyAction extends IDiscountGroupUpdateAction {
   /**
    *	New value to set.
    *
+   *	If the value is used by another Discount Group, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
+   *
    *
    */
   readonly key: string
@@ -270,7 +274,7 @@ export interface DiscountGroupSetNameAction extends IDiscountGroupUpdateAction {
   readonly action: 'setName'
   /**
    *	New value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -286,7 +290,7 @@ export interface DiscountGroupSetSortOrderAction extends IDiscountGroupUpdateAct
    *	New value to set (between `0` and `1`).
    *	A CartDiscount with a higher value will be prioritized.
    *
-   *	The sort order must be unique among all DiscountGroups and CartDiscounts.
+   *	If the value is used by another Cart Discount or Discount Group, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
    *
    *
    */

@@ -339,7 +339,7 @@ export interface IReviewUpdateAction {
 export interface ReviewSetAuthorNameAction extends IReviewUpdateAction {
   readonly action: 'setAuthorName'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -383,7 +383,7 @@ export interface ReviewSetCustomTypeAction extends IReviewUpdateAction {
 export interface ReviewSetCustomerAction extends IReviewUpdateAction {
   readonly action: 'setCustomer'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    */
   readonly customer?: CustomerResourceIdentifier
@@ -391,7 +391,7 @@ export interface ReviewSetCustomerAction extends IReviewUpdateAction {
 export interface ReviewSetKeyAction extends IReviewUpdateAction {
   readonly action: 'setKey'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -400,7 +400,7 @@ export interface ReviewSetKeyAction extends IReviewUpdateAction {
 export interface ReviewSetLocaleAction extends IReviewUpdateAction {
   readonly action: 'setLocale'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -413,7 +413,7 @@ export interface ReviewSetLocaleAction extends IReviewUpdateAction {
 export interface ReviewSetRatingAction extends IReviewUpdateAction {
   readonly action: 'setRating'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    */
   readonly rating?: number
@@ -421,7 +421,7 @@ export interface ReviewSetRatingAction extends IReviewUpdateAction {
 export interface ReviewSetTargetAction extends IReviewUpdateAction {
   readonly action: 'setTarget'
   /**
-   *	Value to set, specified as [ProductResourceIdentifier](ctp:api:type:ProductResourceIdentifier) or [ChannelResourceIdentifier](ctp:api:type:ChannelResourceIdentifier), respectively. If empty, any existing value will be removed.
+   *	Value to set, specified as [ProductResourceIdentifier](ctp:api:type:ProductResourceIdentifier) or [ChannelResourceIdentifier](ctp:api:type:ChannelResourceIdentifier), respectively.
    *
    *
    */
@@ -430,7 +430,7 @@ export interface ReviewSetTargetAction extends IReviewUpdateAction {
 export interface ReviewSetTextAction extends IReviewUpdateAction {
   readonly action: 'setText'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -439,7 +439,7 @@ export interface ReviewSetTextAction extends IReviewUpdateAction {
 export interface ReviewSetTitleAction extends IReviewUpdateAction {
   readonly action: 'setTitle'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */

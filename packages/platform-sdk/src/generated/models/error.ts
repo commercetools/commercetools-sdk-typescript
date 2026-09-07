@@ -4,6 +4,26 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+import {
+  AgentBusinessUnitAmbiguousError,
+  AgentBusinessUnitLimitExceededError,
+  AgentBusinessUnitUnresolvedError,
+  AgentExtractionFailedError,
+  AgentFeatureDisabledError,
+  AgentMissingCountryError,
+  AgentMissingCustomerEmailError,
+  AgentMissingEntityTypeError,
+  AgentNoLineItemsExtractedError,
+  AgentOutOfScopeError,
+  AgentProductSearchNotEnabledError,
+  AgentProductsNotFoundError,
+  AgentQuoteRequestCreationFailedError,
+  AgentResponsesAuthError,
+  AgentResponsesErrorResponse,
+  AgentStoreAmbiguousError,
+  AgentStoreDistributionChannelsUnsupportedError,
+  AgentStoreUnresolvedError,
+} from './agent'
 import { Permission } from './associate-role'
 import { BusinessUnitResourceIdentifier } from './business-unit'
 import {
@@ -50,6 +70,22 @@ export interface ErrorByExtension {
  *	Represents a single error. Multiple errors may be included in an [ErrorResponse](ctp:api:type:ErrorResponse).
  */
 export type ErrorObject =
+  | AgentBusinessUnitAmbiguousError
+  | AgentBusinessUnitLimitExceededError
+  | AgentBusinessUnitUnresolvedError
+  | AgentExtractionFailedError
+  | AgentFeatureDisabledError
+  | AgentMissingCountryError
+  | AgentMissingCustomerEmailError
+  | AgentMissingEntityTypeError
+  | AgentNoLineItemsExtractedError
+  | AgentOutOfScopeError
+  | AgentProductSearchNotEnabledError
+  | AgentProductsNotFoundError
+  | AgentQuoteRequestCreationFailedError
+  | AgentStoreAmbiguousError
+  | AgentStoreDistributionChannelsUnsupportedError
+  | AgentStoreUnresolvedError
   | AnonymousIdAlreadyInUseError
   | AssociateMissingPermissionError
   | AttributeDefinitionAlreadyExistsError
@@ -875,7 +911,10 @@ export interface ErrorResponse {
   readonly errors?: ErrorObject[]
 }
 export type _ErrorResponse =
-  ErrorResponse | AuthErrorResponse | ProductSearchErrorResponse
+  | ErrorResponse
+  | AgentResponsesErrorResponse
+  | _AuthErrorResponse
+  | ProductSearchErrorResponse
 /**
  *	Represents errors related to authentication and authorization in a format conforming to the [OAuth 2.0 specification](https://datatracker.ietf.org/doc/html/rfc6749#section-5.2).
  *
@@ -899,6 +938,7 @@ export interface AuthErrorResponse extends ErrorResponse {
    */
   readonly errors: ErrorObject[]
 }
+export type _AuthErrorResponse = AuthErrorResponse | AgentResponsesAuthError
 /**
  *	Returned when a modification is already in progress for the exact combination of SKU and price scope fields for a Standalone Price.
  *	Retry the same request after 300 ms.
@@ -1621,12 +1661,13 @@ export interface MatchingPriceNotFoundError extends IErrorObject {
   readonly channel?: ChannelReference
 }
 /**
- *	Returned when a Cart Discount cannot be created or activated as the [limit](/api/limits#cart-discounts) for active Cart Discounts has been reached.
+ *	Returned when an action fails because the Project has reached its [limit](/api/limits#cart-discounts) for active Cart Discounts.
  *
  *	The error is returned as a failed response to:
  *
  *	- [Create CartDiscount](ctp:api:endpoint:/{projectKey}/cart-discounts:POST) and [Create CartDiscount in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/cart-discounts:POST) requests
  *	- [Change IsActive](ctp:api:type:CartDiscountChangeIsActiveAction) update action
+ *	- [Change RequiresDiscountCode](ctp:api:type:CartDiscountChangeRequiresDiscountCodeAction) update action
  *
  */
 export interface MaxCartDiscountsReachedError extends IErrorObject {
@@ -3713,12 +3754,13 @@ export interface GraphQLMatchingPriceNotFoundError extends IGraphQLErrorObject {
   readonly channel?: ChannelReference
 }
 /**
- *	Returned when a Cart Discount cannot be created or activated as the [limit](/api/limits#cart-discounts) for active Cart Discounts has been reached.
+ *	Returned when an action fails because the Project has reached its [limit](/api/limits#cart-discounts) for active Cart Discounts.
  *
  *	The error is returned as a failed response to:
  *
  *	- [Create CartDiscount](ctp:api:endpoint:/{projectKey}/cart-discounts:POST) and [Create CartDiscount in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/cart-discounts:POST) requests
  *	- [Change IsActive](ctp:api:type:CartDiscountChangeIsActiveAction) update action
+ *	- [Change RequiresDiscountCode](ctp:api:type:CartDiscountChangeRequiresDiscountCodeAction) update action
  *
  */
 export interface GraphQLMaxCartDiscountsReachedError extends IGraphQLErrorObject {

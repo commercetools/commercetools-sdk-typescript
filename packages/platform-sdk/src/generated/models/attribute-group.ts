@@ -257,7 +257,7 @@ export interface AttributeGroupSetDescriptionAction extends IAttributeGroupUpdat
   readonly action: 'setDescription'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */

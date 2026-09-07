@@ -75,6 +75,7 @@ export enum ChangeSubscriptionResourceTypeIdValues {
   Subscription = 'subscription',
   TaxCategory = 'tax-category',
   Type = 'type',
+  Variant = 'variant',
   Zone = 'zone',
 }
 
@@ -119,6 +120,7 @@ export type ChangeSubscriptionResourceTypeId =
   | 'subscription'
   | 'tax-category'
   | 'type'
+  | 'variant'
   | 'zone'
   | (string & {})
 /**
@@ -468,6 +470,7 @@ export enum MessageSubscriptionResourceTypeIdValues {
   StagedQuote = 'staged-quote',
   StandalonePrice = 'standalone-price',
   Store = 'store',
+  Variant = 'variant',
 }
 
 export type MessageSubscriptionResourceTypeId =
@@ -493,6 +496,7 @@ export type MessageSubscriptionResourceTypeId =
   | 'staged-quote'
   | 'standalone-price'
   | 'store'
+  | 'variant'
   | (string & {})
 export interface PayloadNotIncluded {
   /**
@@ -885,7 +889,7 @@ export interface MessageDeliveryPayload extends IDeliveryPayload {
    */
   readonly resourceVersion: number
   /**
-   *	If the payload does not fit into the size limit or its format is not accepted by the messaging service, the `payloadNotIncluded` field is present.
+   *	Present when the payload exceeds the size limit of the message queue (the limit is often 256 KB) or its format is not accepted by the messaging service. If the payload exceeds the size limit, the additional Message fields are replaced with a [PayloadNotIncluded](ctp:api:type:PayloadNotIncluded) object. You can retrieve the full Message using the [Messages API](ctp:api:endpoint:/{projectKey}/messages/{id}:GET) if the feature is enabled.
    *
    *
    */
@@ -1118,7 +1122,7 @@ export interface SubscriptionSetEventsAction extends ISubscriptionUpdateAction {
 export interface SubscriptionSetKeyAction extends ISubscriptionUpdateAction {
   readonly action: 'setKey'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */

@@ -22,6 +22,10 @@ export class ByProjectKeyInStoreKeyByStoreKeyShippingMethodsMatchingCartRequestB
   /**
    *	Retrieves the active ShippingMethods that can ship to the shipping address of the provided Cart in a [Store](ctp:api:type:Store).
    *
+   *	The Cart must belong to the Store specified in the path. If no Cart exists for the given `cartId` in the specified Store, either because the Cart does not exist in the Project or because it exists but does not belong to that Store, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
+   *	The results include globally scoped ShippingMethods (those with an empty `stores` field) and ShippingMethods scoped to the Store specified in the path.
+   *
    *	Each ShippingMethod contains exactly one ShippingRate with the flag `isMatching` set to `true`. This ShippingRate is used when the ShippingMethod is [added to the Cart](ctp:api:type:CartSetShippingMethodAction).
    *
    *	If a matching ShippingMethod has `isDefault` set to `true`, it is returned as the first item in the array.

@@ -4,7 +4,4 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
-export type Expansion = string
 export type Locale = string
-export type QueryPredicate = string
-export type Sort = string

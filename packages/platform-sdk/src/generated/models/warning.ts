@@ -4,10 +4,17 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+import {
+  AgentFileNotProcessedWarning,
+  AgentProductsNotFoundWarning,
+} from './agent'
+
 /**
  *	Represents a warning related to the returned response.
  */
 export type WarningObject =
+  | AgentFileNotProcessedWarning
+  | AgentProductsNotFoundWarning
   | CannotChangeReservationExpiryWarning
   | CannotCreateReservationWarning
   | CannotUpdateReservationWarning

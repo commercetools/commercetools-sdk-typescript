@@ -6,6 +6,7 @@
 import { Project, ProjectUpdate } from '../models/project'
 import { executeRequest } from '../shared/utils/common-types'
 import { ApiRequest } from '../shared/utils/requests-utils'
+import { ByProjectKeyAgentsRequestBuilder } from './agents/by-project-key-agents-request-builder'
 import { ByProjectKeyApiClientsRequestBuilder } from './api-clients/by-project-key-api-clients-request-builder'
 import { ByProjectKeyAsAssociateRequestBuilder } from './as-associate/by-project-key-as-associate-request-builder'
 import { ByProjectKeyAssociateRolesRequestBuilder } from './associate-roles/by-project-key-associate-roles-request-builder'
@@ -67,6 +68,19 @@ export class ByProjectKeyRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Agents interpret unstructured input and produce structured commerce objects.
+   *
+   */
+  public agents(): ByProjectKeyAgentsRequestBuilder {
+    return new ByProjectKeyAgentsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
   public asAssociate(): ByProjectKeyAsAssociateRequestBuilder {
     return new ByProjectKeyAsAssociateRequestBuilder({
       pathArgs: {

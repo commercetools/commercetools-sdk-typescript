@@ -1605,7 +1605,7 @@ export interface BusinessUnitSetAddressCustomTypeAction extends IBusinessUnitUpd
 export interface BusinessUnitSetAssociatesAction extends IBusinessUnitUpdateAction {
   readonly action: 'setAssociates'
   /**
-   *	The new list of Associates. If empty, existing values will be removed.
+   *	The new list of Associates. Set to an empty array to remove all existing values.
    *
    *
    */

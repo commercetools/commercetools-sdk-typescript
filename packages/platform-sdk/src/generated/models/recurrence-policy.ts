@@ -306,7 +306,7 @@ export interface RecurrencePolicySetDescriptionAction extends IRecurrencePolicyU
   readonly action: 'setDescription'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -316,7 +316,7 @@ export interface RecurrencePolicySetKeyAction extends IRecurrencePolicyUpdateAct
   readonly action: 'setKey'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -326,7 +326,7 @@ export interface RecurrencePolicySetNameAction extends IRecurrencePolicyUpdateAc
   readonly action: 'setName'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */

@@ -180,6 +180,9 @@ export interface DiscountCodeDraft {
    *
    *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing Discount Codes with the [Import API](/api/import-export/overview) and the [Merchant Center](/merchant-center/import-data).
    *
+   *	If the value is used by another Discount Code, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
+   *
+   *
    */
   readonly key?: string
   /**
@@ -197,6 +200,8 @@ export interface DiscountCodeDraft {
   /**
    *	User-defined unique identifier for the DiscountCode that can be [added to the Cart](/api/projects/carts#add-discountcode) to apply the related [CartDiscounts](ctp:api:type:CartDiscount).
    *	It cannot be modified after the DiscountCode is created.
+   *
+   *	If the value is used by another Discount Code, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
    *
    *
    */
@@ -412,7 +417,8 @@ export interface DiscountCodeChangeIsActiveAction extends IDiscountCodeUpdateAct
 export interface DiscountCodeSetCartPredicateAction extends IDiscountCodeUpdateAction {
   readonly action: 'setCartPredicate'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
+   *
    *
    */
   readonly cartPredicate?: string
@@ -455,7 +461,8 @@ export interface DiscountCodeSetCustomTypeAction extends IDiscountCodeUpdateActi
 export interface DiscountCodeSetDescriptionAction extends IDiscountCodeUpdateAction {
   readonly action: 'setDescription'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
+   *
    *
    */
   readonly description?: LocalizedString
@@ -467,8 +474,9 @@ export interface DiscountCodeSetDescriptionAction extends IDiscountCodeUpdateAct
 export interface DiscountCodeSetKeyAction extends IDiscountCodeUpdateAction {
   readonly action: 'setKey'
   /**
-   *	Unique value to set.
-   *	If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
+   *
+   *	If the value is used by another Discount Code, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
    *
    *
    */
@@ -479,7 +487,7 @@ export interface DiscountCodeSetMaxApplicationsAction extends IDiscountCodeUpdat
   /**
    *	Value to set.
    *
-   *	If empty, any existing value will be removed and the DiscountCode can be applied any number of times.
+   *	If omitted, any existing value is removed and the DiscountCode can be applied any number of times.
    *
    *	If `maxApplicationsPerCustomer` is set, each application also counts toward this limit.
    *
@@ -494,7 +502,7 @@ export interface DiscountCodeSetMaxApplicationsPerCustomerAction extends IDiscou
   /**
    *	Value to set.
    *
-   *	If empty, any existing value will be removed and the DiscountCode can be applied any number of times.
+   *	If omitted, any existing value is removed and the DiscountCode can be applied any number of times.
    *
    *	Each use also counts toward the `maxApplications` limit.
    *
@@ -507,7 +515,8 @@ export interface DiscountCodeSetMaxApplicationsPerCustomerAction extends IDiscou
 export interface DiscountCodeSetNameAction extends IDiscountCodeUpdateAction {
   readonly action: 'setName'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
+   *
    *
    */
   readonly name?: LocalizedString
@@ -515,7 +524,7 @@ export interface DiscountCodeSetNameAction extends IDiscountCodeUpdateAction {
 export interface DiscountCodeSetValidFromAction extends IDiscountCodeUpdateAction {
   readonly action: 'setValidFrom'
   /**
-   *	Value to set that must be earlier than `validUntil`. If empty, any existing value will be removed.
+   *	Value to set that must be earlier than `validUntil`. If omitted, any existing value is removed.
    *
    *
    */
@@ -524,13 +533,13 @@ export interface DiscountCodeSetValidFromAction extends IDiscountCodeUpdateActio
 export interface DiscountCodeSetValidFromAndUntilAction extends IDiscountCodeUpdateAction {
   readonly action: 'setValidFromAndUntil'
   /**
-   *	Value to set that must be earlier than `validUntil`. If empty, any existing value will be removed.
+   *	Value to set that must be earlier than `validUntil`. If omitted, any existing value is removed.
    *
    *
    */
   readonly validFrom?: string
   /**
-   *	Value to set that must be later than `validFrom`. If empty, any existing value will be removed.
+   *	Value to set that must be later than `validFrom`. If omitted, any existing value is removed.
    *
    *
    */
@@ -539,7 +548,7 @@ export interface DiscountCodeSetValidFromAndUntilAction extends IDiscountCodeUpd
 export interface DiscountCodeSetValidUntilAction extends IDiscountCodeUpdateAction {
   readonly action: 'setValidUntil'
   /**
-   *	Value to set that must be later than `validFrom`. If empty, any existing value will be removed.
+   *	Value to set that must be later than `validFrom`. If omitted, any existing value is removed.
    *
    *
    */

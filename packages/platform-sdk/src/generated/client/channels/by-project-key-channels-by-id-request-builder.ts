@@ -90,7 +90,7 @@ export class ByProjectKeyChannelsByIDRequestBuilder {
     )
   }
   /**
-   *	Returns a [ReferenceExists](ctp:api:type:ReferenceExistsError) error if other resources reference the Channel to be deleted.
+   *	If the Channel is referenced by a resource, a [ReferenceExists](ctp:api:type:ReferenceExistsError) error is returned.
    *
    */
   public delete(methodArgs: {

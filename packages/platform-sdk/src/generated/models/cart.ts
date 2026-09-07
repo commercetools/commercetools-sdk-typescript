@@ -789,6 +789,7 @@ export type CartUpdateAction =
   | CartSetCustomerIdAction
   | CartSetDeleteDaysAfterLastModificationAction
   | CartSetDirectDiscountsAction
+  | CartSetEstimatedDeliveryAction
   | CartSetItemShippingAddressCustomFieldAction
   | CartSetItemShippingAddressCustomTypeAction
   | CartSetKeyAction
@@ -1317,6 +1318,26 @@ export interface DiscountedTotalPricePortion {
    */
   readonly discountedAmount: TypedMoney
 }
+/**
+ *	Estimated time window during which a shipment is expected to be delivered.
+ *	The window is anchored to the selected Shipping Method and the shipping destination.
+ *
+ */
+export interface EstimatedDelivery {
+  /**
+   *	Date and time (UTC) of the earliest expected delivery.
+   *
+   *
+   */
+  readonly from?: string
+  /**
+   *	Date and time (UTC) of the latest expected delivery.
+   *	When both `from` and `until` are set, `until` must be equal to or later than `from`.
+   *
+   *
+   */
+  readonly until?: string
+}
 export interface ExternalLineItemTotalPrice {
   /**
    *	Price of the Line Item.
@@ -1483,6 +1504,8 @@ export interface ItemShippingTarget {
    *
    *	It connects Line Item or Custom Line Item quantities with individual Shipping Methods.
    *
+   *	Required when the Cart has `Multiple` [ShippingMode](ctp:api:type:ShippingMode). Omitting this field in that case returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
+   *
    */
   readonly shippingMethodKey?: string
 }
@@ -1566,7 +1589,7 @@ export interface LineItem {
    *	Total price of this Line Item equalling `price` multiplied by `quantity`. If the Line Item is discounted, the total price is the `discountedPricePerQuantity` multiplied by `quantity`.
    *	Includes taxes if the [TaxRate](ctp:api:type:TaxRate) `includedInPrice` is `true`.
    *
-   *	If `ExternalPrice` [LineItemPriceMode](#ctp:api:type:LineItemPriceMode) is used with high-precision money, then the total price is rounded by using the `HalfEven` rounding mode.
+   *	If `ExternalPrice` [LineItemPriceMode](ctp:api:type:LineItemPriceMode) is used with high-precision money, then the total price is rounded by using the `HalfEven` rounding mode.
    *
    *
    */
@@ -2068,6 +2091,13 @@ export interface ShippingInfo {
    *
    */
   readonly shippingMethodState: ShippingMethodState
+  /**
+   *	Estimated time window during which the shipment is expected to be delivered.
+   *	This value is removed if the Cart's `shippingAddress` changes.
+   *
+   *
+   */
+  readonly estimatedDelivery?: EstimatedDelivery
 }
 /**
  *	Determines whether the selected [ShippingMethod](ctp:api:type:ShippingMethod) is allowed for the Cart. For more information, see [Predicates](/shipping-delivery-overview#predicates).
@@ -2541,7 +2571,7 @@ export interface CartAddLineItemAction extends ICartUpdateAction {
   readonly productId?: string
   /**
    *	`id` of the [ProductVariant](ctp:api:type:ProductVariant) in the Product.
-   *	If not provided, the Master Variant is used.
+   *	If omitted, the Master Variant is used.
    *
    *	Either the `productId` and `variantId`, or `sku` must be provided.
    *
@@ -2706,6 +2736,12 @@ export interface CartAddShippingMethodAction extends ICartUpdateAction {
    *
    */
   readonly custom?: CustomFieldsDraft
+  /**
+   *	Estimated time window during which this shipment is expected to be delivered.
+   *
+   *
+   */
+  readonly estimatedDelivery?: EstimatedDelivery
 }
 /**
  *	Adds all [LineItems](ctp:api:type:LineItem) of a [ShoppingList](ctp:api:type:ShoppingList) to the Cart.
@@ -3151,7 +3187,7 @@ export interface CartSetAnonymousIdAction extends ICartUpdateAction {
   readonly action: 'setAnonymousId'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3160,8 +3196,9 @@ export interface CartSetAnonymousIdAction extends ICartUpdateAction {
 export interface CartSetBillingAddressAction extends ICartUpdateAction {
   readonly action: 'setBillingAddress'
   /**
-   *	Value to set.
-   *	If empty, any existing value is removed.
+   *	Value to set. It replaces the entire address, including [Custom Fields](ctp:api:type:CustomFields) if `custom` is not included. To preserve Custom Fields, include the `custom` object in the request.
+   *
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3243,7 +3280,7 @@ export interface CartSetCountryAction extends ICartUpdateAction {
   readonly action: 'setCountry'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *	If the Cart is bound to a `store`, the provided value must be included in the [Store's](ctp:api:type:Store) `countries`.
    *	Otherwise a [CountryNotConfiguredInStore](ctp:api:type:CountryNotConfiguredInStoreError) error is returned.
@@ -3349,7 +3386,7 @@ export interface CartSetCustomLineItemRecurrenceInfoAction extends ICartUpdateAc
   readonly customLineItemKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3371,7 +3408,7 @@ export interface CartSetCustomLineItemShippingDetailsAction extends ICartUpdateA
   readonly customLineItemKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3397,7 +3434,7 @@ export interface CartSetCustomLineItemTaxAmountAction extends ICartUpdateAction 
   readonly customLineItemKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3430,7 +3467,7 @@ export interface CartSetCustomLineItemTaxRateAction extends ICartUpdateAction {
   readonly customLineItemKey?: string
   /**
    *	Value to set.
-   *	If empty, an existing value is removed.
+   *	If omitted, an existing value is removed.
    *
    *
    */
@@ -3487,6 +3524,13 @@ export interface CartSetCustomShippingMethodAction extends ICartUpdateAction {
    *
    */
   readonly custom?: CustomFieldsDraft
+  /**
+   *	Estimated time window during which the shipment is expected to be delivered.
+   *	If not set, any existing estimate on the Cart's [ShippingInfo](ctp:api:type:ShippingInfo) is cleared.
+   *
+   *
+   */
+  readonly estimatedDelivery?: EstimatedDelivery
 }
 export interface CartSetCustomTypeAction extends ICartUpdateAction {
   readonly action: 'setCustomType'
@@ -3510,7 +3554,7 @@ export interface CartSetCustomerEmailAction extends ICartUpdateAction {
   readonly action: 'setCustomerEmail'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3527,7 +3571,7 @@ export interface CartSetCustomerGroupAction extends ICartUpdateAction {
   readonly action: 'setCustomerGroup'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3545,7 +3589,7 @@ export interface CartSetCustomerIdAction extends ICartUpdateAction {
   /**
    *	`id` of an existing [Customer](ctp:api:type:Customer).
    *	If the Customer is assigned to a [CustomerGroup](ctp:api:type:CustomerGroup), this update action also sets the value for the `customerGroup` field.
-   *	If empty, the update action removes the value for both `customerId` and `customerGroup`.
+   *	If omitted, the update action removes the value for both `customerId` and `customerGroup`.
    *
    *
    */
@@ -3563,7 +3607,7 @@ export interface CartSetDeleteDaysAfterLastModificationAction extends ICartUpdat
   readonly action: 'setDeleteDaysAfterLastModification'
   /**
    *	Value to set.
-   *	If not provided, the default value for this field configured in [Project settings](ctp:api:type:CartsConfiguration) is assigned.
+   *	If omitted, the default value for this field configured in [Project settings](ctp:api:type:CartsConfiguration) is assigned.
    *
    *
    */
@@ -3579,11 +3623,34 @@ export interface CartSetDirectDiscountsAction extends ICartUpdateAction {
   /**
    *	- If set, all existing Direct Discounts are replaced.
    *	  The discounts apply in the order they are added to the list.
-   *	- If empty, all existing Direct Discounts are removed and all affected prices on the Cart or Order are recalculated.
+   *	- If set to an empty array, all existing Direct Discounts are removed and all affected prices on the Cart or Order are recalculated.
    *
    *
    */
   readonly discounts: DirectDiscountDraft[]
+}
+/**
+ *	Sets the estimated delivery window on the Cart's [ShippingInfo](ctp:api:type:ShippingInfo).
+ *
+ *	This update action produces the [CartEstimatedDeliverySet](ctp:api:type:CartEstimatedDeliverySetMessage) Message.
+ *
+ */
+export interface CartSetEstimatedDeliveryAction extends ICartUpdateAction {
+  readonly action: 'setEstimatedDelivery'
+  /**
+   *	`key` of the [Shipping](ctp:api:type:Shipping) to update.
+   *	This is required and valid only for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	An [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned if `shippingKey` is provided for Carts with `Single` ShippingMode, or omitted for Carts with `Multiple` ShippingMode.
+   *
+   *
+   */
+  readonly shippingKey?: string
+  /**
+   *	Value to set. If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly estimatedDelivery?: EstimatedDelivery
 }
 export interface CartSetItemShippingAddressCustomFieldAction extends ICartUpdateAction {
   readonly action: 'setItemShippingAddressCustomField'
@@ -3636,7 +3703,7 @@ export interface CartSetKeyAction extends ICartUpdateAction {
   readonly action: 'setKey'
   /**
    *	Value to set.
-   *	If empty, any existing key will be removed.
+   *	If omitted, any existing key is removed.
    *
    *
    */
@@ -3803,7 +3870,7 @@ export interface CartSetLineItemRecurrenceInfoAction extends ICartUpdateAction {
   readonly lineItemKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3825,7 +3892,7 @@ export interface CartSetLineItemShippingDetailsAction extends ICartUpdateAction 
   readonly lineItemKey?: string
   /**
    *	Value to set.
-   *	If empty, the existing value is removed.
+   *	If omitted, the existing value is removed.
    *
    *
    */
@@ -3880,7 +3947,7 @@ export interface CartSetLineItemTaxAmountAction extends ICartUpdateAction {
   readonly lineItemKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3913,7 +3980,7 @@ export interface CartSetLineItemTaxRateAction extends ICartUpdateAction {
   readonly lineItemKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3958,7 +4025,7 @@ export interface CartSetLocaleAction extends ICartUpdateAction {
   /**
    *	Value to set.
    *	Must be one of the [Project](ctp:api:type:Project)'s `languages`.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -3972,7 +4039,7 @@ export interface CartSetPurchaseOrderNumberAction extends ICartUpdateAction {
   readonly action: 'setPurchaseOrderNumber'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -4005,7 +4072,8 @@ export interface CartSetReservationExpirationInMinutesAction extends ICartUpdate
 export interface CartSetShippingAddressAction extends ICartUpdateAction {
   readonly action: 'setShippingAddress'
   /**
-   *	Value to set.
+   *	Value to set. It replaces the entire address, including [Custom Fields](ctp:api:type:CustomFields) if `custom` is not included. To preserve Custom Fields, include the `custom` object in the request.
+   *
    *	If not set, the shipping address is unset, and the `taxedPrice` and `taxRate` are unset in all Line Items of the Cart.
    *
    *
@@ -4112,7 +4180,7 @@ export interface CartSetShippingMethodAction extends ICartUpdateAction {
   readonly action: 'setShippingMethod'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *	[InvalidOperation](ctp:api:type:InvalidOperationError) error is returned in one of the following cases:
    *	  1. If the referenced Shipping Method has a predicate that does not match the Cart.
@@ -4129,6 +4197,13 @@ export interface CartSetShippingMethodAction extends ICartUpdateAction {
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
+  /**
+   *	Estimated time window during which the shipment is expected to be delivered.
+   *	If not set, any existing estimate on the Cart's [ShippingInfo](ctp:api:type:ShippingInfo) is cleared.
+   *
+   *
+   */
+  readonly estimatedDelivery?: EstimatedDelivery
 }
 /**
  *	A Shipping Method tax amount can be set if the Cart has the `ExternalAmount` [TaxMode](ctp:api:type:TaxMode).
@@ -4146,7 +4221,7 @@ export interface CartSetShippingMethodTaxAmountAction extends ICartUpdateAction 
   readonly shippingKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -4168,7 +4243,7 @@ export interface CartSetShippingMethodTaxRateAction extends ICartUpdateAction {
   readonly shippingKey?: string
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
