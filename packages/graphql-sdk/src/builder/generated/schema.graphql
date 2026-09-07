@@ -6908,6 +6908,7 @@ type McpServer {
 enum McpServerAuthenticationMode {
   ClientCredentials
   CommercetoolsIdentity
+  ShopperIdentity
 }
 
 type McpServerCatalogTool {

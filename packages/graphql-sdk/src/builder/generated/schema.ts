@@ -3482,7 +3482,7 @@ export interface McpServer {
     __typename: 'McpServer'
 }
 
-export type McpServerAuthenticationMode = 'ClientCredentials' | 'CommercetoolsIdentity'
+export type McpServerAuthenticationMode = 'ClientCredentials' | 'CommercetoolsIdentity' | 'ShopperIdentity'
 
 export interface McpServerCatalogTool {
     description: (Scalars['String'] | null)
@@ -32120,7 +32120,8 @@ export const enumLineItemPriceMode = {
 
 export const enumMcpServerAuthenticationMode = {
    ClientCredentials: 'ClientCredentials' as const,
-   CommercetoolsIdentity: 'CommercetoolsIdentity' as const
+   CommercetoolsIdentity: 'CommercetoolsIdentity' as const,
+   ShopperIdentity: 'ShopperIdentity' as const
 }
 
 export const enumMcpServerState = {
