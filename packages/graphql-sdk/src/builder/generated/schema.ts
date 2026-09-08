@@ -8939,6 +8939,7 @@ export interface VariantAttributeDefinition {
 export interface VariantAttributeSimpleAvailability {
     availableQuantity: Scalars['Long']
     isOnStock: Scalars['Boolean']
+    restockableInDays: (Scalars['Int'] | null)
     __typename: 'VariantAttributeSimpleAvailability'
 }
 
@@ -24099,6 +24100,7 @@ export interface VariantAttributeDefinitionGenqlSelection{
 export interface VariantAttributeSimpleAvailabilityGenqlSelection{
     availableQuantity?: boolean | number
     isOnStock?: boolean | number
+    restockableInDays?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
 }

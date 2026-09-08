@@ -45094,6 +45094,9 @@ export default {
             "isOnStock": [
                 195
             ],
+            "restockableInDays": [
+                753
+            ],
             "__typename": [
                 2149
             ]
