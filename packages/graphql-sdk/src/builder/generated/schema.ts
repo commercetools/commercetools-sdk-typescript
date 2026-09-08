@@ -3608,7 +3608,7 @@ export interface Message {
     __typename: 'Message'
 }
 
-export type MessagePayload = (ApprovalFlowApproved | ApprovalFlowCompleted | ApprovalFlowCreated | ApprovalFlowRejected | ApprovalRuleApproversSet | ApprovalRuleCreated | ApprovalRuleDescriptionSet | ApprovalRuleKeySet | ApprovalRuleNameSet | ApprovalRulePredicateSet | ApprovalRuleRequestersSet | ApprovalRuleStatusSet | AssociateRoleBuyerAssignableChanged | AssociateRoleCreated | AssociateRoleDeleted | AssociateRoleNameSet | AssociateRolePermissionAdded | AssociateRolePermissionRemoved | AssociateRolePermissionsSet | BusinessUnitAddressAdded | BusinessUnitAddressChanged | BusinessUnitAddressCustomFieldAdded | BusinessUnitAddressCustomFieldChanged | BusinessUnitAddressCustomFieldRemoved | BusinessUnitAddressCustomTypeRemoved | BusinessUnitAddressCustomTypeSet | BusinessUnitAddressRemoved | BusinessUnitApprovalRuleModeChanged | BusinessUnitAssociateAdded | BusinessUnitAssociateChanged | BusinessUnitAssociateModeChanged | BusinessUnitAssociateRemoved | BusinessUnitAssociatesSet | BusinessUnitBillingAddressAdded | BusinessUnitBillingAddressRemoved | BusinessUnitContactEmailSet | BusinessUnitCreated | BusinessUnitCustomFieldAdded | BusinessUnitCustomFieldChanged | BusinessUnitCustomFieldRemoved | BusinessUnitCustomTypeRemoved | BusinessUnitCustomTypeSet | BusinessUnitCustomerGroupAssignmentAdded | BusinessUnitCustomerGroupAssignmentRemoved | BusinessUnitCustomerGroupAssignmentsSet | BusinessUnitDefaultBillingAddressSet | BusinessUnitDefaultShippingAddressSet | BusinessUnitDeleted | BusinessUnitNameChanged | BusinessUnitParentChanged | BusinessUnitShippingAddressAdded | BusinessUnitShippingAddressRemoved | BusinessUnitStatusChanged | BusinessUnitStoreAdded | BusinessUnitStoreModeChanged | BusinessUnitStoreRemoved | BusinessUnitStoresSet | BusinessUnitTopLevelUnitSet | BusinessUnitTypeSet | CartCreated | CartDiscountCreated | CartDiscountDeleted | CartDiscountStoreAdded | CartDiscountStoreRemoved | CartDiscountStoresSet | CartEstimatedDeliverySet | CartFrozen | CartLocked | CartPurchaseOrderNumberSet | CartUnfrozen | CartUnlocked | CategoryCreated | CategorySlugChanged | CustomLineItemStateTransition | CustomerAddressAdded | CustomerAddressChanged | CustomerAddressCustomFieldAdded | CustomerAddressCustomFieldChanged | CustomerAddressCustomFieldRemoved | CustomerAddressCustomTypeRemoved | CustomerAddressCustomTypeSet | CustomerAddressRemoved | CustomerBillingAddressAdded | CustomerBillingAddressRemoved | CustomerCompanyNameSet | CustomerCreated | CustomerCustomFieldAdded | CustomerCustomFieldChanged | CustomerCustomFieldRemoved | CustomerCustomTypeRemoved | CustomerCustomTypeSet | CustomerDateOfBirthSet | CustomerDefaultBillingAddressSet | CustomerDefaultShippingAddressSet | CustomerDeleted | CustomerEmailChanged | CustomerEmailTokenCreated | CustomerEmailVerified | CustomerExternalIdSet | CustomerFirstNameSet | CustomerGroupAssignmentAdded | CustomerGroupAssignmentRemoved | CustomerGroupAssignmentsSet | CustomerGroupCustomFieldAdded | CustomerGroupCustomFieldChanged | CustomerGroupCustomFieldRemoved | CustomerGroupCustomTypeRemoved | CustomerGroupCustomTypeSet | CustomerGroupSet | CustomerLastNameSet | CustomerPasswordTokenCreated | CustomerPasswordUpdated | CustomerShippingAddressAdded | CustomerShippingAddressRemoved | CustomerStoresSet | CustomerTitleSet | DeliveryAdded | DeliveryAddressSet | DeliveryCustomFieldAdded | DeliveryCustomFieldChanged | DeliveryCustomFieldRemoved | DeliveryCustomTypeRemoved | DeliveryCustomTypeSet | DeliveryItemsUpdated | DeliveryRemoved | DiscountCodeCreated | DiscountCodeDeleted | DiscountCodeKeySet | DiscountGroupCreated | DiscountGroupDeleted | DiscountGroupIsActiveSet | DiscountGroupKeySet | DiscountGroupSortOrderSet | InventoryEntryCreated | InventoryEntryDeleted | InventoryEntryOutOfStock | InventoryEntryQuantitySet | InventoryEntryReorderPoint | InventoryEntryReservationExpirationInMinutesSet | InventoryEntrySafetyStock | LineItemStateTransition | OrderBillingAddressSet | OrderBusinessUnitSet | OrderCreated | OrderCreatedFromRecurringOrder | OrderCustomFieldAdded | OrderCustomFieldChanged | OrderCustomFieldRemoved | OrderCustomLineItemAdded | OrderCustomLineItemDiscountSet | OrderCustomLineItemQuantityChanged | OrderCustomLineItemRemoved | OrderCustomTypeRemoved | OrderCustomTypeSet | OrderCustomerEmailSet | OrderCustomerGroupSet | OrderCustomerSet | OrderDeleted | OrderDiscountCodeAdded | OrderDiscountCodeRemoved | OrderDiscountCodeStateSet | OrderDiscountTypeCombinationSet | OrderEditApplied | OrderEstimatedDeliverySet | OrderImported | OrderLineItemAdded | OrderLineItemDiscountSet | OrderLineItemDistributionChannelSet | OrderLineItemRemoved | OrderPaymentAdded | OrderPaymentRemoved | OrderPaymentStateChanged | OrderReturnShipmentStateChanged | OrderShipmentStateChanged | OrderShippingAddressSet | OrderShippingContainerSet | OrderShippingInfoSet | OrderShippingRateInputSet | OrderShippingUpdated | OrderStateChanged | OrderStateTransition | OrderStoreSet | ParcelAddedToDelivery | ParcelItemsUpdated | ParcelMeasurementsUpdated | ParcelRemovedFromDelivery | ParcelTrackingDataUpdated | PaymentCreated | PaymentInteractionAdded | PaymentInterfaceIdSet | PaymentMethodCreated | PaymentMethodCustomFieldAdded | PaymentMethodCustomFieldChanged | PaymentMethodCustomFieldRemoved | PaymentMethodCustomTypeRemoved | PaymentMethodCustomTypeSet | PaymentMethodDefaultSet | PaymentMethodDeleted | PaymentMethodInfoCustomFieldAdded | PaymentMethodInfoCustomFieldChanged | PaymentMethodInfoCustomFieldRemoved | PaymentMethodInfoCustomTypeRemoved | PaymentMethodInfoCustomTypeSet | PaymentMethodInfoInterfaceAccountSet | PaymentMethodInfoInterfaceSet | PaymentMethodInfoMethodSet | PaymentMethodInfoNameSet | PaymentMethodInfoTokenSet | PaymentMethodInterfaceAccountSet | PaymentMethodKeySet | PaymentMethodMethodSet | PaymentMethodNameSet | PaymentMethodPaymentInterfaceSet | PaymentMethodPaymentMethodStatusSet | PaymentStatusInterfaceCodeSet | PaymentStatusStateTransition | PaymentTransactionAdded | PaymentTransactionInterfaceIdSet | PaymentTransactionStateChanged | ProductAddedToCategory | ProductCreated | ProductDeleted | ProductImageAdded | ProductPriceAdded | ProductPriceChanged | ProductPriceCustomFieldAdded | ProductPriceCustomFieldChanged | ProductPriceCustomFieldRemoved | ProductPriceCustomFieldsRemoved | ProductPriceCustomFieldsSet | ProductPriceDiscountsSet | ProductPriceExternalDiscountSet | ProductPriceKeySet | ProductPriceModeSet | ProductPriceRemoved | ProductPricesSet | ProductPublished | ProductRemovedFromCategory | ProductRevertedStagedChanges | ProductSelectionCreated | ProductSelectionDeleted | ProductSelectionProductAdded | ProductSelectionProductExcluded | ProductSelectionProductRemoved | ProductSelectionVariantExclusionChanged | ProductSelectionVariantSelectionChanged | ProductSlugChanged | ProductStateTransition | ProductTailoringCreated | ProductTailoringDeleted | ProductTailoringDescriptionSet | ProductTailoringImageAdded | ProductTailoringImagesSet | ProductTailoringKeySet | ProductTailoringNameSet | ProductTailoringPublished | ProductTailoringSlugSet | ProductTailoringUnpublished | ProductUnpublished | ProductVariantAdded | ProductVariantDeleted | ProductVariantTailoringAdded | ProductVariantTailoringRemoved | PurchaseOrderNumberSet | QuoteCreated | QuoteCustomerChanged | QuoteDeleted | QuoteRenegotiationRequested | QuoteRequestCreated | QuoteRequestCustomerChanged | QuoteRequestDeleted | QuoteRequestStateChanged | QuoteRequestStateTransition | QuoteStateChanged | QuoteStateTransition | RecurringOrderCreated | RecurringOrderCustomFieldAdded | RecurringOrderCustomFieldChanged | RecurringOrderCustomFieldRemoved | RecurringOrderCustomTypeRemoved | RecurringOrderCustomTypeSet | RecurringOrderDeleted | RecurringOrderExpiresAtSet | RecurringOrderFailed | RecurringOrderKeySet | RecurringOrderScheduleSet | RecurringOrderStartsAtSet | RecurringOrderStateChanged | RecurringOrderStateTransition | ReturnInfoAdded | ReturnInfoSet | ReviewCreated | ReviewRatingSet | ReviewStateTransition | ShoppingListLineItemAdded | ShoppingListLineItemRemoved | StagedQuoteCreated | StagedQuoteDeleted | StagedQuoteSellerCommentSet | StagedQuoteStateChanged | StagedQuoteStateTransition | StagedQuoteValidToSet | StandalonePriceActiveChanged | StandalonePriceCreated | StandalonePriceDeleted | StandalonePriceDiscountSet | StandalonePriceExternalDiscountSet | StandalonePriceKeySet | StandalonePriceStagedChangesApplied | StandalonePriceStagedChangesRemoved | StandalonePriceTierAdded | StandalonePriceTierRemoved | StandalonePriceTiersSet | StandalonePriceValidFromAndUntilSet | StandalonePriceValidFromSet | StandalonePriceValidUntilSet | StandalonePriceValueChanged | StoreCheckoutUrlTemplateSet | StoreContactUrlSet | StoreCookiePolicyUrlSet | StoreCountriesChanged | StoreCreated | StoreDeleted | StoreDistributionChannelsChanged | StoreFaqUrlSet | StoreImprintUrlSet | StoreLanguagesChanged | StoreNameSet | StoreOrderUrlTemplateSet | StorePrivacyPolicyUrlSet | StoreProductSelectionsChanged | StoreRefundPolicyUrlSet | StoreShippingPolicyUrlSet | StoreSupplyChannelsChanged | StoreTermsOfServiceUrlSet | VariantCreated | VariantDeleted | VariantImageAdded | VariantImagesSet | VariantKeySet | VariantPublished | VariantSkuSet | VariantStagedChangesRemoved | VariantUnpublished) & { __isUnion?: true }
+export type MessagePayload = (ApprovalFlowApproved | ApprovalFlowCompleted | ApprovalFlowCreated | ApprovalFlowRejected | ApprovalRuleApproversSet | ApprovalRuleCreated | ApprovalRuleDescriptionSet | ApprovalRuleKeySet | ApprovalRuleNameSet | ApprovalRulePredicateSet | ApprovalRuleRequestersSet | ApprovalRuleStatusSet | AssociateRoleBuyerAssignableChanged | AssociateRoleCreated | AssociateRoleDeleted | AssociateRoleNameSet | AssociateRolePermissionAdded | AssociateRolePermissionRemoved | AssociateRolePermissionsSet | BusinessUnitAddressAdded | BusinessUnitAddressChanged | BusinessUnitAddressCustomFieldAdded | BusinessUnitAddressCustomFieldChanged | BusinessUnitAddressCustomFieldRemoved | BusinessUnitAddressCustomTypeRemoved | BusinessUnitAddressCustomTypeSet | BusinessUnitAddressRemoved | BusinessUnitApprovalRuleModeChanged | BusinessUnitAssociateAdded | BusinessUnitAssociateChanged | BusinessUnitAssociateModeChanged | BusinessUnitAssociateRemoved | BusinessUnitAssociatesSet | BusinessUnitBillingAddressAdded | BusinessUnitBillingAddressRemoved | BusinessUnitContactEmailSet | BusinessUnitCreated | BusinessUnitCustomFieldAdded | BusinessUnitCustomFieldChanged | BusinessUnitCustomFieldRemoved | BusinessUnitCustomTypeRemoved | BusinessUnitCustomTypeSet | BusinessUnitCustomerGroupAssignmentAdded | BusinessUnitCustomerGroupAssignmentRemoved | BusinessUnitCustomerGroupAssignmentsSet | BusinessUnitDefaultBillingAddressSet | BusinessUnitDefaultShippingAddressSet | BusinessUnitDeleted | BusinessUnitNameChanged | BusinessUnitParentChanged | BusinessUnitShippingAddressAdded | BusinessUnitShippingAddressRemoved | BusinessUnitStatusChanged | BusinessUnitStoreAdded | BusinessUnitStoreModeChanged | BusinessUnitStoreRemoved | BusinessUnitStoresSet | BusinessUnitTopLevelUnitSet | BusinessUnitTypeSet | CartCreated | CartDiscountCreated | CartDiscountDeleted | CartDiscountStoreAdded | CartDiscountStoreRemoved | CartDiscountStoresSet | CartEstimatedDeliverySet | CartFrozen | CartLocked | CartPurchaseOrderNumberSet | CartUnfrozen | CartUnlocked | CategoryCreated | CategorySlugChanged | CustomLineItemStateTransition | CustomerAddressAdded | CustomerAddressChanged | CustomerAddressCustomFieldAdded | CustomerAddressCustomFieldChanged | CustomerAddressCustomFieldRemoved | CustomerAddressCustomTypeRemoved | CustomerAddressCustomTypeSet | CustomerAddressRemoved | CustomerBillingAddressAdded | CustomerBillingAddressRemoved | CustomerCompanyNameSet | CustomerCreated | CustomerCustomFieldAdded | CustomerCustomFieldChanged | CustomerCustomFieldRemoved | CustomerCustomTypeRemoved | CustomerCustomTypeSet | CustomerDateOfBirthSet | CustomerDefaultBillingAddressSet | CustomerDefaultShippingAddressSet | CustomerDeleted | CustomerEmailChanged | CustomerEmailTokenCreated | CustomerEmailVerified | CustomerExternalIdSet | CustomerFirstNameSet | CustomerGroupAssignmentAdded | CustomerGroupAssignmentRemoved | CustomerGroupAssignmentsSet | CustomerGroupCustomFieldAdded | CustomerGroupCustomFieldChanged | CustomerGroupCustomFieldRemoved | CustomerGroupCustomTypeRemoved | CustomerGroupCustomTypeSet | CustomerGroupSet | CustomerLastNameSet | CustomerPasswordTokenCreated | CustomerPasswordUpdated | CustomerShippingAddressAdded | CustomerShippingAddressRemoved | CustomerStoresSet | CustomerTitleSet | DeliveryAdded | DeliveryAddressSet | DeliveryCustomFieldAdded | DeliveryCustomFieldChanged | DeliveryCustomFieldRemoved | DeliveryCustomTypeRemoved | DeliveryCustomTypeSet | DeliveryItemsUpdated | DeliveryRemoved | DiscountCodeCreated | DiscountCodeDeleted | DiscountCodeKeySet | DiscountGroupCreated | DiscountGroupDeleted | DiscountGroupIsActiveSet | DiscountGroupKeySet | DiscountGroupSortOrderSet | InventoryEntryCreated | InventoryEntryDeleted | InventoryEntryOutOfStock | InventoryEntryQuantitySet | InventoryEntryReorderPoint | InventoryEntryReservationExpirationInMinutesSet | InventoryEntrySafetyStock | LineItemStateTransition | OrderBillingAddressSet | OrderBusinessUnitSet | OrderCreated | OrderCreatedFromRecurringOrder | OrderCustomFieldAdded | OrderCustomFieldChanged | OrderCustomFieldRemoved | OrderCustomLineItemAdded | OrderCustomLineItemDiscountSet | OrderCustomLineItemQuantityChanged | OrderCustomLineItemRemoved | OrderCustomTypeRemoved | OrderCustomTypeSet | OrderCustomerEmailSet | OrderCustomerGroupSet | OrderCustomerSet | OrderDeleted | OrderDiscountCodeAdded | OrderDiscountCodeRemoved | OrderDiscountCodeStateSet | OrderDiscountTypeCombinationSet | OrderEditApplied | OrderEstimatedDeliverySet | OrderImported | OrderLineItemAdded | OrderLineItemDiscountSet | OrderLineItemDistributionChannelSet | OrderLineItemRemoved | OrderPaymentAdded | OrderPaymentRemoved | OrderPaymentStateChanged | OrderReturnShipmentStateChanged | OrderShipmentStateChanged | OrderShippingAddressSet | OrderShippingContainerSet | OrderShippingInfoSet | OrderShippingRateInputSet | OrderShippingUpdated | OrderStateChanged | OrderStateTransition | OrderStoreSet | ParcelAddedToDelivery | ParcelItemsUpdated | ParcelMeasurementsUpdated | ParcelRemovedFromDelivery | ParcelTrackingDataUpdated | PaymentCreated | PaymentInteractionAdded | PaymentInterfaceIdSet | PaymentMethodCreated | PaymentMethodCustomFieldAdded | PaymentMethodCustomFieldChanged | PaymentMethodCustomFieldRemoved | PaymentMethodCustomTypeRemoved | PaymentMethodCustomTypeSet | PaymentMethodDefaultSet | PaymentMethodDeleted | PaymentMethodInfoCustomFieldAdded | PaymentMethodInfoCustomFieldChanged | PaymentMethodInfoCustomFieldRemoved | PaymentMethodInfoCustomTypeRemoved | PaymentMethodInfoCustomTypeSet | PaymentMethodInfoInterfaceAccountSet | PaymentMethodInfoInterfaceSet | PaymentMethodInfoMethodSet | PaymentMethodInfoNameSet | PaymentMethodInfoTokenSet | PaymentMethodInterfaceAccountSet | PaymentMethodKeySet | PaymentMethodMethodSet | PaymentMethodNameSet | PaymentMethodPaymentInterfaceSet | PaymentMethodPaymentMethodStatusSet | PaymentStatusInterfaceCodeSet | PaymentStatusStateTransition | PaymentTransactionAdded | PaymentTransactionInterfaceIdSet | PaymentTransactionStateChanged | ProductAddedToCategory | ProductCreated | ProductDeleted | ProductImageAdded | ProductPriceAdded | ProductPriceChanged | ProductPriceCustomFieldAdded | ProductPriceCustomFieldChanged | ProductPriceCustomFieldRemoved | ProductPriceCustomFieldsRemoved | ProductPriceCustomFieldsSet | ProductPriceDiscountsSet | ProductPriceExternalDiscountSet | ProductPriceKeySet | ProductPriceModeSet | ProductPriceRemoved | ProductPricesSet | ProductPublished | ProductRemovedFromCategory | ProductRevertedStagedChanges | ProductSelectionCreated | ProductSelectionDeleted | ProductSelectionProductAdded | ProductSelectionProductExcluded | ProductSelectionProductRemoved | ProductSelectionVariantExclusionChanged | ProductSelectionVariantSelectionChanged | ProductSlugChanged | ProductStateTransition | ProductTailoringCreated | ProductTailoringDeleted | ProductTailoringDescriptionSet | ProductTailoringImageAdded | ProductTailoringImagesSet | ProductTailoringKeySet | ProductTailoringNameSet | ProductTailoringPublished | ProductTailoringSlugSet | ProductTailoringUnpublished | ProductUnpublished | ProductVariantAdded | ProductVariantDeleted | ProductVariantTailoringAdded | ProductVariantTailoringRemoved | PurchaseOrderNumberSet | QuoteCreated | QuoteCustomerChanged | QuoteDeleted | QuoteRenegotiationRequested | QuoteRequestCreated | QuoteRequestCustomerChanged | QuoteRequestDeleted | QuoteRequestStateChanged | QuoteRequestStateTransition | QuoteStateChanged | QuoteStateTransition | RecurringOrderCreated | RecurringOrderCustomFieldAdded | RecurringOrderCustomFieldChanged | RecurringOrderCustomFieldRemoved | RecurringOrderCustomTypeRemoved | RecurringOrderCustomTypeSet | RecurringOrderDeleted | RecurringOrderExpiresAtSet | RecurringOrderFailed | RecurringOrderKeySet | RecurringOrderScheduleSet | RecurringOrderStartsAtSet | RecurringOrderStateChanged | RecurringOrderStateTransition | ReturnInfoAdded | ReturnInfoSet | ReviewCreated | ReviewRatingSet | ReviewStateTransition | ShippingMethodActiveChanged | ShippingMethodCarrierSet | ShippingMethodCreated | ShippingMethodCustomFieldAdded | ShippingMethodCustomFieldChanged | ShippingMethodCustomFieldRemoved | ShippingMethodCustomTypeRemoved | ShippingMethodCustomTypeSet | ShippingMethodDeleted | ShippingMethodDescriptionSet | ShippingMethodIsDefaultChanged | ShippingMethodKeySet | ShippingMethodLocalizedDescriptionSet | ShippingMethodLocalizedNameSet | ShippingMethodNameChanged | ShippingMethodPredicateSet | ShippingMethodShippingRateAdded | ShippingMethodShippingRateRemoved | ShippingMethodStoreAdded | ShippingMethodStoreRemoved | ShippingMethodStoresSet | ShippingMethodTaxCategoryChanged | ShippingMethodZoneAdded | ShippingMethodZoneRemoved | ShoppingListLineItemAdded | ShoppingListLineItemRemoved | StagedQuoteCreated | StagedQuoteDeleted | StagedQuoteSellerCommentSet | StagedQuoteStateChanged | StagedQuoteStateTransition | StagedQuoteValidToSet | StandalonePriceActiveChanged | StandalonePriceCreated | StandalonePriceDeleted | StandalonePriceDiscountSet | StandalonePriceExternalDiscountSet | StandalonePriceKeySet | StandalonePriceStagedChangesApplied | StandalonePriceStagedChangesRemoved | StandalonePriceTierAdded | StandalonePriceTierRemoved | StandalonePriceTiersSet | StandalonePriceValidFromAndUntilSet | StandalonePriceValidFromSet | StandalonePriceValidUntilSet | StandalonePriceValueChanged | StoreCheckoutUrlTemplateSet | StoreContactUrlSet | StoreCookiePolicyUrlSet | StoreCountriesChanged | StoreCreated | StoreDeleted | StoreDistributionChannelsChanged | StoreFaqUrlSet | StoreImprintUrlSet | StoreLanguagesChanged | StoreNameSet | StoreOrderUrlTemplateSet | StorePrivacyPolicyUrlSet | StoreProductSelectionsChanged | StoreRefundPolicyUrlSet | StoreShippingPolicyUrlSet | StoreSupplyChannelsChanged | StoreTermsOfServiceUrlSet | VariantCreated | VariantDeleted | VariantImageAdded | VariantImagesSet | VariantKeySet | VariantPublished | VariantSkuSet | VariantStagedChangesRemoved | VariantUnpublished) & { __isUnion?: true }
 
 export interface MessageQueryResult {
     count: Scalars['Int']
@@ -7655,6 +7655,86 @@ export interface ShippingMethod {
     __typename: 'ShippingMethod'
 }
 
+export interface ShippingMethodActiveChanged {
+    active: Scalars['Boolean']
+    oldActive: (Scalars['Boolean'] | null)
+    type: Scalars['String']
+    __typename: 'ShippingMethodActiveChanged'
+}
+
+export interface ShippingMethodCarrierSet {
+    carrier: (Scalars['String'] | null)
+    oldCarrier: (Scalars['String'] | null)
+    type: Scalars['String']
+    __typename: 'ShippingMethodCarrierSet'
+}
+
+export interface ShippingMethodCreated {
+    shippingMethod: ShippingMethod
+    type: Scalars['String']
+    __typename: 'ShippingMethodCreated'
+}
+
+export interface ShippingMethodCustomFieldAdded {
+    name: Scalars['String']
+    type: Scalars['String']
+    value: Scalars['Json']
+    __typename: 'ShippingMethodCustomFieldAdded'
+}
+
+export interface ShippingMethodCustomFieldChanged {
+    name: Scalars['String']
+    oldValue: (Scalars['Json'] | null)
+    type: Scalars['String']
+    value: Scalars['Json']
+    __typename: 'ShippingMethodCustomFieldChanged'
+}
+
+export interface ShippingMethodCustomFieldRemoved {
+    name: Scalars['String']
+    type: Scalars['String']
+    __typename: 'ShippingMethodCustomFieldRemoved'
+}
+
+export interface ShippingMethodCustomTypeRemoved {
+    oldTypeId: (Scalars['String'] | null)
+    type: Scalars['String']
+    __typename: 'ShippingMethodCustomTypeRemoved'
+}
+
+export interface ShippingMethodCustomTypeSet {
+    customFields: CustomFieldsType
+    oldTypeId: (Scalars['String'] | null)
+    type: Scalars['String']
+    __typename: 'ShippingMethodCustomTypeSet'
+}
+
+export interface ShippingMethodDeleted {
+    type: Scalars['String']
+    __typename: 'ShippingMethodDeleted'
+}
+
+export interface ShippingMethodDescriptionSet {
+    description: (Scalars['String'] | null)
+    oldDescription: (Scalars['String'] | null)
+    type: Scalars['String']
+    __typename: 'ShippingMethodDescriptionSet'
+}
+
+export interface ShippingMethodIsDefaultChanged {
+    isDefault: Scalars['Boolean']
+    oldIsDefault: (Scalars['Boolean'] | null)
+    type: Scalars['String']
+    __typename: 'ShippingMethodIsDefaultChanged'
+}
+
+export interface ShippingMethodKeySet {
+    key: (Scalars['String'] | null)
+    oldKey: (Scalars['String'] | null)
+    type: Scalars['String']
+    __typename: 'ShippingMethodKeySet'
+}
+
 export interface ShippingMethodLimitWithCurrent {
     current: Scalars['Long']
     limit: (Scalars['Long'] | null)
@@ -7667,6 +7747,38 @@ export interface ShippingMethodLimitsProjection {
     __typename: 'ShippingMethodLimitsProjection'
 }
 
+export interface ShippingMethodLocalizedDescriptionSet {
+    localizedDescription: (Scalars['String'] | null)
+    localizedDescriptionAllLocales: (LocalizedString[] | null)
+    oldLocalizedDescription: (Scalars['String'] | null)
+    oldLocalizedDescriptionAllLocales: (LocalizedString[] | null)
+    type: Scalars['String']
+    __typename: 'ShippingMethodLocalizedDescriptionSet'
+}
+
+export interface ShippingMethodLocalizedNameSet {
+    localizedName: (Scalars['String'] | null)
+    localizedNameAllLocales: (LocalizedString[] | null)
+    oldLocalizedName: (Scalars['String'] | null)
+    oldLocalizedNameAllLocales: (LocalizedString[] | null)
+    type: Scalars['String']
+    __typename: 'ShippingMethodLocalizedNameSet'
+}
+
+export interface ShippingMethodNameChanged {
+    name: Scalars['String']
+    oldName: (Scalars['String'] | null)
+    type: Scalars['String']
+    __typename: 'ShippingMethodNameChanged'
+}
+
+export interface ShippingMethodPredicateSet {
+    oldPredicate: (Scalars['String'] | null)
+    predicate: (Scalars['String'] | null)
+    type: Scalars['String']
+    __typename: 'ShippingMethodPredicateSet'
+}
+
 export interface ShippingMethodQueryResult {
     count: Scalars['Int']
     exists: Scalars['Boolean']
@@ -7676,12 +7788,70 @@ export interface ShippingMethodQueryResult {
     __typename: 'ShippingMethodQueryResult'
 }
 
+export interface ShippingMethodShippingRateAdded {
+    shippingRate: (ShippingRate | null)
+    type: Scalars['String']
+    zone: (Zone | null)
+    zoneRef: Reference
+    __typename: 'ShippingMethodShippingRateAdded'
+}
+
+export interface ShippingMethodShippingRateRemoved {
+    shippingRate: (ShippingRate | null)
+    type: Scalars['String']
+    zone: (Zone | null)
+    zoneRef: Reference
+    __typename: 'ShippingMethodShippingRateRemoved'
+}
+
 export type ShippingMethodState = 'DoesNotMatchCart' | 'MatchesCart'
+
+export interface ShippingMethodStoreAdded {
+    storeRef: KeyReference
+    type: Scalars['String']
+    __typename: 'ShippingMethodStoreAdded'
+}
+
+export interface ShippingMethodStoreRemoved {
+    storeRef: KeyReference
+    type: Scalars['String']
+    __typename: 'ShippingMethodStoreRemoved'
+}
+
+export interface ShippingMethodStoresSet {
+    oldStoresRef: KeyReference[]
+    storesRef: KeyReference[]
+    type: Scalars['String']
+    __typename: 'ShippingMethodStoresSet'
+}
 
 export interface ShippingMethodTargetDraftOutput {
     quantity: Scalars['Long']
     shippingMethodKey: Scalars['String']
     __typename: 'ShippingMethodTargetDraftOutput'
+}
+
+export interface ShippingMethodTaxCategoryChanged {
+    oldTaxCategory: (TaxCategory | null)
+    oldTaxCategoryRef: (Reference | null)
+    taxCategory: (TaxCategory | null)
+    taxCategoryRef: Reference
+    type: Scalars['String']
+    __typename: 'ShippingMethodTaxCategoryChanged'
+}
+
+export interface ShippingMethodZoneAdded {
+    type: Scalars['String']
+    zone: (Zone | null)
+    zoneRef: Reference
+    __typename: 'ShippingMethodZoneAdded'
+}
+
+export interface ShippingMethodZoneRemoved {
+    type: Scalars['String']
+    zone: (Zone | null)
+    zoneRef: Reference
+    __typename: 'ShippingMethodZoneRemoved'
 }
 
 
@@ -14727,6 +14897,30 @@ export interface MessagePayloadGenqlSelection{
     on_ReviewCreated?: ReviewCreatedGenqlSelection
     on_ReviewRatingSet?: ReviewRatingSetGenqlSelection
     on_ReviewStateTransition?: ReviewStateTransitionGenqlSelection
+    on_ShippingMethodActiveChanged?: ShippingMethodActiveChangedGenqlSelection
+    on_ShippingMethodCarrierSet?: ShippingMethodCarrierSetGenqlSelection
+    on_ShippingMethodCreated?: ShippingMethodCreatedGenqlSelection
+    on_ShippingMethodCustomFieldAdded?: ShippingMethodCustomFieldAddedGenqlSelection
+    on_ShippingMethodCustomFieldChanged?: ShippingMethodCustomFieldChangedGenqlSelection
+    on_ShippingMethodCustomFieldRemoved?: ShippingMethodCustomFieldRemovedGenqlSelection
+    on_ShippingMethodCustomTypeRemoved?: ShippingMethodCustomTypeRemovedGenqlSelection
+    on_ShippingMethodCustomTypeSet?: ShippingMethodCustomTypeSetGenqlSelection
+    on_ShippingMethodDeleted?: ShippingMethodDeletedGenqlSelection
+    on_ShippingMethodDescriptionSet?: ShippingMethodDescriptionSetGenqlSelection
+    on_ShippingMethodIsDefaultChanged?: ShippingMethodIsDefaultChangedGenqlSelection
+    on_ShippingMethodKeySet?: ShippingMethodKeySetGenqlSelection
+    on_ShippingMethodLocalizedDescriptionSet?: ShippingMethodLocalizedDescriptionSetGenqlSelection
+    on_ShippingMethodLocalizedNameSet?: ShippingMethodLocalizedNameSetGenqlSelection
+    on_ShippingMethodNameChanged?: ShippingMethodNameChangedGenqlSelection
+    on_ShippingMethodPredicateSet?: ShippingMethodPredicateSetGenqlSelection
+    on_ShippingMethodShippingRateAdded?: ShippingMethodShippingRateAddedGenqlSelection
+    on_ShippingMethodShippingRateRemoved?: ShippingMethodShippingRateRemovedGenqlSelection
+    on_ShippingMethodStoreAdded?: ShippingMethodStoreAddedGenqlSelection
+    on_ShippingMethodStoreRemoved?: ShippingMethodStoreRemovedGenqlSelection
+    on_ShippingMethodStoresSet?: ShippingMethodStoresSetGenqlSelection
+    on_ShippingMethodTaxCategoryChanged?: ShippingMethodTaxCategoryChangedGenqlSelection
+    on_ShippingMethodZoneAdded?: ShippingMethodZoneAddedGenqlSelection
+    on_ShippingMethodZoneRemoved?: ShippingMethodZoneRemovedGenqlSelection
     on_ShoppingListLineItemAdded?: ShoppingListLineItemAddedGenqlSelection
     on_ShoppingListLineItemRemoved?: ShoppingListLineItemRemovedGenqlSelection
     on_StagedQuoteCreated?: StagedQuoteCreatedGenqlSelection
@@ -22041,9 +22235,101 @@ export interface ShippingMethodGenqlSelection{
     __scalar?: boolean | number
 }
 
+export interface ShippingMethodActiveChangedGenqlSelection{
+    active?: boolean | number
+    oldActive?: boolean | number
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodCarrierSetGenqlSelection{
+    carrier?: boolean | number
+    oldCarrier?: boolean | number
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodCreatedGenqlSelection{
+    shippingMethod?: ShippingMethodGenqlSelection
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodCustomFieldAddedGenqlSelection{
+    name?: boolean | number
+    type?: boolean | number
+    value?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodCustomFieldChangedGenqlSelection{
+    name?: boolean | number
+    oldValue?: boolean | number
+    type?: boolean | number
+    value?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodCustomFieldRemovedGenqlSelection{
+    name?: boolean | number
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodCustomTypeRemovedGenqlSelection{
+    oldTypeId?: boolean | number
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodCustomTypeSetGenqlSelection{
+    customFields?: CustomFieldsTypeGenqlSelection
+    oldTypeId?: boolean | number
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodDeletedGenqlSelection{
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodDescriptionSetGenqlSelection{
+    description?: boolean | number
+    oldDescription?: boolean | number
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
 export interface ShippingMethodDraft {active?: (Scalars['Boolean'] | null),carrier?: (Scalars['String'] | null),custom?: (CustomFieldsDraft | null),
 /** The usage of parameter 'description' is deprecated in favor of using 'localizedDescription' */
 description?: (Scalars['String'] | null),isDefault: Scalars['Boolean'],key?: (Scalars['String'] | null),localizedDescription?: (LocalizedStringItemInputType[] | null),localizedName?: (LocalizedStringItemInputType[] | null),name: Scalars['String'],predicate?: (Scalars['String'] | null),stores?: (ResourceIdentifierInput[] | null),taxCategory: ResourceIdentifierInput,zoneRates?: (ZoneRateDraft[] | null)}
+
+export interface ShippingMethodIsDefaultChangedGenqlSelection{
+    isDefault?: boolean | number
+    oldIsDefault?: boolean | number
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodKeySetGenqlSelection{
+    key?: boolean | number
+    oldKey?: boolean | number
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
 
 export interface ShippingMethodLimitWithCurrentGenqlSelection{
     current?: boolean | number
@@ -22059,12 +22345,104 @@ export interface ShippingMethodLimitsProjectionGenqlSelection{
     __scalar?: boolean | number
 }
 
+export interface ShippingMethodLocalizedDescriptionSetGenqlSelection{
+    localizedDescription?: { __args: {
+    /** List of languages the client is able to understand, and which locale variant is preferred. */
+    acceptLanguage?: (Scalars['Locale'][] | null), 
+    /** String is defined for different locales. This argument specifies the desired locale. */
+    locale?: (Scalars['Locale'] | null)} } | boolean | number
+    localizedDescriptionAllLocales?: LocalizedStringGenqlSelection
+    oldLocalizedDescription?: { __args: {
+    /** List of languages the client is able to understand, and which locale variant is preferred. */
+    acceptLanguage?: (Scalars['Locale'][] | null), 
+    /** String is defined for different locales. This argument specifies the desired locale. */
+    locale?: (Scalars['Locale'] | null)} } | boolean | number
+    oldLocalizedDescriptionAllLocales?: LocalizedStringGenqlSelection
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodLocalizedNameSetGenqlSelection{
+    localizedName?: { __args: {
+    /** List of languages the client is able to understand, and which locale variant is preferred. */
+    acceptLanguage?: (Scalars['Locale'][] | null), 
+    /** String is defined for different locales. This argument specifies the desired locale. */
+    locale?: (Scalars['Locale'] | null)} } | boolean | number
+    localizedNameAllLocales?: LocalizedStringGenqlSelection
+    oldLocalizedName?: { __args: {
+    /** List of languages the client is able to understand, and which locale variant is preferred. */
+    acceptLanguage?: (Scalars['Locale'][] | null), 
+    /** String is defined for different locales. This argument specifies the desired locale. */
+    locale?: (Scalars['Locale'] | null)} } | boolean | number
+    oldLocalizedNameAllLocales?: LocalizedStringGenqlSelection
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodNameChangedGenqlSelection{
+    name?: boolean | number
+    oldName?: boolean | number
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodPredicateSetGenqlSelection{
+    oldPredicate?: boolean | number
+    predicate?: boolean | number
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
 export interface ShippingMethodQueryResultGenqlSelection{
     count?: boolean | number
     exists?: boolean | number
     offset?: boolean | number
     results?: ShippingMethodGenqlSelection
     total?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodShippingRateAddedGenqlSelection{
+    shippingRate?: ShippingRateGenqlSelection
+    type?: boolean | number
+    zone?: ZoneGenqlSelection
+    zoneRef?: ReferenceGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodShippingRateRemovedGenqlSelection{
+    shippingRate?: ShippingRateGenqlSelection
+    type?: boolean | number
+    zone?: ZoneGenqlSelection
+    zoneRef?: ReferenceGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodStoreAddedGenqlSelection{
+    storeRef?: KeyReferenceGenqlSelection
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodStoreRemovedGenqlSelection{
+    storeRef?: KeyReferenceGenqlSelection
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodStoresSetGenqlSelection{
+    oldStoresRef?: KeyReferenceGenqlSelection
+    storesRef?: KeyReferenceGenqlSelection
+    type?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
 }
@@ -22080,9 +22458,35 @@ export interface ShippingMethodTargetDraftOutputGenqlSelection{
 
 export interface ShippingMethodTargetDraftType {quantity: Scalars['Long'],shippingMethodKey: Scalars['String']}
 
+export interface ShippingMethodTaxCategoryChangedGenqlSelection{
+    oldTaxCategory?: TaxCategoryGenqlSelection
+    oldTaxCategoryRef?: ReferenceGenqlSelection
+    taxCategory?: TaxCategoryGenqlSelection
+    taxCategoryRef?: ReferenceGenqlSelection
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
 export interface ShippingMethodUpdateAction {addShippingRate?: (AddShippingMethodShippingRate | null),addStore?: (AddShippingMethodStore | null),addZone?: (AddShippingMethodZone | null),changeActive?: (ChangeShippingMethodActive | null),changeIsDefault?: (ChangeShippingMethodIsDefault | null),changeName?: (ChangeShippingMethodName | null),changeTaxCategory?: (ChangeShippingMethodTaxCategory | null),removeShippingRate?: (RemoveShippingMethodShippingRate | null),removeStore?: (RemoveShippingMethodStore | null),removeZone?: (RemoveShippingMethodZone | null),setCarrier?: (SetShippingMethodCarrier | null),setCustomField?: (SetShippingMethodCustomField | null),setCustomType?: (SetShippingMethodCustomType | null),
 /** This action is deprecated in favor of using 'setLocalizedDescription' */
 setDescription?: (SetShippingMethodDescription | null),setKey?: (SetShippingMethodKey | null),setLocalizedDescription?: (SetShippingMethodLocalizedDescription | null),setLocalizedName?: (SetShippingMethodLocalizedName | null),setPredicate?: (SetShippingMethodPredicate | null),setStores?: (SetShippingMethodStores | null)}
+
+export interface ShippingMethodZoneAddedGenqlSelection{
+    type?: boolean | number
+    zone?: ZoneGenqlSelection
+    zoneRef?: ReferenceGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodZoneRemovedGenqlSelection{
+    type?: boolean | number
+    zone?: ZoneGenqlSelection
+    zoneRef?: ReferenceGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
 
 
 /** A field to retrieve available shipping methods for a cart. */
@@ -27418,7 +27822,7 @@ export interface setKey {key?: (Scalars['String'] | null)}
     
 
 
-    const MessagePayload_possibleTypes: string[] = ['ApprovalFlowApproved','ApprovalFlowCompleted','ApprovalFlowCreated','ApprovalFlowRejected','ApprovalRuleApproversSet','ApprovalRuleCreated','ApprovalRuleDescriptionSet','ApprovalRuleKeySet','ApprovalRuleNameSet','ApprovalRulePredicateSet','ApprovalRuleRequestersSet','ApprovalRuleStatusSet','AssociateRoleBuyerAssignableChanged','AssociateRoleCreated','AssociateRoleDeleted','AssociateRoleNameSet','AssociateRolePermissionAdded','AssociateRolePermissionRemoved','AssociateRolePermissionsSet','BusinessUnitAddressAdded','BusinessUnitAddressChanged','BusinessUnitAddressCustomFieldAdded','BusinessUnitAddressCustomFieldChanged','BusinessUnitAddressCustomFieldRemoved','BusinessUnitAddressCustomTypeRemoved','BusinessUnitAddressCustomTypeSet','BusinessUnitAddressRemoved','BusinessUnitApprovalRuleModeChanged','BusinessUnitAssociateAdded','BusinessUnitAssociateChanged','BusinessUnitAssociateModeChanged','BusinessUnitAssociateRemoved','BusinessUnitAssociatesSet','BusinessUnitBillingAddressAdded','BusinessUnitBillingAddressRemoved','BusinessUnitContactEmailSet','BusinessUnitCreated','BusinessUnitCustomFieldAdded','BusinessUnitCustomFieldChanged','BusinessUnitCustomFieldRemoved','BusinessUnitCustomTypeRemoved','BusinessUnitCustomTypeSet','BusinessUnitCustomerGroupAssignmentAdded','BusinessUnitCustomerGroupAssignmentRemoved','BusinessUnitCustomerGroupAssignmentsSet','BusinessUnitDefaultBillingAddressSet','BusinessUnitDefaultShippingAddressSet','BusinessUnitDeleted','BusinessUnitNameChanged','BusinessUnitParentChanged','BusinessUnitShippingAddressAdded','BusinessUnitShippingAddressRemoved','BusinessUnitStatusChanged','BusinessUnitStoreAdded','BusinessUnitStoreModeChanged','BusinessUnitStoreRemoved','BusinessUnitStoresSet','BusinessUnitTopLevelUnitSet','BusinessUnitTypeSet','CartCreated','CartDiscountCreated','CartDiscountDeleted','CartDiscountStoreAdded','CartDiscountStoreRemoved','CartDiscountStoresSet','CartEstimatedDeliverySet','CartFrozen','CartLocked','CartPurchaseOrderNumberSet','CartUnfrozen','CartUnlocked','CategoryCreated','CategorySlugChanged','CustomLineItemStateTransition','CustomerAddressAdded','CustomerAddressChanged','CustomerAddressCustomFieldAdded','CustomerAddressCustomFieldChanged','CustomerAddressCustomFieldRemoved','CustomerAddressCustomTypeRemoved','CustomerAddressCustomTypeSet','CustomerAddressRemoved','CustomerBillingAddressAdded','CustomerBillingAddressRemoved','CustomerCompanyNameSet','CustomerCreated','CustomerCustomFieldAdded','CustomerCustomFieldChanged','CustomerCustomFieldRemoved','CustomerCustomTypeRemoved','CustomerCustomTypeSet','CustomerDateOfBirthSet','CustomerDefaultBillingAddressSet','CustomerDefaultShippingAddressSet','CustomerDeleted','CustomerEmailChanged','CustomerEmailTokenCreated','CustomerEmailVerified','CustomerExternalIdSet','CustomerFirstNameSet','CustomerGroupAssignmentAdded','CustomerGroupAssignmentRemoved','CustomerGroupAssignmentsSet','CustomerGroupCustomFieldAdded','CustomerGroupCustomFieldChanged','CustomerGroupCustomFieldRemoved','CustomerGroupCustomTypeRemoved','CustomerGroupCustomTypeSet','CustomerGroupSet','CustomerLastNameSet','CustomerPasswordTokenCreated','CustomerPasswordUpdated','CustomerShippingAddressAdded','CustomerShippingAddressRemoved','CustomerStoresSet','CustomerTitleSet','DeliveryAdded','DeliveryAddressSet','DeliveryCustomFieldAdded','DeliveryCustomFieldChanged','DeliveryCustomFieldRemoved','DeliveryCustomTypeRemoved','DeliveryCustomTypeSet','DeliveryItemsUpdated','DeliveryRemoved','DiscountCodeCreated','DiscountCodeDeleted','DiscountCodeKeySet','DiscountGroupCreated','DiscountGroupDeleted','DiscountGroupIsActiveSet','DiscountGroupKeySet','DiscountGroupSortOrderSet','InventoryEntryCreated','InventoryEntryDeleted','InventoryEntryOutOfStock','InventoryEntryQuantitySet','InventoryEntryReorderPoint','InventoryEntryReservationExpirationInMinutesSet','InventoryEntrySafetyStock','LineItemStateTransition','OrderBillingAddressSet','OrderBusinessUnitSet','OrderCreated','OrderCreatedFromRecurringOrder','OrderCustomFieldAdded','OrderCustomFieldChanged','OrderCustomFieldRemoved','OrderCustomLineItemAdded','OrderCustomLineItemDiscountSet','OrderCustomLineItemQuantityChanged','OrderCustomLineItemRemoved','OrderCustomTypeRemoved','OrderCustomTypeSet','OrderCustomerEmailSet','OrderCustomerGroupSet','OrderCustomerSet','OrderDeleted','OrderDiscountCodeAdded','OrderDiscountCodeRemoved','OrderDiscountCodeStateSet','OrderDiscountTypeCombinationSet','OrderEditApplied','OrderEstimatedDeliverySet','OrderImported','OrderLineItemAdded','OrderLineItemDiscountSet','OrderLineItemDistributionChannelSet','OrderLineItemRemoved','OrderPaymentAdded','OrderPaymentRemoved','OrderPaymentStateChanged','OrderReturnShipmentStateChanged','OrderShipmentStateChanged','OrderShippingAddressSet','OrderShippingContainerSet','OrderShippingInfoSet','OrderShippingRateInputSet','OrderShippingUpdated','OrderStateChanged','OrderStateTransition','OrderStoreSet','ParcelAddedToDelivery','ParcelItemsUpdated','ParcelMeasurementsUpdated','ParcelRemovedFromDelivery','ParcelTrackingDataUpdated','PaymentCreated','PaymentInteractionAdded','PaymentInterfaceIdSet','PaymentMethodCreated','PaymentMethodCustomFieldAdded','PaymentMethodCustomFieldChanged','PaymentMethodCustomFieldRemoved','PaymentMethodCustomTypeRemoved','PaymentMethodCustomTypeSet','PaymentMethodDefaultSet','PaymentMethodDeleted','PaymentMethodInfoCustomFieldAdded','PaymentMethodInfoCustomFieldChanged','PaymentMethodInfoCustomFieldRemoved','PaymentMethodInfoCustomTypeRemoved','PaymentMethodInfoCustomTypeSet','PaymentMethodInfoInterfaceAccountSet','PaymentMethodInfoInterfaceSet','PaymentMethodInfoMethodSet','PaymentMethodInfoNameSet','PaymentMethodInfoTokenSet','PaymentMethodInterfaceAccountSet','PaymentMethodKeySet','PaymentMethodMethodSet','PaymentMethodNameSet','PaymentMethodPaymentInterfaceSet','PaymentMethodPaymentMethodStatusSet','PaymentStatusInterfaceCodeSet','PaymentStatusStateTransition','PaymentTransactionAdded','PaymentTransactionInterfaceIdSet','PaymentTransactionStateChanged','ProductAddedToCategory','ProductCreated','ProductDeleted','ProductImageAdded','ProductPriceAdded','ProductPriceChanged','ProductPriceCustomFieldAdded','ProductPriceCustomFieldChanged','ProductPriceCustomFieldRemoved','ProductPriceCustomFieldsRemoved','ProductPriceCustomFieldsSet','ProductPriceDiscountsSet','ProductPriceExternalDiscountSet','ProductPriceKeySet','ProductPriceModeSet','ProductPriceRemoved','ProductPricesSet','ProductPublished','ProductRemovedFromCategory','ProductRevertedStagedChanges','ProductSelectionCreated','ProductSelectionDeleted','ProductSelectionProductAdded','ProductSelectionProductExcluded','ProductSelectionProductRemoved','ProductSelectionVariantExclusionChanged','ProductSelectionVariantSelectionChanged','ProductSlugChanged','ProductStateTransition','ProductTailoringCreated','ProductTailoringDeleted','ProductTailoringDescriptionSet','ProductTailoringImageAdded','ProductTailoringImagesSet','ProductTailoringKeySet','ProductTailoringNameSet','ProductTailoringPublished','ProductTailoringSlugSet','ProductTailoringUnpublished','ProductUnpublished','ProductVariantAdded','ProductVariantDeleted','ProductVariantTailoringAdded','ProductVariantTailoringRemoved','PurchaseOrderNumberSet','QuoteCreated','QuoteCustomerChanged','QuoteDeleted','QuoteRenegotiationRequested','QuoteRequestCreated','QuoteRequestCustomerChanged','QuoteRequestDeleted','QuoteRequestStateChanged','QuoteRequestStateTransition','QuoteStateChanged','QuoteStateTransition','RecurringOrderCreated','RecurringOrderCustomFieldAdded','RecurringOrderCustomFieldChanged','RecurringOrderCustomFieldRemoved','RecurringOrderCustomTypeRemoved','RecurringOrderCustomTypeSet','RecurringOrderDeleted','RecurringOrderExpiresAtSet','RecurringOrderFailed','RecurringOrderKeySet','RecurringOrderScheduleSet','RecurringOrderStartsAtSet','RecurringOrderStateChanged','RecurringOrderStateTransition','ReturnInfoAdded','ReturnInfoSet','ReviewCreated','ReviewRatingSet','ReviewStateTransition','ShoppingListLineItemAdded','ShoppingListLineItemRemoved','StagedQuoteCreated','StagedQuoteDeleted','StagedQuoteSellerCommentSet','StagedQuoteStateChanged','StagedQuoteStateTransition','StagedQuoteValidToSet','StandalonePriceActiveChanged','StandalonePriceCreated','StandalonePriceDeleted','StandalonePriceDiscountSet','StandalonePriceExternalDiscountSet','StandalonePriceKeySet','StandalonePriceStagedChangesApplied','StandalonePriceStagedChangesRemoved','StandalonePriceTierAdded','StandalonePriceTierRemoved','StandalonePriceTiersSet','StandalonePriceValidFromAndUntilSet','StandalonePriceValidFromSet','StandalonePriceValidUntilSet','StandalonePriceValueChanged','StoreCheckoutUrlTemplateSet','StoreContactUrlSet','StoreCookiePolicyUrlSet','StoreCountriesChanged','StoreCreated','StoreDeleted','StoreDistributionChannelsChanged','StoreFaqUrlSet','StoreImprintUrlSet','StoreLanguagesChanged','StoreNameSet','StoreOrderUrlTemplateSet','StorePrivacyPolicyUrlSet','StoreProductSelectionsChanged','StoreRefundPolicyUrlSet','StoreShippingPolicyUrlSet','StoreSupplyChannelsChanged','StoreTermsOfServiceUrlSet','VariantCreated','VariantDeleted','VariantImageAdded','VariantImagesSet','VariantKeySet','VariantPublished','VariantSkuSet','VariantStagedChangesRemoved','VariantUnpublished']
+    const MessagePayload_possibleTypes: string[] = ['ApprovalFlowApproved','ApprovalFlowCompleted','ApprovalFlowCreated','ApprovalFlowRejected','ApprovalRuleApproversSet','ApprovalRuleCreated','ApprovalRuleDescriptionSet','ApprovalRuleKeySet','ApprovalRuleNameSet','ApprovalRulePredicateSet','ApprovalRuleRequestersSet','ApprovalRuleStatusSet','AssociateRoleBuyerAssignableChanged','AssociateRoleCreated','AssociateRoleDeleted','AssociateRoleNameSet','AssociateRolePermissionAdded','AssociateRolePermissionRemoved','AssociateRolePermissionsSet','BusinessUnitAddressAdded','BusinessUnitAddressChanged','BusinessUnitAddressCustomFieldAdded','BusinessUnitAddressCustomFieldChanged','BusinessUnitAddressCustomFieldRemoved','BusinessUnitAddressCustomTypeRemoved','BusinessUnitAddressCustomTypeSet','BusinessUnitAddressRemoved','BusinessUnitApprovalRuleModeChanged','BusinessUnitAssociateAdded','BusinessUnitAssociateChanged','BusinessUnitAssociateModeChanged','BusinessUnitAssociateRemoved','BusinessUnitAssociatesSet','BusinessUnitBillingAddressAdded','BusinessUnitBillingAddressRemoved','BusinessUnitContactEmailSet','BusinessUnitCreated','BusinessUnitCustomFieldAdded','BusinessUnitCustomFieldChanged','BusinessUnitCustomFieldRemoved','BusinessUnitCustomTypeRemoved','BusinessUnitCustomTypeSet','BusinessUnitCustomerGroupAssignmentAdded','BusinessUnitCustomerGroupAssignmentRemoved','BusinessUnitCustomerGroupAssignmentsSet','BusinessUnitDefaultBillingAddressSet','BusinessUnitDefaultShippingAddressSet','BusinessUnitDeleted','BusinessUnitNameChanged','BusinessUnitParentChanged','BusinessUnitShippingAddressAdded','BusinessUnitShippingAddressRemoved','BusinessUnitStatusChanged','BusinessUnitStoreAdded','BusinessUnitStoreModeChanged','BusinessUnitStoreRemoved','BusinessUnitStoresSet','BusinessUnitTopLevelUnitSet','BusinessUnitTypeSet','CartCreated','CartDiscountCreated','CartDiscountDeleted','CartDiscountStoreAdded','CartDiscountStoreRemoved','CartDiscountStoresSet','CartEstimatedDeliverySet','CartFrozen','CartLocked','CartPurchaseOrderNumberSet','CartUnfrozen','CartUnlocked','CategoryCreated','CategorySlugChanged','CustomLineItemStateTransition','CustomerAddressAdded','CustomerAddressChanged','CustomerAddressCustomFieldAdded','CustomerAddressCustomFieldChanged','CustomerAddressCustomFieldRemoved','CustomerAddressCustomTypeRemoved','CustomerAddressCustomTypeSet','CustomerAddressRemoved','CustomerBillingAddressAdded','CustomerBillingAddressRemoved','CustomerCompanyNameSet','CustomerCreated','CustomerCustomFieldAdded','CustomerCustomFieldChanged','CustomerCustomFieldRemoved','CustomerCustomTypeRemoved','CustomerCustomTypeSet','CustomerDateOfBirthSet','CustomerDefaultBillingAddressSet','CustomerDefaultShippingAddressSet','CustomerDeleted','CustomerEmailChanged','CustomerEmailTokenCreated','CustomerEmailVerified','CustomerExternalIdSet','CustomerFirstNameSet','CustomerGroupAssignmentAdded','CustomerGroupAssignmentRemoved','CustomerGroupAssignmentsSet','CustomerGroupCustomFieldAdded','CustomerGroupCustomFieldChanged','CustomerGroupCustomFieldRemoved','CustomerGroupCustomTypeRemoved','CustomerGroupCustomTypeSet','CustomerGroupSet','CustomerLastNameSet','CustomerPasswordTokenCreated','CustomerPasswordUpdated','CustomerShippingAddressAdded','CustomerShippingAddressRemoved','CustomerStoresSet','CustomerTitleSet','DeliveryAdded','DeliveryAddressSet','DeliveryCustomFieldAdded','DeliveryCustomFieldChanged','DeliveryCustomFieldRemoved','DeliveryCustomTypeRemoved','DeliveryCustomTypeSet','DeliveryItemsUpdated','DeliveryRemoved','DiscountCodeCreated','DiscountCodeDeleted','DiscountCodeKeySet','DiscountGroupCreated','DiscountGroupDeleted','DiscountGroupIsActiveSet','DiscountGroupKeySet','DiscountGroupSortOrderSet','InventoryEntryCreated','InventoryEntryDeleted','InventoryEntryOutOfStock','InventoryEntryQuantitySet','InventoryEntryReorderPoint','InventoryEntryReservationExpirationInMinutesSet','InventoryEntrySafetyStock','LineItemStateTransition','OrderBillingAddressSet','OrderBusinessUnitSet','OrderCreated','OrderCreatedFromRecurringOrder','OrderCustomFieldAdded','OrderCustomFieldChanged','OrderCustomFieldRemoved','OrderCustomLineItemAdded','OrderCustomLineItemDiscountSet','OrderCustomLineItemQuantityChanged','OrderCustomLineItemRemoved','OrderCustomTypeRemoved','OrderCustomTypeSet','OrderCustomerEmailSet','OrderCustomerGroupSet','OrderCustomerSet','OrderDeleted','OrderDiscountCodeAdded','OrderDiscountCodeRemoved','OrderDiscountCodeStateSet','OrderDiscountTypeCombinationSet','OrderEditApplied','OrderEstimatedDeliverySet','OrderImported','OrderLineItemAdded','OrderLineItemDiscountSet','OrderLineItemDistributionChannelSet','OrderLineItemRemoved','OrderPaymentAdded','OrderPaymentRemoved','OrderPaymentStateChanged','OrderReturnShipmentStateChanged','OrderShipmentStateChanged','OrderShippingAddressSet','OrderShippingContainerSet','OrderShippingInfoSet','OrderShippingRateInputSet','OrderShippingUpdated','OrderStateChanged','OrderStateTransition','OrderStoreSet','ParcelAddedToDelivery','ParcelItemsUpdated','ParcelMeasurementsUpdated','ParcelRemovedFromDelivery','ParcelTrackingDataUpdated','PaymentCreated','PaymentInteractionAdded','PaymentInterfaceIdSet','PaymentMethodCreated','PaymentMethodCustomFieldAdded','PaymentMethodCustomFieldChanged','PaymentMethodCustomFieldRemoved','PaymentMethodCustomTypeRemoved','PaymentMethodCustomTypeSet','PaymentMethodDefaultSet','PaymentMethodDeleted','PaymentMethodInfoCustomFieldAdded','PaymentMethodInfoCustomFieldChanged','PaymentMethodInfoCustomFieldRemoved','PaymentMethodInfoCustomTypeRemoved','PaymentMethodInfoCustomTypeSet','PaymentMethodInfoInterfaceAccountSet','PaymentMethodInfoInterfaceSet','PaymentMethodInfoMethodSet','PaymentMethodInfoNameSet','PaymentMethodInfoTokenSet','PaymentMethodInterfaceAccountSet','PaymentMethodKeySet','PaymentMethodMethodSet','PaymentMethodNameSet','PaymentMethodPaymentInterfaceSet','PaymentMethodPaymentMethodStatusSet','PaymentStatusInterfaceCodeSet','PaymentStatusStateTransition','PaymentTransactionAdded','PaymentTransactionInterfaceIdSet','PaymentTransactionStateChanged','ProductAddedToCategory','ProductCreated','ProductDeleted','ProductImageAdded','ProductPriceAdded','ProductPriceChanged','ProductPriceCustomFieldAdded','ProductPriceCustomFieldChanged','ProductPriceCustomFieldRemoved','ProductPriceCustomFieldsRemoved','ProductPriceCustomFieldsSet','ProductPriceDiscountsSet','ProductPriceExternalDiscountSet','ProductPriceKeySet','ProductPriceModeSet','ProductPriceRemoved','ProductPricesSet','ProductPublished','ProductRemovedFromCategory','ProductRevertedStagedChanges','ProductSelectionCreated','ProductSelectionDeleted','ProductSelectionProductAdded','ProductSelectionProductExcluded','ProductSelectionProductRemoved','ProductSelectionVariantExclusionChanged','ProductSelectionVariantSelectionChanged','ProductSlugChanged','ProductStateTransition','ProductTailoringCreated','ProductTailoringDeleted','ProductTailoringDescriptionSet','ProductTailoringImageAdded','ProductTailoringImagesSet','ProductTailoringKeySet','ProductTailoringNameSet','ProductTailoringPublished','ProductTailoringSlugSet','ProductTailoringUnpublished','ProductUnpublished','ProductVariantAdded','ProductVariantDeleted','ProductVariantTailoringAdded','ProductVariantTailoringRemoved','PurchaseOrderNumberSet','QuoteCreated','QuoteCustomerChanged','QuoteDeleted','QuoteRenegotiationRequested','QuoteRequestCreated','QuoteRequestCustomerChanged','QuoteRequestDeleted','QuoteRequestStateChanged','QuoteRequestStateTransition','QuoteStateChanged','QuoteStateTransition','RecurringOrderCreated','RecurringOrderCustomFieldAdded','RecurringOrderCustomFieldChanged','RecurringOrderCustomFieldRemoved','RecurringOrderCustomTypeRemoved','RecurringOrderCustomTypeSet','RecurringOrderDeleted','RecurringOrderExpiresAtSet','RecurringOrderFailed','RecurringOrderKeySet','RecurringOrderScheduleSet','RecurringOrderStartsAtSet','RecurringOrderStateChanged','RecurringOrderStateTransition','ReturnInfoAdded','ReturnInfoSet','ReviewCreated','ReviewRatingSet','ReviewStateTransition','ShippingMethodActiveChanged','ShippingMethodCarrierSet','ShippingMethodCreated','ShippingMethodCustomFieldAdded','ShippingMethodCustomFieldChanged','ShippingMethodCustomFieldRemoved','ShippingMethodCustomTypeRemoved','ShippingMethodCustomTypeSet','ShippingMethodDeleted','ShippingMethodDescriptionSet','ShippingMethodIsDefaultChanged','ShippingMethodKeySet','ShippingMethodLocalizedDescriptionSet','ShippingMethodLocalizedNameSet','ShippingMethodNameChanged','ShippingMethodPredicateSet','ShippingMethodShippingRateAdded','ShippingMethodShippingRateRemoved','ShippingMethodStoreAdded','ShippingMethodStoreRemoved','ShippingMethodStoresSet','ShippingMethodTaxCategoryChanged','ShippingMethodZoneAdded','ShippingMethodZoneRemoved','ShoppingListLineItemAdded','ShoppingListLineItemRemoved','StagedQuoteCreated','StagedQuoteDeleted','StagedQuoteSellerCommentSet','StagedQuoteStateChanged','StagedQuoteStateTransition','StagedQuoteValidToSet','StandalonePriceActiveChanged','StandalonePriceCreated','StandalonePriceDeleted','StandalonePriceDiscountSet','StandalonePriceExternalDiscountSet','StandalonePriceKeySet','StandalonePriceStagedChangesApplied','StandalonePriceStagedChangesRemoved','StandalonePriceTierAdded','StandalonePriceTierRemoved','StandalonePriceTiersSet','StandalonePriceValidFromAndUntilSet','StandalonePriceValidFromSet','StandalonePriceValidUntilSet','StandalonePriceValueChanged','StoreCheckoutUrlTemplateSet','StoreContactUrlSet','StoreCookiePolicyUrlSet','StoreCountriesChanged','StoreCreated','StoreDeleted','StoreDistributionChannelsChanged','StoreFaqUrlSet','StoreImprintUrlSet','StoreLanguagesChanged','StoreNameSet','StoreOrderUrlTemplateSet','StorePrivacyPolicyUrlSet','StoreProductSelectionsChanged','StoreRefundPolicyUrlSet','StoreShippingPolicyUrlSet','StoreSupplyChannelsChanged','StoreTermsOfServiceUrlSet','VariantCreated','VariantDeleted','VariantImageAdded','VariantImagesSet','VariantKeySet','VariantPublished','VariantSkuSet','VariantStagedChangesRemoved','VariantUnpublished']
     export const isMessagePayload = (obj?: { __typename?: any } | null): obj is MessagePayload => {
       if (!obj?.__typename) throw new Error('__typename is missing in "isMessagePayload"')
       return MessagePayload_possibleTypes.includes(obj.__typename)
@@ -30698,6 +31102,102 @@ export interface setKey {key?: (Scalars['String'] | null)}
     
 
 
+    const ShippingMethodActiveChanged_possibleTypes: string[] = ['ShippingMethodActiveChanged']
+    export const isShippingMethodActiveChanged = (obj?: { __typename?: any } | null): obj is ShippingMethodActiveChanged => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodActiveChanged"')
+      return ShippingMethodActiveChanged_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodCarrierSet_possibleTypes: string[] = ['ShippingMethodCarrierSet']
+    export const isShippingMethodCarrierSet = (obj?: { __typename?: any } | null): obj is ShippingMethodCarrierSet => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodCarrierSet"')
+      return ShippingMethodCarrierSet_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodCreated_possibleTypes: string[] = ['ShippingMethodCreated']
+    export const isShippingMethodCreated = (obj?: { __typename?: any } | null): obj is ShippingMethodCreated => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodCreated"')
+      return ShippingMethodCreated_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodCustomFieldAdded_possibleTypes: string[] = ['ShippingMethodCustomFieldAdded']
+    export const isShippingMethodCustomFieldAdded = (obj?: { __typename?: any } | null): obj is ShippingMethodCustomFieldAdded => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodCustomFieldAdded"')
+      return ShippingMethodCustomFieldAdded_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodCustomFieldChanged_possibleTypes: string[] = ['ShippingMethodCustomFieldChanged']
+    export const isShippingMethodCustomFieldChanged = (obj?: { __typename?: any } | null): obj is ShippingMethodCustomFieldChanged => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodCustomFieldChanged"')
+      return ShippingMethodCustomFieldChanged_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodCustomFieldRemoved_possibleTypes: string[] = ['ShippingMethodCustomFieldRemoved']
+    export const isShippingMethodCustomFieldRemoved = (obj?: { __typename?: any } | null): obj is ShippingMethodCustomFieldRemoved => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodCustomFieldRemoved"')
+      return ShippingMethodCustomFieldRemoved_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodCustomTypeRemoved_possibleTypes: string[] = ['ShippingMethodCustomTypeRemoved']
+    export const isShippingMethodCustomTypeRemoved = (obj?: { __typename?: any } | null): obj is ShippingMethodCustomTypeRemoved => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodCustomTypeRemoved"')
+      return ShippingMethodCustomTypeRemoved_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodCustomTypeSet_possibleTypes: string[] = ['ShippingMethodCustomTypeSet']
+    export const isShippingMethodCustomTypeSet = (obj?: { __typename?: any } | null): obj is ShippingMethodCustomTypeSet => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodCustomTypeSet"')
+      return ShippingMethodCustomTypeSet_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodDeleted_possibleTypes: string[] = ['ShippingMethodDeleted']
+    export const isShippingMethodDeleted = (obj?: { __typename?: any } | null): obj is ShippingMethodDeleted => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodDeleted"')
+      return ShippingMethodDeleted_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodDescriptionSet_possibleTypes: string[] = ['ShippingMethodDescriptionSet']
+    export const isShippingMethodDescriptionSet = (obj?: { __typename?: any } | null): obj is ShippingMethodDescriptionSet => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodDescriptionSet"')
+      return ShippingMethodDescriptionSet_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodIsDefaultChanged_possibleTypes: string[] = ['ShippingMethodIsDefaultChanged']
+    export const isShippingMethodIsDefaultChanged = (obj?: { __typename?: any } | null): obj is ShippingMethodIsDefaultChanged => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodIsDefaultChanged"')
+      return ShippingMethodIsDefaultChanged_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodKeySet_possibleTypes: string[] = ['ShippingMethodKeySet']
+    export const isShippingMethodKeySet = (obj?: { __typename?: any } | null): obj is ShippingMethodKeySet => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodKeySet"')
+      return ShippingMethodKeySet_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
     const ShippingMethodLimitWithCurrent_possibleTypes: string[] = ['ShippingMethodLimitWithCurrent']
     export const isShippingMethodLimitWithCurrent = (obj?: { __typename?: any } | null): obj is ShippingMethodLimitWithCurrent => {
       if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodLimitWithCurrent"')
@@ -30714,6 +31214,38 @@ export interface setKey {key?: (Scalars['String'] | null)}
     
 
 
+    const ShippingMethodLocalizedDescriptionSet_possibleTypes: string[] = ['ShippingMethodLocalizedDescriptionSet']
+    export const isShippingMethodLocalizedDescriptionSet = (obj?: { __typename?: any } | null): obj is ShippingMethodLocalizedDescriptionSet => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodLocalizedDescriptionSet"')
+      return ShippingMethodLocalizedDescriptionSet_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodLocalizedNameSet_possibleTypes: string[] = ['ShippingMethodLocalizedNameSet']
+    export const isShippingMethodLocalizedNameSet = (obj?: { __typename?: any } | null): obj is ShippingMethodLocalizedNameSet => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodLocalizedNameSet"')
+      return ShippingMethodLocalizedNameSet_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodNameChanged_possibleTypes: string[] = ['ShippingMethodNameChanged']
+    export const isShippingMethodNameChanged = (obj?: { __typename?: any } | null): obj is ShippingMethodNameChanged => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodNameChanged"')
+      return ShippingMethodNameChanged_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodPredicateSet_possibleTypes: string[] = ['ShippingMethodPredicateSet']
+    export const isShippingMethodPredicateSet = (obj?: { __typename?: any } | null): obj is ShippingMethodPredicateSet => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodPredicateSet"')
+      return ShippingMethodPredicateSet_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
     const ShippingMethodQueryResult_possibleTypes: string[] = ['ShippingMethodQueryResult']
     export const isShippingMethodQueryResult = (obj?: { __typename?: any } | null): obj is ShippingMethodQueryResult => {
       if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodQueryResult"')
@@ -30722,10 +31254,74 @@ export interface setKey {key?: (Scalars['String'] | null)}
     
 
 
+    const ShippingMethodShippingRateAdded_possibleTypes: string[] = ['ShippingMethodShippingRateAdded']
+    export const isShippingMethodShippingRateAdded = (obj?: { __typename?: any } | null): obj is ShippingMethodShippingRateAdded => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodShippingRateAdded"')
+      return ShippingMethodShippingRateAdded_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodShippingRateRemoved_possibleTypes: string[] = ['ShippingMethodShippingRateRemoved']
+    export const isShippingMethodShippingRateRemoved = (obj?: { __typename?: any } | null): obj is ShippingMethodShippingRateRemoved => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodShippingRateRemoved"')
+      return ShippingMethodShippingRateRemoved_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodStoreAdded_possibleTypes: string[] = ['ShippingMethodStoreAdded']
+    export const isShippingMethodStoreAdded = (obj?: { __typename?: any } | null): obj is ShippingMethodStoreAdded => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodStoreAdded"')
+      return ShippingMethodStoreAdded_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodStoreRemoved_possibleTypes: string[] = ['ShippingMethodStoreRemoved']
+    export const isShippingMethodStoreRemoved = (obj?: { __typename?: any } | null): obj is ShippingMethodStoreRemoved => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodStoreRemoved"')
+      return ShippingMethodStoreRemoved_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodStoresSet_possibleTypes: string[] = ['ShippingMethodStoresSet']
+    export const isShippingMethodStoresSet = (obj?: { __typename?: any } | null): obj is ShippingMethodStoresSet => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodStoresSet"')
+      return ShippingMethodStoresSet_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
     const ShippingMethodTargetDraftOutput_possibleTypes: string[] = ['ShippingMethodTargetDraftOutput']
     export const isShippingMethodTargetDraftOutput = (obj?: { __typename?: any } | null): obj is ShippingMethodTargetDraftOutput => {
       if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodTargetDraftOutput"')
       return ShippingMethodTargetDraftOutput_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodTaxCategoryChanged_possibleTypes: string[] = ['ShippingMethodTaxCategoryChanged']
+    export const isShippingMethodTaxCategoryChanged = (obj?: { __typename?: any } | null): obj is ShippingMethodTaxCategoryChanged => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodTaxCategoryChanged"')
+      return ShippingMethodTaxCategoryChanged_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodZoneAdded_possibleTypes: string[] = ['ShippingMethodZoneAdded']
+    export const isShippingMethodZoneAdded = (obj?: { __typename?: any } | null): obj is ShippingMethodZoneAdded => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodZoneAdded"')
+      return ShippingMethodZoneAdded_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodZoneRemoved_possibleTypes: string[] = ['ShippingMethodZoneRemoved']
+    export const isShippingMethodZoneRemoved = (obj?: { __typename?: any } | null): obj is ShippingMethodZoneRemoved => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodZoneRemoved"')
+      return ShippingMethodZoneRemoved_possibleTypes.includes(obj.__typename)
     }
     
 
