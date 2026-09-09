@@ -12942,6 +12942,35 @@ export default {
                     ]
                 }
             ],
+            "categories": [
+                321,
+                {
+                    "limit": [
+                        753
+                    ],
+                    "offset": [
+                        753
+                    ],
+                    "sort": [
+                        2149,
+                        "[String!]"
+                    ],
+                    "where": [
+                        2149
+                    ]
+                }
+            ],
+            "category": [
+                314,
+                {
+                    "id": [
+                        2149
+                    ],
+                    "key": [
+                        2149
+                    ]
+                }
+            ],
             "customer": [
                 530,
                 {
@@ -27736,6 +27765,9 @@ export default {
                     "key": [
                         783,
                         "KeyReferenceInput!"
+                    ],
+                    "tailored": [
+                        195
                     ]
                 }
             ],
@@ -27745,6 +27777,9 @@ export default {
                     "keys": [
                         783,
                         "[KeyReferenceInput!]!"
+                    ],
+                    "tailored": [
+                        195
                     ]
                 }
             ],

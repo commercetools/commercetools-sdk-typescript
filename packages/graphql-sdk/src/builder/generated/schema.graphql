@@ -5929,6 +5929,14 @@ type InStore implements CartDiscountQueryInterface & CartQueryInterface & Custom
   ): CartDiscount
   cartDiscounts(limit: Int, offset: Int, sort: [String!], where: String): CartDiscountQueryResult!
   carts(limit: Int, offset: Int, sort: [String!], where: String): CartQueryResult!
+  categories(limit: Int, offset: Int, sort: [String!], where: String): CategoryQueryResult!
+  category(
+    """Queries with specified ID"""
+    id: String
+
+    """Queries with specified key"""
+    key: String
+  ): Category
   customer(
     """Queries a customer with specified email token"""
     emailToken: String
@@ -12665,12 +12673,26 @@ type Query {
   """
   This field gives access to the resources (such as carts) that are inside the given store.
   """
-  inStore(key: KeyReferenceInput!): InStore!
+  inStore(
+    key: KeyReferenceInput!
+
+    """
+    When `false`, in-store product reads return the original (untailored) product information instead of the Store-specific tailored values. Defaults to `true`.
+    """
+    tailored: Boolean = true
+  ): InStore!
 
   """
   This field gives access to the resources (such as carts) that are inside one of the given stores.
   """
-  inStores(keys: [KeyReferenceInput!]!): InStore!
+  inStores(
+    keys: [KeyReferenceInput!]!
+
+    """
+    When `false`, in-store product reads return the original (untailored) product information instead of the Store-specific tailored values. Defaults to `true`.
+    """
+    tailored: Boolean = true
+  ): InStore!
   inventoryEntries(limit: Int, offset: Int, sort: [String!], where: String): InventoryEntryQueryResult!
   inventoryEntry(
     """Queries with specified ID"""

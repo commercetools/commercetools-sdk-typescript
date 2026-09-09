@@ -2971,6 +2971,8 @@ export interface InStore {
     cartDiscount: (CartDiscount | null)
     cartDiscounts: CartDiscountQueryResult
     carts: CartQueryResult
+    categories: CategoryQueryResult
+    category: (Category | null)
     customer: (Customer | null)
     customerActiveCart: (Cart | null)
     customers: CustomerQueryResult
@@ -13658,6 +13660,12 @@ export interface InStoreGenqlSelection{
     key?: (Scalars['String'] | null)} })
     cartDiscounts?: (CartDiscountQueryResultGenqlSelection & { __args?: {limit?: (Scalars['Int'] | null), offset?: (Scalars['Int'] | null), sort?: (Scalars['String'][] | null), where?: (Scalars['String'] | null)} })
     carts?: (CartQueryResultGenqlSelection & { __args?: {limit?: (Scalars['Int'] | null), offset?: (Scalars['Int'] | null), sort?: (Scalars['String'][] | null), where?: (Scalars['String'] | null)} })
+    categories?: (CategoryQueryResultGenqlSelection & { __args?: {limit?: (Scalars['Int'] | null), offset?: (Scalars['Int'] | null), sort?: (Scalars['String'][] | null), where?: (Scalars['String'] | null)} })
+    category?: (CategoryGenqlSelection & { __args?: {
+    /** Queries with specified ID */
+    id?: (Scalars['String'] | null), 
+    /** Queries with specified key */
+    key?: (Scalars['String'] | null)} })
     customer?: (CustomerGenqlSelection & { __args?: {
     /** Queries a customer with specified email token */
     emailToken?: (Scalars['String'] | null), 
@@ -18891,9 +18899,13 @@ export interface QueryGenqlSelection{
     key?: (Scalars['String'] | null)} })
     extensions?: (ExtensionQueryResultGenqlSelection & { __args?: {limit?: (Scalars['Int'] | null), offset?: (Scalars['Int'] | null), sort?: (Scalars['String'][] | null), where?: (Scalars['String'] | null)} })
     /** This field gives access to the resources (such as carts) that are inside the given store. */
-    inStore?: (InStoreGenqlSelection & { __args: {key: Scalars['KeyReferenceInput']} })
+    inStore?: (InStoreGenqlSelection & { __args: {key: Scalars['KeyReferenceInput'], 
+    /** When `false`, in-store product reads return the original (untailored) product information instead of the Store-specific tailored values. Defaults to `true`. */
+    tailored?: (Scalars['Boolean'] | null)} })
     /** This field gives access to the resources (such as carts) that are inside one of the given stores. */
-    inStores?: (InStoreGenqlSelection & { __args: {keys: Scalars['KeyReferenceInput'][]} })
+    inStores?: (InStoreGenqlSelection & { __args: {keys: Scalars['KeyReferenceInput'][], 
+    /** When `false`, in-store product reads return the original (untailored) product information instead of the Store-specific tailored values. Defaults to `true`. */
+    tailored?: (Scalars['Boolean'] | null)} })
     inventoryEntries?: (InventoryEntryQueryResultGenqlSelection & { __args?: {limit?: (Scalars['Int'] | null), offset?: (Scalars['Int'] | null), sort?: (Scalars['String'][] | null), where?: (Scalars['String'] | null)} })
     inventoryEntry?: (InventoryEntryGenqlSelection & { __args?: {
     /** Queries with specified ID */
