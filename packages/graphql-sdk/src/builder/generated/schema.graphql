@@ -199,6 +199,10 @@ input AddCategoryAsset {
   position: Int
 }
 
+input AddCategoryStore {
+  store: ResourceIdentifierInput!
+}
+
 input AddChannelRoles {
   roles: [ChannelRole!]!
 }
@@ -2746,6 +2750,8 @@ type Category implements ReferenceExpandable & Versioned {
 
   """Number of staged products in the category subtree."""
   stagedProductCount: Int!
+  stores: [Store!]!
+  storesRef: [KeyReference!]!
   version: Long!
 }
 
@@ -2767,6 +2773,7 @@ input CategoryDraft {
   orderHint: String
   parent: ResourceIdentifierInput
   slug: [LocalizedStringItemInputType!]!
+  stores: [ResourceIdentifierInput!]
 }
 
 type CategoryLimitsProjection {
@@ -2826,6 +2833,7 @@ type CategorySlugChanged implements MessagePayload {
 
 input CategoryUpdateAction {
   addAsset: AddCategoryAsset
+  addStore: AddCategoryStore
   changeAssetName: ChangeCategoryAssetName
   changeAssetOrder: ChangeCategoryAssetOrder
   changeName: ChangeCategoryName
@@ -2833,6 +2841,7 @@ input CategoryUpdateAction {
   changeParent: ChangeCategoryParent
   changeSlug: ChangeCategorySlug
   removeAsset: RemoveCategoryAsset
+  removeStore: RemoveCategoryStore
   setAssetCustomField: SetCategoryAssetCustomField
   setAssetCustomType: SetCategoryAssetCustomType
   setAssetDescription: SetCategoryAssetDescription
@@ -2847,6 +2856,7 @@ input CategoryUpdateAction {
   setMetaDescription: SetCategoryMetaDescription
   setMetaKeywords: SetCategoryMetaKeywords
   setMetaTitle: SetCategoryMetaTitle
+  setStores: SetCategoryStores
 }
 
 input ChangeAssociateRoleBuyerAssignable {
@@ -7415,7 +7425,14 @@ type Mutation {
     """
     storeKey: KeyReferenceInput
   ): CartDiscount
-  createCategory(draft: CategoryDraft!): Category
+  createCategory(
+    draft: CategoryDraft!
+
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+  ): Category
   createChannel(draft: ChannelDraft!): Channel
   createCustomerGroup(draft: CustomerGroupDraft!): CustomerGroup
   createDiscountCode(draft: DiscountCodeDraft!): DiscountCode
@@ -7822,6 +7839,11 @@ type Mutation {
 
     """Queries with specified key"""
     key: String
+
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
     version: Long!
   ): Category
   deleteChannel(
@@ -8327,6 +8349,11 @@ type Mutation {
 
     """Queries with specified key"""
     key: String
+
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
     version: Long!
   ): Category
   updateChannel(
@@ -14001,6 +14028,10 @@ input RemoveCategoryAsset {
   assetKey: String
 }
 
+input RemoveCategoryStore {
+  store: ResourceIdentifierInput!
+}
+
 input RemoveChannelRoles {
   roles: [ChannelRole!]!
 }
@@ -15553,6 +15584,10 @@ input SetCategoryMetaKeywords {
 
 input SetCategoryMetaTitle {
   metaTitle: [LocalizedStringItemInputType!]
+}
+
+input SetCategoryStores {
+  stores: [ResourceIdentifierInput!]!
 }
 
 input SetChannelAddress {

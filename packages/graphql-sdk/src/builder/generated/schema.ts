@@ -1465,6 +1465,8 @@ export interface Category {
     slugAllLocales: LocalizedString[]
     /** Number of staged products in the category subtree. */
     stagedProductCount: Scalars['Int']
+    stores: Store[]
+    storesRef: KeyReference[]
     version: Scalars['Long']
     __typename: 'Category'
 }
@@ -9311,6 +9313,8 @@ export interface AddCartShoppingList {distributionChannel?: (ResourceIdentifierI
 
 export interface AddCategoryAsset {asset: AssetDraftInput,position?: (Scalars['Int'] | null)}
 
+export interface AddCategoryStore {store: ResourceIdentifierInput}
+
 export interface AddChannelRoles {roles: ChannelRole[]}
 
 export interface AddCustomerAddress {address: AddressInput}
@@ -11210,6 +11214,8 @@ export interface CategoryGenqlSelection{
     slugAllLocales?: LocalizedStringGenqlSelection
     /** Number of staged products in the category subtree. */
     stagedProductCount?: boolean | number
+    stores?: StoreGenqlSelection
+    storesRef?: KeyReferenceGenqlSelection
     version?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
@@ -11222,7 +11228,7 @@ export interface CategoryCreatedGenqlSelection{
     __scalar?: boolean | number
 }
 
-export interface CategoryDraft {assets?: (AssetDraftInput[] | null),custom?: (CustomFieldsDraft | null),description?: (LocalizedStringItemInputType[] | null),externalId?: (Scalars['String'] | null),key?: (Scalars['String'] | null),metaDescription?: (LocalizedStringItemInputType[] | null),metaKeywords?: (LocalizedStringItemInputType[] | null),metaTitle?: (LocalizedStringItemInputType[] | null),name: LocalizedStringItemInputType[],orderHint?: (Scalars['String'] | null),parent?: (ResourceIdentifierInput | null),slug: LocalizedStringItemInputType[]}
+export interface CategoryDraft {assets?: (AssetDraftInput[] | null),custom?: (CustomFieldsDraft | null),description?: (LocalizedStringItemInputType[] | null),externalId?: (Scalars['String'] | null),key?: (Scalars['String'] | null),metaDescription?: (LocalizedStringItemInputType[] | null),metaKeywords?: (LocalizedStringItemInputType[] | null),metaTitle?: (LocalizedStringItemInputType[] | null),name: LocalizedStringItemInputType[],orderHint?: (Scalars['String'] | null),parent?: (ResourceIdentifierInput | null),slug: LocalizedStringItemInputType[],stores?: (ResourceIdentifierInput[] | null)}
 
 export interface CategoryLimitsProjectionGenqlSelection{
     maxCategories?: LimitGenqlSelection
@@ -11274,7 +11280,7 @@ export interface CategorySlugChangedGenqlSelection{
     __scalar?: boolean | number
 }
 
-export interface CategoryUpdateAction {addAsset?: (AddCategoryAsset | null),changeAssetName?: (ChangeCategoryAssetName | null),changeAssetOrder?: (ChangeCategoryAssetOrder | null),changeName?: (ChangeCategoryName | null),changeOrderHint?: (ChangeCategoryOrderHint | null),changeParent?: (ChangeCategoryParent | null),changeSlug?: (ChangeCategorySlug | null),removeAsset?: (RemoveCategoryAsset | null),setAssetCustomField?: (SetCategoryAssetCustomField | null),setAssetCustomType?: (SetCategoryAssetCustomType | null),setAssetDescription?: (SetCategoryAssetDescription | null),setAssetKey?: (SetCategoryAssetKey | null),setAssetSources?: (SetCategoryAssetSources | null),setAssetTags?: (SetCategoryAssetTags | null),setCustomField?: (SetCategoryCustomField | null),setCustomType?: (SetCategoryCustomType | null),setDescription?: (SetCategoryDescription | null),setExternalId?: (SetCategoryExternalId | null),setKey?: (SetCategoryKey | null),setMetaDescription?: (SetCategoryMetaDescription | null),setMetaKeywords?: (SetCategoryMetaKeywords | null),setMetaTitle?: (SetCategoryMetaTitle | null)}
+export interface CategoryUpdateAction {addAsset?: (AddCategoryAsset | null),addStore?: (AddCategoryStore | null),changeAssetName?: (ChangeCategoryAssetName | null),changeAssetOrder?: (ChangeCategoryAssetOrder | null),changeName?: (ChangeCategoryName | null),changeOrderHint?: (ChangeCategoryOrderHint | null),changeParent?: (ChangeCategoryParent | null),changeSlug?: (ChangeCategorySlug | null),removeAsset?: (RemoveCategoryAsset | null),removeStore?: (RemoveCategoryStore | null),setAssetCustomField?: (SetCategoryAssetCustomField | null),setAssetCustomType?: (SetCategoryAssetCustomType | null),setAssetDescription?: (SetCategoryAssetDescription | null),setAssetKey?: (SetCategoryAssetKey | null),setAssetSources?: (SetCategoryAssetSources | null),setAssetTags?: (SetCategoryAssetTags | null),setCustomField?: (SetCategoryCustomField | null),setCustomType?: (SetCategoryCustomType | null),setDescription?: (SetCategoryDescription | null),setExternalId?: (SetCategoryExternalId | null),setKey?: (SetCategoryKey | null),setMetaDescription?: (SetCategoryMetaDescription | null),setMetaKeywords?: (SetCategoryMetaKeywords | null),setMetaTitle?: (SetCategoryMetaTitle | null),setStores?: (SetCategoryStores | null)}
 
 export interface ChangeAssociateRoleBuyerAssignable {buyerAssignable: Scalars['Boolean']}
 
@@ -15142,7 +15148,9 @@ export interface MutationGenqlSelection{
     createCartDiscount?: (CartDiscountGenqlSelection & { __args: {draft: CartDiscountDraft, 
     /** The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions. */
     storeKey?: (Scalars['KeyReferenceInput'] | null)} })
-    createCategory?: (CategoryGenqlSelection & { __args: {draft: CategoryDraft} })
+    createCategory?: (CategoryGenqlSelection & { __args: {draft: CategoryDraft, 
+    /** The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions. */
+    storeKey?: (Scalars['KeyReferenceInput'] | null)} })
     createChannel?: (ChannelGenqlSelection & { __args: {draft: ChannelDraft} })
     createCustomerGroup?: (CustomerGroupGenqlSelection & { __args: {draft: CustomerGroupDraft} })
     createDiscountCode?: (DiscountCodeGenqlSelection & { __args: {draft: DiscountCodeDraft} })
@@ -15350,7 +15358,9 @@ export interface MutationGenqlSelection{
     /** Queries with specified ID */
     id?: (Scalars['String'] | null), 
     /** Queries with specified key */
-    key?: (Scalars['String'] | null), version: Scalars['Long']} })
+    key?: (Scalars['String'] | null), 
+    /** The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions. */
+    storeKey?: (Scalars['KeyReferenceInput'] | null), version: Scalars['Long']} })
     deleteChannel?: (ChannelGenqlSelection & { __args: {
     /** Queries with specified ID */
     id?: (Scalars['String'] | null), 
@@ -15616,7 +15626,9 @@ export interface MutationGenqlSelection{
     /** Queries with specified ID */
     id?: (Scalars['String'] | null), 
     /** Queries with specified key */
-    key?: (Scalars['String'] | null), version: Scalars['Long']} })
+    key?: (Scalars['String'] | null), 
+    /** The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions. */
+    storeKey?: (Scalars['KeyReferenceInput'] | null), version: Scalars['Long']} })
     updateChannel?: (ChannelGenqlSelection & { __args: {actions: ChannelUpdateAction[], 
     /** Queries with specified ID */
     id?: (Scalars['String'] | null), 
@@ -20005,6 +20017,8 @@ export interface RemoveCartShippingMethod {shippingKey: Scalars['String']}
 
 export interface RemoveCategoryAsset {assetId?: (Scalars['String'] | null),assetKey?: (Scalars['String'] | null)}
 
+export interface RemoveCategoryStore {store: ResourceIdentifierInput}
+
 export interface RemoveChannelRoles {roles: ChannelRole[]}
 
 export interface RemoveCustomerAddress {addressId?: (Scalars['String'] | null),addressKey?: (Scalars['String'] | null)}
@@ -20780,6 +20794,8 @@ export interface SetCategoryMetaDescription {metaDescription?: (LocalizedStringI
 export interface SetCategoryMetaKeywords {metaKeywords?: (LocalizedStringItemInputType[] | null)}
 
 export interface SetCategoryMetaTitle {metaTitle?: (LocalizedStringItemInputType[] | null)}
+
+export interface SetCategoryStores {stores: ResourceIdentifierInput[]}
 
 export interface SetChannelAddress {address?: (AddressInput | null)}
 
