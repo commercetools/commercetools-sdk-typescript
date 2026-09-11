@@ -421,7 +421,7 @@ export interface CartDiscountLineItemsTarget extends ICartDiscountTarget {
 /**
  *	Pattern targets can be used to model Buy and Get discounts.
  *
- *	Unlike [CartDiscountLineItemsTarget](ctp:api:type:CartDiscountLineItemsTarget) and [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget), it does not apply to a (Custom) Line Item as a whole, but to individual units of a (Custom) Line Item. The discounts can apply multiple times on the same cart, but each unit can be discounted only once.
+ *	Unlike [CartDiscountLineItemsTarget](#cartdiscountlineitemstarget) and [CartDiscountCustomLineItemsTarget](#cartdiscountcustomlineitemstarget), it does not apply to a (Custom) Line Item as a whole, but to individual units of a (Custom) Line Item. The discounts can apply multiple times on the same cart, but each unit can be discounted only once.
  *
  */
 export interface CartDiscountPatternTarget extends ICartDiscountTarget {

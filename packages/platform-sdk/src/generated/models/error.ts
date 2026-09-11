@@ -93,6 +93,7 @@ export type ErrorObject =
   | AttributeNameDoesNotExistError
   | BadGatewayError
   | BulkOperationMaxItemsExceededError
+  | CircularDependencyError
   | ConcurrentModificationError
   | ContentTooLargeError
   | CountryNotConfiguredInStoreError
@@ -117,7 +118,6 @@ export type ErrorObject =
   | ExtensionBadResponseError
   | ExtensionChainTooDeepError
   | ExtensionChainTooWideError
-  | ExtensionCircularDependencyError
   | ExtensionDependencyExistsError
   | ExtensionNoResponseError
   | ExtensionPredicateEvaluationFailedError
@@ -145,6 +145,7 @@ export type ErrorObject =
   | MaxDiscountGroupsReachedError
   | MaxResourceLimitExceededError
   | MaxStoreReferencesReachedError
+  | MissingDependencyError
   | MissingRoleOnChannelError
   | MissingTaxRateForCountryError
   | MoneyOverflowError
@@ -381,6 +382,20 @@ export interface BulkOperationMaxItemsExceededError extends IErrorObject {
    *
    */
   readonly provided: number
+}
+/**
+ *	Returned when a circular reference is detected among Extension dependencies.
+ *
+ */
+export interface CircularDependencyError extends IErrorObject {
+  readonly code: 'CircularDependency'
+  [key: string]: any
+  /**
+   *	`"Circular dependency detected: [ext-1, ext-2, ext-1]"`
+   *
+   *
+   */
+  readonly message: string
 }
 /**
  *	Returned when the request conflicts with the current state of the involved resources. Typically, the request attempts to modify a resource that is out of date (that is modified by another client since it was last retrieved).
@@ -1090,7 +1105,7 @@ export interface ExtensionChainTooDeepError extends IErrorObject {
   readonly code: 'ExtensionChainTooDeep'
   [key: string]: any
   /**
-   *	`"The dependency chain depth 4 exceeds the maximum allowed depth of 3."`
+   *	`"The dependency chain depth 4 exceeds the maximum allowed depth of 3"`
    *
    *
    */
@@ -1104,23 +1119,7 @@ export interface ExtensionChainTooWideError extends IErrorObject {
   readonly code: 'ExtensionChainTooWide'
   [key: string]: any
   /**
-   *	`"Extension chain breadth exceeds the maximum allowed breadth of 5."`
-   *
-   *
-   */
-  readonly message: string
-}
-/**
- *	Returned when a circular reference is detected among Extension dependencies.
- *
- *	The `message` lists the `id` of each Extension in the detected cycle, starting and ending with the same Extension.
- *
- */
-export interface ExtensionCircularDependencyError extends IErrorObject {
-  readonly code: 'ExtensionCircularDependency'
-  [key: string]: any
-  /**
-   *	`"Circular dependency detected: [3fa85f64-5717-4562-b3fc-2c963f66afa6, 5e0e1e0b-1f4b-4b8b-9c1a-2d3f4a5b6c7d, 3fa85f64-5717-4562-b3fc-2c963f66afa6]"`
+   *	`"Extension chain breadth exceeds the maximum allowed breadth of 5"`
    *
    *
    */
@@ -1134,7 +1133,7 @@ export interface ExtensionDependencyExistsError extends IErrorObject {
   readonly code: 'ExtensionDependencyExists'
   [key: string]: any
   /**
-   *	`"The extension cannot be deleted because it is a prerequisite for: [5e0e1e0b-1f4b-4b8b-9c1a-2d3f4a5b6c7d, 7c9e6679-7425-40de-944b-e07fc1f90ae7]."`
+   *	`"The extension cannot be deleted because it is a prerequisite for: [ext-2, ext-3]."`
    *
    *
    */
@@ -1736,6 +1735,20 @@ export interface MaxStoreReferencesReachedError extends IErrorObject {
   [key: string]: any
   /**
    *	`"Maximum number of store discounts on a single cart discount reached $max".`
+   *
+   *
+   */
+  readonly message: string
+}
+/**
+ *	Returned when a referenced Extension does not exist or is not applicable to the same trigger.
+ *
+ */
+export interface MissingDependencyError extends IErrorObject {
+  readonly code: 'MissingDependency'
+  [key: string]: any
+  /**
+   *	`"The extensions '[ext-1, ext-2]' referenced in 'dependencies' do not exist."`
    *
    *
    */
@@ -2589,6 +2602,7 @@ export type GraphQLErrorObject =
   | GraphQLAttributeNameDoesNotExistError
   | GraphQLBadGatewayError
   | GraphQLBulkOperationMaxItemsExceededError
+  | GraphQLCircularDependencyError
   | GraphQLConcurrentModificationError
   | GraphQLContentTooLargeError
   | GraphQLCountryNotConfiguredInStoreError
@@ -2613,7 +2627,6 @@ export type GraphQLErrorObject =
   | GraphQLExtensionBadResponseError
   | GraphQLExtensionChainTooDeepError
   | GraphQLExtensionChainTooWideError
-  | GraphQLExtensionCircularDependencyError
   | GraphQLExtensionDependencyExistsError
   | GraphQLExtensionNoResponseError
   | GraphQLExtensionPredicateEvaluationFailedError
@@ -2641,6 +2654,7 @@ export type GraphQLErrorObject =
   | GraphQLMaxDiscountGroupsReachedError
   | GraphQLMaxResourceLimitExceededError
   | GraphQLMaxStoreReferencesReachedError
+  | GraphQLMissingDependencyError
   | GraphQLMissingRoleOnChannelError
   | GraphQLMissingTaxRateForCountryError
   | GraphQLMoneyOverflowError
@@ -2828,6 +2842,14 @@ export interface GraphQLBulkOperationMaxItemsExceededError extends IGraphQLError
    *
    */
   readonly provided: number
+}
+/**
+ *	Returned when a circular reference is detected among Extension dependencies.
+ *
+ */
+export interface GraphQLCircularDependencyError extends IGraphQLErrorObject {
+  readonly code: 'CircularDependency'
+  [key: string]: any
 }
 /**
  *	Returned when the request conflicts with the current state of the involved resources. Typically, the request attempts to modify a resource that is out of date (that is modified by another client since it was last retrieved).
@@ -3359,14 +3381,6 @@ export interface GraphQLExtensionChainTooWideError extends IGraphQLErrorObject {
   [key: string]: any
 }
 /**
- *	Returned when a circular reference is detected among Extension dependencies.
- *
- */
-export interface GraphQLExtensionCircularDependencyError extends IGraphQLErrorObject {
-  readonly code: 'ExtensionCircularDependency'
-  [key: string]: any
-}
-/**
  *	Returned when attempting to delete an Extension that is a prerequisite for other Extensions.
  *
  */
@@ -3793,6 +3807,14 @@ export interface GraphQLMaxResourceLimitExceededError extends IGraphQLErrorObjec
  */
 export interface GraphQLMaxStoreReferencesReachedError extends IGraphQLErrorObject {
   readonly code: 'MaxStoreReferencesReached'
+  [key: string]: any
+}
+/**
+ *	Returned when a referenced Extension does not exist or is not applicable to the same trigger.
+ *
+ */
+export interface GraphQLMissingDependencyError extends IGraphQLErrorObject {
+  readonly code: 'MissingDependency'
   [key: string]: any
 }
 /**

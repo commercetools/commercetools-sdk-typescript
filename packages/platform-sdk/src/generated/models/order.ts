@@ -501,19 +501,11 @@ export interface CustomLineItemImportDraft {
    */
   readonly money: _Money
   /**
-   *	The tax rate used to calculate the `taxedPrice` of the Custom Line Item if `taxedPrice` is not provided.
+   *	The tax rate used to calculate the `taxedPrice` of the Order.
    *
    *
    */
   readonly taxRate?: TaxRate
-  /**
-   *	Taxed price of the Custom Line Item. If provided, the values are stored as-is on the resulting [CustomLineItem](ctp:api:type:CustomLineItem) instead of being derived from `money`, `quantity`, and `taxRate`.
-   *
-   *	Can only be set if `taxRate` is also set.
-   *
-   *
-   */
-  readonly taxedPrice?: TaxedPriceDraft
   /**
    *	Include a value to associate a Tax Category with the Custom Line Item.
    *
@@ -706,17 +698,10 @@ export interface LineItemImportDraft {
    */
   readonly price: PriceDraft
   /**
-   *	The tax rate used to calculate the `taxedPrice` of the Line Item if `taxedPrice` is not provided.
+   *	The tax rate used to calculate the `taxedPrice` of the Order.
    *
    */
   readonly taxRate?: TaxRate
-  /**
-   *	Taxed price of the Line Item. If provided, the values are stored as-is on the resulting [LineItem](ctp:api:type:LineItem) instead of being derived from `price`, `quantity`, and `taxRate`.
-   *
-   *	Can only be set if `taxRate` is also set.
-   *
-   */
-  readonly taxedPrice?: TaxedPriceDraft
   /**
    *	The Channel used to [select a Price](/api/pricing-and-discounts-overview#line-item-price-selection).
    *	This Channel must have the `ProductDistribution` role.
@@ -1436,7 +1421,7 @@ export interface OrderPagedQueryResponse {
    *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](ctp:api:type:QueryPredicate), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -2226,12 +2211,6 @@ export interface ShippingInfoImportDraft {
    */
   readonly taxRate?: TaxRate
   /**
-   *	Taxed price of the Shipping Method. If provided, the values are stored as-is on the resulting [ShippingInfo](ctp:api:type:ShippingInfo) instead of being derived from `price` and `taxRate`.
-   *
-   *
-   */
-  readonly taxedPrice?: TaxedPriceDraft
-  /**
    *	Include a value to associate a Tax Category with the shipping information.
    *
    *
@@ -2667,8 +2646,7 @@ export interface OrderRemovePaymentAction extends IOrderUpdateAction {
 export interface OrderSetBillingAddressAction extends IOrderUpdateAction {
   readonly action: 'setBillingAddress'
   /**
-   *	Value to set. It replaces the entire address, including [Custom Fields](ctp:api:type:CustomFields) if `custom` is not included. To preserve Custom Fields, include the `custom` object in the request.
-   *
+   *	Value to set.
    *	If omitted, any existing value is removed.
    *
    *
@@ -2899,8 +2877,7 @@ export interface OrderSetDeliveryAddressAction extends IOrderUpdateAction {
    */
   readonly deliveryKey?: string
   /**
-   *	Value to set. It replaces the entire address, including [Custom Fields](ctp:api:type:CustomFields) if `custom` is not included. To preserve Custom Fields, include the `custom` object in the request.
-   *
+   *	Value to set.
    *	If omitted, any existing value is removed.
    *
    *
@@ -3552,8 +3529,7 @@ export interface OrderSetReturnShipmentStateAction extends IOrderUpdateAction {
 export interface OrderSetShippingAddressAction extends IOrderUpdateAction {
   readonly action: 'setShippingAddress'
   /**
-   *	Value to set. It replaces the entire address, including [Custom Fields](ctp:api:type:CustomFields) if `custom` is not included. To preserve Custom Fields, include the `custom` object in the request.
-   *
+   *	Value to set.
    *	If omitted, any existing value is removed.
    *
    *
