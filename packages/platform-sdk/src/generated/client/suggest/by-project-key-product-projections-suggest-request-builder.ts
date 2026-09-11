@@ -18,6 +18,10 @@ export class ByProjectKeyProductProjectionsSuggestRequestBuilder {
       baseUri?: string
     }
   ) {}
+
+  /**
+   * @deprecated
+   **/
   public get(methodArgs?: {
     queryArgs?: {
       limit?: number

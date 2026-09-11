@@ -114,7 +114,7 @@ export interface IMcpServerConfig {
   readonly type: string
 }
 /**
- *	Connection configuration of a Commerce MCP Server. Exposes the [Commerce MCP Server tools](/../dev-tooling/mcp/commerce-mcp#available-tools) to AI agents.
+ *	Connection configuration of a Commerce MCP Server. Exposes the [Commerce MCP Server tools](/dev-tooling/mcp/commerce-mcp#available-tools) to AI agents.
  *
  */
 export interface CommerceMcpServerConfig extends IMcpServerConfig {
@@ -357,7 +357,7 @@ export enum McpServerStateValues {
 export type McpServerState = 'Disabled' | 'Enabled' | (string & {})
 /**
  *	Identifies a tool that can be enabled on an MCP Server.
- *	For more information about the functions of each tool, see [Commerce MCP Server tools](/../dev-tooling/mcp/commerce-mcp#available-tools).
+ *	For more information about the functions of each tool, see [Commerce MCP Server tools](/dev-tooling/mcp/commerce-mcp#available-tools).
  *
  */
 export enum McpServerToolValues {

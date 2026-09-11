@@ -1254,6 +1254,11 @@ export interface DiscountedLineItemPortion {
   /**
    *	Money value of the applicable discount.
    *
+   *	When a Cart Discount with [CartDiscountPatternTarget](ctp:api:type:CartDiscountPatternTarget) is used:
+   *
+   *	- The value is zero for a (Custom) Line Item matching the `triggerPattern`, indicating it participated in the discount as a trigger.
+   *	- The value is the actual discount amount for a (Custom) Line Item matching the `targetPattern`.
+   *
    *
    */
   readonly discountedAmount: TypedMoney
@@ -1589,7 +1594,7 @@ export interface LineItem {
    *	Total price of this Line Item equalling `price` multiplied by `quantity`. If the Line Item is discounted, the total price is the `discountedPricePerQuantity` multiplied by `quantity`.
    *	Includes taxes if the [TaxRate](ctp:api:type:TaxRate) `includedInPrice` is `true`.
    *
-   *	If `ExternalPrice` [LineItemPriceMode](#ctp:api:type:LineItemPriceMode) is used with high-precision money, then the total price is rounded by using the `HalfEven` rounding mode.
+   *	If `ExternalPrice` [LineItemPriceMode](ctp:api:type:LineItemPriceMode) is used with high-precision money, then the total price is rounded by using the `HalfEven` rounding mode.
    *
    *
    */
@@ -3196,7 +3201,8 @@ export interface CartSetAnonymousIdAction extends ICartUpdateAction {
 export interface CartSetBillingAddressAction extends ICartUpdateAction {
   readonly action: 'setBillingAddress'
   /**
-   *	Value to set.
+   *	Value to set. It replaces the entire address, including [Custom Fields](ctp:api:type:CustomFields) if `custom` is not included. To preserve Custom Fields, include the `custom` object in the request.
+   *
    *	If omitted, any existing value is removed.
    *
    *
@@ -4071,7 +4077,8 @@ export interface CartSetReservationExpirationInMinutesAction extends ICartUpdate
 export interface CartSetShippingAddressAction extends ICartUpdateAction {
   readonly action: 'setShippingAddress'
   /**
-   *	Value to set.
+   *	Value to set. It replaces the entire address, including [Custom Fields](ctp:api:type:CustomFields) if `custom` is not included. To preserve Custom Fields, include the `custom` object in the request.
+   *
    *	If not set, the shipping address is unset, and the `taxedPrice` and `taxRate` are unset in all Line Items of the Cart.
    *
    *

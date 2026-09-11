@@ -82,7 +82,7 @@ export class ByProjectKeyProductTypesRequestBuilder {
    */
   public head(methodArgs?: {
     queryArgs?: {
-      where?: string
+      where?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {

@@ -1316,7 +1316,8 @@ export interface StagedOrderRemovePaymentAction extends IStagedOrderUpdateAction
 export interface StagedOrderSetBillingAddressAction extends IStagedOrderUpdateAction {
   readonly action: 'setBillingAddress'
   /**
-   *	Value to set.
+   *	Value to set. It replaces the entire address, including [Custom Fields](ctp:api:type:CustomFields) if `custom` is not included. To preserve Custom Fields, include the `custom` object in the request.
+   *
    *	If omitted, any existing value is removed.
    *
    *
@@ -1686,7 +1687,8 @@ export interface StagedOrderSetDeliveryAddressAction extends IStagedOrderUpdateA
    */
   readonly deliveryKey?: string
   /**
-   *	Value to set.
+   *	Value to set. It replaces the entire address, including [Custom Fields](ctp:api:type:CustomFields) if `custom` is not included. To preserve Custom Fields, include the `custom` object in the request.
+   *
    *	If omitted, any existing value is removed.
    *
    *
@@ -2497,7 +2499,8 @@ export interface StagedOrderSetReturnShipmentStateAction extends IStagedOrderUpd
 export interface StagedOrderSetShippingAddressAction extends IStagedOrderUpdateAction {
   readonly action: 'setShippingAddress'
   /**
-   *	Value to set.
+   *	Value to set. It replaces the entire address, including [Custom Fields](ctp:api:type:CustomFields) if `custom` is not included. To preserve Custom Fields, include the `custom` object in the request.
+   *
    *	If omitted, any existing value is removed.
    *
    *

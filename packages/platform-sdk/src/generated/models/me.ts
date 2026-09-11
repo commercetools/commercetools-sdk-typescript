@@ -1761,7 +1761,8 @@ export interface MyCartRemovePaymentAction extends IMyCartUpdateAction {
 export interface MyCartSetBillingAddressAction extends IMyCartUpdateAction {
   readonly action: 'setBillingAddress'
   /**
-   *	Value to set.
+   *	Value to set. It replaces the entire address, including [Custom Fields](ctp:api:type:CustomFields) if `custom` is not included. To preserve Custom Fields, include the `custom` object in the request.
+   *
    *	If omitted, any existing value is removed.
    *
    *
@@ -2022,7 +2023,8 @@ export interface MyCartSetLocaleAction extends IMyCartUpdateAction {
 export interface MyCartSetShippingAddressAction extends IMyCartUpdateAction {
   readonly action: 'setShippingAddress'
   /**
-   *	Value to set.
+   *	Value to set. It replaces the entire address, including [Custom Fields](ctp:api:type:CustomFields) if `custom` is not included. To preserve Custom Fields, include the `custom` object in the request.
+   *
    *	If not set, the shipping address is unset, and the `taxedPrice` and `taxRate` are unset in all Line Items.
    *
    *

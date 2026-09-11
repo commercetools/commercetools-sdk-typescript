@@ -199,6 +199,10 @@ input AddCategoryAsset {
   position: Int
 }
 
+input AddCategoryStore {
+  store: ResourceIdentifierInput!
+}
+
 input AddChannelRoles {
   roles: [ChannelRole!]!
 }
@@ -2072,6 +2076,7 @@ type Cart implements ReferenceExpandable & Versioned {
   customerId: String
   deleteDaysAfterLastModification: Int
   directDiscounts: [DirectDiscount!]!
+  directDiscountsIgnoreCartDiscounts: Boolean
   discountCodes: [DiscountCodeInfo!]!
   discountOnTotalPrice: DiscountOnTotalPrice
   discountTypeCombination: DiscountTypeCombination
@@ -2391,6 +2396,7 @@ input CartDraft {
   customerGroup: ResourceIdentifierInput
   customerId: String
   deleteDaysAfterLastModification: Int
+  directDiscountsIgnoreCartDiscounts: Boolean
   discountCodes: [String!] = []
   externalTaxRateForShippingMethod: ExternalTaxRateDraft
   inventoryMode: InventoryMode = None
@@ -2583,6 +2589,7 @@ input CartUpdateAction {
   setCustomerId: SetCartCustomerId
   setDeleteDaysAfterLastModification: SetCartDeleteDaysAfterLastModification
   setDirectDiscounts: SetCartDirectDiscounts
+  setDirectDiscountsIgnoreCartDiscounts: SetCartDirectDiscountsIgnoreCartDiscounts
   setEstimatedDelivery: SetCartEstimatedDelivery
   setItemShippingAddressCustomField: SetCartItemShippingAddressCustomField
   setItemShippingAddressCustomType: SetCartItemShippingAddressCustomType
@@ -2743,6 +2750,8 @@ type Category implements ReferenceExpandable & Versioned {
 
   """Number of staged products in the category subtree."""
   stagedProductCount: Int!
+  stores: [Store!]!
+  storesRef: [KeyReference!]!
   version: Long!
 }
 
@@ -2764,6 +2773,7 @@ input CategoryDraft {
   orderHint: String
   parent: ResourceIdentifierInput
   slug: [LocalizedStringItemInputType!]!
+  stores: [ResourceIdentifierInput!]
 }
 
 type CategoryLimitsProjection {
@@ -2823,6 +2833,7 @@ type CategorySlugChanged implements MessagePayload {
 
 input CategoryUpdateAction {
   addAsset: AddCategoryAsset
+  addStore: AddCategoryStore
   changeAssetName: ChangeCategoryAssetName
   changeAssetOrder: ChangeCategoryAssetOrder
   changeName: ChangeCategoryName
@@ -2830,6 +2841,7 @@ input CategoryUpdateAction {
   changeParent: ChangeCategoryParent
   changeSlug: ChangeCategorySlug
   removeAsset: RemoveCategoryAsset
+  removeStore: RemoveCategoryStore
   setAssetCustomField: SetCategoryAssetCustomField
   setAssetCustomType: SetCategoryAssetCustomType
   setAssetDescription: SetCategoryAssetDescription
@@ -2844,6 +2856,7 @@ input CategoryUpdateAction {
   setMetaDescription: SetCategoryMetaDescription
   setMetaKeywords: SetCategoryMetaKeywords
   setMetaTitle: SetCategoryMetaTitle
+  setStores: SetCategoryStores
 }
 
 input ChangeAssociateRoleBuyerAssignable {
@@ -4913,16 +4926,19 @@ type DimensionsProductSearch {
 
 type DirectDiscount {
   id: String!
+  participateInBestDealSelection: Boolean
   target: CartDiscountTarget
   value: CartDiscountValue!
 }
 
 input DirectDiscountDraft {
+  participateInBestDealSelection: Boolean
   target: CartDiscountTargetInput
   value: CartDiscountValueInput!
 }
 
 type DirectDiscountDraftOutput {
+  participateInBestDealSelection: Boolean
   target: CartDiscountTarget
   value: CartDiscountValue!
 }
@@ -5923,6 +5939,14 @@ type InStore implements CartDiscountQueryInterface & CartQueryInterface & Custom
   ): CartDiscount
   cartDiscounts(limit: Int, offset: Int, sort: [String!], where: String): CartDiscountQueryResult!
   carts(limit: Int, offset: Int, sort: [String!], where: String): CartQueryResult!
+  categories(limit: Int, offset: Int, sort: [String!], where: String): CategoryQueryResult!
+  category(
+    """Queries with specified ID"""
+    id: String
+
+    """Queries with specified key"""
+    key: String
+  ): Category
   customer(
     """Queries a customer with specified email token"""
     emailToken: String
@@ -6902,6 +6926,7 @@ type McpServer {
 enum McpServerAuthenticationMode {
   ClientCredentials
   CommercetoolsIdentity
+  ShopperIdentity
 }
 
 type McpServerCatalogTool {
@@ -7400,7 +7425,14 @@ type Mutation {
     """
     storeKey: KeyReferenceInput
   ): CartDiscount
-  createCategory(draft: CategoryDraft!): Category
+  createCategory(
+    draft: CategoryDraft!
+
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
+  ): Category
   createChannel(draft: ChannelDraft!): Channel
   createCustomerGroup(draft: CustomerGroupDraft!): CustomerGroup
   createDiscountCode(draft: DiscountCodeDraft!): DiscountCode
@@ -7807,6 +7839,11 @@ type Mutation {
 
     """Queries with specified key"""
     key: String
+
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
     version: Long!
   ): Category
   deleteChannel(
@@ -8312,6 +8349,11 @@ type Mutation {
 
     """Queries with specified key"""
     key: String
+
+    """
+    The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions.
+    """
+    storeKey: KeyReferenceInput
     version: Long!
   ): Category
   updateChannel(
@@ -9126,6 +9168,7 @@ type Order implements ReferenceExpandable & Versioned {
   customerGroupRef: Reference
   customerId: String
   directDiscounts: [DirectDiscount!]!
+  directDiscountsIgnoreCartDiscounts: Boolean
   discountCodes: [DiscountCodeInfo!]!
   discountOnTotalPrice: DiscountOnTotalPrice
   discountTypeCombination: DiscountTypeCombination
@@ -12657,12 +12700,26 @@ type Query {
   """
   This field gives access to the resources (such as carts) that are inside the given store.
   """
-  inStore(key: KeyReferenceInput!): InStore!
+  inStore(
+    key: KeyReferenceInput!
+
+    """
+    When `false`, in-store product reads return the original (untailored) product information instead of the Store-specific tailored values. Defaults to `true`.
+    """
+    tailored: Boolean = true
+  ): InStore!
 
   """
   This field gives access to the resources (such as carts) that are inside one of the given stores.
   """
-  inStores(keys: [KeyReferenceInput!]!): InStore!
+  inStores(
+    keys: [KeyReferenceInput!]!
+
+    """
+    When `false`, in-store product reads return the original (untailored) product information instead of the Store-specific tailored values. Defaults to `true`.
+    """
+    tailored: Boolean = true
+  ): InStore!
   inventoryEntries(limit: Int, offset: Int, sort: [String!], where: String): InventoryEntryQueryResult!
   inventoryEntry(
     """Queries with specified ID"""
@@ -13120,6 +13177,11 @@ type Quote implements Versioned {
   BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
   """
   directDiscounts: [DirectDiscount!]!
+
+  """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  directDiscountsIgnoreCartDiscounts: Boolean
   id: String!
   inventoryMode: InventoryMode!
   itemShippingAddresses: [Address!]!
@@ -13226,6 +13288,11 @@ type QuoteRequest implements Versioned {
   BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
   """
   directDiscounts: [DirectDiscount!]!
+
+  """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  directDiscountsIgnoreCartDiscounts: Boolean
   id: String!
   inventoryMode: InventoryMode!
   itemShippingAddresses: [Address!]!
@@ -13961,6 +14028,10 @@ input RemoveCategoryAsset {
   assetKey: String
 }
 
+input RemoveCategoryStore {
+  store: ResourceIdentifierInput!
+}
+
 input RemoveChannelRoles {
   roles: [ChannelRole!]!
 }
@@ -14234,8 +14305,24 @@ input RemoveToolCustomizationTarget {
   tool: String!
 }
 
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input RemoveTypeEnumValues {
+  fieldName: String!
+  keys: [String!]!
+}
+
 input RemoveTypeFieldDefinition {
   fieldName: String!
+}
+
+"""
+BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+"""
+input RemoveTypeLocalizedEnumValues {
+  fieldName: String!
+  keys: [String!]!
 }
 
 """
@@ -15215,6 +15302,10 @@ input SetCartDirectDiscounts {
   discounts: [DirectDiscountDraft!]!
 }
 
+input SetCartDirectDiscountsIgnoreCartDiscounts {
+  directDiscountsIgnoreCartDiscounts: Boolean
+}
+
 input SetCartDiscountCustomField {
   name: String!
   value: String
@@ -15493,6 +15584,10 @@ input SetCategoryMetaKeywords {
 
 input SetCategoryMetaTitle {
   metaTitle: [LocalizedStringItemInputType!]
+}
+
+input SetCategoryStores {
+  stores: [ResourceIdentifierInput!]!
 }
 
 input SetChannelAddress {
@@ -17326,6 +17421,15 @@ input SetStagedOrderDirectDiscounts {
   discounts: [DirectDiscountDraft!]!
 }
 
+input SetStagedOrderDirectDiscountsIgnoreCartDiscounts {
+  directDiscountsIgnoreCartDiscounts: Boolean
+}
+
+type SetStagedOrderDirectDiscountsIgnoreCartDiscountsOutput implements StagedOrderUpdateActionOutput {
+  directDiscountsIgnoreCartDiscounts: Boolean
+  type: String!
+}
+
 type SetStagedOrderDirectDiscountsOutput implements StagedOrderUpdateActionOutput {
   discounts: [DirectDiscountDraftOutput!]!
   type: String!
@@ -18138,6 +18242,7 @@ type ShippingInfo {
   deliveries: [Delivery!]!
   discountedPrice: DiscountedLineItemPrice
   estimatedDelivery: EstimatedDelivery
+  message: String
   price: Money!
   shippingMethod: ShippingMethod
   shippingMethodName: String!
@@ -18208,6 +18313,62 @@ type ShippingMethod implements ReferenceExpandable & Versioned {
   zoneRates: [ZoneRate!]!
 }
 
+type ShippingMethodActiveChanged implements MessagePayload {
+  active: Boolean!
+  oldActive: Boolean
+  type: String!
+}
+
+type ShippingMethodCarrierSet implements MessagePayload {
+  carrier: String
+  oldCarrier: String
+  type: String!
+}
+
+type ShippingMethodCreated implements MessagePayload {
+  shippingMethod: ShippingMethod!
+  type: String!
+}
+
+type ShippingMethodCustomFieldAdded implements MessagePayload {
+  name: String!
+  type: String!
+  value: Json!
+}
+
+type ShippingMethodCustomFieldChanged implements MessagePayload {
+  name: String!
+  oldValue: Json
+  type: String!
+  value: Json!
+}
+
+type ShippingMethodCustomFieldRemoved implements MessagePayload {
+  name: String!
+  type: String!
+}
+
+type ShippingMethodCustomTypeRemoved implements MessagePayload {
+  oldTypeId: String
+  type: String!
+}
+
+type ShippingMethodCustomTypeSet implements MessagePayload {
+  customFields: CustomFieldsType!
+  oldTypeId: String
+  type: String!
+}
+
+type ShippingMethodDeleted implements MessagePayload {
+  type: String!
+}
+
+type ShippingMethodDescriptionSet implements MessagePayload {
+  description: String
+  oldDescription: String
+  type: String!
+}
+
 input ShippingMethodDraft {
   active: Boolean
   carrier: String
@@ -18228,6 +18389,18 @@ input ShippingMethodDraft {
   zoneRates: [ZoneRateDraft!] = []
 }
 
+type ShippingMethodIsDefaultChanged implements MessagePayload {
+  isDefault: Boolean!
+  oldIsDefault: Boolean
+  type: String!
+}
+
+type ShippingMethodKeySet implements MessagePayload {
+  key: String
+  oldKey: String
+  type: String!
+}
+
 type ShippingMethodLimitWithCurrent implements LimitWithCurrent {
   current: Long!
   limit: Long
@@ -18238,12 +18411,94 @@ type ShippingMethodLimitsProjection {
   total: ShippingMethodLimitWithCurrent!
 }
 
+type ShippingMethodLocalizedDescriptionSet implements MessagePayload {
+  localizedDescription(
+    """
+    List of languages the client is able to understand, and which locale variant is preferred.
+    """
+    acceptLanguage: [Locale!]
+
+    """
+    String is defined for different locales. This argument specifies the desired locale.
+    """
+    locale: Locale
+  ): String
+  localizedDescriptionAllLocales: [LocalizedString!]
+  oldLocalizedDescription(
+    """
+    List of languages the client is able to understand, and which locale variant is preferred.
+    """
+    acceptLanguage: [Locale!]
+
+    """
+    String is defined for different locales. This argument specifies the desired locale.
+    """
+    locale: Locale
+  ): String
+  oldLocalizedDescriptionAllLocales: [LocalizedString!]
+  type: String!
+}
+
+type ShippingMethodLocalizedNameSet implements MessagePayload {
+  localizedName(
+    """
+    List of languages the client is able to understand, and which locale variant is preferred.
+    """
+    acceptLanguage: [Locale!]
+
+    """
+    String is defined for different locales. This argument specifies the desired locale.
+    """
+    locale: Locale
+  ): String
+  localizedNameAllLocales: [LocalizedString!]
+  oldLocalizedName(
+    """
+    List of languages the client is able to understand, and which locale variant is preferred.
+    """
+    acceptLanguage: [Locale!]
+
+    """
+    String is defined for different locales. This argument specifies the desired locale.
+    """
+    locale: Locale
+  ): String
+  oldLocalizedNameAllLocales: [LocalizedString!]
+  type: String!
+}
+
+type ShippingMethodNameChanged implements MessagePayload {
+  name: String!
+  oldName: String
+  type: String!
+}
+
+type ShippingMethodPredicateSet implements MessagePayload {
+  oldPredicate: String
+  predicate: String
+  type: String!
+}
+
 type ShippingMethodQueryResult {
   count: Int!
   exists: Boolean!
   offset: Int!
   results: [ShippingMethod!]!
   total: Long!
+}
+
+type ShippingMethodShippingRateAdded implements MessagePayload {
+  shippingRate: ShippingRate
+  type: String!
+  zone: Zone
+  zoneRef: Reference!
+}
+
+type ShippingMethodShippingRateRemoved implements MessagePayload {
+  shippingRate: ShippingRate
+  type: String!
+  zone: Zone
+  zoneRef: Reference!
 }
 
 enum ShippingMethodState {
@@ -18256,6 +18511,22 @@ enum ShippingMethodState {
   Either there is no predicate defined for the ShippingMethod or the given predicate matches the cart
   """
   MatchesCart
+}
+
+type ShippingMethodStoreAdded implements MessagePayload {
+  storeRef: KeyReference!
+  type: String!
+}
+
+type ShippingMethodStoreRemoved implements MessagePayload {
+  storeRef: KeyReference!
+  type: String!
+}
+
+type ShippingMethodStoresSet implements MessagePayload {
+  oldStoresRef: [KeyReference!]!
+  storesRef: [KeyReference!]!
+  type: String!
 }
 
 input ShippingMethodTargetDraft {
@@ -18271,6 +18542,14 @@ type ShippingMethodTargetDraftOutput {
 input ShippingMethodTargetDraftType {
   quantity: Long!
   shippingMethodKey: String!
+}
+
+type ShippingMethodTaxCategoryChanged implements MessagePayload {
+  oldTaxCategory: TaxCategory
+  oldTaxCategoryRef: Reference
+  taxCategory: TaxCategory
+  taxCategoryRef: Reference!
+  type: String!
 }
 
 input ShippingMethodUpdateAction {
@@ -18295,6 +18574,18 @@ input ShippingMethodUpdateAction {
   setLocalizedName: SetShippingMethodLocalizedName
   setPredicate: SetShippingMethodPredicate
   setStores: SetShippingMethodStores
+}
+
+type ShippingMethodZoneAdded implements MessagePayload {
+  type: String!
+  zone: Zone
+  zoneRef: Reference!
+}
+
+type ShippingMethodZoneRemoved implements MessagePayload {
+  type: String!
+  zone: Zone
+  zoneRef: Reference!
 }
 
 """A field to retrieve available shipping methods for a cart."""
@@ -18722,6 +19013,7 @@ input StagedOrderUpdateAction {
   setDeliveryCustomType: SetStagedOrderDeliveryCustomType
   setDeliveryItems: SetStagedOrderDeliveryItems
   setDirectDiscounts: SetStagedOrderDirectDiscounts
+  setDirectDiscountsIgnoreCartDiscounts: SetStagedOrderDirectDiscountsIgnoreCartDiscounts
   setEstimatedDelivery: SetStagedOrderEstimatedDelivery
   setItemShippingAddressCustomField: SetStagedOrderItemShippingAddressCustomField
   setItemShippingAddressCustomType: SetStagedOrderItemShippingAddressCustomType
@@ -20074,7 +20366,17 @@ input TypeUpdateAction {
   changeLocalizedEnumValueLabel: ChangeTypeLocalizedEnumValueLabel
   changeLocalizedEnumValueOrder: ChangeTypeLocalizedEnumValueOrder
   changeName: ChangeTypeName
+
+  """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  removeEnumValues: RemoveTypeEnumValues
   removeFieldDefinition: RemoveTypeFieldDefinition
+
+  """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  removeLocalizedEnumValues: RemoveTypeLocalizedEnumValues
   setDescription: SetTypeDescription
 }
 
@@ -20293,6 +20595,7 @@ BETA: This feature can be subject to change and should be used carefully in prod
 type VariantAttributeSimpleAvailability {
   availableQuantity: Long!
   isOnStock: Boolean!
+  restockableInDays: Int
 }
 
 """
@@ -20323,7 +20626,7 @@ type VariantCreated implements MessagePayload {
   id: String!
   images: [Image!]!
   key: String
-  productId: String!
+  productRef: Reference!
   publish: Boolean!
   sku: String
   type: String!
@@ -20360,6 +20663,7 @@ type VariantData {
 BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
 """
 type VariantDeleted implements MessagePayload {
+  productRef: Reference!
   type: String!
 }
 
@@ -20393,6 +20697,7 @@ BETA: This feature can be subject to change and should be used carefully in prod
 """
 type VariantImageAdded implements MessagePayload {
   image: Image!
+  productRef: Reference!
   staged: Boolean!
   type: String!
 }
@@ -20403,6 +20708,7 @@ BETA: This feature can be subject to change and should be used carefully in prod
 type VariantImagesSet implements MessagePayload {
   images: [Image!]!
   oldImages: [Image!]!
+  productRef: Reference!
   staged: Boolean!
   type: String!
 }
@@ -20413,6 +20719,7 @@ BETA: This feature can be subject to change and should be used carefully in prod
 type VariantKeySet implements MessagePayload {
   key: String
   oldKey: String
+  productRef: Reference!
   type: String!
 }
 
@@ -20505,6 +20812,7 @@ type VariantProjectionQueryResult {
 BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
 """
 type VariantPublished implements MessagePayload {
+  productRef: Reference!
   type: String!
 }
 
@@ -20521,6 +20829,7 @@ BETA: This feature can be subject to change and should be used carefully in prod
 """
 type VariantSkuSet implements MessagePayload {
   oldSku: String
+  productRef: Reference!
   sku: String
   staged: Boolean!
   type: String!
@@ -20530,6 +20839,7 @@ type VariantSkuSet implements MessagePayload {
 BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
 """
 type VariantStagedChangesRemoved implements MessagePayload {
+  productRef: Reference!
   type: String!
 }
 

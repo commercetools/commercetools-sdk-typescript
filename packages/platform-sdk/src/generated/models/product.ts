@@ -141,7 +141,7 @@ export type FacetResult =
   FilteredFacetResult | RangeFacetResult | TermFacetResult
 export interface IFacetResult {
   /**
-   *
+   *	@deprecated
    */
   readonly type: FacetTypes
 }
@@ -544,7 +544,7 @@ export interface ProductPagedQueryResponse {
    *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](ctp:api:type:QueryPredicate), `total` is subject to a [limit](/api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -558,7 +558,7 @@ export interface ProductPagedQueryResponse {
 }
 /**
  *
- *	This mode determines the type of Prices used for [price selection](/../api/pricing-and-discounts-overview#price-selection) by Line Items and Products.
+ *	This mode determines the type of Prices used for [price selection](/api/pricing-and-discounts-overview#price-selection) by Line Items and Products.
  *	For more information about the difference between the Prices, see [Pricing](/api/pricing-and-discounts-overview).
  *
  *	In Projects with the [ProductCatalogModel](ctp:api:type:ProductCatalogModel) `Classic`, you can configure the price mode.
@@ -804,7 +804,7 @@ export interface ProductProjectionPagedSearchResponse {
    *
    *	Only present if at least one `facet` parameter was provided with the search request.
    *
-   *
+   *	@deprecated
    */
   readonly facets?: FacetResults
 }
@@ -961,7 +961,7 @@ export interface ProductVariant {
   readonly attributes?: Attribute[]
   /**
    *	Only present when [price selection](/api/pricing-and-discounts-overview#price-selection) is applied.
-   *	Cannot be used in a [Query Predicate](ctp:api:type:QueryPredicate).
+   *	Cannot be used in a [Query Predicate](/api/predicates/query).
    *
    *
    */
@@ -1010,7 +1010,7 @@ export interface ProductVariant {
   readonly scopedPriceDiscounted?: boolean
   /**
    *	Only available when [Product price selection](/api/pricing-and-discounts-overview#product-price-selection) is used.
-   *	Cannot be used in a [Query Predicate](ctp:api:type:QueryPredicate).
+   *	Cannot be used in a [Query Predicate](/api/predicates/query).
    *
    *
    */
@@ -1205,7 +1205,7 @@ export interface TermFacetResult extends IFacetResult {
   /**
    *	Data type to which the facet is applied.
    *
-   *
+   *	@deprecated
    */
   readonly dataType: TermFacetResultType
   /**
