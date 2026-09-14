@@ -23,6 +23,22 @@ import {
   AgentStoreAmbiguousError,
   AgentStoreDistributionChannelsUnsupportedError,
   AgentStoreUnresolvedError,
+  GraphQLAgentBusinessUnitAmbiguousError,
+  GraphQLAgentBusinessUnitLimitExceededError,
+  GraphQLAgentBusinessUnitUnresolvedError,
+  GraphQLAgentExtractionFailedError,
+  GraphQLAgentFeatureDisabledError,
+  GraphQLAgentMissingCountryError,
+  GraphQLAgentMissingCustomerEmailError,
+  GraphQLAgentMissingEntityTypeError,
+  GraphQLAgentNoLineItemsExtractedError,
+  GraphQLAgentOutOfScopeError,
+  GraphQLAgentProductSearchNotEnabledError,
+  GraphQLAgentProductsNotFoundError,
+  GraphQLAgentQuoteRequestCreationFailedError,
+  GraphQLAgentStoreAmbiguousError,
+  GraphQLAgentStoreDistributionChannelsUnsupportedError,
+  GraphQLAgentStoreUnresolvedError,
 } from './agent'
 import { Permission } from './associate-role'
 import { BusinessUnitResourceIdentifier } from './business-unit'
@@ -2582,6 +2598,22 @@ export interface VariantValues {
  *	Represents a single error.
  */
 export type GraphQLErrorObject =
+  | GraphQLAgentBusinessUnitAmbiguousError
+  | GraphQLAgentBusinessUnitLimitExceededError
+  | GraphQLAgentBusinessUnitUnresolvedError
+  | GraphQLAgentExtractionFailedError
+  | GraphQLAgentFeatureDisabledError
+  | GraphQLAgentMissingCountryError
+  | GraphQLAgentMissingCustomerEmailError
+  | GraphQLAgentMissingEntityTypeError
+  | GraphQLAgentNoLineItemsExtractedError
+  | GraphQLAgentOutOfScopeError
+  | GraphQLAgentProductSearchNotEnabledError
+  | GraphQLAgentProductsNotFoundError
+  | GraphQLAgentQuoteRequestCreationFailedError
+  | GraphQLAgentStoreAmbiguousError
+  | GraphQLAgentStoreDistributionChannelsUnsupportedError
+  | GraphQLAgentStoreUnresolvedError
   | GraphQLAnonymousIdAlreadyInUseError
   | GraphQLAssociateMissingPermissionError
   | GraphQLAttributeDefinitionAlreadyExistsError
@@ -3360,6 +3392,8 @@ export interface GraphQLExtensionChainTooWideError extends IGraphQLErrorObject {
 }
 /**
  *	Returned when a circular reference is detected among Extension dependencies.
+ *
+ *	The `message` lists the `id` of each Extension in the detected cycle, starting and ending with the same Extension.
  *
  */
 export interface GraphQLExtensionCircularDependencyError extends IGraphQLErrorObject {
