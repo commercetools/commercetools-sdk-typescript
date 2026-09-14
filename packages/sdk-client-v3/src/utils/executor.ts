@@ -157,18 +157,27 @@ export default async function executor(request: HttpClientConfig) {
         }
       }
 
-      try {
-        // try to parse the `fetch` response as text
-        if (response.text && typeof response.text == 'function') {
-          result = await response.text()
+      // try to parse the `fetch` response as text
+      if (response.text && typeof response.text == 'function') {
+        result = await response.text()
 
+        try {
           data = JSON.parse(result)
-        } else {
-          // axios response
-          data = response.data || response
+        } catch (err) {
+          const statusCode = response.status || response.statusCode
+
+          // An error response can come from infrastructure sitting in front of
+          // the API (e.g. an HTML page from a load balancer). Keep the raw body
+          // so the status code survives, instead of collapsing into a `NetworkError`
+          // with `statusCode: 0`. Anything else, including a response whose status
+          // we do not know, keeps surfacing the parse failure.
+          if (!(statusCode > 399)) throw err
+
+          data = result
         }
-      } catch (err) {
-        throw err
+      } else {
+        // axios response
+        data = response.data || response
       }
 
       return {
