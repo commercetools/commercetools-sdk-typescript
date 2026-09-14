@@ -9043,6 +9043,9 @@ export interface VariantProjection {
     assets: Asset[]
     /** This field contains attributes data. Use includeNames/excludeNames query arguments to filter. */
     attributes: RawAttribute[]
+    categories: Category[]
+    categoriesRef: Reference[]
+    categoryOrderHints: CategoryOrderHint[]
     createdAt: Scalars['DateTime']
     default: Scalars['Boolean']
     description: (Scalars['String'] | null)
@@ -24269,6 +24272,9 @@ export interface VariantProjectionGenqlSelection{
      * If neither `includeNames` nor `excludeNames` are provided, then all attributes are returned.
      */
     includeNames?: (Scalars['String'][] | null)} })
+    categories?: CategoryGenqlSelection
+    categoriesRef?: ReferenceGenqlSelection
+    categoryOrderHints?: CategoryOrderHintGenqlSelection
     createdAt?: boolean | number
     default?: boolean | number
     description?: { __args: {

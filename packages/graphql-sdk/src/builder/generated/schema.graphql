@@ -20749,6 +20749,9 @@ type VariantProjection {
     """
     includeNames: [String!]
   ): [RawAttribute!]!
+  categories: [Category!]!
+  categoriesRef: [Reference!]!
+  categoryOrderHints: [CategoryOrderHint!]!
   createdAt: DateTime!
   default: Boolean!
   description(
