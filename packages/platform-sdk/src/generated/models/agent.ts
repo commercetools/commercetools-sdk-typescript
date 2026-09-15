@@ -11,6 +11,7 @@ import {
   ErrorObject,
   ErrorResponse,
   IErrorObject,
+  IGraphQLErrorObject,
 } from './error'
 import { QuoteRequest } from './quote-request'
 import { StoreResourceIdentifier } from './store'
@@ -499,4 +500,138 @@ export interface AgentStoreUnresolvedError extends IErrorObject {
    *
    */
   readonly message: string
+}
+/**
+ *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-or-quote-request) request when the customer is associated with multiple [Business Units](ctp:api:type:BusinessUnit) and none could be automatically selected. To resolve this error, specify an explicit `businessUnit` reference in the request.
+ *
+ */
+export interface GraphQLAgentBusinessUnitAmbiguousError extends IGraphQLErrorObject {
+  readonly code: 'BusinessUnitAmbiguous'
+  [key: string]: any
+}
+/**
+ *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-or-quote-request) request when the customer is associated with more [Business Units](ctp:api:type:BusinessUnit) than can be resolved automatically. To resolve this error, specify an explicit `businessUnit` reference in the request.
+ *
+ */
+export interface GraphQLAgentBusinessUnitLimitExceededError extends IGraphQLErrorObject {
+  readonly code: 'BusinessUnitLimitExceeded'
+  [key: string]: any
+}
+/**
+ *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-or-quote-request) request when the [BusinessUnit](ctp:api:type:BusinessUnit) could not be resolved from the input. Pin it with an explicit `businessUnit` reference in the request.
+ *
+ */
+export interface GraphQLAgentBusinessUnitUnresolvedError extends IGraphQLErrorObject {
+  readonly code: 'BusinessUnitUnresolved'
+  [key: string]: any
+}
+/**
+ *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-or-quote-request) request when the input could not be processed due to an internal error.
+ *
+ */
+export interface GraphQLAgentExtractionFailedError extends IGraphQLErrorObject {
+  readonly code: 'ExtractionFailed'
+  [key: string]: any
+}
+/**
+ *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-or-quote-request) request when the Intake Agent is not enabled for the Project.
+ *
+ */
+export interface GraphQLAgentFeatureDisabledError extends IGraphQLErrorObject {
+  readonly code: 'FeatureDisabled'
+  [key: string]: any
+}
+/**
+ *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-or-quote-request) request when a shipping country was not provided and could not be inferred from the input.
+ *
+ */
+export interface GraphQLAgentMissingCountryError extends IGraphQLErrorObject {
+  readonly code: 'MissingCountry'
+  [key: string]: any
+}
+/**
+ *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-or-quote-request) request when the customer's email address was not provided and could not be inferred from the input.
+ *
+ */
+export interface GraphQLAgentMissingCustomerEmailError extends IGraphQLErrorObject {
+  readonly code: 'MissingCustomerEmail'
+  [key: string]: any
+}
+/**
+ *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-or-quote-request) request when the input did not specify whether to create a Cart or a Quote Request. Set `outputType` explicitly in the request.
+ *
+ */
+export interface GraphQLAgentMissingEntityTypeError extends IGraphQLErrorObject {
+  readonly code: 'MissingEntityType'
+  [key: string]: any
+}
+/**
+ *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-or-quote-request) request when no Line Items could be extracted from the provided `prompt` or files.
+ *
+ */
+export interface GraphQLAgentNoLineItemsExtractedError extends IGraphQLErrorObject {
+  readonly code: 'NoLineItemsExtracted'
+  [key: string]: any
+}
+/**
+ *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-or-quote-request) request when the input does not contain enough information to create a Cart or a Quote Request: no products, no customer email address, and no shipping country could be determined.
+ *
+ */
+export interface GraphQLAgentOutOfScopeError extends IGraphQLErrorObject {
+  readonly code: 'OutOfScope'
+  [key: string]: any
+}
+/**
+ *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-or-quote-request) request when Product Search is not enabled for the project.
+ *
+ */
+export interface GraphQLAgentProductSearchNotEnabledError extends IGraphQLErrorObject {
+  readonly code: 'ProductSearchNotEnabled'
+  [key: string]: any
+}
+/**
+ *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-or-quote-request) request when none of the requested products could be matched to the catalog.
+ *
+ */
+export interface GraphQLAgentProductsNotFoundError extends IGraphQLErrorObject {
+  readonly code: 'ProductsNotFound'
+  [key: string]: any
+}
+/**
+ *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-or-quote-request) request when the underlying [Cart](ctp:api:type:Cart) was created but the [QuoteRequest](ctp:api:type:QuoteRequest) could not be created from it, for example because the Cart has no verified Customer.
+ *
+ */
+export interface GraphQLAgentQuoteRequestCreationFailedError extends IGraphQLErrorObject {
+  readonly code: 'QuoteRequestCreationFailed'
+  [key: string]: any
+  /**
+   *	`id` of the orphaned Cart, for retry or cleanup.
+   *
+   *
+   */
+  readonly cartId: string
+}
+/**
+ *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-or-quote-request) request when the resolved [Business Unit](ctp:api:type:BusinessUnit) grants multiple [Stores](ctp:api:type:Store) and none could be automatically selected. To resolve this error, specify an explicit `store` reference in the request.
+ *
+ */
+export interface GraphQLAgentStoreAmbiguousError extends IGraphQLErrorObject {
+  readonly code: 'StoreAmbiguous'
+  [key: string]: any
+}
+/**
+ *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-or-quote-request) request when the resolved [Store](ctp:api:type:Store) has more than one entry in the `distributionChannels` array, which is not supported. To resolve this error, choose a Store with zero or one distribution channel.
+ *
+ */
+export interface GraphQLAgentStoreDistributionChannelsUnsupportedError extends IGraphQLErrorObject {
+  readonly code: 'StoreDistributionChannelsUnsupported'
+  [key: string]: any
+}
+/**
+ *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-or-quote-request) request when the [Store](ctp:api:type:Store) could not be resolved from the input. Pin it with an explicit `store` reference in the request.
+ *
+ */
+export interface GraphQLAgentStoreUnresolvedError extends IGraphQLErrorObject {
+  readonly code: 'StoreUnresolved'
+  [key: string]: any
 }

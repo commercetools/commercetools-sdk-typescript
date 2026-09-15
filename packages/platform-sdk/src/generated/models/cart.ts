@@ -1254,6 +1254,11 @@ export interface DiscountedLineItemPortion {
   /**
    *	Money value of the applicable discount.
    *
+   *	When a Cart Discount with [CartDiscountPatternTarget](ctp:api:type:CartDiscountPatternTarget) is used:
+   *
+   *	- The value is zero for a (Custom) Line Item matching the `triggerPattern`, indicating it participated in the discount as a trigger.
+   *	- The value is the actual discount amount for a (Custom) Line Item matching the `targetPattern`.
+   *
    *
    */
   readonly discountedAmount: TypedMoney

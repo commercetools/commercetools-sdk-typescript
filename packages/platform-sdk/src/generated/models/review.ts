@@ -111,7 +111,7 @@ export interface Review extends BaseResource {
    */
   readonly rating?: number
   /**
-   *	State of the Review. Used for approval processes, see [Review approval process](/tutorials/review-ratings#review-approval-process) for details.
+   *	State of the Review. Used for approval processes, see [Review approval process](/guides/review-ratings#review-approval-process) for details.
    *
    *
    */
@@ -175,7 +175,7 @@ export interface ReviewDraft {
    */
   readonly target?: ProductResourceIdentifier | ChannelResourceIdentifier
   /**
-   *	State of the Review. Used for approval processes, see [Review approval process](/tutorials/review-ratings#review-approval-process) for details.
+   *	State of the Review. Used for approval processes, see [Review approval process](/guides/review-ratings#review-approval-process) for details.
    *
    *
    */
