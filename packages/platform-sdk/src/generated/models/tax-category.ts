@@ -268,6 +268,8 @@ export interface TaxRate {
    *	State within the country, such as Texas in the United States.
    *	The value is case-sensitive and must use the same casing as the `state` value in the Cart `shippingAddress`.
    *
+   *	A TaxRate whose `state` is omitted does **not** act as a wildcard: it only matches a Cart whose `shippingAddress` also has no `state` value. To apply the same rate across states, either define an individual TaxRate for each state, or use the `region` field or a Custom Field on the shipping address as described in [Address matching](/learning-model-your-business-structure/model-your-taxes/tax-categories-and-tax-rates#address-matching).
+   *
    *
    */
   readonly state?: string
@@ -310,6 +312,8 @@ export interface TaxRateDraft {
   /**
    *	State within the country, such as Texas in the United States.
    *	The value is case-sensitive and must use the same casing as the `state` value in the Cart `shippingAddress`. Empty strings are treated as if `state` was omitted.
+   *
+   *	If `state` is omitted, the resulting TaxRate does **not** act as a wildcard: it only matches a Cart whose `shippingAddress` also has no `state` value. To apply the same rate across states, either define an individual TaxRate for each state, or use the `region` field or a Custom Field on the shipping address as described in [Address matching](/learning-model-your-business-structure/model-your-taxes/tax-categories-and-tax-rates#address-matching).
    *
    *	If the provided combination of `country` and `state` exists for the TaxCategory, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
    *
