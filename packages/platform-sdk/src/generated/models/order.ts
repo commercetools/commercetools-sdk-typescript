@@ -108,6 +108,7 @@ import {
   StagedOrderSetDeliveryCustomTypeAction,
   StagedOrderSetDeliveryItemsAction,
   StagedOrderSetDirectDiscountsAction,
+  StagedOrderSetDirectDiscountsIgnoreCartDiscountsAction,
   StagedOrderSetItemShippingAddressCustomFieldAction,
   StagedOrderSetItemShippingAddressCustomTypeAction,
   StagedOrderSetLineItemCustomFieldAction,
@@ -220,6 +221,7 @@ export type StagedOrderUpdateAction =
   | StagedOrderSetDeliveryCustomTypeAction
   | StagedOrderSetDeliveryItemsAction
   | StagedOrderSetDirectDiscountsAction
+  | StagedOrderSetDirectDiscountsIgnoreCartDiscountsAction
   | StagedOrderSetItemShippingAddressCustomFieldAction
   | StagedOrderSetItemShippingAddressCustomTypeAction
   | StagedOrderSetLineItemCustomFieldAction
@@ -952,18 +954,27 @@ export interface Order extends BaseResource {
   readonly itemShippingAddresses?: Address[]
   /**
    *	Discount Codes added to the Order.
-   *	An Order that has `directDiscounts` cannot have `discountCodes`.
+   *
+   *	If `directDiscountsIgnoreCartDiscounts` is `true`, an Order that has `directDiscounts` cannot have `discountCodes`.
    *
    *
    */
   readonly discountCodes?: DiscountCodeInfo[]
   /**
    *	Direct Discounts added to the Order.
-   *	An Order that has `discountCodes` cannot have `directDiscounts`.
+   *
+   *	If `directDiscountsIgnoreCartDiscounts` is `true`, an Order that has `discountCodes` cannot have `directDiscounts`.
    *
    *
    */
   readonly directDiscounts?: DirectDiscount[]
+  /**
+   *	- If `true`, only [Direct Discounts](ctp:api:type:DirectDiscount) apply to the Order. Matching [Cart Discounts](ctp:api:type:CartDiscount) are ignored, and Discount Codes cannot be added.
+   *	- If `false`, Cart Discounts, Discount Codes, and Direct Discounts apply to the Order.
+   *
+   *
+   */
+  readonly directDiscountsIgnoreCartDiscounts?: boolean
   /**
    *	Automatically set when a Line Item with `GiftLineItem` [LineItemMode](ctp:api:type:LineItemMode) is [removed](ctp:api:type:StagedOrderRemoveLineItemAction) from the Order.
    *

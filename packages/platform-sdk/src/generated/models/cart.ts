@@ -283,17 +283,28 @@ export interface Cart extends BaseResource {
    */
   readonly itemShippingAddresses: Address[]
   /**
-   *	Discount Codes applied to the Cart. A Cart that has `directDiscounts` cannot have `discountCodes`.
+   *	Discount Codes applied to the Cart.
+   *
+   *	If `directDiscountsIgnoreCartDiscounts` is `true`, a Cart that has `directDiscounts` cannot have `discountCodes`.
    *
    *
    */
   readonly discountCodes: DiscountCodeInfo[]
   /**
-   *	Direct Discounts added to the Cart. A Cart that has `discountCodes` cannot have `directDiscounts`.
+   *	Direct Discounts added to the Cart.
+   *
+   *	If `directDiscountsIgnoreCartDiscounts` is `true`, a Cart that has `discountCodes` cannot have `directDiscounts`.
    *
    *
    */
   readonly directDiscounts: DirectDiscount[]
+  /**
+   *	- If `true`, only [Direct Discounts](ctp:api:type:DirectDiscount) apply to the Cart. Matching [Cart Discounts](ctp:api:type:CartDiscount) are ignored, and Discount Codes cannot be added.
+   *	- If `false`, Cart Discounts, Discount Codes, and Direct Discounts apply to the Cart.
+   *
+   *
+   */
+  readonly directDiscountsIgnoreCartDiscounts?: boolean
   /**
    *	Automatically set when a Line Item with `GiftLineItem` [LineItemMode](ctp:api:type:LineItemMode) is [removed](ctp:api:type:CartRemoveLineItemAction) from the Cart.
    *
@@ -548,6 +559,13 @@ export interface CartDraft {
    */
   readonly discountCodes?: string[]
   /**
+   *	- If set to `true`, only [Direct Discounts](ctp:api:type:DirectDiscount) apply to the Cart. Matching [Cart Discounts](ctp:api:type:CartDiscount) are ignored, and Discount Codes cannot be added.
+   *	- If set to `false`, Cart Discounts, Discount Codes, and Direct Discounts apply to the Cart.
+   *
+   *
+   */
+  readonly directDiscountsIgnoreCartDiscounts?: boolean
+  /**
    *	Used for [Line Item price selection](/api/pricing-and-discounts-overview#line-item-price-selection).
    *	If used for [Create Cart in Store](ctp:api:endpoint:/{projectKey}/in-store/carts:POST), the provided country must be one of the [Store's](ctp:api:type:Store) `countries`.
    *
@@ -789,6 +807,7 @@ export type CartUpdateAction =
   | CartSetCustomerIdAction
   | CartSetDeleteDaysAfterLastModificationAction
   | CartSetDirectDiscountsAction
+  | CartSetDirectDiscountsIgnoreCartDiscountsAction
   | CartSetEstimatedDeliveryAction
   | CartSetItemShippingAddressCustomFieldAction
   | CartSetItemShippingAddressCustomTypeAction
@@ -1115,11 +1134,20 @@ export interface DirectDiscount {
    *
    */
   readonly target?: CartDiscountTarget
+  /**
+   *	- If `true`, Direct Discounts compete against Product Discounts to apply the [best deal](/api/pricing-and-discounts-overview#best-deal).
+   *	- If `false`, Direct Discounts are ignored when calculating the best deal comparison, and are applied on top of the discount type that offers the best deal.
+   *
+   *	This applies only when the [DiscountCombinationMode](ctp:api:type:DiscountCombinationMode) for the [Project](ctp:api:type:Project) is `BestDeal`.
+   *
+   *
+   */
+  readonly participateInBestDealSelection?: boolean
 }
 /**
  *	Represents a [CartDiscount](ctp:api:type:CartDiscount) that can only be associated with a single Cart or Order.
  *
- *	For an introduction to Direct Discounts and to understand how they work in Composable Commerce, see the [Direct Discounts overview](/pricing-and-discounts-overview#direct-discounts).
+ *	For an introduction to Direct Discounts and to understand how they work, see the [Direct Discounts overview](/api/pricing-and-discounts-overview#direct-discounts).
  *
  */
 export interface DirectDiscountDraft {
@@ -1137,6 +1165,15 @@ export interface DirectDiscountDraft {
    *
    */
   readonly target?: CartDiscountTarget
+  /**
+   *	- If set to `true`, Direct Discounts compete against Product Discounts to apply the [best deal](/api/pricing-and-discounts-overview#best-deal).
+   *	- If set to `false`, Direct Discounts are ignored when calculating the best deal comparison, and are applied on top of the discount type that offers the best deal.
+   *
+   *	This applies only when the [DiscountCombinationMode](ctp:api:type:DiscountCombinationMode) for the [Project](ctp:api:type:Project) is `BestDeal`.
+   *
+   *
+   */
+  readonly participateInBestDealSelection?: boolean
 }
 /**
  *	[Reference](ctp:api:type:Reference) to a [DirectDiscount](ctp:api:type:DirectDiscount).
@@ -1232,13 +1269,15 @@ export interface IDiscountTypeCombination {
   readonly type: string
 }
 /**
- *	Indicates if a Product Discount or Cart Discount offers the best deal for a Cart or Order.
+ *	Indicates if a Product Discount, Cart Discount, or Direct Discount offers the best deal for a Cart or Order.
  *
  */
 export interface BestDeal extends IDiscountTypeCombination {
   readonly type: 'BestDeal'
   /**
    *	Discount type that offers the best deal; the value can be `ProductDiscount` or `CartDiscount`.
+   *
+   *	[Direct Discounts](ctp:api:type:DirectDiscount) are indicated as `CartDiscount` when they offer the best deal.
    *
    *
    */
@@ -3619,8 +3658,9 @@ export interface CartSetDeleteDaysAfterLastModificationAction extends ICartUpdat
   readonly deleteDaysAfterLastModification?: number
 }
 /**
- *	Adds a [DirectDiscount](ctp:api:type:DirectDiscount), but only if no [DiscountCode](ctp:api:type:DiscountCode) has been added to the Cart.
- *	Either a Discount Code or a Direct Discount can exist on a Cart at the same time.
+ *	Adds a [DirectDiscount](ctp:api:type:DirectDiscount) to the Cart.
+ *
+ *	If [Cart](ctp:api:type:Cart) `directDiscountsIgnoreCartDiscounts` is `true`, Direct Discounts can only be added when no [DiscountCode](ctp:api:type:DiscountCode) has been added to the Cart.
  *
  */
 export interface CartSetDirectDiscountsAction extends ICartUpdateAction {
@@ -3633,6 +3673,22 @@ export interface CartSetDirectDiscountsAction extends ICartUpdateAction {
    *
    */
   readonly discounts: DirectDiscountDraft[]
+}
+/**
+ *	Determines whether the [Direct Discounts](ctp:api:type:DirectDiscount) on the Cart replace the [Cart Discounts](ctp:api:type:CartDiscount) of the [Project](ctp:api:type:Project), or apply alongside them.
+ *
+ */
+export interface CartSetDirectDiscountsIgnoreCartDiscountsAction extends ICartUpdateAction {
+  readonly action: 'setDirectDiscountsIgnoreCartDiscounts'
+  /**
+   *	- If `true`, only [Direct Discounts](ctp:api:type:DirectDiscount) apply to the Cart. Matching [Cart Discounts](ctp:api:type:CartDiscount) are ignored, and Discount Codes cannot be added.
+   *
+   *	The value can be set to `true` only if the Cart does not have both `discountCodes` and `directDiscounts`.
+   *	- If `false`, Cart Discounts, Discount Codes, and Direct Discounts apply to the Cart.
+   *
+   *
+   */
+  readonly directDiscountsIgnoreCartDiscounts?: boolean
 }
 /**
  *	Sets the estimated delivery window on the Cart's [ShippingInfo](ctp:api:type:ShippingInfo).
