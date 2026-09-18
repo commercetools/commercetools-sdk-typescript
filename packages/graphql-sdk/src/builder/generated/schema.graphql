@@ -5529,6 +5529,7 @@ input ExternalTaxRateDraft {
   name: String!
   state: String
   subRates: [SubRateDraft!] = []
+  taxRoundingTarget: TaxRoundingTarget = Net
 }
 
 type ExternalTaxRateDraftOutput {
@@ -5538,6 +5539,7 @@ type ExternalTaxRateDraftOutput {
   name: String!
   state: String
   subRates: [SubRate!]!
+  taxRoundingTarget: TaxRoundingTarget!
 }
 
 interface FacetResult {
@@ -19948,6 +19950,7 @@ type TaxRate {
   name: String!
   state: String
   subRates: [SubRate!]!
+  taxRoundingTarget: TaxRoundingTarget!
 }
 
 input TaxRateDraft {
@@ -19958,6 +19961,7 @@ input TaxRateDraft {
   name: String!
   state: String
   subRates: [SubRateDraft!] = []
+  taxRoundingTarget: TaxRoundingTarget = Net
 }
 
 input TaxRateInput {
@@ -19969,6 +19973,22 @@ input TaxRateInput {
   name: String!
   state: String
   subRates: [SubRateDraft!] = []
+  taxRoundingTarget: TaxRoundingTarget = Net
+}
+
+enum TaxRoundingTarget {
+  """
+  Default. `taxRoundingMode` is applied to the net price and the tax amount is the exact
+  remainder. E.g. at 20% on `1.23`, the net rounds to `1.02` and the tax is `0.21`.
+  """
+  Net
+
+  """
+  `taxRoundingMode` is applied to the tax amount and the net price is the exact remainder.
+  E.g. at 20% on `1.23`, the tax rounds to `0.20` and the net is `1.03`.
+  Has no effect when the rate is not included in the price.
+  """
+  Tax
 }
 
 type TaxedItemPrice {

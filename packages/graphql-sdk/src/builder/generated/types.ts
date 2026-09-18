@@ -94,13 +94,14 @@ export default {
         2160,
         2170,
         2182,
-        2195,
-        2198,
-        2209,
+        2188,
+        2196,
+        2199,
         2210,
-        2235,
-        2277,
-        2283
+        2211,
+        2236,
+        2278,
+        2284
     ],
     "types": {
         "APIClientWithSecret": {
@@ -647,7 +648,7 @@ export default {
         },
         "AddMcpServerToolCustomization": {
             "toolCustomization": [
-                2204
+                2205
             ],
             "__typename": [
                 2152
@@ -788,7 +789,7 @@ export default {
                 2152
             ],
             "trackingData": [
-                2206
+                2207
             ],
             "__typename": [
                 2152
@@ -835,7 +836,7 @@ export default {
         },
         "AddPaymentTransaction": {
             "transaction": [
-                2208
+                2209
             ],
             "__typename": [
                 2152
@@ -1322,7 +1323,7 @@ export default {
                 2152
             ],
             "trackingData": [
-                2206
+                2207
             ],
             "__typename": [
                 2152
@@ -1348,7 +1349,7 @@ export default {
                 2152
             ],
             "trackingData": [
-                2205
+                2206
             ],
             "type": [
                 2152
@@ -1546,7 +1547,7 @@ export default {
         },
         "AddZoneLocation": {
             "location": [
-                2287
+                2288
             ],
             "__typename": [
                 2152
@@ -3054,7 +3055,7 @@ export default {
                 2153
             ],
             "on_TimeAttribute": [
-                2199
+                2200
             ],
             "__typename": [
                 2152
@@ -3066,7 +3067,7 @@ export default {
                 167
             ],
             "inputHint": [
-                2195
+                2196
             ],
             "inputTip": [
                 2152,
@@ -3122,7 +3123,7 @@ export default {
                 167
             ],
             "inputHint": [
-                2195
+                2196
             ],
             "inputTip": [
                 816
@@ -3204,10 +3205,10 @@ export default {
                 1449
             ],
             "on_TextAttributeDefinitionType": [
-                2194
+                2195
             ],
             "on_TimeAttributeDefinitionType": [
-                2200
+                2201
             ],
             "__typename": [
                 2152
@@ -3548,7 +3549,7 @@ export default {
                 529
             ],
             "whitespace": [
-                2281
+                2282
             ],
             "__typename": [
                 2152
@@ -3607,13 +3608,13 @@ export default {
         },
         "BulkUpdateVariantsInput": {
             "actions": [
-                2259
+                2260
             ],
             "items": [
                 203
             ],
             "versionControl": [
-                2277
+                2278
             ],
             "__typename": [
                 2152
@@ -4609,7 +4610,7 @@ export default {
         },
         "CannotChangeReservationExpiryTypedWarning": {
             "code": [
-                2235
+                2236
             ],
             "lineItemId": [
                 2152
@@ -4626,7 +4627,7 @@ export default {
         },
         "CannotCreateReservationTypedWarning": {
             "code": [
-                2235
+                2236
             ],
             "message": [
                 2152
@@ -4652,7 +4653,7 @@ export default {
         },
         "CannotUpdateReservationTypedWarning": {
             "code": [
-                2235
+                2236
             ],
             "lineItemId": [
                 2152
@@ -4842,10 +4843,10 @@ export default {
                 1379
             ],
             "taxedPrice": [
-                2189
+                2190
             ],
             "taxedShippingPrice": [
-                2189
+                2190
             ],
             "totalLineItemQuantity": [
                 820
@@ -4857,7 +4858,7 @@ export default {
                 820
             ],
             "warnings": [
-                2234
+                2235
             ],
             "__typename": [
                 2152
@@ -5972,13 +5973,13 @@ export default {
                 1519
             ],
             "unfreezeCart": [
-                2238
-            ],
-            "unlockCart": [
                 2239
             ],
+            "unlockCart": [
+                2240
+            ],
             "updateItemShippingAddress": [
-                2243
+                2244
             ],
             "__typename": [
                 2152
@@ -6818,7 +6819,7 @@ export default {
         },
         "ChangeExtensionTriggers": {
             "triggers": [
-                2229
+                2230
             ],
             "__typename": [
                 2152
@@ -6931,7 +6932,7 @@ export default {
         },
         "ChangePaymentTransactionState": {
             "state": [
-                2209
+                2210
             ],
             "transactionId": [
                 2152
@@ -7788,7 +7789,7 @@ export default {
                 2152
             ],
             "inputHint": [
-                2195
+                2196
             ],
             "__typename": [
                 2152
@@ -8144,7 +8145,7 @@ export default {
                 2152
             ],
             "toolCustomizations": [
-                2203
+                2204
             ],
             "toolOutputFormatting": [
                 833
@@ -8170,7 +8171,7 @@ export default {
                 2152
             ],
             "toolCustomizations": [
-                2204
+                2205
             ],
             "toolOutputFormatting": [
                 833
@@ -8519,7 +8520,7 @@ export default {
                 2152
             ],
             "locations": [
-                2287
+                2288
             ],
             "name": [
                 2152
@@ -8565,7 +8566,7 @@ export default {
                 2154
             ],
             "on_TimeField": [
-                2201
+                2202
             ],
             "__typename": [
                 2152
@@ -8631,7 +8632,7 @@ export default {
                 }
             ],
             "type": [
-                2230
+                2231
             ],
             "typeRef": [
                 1258
@@ -8702,7 +8703,7 @@ export default {
                 2185
             ],
             "taxedPrice": [
-                2188
+                2189
             ],
             "taxedPricePortions": [
                 852
@@ -8837,7 +8838,7 @@ export default {
                 2187
             ],
             "taxedPrice": [
-                2190
+                2191
             ],
             "__typename": [
                 2152
@@ -10529,7 +10530,7 @@ export default {
         },
         "DefaultVariantDeletedTypedWarning": {
             "code": [
-                2235
+                2236
             ],
             "message": [
                 2152
@@ -11777,7 +11778,7 @@ export default {
                 754
             ],
             "triggers": [
-                2228
+                2229
             ],
             "version": [
                 820
@@ -11853,7 +11854,7 @@ export default {
                 754
             ],
             "triggers": [
-                2229
+                2230
             ],
             "__typename": [
                 2152
@@ -12017,6 +12018,9 @@ export default {
             "subRates": [
                 2157
             ],
+            "taxRoundingTarget": [
+                2188
+            ],
             "__typename": [
                 2152
             ]
@@ -12040,6 +12044,9 @@ export default {
             "subRates": [
                 2156
             ],
+            "taxRoundingTarget": [
+                2188
+            ],
             "__typename": [
                 2152
             ]
@@ -12052,10 +12059,10 @@ export default {
                 1209
             ],
             "on_TermsFacetResult": [
-                2193
+                2194
             ],
             "on_ValueFacetResult": [
-                2251
+                2252
             ],
             "__typename": [
                 2152
@@ -12074,7 +12081,7 @@ export default {
         },
         "FieldDefinition": {
             "inputHint": [
-                2195
+                2196
             ],
             "label": [
                 2152,
@@ -12106,7 +12113,7 @@ export default {
         },
         "FieldDefinitionInput": {
             "inputHint": [
-                2195
+                2196
             ],
             "label": [
                 816
@@ -12162,7 +12169,7 @@ export default {
                 2155
             ],
             "on_TimeType": [
-                2202
+                2203
             ],
             "__typename": [
                 2152
@@ -12338,7 +12345,7 @@ export default {
         "FreezeStrategy": {},
         "GeneralTypedWarning": {
             "code": [
-                2235
+                2236
             ],
             "message": [
                 2152
@@ -12677,7 +12684,7 @@ export default {
         },
         "ImageProcessingOngoingTypedWarning": {
             "code": [
-                2235
+                2236
             ],
             "message": [
                 2152
@@ -12797,7 +12804,7 @@ export default {
                 1379
             ],
             "taxedPrice": [
-                2190
+                2191
             ],
             "totalPrice": [
                 859
@@ -13361,7 +13368,7 @@ export default {
                 }
             ],
             "variantProjection": [
-                2268,
+                2269,
                 {
                     "id": [
                         2152
@@ -13383,7 +13390,7 @@ export default {
                 }
             ],
             "variantProjections": [
-                2269,
+                2270,
                 {
                     "excludeNames": [
                         2152,
@@ -13606,7 +13613,7 @@ export default {
                 }
             ],
             "type": [
-                2230
+                2231
             ],
             "typeRef": [
                 1258
@@ -14135,7 +14142,7 @@ export default {
                 2175
             ],
             "on_ZoneLimitWithCurrent": [
-                2285
+                2286
             ],
             "__typename": [
                 2152
@@ -14221,7 +14228,7 @@ export default {
                 1144
             ],
             "productTypeRef": [
-                2279
+                2280
             ],
             "quantity": [
                 820
@@ -14251,7 +14258,7 @@ export default {
                 2185
             ],
             "taxedPrice": [
-                2188
+                2189
             ],
             "taxedPricePortions": [
                 852
@@ -14410,7 +14417,7 @@ export default {
                 2187
             ],
             "taxedPrice": [
-                2190
+                2191
             ],
             "variant": [
                 1161
@@ -14914,7 +14921,7 @@ export default {
                 2152
             ],
             "toolCustomizations": [
-                2203
+                2204
             ],
             "tools": [
                 2152
@@ -14929,7 +14936,7 @@ export default {
                 485
             ],
             "on_UcpShopperMcpServerConfig": [
-                2236
+                2237
             ],
             "__typename": [
                 2152
@@ -14940,7 +14947,7 @@ export default {
                 486
             ],
             "ucpShopper": [
-                2237
+                2238
             ],
             "__typename": [
                 2152
@@ -15506,7 +15513,7 @@ export default {
                 2152
             ],
             "userProvidedIdentifiers": [
-                2250
+                2251
             ],
             "version": [
                 820
@@ -16597,31 +16604,31 @@ export default {
                 2148
             ],
             "on_VariantCreated": [
-                2260
+                2261
             ],
             "on_VariantDeleted": [
-                2262
+                2263
             ],
             "on_VariantImageAdded": [
-                2265
-            ],
-            "on_VariantImagesSet": [
                 2266
             ],
-            "on_VariantKeySet": [
+            "on_VariantImagesSet": [
                 2267
             ],
+            "on_VariantKeySet": [
+                2268
+            ],
             "on_VariantPublished": [
-                2270
+                2271
             ],
             "on_VariantSkuSet": [
-                2272
-            ],
-            "on_VariantStagedChangesRemoved": [
                 2273
             ],
+            "on_VariantStagedChangesRemoved": [
+                2274
+            ],
             "on_VariantUnpublished": [
-                2275
+                2276
             ],
             "__typename": [
                 2152
@@ -16729,7 +16736,7 @@ export default {
                 2152
             ],
             "taxedPrice": [
-                2188
+                2189
             ],
             "__typename": [
                 2152
@@ -17472,25 +17479,25 @@ export default {
                 }
             ],
             "createTypeDefinition": [
-                2230,
+                2231,
                 {
                     "draft": [
-                        2231,
+                        2232,
                         "TypeDefinitionDraft!"
                     ]
                 }
             ],
             "createVariant": [
-                2253,
+                2254,
                 {
                     "draft": [
-                        2264,
+                        2265,
                         "VariantDraft!"
                     ]
                 }
             ],
             "createZone": [
-                2284,
+                2285,
                 {
                     "draft": [
                         502,
@@ -18410,7 +18417,7 @@ export default {
                 }
             ],
             "deleteTypeDefinition": [
-                2230,
+                2231,
                 {
                     "id": [
                         2152
@@ -18425,7 +18432,7 @@ export default {
                 }
             ],
             "deleteVariant": [
-                2263,
+                2264,
                 {
                     "id": [
                         2152
@@ -18440,7 +18447,7 @@ export default {
                 }
             ],
             "deleteZone": [
-                2284,
+                2285,
                 {
                     "id": [
                         2152
@@ -19449,10 +19456,10 @@ export default {
                 }
             ],
             "updateTypeDefinition": [
-                2230,
+                2231,
                 {
                     "actions": [
-                        2233,
+                        2234,
                         "[TypeUpdateAction!]!"
                     ],
                     "id": [
@@ -19468,10 +19475,10 @@ export default {
                 }
             ],
             "updateVariant": [
-                2253,
+                2254,
                 {
                     "actions": [
-                        2276,
+                        2277,
                         "[VariantUpdateAction!]!"
                     ],
                     "id": [
@@ -19487,10 +19494,10 @@ export default {
                 }
             ],
             "updateZone": [
-                2284,
+                2285,
                 {
                     "actions": [
-                        2291,
+                        2292,
                         "[ZoneUpdateAction!]!"
                     ],
                     "id": [
@@ -19796,7 +19803,7 @@ export default {
                 1622
             ],
             "updateItemShippingAddress": [
-                2243
+                2244
             ],
             "__typename": [
                 2152
@@ -19937,7 +19944,7 @@ export default {
                 988
             ],
             "transactions": [
-                2207
+                2208
             ],
             "version": [
                 820
@@ -20081,7 +20088,7 @@ export default {
                 1357
             ],
             "textLineItems": [
-                2197
+                2198
             ],
             "__typename": [
                 2152
@@ -20169,7 +20176,7 @@ export default {
                 602
             ],
             "type": [
-                2210
+                2211
             ],
             "__typename": [
                 2152
@@ -20452,10 +20459,10 @@ export default {
                 1379
             ],
             "taxedPrice": [
-                2189
+                2190
             ],
             "taxedShippingPrice": [
-                2189
+                2190
             ],
             "totalPrice": [
                 854
@@ -20622,7 +20629,7 @@ export default {
                 660
             ],
             "taxedPrice": [
-                2188
+                2189
             ],
             "type": [
                 2152
@@ -21011,7 +21018,7 @@ export default {
         },
         "OrderExcerpt": {
             "taxedPrice": [
-                2189
+                2190
             ],
             "totalPrice": [
                 854
@@ -21059,7 +21066,7 @@ export default {
                 2152
             ],
             "taxedPrice": [
-                2188
+                2189
             ],
             "taxedPricePortions": [
                 852
@@ -21114,7 +21121,7 @@ export default {
                 779
             ],
             "newTaxedPrice": [
-                2188
+                2189
             ],
             "newTotalPrice": [
                 854
@@ -21817,19 +21824,19 @@ export default {
                 1670
             ],
             "transitionCustomLineItemState": [
-                2211
-            ],
-            "transitionLineItemState": [
                 2212
             ],
-            "transitionState": [
+            "transitionLineItemState": [
                 2213
             ],
+            "transitionState": [
+                2214
+            ],
             "updateItemShippingAddress": [
-                2244
+                2245
             ],
             "updateSyncInfo": [
-                2245
+                2246
             ],
             "__typename": [
                 2152
@@ -21895,7 +21902,7 @@ export default {
                 964
             ],
             "trackingData": [
-                2205
+                2206
             ],
             "__typename": [
                 2152
@@ -21932,7 +21939,7 @@ export default {
                 964
             ],
             "trackingData": [
-                2205
+                2206
             ],
             "__typename": [
                 2152
@@ -21952,7 +21959,7 @@ export default {
                 965
             ],
             "trackingData": [
-                2206
+                2207
             ],
             "__typename": [
                 2152
@@ -21978,7 +21985,7 @@ export default {
                 965
             ],
             "trackingData": [
-                2206
+                2207
             ],
             "__typename": [
                 2152
@@ -22089,7 +22096,7 @@ export default {
                 2152
             ],
             "trackingData": [
-                2205
+                2206
             ],
             "type": [
                 2152
@@ -22178,7 +22185,7 @@ export default {
                 1013
             ],
             "transactions": [
-                2207
+                2208
             ],
             "version": [
                 820
@@ -22241,7 +22248,7 @@ export default {
                 1014
             ],
             "transactions": [
-                2208
+                2209
             ],
             "__typename": [
                 2152
@@ -22977,7 +22984,7 @@ export default {
         "PaymentStrategy": {},
         "PaymentTransactionAdded": {
             "transaction": [
-                2207
+                2208
             ],
             "type": [
                 2152
@@ -23005,7 +23012,7 @@ export default {
         },
         "PaymentTransactionStateChanged": {
             "state": [
-                2209
+                2210
             ],
             "transactionId": [
                 2152
@@ -23106,7 +23113,7 @@ export default {
                 1702
             ],
             "transitionState": [
-                2214
+                2215
             ],
             "__typename": [
                 2152
@@ -23465,7 +23472,7 @@ export default {
                 319
             ],
             "defaultVariant": [
-                2253
+                2254
             ],
             "defaultVariantRef": [
                 1258
@@ -24793,7 +24800,7 @@ export default {
         },
         "ProductProjectionVariantAttributes": {
             "attributes": [
-                2256
+                2257
             ],
             "productId": [
                 2152
@@ -24802,7 +24809,7 @@ export default {
                 2152
             ],
             "variants": [
-                2258
+                2259
             ],
             "__typename": [
                 2152
@@ -26346,7 +26353,7 @@ export default {
                 1755
             ],
             "unpublish": [
-                2241
+                2242
             ],
             "__typename": [
                 2152
@@ -26465,64 +26472,64 @@ export default {
         },
         "ProductTypeUpdateAction": {
             "addAttributeDefinition": [
-                2292
-            ],
-            "addLocalizedEnumValue": [
                 2293
             ],
-            "addPlainEnumValue": [
+            "addLocalizedEnumValue": [
                 2294
             ],
-            "changeAttributeName": [
+            "addPlainEnumValue": [
                 2295
             ],
-            "changeAttributeOrder": [
+            "changeAttributeName": [
                 2296
             ],
-            "changeAttributeOrderByName": [
+            "changeAttributeOrder": [
                 2297
             ],
-            "changeDescription": [
+            "changeAttributeOrderByName": [
                 2298
             ],
-            "changeEnumKey": [
+            "changeDescription": [
                 2299
             ],
-            "changeInputHint": [
+            "changeEnumKey": [
                 2300
             ],
-            "changeIsSearchable": [
+            "changeInputHint": [
                 2301
             ],
-            "changeLabel": [
+            "changeIsSearchable": [
                 2302
             ],
-            "changeLocalizedEnumValueLabel": [
+            "changeLabel": [
                 2303
             ],
-            "changeLocalizedEnumValueOrder": [
+            "changeLocalizedEnumValueLabel": [
                 2304
             ],
-            "changeName": [
+            "changeLocalizedEnumValueOrder": [
                 2305
             ],
-            "changePlainEnumValueLabel": [
+            "changeName": [
                 2306
             ],
-            "changePlainEnumValueOrder": [
+            "changePlainEnumValueLabel": [
                 2307
             ],
-            "removeAttributeDefinition": [
+            "changePlainEnumValueOrder": [
                 2308
             ],
-            "removeEnumValues": [
+            "removeAttributeDefinition": [
                 2309
             ],
-            "setInputTip": [
+            "removeEnumValues": [
                 2310
             ],
-            "setKey": [
+            "setInputTip": [
                 2311
+            ],
+            "setKey": [
+                2312
             ],
             "__typename": [
                 2152
@@ -26685,10 +26692,10 @@ export default {
                 1756
             ],
             "transitionState": [
-                2215
+                2216
             ],
             "unpublish": [
-                2240
+                2241
             ],
             "__typename": [
                 2152
@@ -27040,7 +27047,7 @@ export default {
                 2152
             ],
             "variant": [
-                2274
+                2275
             ],
             "variantId": [
                 754
@@ -27083,7 +27090,7 @@ export default {
                 2152
             ],
             "variant": [
-                2274
+                2275
             ],
             "variantId": [
                 754
@@ -27157,7 +27164,7 @@ export default {
                 2176
             ],
             "zones": [
-                2286
+                2287
             ],
             "__typename": [
                 2152
@@ -27210,7 +27217,7 @@ export default {
                 2071
             ],
             "trialUntil": [
-                2283
+                2284
             ],
             "version": [
                 820
@@ -28778,7 +28785,7 @@ export default {
                 }
             ],
             "typeDefinition": [
-                2230,
+                2231,
                 {
                     "id": [
                         2152
@@ -28789,7 +28796,7 @@ export default {
                 }
             ],
             "typeDefinitions": [
-                2232,
+                2233,
                 {
                     "limit": [
                         754
@@ -28807,7 +28814,7 @@ export default {
                 }
             ],
             "variant": [
-                2253,
+                2254,
                 {
                     "id": [
                         2152
@@ -28824,7 +28831,7 @@ export default {
                 }
             ],
             "variantProjection": [
-                2268,
+                2269,
                 {
                     "id": [
                         2152
@@ -28846,7 +28853,7 @@ export default {
                 }
             ],
             "variantProjections": [
-                2269,
+                2270,
                 {
                     "excludeNames": [
                         2152,
@@ -28883,7 +28890,7 @@ export default {
                 }
             ],
             "variants": [
-                2271,
+                2272,
                 {
                     "limit": [
                         754
@@ -28904,7 +28911,7 @@ export default {
                 }
             ],
             "zone": [
-                2284,
+                2285,
                 {
                     "id": [
                         2152
@@ -28915,7 +28922,7 @@ export default {
                 }
             ],
             "zones": [
-                2288,
+                2289,
                 {
                     "limit": [
                         754
@@ -29074,7 +29081,7 @@ export default {
                 1379
             ],
             "taxedPrice": [
-                2189
+                2190
             ],
             "totalPrice": [
                 854
@@ -29337,7 +29344,7 @@ export default {
                 1379
             ],
             "taxedPrice": [
-                2189
+                2190
             ],
             "totalPrice": [
                 854
@@ -29523,7 +29530,7 @@ export default {
                 1769
             ],
             "transitionState": [
-                2216
+                2217
             ],
             "__typename": [
                 2152
@@ -29584,7 +29591,7 @@ export default {
                 1767
             ],
             "transitionState": [
-                2217
+                2218
             ],
             "__typename": [
                 2152
@@ -30472,7 +30479,7 @@ export default {
                 1780
             ],
             "transitionState": [
-                2218
+                2219
             ],
             "__typename": [
                 2152
@@ -30646,10 +30653,10 @@ export default {
                 2171
             ],
             "on_TypeDefinition": [
-                2230
+                2231
             ],
             "on_Zone": [
-                2284
+                2285
             ],
             "__typename": [
                 2152
@@ -31629,7 +31636,7 @@ export default {
         },
         "RemoveZoneLocation": {
             "location": [
-                2287
+                2288
             ],
             "__typename": [
                 2152
@@ -32155,7 +32162,7 @@ export default {
                 1794
             ],
             "transitionState": [
-                2219
+                2220
             ],
             "__typename": [
                 2152
@@ -32518,7 +32525,7 @@ export default {
                 1208
             ],
             "terms": [
-                2192
+                2193
             ],
             "__typename": [
                 2152
@@ -32526,13 +32533,13 @@ export default {
         },
         "SearchFacetTimeRangeValue": {
             "from": [
-                2198
+                2199
             ],
             "key": [
                 2152
             ],
             "to": [
-                2198
+                2199
             ],
             "__typename": [
                 2152
@@ -32602,10 +32609,10 @@ export default {
                 1210
             ],
             "tree": [
-                2227
+                2228
             ],
             "value": [
-                2252
+                2253
             ],
             "__typename": [
                 2152
@@ -32950,16 +32957,16 @@ export default {
                 1403
             ],
             "gt": [
-                2198
+                2199
             ],
             "gte": [
-                2198
+                2199
             ],
             "lt": [
-                2198
+                2199
             ],
             "lte": [
-                2198
+                2199
             ],
             "__typename": [
                 2152
@@ -34943,7 +34950,7 @@ export default {
         },
         "SetMcpServerToolCustomizations": {
             "toolCustomizations": [
-                2204
+                2205
             ],
             "__typename": [
                 2152
@@ -35581,7 +35588,7 @@ export default {
                 2152
             ],
             "trackingData": [
-                2206
+                2207
             ],
             "__typename": [
                 2152
@@ -38847,7 +38854,7 @@ export default {
                 2152
             ],
             "trackingData": [
-                2206
+                2207
             ],
             "__typename": [
                 2152
@@ -38861,7 +38868,7 @@ export default {
                 2152
             ],
             "trackingData": [
-                2205
+                2206
             ],
             "type": [
                 2152
@@ -40045,7 +40052,7 @@ export default {
                 2185
             ],
             "taxedPrice": [
-                2188
+                2189
             ],
             "__typename": [
                 2152
@@ -40080,7 +40087,7 @@ export default {
                 2187
             ],
             "taxedPrice": [
-                2190
+                2191
             ],
             "__typename": [
                 2152
@@ -40169,7 +40176,7 @@ export default {
                 820
             ],
             "zoneRates": [
-                2289
+                2290
             ],
             "__typename": [
                 2152
@@ -40341,7 +40348,7 @@ export default {
                 1357
             ],
             "zoneRates": [
-                2290
+                2291
             ],
             "__typename": [
                 2152
@@ -40529,7 +40536,7 @@ export default {
                 2152
             ],
             "zone": [
-                2284
+                2285
             ],
             "zoneRef": [
                 1258
@@ -40546,7 +40553,7 @@ export default {
                 2152
             ],
             "zone": [
-                2284
+                2285
             ],
             "zoneRef": [
                 1258
@@ -40712,7 +40719,7 @@ export default {
                 2152
             ],
             "zone": [
-                2284
+                2285
             ],
             "zoneRef": [
                 1258
@@ -40726,7 +40733,7 @@ export default {
                 2152
             ],
             "zone": [
-                2284
+                2285
             ],
             "zoneRef": [
                 1258
@@ -41137,7 +41144,7 @@ export default {
                 783
             ],
             "textLineItems": [
-                2196
+                2197
             ],
             "version": [
                 820
@@ -41181,7 +41188,7 @@ export default {
                 1357
             ],
             "textLineItems": [
-                2197
+                2198
             ],
             "__typename": [
                 2152
@@ -41820,19 +41827,19 @@ export default {
                 1941
             ],
             "transitionCustomLineItemState": [
-                2220
+                2221
             ],
             "transitionLineItemState": [
-                2222
+                2223
             ],
             "transitionState": [
-                2224
+                2225
             ],
             "updateItemShippingAddress": [
-                2246
+                2247
             ],
             "updateSyncInfo": [
-                2248
+                2249
             ],
             "__typename": [
                 2152
@@ -42113,19 +42120,19 @@ export default {
                 1942
             ],
             "on_TransitionStagedOrderCustomLineItemStateOutput": [
-                2221
+                2222
             ],
             "on_TransitionStagedOrderLineItemStateOutput": [
-                2223
+                2224
             ],
             "on_TransitionStagedOrderStateOutput": [
-                2225
+                2226
             ],
             "on_UpdateStagedOrderItemShippingAddressOutput": [
-                2247
+                2248
             ],
             "on_UpdateStagedOrderSyncInfoOutput": [
-                2249
+                2250
             ],
             "__typename": [
                 2152
@@ -42344,7 +42351,7 @@ export default {
                 1946
             ],
             "transitionState": [
-                2226
+                2227
             ],
             "__typename": [
                 2152
@@ -43641,7 +43648,7 @@ export default {
                 528
             ],
             "on_WhitespaceSuggestTokenizer": [
-                2280
+                2281
             ],
             "__typename": [
                 2152
@@ -43655,7 +43662,7 @@ export default {
                 530
             ],
             "on_WhitespaceSuggestTokenizerProductSearch": [
-                2282
+                2283
             ],
             "__typename": [
                 2152
@@ -43918,6 +43925,9 @@ export default {
             "subRates": [
                 2156
             ],
+            "taxRoundingTarget": [
+                2188
+            ],
             "__typename": [
                 2152
             ]
@@ -43943,6 +43953,9 @@ export default {
             ],
             "subRates": [
                 2157
+            ],
+            "taxRoundingTarget": [
+                2188
             ],
             "__typename": [
                 2152
@@ -43973,10 +43986,14 @@ export default {
             "subRates": [
                 2157
             ],
+            "taxRoundingTarget": [
+                2188
+            ],
             "__typename": [
                 2152
             ]
         },
+        "TaxRoundingTarget": {},
         "TaxedItemPrice": {
             "taxPortions": [
                 2183
@@ -44067,7 +44084,7 @@ export default {
                 754
             ],
             "terms": [
-                2191
+                2192
             ],
             "total": [
                 754
@@ -44167,7 +44184,7 @@ export default {
                 2152
             ],
             "value": [
-                2198
+                2199
             ],
             "__typename": [
                 2152
@@ -44186,7 +44203,7 @@ export default {
                 2152
             ],
             "value": [
-                2198
+                2199
             ],
             "__typename": [
                 2152
@@ -44285,13 +44302,13 @@ export default {
                 2152
             ],
             "state": [
-                2209
+                2210
             ],
             "timestamp": [
                 602
             ],
             "type": [
-                2210
+                2211
             ],
             "__typename": [
                 2152
@@ -44311,13 +44328,13 @@ export default {
                 2152
             ],
             "state": [
-                2209
+                2210
             ],
             "timestamp": [
                 602
             ],
             "type": [
-                2210
+                2211
             ],
             "__typename": [
                 2152
@@ -44727,7 +44744,7 @@ export default {
                 754
             ],
             "results": [
-                2230
+                2231
             ],
             "total": [
                 820
@@ -44791,7 +44808,7 @@ export default {
         },
         "TypedWarning": {
             "code": [
-                2235
+                2236
             ],
             "message": [
                 2152
@@ -44848,7 +44865,7 @@ export default {
                 474
             ],
             "toolCustomizations": [
-                2203
+                2204
             ],
             "tools": [
                 2152
@@ -44892,7 +44909,7 @@ export default {
                 476
             ],
             "toolCustomizations": [
-                2204
+                2205
             ],
             "tools": [
                 2152
@@ -45089,7 +45106,7 @@ export default {
                 753
             ],
             "current": [
-                2261
+                2262
             ],
             "id": [
                 2152
@@ -45113,7 +45130,7 @@ export default {
                 196
             ],
             "staged": [
-                2261
+                2262
             ],
             "variantId": [
                 754
@@ -45127,10 +45144,10 @@ export default {
         },
         "VariantAttributeAvailability": {
             "channels": [
-                2255
+                2256
             ],
             "noChannel": [
-                2257
+                2258
             ],
             "__typename": [
                 2152
@@ -45138,7 +45155,7 @@ export default {
         },
         "VariantAttributeChannelAvailability": {
             "availability": [
-                2257
+                2258
             ],
             "channelRef": [
                 1258
@@ -45192,7 +45209,7 @@ export default {
                 1211
             ],
             "availability": [
-                2254
+                2255
             ],
             "id": [
                 2152
@@ -45212,7 +45229,7 @@ export default {
                 1177
             ],
             "unpublish": [
-                2242
+                2243
             ],
             "__typename": [
                 2152
@@ -45293,10 +45310,10 @@ export default {
         },
         "VariantDeletionResult": {
             "variant": [
-                2253
+                2254
             ],
             "warnings": [
-                2234
+                2235
             ],
             "__typename": [
                 2152
@@ -45526,7 +45543,7 @@ export default {
                 754
             ],
             "results": [
-                2268
+                2269
             ],
             "total": [
                 820
@@ -45557,7 +45574,7 @@ export default {
                 754
             ],
             "results": [
-                2253
+                2254
             ],
             "total": [
                 820
@@ -45687,7 +45704,7 @@ export default {
                 1995
             ],
             "unpublish": [
-                2242
+                2243
             ],
             "__typename": [
                 2152
@@ -45840,13 +45857,13 @@ export default {
                 2171
             ],
             "on_TypeDefinition": [
-                2230
+                2231
             ],
             "on_Variant": [
-                2253
+                2254
             ],
             "on_Zone": [
-                2284
+                2285
             ],
             "__typename": [
                 2152
@@ -45939,7 +45956,7 @@ export default {
         },
         "ZoneLimitsProjection": {
             "total": [
-                2285
+                2286
             ],
             "__typename": [
                 2152
@@ -45967,7 +45984,7 @@ export default {
                 754
             ],
             "results": [
-                2284
+                2285
             ],
             "total": [
                 820
@@ -45981,7 +45998,7 @@ export default {
                 2040
             ],
             "zone": [
-                2284
+                2285
             ],
             "zoneRef": [
                 1258
@@ -46105,7 +46122,7 @@ export default {
                 2152
             ],
             "newValue": [
-                2195
+                2196
             ],
             "__typename": [
                 2152

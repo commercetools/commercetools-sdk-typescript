@@ -2838,6 +2838,7 @@ export interface ExternalTaxRateDraftOutput {
     name: Scalars['String']
     state: (Scalars['String'] | null)
     subRates: SubRate[]
+    taxRoundingTarget: TaxRoundingTarget
     __typename: 'ExternalTaxRateDraftOutput'
 }
 
@@ -8645,8 +8646,11 @@ export interface TaxRate {
     name: Scalars['String']
     state: (Scalars['String'] | null)
     subRates: SubRate[]
+    taxRoundingTarget: TaxRoundingTarget
     __typename: 'TaxRate'
 }
+
+export type TaxRoundingTarget = 'Net' | 'Tax'
 
 export interface TaxedItemPrice {
     taxPortions: TaxPortion[]
@@ -13376,7 +13380,7 @@ export interface ExternalTaxAmountDraftOutputGenqlSelection{
     __scalar?: boolean | number
 }
 
-export interface ExternalTaxRateDraft {amount: Scalars['Float'],country: Scalars['Country'],includedInPrice?: (Scalars['Boolean'] | null),name: Scalars['String'],state?: (Scalars['String'] | null),subRates?: (SubRateDraft[] | null)}
+export interface ExternalTaxRateDraft {amount: Scalars['Float'],country: Scalars['Country'],includedInPrice?: (Scalars['Boolean'] | null),name: Scalars['String'],state?: (Scalars['String'] | null),subRates?: (SubRateDraft[] | null),taxRoundingTarget?: (TaxRoundingTarget | null)}
 
 export interface ExternalTaxRateDraftOutputGenqlSelection{
     amount?: boolean | number
@@ -13385,6 +13389,7 @@ export interface ExternalTaxRateDraftOutputGenqlSelection{
     name?: boolean | number
     state?: boolean | number
     subRates?: SubRateGenqlSelection
+    taxRoundingTarget?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
 }
@@ -23670,13 +23675,14 @@ export interface TaxRateGenqlSelection{
     name?: boolean | number
     state?: boolean | number
     subRates?: SubRateGenqlSelection
+    taxRoundingTarget?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
 }
 
-export interface TaxRateDraft {amount?: (Scalars['Float'] | null),country: Scalars['Country'],includedInPrice: Scalars['Boolean'],key?: (Scalars['String'] | null),name: Scalars['String'],state?: (Scalars['String'] | null),subRates?: (SubRateDraft[] | null)}
+export interface TaxRateDraft {amount?: (Scalars['Float'] | null),country: Scalars['Country'],includedInPrice: Scalars['Boolean'],key?: (Scalars['String'] | null),name: Scalars['String'],state?: (Scalars['String'] | null),subRates?: (SubRateDraft[] | null),taxRoundingTarget?: (TaxRoundingTarget | null)}
 
-export interface TaxRateInput {amount: Scalars['Float'],country: Scalars['Country'],id?: (Scalars['String'] | null),includedInPrice: Scalars['Boolean'],key?: (Scalars['String'] | null),name: Scalars['String'],state?: (Scalars['String'] | null),subRates?: (SubRateDraft[] | null)}
+export interface TaxRateInput {amount: Scalars['Float'],country: Scalars['Country'],id?: (Scalars['String'] | null),includedInPrice: Scalars['Boolean'],key?: (Scalars['String'] | null),name: Scalars['String'],state?: (Scalars['String'] | null),subRates?: (SubRateDraft[] | null),taxRoundingTarget?: (TaxRoundingTarget | null)}
 
 export interface TaxedItemPriceGenqlSelection{
     taxPortions?: TaxPortionGenqlSelection
@@ -33097,6 +33103,11 @@ export const enumTaxMode = {
    External: 'External' as const,
    ExternalAmount: 'ExternalAmount' as const,
    Platform: 'Platform' as const
+}
+
+export const enumTaxRoundingTarget = {
+   Net: 'Net' as const,
+   Tax: 'Tax' as const
 }
 
 export const enumTextInputHint = {
