@@ -88,7 +88,7 @@ export interface StagedQuote extends BaseResource {
    */
   readonly quoteRequest: QuoteRequestReference
   /**
-   *	[Cart](ctp:api:type:Cart) containing the offered items. May contain either [DirectDiscounts](ctp:api:type:DirectDiscount) or [CartDiscounts](ctp:api:type:CartDiscount).
+   *	[Cart](ctp:api:type:Cart) containing the offered items.
    *
    *
    */
