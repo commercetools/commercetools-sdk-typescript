@@ -37,6 +37,7 @@ export class ByProjectKeyByResourceTypeByIDRequestBuilder {
       limit?: number
       offset?: number
       userId?: string
+      userIds?: string | string[]
       clientId?: string
       customerId?: string
       associateId?: string

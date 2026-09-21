@@ -233,3 +233,16 @@
 - added method `apiRoot.withProjectKey().agents().intake().v1().responses().post()`
 
 </details>
+
+**History changes**
+
+<details>
+<summary>Added QueryParameter(s)</summary>
+
+- added query parameter `userIds` to method `get /{projectKey}`
+- added query parameter `resourceIds` to method `get /{projectKey}`
+- added query parameter `userIds` to method `get /{projectKey}/{resourceType}`
+- added query parameter `resourceIds` to method `get /{projectKey}/{resourceType}`
+- added query parameter `userIds` to method `get /{projectKey}/{resourceType}/{ID}`
+
+</details>
