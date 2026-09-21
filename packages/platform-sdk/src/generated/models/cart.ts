@@ -68,6 +68,7 @@ import {
   TaxCategoryReference,
   TaxCategoryResourceIdentifier,
   TaxRate,
+  TaxRoundingTarget,
 } from './tax-category'
 import {
   CustomFields,
@@ -1467,6 +1468,12 @@ export interface ExternalTaxRateDraft {
    *
    */
   readonly subRates?: SubRate[]
+  /**
+   *	Determines whether the `taxRoundingMode` of the Cart or Order is applied to the net price or the tax amount when `includedInPrice` is `true`. The field is ignored if `includedInPrice` is `false`.
+   *
+   *
+   */
+  readonly taxRoundingTarget?: TaxRoundingTarget
 }
 /**
  *	Indicates how a [Cart](ctp:api:type:Cart) freeze behaves. For detailed behavior on each of these strategies, see [Freeze a Cart](/api/carts-orders-overview#freeze-a-cart).

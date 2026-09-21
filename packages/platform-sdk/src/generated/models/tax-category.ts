@@ -280,6 +280,14 @@ export interface TaxRate {
    *
    */
   readonly subRates?: SubRate[]
+  /**
+   *	Determines which of the net price and the tax amount the `taxRoundingMode` of the Cart or Order is applied to, when this TaxRate is included in the price. Ignored if `includedInPrice` is `false`.
+   *
+   *	Always returned by the API. Can be omitted when a TaxRate is supplied as input, such as in [OrderImportDraft](ctp:api:type:OrderImportDraft), and then defaults to `Net`.
+   *
+   *
+   */
+  readonly taxRoundingTarget?: TaxRoundingTarget
 }
 export interface TaxRateDraft {
   /**
@@ -335,7 +343,27 @@ export interface TaxRateDraft {
    *
    */
   readonly key?: string
+  /**
+   *	Determines whether the `taxRoundingMode` of the Cart or Order is applied to the net price or the tax amount when this TaxRate is included in the price. The field is ignored if `includedInPrice` is `false`.
+   *
+   *
+   */
+  readonly taxRoundingTarget?: TaxRoundingTarget
 }
+/**
+ *	For a [TaxRate](ctp:api:type:TaxRate) that is included in the price, this value determines which of the two derived amounts the [RoundingMode](ctp:api:type:RoundingMode) set by `taxRoundingMode` is applied to. The other amount is the exact difference from the gross price, so `totalNet` plus `totalTax` on [TaxedPrice](ctp:api:type:TaxedPrice) always equals `totalGross`.
+ *
+ *	This field has no effect if `includedInPrice` is `false`. In that case, the net price is supplied exactly, so rounding the gross price and rounding the tax amount give the same result.
+ *
+ *	For more information, see [Tax rounding target](/api/carts-orders-overview#tax-rounding-target).
+ *
+ */
+export enum TaxRoundingTargetValues {
+  Net = 'Net',
+  Tax = 'Tax',
+}
+
+export type TaxRoundingTarget = 'Net' | 'Tax' | (string & {})
 export interface TaxCategoryAddTaxRateAction extends ITaxCategoryUpdateAction {
   readonly action: 'addTaxRate'
   /**

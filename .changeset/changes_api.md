@@ -124,6 +124,7 @@
 - added type `StoreSetRefundPolicyUrlAction`
 - added type `StoreSetShippingPolicyUrlAction`
 - added type `StoreSetTermsOfServiceUrlAction`
+- added type `TaxRoundingTarget`
 - added type `TypeRemoveEnumValuesAction`
 - added type `TypeRemoveLocalizedEnumValuesAction`
 
@@ -136,6 +137,7 @@
 - added property `directDiscountsIgnoreCartDiscounts` to type `CartDraft`
 - added property `participateInBestDealSelection` to type `DirectDiscount`
 - added property `participateInBestDealSelection` to type `DirectDiscountDraft`
+- added property `taxRoundingTarget` to type `ExternalTaxRateDraft`
 - added property `estimatedDelivery` to type `ShippingInfo`
 - added property `estimatedDelivery` to type `CartAddShippingMethodAction`
 - added property `estimatedDelivery` to type `CartSetCustomShippingMethodAction`
@@ -167,6 +169,8 @@
 - added property `carrier` to type `ShippingMethodDraft`
 - added property `storefront` to type `Store`
 - added property `storefront` to type `StoreDraft`
+- added property `taxRoundingTarget` to type `TaxRate`
+- added property `taxRoundingTarget` to type `TaxRateDraft`
 
 </details>
 
