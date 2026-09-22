@@ -33,7 +33,7 @@ export interface ProductSelectionSetting {
    */
   readonly productSelection: ProductSelectionReference
   /**
-   *	If `true`, all Products assigned to this Product Selection are part of the Store's assortment.
+   *	Whether all Products assigned to this Product Selection are part of the Store's assortment.
    *
    */
   readonly active: boolean
@@ -45,7 +45,7 @@ export interface ProductSelectionSettingDraft {
    */
   readonly productSelection: ProductSelectionResourceIdentifier
   /**
-   *	Set to `true` if all Products assigned to the Product Selection should become part of the Store's assortment.
+   *	Whether all Products assigned to the Product Selection should become part of the Store's assortment.
    *
    *
    */
@@ -140,6 +140,12 @@ export interface Store extends BaseResource {
    *
    */
   readonly custom?: CustomFields
+  /**
+   *	Customer-facing URLs and policy links for the Store's storefront.
+   *
+   *
+   */
+  readonly storefront?: Storefront
 }
 export interface StoreDraft {
   /**
@@ -158,6 +164,8 @@ export interface StoreDraft {
   /**
    *	Languages defined in [Project](ctp:api:type:Project). Only languages defined in the Project can be used.
    *
+   *	If a language is not configured for the Project, a [ProjectNotConfiguredForLanguages](ctp:api:type:ProjectNotConfiguredForLanguagesError) error is returned.
+   *
    *
    */
   readonly languages?: string[]
@@ -170,11 +178,15 @@ export interface StoreDraft {
   /**
    *	ResourceIdentifier of a Channel with `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
    *
+   *	If the referenced Channel does not have this role, a [MissingRoleOnChannel](ctp:api:type:MissingRoleOnChannelError) error is returned.
+   *
    *
    */
   readonly distributionChannels?: ChannelResourceIdentifier[]
   /**
    *	ResourceIdentifier of a Channel with `InventorySupply` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
+   *
+   *	If the referenced Channel does not have this role, a [MissingRoleOnChannel](ctp:api:type:MissingRoleOnChannelError) error is returned.
    *
    *
    */
@@ -196,6 +208,12 @@ export interface StoreDraft {
    *
    */
   readonly custom?: CustomFieldsDraft
+  /**
+   *	Customer-facing URLs and policy links for the Store's storefront.
+   *
+   *
+   */
+  readonly storefront?: Storefront
 }
 /**
  *	[KeyReference](ctp:api:type:KeyReference) to a [Store](ctp:api:type:Store).
@@ -211,18 +229,18 @@ export interface StoreKeyReference extends IKeyReference {
   readonly key: string
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [Store](ctp:api:type:Store).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with results containing an array of [Store](ctp:api:type:Store).
  *
  */
 export interface StorePagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -235,10 +253,10 @@ export interface StorePagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -263,14 +281,14 @@ export interface StoreReference extends IReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded Store. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for Stores.
+   *	Contains the representation of the expanded Store. Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for Stores.
    *
    *
    */
   readonly obj?: Store
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Store](ctp:api:type:Store). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Store](ctp:api:type:Store). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](ctp:api:type:InvalidJsonInputError) error is returned.
  *
  */
 export interface StoreResourceIdentifier extends IResourceIdentifier {
@@ -313,19 +331,98 @@ export type StoreUpdateAction =
   | StoreRemoveDistributionChannelAction
   | StoreRemoveProductSelectionAction
   | StoreRemoveSupplyChannelAction
+  | StoreSetCheckoutUrlTemplateAction
+  | StoreSetContactUrlAction
+  | StoreSetCookiePolicyUrlAction
   | StoreSetCountriesAction
   | StoreSetCustomFieldAction
   | StoreSetCustomTypeAction
   | StoreSetDistributionChannelsAction
+  | StoreSetFaqUrlAction
+  | StoreSetImprintUrlAction
   | StoreSetLanguagesAction
   | StoreSetNameAction
+  | StoreSetOrderUrlTemplateAction
+  | StoreSetPrivacyPolicyUrlAction
   | StoreSetProductSelectionsAction
+  | StoreSetRefundPolicyUrlAction
+  | StoreSetShippingPolicyUrlAction
   | StoreSetSupplyChannelsAction
+  | StoreSetTermsOfServiceUrlAction
 export interface IStoreUpdateAction {
   /**
    *
    */
   readonly action: string
+}
+/**
+ *	Customer-facing URLs and policy links for the Store's storefront.
+ *	All fields are optional and only present when set.
+ *
+ */
+export interface Storefront {
+  /**
+   *	[RFC 6570](https://datatracker.ietf.org/doc/html/rfc6570) URI template for the customer-facing checkout page.
+   *	Must contain the `checkoutId` variable, for example `https://example.com/checkout/{checkoutId}`.
+   *
+   *
+   */
+  readonly checkoutUrlTemplate?: string
+  /**
+   *	[RFC 6570](https://datatracker.ietf.org/doc/html/rfc6570) URI template for the customer-facing order status page.
+   *	Must contain the `orderId` variable, for example `https://example.com/orders/{orderId}`.
+   *
+   *
+   */
+  readonly orderUrlTemplate?: string
+  /**
+   *	Absolute `https` URL of the storefront's terms of service page.
+   *
+   *
+   */
+  readonly termsOfServiceUrl?: string
+  /**
+   *	Absolute `https` URL of the storefront's privacy policy page.
+   *
+   *
+   */
+  readonly privacyPolicyUrl?: string
+  /**
+   *	Absolute `https` URL of the storefront's refund policy page.
+   *
+   *
+   */
+  readonly refundPolicyUrl?: string
+  /**
+   *	Absolute `https` URL of the storefront's shipping policy page.
+   *
+   *
+   */
+  readonly shippingPolicyUrl?: string
+  /**
+   *	Absolute `https` URL of the storefront's cookie policy page.
+   *
+   *
+   */
+  readonly cookiePolicyUrl?: string
+  /**
+   *	Absolute `https` URL of the storefront's imprint (legal notice) page.
+   *
+   *
+   */
+  readonly imprintUrl?: string
+  /**
+   *	Absolute `https` URL of the storefront's FAQ page.
+   *
+   *
+   */
+  readonly faqUrl?: string
+  /**
+   *	Absolute `https` URL of the storefront's contact page.
+   *
+   *
+   */
+  readonly contactUrl?: string
 }
 /**
  *	This update action produces the [StoreCountriesChanged](ctp:api:type:StoreCountriesChangedMessage) Message.
@@ -358,7 +455,7 @@ export interface StoreAddDistributionChannelAction extends IStoreUpdateAction {
   readonly distributionChannel: ChannelResourceIdentifier
 }
 /**
- *	To make all included Products available to your customers of a given Store, add the [Product Selections](/../api/projects/product-selections) to the respective Store. This action has no effect if the given Product Selection is already present in the Store and has the same `active` flag.
+ *	To make all included Products available to your customers of a given Store, add the [Product Selections](/api/projects/product-selections) to the respective Store. This action has no effect if the given Product Selection is already present in the Store and has the same `active` flag.
  *
  */
 export interface StoreAddProductSelectionAction extends IStoreUpdateAction {
@@ -370,7 +467,7 @@ export interface StoreAddProductSelectionAction extends IStoreUpdateAction {
    */
   readonly productSelection: ProductSelectionResourceIdentifier
   /**
-   *	Set to `true` to make all Products assigned to the referenced Product Selection available in the Store.
+   *	Whether to make all Products assigned to the referenced Product Selection available in the Store.
    *
    *
    */
@@ -406,7 +503,7 @@ export interface StoreChangeProductSelectionAction extends IStoreUpdateAction {
    */
   readonly productSelection: ProductSelectionResourceIdentifier
   /**
-   *	Set to `true` if all Products assigned to the Product Selection should become part of the Store's assortment.
+   *	Whether all Products assigned to the Product Selection should become part of the Store's assortment.
    *
    *
    */
@@ -430,8 +527,7 @@ export interface StoreRemoveCountryAction extends IStoreUpdateAction {
  *	This update action produces the [StoreDistributionChannelsChanged](ctp:api:type:StoreDistributionChannelsChangedMessage) Message.
  *
  */
-export interface StoreRemoveDistributionChannelAction
-  extends IStoreUpdateAction {
+export interface StoreRemoveDistributionChannelAction extends IStoreUpdateAction {
   readonly action: 'removeDistributionChannel'
   /**
    *	Value to remove. ResourceIdentifier of a Channel with the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
@@ -467,6 +563,46 @@ export interface StoreRemoveSupplyChannelAction extends IStoreUpdateAction {
   readonly supplyChannel: ChannelResourceIdentifier
 }
 /**
+ *	This update action produces the [StoreCheckoutUrlTemplateSet](ctp:api:type:StoreCheckoutUrlTemplateSetMessage) Message.
+ *
+ */
+export interface StoreSetCheckoutUrlTemplateAction extends IStoreUpdateAction {
+  readonly action: 'setCheckoutUrlTemplate'
+  /**
+   *	Value to set. Must be an [RFC 6570](https://datatracker.ietf.org/doc/html/rfc6570) URI template containing the `checkoutId` variable.
+   *	If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly checkoutUrlTemplate?: string
+}
+/**
+ *	This update action produces the [StoreContactUrlSet](ctp:api:type:StoreContactUrlSetMessage) Message.
+ *
+ */
+export interface StoreSetContactUrlAction extends IStoreUpdateAction {
+  readonly action: 'setContactUrl'
+  /**
+   *	Value to set. Must be an absolute `https` URL. If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly contactUrl?: string
+}
+/**
+ *	This update action produces the [StoreCookiePolicyUrlSet](ctp:api:type:StoreCookiePolicyUrlSetMessage) Message.
+ *
+ */
+export interface StoreSetCookiePolicyUrlAction extends IStoreUpdateAction {
+  readonly action: 'setCookiePolicyUrl'
+  /**
+   *	Value to set. Must be an absolute `https` URL. If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly cookiePolicyUrl?: string
+}
+/**
  *	This update action produces the [StoreCountriesChanged](ctp:api:type:StoreCountriesChangedMessage) Message.
  *
  */
@@ -482,7 +618,7 @@ export interface StoreSetCountriesAction extends IStoreUpdateAction {
 export interface StoreSetCustomFieldAction extends IStoreUpdateAction {
   readonly action: 'setCustomField'
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -499,14 +635,16 @@ export interface StoreSetCustomFieldAction extends IStoreUpdateAction {
 export interface StoreSetCustomTypeAction extends IStoreUpdateAction {
   readonly action: 'setCustomType'
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the Store with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the Store with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the Store.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Store.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the Store.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */
@@ -529,14 +667,41 @@ export interface StoreSetDistributionChannelsAction extends IStoreUpdateAction {
   readonly distributionChannels?: ChannelResourceIdentifier[]
 }
 /**
+ *	This update action produces the [StoreFaqUrlSet](ctp:api:type:StoreFaqUrlSetMessage) Message.
+ *
+ */
+export interface StoreSetFaqUrlAction extends IStoreUpdateAction {
+  readonly action: 'setFaqUrl'
+  /**
+   *	Value to set. Must be an absolute `https` URL. If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly faqUrl?: string
+}
+/**
+ *	This update action produces the [StoreImprintUrlSet](ctp:api:type:StoreImprintUrlSetMessage) Message.
+ *
+ */
+export interface StoreSetImprintUrlAction extends IStoreUpdateAction {
+  readonly action: 'setImprintUrl'
+  /**
+   *	Value to set. Must be an absolute `https` URL. If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly imprintUrl?: string
+}
+/**
  *	This update action produces the [StoreLanguagesChanged](ctp:api:type:StoreLanguagesChangedMessage) Message.
- *	Adding a language other than the ones defined in the [Project](ctp:api:type:Project) returns a [ProjectNotConfiguredForLanguages](ctp:api:type:ProjectNotConfiguredForLanguagesError) error.
  *
  */
 export interface StoreSetLanguagesAction extends IStoreUpdateAction {
   readonly action: 'setLanguages'
   /**
    *	Value to set.
+   *
+   *	If a language is not configured for the Project, a [ProjectNotConfiguredForLanguages](ctp:api:type:ProjectNotConfiguredForLanguagesError) error is returned.
    *
    *
    */
@@ -556,7 +721,34 @@ export interface StoreSetNameAction extends IStoreUpdateAction {
   readonly name?: LocalizedString
 }
 /**
- *	Instead of adding or removing [Product Selections](/../api/projects/product-selections) individually, you can also change all the Store's Product Selections in one go using this update action. The Store will only contain the Product Selections specified in the request.
+ *	This update action produces the [StoreOrderUrlTemplateSet](ctp:api:type:StoreOrderUrlTemplateSetMessage) Message.
+ *
+ */
+export interface StoreSetOrderUrlTemplateAction extends IStoreUpdateAction {
+  readonly action: 'setOrderUrlTemplate'
+  /**
+   *	Value to set. Must be an [RFC 6570](https://datatracker.ietf.org/doc/html/rfc6570) URI template containing the `orderId` variable.
+   *	If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly orderUrlTemplate?: string
+}
+/**
+ *	This update action produces the [StorePrivacyPolicyUrlSet](ctp:api:type:StorePrivacyPolicyUrlSetMessage) Message.
+ *
+ */
+export interface StoreSetPrivacyPolicyUrlAction extends IStoreUpdateAction {
+  readonly action: 'setPrivacyPolicyUrl'
+  /**
+   *	Value to set. Must be an absolute `https` URL. If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly privacyPolicyUrl?: string
+}
+/**
+ *	Instead of adding or removing [Product Selections](/api/projects/product-selections) individually, you can also change all the Store's Product Selections in one go using this update action. The Store will only contain the Product Selections specified in the request.
  *
  */
 export interface StoreSetProductSelectionsAction extends IStoreUpdateAction {
@@ -565,11 +757,37 @@ export interface StoreSetProductSelectionsAction extends IStoreUpdateAction {
    *	Value to set.
    *
    *	- If provided, Product Selections for which `active` is set to `true` are available in the Store.
-   *	- If not provided or provided as empty array, the action removes all Product Selections from this Store, meaning all Products in the [Project](ctp:api:type:Project) are available in this Store.
+   *	- If omitted or provided as empty array, the action removes all Product Selections from this Store, meaning all Products in the [Project](ctp:api:type:Project) are available in this Store.
    *
    *
    */
   readonly productSelections?: ProductSelectionSettingDraft[]
+}
+/**
+ *	This update action produces the [StoreRefundPolicyUrlSet](ctp:api:type:StoreRefundPolicyUrlSetMessage) Message.
+ *
+ */
+export interface StoreSetRefundPolicyUrlAction extends IStoreUpdateAction {
+  readonly action: 'setRefundPolicyUrl'
+  /**
+   *	Value to set. Must be an absolute `https` URL. If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly refundPolicyUrl?: string
+}
+/**
+ *	This update action produces the [StoreShippingPolicyUrlSet](ctp:api:type:StoreShippingPolicyUrlSetMessage) Message.
+ *
+ */
+export interface StoreSetShippingPolicyUrlAction extends IStoreUpdateAction {
+  readonly action: 'setShippingPolicyUrl'
+  /**
+   *	Value to set. Must be an absolute `https` URL. If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly shippingPolicyUrl?: string
 }
 /**
  *	Setting a supply channel produces the [StoreSupplyChannelsChanged](ctp:api:type:StoreSupplyChannelsChangedMessage) Message.
@@ -586,4 +804,17 @@ export interface StoreSetSupplyChannelsAction extends IStoreUpdateAction {
    *
    */
   readonly supplyChannels?: ChannelResourceIdentifier[]
+}
+/**
+ *	This update action produces the [StoreTermsOfServiceUrlSet](ctp:api:type:StoreTermsOfServiceUrlSetMessage) Message.
+ *
+ */
+export interface StoreSetTermsOfServiceUrlAction extends IStoreUpdateAction {
+  readonly action: 'setTermsOfServiceUrl'
+  /**
+   *	Value to set. Must be an absolute `https` URL. If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly termsOfServiceUrl?: string
 }

@@ -59,7 +59,7 @@ export interface PaymentMethod extends BaseResource {
   /**
    *	Reference to a BusinessUnit associated with the PaymentMethod.
    *
-   *	Only available for [B2B](/../offering/composable-commerce#composable-commerce-for-b2b)-enabled Projects.
+   *	Only available for [B2B](/offering/commerce-b2b)-enabled Projects.
    *
    *
    */
@@ -157,7 +157,7 @@ export interface PaymentMethodDraft {
   /**
    *	Reference to a BusinessUnit the PaymentMethod should belong to.
    *
-   *	Only available for [B2B](/../offering/composable-commerce#composable-commerce-for-b2b)-enabled Projects.
+   *	Only available for [B2B](/offering/commerce-b2b)-enabled Projects.
    *
    *
    */
@@ -193,7 +193,7 @@ export interface PaymentMethodDraft {
    */
   readonly paymentMethodStatus?: PaymentMethodStatus
   /**
-   *	Set to `true` if the PaymentMethod should be the default.
+   *	Whether the PaymentMethod should be the default.
    *
    *	The default applies per Customer, Business Unit, or the combination of both (Associate).
    *
@@ -208,18 +208,18 @@ export interface PaymentMethodDraft {
   readonly custom?: CustomFieldsDraft
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [PaymentMethod](ctp:api:type:PaymentMethod).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with `results` containing an array of [PaymentMethod](ctp:api:type:PaymentMethod).
  *
  */
 export interface PaymentMethodPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -232,10 +232,10 @@ export interface PaymentMethodPagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -260,7 +260,7 @@ export interface PaymentMethodReference extends IReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded PaymentMethod. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for PaymentMethods.
+   *	Contains the representation of the expanded PaymentMethod. Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for PaymentMethods.
    *
    *
    */
@@ -325,11 +325,10 @@ export interface IPaymentMethodUpdateAction {
  *	Adding a Custom Field to a PaymentMethod generates the [PaymentMethodCustomFieldAdded](ctp:api:type:PaymentMethodCustomFieldAddedMessage) Message, removing one generates the [PaymentMethodCustomFieldRemoved](ctp:api:type:PaymentMethodCustomFieldRemovedMessage) Message, and updating an existing one generates the [PaymentMethodCustomFieldChanged](ctp:api:type:PaymentMethodCustomFieldChangedMessage) Message.
  *
  */
-export interface PaymentMethodSetCustomFieldAction
-  extends IPaymentMethodUpdateAction {
+export interface PaymentMethodSetCustomFieldAction extends IPaymentMethodUpdateAction {
   readonly action: 'setCustomField'
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields) to add, update, or remove.
+   *	Name of the [Custom Field](/api/projects/custom-fields) to add, update, or remove.
    *
    *
    */
@@ -347,18 +346,19 @@ export interface PaymentMethodSetCustomFieldAction
  *	Adding or updating a Custom Type on a PaymentMethod generates the [PaymentMethodCustomTypeSet](ctp:api:type:PaymentMethodCustomTypeSetMessage) Message, removing one generates the [PaymentMethodCustomTypeRemoved](ctp:api:type:PaymentMethodCustomTypeRemovedMessage) Message.
  *
  */
-export interface PaymentMethodSetCustomTypeAction
-  extends IPaymentMethodUpdateAction {
+export interface PaymentMethodSetCustomTypeAction extends IPaymentMethodUpdateAction {
   readonly action: 'setCustomType'
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the PaymentMethod with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the PaymentMethod with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the PaymentMethod.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the PaymentMethod.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the PaymentMethod.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */
@@ -370,8 +370,7 @@ export interface PaymentMethodSetCustomTypeAction
  *	An inactive Payment Method cannot be set as the default, and the action will return an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
  *
  */
-export interface PaymentMethodSetDefaultAction
-  extends IPaymentMethodUpdateAction {
+export interface PaymentMethodSetDefaultAction extends IPaymentMethodUpdateAction {
   readonly action: 'setDefault'
   /**
    *	Value to set.
@@ -384,12 +383,11 @@ export interface PaymentMethodSetDefaultAction
  *	This action generates the [PaymentMethodInterfaceAccountSet](ctp:api:type:PaymentMethodInterfaceAccountSetMessage) Message.
  *
  */
-export interface PaymentMethodSetInterfaceAccountAction
-  extends IPaymentMethodUpdateAction {
+export interface PaymentMethodSetInterfaceAccountAction extends IPaymentMethodUpdateAction {
   readonly action: 'setInterfaceAccount'
   /**
    *	New account or instance of the payment interface.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -403,7 +401,7 @@ export interface PaymentMethodSetKeyAction extends IPaymentMethodUpdateAction {
   readonly action: 'setKey'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -413,12 +411,11 @@ export interface PaymentMethodSetKeyAction extends IPaymentMethodUpdateAction {
  *	This action generates the [PaymentMethodMethodSet](ctp:api:type:PaymentMethodMethodSetMessage) Message.
  *
  */
-export interface PaymentMethodSetMethodAction
-  extends IPaymentMethodUpdateAction {
+export interface PaymentMethodSetMethodAction extends IPaymentMethodUpdateAction {
   readonly action: 'setMethod'
   /**
    *	New payment method—for example, a credit card or direct debit.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -432,7 +429,7 @@ export interface PaymentMethodSetNameAction extends IPaymentMethodUpdateAction {
   readonly action: 'setName'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -442,12 +439,11 @@ export interface PaymentMethodSetNameAction extends IPaymentMethodUpdateAction {
  *	This action generates the [PaymentMethodPaymentInterfaceSet](ctp:api:type:PaymentMethodPaymentInterfaceSetMessage) Message.
  *
  */
-export interface PaymentMethodSetPaymentInterfaceAction
-  extends IPaymentMethodUpdateAction {
+export interface PaymentMethodSetPaymentInterfaceAction extends IPaymentMethodUpdateAction {
   readonly action: 'setPaymentInterface'
   /**
    *	New payment service that processes the Payment—for example, a PSP.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -459,8 +455,7 @@ export interface PaymentMethodSetPaymentInterfaceAction
  *	A default Payment Method cannot be set as inactive, and the action will return an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
  *
  */
-export interface PaymentMethodSetPaymentMethodStatusAction
-  extends IPaymentMethodUpdateAction {
+export interface PaymentMethodSetPaymentMethodStatusAction extends IPaymentMethodUpdateAction {
   readonly action: 'setPaymentMethodStatus'
   /**
    *	Value to set.

@@ -77,5 +77,18 @@ describe('ApiRequestExecutor', () => {
 
       expect(buildRelativeUri(request)).toEqual('/key=foo%5Bbar%5D/test/bar')
     })
+
+    test('path traversal characters in uri parameter', async () => {
+      const request = {
+        baseURL: 'http://base-url',
+        method: 'GET' as const,
+        uriTemplate: '/categories/{id}',
+        pathVariables: {
+          id: '../cart',
+        },
+      }
+
+      expect(buildRelativeUri(request)).toEqual('/categories/..%2Fcart')
+    })
   })
 })

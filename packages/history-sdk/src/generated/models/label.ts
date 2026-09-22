@@ -156,7 +156,7 @@ export interface QuoteLabel extends ILabel {
    */
   readonly key: string
   /**
-   *	The [Buyer](/../api/quotes-overview#buyer) who requested the Quote.
+   *	The [Buyer](/api/quotes-overview#buyer) who requested the Quote.
    *
    *
    */
@@ -183,7 +183,7 @@ export interface QuoteRequestLabel extends ILabel {
    */
   readonly key: string
   /**
-   *	The [Buyer](/../api/quotes-overview#buyer) who raised the Quote Request.
+   *	The [Buyer](/api/quotes-overview#buyer) who raised the Quote Request.
    *
    *
    */
@@ -228,7 +228,7 @@ export interface StagedQuoteLabel extends ILabel {
    */
   readonly key: string
   /**
-   *	The [Buyer](/../api/quotes-overview#buyer) who requested the Quote.
+   *	The [Buyer](/api/quotes-overview#buyer) who requested the Quote.
    *
    *
    */

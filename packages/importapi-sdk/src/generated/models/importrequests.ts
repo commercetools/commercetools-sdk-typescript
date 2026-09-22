@@ -15,12 +15,14 @@ import { OrderPatchImport } from './order-patches'
 import { OrderImport } from './orders'
 import { PriceImport } from './prices'
 import { ProductSelectionImport } from './product-selections'
+import { ProductTailoringImport } from './product-tailoring'
 import { ProductDraftImport } from './productdrafts'
 import { ProductImport } from './products'
 import { ProductTypeImport } from './producttypes'
 import { ProductVariantImport, ProductVariantPatch } from './productvariants'
 import { StandalonePriceImport } from './standalone-prices'
 import { TypeImport } from './types'
+import { VariantImport } from './variants'
 
 /**
  *	An import request batches multiple import resources of the same import resource type for processing by an Import Container.
@@ -38,11 +40,13 @@ export type ImportRequest =
   | ProductDraftImportRequest
   | ProductImportRequest
   | ProductSelectionImportRequest
+  | ProductTailoringImportRequest
   | ProductTypeImportRequest
   | ProductVariantImportRequest
   | ProductVariantPatchRequest
   | StandalonePriceImportRequest
   | TypeImportRequest
+  | VariantImportRequest
 export interface IImportRequest {
   /**
    *	The resource type that can be imported.
@@ -128,7 +132,7 @@ export interface ProductVariantImportRequest extends IImportRequest {
   readonly resources: ProductVariantImport[]
 }
 /**
- *	The request body to [import Embedded Prices](ctp:import:endpoint:/{projectKey}/prices/import-containers/{importContainerKey}:POST). Contains data for [Embedded Prices](/../api/types#price) to be created or updated in a Project.
+ *	The request body to [import Embedded Prices](ctp:import:endpoint:/{projectKey}/prices/import-containers/{importContainerKey}:POST). Contains data for [Embedded Prices](/api/types#price) to be created or updated in a Project.
  *
  */
 export interface PriceImportRequest extends IImportRequest {
@@ -152,6 +156,21 @@ export interface StandalonePriceImportRequest extends IImportRequest {
    *
    */
   readonly resources: StandalonePriceImport[]
+}
+/**
+ *	The request body to [import Variants](ctp:import:endpoint:/{projectKey}/variants/import-containers/{importContainerKey}:POST). Contains data for Variants to be created or updated in a Project.
+ *
+ *	This import resource is only available for Projects with `productCatalogModel` set to `Modular`.
+ *
+ */
+export interface VariantImportRequest extends IImportRequest {
+  readonly type: 'variant'
+  /**
+   *	The Variant import resources of this request.
+   *
+   *
+   */
+  readonly resources: VariantImport[]
 }
 /**
  *	The request body to [import Orders](ctp:import:endpoint:/{projectKey}/orders/import-containers/{importContainerKey}:POST). Contains data for [Orders](ctp:api:type:Order) to be created in a Project.
@@ -256,6 +275,19 @@ export interface ProductSelectionImportRequest extends IImportRequest {
    *
    */
   readonly resources: ProductSelectionImport[]
+}
+/**
+ *	The request body to [import Product Tailoring](ctp:import:endpoint:/{projectKey}/product-tailorings/import-containers/{importContainerKey}:POST). Contains data for [Product Tailoring](ctp:api:type:ProductTailoring) to be created or updated in a Project.
+ *
+ */
+export interface ProductTailoringImportRequest extends IImportRequest {
+  readonly type: 'product-tailoring'
+  /**
+   *	The Product Tailoring import resources of this request.
+   *
+   *
+   */
+  readonly resources: ProductTailoringImport[]
 }
 /**
  *	The request body to [import Business Units](ctp:import:endpoint:/{projectKey}/business-units/import-containers/{importContainerKey}:POST). Contains data for [Business Units](ctp:api:type:BusinessUnit) to be created or updated in a Project.

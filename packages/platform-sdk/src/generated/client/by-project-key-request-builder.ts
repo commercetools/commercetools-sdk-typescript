@@ -6,6 +6,7 @@
 import { Project, ProjectUpdate } from '../models/project'
 import { executeRequest } from '../shared/utils/common-types'
 import { ApiRequest } from '../shared/utils/requests-utils'
+import { ByProjectKeyAgentsRequestBuilder } from './agents/by-project-key-agents-request-builder'
 import { ByProjectKeyApiClientsRequestBuilder } from './api-clients/by-project-key-api-clients-request-builder'
 import { ByProjectKeyAsAssociateRequestBuilder } from './as-associate/by-project-key-as-associate-request-builder'
 import { ByProjectKeyAssociateRolesRequestBuilder } from './associate-roles/by-project-key-associate-roles-request-builder'
@@ -26,6 +27,7 @@ import { ByProjectKeyInBusinessUnitKeyByBusinessUnitKeyRequestBuilder } from './
 import { ByProjectKeyInStoreKeyByStoreKeyRequestBuilder } from './in-store/by-project-key-in-store-key-by-store-key-request-builder'
 import { ByProjectKeyInventoryRequestBuilder } from './inventory/by-project-key-inventory-request-builder'
 import { ByProjectKeyLoginRequestBuilder } from './login/by-project-key-login-request-builder'
+import { ByProjectKeyMcpServersRequestBuilder } from './mcp-servers/by-project-key-mcp-servers-request-builder'
 import { ByProjectKeyMeRequestBuilder } from './me/by-project-key-me-request-builder'
 import { ByProjectKeyMessagesRequestBuilder } from './messages/by-project-key-messages-request-builder'
 import { ByProjectKeyOrdersRequestBuilder } from './orders/by-project-key-orders-request-builder'
@@ -51,6 +53,8 @@ import { ByProjectKeyStoresRequestBuilder } from './stores/by-project-key-stores
 import { ByProjectKeySubscriptionsRequestBuilder } from './subscriptions/by-project-key-subscriptions-request-builder'
 import { ByProjectKeyTaxCategoriesRequestBuilder } from './tax-categories/by-project-key-tax-categories-request-builder'
 import { ByProjectKeyTypesRequestBuilder } from './types/by-project-key-types-request-builder'
+import { ByProjectKeyVariantProjectionsRequestBuilder } from './variant-projections/by-project-key-variant-projections-request-builder'
+import { ByProjectKeyVariantsRequestBuilder } from './variants/by-project-key-variants-request-builder'
 import { ByProjectKeyZonesRequestBuilder } from './zones/by-project-key-zones-request-builder'
 /**
  **/
@@ -64,6 +68,19 @@ export class ByProjectKeyRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Agents interpret unstructured input and produce structured commerce objects.
+   *
+   */
+  public agents(): ByProjectKeyAgentsRequestBuilder {
+    return new ByProjectKeyAgentsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
   public asAssociate(): ByProjectKeyAsAssociateRequestBuilder {
     return new ByProjectKeyAsAssociateRequestBuilder({
       pathArgs: {
@@ -400,7 +417,7 @@ export class ByProjectKeyRequestBuilder {
     })
   }
   /**
-   *	A staged quote holds the negotiation between the [Buyer](/../api/quotes-overview#buyer) and the [Seller](/../api/quotes-overview#seller).
+   *	A staged quote holds the negotiation between the [Buyer](/api/quotes-overview#buyer) and the [Seller](/api/quotes-overview#seller).
    */
   public stagedQuotes(): ByProjectKeyStagedQuotesRequestBuilder {
     return new ByProjectKeyStagedQuotesRequestBuilder({
@@ -524,6 +541,29 @@ export class ByProjectKeyRequestBuilder {
     })
   }
   /**
+   *	A Variant Projection is a lightweight, read-only representation of a single Product Variant
+   *	with embedded Product data such as name, slug, and description.
+   *
+   */
+  public variantProjections(): ByProjectKeyVariantProjectionsRequestBuilder {
+    return new ByProjectKeyVariantProjectionsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public variants(): ByProjectKeyVariantsRequestBuilder {
+    return new ByProjectKeyVariantsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
    *	Zones allow defining ShippingRates for specific Locations.
    */
   public zones(): ByProjectKeyZonesRequestBuilder {
@@ -622,6 +662,18 @@ export class ByProjectKeyRequestBuilder {
    */
   public attributeGroups(): ByProjectKeyAttributeGroupsRequestBuilder {
     return new ByProjectKeyAttributeGroupsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
+   *	Manage MCP Server configurations for a Project.
+   */
+  public mcpServers(): ByProjectKeyMcpServersRequestBuilder {
+    return new ByProjectKeyMcpServersRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },

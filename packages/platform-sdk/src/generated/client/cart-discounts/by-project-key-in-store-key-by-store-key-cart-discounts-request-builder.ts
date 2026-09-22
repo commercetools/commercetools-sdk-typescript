@@ -8,7 +8,7 @@ import {
   CartDiscountDraft,
   CartDiscountPagedQueryResponse,
 } from '../../models/cart-discount'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyInStoreKeyByStoreKeyCartDiscountsByIDRequestBuilder } from './by-project-key-in-store-key-by-store-key-cart-discounts-by-id-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyCartDiscountsKeyByKeyRequestBuilder } from './by-project-key-in-store-key-by-store-key-cart-discounts-key-by-key-request-builder'

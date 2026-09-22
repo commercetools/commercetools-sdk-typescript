@@ -8,7 +8,7 @@ import {
   ProductDraft,
   ProductPagedQueryResponse,
 } from '../../models/product'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyProductsSearchRequestBuilder } from '../search/by-project-key-products-search-request-builder'
 import { ByProjectKeyProductsByIDRequestBuilder } from './by-project-key-products-by-id-request-builder'
@@ -64,7 +64,7 @@ export class ByProjectKeyProductsRequestBuilder {
   }
 
   /**
-   *	If [Product price selection query parameters](/../api/pricing-and-discounts-overview#product-price-selection) are provided, the selected Prices are added to the response.
+   *	If [Product price selection query parameters](/api/pricing-and-discounts-overview#product-price-selection) are provided, the selected Prices are added to the response.
    */
   public get(methodArgs?: {
     queryArgs?: {
@@ -128,8 +128,10 @@ export class ByProjectKeyProductsRequestBuilder {
   }
   /**
    *	To create a new Product, send a representation that is going to become the initial _staged_ and _current_ representation of the new Product in the catalog.
-   *	If [Product price selection query parameters](/../api/pricing-and-discounts-overview#product-price-selection) are provided, selected Prices will be added to the response.
+   *	If [Product price selection query parameters](/api/pricing-and-discounts-overview#product-price-selection) are provided, selected Prices will be added to the response.
    *	Produces the [ProductCreated](/projects/messages/product-catalog-messages#product-created) Message.
+   *
+   *	A failed response can return an [OverlappingPriceValidity](ctp:api:type:OverlappingPriceValidityError) error.
    *
    */
   public post(methodArgs: {

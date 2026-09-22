@@ -26,6 +26,7 @@ import {
   CustomLineItem,
   DiscountCodeState,
   DiscountedLineItemPriceForQuantity,
+  EstimatedDelivery,
   ItemShippingDetails,
   LineItem,
   MethodTaxedPrice,
@@ -40,6 +41,7 @@ import { ChannelReference } from './channel'
 import {
   Address,
   AddressRole,
+  Asset,
   CentPrecisionMoney,
   CreatedBy,
   DiscountedPrice,
@@ -89,6 +91,7 @@ import {
   PaymentMethodToken,
 } from './payment-method'
 import {
+  Attribute,
   ProductPriceModeEnum,
   ProductProjection,
   ProductReference,
@@ -137,7 +140,7 @@ export interface ContainerAndKey {
   readonly container: string
 }
 /**
- *	Base representation of a Message containing common fields to all [Message Types](/../api/projects/messages#message-types).
+ *	Base representation of a Message containing common fields to all [Message Types](/api/projects/messages#message-types).
  *
  */
 export type Message =
@@ -205,9 +208,12 @@ export type Message =
   | CartDiscountStoreAddedMessage
   | CartDiscountStoreRemovedMessage
   | CartDiscountStoresSetMessage
+  | CartEstimatedDeliverySetMessage
   | CartFrozenMessage
+  | CartLockedMessage
   | CartPurchaseOrderNumberSetMessage
   | CartUnfrozenMessage
+  | CartUnlockedMessage
   | CategoryCreatedMessage
   | CategorySlugChangedMessage
   | CustomLineItemStateTransitionMessage
@@ -272,7 +278,11 @@ export type Message =
   | DiscountGroupSortOrderSetMessage
   | InventoryEntryCreatedMessage
   | InventoryEntryDeletedMessage
+  | InventoryEntryOutOfStockMessage
   | InventoryEntryQuantitySetMessage
+  | InventoryEntryReorderPointMessage
+  | InventoryEntryReservationExpirationInMinutesSetMessage
+  | InventoryEntrySafetyStockMessage
   | LineItemStateTransitionMessage
   | OrderBillingAddressSetMessage
   | OrderBusinessUnitSetMessage
@@ -295,6 +305,7 @@ export type Message =
   | OrderDiscountCodeRemovedMessage
   | OrderDiscountCodeStateSetMessage
   | OrderEditAppliedMessage
+  | OrderEstimatedDeliverySetMessage
   | OrderImportedMessage
   | OrderLineItemAddedMessage
   | OrderLineItemDiscountSetMessage
@@ -384,6 +395,7 @@ export type Message =
   | ProductTailoringDescriptionSetMessage
   | ProductTailoringImageAddedMessage
   | ProductTailoringImagesSetMessage
+  | ProductTailoringKeySetMessage
   | ProductTailoringNameSetMessage
   | ProductTailoringPublishedMessage
   | ProductTailoringSlugSetMessage
@@ -447,14 +459,33 @@ export type Message =
   | StandalonePriceValidFromSetMessage
   | StandalonePriceValidUntilSetMessage
   | StandalonePriceValueChangedMessage
+  | StoreCheckoutUrlTemplateSetMessage
+  | StoreContactUrlSetMessage
+  | StoreCookiePolicyUrlSetMessage
   | StoreCountriesChangedMessage
   | StoreCreatedMessage
   | StoreDeletedMessage
   | StoreDistributionChannelsChangedMessage
+  | StoreFaqUrlSetMessage
+  | StoreImprintUrlSetMessage
   | StoreLanguagesChangedMessage
   | StoreNameSetMessage
+  | StoreOrderUrlTemplateSetMessage
+  | StorePrivacyPolicyUrlSetMessage
   | StoreProductSelectionsChangedMessage
+  | StoreRefundPolicyUrlSetMessage
+  | StoreShippingPolicyUrlSetMessage
   | StoreSupplyChannelsChangedMessage
+  | StoreTermsOfServiceUrlSetMessage
+  | VariantCreatedMessage
+  | VariantDeletedMessage
+  | VariantImageAddedMessage
+  | VariantImagesSetMessage
+  | VariantKeySetMessage
+  | VariantPublishedMessage
+  | VariantSkuSetMessage
+  | VariantStagedChangesRemovedMessage
+  | VariantUnpublishedMessage
 export interface IMessage {
   /**
    *	Unique identifier of the Message. Can be used to track which Messages have been processed.
@@ -508,7 +539,7 @@ export interface IMessage {
    */
   readonly resourceVersion: number
   /**
-   *	[Message Type](/../api/projects/messages#message-types) of the Message.
+   *	[Message Type](/api/projects/messages#message-types) of the Message.
    *
    *
    */
@@ -3622,8 +3653,7 @@ export interface BusinessUnitCustomTypeSetMessage extends IMessage {
  *	Generated after a successful [Add CustomerGroupAssignment](ctp:api:type:BusinessUnitAddCustomerGroupAssignmentAction) update action.
  *
  */
-export interface BusinessUnitCustomerGroupAssignmentAddedMessage
-  extends IMessage {
+export interface BusinessUnitCustomerGroupAssignmentAddedMessage extends IMessage {
   readonly type: 'BusinessUnitCustomerGroupAssignmentAdded'
   /**
    *	Unique identifier of the Message. Can be used to track which Messages have been processed.
@@ -3693,8 +3723,7 @@ export interface BusinessUnitCustomerGroupAssignmentAddedMessage
  *	Generated after a successful [Remove CustomerGroupAssignment](ctp:api:type:BusinessUnitRemoveCustomerGroupAssignmentAction) update action.
  *
  */
-export interface BusinessUnitCustomerGroupAssignmentRemovedMessage
-  extends IMessage {
+export interface BusinessUnitCustomerGroupAssignmentRemovedMessage extends IMessage {
   readonly type: 'BusinessUnitCustomerGroupAssignmentRemoved'
   /**
    *	Unique identifier of the Message. Can be used to track which Messages have been processed.
@@ -3764,8 +3793,7 @@ export interface BusinessUnitCustomerGroupAssignmentRemovedMessage
  *	Generated after a successful [Set CustomerGroupAssignments](ctp:api:type:BusinessUnitSetCustomerGroupAssignmentsAction) update action.
  *
  */
-export interface BusinessUnitCustomerGroupAssignmentsSetMessage
-  extends IMessage {
+export interface BusinessUnitCustomerGroupAssignmentsSetMessage extends IMessage {
   readonly type: 'BusinessUnitCustomerGroupAssignmentsSet'
   /**
    *	Unique identifier of the Message. Can be used to track which Messages have been processed.
@@ -5204,11 +5232,151 @@ export interface CartDiscountStoresSetMessage extends IMessage {
   readonly stores: StoreKeyReference[]
 }
 /**
+ *	Generated after a successful [Set Estimated Delivery](ctp:api:type:CartSetEstimatedDeliveryAction) update action.
+ *
+ */
+export interface CartEstimatedDeliverySetMessage extends IMessage {
+  readonly type: 'CartEstimatedDeliverySet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Estimated delivery window on the [Cart](ctp:api:type:Cart) after the [Set Estimated Delivery](ctp:api:type:CartSetEstimatedDeliveryAction) update action.
+   *
+   *
+   */
+  readonly estimatedDelivery?: EstimatedDelivery
+  /**
+   *	`key` of the [Shipping](ctp:api:type:Shipping) that was updated. Only present for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
+}
+/**
  *	Generated after a successful [Freeze Cart](ctp:api:type:CartFreezeCartAction) update action.
  *
  */
 export interface CartFrozenMessage extends IMessage {
   readonly type: 'CartFrozen'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+}
+/**
+ *	Generated after a successful [Lock Cart](ctp:api:type:CartLockCartAction) update action.
+ *
+ */
+export interface CartLockedMessage extends IMessage {
+  readonly type: 'CartLocked'
   /**
    *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
@@ -5349,6 +5517,70 @@ export interface CartPurchaseOrderNumberSetMessage extends IMessage {
  */
 export interface CartUnfrozenMessage extends IMessage {
   readonly type: 'CartUnfrozen'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+}
+/**
+ *	Generated after a successful [Unlock Cart](ctp:api:type:CartUnlockCartAction) update action.
+ *
+ */
+export interface CartUnlockedMessage extends IMessage {
+  readonly type: 'CartUnlocked'
   /**
    *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
@@ -7044,7 +7276,7 @@ export interface CustomerDefaultShippingAddressSetMessage extends IMessage {
   readonly address?: Address
 }
 /**
- *	Generated after a successful [Delete Customer](/../api/projects/customers#delete-customer) request.
+ *	Generated after a successful [Delete Customer](/api/projects/customers#delete-customer) request.
  *
  */
 export interface CustomerDeletedMessage extends IMessage {
@@ -7271,7 +7503,7 @@ export interface CustomerEmailTokenCreatedMessage extends IMessage {
    */
   readonly value?: string
   /**
-   *	If `true`, all email tokens issued previously for the Customer are invalidated.
+   *	Whether all email tokens issued previously for the Customer are invalidated.
    *
    *
    */
@@ -8292,14 +8524,14 @@ export interface CustomerPasswordTokenCreatedMessage extends IMessage {
    */
   readonly value?: string
   /**
-   *	If `true`, all password tokens issued previously for the Customer are invalidated.
+   *	Whether all password tokens issued previously for the Customer are invalidated.
    *
    *
    */
   readonly invalidateOlderTokens: boolean
 }
 /**
- *	Generated after a successful [Reset Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password/reset:POST), [Reset Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password/reset:POST), [Change Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password:POST), or [Change Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password:POST) request. This Message is also produced during equivalent requests to the [My Customer Profile](/../api/projects/me-profile) endpoint.
+ *	Generated after a successful [Reset Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password/reset:POST), [Reset Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password/reset:POST), [Change Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password:POST), or [Change Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password:POST) request. This Message is also produced during equivalent requests to the [My Customer Profile](/api/projects/me-profile) endpoint.
  *
  */
 export interface CustomerPasswordUpdatedMessage extends IMessage {
@@ -9297,7 +9529,7 @@ export interface InventoryEntryCreatedMessage extends IMessage {
   readonly inventoryEntry: InventoryEntry
 }
 /**
- *	Generated after a successful [Delete InventoryEntry](/../api/projects/inventory#delete-inventoryentry) request.
+ *	Generated after a successful [Delete InventoryEntry](/api/projects/inventory#delete-inventoryentry) request.
  *
  */
 export interface InventoryEntryDeletedMessage extends IMessage {
@@ -9367,6 +9599,82 @@ export interface InventoryEntryDeletedMessage extends IMessage {
   readonly sku: string
   /**
    *	[Reference](ctp:api:type:Reference) to the [Channel](ctp:api:type:Channel) where the [InventoryEntry](ctp:api:type:InventoryEntry) was deleted.
+   *
+   *
+   */
+  readonly supplyChannel?: ChannelReference
+}
+/**
+ *	Generated after [InventoryEntry](ctp:api:type:InventoryEntry) `quantityOnStock` goes to 0.
+ *
+ */
+export interface InventoryEntryOutOfStockMessage extends IMessage {
+  readonly type: 'InventoryEntryOutOfStock'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The `sku` of the [InventoryEntry](ctp:api:type:InventoryEntry) whose `quantityOnStock` went to 0.
+   *
+   *
+   */
+  readonly sku: string
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Channel](ctp:api:type:Channel) where the [InventoryEntry](ctp:api:type:InventoryEntry) quantity on stock went to 0.
    *
    *
    */
@@ -9474,12 +9782,252 @@ export interface InventoryEntryQuantitySetMessage extends IMessage {
   readonly supplyChannel?: ChannelReference
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [Message](ctp:api:type:Message).
+ *	Generated after [InventoryEntry](ctp:api:type:InventoryEntry) `quantityOnStock` reaches the configured reorder point level. For more information, see [InventoryEntryStockLevels](ctp:api:type:InventoryEntryStockLevels).
+ *
+ */
+export interface InventoryEntryReorderPointMessage extends IMessage {
+  readonly type: 'InventoryEntryReorderPoint'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The `sku` of the [InventoryEntry](ctp:api:type:InventoryEntry) whose `quantityOnStock` reached the configured reorder point level.
+   *
+   *
+   */
+  readonly sku: string
+  /**
+   *	The `quantityOnStock` of the [InventoryEntry](ctp:api:type:InventoryEntry) at the time the reorder point level was reached.
+   *
+   *
+   */
+  readonly quantityOnStock: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Channel](ctp:api:type:Channel) where the [InventoryEntry](ctp:api:type:InventoryEntry) `quantityOnStock` reached the configured reorder point level.
+   *
+   *
+   */
+  readonly supplyChannel?: ChannelReference
+}
+/**
+ *	Generated after a successful [Set Reservation Expiration In Minutes](ctp:api:type:InventoryEntrySetReservationExpirationInMinutesAction) update action.
+ *
+ */
+export interface InventoryEntryReservationExpirationInMinutesSetMessage extends IMessage {
+  readonly type: 'InventoryEntryReservationExpirationInMinutesSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	`reservationExpirationInMinutes` value of the [Inventory Entry](ctp:api:type:InventoryEntry) after the [Set Reservation Expiration In Minutes](ctp:api:type:InventoryEntrySetReservationExpirationInMinutesAction) update action.
+   *
+   *
+   */
+  readonly newReservationExpirationInMinutes?: number
+  /**
+   *	`reservationExpirationInMinutes` value of the [Inventory Entry](ctp:api:type:InventoryEntry) before the [Set Reservation Expiration In Minutes](ctp:api:type:InventoryEntrySetReservationExpirationInMinutesAction) update action.
+   *
+   *
+   */
+  readonly oldReservationExpirationInMinutes?: number
+}
+/**
+ *	Generated after [InventoryEntry](ctp:api:type:InventoryEntry) `quantityOnStock` reaches the configured safety stock level. For more information, see [InventoryEntryStockLevels](ctp:api:type:InventoryEntryStockLevels).
+ *
+ */
+export interface InventoryEntrySafetyStockMessage extends IMessage {
+  readonly type: 'InventoryEntrySafetyStock'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The `sku` of the [InventoryEntry](ctp:api:type:InventoryEntry) whose `quantityOnStock` reached the configured safety stock level.
+   *
+   *
+   */
+  readonly sku: string
+  /**
+   *	The `quantityOnStock` of the [InventoryEntry](ctp:api:type:InventoryEntry) at the time the safety stock level was reached.
+   *
+   *
+   */
+  readonly quantityOnStock: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Channel](ctp:api:type:Channel) where the [InventoryEntry](ctp:api:type:InventoryEntry) `quantityOnStock` reached the configured safety stock level.
+   *
+   *
+   */
+  readonly supplyChannel?: ChannelReference
+}
+/**
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with `results` containing an array of [Message](ctp:api:type:Message).
  *
  */
 export interface MessagePagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
@@ -9492,16 +10040,16 @@ export interface MessagePagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
   readonly total?: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -9514,17 +10062,17 @@ export interface MessagePagedQueryResponse {
   readonly results: Message[]
 }
 /**
- *	Holds the configuration for the [Messages Query](/../api/projects/messages) feature for the Project.
+ *	Holds the configuration for the [Messages Query](/api/projects/messages) feature for the Project.
  */
 export interface MessagesConfiguration {
   /**
-   *	When `true`, the [Messages Query](/../api/projects/messages) feature is active.
+   *	When `true`, the [Messages Query](/api/projects/messages) feature is active.
    *
    *
    */
   readonly enabled: boolean
   /**
-   *	Specifies the number of days each Message should be available via the [Messages Query](/../api/projects/messages) API.
+   *	Specifies the number of days each Message should be available via the [Messages Query](/api/projects/messages) API.
    *	For Messages older than the specified period, it is not guaranteed that they are still accessible via the API.
    *	This field may not be present on Projects created before 8 October 2018.
    *
@@ -9533,17 +10081,17 @@ export interface MessagesConfiguration {
   readonly deleteDaysAfterCreation?: number
 }
 /**
- *	Defines the configuration for the [Messages Query](/../api/projects/messages) feature for the Project.
+ *	Defines the configuration for the [Messages Query](/api/projects/messages) feature for the Project.
  */
 export interface MessagesConfigurationDraft {
   /**
-   *	Setting to `true` activates the [Messages Query](/../api/projects/messages) feature.
+   *	Setting to `true` activates the [Messages Query](/api/projects/messages) feature.
    *
    *
    */
   readonly enabled: boolean
   /**
-   *	Specifies the number of days each Message should be available via the [Messages Query](/../api/projects/messages) API. For Messages older than the specified period, it is not guaranteed that they are still accessible via the API.
+   *	Specifies the number of days each Message should be available via the [Messages Query](/api/projects/messages) API. For Messages older than the specified period, it is not guaranteed that they are still accessible via the API.
    *
    *
    */
@@ -9582,6 +10130,7 @@ export type OrderMessage =
   | OrderDiscountCodeRemovedMessage
   | OrderDiscountCodeStateSetMessage
   | OrderEditAppliedMessage
+  | OrderEstimatedDeliverySetMessage
   | OrderImportedMessage
   | OrderLineItemAddedMessage
   | OrderLineItemDiscountSetMessage
@@ -9657,7 +10206,7 @@ export interface IOrderMessage {
    */
   readonly resourceVersion: number
   /**
-   *	[Message Type](/../api/projects/messages#message-types) of the Message.
+   *	[Message Type](/api/projects/messages#message-types) of the Message.
    *
    *
    */
@@ -10570,7 +11119,7 @@ export interface LineItemStateTransitionMessage extends IOrderMessage {
    */
   readonly lineItemId: string
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Unique among LineItems in the Order.
    *
    *
    */
@@ -10755,6 +11304,8 @@ export interface OrderBusinessUnitSetMessage extends IOrderMessage {
 /**
  *	Generated after an Order is successfully created according to the defined schedule of a Recurring Order.
  *
+ *	This Message is emitted in place of the standard [OrderCreated](ctp:api:type:OrderCreatedMessage) Message: Orders generated by a Recurring Order schedule do not emit the [OrderCreated](ctp:api:type:OrderCreatedMessage) Message.
+ *
  */
 export interface OrderCreatedFromRecurringOrderMessage extends IOrderMessage {
   readonly type: 'OrderCreatedFromRecurringOrder'
@@ -10829,7 +11380,9 @@ export interface OrderCreatedFromRecurringOrderMessage extends IOrderMessage {
   readonly recurringOrderRef: RecurringOrderReference
 }
 /**
- *	Generated after a successful [Create Order](ctp:api:endpoint:/{projectKey}/orders:POST) request.
+ *	Generated after a successful [Create Order](ctp:api:endpoint:/{projectKey}/orders:POST) request, for the initial Order created directly from a Cart.
+ *
+ *	Orders generated by a [Recurring Order](ctp:api:type:RecurringOrder) schedule do not emit this Message. They emit the [OrderCreatedFromRecurringOrder](ctp:api:type:OrderCreatedFromRecurringOrderMessage) Message instead.
  *
  */
 export interface OrderCreatedMessage extends IOrderMessage {
@@ -11288,8 +11841,7 @@ export interface OrderCustomLineItemDiscountSetMessage extends IOrderMessage {
  *	Generated after a successful [Change CustomLineItem Quantity](ctp:api:type:StagedOrderChangeCustomLineItemQuantityAction) update action.
  *
  */
-export interface OrderCustomLineItemQuantityChangedMessage
-  extends IOrderMessage {
+export interface OrderCustomLineItemQuantityChangedMessage extends IOrderMessage {
   readonly type: 'OrderCustomLineItemQuantityChanged'
   /**
    *	Unique identifier of the Message. Can be used to track which Messages have been processed.
@@ -11841,7 +12393,7 @@ export interface OrderCustomerSetMessage extends IOrderMessage {
   readonly oldCustomerGroup?: CustomerGroupReference
 }
 /**
- *	Generated after a successful [Delete Order](/../api/projects/orders#delete-order) request.
+ *	Generated after a successful [Delete Order](/api/projects/orders#delete-order) request.
  *
  */
 export interface OrderDeletedMessage extends IOrderMessage {
@@ -12051,7 +12603,7 @@ export interface OrderDiscountCodeRemovedMessage extends IOrderMessage {
   readonly discountCode: DiscountCodeReference
 }
 /**
- *	Generated after the [DiscountCodeState](ctp:api:type:DiscountCodeState) changes due to a [recalculation](/../api/projects/carts#recalculate).
+ *	Generated after the [DiscountCodeState](ctp:api:type:DiscountCodeState) changes due to a [recalculation](ctp:api:type:CartRecalculateAction).
  *
  */
 export interface OrderDiscountCodeStateSetMessage extends IOrderMessage {
@@ -12207,6 +12759,82 @@ export interface OrderEditAppliedMessage extends IOrderMessage {
    *
    */
   readonly result: OrderEditApplied
+}
+/**
+ *	Generated after a successful [Set Estimated Delivery](ctp:api:type:OrderSetEstimatedDeliveryAction) update action.
+ *
+ */
+export interface OrderEstimatedDeliverySetMessage extends IOrderMessage {
+  readonly type: 'OrderEstimatedDeliverySet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Estimated delivery window on the [Order](ctp:api:type:Order) after the [Set Estimated Delivery](ctp:api:type:OrderSetEstimatedDeliveryAction) update action.
+   *
+   *
+   */
+  readonly estimatedDelivery?: EstimatedDelivery
+  /**
+   *	`key` of the [Shipping](ctp:api:type:Shipping) that was updated. Only present for Orders with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Generated after a successful [Order Import](ctp:api:endpoint:/{projectKey}/orders/import:POST).
@@ -12424,7 +13052,7 @@ export interface OrderLineItemDiscountSetMessage extends IOrderMessage {
    */
   readonly lineItemId: string
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Unique among LineItems in the Order.
    *
    *
    */
@@ -12456,11 +13084,10 @@ export interface OrderLineItemDiscountSetMessage extends IOrderMessage {
   readonly taxedPricePortions: MethodTaxedPrice[]
 }
 /**
- *	Generated after a successful [Set LineItem DistributionChannel](/../api/projects/order-edits#set-lineitem-distributionchannel) update action.
+ *	Generated after a successful [Set LineItem DistributionChannel](ctp:api:type:StagedOrderSetLineItemDistributionChannelAction) update action.
  *
  */
-export interface OrderLineItemDistributionChannelSetMessage
-  extends IOrderMessage {
+export interface OrderLineItemDistributionChannelSetMessage extends IOrderMessage {
   readonly type: 'OrderLineItemDistributionChannelSet'
   /**
    *	Unique identifier of the Message. Can be used to track which Messages have been processed.
@@ -12526,7 +13153,7 @@ export interface OrderLineItemDistributionChannelSetMessage
    */
   readonly lineItemId: string
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Unique among LineItems in the Order.
    *
    *
    */
@@ -12608,7 +13235,7 @@ export interface OrderLineItemRemovedMessage extends IOrderMessage {
    */
   readonly lineItemId: string
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Unique among LineItems in the Order.
    *
    *
    */
@@ -16527,7 +17154,7 @@ export interface ProductCreatedMessage extends IMessage {
   readonly productProjection: ProductProjection
 }
 /**
- *	Generated after a successful [Delete Product](/../api/projects/products#delete-product) request.
+ *	Generated after a successful [Delete Product](/api/projects/products#delete-product) request.
  *
  */
 export interface ProductDeletedMessage extends IMessage {
@@ -16603,7 +17230,7 @@ export interface ProductDeletedMessage extends IMessage {
   readonly currentProjection?: ProductProjection
 }
 /**
- *	Generated after a successful [Add External Image](ctp:api:type:ProductAddExternalImageAction) update action or after the successful [upload of an image](/../api/projects/products#upload-product-image).
+ *	Generated after a successful [Add External Image](ctp:api:type:ProductAddExternalImageAction) update action or after the successful [upload of an image](ctp:api:endpoint:/{projectKey}/products/{id}/images:POST).
  *
  */
 export interface ProductImageAddedMessage extends IMessage {
@@ -18149,7 +18776,7 @@ export interface ProductSelectionCreatedMessage extends IMessage {
   readonly productSelection: ProductSelection
 }
 /**
- *	Generated after a successful [Delete Product Selection](/../api/projects/product-selections#delete-productselection) request.
+ *	Generated after a successful [Delete Product Selection](/api/projects/product-selections#delete-productselection) request.
  *
  */
 export interface ProductSelectionDeletedMessage extends IMessage {
@@ -18438,8 +19065,7 @@ export interface ProductSelectionProductRemovedMessage extends IMessage {
  *	Generated after a successful [Set Variant Exclusion](ctp:api:type:ProductSelectionSetVariantExclusionAction) update action.
  *
  */
-export interface ProductSelectionVariantExclusionChangedMessage
-  extends IMessage {
+export interface ProductSelectionVariantExclusionChangedMessage extends IMessage {
   readonly type: 'ProductSelectionVariantExclusionChanged'
   /**
    *	Unique identifier of the Message. Can be used to track which Messages have been processed.
@@ -18519,8 +19145,7 @@ export interface ProductSelectionVariantExclusionChangedMessage
  *	Generated after a successful [Set Variant Selection](ctp:api:type:ProductSelectionSetVariantSelectionAction) update action.
  *
  */
-export interface ProductSelectionVariantSelectionChangedMessage
-  extends IMessage {
+export interface ProductSelectionVariantSelectionChangedMessage extends IMessage {
   readonly type: 'ProductSelectionVariantSelectionChanged'
   /**
    *	Unique identifier of the Message. Can be used to track which Messages have been processed.
@@ -18748,8 +19373,8 @@ export interface ProductStateTransitionMessage extends IMessage {
   readonly force: boolean
 }
 /**
- *	Generated after a successful [Create Product Tailoring](/../api/projects/product-tailoring#create-producttailoring) or
- *	[Create Product Tailoring in Store](/../api/projects/product-tailoring#create-producttailoring-in-store) request.
+ *	Generated after a successful [Create Product Tailoring](ctp:api:endpoint:/{projectKey}/product-tailoring:POST) or
+ *	[Create Product Tailoring in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/product-tailoring:POST) request.
  *
  */
 export interface ProductTailoringCreatedMessage extends IMessage {
@@ -18885,15 +19510,15 @@ export interface ProductTailoringCreatedMessage extends IMessage {
    */
   readonly attributes?: ProductTailoringAttribute[]
   /**
-   *	`true` if the ProductTailoring is published.
+   *	Whether the ProductTailoring is published.
    *
    *
    */
   readonly published: boolean
 }
 /**
- *	Generated after a successful [Delete Product Tailoring](/../api/projects/product-tailoring#delete-producttailoring) or
- *	[Delete ProductTailoring assigned to Product in Store](/../api/projects/product-tailoring#delete-producttailoring-assigned-to-product-in-store) request.
+ *	Generated after a successful [Delete Product Tailoring](/api/projects/product-tailoring#delete-producttailoring) or
+ *	[Delete ProductTailoring assigned to Product in Store](/api/projects/product-tailoring#delete-producttailoring-assigned-to-product-in-store) request.
  *
  */
 export interface ProductTailoringDeletedMessage extends IMessage {
@@ -19262,6 +19887,100 @@ export interface ProductTailoringImagesSetMessage extends IMessage {
    *
    */
   readonly images?: Image[]
+}
+/**
+ *	Generated after a successful Product Tailoring [Set Key](ctp:api:type:ProductTailoringSetKeyAction) update action.
+ *
+ */
+export interface ProductTailoringKeySetMessage extends IMessage {
+  readonly type: 'ProductTailoringKeySet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	User-defined unique identifier of the Product this Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	`key` value of the [ProductTailoring](ctp:api:type:ProductTailoring) after the [Set Key](ctp:api:type:ProductTailoringSetKeyAction) update action.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	`key` value of the [ProductTailoring](ctp:api:type:ProductTailoring) before the [Set Key](ctp:api:type:ProductTailoringSetKeyAction) update action.
+   *
+   *
+   */
+  readonly oldKey?: string
 }
 /**
  *	Generated after a successful Product Tailoring [Set Name](ctp:api:type:ProductTailoringSetNameAction) update action.
@@ -19831,7 +20550,7 @@ export interface ProductVariantDeletedMessage extends IMessage {
    */
   readonly removedImageUrls: string[]
   /**
-   *	If `true`, this message informs that only the staged ProductVariant has been removed by the update action.
+   *	Whether this message informs that only the staged ProductVariant has been removed by the update action.
    *	If `false`, both the current and staged ProductVariant have been removed.
    *
    *
@@ -20090,7 +20809,7 @@ export interface QuoteCreatedMessage extends IMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Quote](/../api/projects/quotes) that was created.
+   *	[Quote](/api/projects/quotes) that was created.
    *
    *
    */
@@ -20160,20 +20879,20 @@ export interface QuoteCustomerChangedMessage extends IMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	The [Buyer](/../api/quotes-overview#buyer) who now owns the Quote.
+   *	The [Buyer](/api/quotes-overview#buyer) who now owns the Quote.
    *
    *
    */
   readonly customer: CustomerReference
   /**
-   *	The previous [Buyer](/../api/quotes-overview#buyer).
+   *	The previous [Buyer](/api/quotes-overview#buyer).
    *
    *
    */
   readonly previousCustomer: CustomerReference
 }
 /**
- *	Generated after a successful [Delete Quote](/../api/projects/quotes#delete-quote) request.
+ *	Generated after a successful [Delete Quote](/api/projects/quotes#delete-quote) request.
  *
  */
 export interface QuoteDeletedMessage extends IMessage {
@@ -20370,7 +21089,7 @@ export interface QuoteRequestCreatedMessage extends IMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Quote Request](/../api/projects/quote-requests) that was created.
+   *	[Quote Request](/api/projects/quote-requests) that was created.
    *
    *
    */
@@ -20440,20 +21159,20 @@ export interface QuoteRequestCustomerChangedMessage extends IMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	The [Buyer](/../api/quotes-overview#buyer) who now owns the Quote Request.
+   *	The [Buyer](/api/quotes-overview#buyer) who now owns the Quote Request.
    *
    *
    */
   readonly customer: CustomerReference
   /**
-   *	The previous [Buyer](/../api/quotes-overview#buyer).
+   *	The previous [Buyer](/api/quotes-overview#buyer).
    *
    *
    */
   readonly previousCustomer: CustomerReference
 }
 /**
- *	Generated after a successful [Delete QuoteRequest](/../api/projects/quote-requests#delete-quoterequest) request.
+ *	Generated after a successful [Delete QuoteRequest](/api/projects/quote-requests#delete-quoterequest) request.
  *
  */
 export interface QuoteRequestDeletedMessage extends IMessage {
@@ -21276,7 +21995,7 @@ export interface RecurringOrderCustomTypeSetMessage extends IMessage {
   readonly previousTypeId?: string
 }
 /**
- *	Generated after a successful [Delete RecurringOrder](/../api/projects/recurring-orders#delete-recurringorder) request.
+ *	Generated after a successful [Delete RecurringOrder](/api/projects/recurring-orders#delete-recurringorder) request.
  *
  */
 export interface RecurringOrderDeletedMessage extends IMessage {
@@ -22300,8 +23019,7 @@ export interface ReviewStateTransitionMessage extends IMessage {
   readonly force: boolean
 }
 export type ShoppingListMessage =
-  | ShoppingListLineItemAddedMessage
-  | ShoppingListLineItemRemovedMessage
+  ShoppingListLineItemAddedMessage | ShoppingListLineItemRemovedMessage
 export interface IShoppingListMessage {
   /**
    *	Unique identifier of the Message. Can be used to track which Messages have been processed.
@@ -22355,7 +23073,7 @@ export interface IShoppingListMessage {
    */
   readonly resourceVersion: number
   /**
-   *	[Message Type](/../api/projects/messages#message-types) of the Message.
+   *	[Message Type](/api/projects/messages#message-types) of the Message.
    *
    *
    */
@@ -22441,8 +23159,7 @@ export interface ShoppingListLineItemAddedMessage extends IShoppingListMessage {
  *	Generated after a successful [Remove ShoppingListLineItem](ctp:api:type:ShoppingListRemoveLineItemAction) update action.
  *
  */
-export interface ShoppingListLineItemRemovedMessage
-  extends IShoppingListMessage {
+export interface ShoppingListLineItemRemovedMessage extends IShoppingListMessage {
   readonly type: 'ShoppingListLineItemRemoved'
   /**
    *	Unique identifier of the Message. Can be used to track which Messages have been processed.
@@ -22572,14 +23289,14 @@ export interface StagedQuoteCreatedMessage extends IMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Staged Quote](/../api/projects/staged-quotes) that was created.
+   *	[Staged Quote](/api/projects/staged-quotes) that was created.
    *
    *
    */
   readonly stagedQuote: StagedQuote
 }
 /**
- *	Generated after a successful [Delete StagedQuote](/../api/projects/staged-quotes#delete-stagedquote) request.
+ *	Generated after a successful [Delete StagedQuote](/api/projects/staged-quotes#delete-stagedquote) request.
  *
  */
 export interface StagedQuoteDeletedMessage extends IMessage {
@@ -23087,7 +23804,7 @@ export interface StandalonePriceCreatedMessage extends IMessage {
   readonly standalonePrice: StandalonePrice
 }
 /**
- *	Generated after a successful [Delete StandalonePrice](/../api/projects/standalone-prices#delete-standaloneprice) request.
+ *	Generated after a successful [Delete StandalonePrice](/api/projects/standalone-prices#delete-standaloneprice) request.
  *
  */
 export interface StandalonePriceDeletedMessage extends IMessage {
@@ -23436,7 +24153,7 @@ export interface StandalonePriceStagedChangesAppliedMessage extends IMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	Applied changes of the [StandalonePrice](/../api/projects/standalone-prices) after the [Apply Staged Changes](ctp:api:type:StandalonePriceApplyStagedChangesAction) update action.
+   *	Applied changes of the [StandalonePrice](/api/projects/standalone-prices) after the [Apply Staged Changes](ctp:api:type:StandalonePriceApplyStagedChangesAction) update action.
    *
    *
    */
@@ -24052,6 +24769,216 @@ export interface StandalonePriceValueChangedMessage extends IMessage {
   readonly oldValue?: TypedMoney
 }
 /**
+ *	Generated after a successful [Set Checkout Url Template](ctp:api:type:StoreSetCheckoutUrlTemplateAction) update action.
+ *
+ */
+export interface StoreCheckoutUrlTemplateSetMessage extends IMessage {
+  readonly type: 'StoreCheckoutUrlTemplateSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The `checkoutUrlTemplate` of the [Store](ctp:api:type:Store) after the [Set Checkout Url Template](ctp:api:type:StoreSetCheckoutUrlTemplateAction) update action.
+   *
+   *
+   */
+  readonly checkoutUrlTemplate?: string
+}
+/**
+ *	Generated after a successful [Set Contact Url](ctp:api:type:StoreSetContactUrlAction) update action.
+ *
+ */
+export interface StoreContactUrlSetMessage extends IMessage {
+  readonly type: 'StoreContactUrlSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The `contactUrl` of the [Store](ctp:api:type:Store) after the [Set Contact Url](ctp:api:type:StoreSetContactUrlAction) update action.
+   *
+   *
+   */
+  readonly contactUrl?: string
+}
+/**
+ *	Generated after a successful [Set Cookie Policy Url](ctp:api:type:StoreSetCookiePolicyUrlAction) update action.
+ *
+ */
+export interface StoreCookiePolicyUrlSetMessage extends IMessage {
+  readonly type: 'StoreCookiePolicyUrlSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The `cookiePolicyUrl` of the [Store](ctp:api:type:Store) after the [Set Cookie Policy Url](ctp:api:type:StoreSetCookiePolicyUrlAction) update action.
+   *
+   *
+   */
+  readonly cookiePolicyUrl?: string
+}
+/**
  *	Generated after a successful [Add Country](ctp:api:type:StoreAddCountryAction),
  *	[Remove Country](ctp:api:type:StoreRemoveCountryAction), or
  *	[Set Countries](ctp:api:type:StoreSetCountriesAction) update action.
@@ -24236,7 +25163,7 @@ export interface StoreCreatedMessage extends IMessage {
   readonly custom?: CustomFields
 }
 /**
- *	Generated after a successful [Delete Store](/../api/projects/stores#delete-store) request.
+ *	Generated after a successful [Delete Store](/api/projects/stores#delete-store) request.
  *
  */
 export interface StoreDeletedMessage extends IMessage {
@@ -24375,6 +25302,146 @@ export interface StoreDistributionChannelsChangedMessage extends IMessage {
    *
    */
   readonly removedDistributionChannels?: ChannelReference[]
+}
+/**
+ *	Generated after a successful [Set Faq Url](ctp:api:type:StoreSetFaqUrlAction) update action.
+ *
+ */
+export interface StoreFaqUrlSetMessage extends IMessage {
+  readonly type: 'StoreFaqUrlSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The `faqUrl` of the [Store](ctp:api:type:Store) after the [Set Faq Url](ctp:api:type:StoreSetFaqUrlAction) update action.
+   *
+   *
+   */
+  readonly faqUrl?: string
+}
+/**
+ *	Generated after a successful [Set Imprint Url](ctp:api:type:StoreSetImprintUrlAction) update action.
+ *
+ */
+export interface StoreImprintUrlSetMessage extends IMessage {
+  readonly type: 'StoreImprintUrlSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The `imprintUrl` of the [Store](ctp:api:type:Store) after the [Set Imprint Url](ctp:api:type:StoreSetImprintUrlAction) update action.
+   *
+   *
+   */
+  readonly imprintUrl?: string
 }
 /**
  *	Generated after a successful [Set Languages](ctp:api:type:StoreSetLanguagesAction) update action.
@@ -24529,6 +25596,146 @@ export interface StoreNameSetMessage extends IMessage {
   readonly nameAllLocales?: LocalizedString[]
 }
 /**
+ *	Generated after a successful [Set Order Url Template](ctp:api:type:StoreSetOrderUrlTemplateAction) update action.
+ *
+ */
+export interface StoreOrderUrlTemplateSetMessage extends IMessage {
+  readonly type: 'StoreOrderUrlTemplateSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The `orderUrlTemplate` of the [Store](ctp:api:type:Store) after the [Set Order Url Template](ctp:api:type:StoreSetOrderUrlTemplateAction) update action.
+   *
+   *
+   */
+  readonly orderUrlTemplate?: string
+}
+/**
+ *	Generated after a successful [Set Privacy Policy Url](ctp:api:type:StoreSetPrivacyPolicyUrlAction) update action.
+ *
+ */
+export interface StorePrivacyPolicyUrlSetMessage extends IMessage {
+  readonly type: 'StorePrivacyPolicyUrlSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The `privacyPolicyUrl` of the [Store](ctp:api:type:Store) after the [Set Privacy Policy Url](ctp:api:type:StoreSetPrivacyPolicyUrlAction) update action.
+   *
+   *
+   */
+  readonly privacyPolicyUrl?: string
+}
+/**
  *	Generated by a successful [Add Product Selection](ctp:api:type:StoreAddProductSelectionAction),
  *	[Remove Product Selection](ctp:api:type:StoreRemoveProductSelectionAction),
  *	[Set Product Selections](ctp:api:type:StoreSetProductSelectionsAction),
@@ -24614,6 +25821,146 @@ export interface StoreProductSelectionsChangedMessage extends IMessage {
   readonly updatedProductSelections?: ProductSelectionSetting[]
 }
 /**
+ *	Generated after a successful [Set Refund Policy Url](ctp:api:type:StoreSetRefundPolicyUrlAction) update action.
+ *
+ */
+export interface StoreRefundPolicyUrlSetMessage extends IMessage {
+  readonly type: 'StoreRefundPolicyUrlSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The `refundPolicyUrl` of the [Store](ctp:api:type:Store) after the [Set Refund Policy Url](ctp:api:type:StoreSetRefundPolicyUrlAction) update action.
+   *
+   *
+   */
+  readonly refundPolicyUrl?: string
+}
+/**
+ *	Generated after a successful [Set Shipping Policy Url](ctp:api:type:StoreSetShippingPolicyUrlAction) update action.
+ *
+ */
+export interface StoreShippingPolicyUrlSetMessage extends IMessage {
+  readonly type: 'StoreShippingPolicyUrlSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The `shippingPolicyUrl` of the [Store](ctp:api:type:Store) after the [Set Shipping Policy Url](ctp:api:type:StoreSetShippingPolicyUrlAction) update action.
+   *
+   *
+   */
+  readonly shippingPolicyUrl?: string
+}
+/**
  *	Generated after a successful [Add Supply Channel](ctp:api:type:StoreAddSupplyChannelAction),
  *	[Remove Supply Channel](ctp:api:type:StoreRemoveSupplyChannelAction), or
  *	[Set Supply Channels](ctp:api:type:StoreSetSupplyChannelsAction) update action.
@@ -24691,6 +26038,76 @@ export interface StoreSupplyChannelsChangedMessage extends IMessage {
   readonly removedSupplyChannels?: ChannelReference[]
 }
 /**
+ *	Generated after a successful [Set Terms Of Service Url](ctp:api:type:StoreSetTermsOfServiceUrlAction) update action.
+ *
+ */
+export interface StoreTermsOfServiceUrlSetMessage extends IMessage {
+  readonly type: 'StoreTermsOfServiceUrlSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The `termsOfServiceUrl` of the [Store](ctp:api:type:Store) after the [Set Terms Of Service Url](ctp:api:type:StoreSetTermsOfServiceUrlAction) update action.
+   *
+   *
+   */
+  readonly termsOfServiceUrl?: string
+}
+/**
  *	User-provided identifiers present on the resource for which the Message is created. The value of the identifier stored in the Message corresponds to the one that was set on the resource at the version shown in `resourceVersion`.
  *
  */
@@ -24726,10 +26143,743 @@ export interface UserProvidedIdentifiers {
    */
   readonly slug?: LocalizedString
   /**
-   *	Unique identifier of a [Custom Object](/../api/projects/custom-objects).
+   *	Unique identifier of a [Custom Object](/api/projects/custom-objects).
    *
    */
   readonly containerAndKey?: ContainerAndKey
+}
+/**
+ *	Generated after a successful [Create Variant](ctp:api:endpoint:/{projectKey}/variants:POST) request.
+ *
+ */
+export interface VariantCreatedMessage extends IMessage {
+  readonly type: 'VariantCreated'
+  /**
+   *	Unique identifier of the Variant.
+   *
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	Unique identifier of the Variant within its parent Product.
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	User-defined unique identifier of the Variant.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	SKU of the Variant.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	Attributes of the Variant.
+   *
+   *
+   */
+  readonly attributes?: Attribute[]
+  /**
+   *	Assets of the Variant.
+   *
+   *
+   */
+  readonly assets?: Asset[]
+  /**
+   *	Images of the Variant.
+   *
+   *
+   */
+  readonly images?: Image[]
+  /**
+   *	Whether the Variant was published.
+   *
+   *
+   */
+  readonly publish: boolean
+}
+/**
+ *	Generated after a successful [Delete Variant](/api/projects/variants#delete-variant) request.
+ *
+ */
+export interface VariantDeletedMessage extends IMessage {
+  readonly type: 'VariantDeleted'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
+}
+/**
+ *	Generated after a successful [Add External Image](ctp:api:type:VariantAddExternalImageAction) update action.
+ *
+ */
+export interface VariantImageAddedMessage extends IMessage {
+  readonly type: 'VariantImageAdded'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	[Image](ctp:api:type:Image) that was added.
+   *
+   *
+   */
+  readonly image: Image
+  /**
+   *	Whether the update was only applied to the staged Variant.
+   *
+   *
+   */
+  readonly staged: boolean
+}
+/**
+ *	Generated after a successful [Set Images](ctp:api:type:VariantSetImagesAction) update action.
+ *
+ */
+export interface VariantImagesSetMessage extends IMessage {
+  readonly type: 'VariantImagesSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	The images that were set on the Variant.
+   *
+   *
+   */
+  readonly images: Image[]
+  /**
+   *	The previous images of the Variant.
+   *
+   *
+   */
+  readonly oldImages: Image[]
+  /**
+   *	Whether the update was only applied to the staged Variant.
+   *
+   *
+   */
+  readonly staged: boolean
+}
+/**
+ *	Generated after a successful [Set Key](ctp:api:type:VariantSetKeyAction) update action.
+ *
+ */
+export interface VariantKeySetMessage extends IMessage {
+  readonly type: 'VariantKeySet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	The key that was set on the Variant.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	The previous key of the Variant.
+   *
+   *
+   */
+  readonly oldKey?: string
+}
+/**
+ *	Generated after a successful [Publish](ctp:api:type:VariantPublishAction) update action.
+ *
+ */
+export interface VariantPublishedMessage extends IMessage {
+  readonly type: 'VariantPublished'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
+}
+/**
+ *	Generated after a successful [Set SKU](ctp:api:type:VariantSetSkuAction) update action.
+ *
+ */
+export interface VariantSkuSetMessage extends IMessage {
+  readonly type: 'VariantSkuSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	The SKU that was set on the Variant.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	The previous SKU of the Variant.
+   *
+   *
+   */
+  readonly oldSku?: string
+  /**
+   *	Whether the update was only applied to the staged Variant.
+   *
+   *
+   */
+  readonly staged: boolean
+}
+/**
+ *	Generated after a successful [Staged Changes Removed](ctp:api:type:VariantRemoveStagedChangesAction) update action.
+ *
+ */
+export interface VariantStagedChangesRemovedMessage extends IMessage {
+  readonly type: 'VariantStagedChangesRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
+}
+/**
+ *	Generated after a successful [Unpublish](ctp:api:type:VariantUnpublishAction) update action.
+ *
+ */
+export interface VariantUnpublishedMessage extends IMessage {
+  readonly type: 'VariantUnpublished'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
 }
 export type MessagePayload =
   | ApprovalFlowApprovedMessagePayload
@@ -24796,9 +26946,12 @@ export type MessagePayload =
   | CartDiscountStoreAddedMessagePayload
   | CartDiscountStoreRemovedMessagePayload
   | CartDiscountStoresSetMessagePayload
+  | CartEstimatedDeliverySetMessagePayload
   | CartFrozenMessagePayload
+  | CartLockedMessagePayload
   | CartPurchaseOrderNumberSetMessagePayload
   | CartUnfrozenMessagePayload
+  | CartUnlockedMessagePayload
   | CategoryCreatedMessagePayload
   | CategorySlugChangedMessagePayload
   | CustomLineItemStateTransitionMessagePayload
@@ -24863,7 +27016,11 @@ export type MessagePayload =
   | DiscountGroupSortOrderSetMessagePayload
   | InventoryEntryCreatedMessagePayload
   | InventoryEntryDeletedMessagePayload
+  | InventoryEntryOutOfStockMessagePayload
   | InventoryEntryQuantitySetMessagePayload
+  | InventoryEntryReorderPointMessagePayload
+  | InventoryEntryReservationExpirationInMinutesSetMessagePayload
+  | InventoryEntrySafetyStockMessagePayload
   | LineItemStateTransitionMessagePayload
   | OrderBillingAddressSetMessagePayload
   | OrderBusinessUnitSetMessagePayload
@@ -24886,6 +27043,7 @@ export type MessagePayload =
   | OrderDiscountCodeRemovedMessagePayload
   | OrderDiscountCodeStateSetMessagePayload
   | OrderEditAppliedMessagePayload
+  | OrderEstimatedDeliverySetMessagePayload
   | OrderImportedMessagePayload
   | OrderLineItemAddedMessagePayload
   | OrderLineItemDiscountSetMessagePayload
@@ -24975,6 +27133,7 @@ export type MessagePayload =
   | ProductTailoringDescriptionSetMessagePayload
   | ProductTailoringImageAddedMessagePayload
   | ProductTailoringImagesSetMessagePayload
+  | ProductTailoringKeySetMessagePayload
   | ProductTailoringNameSetMessagePayload
   | ProductTailoringPublishedMessagePayload
   | ProductTailoringSlugSetMessagePayload
@@ -25039,14 +27198,33 @@ export type MessagePayload =
   | StandalonePriceValidFromSetMessagePayload
   | StandalonePriceValidUntilSetMessagePayload
   | StandalonePriceValueChangedMessagePayload
+  | StoreCheckoutUrlTemplateSetMessagePayload
+  | StoreContactUrlSetMessagePayload
+  | StoreCookiePolicyUrlSetMessagePayload
   | StoreCountriesChangedMessagePayload
   | StoreCreatedMessagePayload
   | StoreDeletedMessagePayload
   | StoreDistributionChannelsChangedMessagePayload
+  | StoreFaqUrlSetMessagePayload
+  | StoreImprintUrlSetMessagePayload
   | StoreLanguagesChangedMessagePayload
   | StoreNameSetMessagePayload
+  | StoreOrderUrlTemplateSetMessagePayload
+  | StorePrivacyPolicyUrlSetMessagePayload
   | StoreProductSelectionsChangedMessagePayload
+  | StoreRefundPolicyUrlSetMessagePayload
+  | StoreShippingPolicyUrlSetMessagePayload
   | StoreSupplyChannelsChangedMessagePayload
+  | StoreTermsOfServiceUrlSetMessagePayload
+  | VariantCreatedMessagePayload
+  | VariantDeletedMessagePayload
+  | VariantImageAddedMessagePayload
+  | VariantImagesSetMessagePayload
+  | VariantKeySetMessagePayload
+  | VariantPublishedMessagePayload
+  | VariantSkuSetMessagePayload
+  | VariantStagedChangesRemovedMessagePayload
+  | VariantUnpublishedMessagePayload
 export interface IMessagePayload {
   /**
    *
@@ -25133,8 +27311,7 @@ export interface ApprovalFlowRejectedMessagePayload extends IMessagePayload {
  *	Generated after a successful [Set Approvers](ctp:api:type:ApprovalRuleSetApproversAction) update action.
  *
  */
-export interface ApprovalRuleApproversSetMessagePayload
-  extends IMessagePayload {
+export interface ApprovalRuleApproversSetMessagePayload extends IMessagePayload {
   readonly type: 'ApprovalRuleApproversSet'
   /**
    *	Approver hierarchy of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Approvers](ctp:api:type:ApprovalRuleSetApproversAction) update action.
@@ -25166,8 +27343,7 @@ export interface ApprovalRuleCreatedMessagePayload extends IMessagePayload {
  *	Generated after a successful [Set Description](ctp:api:type:ApprovalRuleSetDescriptionAction) update action.
  *
  */
-export interface ApprovalRuleDescriptionSetMessagePayload
-  extends IMessagePayload {
+export interface ApprovalRuleDescriptionSetMessagePayload extends IMessagePayload {
   readonly type: 'ApprovalRuleDescriptionSet'
   /**
    *	Description of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Description](ctp:api:type:ApprovalRuleSetDescriptionAction) update action.
@@ -25224,8 +27400,7 @@ export interface ApprovalRuleNameSetMessagePayload extends IMessagePayload {
  *	Generated after a successful [Set Predicate](ctp:api:type:ApprovalRuleSetPredicateAction) update action.
  *
  */
-export interface ApprovalRulePredicateSetMessagePayload
-  extends IMessagePayload {
+export interface ApprovalRulePredicateSetMessagePayload extends IMessagePayload {
   readonly type: 'ApprovalRulePredicateSet'
   /**
    *	Name of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Predicate](ctp:api:type:ApprovalRuleSetPredicateAction) update action.
@@ -25244,8 +27419,7 @@ export interface ApprovalRulePredicateSetMessagePayload
  *	Generated after a successful [Set Requester](ctp:api:type:ApprovalRuleSetRequestersAction) update action.
  *
  */
-export interface ApprovalRuleRequestersSetMessagePayload
-  extends IMessagePayload {
+export interface ApprovalRuleRequestersSetMessagePayload extends IMessagePayload {
   readonly type: 'ApprovalRuleRequestersSet'
   /**
    *	RuleRequester of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Requester](ctp:api:type:ApprovalRuleSetRequestersAction) update action.
@@ -25283,8 +27457,7 @@ export interface ApprovalRuleStatusSetMessagePayload extends IMessagePayload {
  *	Generated after a successful [Change BuyerAssignable](ctp:api:type:AssociateRoleChangeBuyerAssignableAction) update action.
  *
  */
-export interface AssociateRoleBuyerAssignableChangedMessagePayload
-  extends IMessagePayload {
+export interface AssociateRoleBuyerAssignableChangedMessagePayload extends IMessagePayload {
   readonly type: 'AssociateRoleBuyerAssignableChanged'
   /**
    *	The new value of the `buyerAssignable` field of the AssociateRole.
@@ -25330,8 +27503,7 @@ export interface AssociateRoleNameSetMessagePayload extends IMessagePayload {
  *	Generated after a successful [Add Permissions](ctp:api:type:AssociateRoleAddPermissionAction) update action.
  *
  */
-export interface AssociateRolePermissionAddedMessagePayload
-  extends IMessagePayload {
+export interface AssociateRolePermissionAddedMessagePayload extends IMessagePayload {
   readonly type: 'AssociateRolePermissionAdded'
   /**
    *	The Permission that was added to the AssociateRole.
@@ -25344,8 +27516,7 @@ export interface AssociateRolePermissionAddedMessagePayload
  *	Generated after a successful [Remove Permissions](ctp:api:type:AssociateRoleRemovePermissionAction) update action.
  *
  */
-export interface AssociateRolePermissionRemovedMessagePayload
-  extends IMessagePayload {
+export interface AssociateRolePermissionRemovedMessagePayload extends IMessagePayload {
   readonly type: 'AssociateRolePermissionRemoved'
   /**
    *	The Permission that was removed from the AssociateRole.
@@ -25358,8 +27529,7 @@ export interface AssociateRolePermissionRemovedMessagePayload
  *	Generated after a successful [Set Permissions](ctp:api:type:AssociateRoleSetPermissionsAction) update action.
  *
  */
-export interface AssociateRolePermissionsSetMessagePayload
-  extends IMessagePayload {
+export interface AssociateRolePermissionsSetMessagePayload extends IMessagePayload {
   readonly type: 'AssociateRolePermissionsSet'
   /**
    *	Permission assigned to the AssociateRole.
@@ -25372,8 +27542,7 @@ export interface AssociateRolePermissionsSetMessagePayload
  *	Generated after a successful [Add Address](ctp:api:type:BusinessUnitAddAddressAction) update action.
  *
  */
-export interface BusinessUnitAddressAddedMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitAddressAddedMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitAddressAdded'
   /**
    *	The address that was added to the [Business Unit](ctp:api:type:BusinessUnit).
@@ -25386,8 +27555,7 @@ export interface BusinessUnitAddressAddedMessagePayload
  *	Generated after a successful [Change Address](ctp:api:type:BusinessUnitChangeAddressAction) update action.
  *
  */
-export interface BusinessUnitAddressChangedMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitAddressChangedMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitAddressChanged'
   /**
    *	Updated address of the Business Unit.
@@ -25406,8 +27574,7 @@ export interface BusinessUnitAddressChangedMessagePayload
  *	Generated after adding a Custom Field to an address of a Business Unit using the [Set Address CustomField](ctp:api:type:BusinessUnitSetAddressCustomFieldAction) update action. If a Custom Field already exists with the same name, a [BusinessUnitAddressCustomFieldChanged](ctp:api:type:BusinessUnitAddressCustomFieldChangedMessage) Message is generated instead.
  *
  */
-export interface BusinessUnitAddressCustomFieldAddedMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitAddressCustomFieldAddedMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitAddressCustomFieldAdded'
   /**
    *	Name of the Custom Field that was added.
@@ -25431,8 +27598,7 @@ export interface BusinessUnitAddressCustomFieldAddedMessagePayload
  *	Generated after changing an existing Custom Field on an address of a Business Unit using the [Set Address CustomField](ctp:api:type:BusinessUnitSetAddressCustomFieldAction) update action.
  *
  */
-export interface BusinessUnitAddressCustomFieldChangedMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitAddressCustomFieldChangedMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitAddressCustomFieldChanged'
   /**
    *	Name of the Custom Field that changed.
@@ -25463,8 +27629,7 @@ export interface BusinessUnitAddressCustomFieldChangedMessagePayload
  *	Generated after removing a Custom Field from an address of a Business Unit using the [Set Address CustomField](ctp:api:type:BusinessUnitSetAddressCustomFieldAction) update action.
  *
  */
-export interface BusinessUnitAddressCustomFieldRemovedMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitAddressCustomFieldRemovedMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitAddressCustomFieldRemoved'
   /**
    *	Name of the Custom Field that was removed.
@@ -25483,8 +27648,7 @@ export interface BusinessUnitAddressCustomFieldRemovedMessagePayload
  *	Generated after removing a Custom Type from an address of a Business Unit using the [Set Custom Type in Address](ctp:api:type:BusinessUnitSetAddressCustomTypeAction) update action.
  *
  */
-export interface BusinessUnitAddressCustomTypeRemovedMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitAddressCustomTypeRemovedMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitAddressCustomTypeRemoved'
   /**
    *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
@@ -25503,8 +27667,7 @@ export interface BusinessUnitAddressCustomTypeRemovedMessagePayload
  *	Generated after adding a Custom Type to an address of a Business Unit using the [Set Custom Type in Address](ctp:api:type:BusinessUnitSetAddressCustomTypeAction) update action.
  *
  */
-export interface BusinessUnitAddressCustomTypeSetMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitAddressCustomTypeSetMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitAddressCustomTypeSet'
   /**
    *	The Custom Fields that were set.
@@ -25528,8 +27691,7 @@ export interface BusinessUnitAddressCustomTypeSetMessagePayload
  *	Generated after a successful [Remove Address](ctp:api:type:BusinessUnitRemoveAddressAction) update action.
  *
  */
-export interface BusinessUnitAddressRemovedMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitAddressRemovedMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitAddressRemoved'
   /**
    *	The address that was removed from the [Business Unit](ctp:api:type:BusinessUnit).
@@ -25548,8 +27710,7 @@ export interface BusinessUnitAddressRemovedMessagePayload
  *	Generated after a successful [Change Approval Rule Mode](ctp:api:type:BusinessUnitChangeApprovalRuleModeAction) update action.
  *
  */
-export interface BusinessUnitApprovalRuleModeChangedMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitApprovalRuleModeChangedMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitApprovalRuleModeChanged'
   /**
    *	[BusinessUnitApprovalRuleMode](ctp:api:type:BusinessUnitApprovalRuleMode) of the Business Unit after the [Change Approval Rule Mode](ctp:api:type:BusinessUnitChangeApprovalRuleModeAction) update action.
@@ -25568,8 +27729,7 @@ export interface BusinessUnitApprovalRuleModeChangedMessagePayload
  *	Generated after a successful [Add Associate](ctp:api:type:BusinessUnitAddAssociateAction) update action.
  *
  */
-export interface BusinessUnitAssociateAddedMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitAssociateAddedMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitAssociateAdded'
   /**
    *	The [Associate](ctp:api:type:Associate) that was added to the [Business Unit](ctp:api:type:BusinessUnit).
@@ -25582,8 +27742,7 @@ export interface BusinessUnitAssociateAddedMessagePayload
  *	Generated after a successful [Change Associate](ctp:api:type:BusinessUnitChangeAssociateAction) update action.
  *
  */
-export interface BusinessUnitAssociateChangedMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitAssociateChangedMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitAssociateChanged'
   /**
    *	The [Associate](ctp:api:type:Associate) that was updated.
@@ -25596,8 +27755,7 @@ export interface BusinessUnitAssociateChangedMessagePayload
  *	Generated after a successful [Change Associate Mode](ctp:api:type:BusinessUnitChangeAssociateModeAction) update action.
  *
  */
-export interface BusinessUnitAssociateModeChangedMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitAssociateModeChangedMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitAssociateModeChanged'
   /**
    *	[BusinessUnitAssociateMode](ctp:api:type:BusinessUnitAssociateMode) of the Business Unit after the [Change Associate Mode](ctp:api:type:BusinessUnitChangeAssociateModeAction) update action.
@@ -25616,8 +27774,7 @@ export interface BusinessUnitAssociateModeChangedMessagePayload
  *	Generated after a successful [Remove Associate](ctp:api:type:BusinessUnitRemoveAssociateAction) update action.
  *
  */
-export interface BusinessUnitAssociateRemovedMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitAssociateRemovedMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitAssociateRemoved'
   /**
    *	The [Associate](ctp:api:type:Associate) that was removed from the [Business Unit](ctp:api:type:BusinessUnit).
@@ -25630,8 +27787,7 @@ export interface BusinessUnitAssociateRemovedMessagePayload
  *	Generated after a successful [Set Associates](ctp:api:type:BusinessUnitSetAssociatesAction) update action.
  *
  */
-export interface BusinessUnitAssociatesSetMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitAssociatesSetMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitAssociatesSet'
   /**
    *	The list of [Associates](ctp:api:type:Associate) that was updated on the [Business Unit](ctp:api:type:BusinessUnit).
@@ -25644,8 +27800,7 @@ export interface BusinessUnitAssociatesSetMessagePayload
  *	Generated after a successful [Add Billing Address Identifier](ctp:api:type:BusinessUnitAddBillingAddressIdAction) update action.
  *
  */
-export interface BusinessUnitBillingAddressAddedMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitBillingAddressAddedMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitBillingAddressAdded'
   /**
    *	The address that was added to the [Business Unit](ctp:api:type:BusinessUnit) as billing address.
@@ -25658,8 +27813,7 @@ export interface BusinessUnitBillingAddressAddedMessagePayload
  *	Generated after a successful [Remove Billing Address Identifier](ctp:api:type:BusinessUnitRemoveBillingAddressIdAction) update action.
  *
  */
-export interface BusinessUnitBillingAddressRemovedMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitBillingAddressRemovedMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitBillingAddressRemoved'
   /**
    *	The address that was removed from the billing addresses of the [Business Unit](ctp:api:type:BusinessUnit).
@@ -25672,8 +27826,7 @@ export interface BusinessUnitBillingAddressRemovedMessagePayload
  *	Generated after a successful [Set Contact Email](ctp:api:type:BusinessUnitSetContactEmailAction) update action.
  *
  */
-export interface BusinessUnitContactEmailSetMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitContactEmailSetMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitContactEmailSet'
   /**
    *	The contact email that was updated on the [Business Unit](ctp:api:type:BusinessUnit).
@@ -25699,8 +27852,7 @@ export interface BusinessUnitCreatedMessagePayload extends IMessagePayload {
  *	Generated after adding a Custom Field to a Business Unit using the [Set CustomField](ctp:api:type:BusinessUnitSetCustomFieldAction) update action. If a Custom Field already exists with the same name, a [BusinessUnitCustomFieldChanged](ctp:api:type:BusinessUnitCustomFieldChangedMessage) Message is generated instead.
  *
  */
-export interface BusinessUnitCustomFieldAddedMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitCustomFieldAddedMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitCustomFieldAdded'
   /**
    *	Name of the Custom Field that was added.
@@ -25718,8 +27870,7 @@ export interface BusinessUnitCustomFieldAddedMessagePayload
  *	Generated after changing an existing Custom Field on a Business Unit using the [Set CustomField](ctp:api:type:BusinessUnitSetCustomFieldAction) update action.
  *
  */
-export interface BusinessUnitCustomFieldChangedMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitCustomFieldChangedMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitCustomFieldChanged'
   /**
    *	Name of the Custom Field that changed.
@@ -25744,8 +27895,7 @@ export interface BusinessUnitCustomFieldChangedMessagePayload
  *	Generated after removing a Custom Field from a Business Unit using the [Set CustomField](ctp:api:type:BusinessUnitSetCustomFieldAction) update action.
  *
  */
-export interface BusinessUnitCustomFieldRemovedMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitCustomFieldRemovedMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitCustomFieldRemoved'
   /**
    *	Name of the Custom Field that was removed.
@@ -25758,8 +27908,7 @@ export interface BusinessUnitCustomFieldRemovedMessagePayload
  *	Generated after removing a Custom Type from a Business Unit using the [Set Custom Type](ctp:api:type:BusinessUnitSetCustomTypeAction) update action.
  *
  */
-export interface BusinessUnitCustomTypeRemovedMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitCustomTypeRemovedMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitCustomTypeRemoved'
   /**
    *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
@@ -25772,8 +27921,7 @@ export interface BusinessUnitCustomTypeRemovedMessagePayload
  *	Generated after adding a Custom Type to a Business Unit using the [Set Custom Type](ctp:api:type:BusinessUnitSetCustomTypeAction) update action.
  *
  */
-export interface BusinessUnitCustomTypeSetMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitCustomTypeSetMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitCustomTypeSet'
   /**
    *	The Custom Fields that were set.
@@ -25791,8 +27939,7 @@ export interface BusinessUnitCustomTypeSetMessagePayload
  *	Generated after a successful [Add CustomerGroupAssignment](ctp:api:type:BusinessUnitAddCustomerGroupAssignmentAction) update action.
  *
  */
-export interface BusinessUnitCustomerGroupAssignmentAddedMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitCustomerGroupAssignmentAddedMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitCustomerGroupAssignmentAdded'
   /**
    *	Customer Group assigned to the Business Unit during the [Add CustomerGroupAssignment](ctp:api:type:BusinessUnitAddCustomerGroupAssignmentAction) update action.
@@ -25805,8 +27952,7 @@ export interface BusinessUnitCustomerGroupAssignmentAddedMessagePayload
  *	Generated after a successful [Remove CustomerGroupAssignment](ctp:api:type:BusinessUnitRemoveCustomerGroupAssignmentAction) update action.
  *
  */
-export interface BusinessUnitCustomerGroupAssignmentRemovedMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitCustomerGroupAssignmentRemovedMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitCustomerGroupAssignmentRemoved'
   /**
    *	Customer Group unassigned from the Business Unit during the [Remove CustomerGroupAssignment](ctp:api:type:BusinessUnitRemoveCustomerGroupAssignmentAction) update action.
@@ -25819,8 +27965,7 @@ export interface BusinessUnitCustomerGroupAssignmentRemovedMessagePayload
  *	Generated after a successful [Set CustomerGroupAssignments](ctp:api:type:BusinessUnitSetCustomerGroupAssignmentsAction) update action.
  *
  */
-export interface BusinessUnitCustomerGroupAssignmentsSetMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitCustomerGroupAssignmentsSetMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitCustomerGroupAssignmentsSet'
   /**
    *	Customer Groups assigned to the Business Unit during the [Set CustomerGroupAssignments](ctp:api:type:BusinessUnitSetCustomerGroupAssignmentsAction) update action.
@@ -25839,8 +27984,7 @@ export interface BusinessUnitCustomerGroupAssignmentsSetMessagePayload
  *	Generated after a successful [Set Default Billing Address](ctp:api:type:BusinessUnitSetDefaultBillingAddressAction) update action.
  *
  */
-export interface BusinessUnitDefaultBillingAddressSetMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitDefaultBillingAddressSetMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitDefaultBillingAddressSet'
   /**
    *	The address that was set as the default billing address.
@@ -25853,8 +27997,7 @@ export interface BusinessUnitDefaultBillingAddressSetMessagePayload
  *	Generated after a successful [Set Default Shipping Address](ctp:api:type:BusinessUnitSetDefaultShippingAddressAction) update action.
  *
  */
-export interface BusinessUnitDefaultShippingAddressSetMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitDefaultShippingAddressSetMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitDefaultShippingAddressSet'
   /**
    *	The address that was set as the default shipping address.
@@ -25887,8 +28030,7 @@ export interface BusinessUnitNameChangedMessagePayload extends IMessagePayload {
  *	Generated after a successful [Change Parent Unit](ctp:api:type:BusinessUnitChangeParentUnitAction) update action.
  *
  */
-export interface BusinessUnitParentChangedMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitParentChangedMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitParentChanged'
   /**
    *	Parent unit of the [Business Unit](ctp:api:type:BusinessUnit) before the [Change Parent Unit](ctp:api:type:BusinessUnitChangeParentUnitAction) update action.
@@ -25907,8 +28049,7 @@ export interface BusinessUnitParentChangedMessagePayload
  *	Generated after a successful [Add Shipping Address Identifier](ctp:api:type:BusinessUnitAddShippingAddressIdAction) update action.
  *
  */
-export interface BusinessUnitShippingAddressAddedMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitShippingAddressAddedMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitShippingAddressAdded'
   /**
    *	The address that was added to the [Business Unit](ctp:api:type:BusinessUnit) as shipping address.
@@ -25921,8 +28062,7 @@ export interface BusinessUnitShippingAddressAddedMessagePayload
  *	Generated after a successful [Remove Shipping Address Identifier](ctp:api:type:BusinessUnitRemoveShippingAddressIdAction) update action.
  *
  */
-export interface BusinessUnitShippingAddressRemovedMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitShippingAddressRemovedMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitShippingAddressRemoved'
   /**
    *	The address that was removed from shipping addresses of the [Business Unit](ctp:api:type:BusinessUnit).
@@ -25935,8 +28075,7 @@ export interface BusinessUnitShippingAddressRemovedMessagePayload
  *	Generated after a successful [Change Status](ctp:api:type:BusinessUnitChangeStatusAction) update action.
  *
  */
-export interface BusinessUnitStatusChangedMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitStatusChangedMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitStatusChanged'
   /**
    *	Updated status of the [Business Unit](ctp:api:type:BusinessUnit).
@@ -25962,8 +28101,7 @@ export interface BusinessUnitStoreAddedMessagePayload extends IMessagePayload {
  *	Generated after a successful [Set Store Mode](ctp:api:type:BusinessUnitSetStoreModeAction) update action.
  *
  */
-export interface BusinessUnitStoreModeChangedMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitStoreModeChangedMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitStoreModeChanged'
   /**
    *	[Stores](ctp:api:type:Store) of the [Business Unit](ctp:api:type:BusinessUnit) after the [Set Store Mode](ctp:api:type:BusinessUnitSetStoreModeAction) update action.
@@ -25994,8 +28132,7 @@ export interface BusinessUnitStoreModeChangedMessagePayload
  *	Generated after a successful [Remove Store](ctp:api:type:BusinessUnitRemoveStoreAction) update action.
  *
  */
-export interface BusinessUnitStoreRemovedMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitStoreRemovedMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitStoreRemoved'
   /**
    *	The [Store](ctp:api:type:Store) that was removed from the [Business Unit](ctp:api:type:BusinessUnit).
@@ -26021,8 +28158,7 @@ export interface BusinessUnitStoresSetMessagePayload extends IMessagePayload {
  *	Generated when a [Business Unit](ctp:api:type:BusinessUnit) `topLevelUnit` is modified due to a hierarchy change after a successful [Set Unit Type](ctp:api:type:BusinessUnitSetUnitTypeAction) or [Change Parent Unit](ctp:api:type:BusinessUnitChangeParentUnitAction) update action.
  *
  */
-export interface BusinessUnitTopLevelUnitSetMessagePayload
-  extends IMessagePayload {
+export interface BusinessUnitTopLevelUnitSetMessagePayload extends IMessagePayload {
   readonly type: 'BusinessUnitTopLevelUnitSet'
   /**
    *	Top-level unit of the [Business Unit](ctp:api:type:BusinessUnit) after the [Set Unit Type](ctp:api:type:BusinessUnitSetUnitTypeAction) or [Change Parent Unit](ctp:api:type:BusinessUnitChangeParentUnitAction) update action.
@@ -26105,8 +28241,7 @@ export interface CartDiscountStoreAddedMessagePayload extends IMessagePayload {
  *	Generated after a successful [Remove Store](ctp:api:type:CartDiscountRemoveStoreAction) update action.
  *
  */
-export interface CartDiscountStoreRemovedMessagePayload
-  extends IMessagePayload {
+export interface CartDiscountStoreRemovedMessagePayload extends IMessagePayload {
   readonly type: 'CartDiscountStoreRemoved'
   /**
    *	The [Store](ctp:api:type:Store) that was removed from the [Cart Discount](ctp:api:type:CartDiscount).
@@ -26129,6 +28264,25 @@ export interface CartDiscountStoresSetMessagePayload extends IMessagePayload {
   readonly stores: StoreKeyReference[]
 }
 /**
+ *	Generated after a successful [Set Estimated Delivery](ctp:api:type:CartSetEstimatedDeliveryAction) update action.
+ *
+ */
+export interface CartEstimatedDeliverySetMessagePayload extends IMessagePayload {
+  readonly type: 'CartEstimatedDeliverySet'
+  /**
+   *	Estimated delivery window on the [Cart](ctp:api:type:Cart) after the [Set Estimated Delivery](ctp:api:type:CartSetEstimatedDeliveryAction) update action.
+   *
+   *
+   */
+  readonly estimatedDelivery?: EstimatedDelivery
+  /**
+   *	`key` of the [Shipping](ctp:api:type:Shipping) that was updated. Only present for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
+}
+/**
  *	Generated after a successful [Freeze Cart](ctp:api:type:CartFreezeCartAction) update action.
  *
  */
@@ -26136,11 +28290,17 @@ export interface CartFrozenMessagePayload extends IMessagePayload {
   readonly type: 'CartFrozen'
 }
 /**
+ *	Generated after a successful [Lock Cart](ctp:api:type:CartLockCartAction) update action.
+ *
+ */
+export interface CartLockedMessagePayload extends IMessagePayload {
+  readonly type: 'CartLocked'
+}
+/**
  *	Generated after a successful [Set Purchase Order Number](ctp:api:type:CartSetPurchaseOrderNumberAction) update action.
  *
  */
-export interface CartPurchaseOrderNumberSetMessagePayload
-  extends IMessagePayload {
+export interface CartPurchaseOrderNumberSetMessagePayload extends IMessagePayload {
   readonly type: 'CartPurchaseOrderNumberSet'
   /**
    *	Purchase order number on the [Cart](ctp:api:type:Cart) after the [Set Purchase Order Number](ctp:api:type:CartSetPurchaseOrderNumberAction) update action.
@@ -26161,6 +28321,13 @@ export interface CartPurchaseOrderNumberSetMessagePayload
  */
 export interface CartUnfrozenMessagePayload extends IMessagePayload {
   readonly type: 'CartUnfrozen'
+}
+/**
+ *	Generated after a successful [Unlock Cart](ctp:api:type:CartUnlockCartAction) update action.
+ *
+ */
+export interface CartUnlockedMessagePayload extends IMessagePayload {
+  readonly type: 'CartUnlocked'
 }
 /**
  *	Generated after a successful [Create Category](ctp:api:endpoint:/{projectKey}/categories:POST) request.
@@ -26231,8 +28398,7 @@ export interface CustomerAddressChangedMessagePayload extends IMessagePayload {
  *	If a Custom Field already exists with the same name, a [CustomerAddressCustomFieldChanged](ctp:api:type:CustomerAddressCustomFieldChangedMessage) Message is generated instead.
  *
  */
-export interface CustomerAddressCustomFieldAddedMessagePayload
-  extends IMessagePayload {
+export interface CustomerAddressCustomFieldAddedMessagePayload extends IMessagePayload {
   readonly type: 'CustomerAddressCustomFieldAdded'
   /**
    *	Name of the Custom Field that was added.
@@ -26256,8 +28422,7 @@ export interface CustomerAddressCustomFieldAddedMessagePayload
  *	Generated after changing an existing Custom Field on an Address of a Customer using the [Set CustomField in Address](ctp:api:type:CustomerSetAddressCustomFieldAction) update action.
  *
  */
-export interface CustomerAddressCustomFieldChangedMessagePayload
-  extends IMessagePayload {
+export interface CustomerAddressCustomFieldChangedMessagePayload extends IMessagePayload {
   readonly type: 'CustomerAddressCustomFieldChanged'
   /**
    *	Name of the Custom Field that changed.
@@ -26289,8 +28454,7 @@ export interface CustomerAddressCustomFieldChangedMessagePayload
  *	Generated after removing a Custom Field from an Address of a Customer using the [Set CustomField in Address](ctp:api:type:CustomerSetAddressCustomFieldAction) update action.
  *
  */
-export interface CustomerAddressCustomFieldRemovedMessagePayload
-  extends IMessagePayload {
+export interface CustomerAddressCustomFieldRemovedMessagePayload extends IMessagePayload {
   readonly type: 'CustomerAddressCustomFieldRemoved'
   /**
    *	Name of the Custom Field that was removed.
@@ -26309,8 +28473,7 @@ export interface CustomerAddressCustomFieldRemovedMessagePayload
  *	Generated after removing a Custom Type from an Address of a Customer using the [Set Custom Type in Address](ctp:api:type:CustomerSetAddressCustomTypeAction) update action.
  *
  */
-export interface CustomerAddressCustomTypeRemovedMessagePayload
-  extends IMessagePayload {
+export interface CustomerAddressCustomTypeRemovedMessagePayload extends IMessagePayload {
   readonly type: 'CustomerAddressCustomTypeRemoved'
   /**
    *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
@@ -26329,8 +28492,7 @@ export interface CustomerAddressCustomTypeRemovedMessagePayload
  *	Generated after adding a Custom Type to an Address of a Customer using the [Set Custom Type in Address](ctp:api:type:CustomerSetAddressCustomTypeAction) update action.
  *
  */
-export interface CustomerAddressCustomTypeSetMessagePayload
-  extends IMessagePayload {
+export interface CustomerAddressCustomTypeSetMessagePayload extends IMessagePayload {
   readonly type: 'CustomerAddressCustomTypeSet'
   /**
    *	The Custom Fields that have been set.
@@ -26373,8 +28535,7 @@ export interface CustomerAddressRemovedMessagePayload extends IMessagePayload {
  *	Generated after a successful [Add Billing Address ID](ctp:api:type:CustomerAddBillingAddressIdAction) update action.
  *
  */
-export interface CustomerBillingAddressAddedMessagePayload
-  extends IMessagePayload {
+export interface CustomerBillingAddressAddedMessagePayload extends IMessagePayload {
   readonly type: 'CustomerBillingAddressAdded'
   /**
    *	The address that was added to the [Customer](ctp:api:type:Customer) `billingAddressIds`.
@@ -26387,8 +28548,7 @@ export interface CustomerBillingAddressAddedMessagePayload
  *	Generated after a successful [Remove Billing Address ID](ctp:api:type:CustomerRemoveBillingAddressIdAction) update action.
  *
  */
-export interface CustomerBillingAddressRemovedMessagePayload
-  extends IMessagePayload {
+export interface CustomerBillingAddressRemovedMessagePayload extends IMessagePayload {
   readonly type: 'CustomerBillingAddressRemoved'
   /**
    *	The address that was removed from the [Customer](ctp:api:type:Customer) `billingAddressIds`.
@@ -26428,8 +28588,7 @@ export interface CustomerCreatedMessagePayload extends IMessagePayload {
  *	If a Custom Field already exists with the same name, a [CustomerCustomFieldChanged](ctp:api:type:CustomerCustomFieldChangedMessage) Message is generated instead.
  *
  */
-export interface CustomerCustomFieldAddedMessagePayload
-  extends IMessagePayload {
+export interface CustomerCustomFieldAddedMessagePayload extends IMessagePayload {
   readonly type: 'CustomerCustomFieldAdded'
   /**
    *	Name of the Custom Field that was added.
@@ -26447,8 +28606,7 @@ export interface CustomerCustomFieldAddedMessagePayload
  *	Generated after changing an existing Custom Field on a Customer using the [Set CustomField](ctp:api:type:CustomerSetCustomFieldAction) update action.
  *
  */
-export interface CustomerCustomFieldChangedMessagePayload
-  extends IMessagePayload {
+export interface CustomerCustomFieldChangedMessagePayload extends IMessagePayload {
   readonly type: 'CustomerCustomFieldChanged'
   /**
    *	Name of the Custom Field that changed.
@@ -26474,8 +28632,7 @@ export interface CustomerCustomFieldChangedMessagePayload
  *	Generated after removing a Custom Field from a Customer using the [Set CustomField](ctp:api:type:CustomerSetCustomFieldAction) update action.
  *
  */
-export interface CustomerCustomFieldRemovedMessagePayload
-  extends IMessagePayload {
+export interface CustomerCustomFieldRemovedMessagePayload extends IMessagePayload {
   readonly type: 'CustomerCustomFieldRemoved'
   /**
    *	Name of the Custom Field that was removed.
@@ -26488,8 +28645,7 @@ export interface CustomerCustomFieldRemovedMessagePayload
  *	Generated after removing a Custom Type from a Customer using the [Set Custom Type](ctp:api:type:CustomerSetCustomTypeAction) update action with empty parameters.
  *
  */
-export interface CustomerCustomTypeRemovedMessagePayload
-  extends IMessagePayload {
+export interface CustomerCustomTypeRemovedMessagePayload extends IMessagePayload {
   readonly type: 'CustomerCustomTypeRemoved'
   /**
    *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
@@ -26533,8 +28689,7 @@ export interface CustomerDateOfBirthSetMessagePayload extends IMessagePayload {
  *	Generated after a successful [Set Default Billing Address](ctp:api:type:CustomerSetDefaultBillingAddressAction) update action.
  *
  */
-export interface CustomerDefaultBillingAddressSetMessagePayload
-  extends IMessagePayload {
+export interface CustomerDefaultBillingAddressSetMessagePayload extends IMessagePayload {
   readonly type: 'CustomerDefaultBillingAddressSet'
   /**
    *	The address that was set as the default billing address.
@@ -26547,8 +28702,7 @@ export interface CustomerDefaultBillingAddressSetMessagePayload
  *	Generated after a successful [Set Default Shipping Address](ctp:api:type:CustomerSetDefaultShippingAddressAction) update action.
  *
  */
-export interface CustomerDefaultShippingAddressSetMessagePayload
-  extends IMessagePayload {
+export interface CustomerDefaultShippingAddressSetMessagePayload extends IMessagePayload {
   readonly type: 'CustomerDefaultShippingAddressSet'
   /**
    *	The address that was set as the default shipping address.
@@ -26558,7 +28712,7 @@ export interface CustomerDefaultShippingAddressSetMessagePayload
   readonly address?: Address
 }
 /**
- *	Generated after a successful [Delete Customer](/../api/projects/customers#delete-customer) request.
+ *	Generated after a successful [Delete Customer](/api/projects/customers#delete-customer) request.
  *
  */
 export interface CustomerDeletedMessagePayload extends IMessagePayload {
@@ -26593,8 +28747,7 @@ export interface CustomerEmailChangedMessagePayload extends IMessagePayload {
  *	Generated after a successful [Create email token for Customer](ctp:api:endpoint:/{projectKey}/customers/email-token:POST) or [Create email token for Customer in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/email-token:POST) request. The `resource` property of the Message is a [CustomerEmailTokenReference](ctp:api:type:CustomerEmailTokenReference).
  *
  */
-export interface CustomerEmailTokenCreatedMessagePayload
-  extends IMessagePayload {
+export interface CustomerEmailTokenCreatedMessagePayload extends IMessagePayload {
   readonly type: 'CustomerEmailTokenCreated'
   /**
    *	Unique identifier of the Customer.
@@ -26615,7 +28768,7 @@ export interface CustomerEmailTokenCreatedMessagePayload
    */
   readonly value?: string
   /**
-   *	If `true`, all email tokens issued previously for the Customer are invalidated.
+   *	Whether all email tokens issued previously for the Customer are invalidated.
    *
    *
    */
@@ -26658,8 +28811,7 @@ export interface CustomerFirstNameSetMessagePayload extends IMessagePayload {
  *	Generated after a successful [Add CustomerGroupAssignment](ctp:api:type:CustomerAddCustomerGroupAssignmentAction) update action.
  *
  */
-export interface CustomerGroupAssignmentAddedMessagePayload
-  extends IMessagePayload {
+export interface CustomerGroupAssignmentAddedMessagePayload extends IMessagePayload {
   readonly type: 'CustomerGroupAssignmentAdded'
   /**
    *	Customer Group assigned to the Customer during the [Add CustomerGroupAssignment](ctp:api:type:CustomerAddCustomerGroupAssignmentAction) update action.
@@ -26672,8 +28824,7 @@ export interface CustomerGroupAssignmentAddedMessagePayload
  *	Generated after a successful [Remove CustomerGroupAssignment](ctp:api:type:CustomerRemoveCustomerGroupAssignmentAction) update action.
  *
  */
-export interface CustomerGroupAssignmentRemovedMessagePayload
-  extends IMessagePayload {
+export interface CustomerGroupAssignmentRemovedMessagePayload extends IMessagePayload {
   readonly type: 'CustomerGroupAssignmentRemoved'
   /**
    *	Customer Group removed during the [Remove CustomerGroupAssignment](ctp:api:type:CustomerRemoveCustomerGroupAssignmentAction) update action.
@@ -26686,8 +28837,7 @@ export interface CustomerGroupAssignmentRemovedMessagePayload
  *	Generated after a successful [Set CustomerGroupAssignments](ctp:api:type:CustomerSetCustomerGroupAssignmentsAction) update action.
  *
  */
-export interface CustomerGroupAssignmentsSetMessagePayload
-  extends IMessagePayload {
+export interface CustomerGroupAssignmentsSetMessagePayload extends IMessagePayload {
   readonly type: 'CustomerGroupAssignmentsSet'
   /**
    *	Customer Groups assigned to the Customer during the [Set CustomerGroupAssignments](ctp:api:type:CustomerSetCustomerGroupAssignmentsAction) update action.
@@ -26707,8 +28857,7 @@ export interface CustomerGroupAssignmentsSetMessagePayload
  *	If a Custom Field already exists with the same name, a [CustomerGroupCustomFieldChanged](ctp:api:type:CustomerGroupCustomFieldChangedMessage) Message is generated instead.
  *
  */
-export interface CustomerGroupCustomFieldAddedMessagePayload
-  extends IMessagePayload {
+export interface CustomerGroupCustomFieldAddedMessagePayload extends IMessagePayload {
   readonly type: 'CustomerGroupCustomFieldAdded'
   /**
    *	Name of the Custom Field that was added.
@@ -26726,8 +28875,7 @@ export interface CustomerGroupCustomFieldAddedMessagePayload
  *	Generated after changing an existing Custom Field on a Customer Group using the [Set CustomField](ctp:api:type:CustomerGroupSetCustomFieldAction) update action.
  *
  */
-export interface CustomerGroupCustomFieldChangedMessagePayload
-  extends IMessagePayload {
+export interface CustomerGroupCustomFieldChangedMessagePayload extends IMessagePayload {
   readonly type: 'CustomerGroupCustomFieldChanged'
   /**
    *	Name of the Custom Field that changed.
@@ -26752,8 +28900,7 @@ export interface CustomerGroupCustomFieldChangedMessagePayload
  *	Generated after removing a Custom Field from a Customer Group using the [Set CustomField](ctp:api:type:CustomerGroupSetCustomFieldAction) update action.
  *
  */
-export interface CustomerGroupCustomFieldRemovedMessagePayload
-  extends IMessagePayload {
+export interface CustomerGroupCustomFieldRemovedMessagePayload extends IMessagePayload {
   readonly type: 'CustomerGroupCustomFieldRemoved'
   /**
    *	Name of the Custom Field that was removed.
@@ -26766,8 +28913,7 @@ export interface CustomerGroupCustomFieldRemovedMessagePayload
  *	Generated after removing a Custom Type from a Customer Group using the [Set Custom Type](ctp:api:type:CustomerGroupSetCustomTypeAction) update action with empty parameters.
  *
  */
-export interface CustomerGroupCustomTypeRemovedMessagePayload
-  extends IMessagePayload {
+export interface CustomerGroupCustomTypeRemovedMessagePayload extends IMessagePayload {
   readonly type: 'CustomerGroupCustomTypeRemoved'
   /**
    *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
@@ -26780,8 +28926,7 @@ export interface CustomerGroupCustomTypeRemovedMessagePayload
  *	Generated after adding a Custom Type to a Customer Group using the [Set Custom Type](ctp:api:type:CustomerGroupSetCustomTypeAction) update action.
  *
  */
-export interface CustomerGroupCustomTypeSetMessagePayload
-  extends IMessagePayload {
+export interface CustomerGroupCustomTypeSetMessagePayload extends IMessagePayload {
   readonly type: 'CustomerGroupCustomTypeSet'
   /**
    *	The Custom Fields that have been set.
@@ -26825,8 +28970,7 @@ export interface CustomerLastNameSetMessagePayload extends IMessagePayload {
  *	Generated after a successful [Create password reset token for Customer](ctp:api:endpoint:/{projectKey}/customers/password-token:POST) or [Create password reset token for Customer in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password-token:POST) request. The `resource` property of the Message is a [CustomerPasswordTokenReference](ctp:api:type:CustomerPasswordTokenReference).
  *
  */
-export interface CustomerPasswordTokenCreatedMessagePayload
-  extends IMessagePayload {
+export interface CustomerPasswordTokenCreatedMessagePayload extends IMessagePayload {
   readonly type: 'CustomerPasswordTokenCreated'
   /**
    *	Unique identifier of the Customer.
@@ -26847,14 +28991,14 @@ export interface CustomerPasswordTokenCreatedMessagePayload
    */
   readonly value?: string
   /**
-   *	If `true`, all password tokens issued previously for the Customer are invalidated.
+   *	Whether all password tokens issued previously for the Customer are invalidated.
    *
    *
    */
   readonly invalidateOlderTokens: boolean
 }
 /**
- *	Generated after a successful [Reset Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password/reset:POST), [Reset Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password/reset:POST), [Change Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password:POST), or [Change Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password:POST) request. This Message is also produced during equivalent requests to the [My Customer Profile](/../api/projects/me-profile) endpoint.
+ *	Generated after a successful [Reset Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password/reset:POST), [Reset Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password/reset:POST), [Change Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password:POST), or [Change Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password:POST) request. This Message is also produced during equivalent requests to the [My Customer Profile](/api/projects/me-profile) endpoint.
  *
  */
 export interface CustomerPasswordUpdatedMessagePayload extends IMessagePayload {
@@ -26870,8 +29014,7 @@ export interface CustomerPasswordUpdatedMessagePayload extends IMessagePayload {
  *	Generated after a successful [Add Shipping Address ID](ctp:api:type:CustomerAddShippingAddressIdAction) update action.
  *
  */
-export interface CustomerShippingAddressAddedMessagePayload
-  extends IMessagePayload {
+export interface CustomerShippingAddressAddedMessagePayload extends IMessagePayload {
   readonly type: 'CustomerShippingAddressAdded'
   /**
    *	The address that was added to the [Customer](ctp:api:type:Customer) `shippingAddressIds`.
@@ -26884,8 +29027,7 @@ export interface CustomerShippingAddressAddedMessagePayload
  *	Generated after a successful [Remove Shipping Address ID](ctp:api:type:CustomerRemoveShippingAddressIdAction) update action.
  *
  */
-export interface CustomerShippingAddressRemovedMessagePayload
-  extends IMessagePayload {
+export interface CustomerShippingAddressRemovedMessagePayload extends IMessagePayload {
   readonly type: 'CustomerShippingAddressRemoved'
   /**
    *	The address that was removed from the [Customer](ctp:api:type:Customer) `shippingAddressIds`.
@@ -26989,8 +29131,7 @@ export interface DiscountGroupDeletedMessagePayload extends IMessagePayload {
  *	Generated after a successful [Set IsActive](ctp:api:type:DiscountGroupSetIsActiveAction) update action.
  *
  */
-export interface DiscountGroupIsActiveSetMessagePayload
-  extends IMessagePayload {
+export interface DiscountGroupIsActiveSetMessagePayload extends IMessagePayload {
   readonly type: 'DiscountGroupIsActiveSet'
   /**
    *	`isActive` value of the [DiscountGroup](ctp:api:type:DiscountGroup) after the [Set IsActive](ctp:api:type:DiscountGroupSetIsActiveAction) update action.
@@ -27028,8 +29169,7 @@ export interface DiscountGroupKeySetMessagePayload extends IMessagePayload {
  *	Generated after a successful [Set SortOrder](ctp:api:type:DiscountGroupSetSortOrderAction) update action.
  *
  */
-export interface DiscountGroupSortOrderSetMessagePayload
-  extends IMessagePayload {
+export interface DiscountGroupSortOrderSetMessagePayload extends IMessagePayload {
   readonly type: 'DiscountGroupSortOrderSet'
   /**
    *	`sortOrder` value of the [DiscountGroup](ctp:api:type:DiscountGroup) after the [Set SortOrder](ctp:api:type:DiscountGroupSetSortOrderAction) update action.
@@ -27058,7 +29198,7 @@ export interface InventoryEntryCreatedMessagePayload extends IMessagePayload {
   readonly inventoryEntry: InventoryEntry
 }
 /**
- *	Generated after a successful [Delete InventoryEntry](/../api/projects/inventory#delete-inventoryentry) request.
+ *	Generated after a successful [Delete InventoryEntry](/api/projects/inventory#delete-inventoryentry) request.
  *
  */
 export interface InventoryEntryDeletedMessagePayload extends IMessagePayload {
@@ -27077,12 +29217,30 @@ export interface InventoryEntryDeletedMessagePayload extends IMessagePayload {
   readonly supplyChannel?: ChannelReference
 }
 /**
+ *	Generated after [InventoryEntry](ctp:api:type:InventoryEntry) `quantityOnStock` goes to 0.
+ *
+ */
+export interface InventoryEntryOutOfStockMessagePayload extends IMessagePayload {
+  readonly type: 'InventoryEntryOutOfStock'
+  /**
+   *	The `sku` of the [InventoryEntry](ctp:api:type:InventoryEntry) whose `quantityOnStock` went to 0.
+   *
+   *
+   */
+  readonly sku: string
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Channel](ctp:api:type:Channel) where the [InventoryEntry](ctp:api:type:InventoryEntry) quantity on stock went to 0.
+   *
+   *
+   */
+  readonly supplyChannel?: ChannelReference
+}
+/**
  *	Generated after a successful [Add Quantity](ctp:api:type:InventoryEntryAddQuantityAction), [Remove Quantity](ctp:api:type:InventoryEntryRemoveQuantityAction) or [Change Quantity](ctp:api:type:InventoryEntryChangeQuantityAction) update action.
  *	Inventory changes as a result of [Order creation](ctp:api:endpoint:/{projectKey}/orders:POST) do not trigger this message.
  *
  */
-export interface InventoryEntryQuantitySetMessagePayload
-  extends IMessagePayload {
+export interface InventoryEntryQuantitySetMessagePayload extends IMessagePayload {
   readonly type: 'InventoryEntryQuantitySet'
   /**
    *	Quantity on stock for the [InventoryEntry](ctp:api:type:InventoryEntry) before the quantity was updated.
@@ -27121,6 +29279,75 @@ export interface InventoryEntryQuantitySetMessagePayload
    */
   readonly supplyChannel?: ChannelReference
 }
+/**
+ *	Generated after [InventoryEntry](ctp:api:type:InventoryEntry) `quantityOnStock` reaches the configured reorder point level. For more information, see [InventoryEntryStockLevels](ctp:api:type:InventoryEntryStockLevels).
+ *
+ */
+export interface InventoryEntryReorderPointMessagePayload extends IMessagePayload {
+  readonly type: 'InventoryEntryReorderPoint'
+  /**
+   *	The `sku` of the [InventoryEntry](ctp:api:type:InventoryEntry) whose `quantityOnStock` reached the configured reorder point level.
+   *
+   *
+   */
+  readonly sku: string
+  /**
+   *	The `quantityOnStock` of the [InventoryEntry](ctp:api:type:InventoryEntry) at the time the reorder point level was reached.
+   *
+   *
+   */
+  readonly quantityOnStock: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Channel](ctp:api:type:Channel) where the [InventoryEntry](ctp:api:type:InventoryEntry) `quantityOnStock` reached the configured reorder point level.
+   *
+   *
+   */
+  readonly supplyChannel?: ChannelReference
+}
+/**
+ *	Generated after a successful [Set Reservation Expiration In Minutes](ctp:api:type:InventoryEntrySetReservationExpirationInMinutesAction) update action.
+ *
+ */
+export interface InventoryEntryReservationExpirationInMinutesSetMessagePayload extends IMessagePayload {
+  readonly type: 'InventoryEntryReservationExpirationInMinutesSet'
+  /**
+   *	`reservationExpirationInMinutes` value of the [Inventory Entry](ctp:api:type:InventoryEntry) after the [Set Reservation Expiration In Minutes](ctp:api:type:InventoryEntrySetReservationExpirationInMinutesAction) update action.
+   *
+   *
+   */
+  readonly newReservationExpirationInMinutes?: number
+  /**
+   *	`reservationExpirationInMinutes` value of the [Inventory Entry](ctp:api:type:InventoryEntry) before the [Set Reservation Expiration In Minutes](ctp:api:type:InventoryEntrySetReservationExpirationInMinutesAction) update action.
+   *
+   *
+   */
+  readonly oldReservationExpirationInMinutes?: number
+}
+/**
+ *	Generated after [InventoryEntry](ctp:api:type:InventoryEntry) `quantityOnStock` reaches the configured safety stock level. For more information, see [InventoryEntryStockLevels](ctp:api:type:InventoryEntryStockLevels).
+ *
+ */
+export interface InventoryEntrySafetyStockMessagePayload extends IMessagePayload {
+  readonly type: 'InventoryEntrySafetyStock'
+  /**
+   *	The `sku` of the [InventoryEntry](ctp:api:type:InventoryEntry) whose `quantityOnStock` reached the configured safety stock level.
+   *
+   *
+   */
+  readonly sku: string
+  /**
+   *	The `quantityOnStock` of the [InventoryEntry](ctp:api:type:InventoryEntry) at the time the safety stock level was reached.
+   *
+   *
+   */
+  readonly quantityOnStock: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Channel](ctp:api:type:Channel) where the [InventoryEntry](ctp:api:type:InventoryEntry) `quantityOnStock` reached the configured safety stock level.
+   *
+   *
+   */
+  readonly supplyChannel?: ChannelReference
+}
 export type OrderMessagePayload =
   | CustomLineItemStateTransitionMessagePayload
   | DeliveryAddedMessagePayload
@@ -27154,6 +29381,7 @@ export type OrderMessagePayload =
   | OrderDiscountCodeRemovedMessagePayload
   | OrderDiscountCodeStateSetMessagePayload
   | OrderEditAppliedMessagePayload
+  | OrderEstimatedDeliverySetMessagePayload
   | OrderImportedMessagePayload
   | OrderLineItemAddedMessagePayload
   | OrderLineItemDiscountSetMessagePayload
@@ -27186,8 +29414,7 @@ export interface IOrderMessagePayload {
  *	Generated after a successful [Transition CustomLineItem State](ctp:api:type:OrderTransitionCustomLineItemStateAction) update action.
  *
  */
-export interface CustomLineItemStateTransitionMessagePayload
-  extends IOrderMessagePayload {
+export interface CustomLineItemStateTransitionMessagePayload extends IOrderMessagePayload {
   readonly type: 'CustomLineItemStateTransition'
   /**
    *	Unique identifier of the [Custom Line Item](ctp:api:type:CustomLineItem).
@@ -27280,8 +29507,7 @@ export interface DeliveryAddressSetMessagePayload extends IOrderMessagePayload {
  *	Generated after adding a Custom Field to a Delivery using the [Set CustomField](ctp:api:type:OrderSetDeliveryCustomFieldAction) update action.
  *
  */
-export interface DeliveryCustomFieldAddedMessagePayload
-  extends IOrderMessagePayload {
+export interface DeliveryCustomFieldAddedMessagePayload extends IOrderMessagePayload {
   readonly type: 'DeliveryCustomFieldAdded'
   /**
    *	Name of the Custom Field that was added.
@@ -27305,8 +29531,7 @@ export interface DeliveryCustomFieldAddedMessagePayload
  *	Generated when an existing Custom Field on a Delivery has been changed using the [Set CustomField](ctp:api:type:OrderSetDeliveryCustomFieldAction) update action.
  *
  */
-export interface DeliveryCustomFieldChangedMessagePayload
-  extends IOrderMessagePayload {
+export interface DeliveryCustomFieldChangedMessagePayload extends IOrderMessagePayload {
   readonly type: 'DeliveryCustomFieldChanged'
   /**
    *	Name of the Custom Field that changed.
@@ -27338,8 +29563,7 @@ export interface DeliveryCustomFieldChangedMessagePayload
  *	Generated when a Custom Field has been removed from the Delivery using the [Set CustomField](ctp:api:type:OrderSetDeliveryCustomFieldAction) update action.
  *
  */
-export interface DeliveryCustomFieldRemovedMessagePayload
-  extends IOrderMessagePayload {
+export interface DeliveryCustomFieldRemovedMessagePayload extends IOrderMessagePayload {
   readonly type: 'DeliveryCustomFieldRemoved'
   /**
    *	Name of the Custom Field that was removed.
@@ -27358,8 +29582,7 @@ export interface DeliveryCustomFieldRemovedMessagePayload
  *	Generated after removing a Custom Type from a Delivery using the [Set Custom Type](ctp:api:type:OrderSetDeliveryCustomTypeAction) update action with empty parameters.
  *
  */
-export interface DeliveryCustomTypeRemovedMessagePayload
-  extends IOrderMessagePayload {
+export interface DeliveryCustomTypeRemovedMessagePayload extends IOrderMessagePayload {
   readonly type: 'DeliveryCustomTypeRemoved'
   /**
    *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
@@ -27378,8 +29601,7 @@ export interface DeliveryCustomTypeRemovedMessagePayload
  *	Generated after adding a Custom Type to a Delivery using the [Set Custom Type](ctp:api:type:OrderSetDeliveryCustomTypeAction) update action.
  *
  */
-export interface DeliveryCustomTypeSetMessagePayload
-  extends IOrderMessagePayload {
+export interface DeliveryCustomTypeSetMessagePayload extends IOrderMessagePayload {
   readonly type: 'DeliveryCustomTypeSet'
   /**
    *	The Custom Fields that have been set.
@@ -27403,8 +29625,7 @@ export interface DeliveryCustomTypeSetMessagePayload
  *	Generated after a successful [Set Delivery Items](ctp:api:type:OrderSetDeliveryItemsAction) update action.
  *
  */
-export interface DeliveryItemsUpdatedMessagePayload
-  extends IOrderMessagePayload {
+export interface DeliveryItemsUpdatedMessagePayload extends IOrderMessagePayload {
   readonly type: 'DeliveryItemsUpdated'
   /**
    *	Unique identifier of the [Delivery](ctp:api:type:Delivery).
@@ -27454,8 +29675,7 @@ export interface DeliveryRemovedMessagePayload extends IOrderMessagePayload {
  *	Generated after a successful [Transition LineItem State](ctp:api:type:OrderTransitionLineItemStateAction) update action.
  *
  */
-export interface LineItemStateTransitionMessagePayload
-  extends IOrderMessagePayload {
+export interface LineItemStateTransitionMessagePayload extends IOrderMessagePayload {
   readonly type: 'LineItemStateTransition'
   /**
    *	Unique identifier of the [Line Item](ctp:api:type:LineItem).
@@ -27464,7 +29684,7 @@ export interface LineItemStateTransitionMessagePayload
    */
   readonly lineItemId: string
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Unique among LineItems in the Order.
    *
    *
    */
@@ -27498,8 +29718,7 @@ export interface LineItemStateTransitionMessagePayload
  *	Generated after a successful [Set Billing Address](ctp:api:type:OrderSetBillingAddressAction) update action.
  *
  */
-export interface OrderBillingAddressSetMessagePayload
-  extends IOrderMessagePayload {
+export interface OrderBillingAddressSetMessagePayload extends IOrderMessagePayload {
   readonly type: 'OrderBillingAddressSet'
   /**
    *	Billing address on the Order after the [Set Billing Address](ctp:api:type:OrderSetBillingAddressAction) update action.
@@ -27518,8 +29737,7 @@ export interface OrderBillingAddressSetMessagePayload
  *	Generated after a successful [Set Business Unit](ctp:api:type:OrderSetBusinessUnitAction) update action on Orders or [Set Business Unit](ctp:api:type:StagedOrderSetBusinessUnitAction) update action on Order Edits.
  *
  */
-export interface OrderBusinessUnitSetMessagePayload
-  extends IOrderMessagePayload {
+export interface OrderBusinessUnitSetMessagePayload extends IOrderMessagePayload {
   readonly type: 'OrderBusinessUnitSet'
   /**
    *	[BusinessUnit](ctp:api:type:BusinessUnit) on the [Order](ctp:api:type:Order) after the [Set Business Unit](ctp:api:type:OrderSetBusinessUnitAction) update action on Orders or [Set Business Unit](ctp:api:type:StagedOrderSetBusinessUnitAction) update action on Order Edits.
@@ -27537,9 +29755,10 @@ export interface OrderBusinessUnitSetMessagePayload
 /**
  *	Generated after an Order is successfully created according to the defined schedule of a Recurring Order.
  *
+ *	This Message is emitted in place of the standard [OrderCreated](ctp:api:type:OrderCreatedMessage) Message: Orders generated by a Recurring Order schedule do not emit the [OrderCreated](ctp:api:type:OrderCreatedMessage) Message.
+ *
  */
-export interface OrderCreatedFromRecurringOrderMessagePayload
-  extends IOrderMessagePayload {
+export interface OrderCreatedFromRecurringOrderMessagePayload extends IOrderMessagePayload {
   readonly type: 'OrderCreatedFromRecurringOrder'
   /**
    *	[Order](ctp:api:type:Order) that was created.
@@ -27555,7 +29774,9 @@ export interface OrderCreatedFromRecurringOrderMessagePayload
   readonly recurringOrderRef: RecurringOrderReference
 }
 /**
- *	Generated after a successful [Create Order](ctp:api:endpoint:/{projectKey}/orders:POST) request.
+ *	Generated after a successful [Create Order](ctp:api:endpoint:/{projectKey}/orders:POST) request, for the initial Order created directly from a Cart.
+ *
+ *	Orders generated by a [Recurring Order](ctp:api:type:RecurringOrder) schedule do not emit this Message. They emit the [OrderCreatedFromRecurringOrder](ctp:api:type:OrderCreatedFromRecurringOrderMessage) Message instead.
  *
  */
 export interface OrderCreatedMessagePayload extends IOrderMessagePayload {
@@ -27571,8 +29792,7 @@ export interface OrderCreatedMessagePayload extends IOrderMessagePayload {
  *	Generated after adding a Custom Field using the [Set CustomField](ctp:api:type:OrderSetCustomFieldAction).
  *
  */
-export interface OrderCustomFieldAddedMessagePayload
-  extends IOrderMessagePayload {
+export interface OrderCustomFieldAddedMessagePayload extends IOrderMessagePayload {
   readonly type: 'OrderCustomFieldAdded'
   /**
    *	Name of the Custom Field that was added.
@@ -27590,8 +29810,7 @@ export interface OrderCustomFieldAddedMessagePayload
  *	Generated when an existing Custom Field has been changed using the [Set CustomField](ctp:api:type:OrderSetCustomFieldAction) action.
  *
  */
-export interface OrderCustomFieldChangedMessagePayload
-  extends IOrderMessagePayload {
+export interface OrderCustomFieldChangedMessagePayload extends IOrderMessagePayload {
   readonly type: 'OrderCustomFieldChanged'
   /**
    *	Name of the Custom Field that changed.
@@ -27617,8 +29836,7 @@ export interface OrderCustomFieldChangedMessagePayload
  *	Generated when a Custom Field has been removed from the Order using the [Set CustomField](ctp:api:type:OrderSetCustomFieldAction) action.
  *
  */
-export interface OrderCustomFieldRemovedMessagePayload
-  extends IOrderMessagePayload {
+export interface OrderCustomFieldRemovedMessagePayload extends IOrderMessagePayload {
   readonly type: 'OrderCustomFieldRemoved'
   /**
    *	Name of the Custom Field that was removed.
@@ -27631,8 +29849,7 @@ export interface OrderCustomFieldRemovedMessagePayload
  *	Generated after a successful [Add CustomLineItem](ctp:api:type:StagedOrderAddCustomLineItemAction) update action.
  *
  */
-export interface OrderCustomLineItemAddedMessagePayload
-  extends IOrderMessagePayload {
+export interface OrderCustomLineItemAddedMessagePayload extends IOrderMessagePayload {
   readonly type: 'OrderCustomLineItemAdded'
   /**
    *	[Custom Line Item](ctp:api:type:CustomLineItem) that was added to the [Order](ctp:api:type:Order).
@@ -27645,8 +29862,7 @@ export interface OrderCustomLineItemAddedMessagePayload
  *	Generated after a successful recalculation of a Discount on a [Custom Line Item](ctp:api:type:CustomLineItem).
  *
  */
-export interface OrderCustomLineItemDiscountSetMessagePayload
-  extends IOrderMessagePayload {
+export interface OrderCustomLineItemDiscountSetMessagePayload extends IOrderMessagePayload {
   readonly type: 'OrderCustomLineItemDiscountSet'
   /**
    *	Unique identifier for the [Custom Line Item](ctp:api:type:CustomLineItem).
@@ -27677,8 +29893,7 @@ export interface OrderCustomLineItemDiscountSetMessagePayload
  *	Generated after a successful [Change CustomLineItem Quantity](ctp:api:type:StagedOrderChangeCustomLineItemQuantityAction) update action.
  *
  */
-export interface OrderCustomLineItemQuantityChangedMessagePayload
-  extends IOrderMessagePayload {
+export interface OrderCustomLineItemQuantityChangedMessagePayload extends IOrderMessagePayload {
   readonly type: 'OrderCustomLineItemQuantityChanged'
   /**
    *	Unique identifier of the [Custom Line Item](ctp:api:type:CustomLineItem).
@@ -27709,8 +29924,7 @@ export interface OrderCustomLineItemQuantityChangedMessagePayload
  *	Generated after a successful [Remove CustomLineItem](ctp:api:type:StagedOrderRemoveCustomLineItemAction) update action.
  *
  */
-export interface OrderCustomLineItemRemovedMessagePayload
-  extends IOrderMessagePayload {
+export interface OrderCustomLineItemRemovedMessagePayload extends IOrderMessagePayload {
   readonly type: 'OrderCustomLineItemRemoved'
   /**
    *	Unique identifier of the [Custom Line Item](ctp:api:type:CustomLineItem).
@@ -27735,8 +29949,7 @@ export interface OrderCustomLineItemRemovedMessagePayload
  *	Generated after a successful [Set Custom Type](ctp:api:type:OrderSetCustomTypeAction) with empty parameters.
  *
  */
-export interface OrderCustomTypeRemovedMessagePayload
-  extends IOrderMessagePayload {
+export interface OrderCustomTypeRemovedMessagePayload extends IOrderMessagePayload {
   readonly type: 'OrderCustomTypeRemoved'
   /**
    *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
@@ -27767,8 +29980,7 @@ export interface OrderCustomTypeSetMessagePayload extends IOrderMessagePayload {
  *	Generated after a successful [Set Customer Email](ctp:api:type:OrderSetCustomerEmailAction) update action.
  *
  */
-export interface OrderCustomerEmailSetMessagePayload
-  extends IOrderMessagePayload {
+export interface OrderCustomerEmailSetMessagePayload extends IOrderMessagePayload {
   readonly type: 'OrderCustomerEmailSet'
   /**
    *	Email address on the [Order](ctp:api:type:Order) after the [Set Customer Email](ctp:api:type:OrderSetCustomerEmailAction) update action.
@@ -27787,8 +29999,7 @@ export interface OrderCustomerEmailSetMessagePayload
  *	Generated after a successful [Set Customer Group](ctp:api:type:StagedOrderSetCustomerGroupAction) update action.
  *
  */
-export interface OrderCustomerGroupSetMessagePayload
-  extends IOrderMessagePayload {
+export interface OrderCustomerGroupSetMessagePayload extends IOrderMessagePayload {
   readonly type: 'OrderCustomerGroupSet'
   /**
    *	[CustomerGroup](ctp:api:type:CustomerGroup) on the [Order](ctp:api:type:Order) after the [Set Customer Group](ctp:api:type:StagedOrderSetCustomerGroupAction) update action.
@@ -27835,7 +30046,7 @@ export interface OrderCustomerSetMessagePayload extends IOrderMessagePayload {
   readonly oldCustomerGroup?: CustomerGroupReference
 }
 /**
- *	Generated after a successful [Delete Order](/../api/projects/orders#delete-order) request.
+ *	Generated after a successful [Delete Order](/api/projects/orders#delete-order) request.
  *
  */
 export interface OrderDeletedMessagePayload extends IOrderMessagePayload {
@@ -27851,8 +30062,7 @@ export interface OrderDeletedMessagePayload extends IOrderMessagePayload {
  *	Generated after a successful [Add DiscountCode](ctp:api:type:StagedOrderAddDiscountCodeAction) update action.
  *
  */
-export interface OrderDiscountCodeAddedMessagePayload
-  extends IOrderMessagePayload {
+export interface OrderDiscountCodeAddedMessagePayload extends IOrderMessagePayload {
   readonly type: 'OrderDiscountCodeAdded'
   /**
    *	[DiscountCode](ctp:api:type:DiscountCode) that was added.
@@ -27865,8 +30075,7 @@ export interface OrderDiscountCodeAddedMessagePayload
  *	Generated after a successful [Remove DiscountCode](ctp:api:type:StagedOrderRemoveDiscountCodeAction) update action.
  *
  */
-export interface OrderDiscountCodeRemovedMessagePayload
-  extends IOrderMessagePayload {
+export interface OrderDiscountCodeRemovedMessagePayload extends IOrderMessagePayload {
   readonly type: 'OrderDiscountCodeRemoved'
   /**
    *	[DiscountCode](ctp:api:type:DiscountCode) that was removed.
@@ -27876,11 +30085,10 @@ export interface OrderDiscountCodeRemovedMessagePayload
   readonly discountCode: DiscountCodeReference
 }
 /**
- *	Generated after the [DiscountCodeState](ctp:api:type:DiscountCodeState) changes due to a [recalculation](/../api/projects/carts#recalculate).
+ *	Generated after the [DiscountCodeState](ctp:api:type:DiscountCodeState) changes due to a [recalculation](ctp:api:type:CartRecalculateAction).
  *
  */
-export interface OrderDiscountCodeStateSetMessagePayload
-  extends IOrderMessagePayload {
+export interface OrderDiscountCodeStateSetMessagePayload extends IOrderMessagePayload {
   readonly type: 'OrderDiscountCodeStateSet'
   /**
    *	[DiscountCode](ctp:api:type:DiscountCode) that changed due to the recalculation.
@@ -27921,6 +30129,25 @@ export interface OrderEditAppliedMessagePayload extends IOrderMessagePayload {
   readonly result: OrderEditApplied
 }
 /**
+ *	Generated after a successful [Set Estimated Delivery](ctp:api:type:OrderSetEstimatedDeliveryAction) update action.
+ *
+ */
+export interface OrderEstimatedDeliverySetMessagePayload extends IOrderMessagePayload {
+  readonly type: 'OrderEstimatedDeliverySet'
+  /**
+   *	Estimated delivery window on the [Order](ctp:api:type:Order) after the [Set Estimated Delivery](ctp:api:type:OrderSetEstimatedDeliveryAction) update action.
+   *
+   *
+   */
+  readonly estimatedDelivery?: EstimatedDelivery
+  /**
+   *	`key` of the [Shipping](ctp:api:type:Shipping) that was updated. Only present for Orders with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
+}
+/**
  *	Generated after a successful [Order Import](ctp:api:endpoint:/{projectKey}/orders/import:POST).
  *
  */
@@ -27956,8 +30183,7 @@ export interface OrderLineItemAddedMessagePayload extends IOrderMessagePayload {
  *	Generated after a successful recalculation of a Discount on a [Line Item](ctp:api:type:LineItem).
  *
  */
-export interface OrderLineItemDiscountSetMessagePayload
-  extends IOrderMessagePayload {
+export interface OrderLineItemDiscountSetMessagePayload extends IOrderMessagePayload {
   readonly type: 'OrderLineItemDiscountSet'
   /**
    *	Unique identifier for the [Line Item](ctp:api:type:LineItem).
@@ -27966,7 +30192,7 @@ export interface OrderLineItemDiscountSetMessagePayload
    */
   readonly lineItemId: string
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Unique among LineItems in the Order.
    *
    *
    */
@@ -27998,11 +30224,10 @@ export interface OrderLineItemDiscountSetMessagePayload
   readonly taxedPricePortions: MethodTaxedPrice[]
 }
 /**
- *	Generated after a successful [Set LineItem DistributionChannel](/../api/projects/order-edits#set-lineitem-distributionchannel) update action.
+ *	Generated after a successful [Set LineItem DistributionChannel](ctp:api:type:StagedOrderSetLineItemDistributionChannelAction) update action.
  *
  */
-export interface OrderLineItemDistributionChannelSetMessagePayload
-  extends IOrderMessagePayload {
+export interface OrderLineItemDistributionChannelSetMessagePayload extends IOrderMessagePayload {
   readonly type: 'OrderLineItemDistributionChannelSet'
   /**
    *	Unique identifier of the [Line Item](ctp:api:type:LineItem).
@@ -28011,7 +30236,7 @@ export interface OrderLineItemDistributionChannelSetMessagePayload
    */
   readonly lineItemId: string
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Unique among LineItems in the Order.
    *
    *
    */
@@ -28027,8 +30252,7 @@ export interface OrderLineItemDistributionChannelSetMessagePayload
  *	Generated after a successful [Remove LineItem](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
  *
  */
-export interface OrderLineItemRemovedMessagePayload
-  extends IOrderMessagePayload {
+export interface OrderLineItemRemovedMessagePayload extends IOrderMessagePayload {
   readonly type: 'OrderLineItemRemoved'
   /**
    *	Unique identifier of the [Line Item](ctp:api:type:LineItem).
@@ -28037,7 +30261,7 @@ export interface OrderLineItemRemovedMessagePayload
    */
   readonly lineItemId: string
   /**
-   *	User-defined unique identifier of the LineItem.
+   *	User-defined identifier of the LineItem. Unique among LineItems in the Order.
    *
    *
    */
@@ -28121,8 +30345,7 @@ export interface OrderPaymentRemovedMessagePayload extends IMessagePayload {
  *	Generated after a successful [Change PaymentState](ctp:api:type:OrderChangePaymentStateAction) update action.
  *
  */
-export interface OrderPaymentStateChangedMessagePayload
-  extends IOrderMessagePayload {
+export interface OrderPaymentStateChangedMessagePayload extends IOrderMessagePayload {
   readonly type: 'OrderPaymentStateChanged'
   /**
    *	[PaymentState](ctp:api:type:PaymentState) after the [Change Payment State](ctp:api:type:OrderChangePaymentStateAction) update action.
@@ -28141,8 +30364,7 @@ export interface OrderPaymentStateChangedMessagePayload
  *	Generated after a successful [Set Purchase Order Number](ctp:api:type:OrderSetPurchaseOrderNumberAction) update action.
  *
  */
-export interface OrderPurchaseOrderNumberSetMessagePayload
-  extends IOrderMessagePayload {
+export interface OrderPurchaseOrderNumberSetMessagePayload extends IOrderMessagePayload {
   readonly type: 'OrderPurchaseOrderNumberSet'
   /**
    *	Purchase order number on the [Order](ctp:api:type:Order) after the [Set Purchase Order Number](ctp:api:type:OrderSetPurchaseOrderNumberAction) update action.
@@ -28161,8 +30383,7 @@ export interface OrderPurchaseOrderNumberSetMessagePayload
  *	Generated after a successful [Set ReturnShipmentState](ctp:api:type:OrderSetReturnShipmentStateAction) update action on [Orders](ctp:api:type:Order) and [Order Edits](ctp:api:type:OrderEdit).
  *
  */
-export interface OrderReturnShipmentStateChangedMessagePayload
-  extends IOrderMessagePayload {
+export interface OrderReturnShipmentStateChangedMessagePayload extends IOrderMessagePayload {
   readonly type: 'OrderReturnShipmentStateChanged'
   /**
    *	Unique identifier of the [ReturnItem](ctp:api:type:ReturnItem).
@@ -28181,8 +30402,7 @@ export interface OrderReturnShipmentStateChangedMessagePayload
  *	Generated after a successful [Change ShipmentState](ctp:api:type:OrderChangeShipmentStateAction) update action.
  *
  */
-export interface OrderShipmentStateChangedMessagePayload
-  extends IOrderMessagePayload {
+export interface OrderShipmentStateChangedMessagePayload extends IOrderMessagePayload {
   readonly type: 'OrderShipmentStateChanged'
   /**
    *	[ShipmentState](ctp:api:type:ShipmentState) after the [Change Shipment State](ctp:api:type:OrderChangeShipmentStateAction) update action.
@@ -28201,8 +30421,7 @@ export interface OrderShipmentStateChangedMessagePayload
  *	Generated after a successful [Set Shipping Address](ctp:api:type:OrderSetShippingAddressAction) update action.
  *
  */
-export interface OrderShippingAddressSetMessagePayload
-  extends IOrderMessagePayload {
+export interface OrderShippingAddressSetMessagePayload extends IOrderMessagePayload {
   readonly type: 'OrderShippingAddressSet'
   /**
    *	Shipping address on the Order after the [Set Shipping Address](ctp:api:type:OrderSetShippingAddressAction) update action.
@@ -28221,8 +30440,7 @@ export interface OrderShippingAddressSetMessagePayload
  *	Generated after a successful [Set ShippingMethod](ctp:api:type:StagedOrderSetShippingMethodAction) and [Set Custom ShippingMethod](ctp:api:type:StagedOrderSetCustomShippingMethodAction) update actions.
  *
  */
-export interface OrderShippingInfoSetMessagePayload
-  extends IOrderMessagePayload {
+export interface OrderShippingInfoSetMessagePayload extends IOrderMessagePayload {
   readonly type: 'OrderShippingInfoSet'
   /**
    *	[ShippingInfo](ctp:api:type:ShippingInfo) after the [Set Shipping Method](ctp:api:type:StagedOrderSetShippingMethodAction) or [Set Custom Shipping Method](ctp:api:type:StagedOrderSetCustomShippingMethodAction) update action.
@@ -28241,8 +30459,7 @@ export interface OrderShippingInfoSetMessagePayload
  *	Generated after a successful [Set ShippingRateInput](ctp:api:type:StagedOrderSetShippingRateInputAction) update action.
  *
  */
-export interface OrderShippingRateInputSetMessagePayload
-  extends IOrderMessagePayload {
+export interface OrderShippingRateInputSetMessagePayload extends IOrderMessagePayload {
   readonly type: 'OrderShippingRateInputSet'
   /**
    *	[ShippingRateInput](ctp:api:type:ShippingRateInput) after the [Set ShippingRateInput](ctp:api:type:StagedOrderSetShippingRateInputAction) update action.
@@ -28280,8 +30497,7 @@ export interface OrderStateChangedMessagePayload extends IOrderMessagePayload {
  *	Generated after a successful [Transition State](ctp:api:type:OrderTransitionStateAction) update action.
  *
  */
-export interface OrderStateTransitionMessagePayload
-  extends IOrderMessagePayload {
+export interface OrderStateTransitionMessagePayload extends IOrderMessagePayload {
   readonly type: 'OrderStateTransition'
   /**
    *	[OrderState](ctp:api:type:OrderState) after the [Transition State](ctp:api:type:OrderTransitionStateAction) update action.
@@ -28319,8 +30535,7 @@ export interface OrderStoreSetMessagePayload extends IOrderMessagePayload {
  *	Generated after a successful [Add Parcel to Delivery](ctp:api:type:OrderAddParcelToDeliveryAction) update action.
  *
  */
-export interface ParcelAddedToDeliveryMessagePayload
-  extends IOrderMessagePayload {
+export interface ParcelAddedToDeliveryMessagePayload extends IOrderMessagePayload {
   readonly type: 'ParcelAddedToDelivery'
   /**
    *	Unique identifier of the [Delivery](ctp:api:type:Delivery).
@@ -28382,8 +30597,7 @@ export interface ParcelItemsUpdatedMessagePayload extends IOrderMessagePayload {
  *	Generated after a successful [Set Parcel Measurements](ctp:api:type:OrderSetParcelMeasurementsAction) update action.
  *
  */
-export interface ParcelMeasurementsUpdatedMessagePayload
-  extends IOrderMessagePayload {
+export interface ParcelMeasurementsUpdatedMessagePayload extends IOrderMessagePayload {
   readonly type: 'ParcelMeasurementsUpdated'
   /**
    *	Unique identifier of the [Delivery](ctp:api:type:Delivery).
@@ -28414,8 +30628,7 @@ export interface ParcelMeasurementsUpdatedMessagePayload
  *	Generated after a successful [Remove Parcel from Delivery](ctp:api:type:OrderRemoveParcelFromDeliveryAction) update action.
  *
  */
-export interface ParcelRemovedFromDeliveryMessagePayload
-  extends IOrderMessagePayload {
+export interface ParcelRemovedFromDeliveryMessagePayload extends IOrderMessagePayload {
   readonly type: 'ParcelRemovedFromDelivery'
   /**
    *	Unique identifier of the [Delivery](ctp:api:type:Delivery).
@@ -28440,8 +30653,7 @@ export interface ParcelRemovedFromDeliveryMessagePayload
  *	Generated after a successful [Set Parcel Tracking Data](ctp:api:type:OrderSetParcelTrackingDataAction) update action.
  *
  */
-export interface ParcelTrackingDataUpdatedMessagePayload
-  extends IOrderMessagePayload {
+export interface ParcelTrackingDataUpdatedMessagePayload extends IOrderMessagePayload {
   readonly type: 'ParcelTrackingDataUpdated'
   /**
    *	Unique identifier of the [Delivery](ctp:api:type:Delivery).
@@ -28530,8 +30742,7 @@ export interface PaymentMethodCreatedMessagePayload extends IMessagePayload {
  *	Generated after adding a Custom Field to a Payment Method using the [Set CustomField](ctp:api:type:PaymentMethodSetCustomFieldAction) update action. If a Custom Field already exists with the same name, a [PaymentMethodCustomFieldChanged](ctp:api:type:PaymentMethodCustomFieldChangedMessage) Message is generated instead.
  *
  */
-export interface PaymentMethodCustomFieldAddedMessagePayload
-  extends IMessagePayload {
+export interface PaymentMethodCustomFieldAddedMessagePayload extends IMessagePayload {
   readonly type: 'PaymentMethodCustomFieldAdded'
   /**
    *	Name of the Custom Field that was added.
@@ -28550,8 +30761,7 @@ export interface PaymentMethodCustomFieldAddedMessagePayload
  *	Generated after changing an existing Custom Field on a Payment Method using the [Set CustomField](ctp:api:type:PaymentMethodSetCustomFieldAction) update action.
  *
  */
-export interface PaymentMethodCustomFieldChangedMessagePayload
-  extends IMessagePayload {
+export interface PaymentMethodCustomFieldChangedMessagePayload extends IMessagePayload {
   readonly type: 'PaymentMethodCustomFieldChanged'
   /**
    *	Name of the Custom Field that changed.
@@ -28576,8 +30786,7 @@ export interface PaymentMethodCustomFieldChangedMessagePayload
  *	Generated after removing a Custom Field from a Payment Method using the [Set CustomField](ctp:api:type:PaymentMethodSetCustomFieldAction) update action.
  *
  */
-export interface PaymentMethodCustomFieldRemovedMessagePayload
-  extends IMessagePayload {
+export interface PaymentMethodCustomFieldRemovedMessagePayload extends IMessagePayload {
   readonly type: 'PaymentMethodCustomFieldRemoved'
   /**
    *	Name of the Custom Field that was removed.
@@ -28590,8 +30799,7 @@ export interface PaymentMethodCustomFieldRemovedMessagePayload
  *	Generated after removing a Custom Type from a Payment Method using the [Set Custom Type](ctp:api:type:PaymentMethodSetCustomTypeAction) update action.
  *
  */
-export interface PaymentMethodCustomTypeRemovedMessagePayload
-  extends IMessagePayload {
+export interface PaymentMethodCustomTypeRemovedMessagePayload extends IMessagePayload {
   readonly type: 'PaymentMethodCustomTypeRemoved'
   /**
    *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
@@ -28604,8 +30812,7 @@ export interface PaymentMethodCustomTypeRemovedMessagePayload
  *	Generated after adding a Custom Type to a Payment Method using the [Set Custom Type](ctp:api:type:PaymentMethodSetCustomTypeAction) update action.
  *
  */
-export interface PaymentMethodCustomTypeSetMessagePayload
-  extends IMessagePayload {
+export interface PaymentMethodCustomTypeSetMessagePayload extends IMessagePayload {
   readonly type: 'PaymentMethodCustomTypeSet'
   /**
    *	The Custom Fields that were set.
@@ -28656,8 +30863,7 @@ export interface PaymentMethodDeletedMessagePayload extends IMessagePayload {
  *	Generated after adding a Custom Field to a PaymentMethodInfo using the [Set MethodInfo CustomField](ctp:api:type:PaymentSetMethodInfoCustomFieldAction) update action on Payments and the [Set MethodInfo CustomField](ctp:api:type:MyPaymentSetMethodInfoCustomFieldAction) update action on My Payments. If a Custom Field already exists with the same name, a [PaymentMethodInfoCustomFieldChanged](ctp:api:type:PaymentMethodInfoCustomFieldChangedMessage) Message is generated instead.
  *
  */
-export interface PaymentMethodInfoCustomFieldAddedMessagePayload
-  extends IMessagePayload {
+export interface PaymentMethodInfoCustomFieldAddedMessagePayload extends IMessagePayload {
   readonly type: 'PaymentMethodInfoCustomFieldAdded'
   /**
    *	Name of the Custom Field that was added.
@@ -28676,8 +30882,7 @@ export interface PaymentMethodInfoCustomFieldAddedMessagePayload
  *	Generated after changing an existing Custom Field on a PaymentMethodInfo using the [Set MethodInfo CustomField](ctp:api:type:PaymentSetMethodInfoCustomFieldAction) update action on Payments and the [Set MethodInfo CustomField](ctp:api:type:MyPaymentSetMethodInfoCustomFieldAction) update action on My Payments.
  *
  */
-export interface PaymentMethodInfoCustomFieldChangedMessagePayload
-  extends IMessagePayload {
+export interface PaymentMethodInfoCustomFieldChangedMessagePayload extends IMessagePayload {
   readonly type: 'PaymentMethodInfoCustomFieldChanged'
   /**
    *	Name of the Custom Field that changed.
@@ -28696,8 +30901,7 @@ export interface PaymentMethodInfoCustomFieldChangedMessagePayload
  *	Generated after removing a Custom Field from a PaymentMethodInfo using the [Set MethodInfo CustomField](ctp:api:type:PaymentSetMethodInfoCustomFieldAction) update action on Payments and the [Set MethodInfo CustomField](ctp:api:type:MyPaymentSetMethodInfoCustomFieldAction) update action on My Payments.
  *
  */
-export interface PaymentMethodInfoCustomFieldRemovedMessagePayload
-  extends IMessagePayload {
+export interface PaymentMethodInfoCustomFieldRemovedMessagePayload extends IMessagePayload {
   readonly type: 'PaymentMethodInfoCustomFieldRemoved'
   /**
    *	Name of the Custom Field that was removed.
@@ -28710,8 +30914,7 @@ export interface PaymentMethodInfoCustomFieldRemovedMessagePayload
  *	Generated after removing Custom Fields from a PaymentMethodInfo using the [Set MethodInfo Custom Type](ctp:api:type:PaymentSetMethodInfoCustomTypeAction) update action on Payments and the [Set MethodInfo Custom Type](ctp:api:type:MyPaymentSetMethodInfoCustomTypeAction) update action on My Payments.
  *
  */
-export interface PaymentMethodInfoCustomTypeRemovedMessagePayload
-  extends IMessagePayload {
+export interface PaymentMethodInfoCustomTypeRemovedMessagePayload extends IMessagePayload {
   readonly type: 'PaymentMethodInfoCustomTypeRemoved'
   /**
    *	`id` of the [Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
@@ -28724,8 +30927,7 @@ export interface PaymentMethodInfoCustomTypeRemovedMessagePayload
  *	Generated after adding Custom Fields to a PaymentMethodInfo using the [Set MethodInfo Custom Type](ctp:api:type:PaymentSetMethodInfoCustomTypeAction) update action on Payments and the [Set MethodInfo Custom Type](ctp:api:type:MyPaymentSetMethodInfoCustomTypeAction) update action on My Payments.
  *
  */
-export interface PaymentMethodInfoCustomTypeSetMessagePayload
-  extends IMessagePayload {
+export interface PaymentMethodInfoCustomTypeSetMessagePayload extends IMessagePayload {
   readonly type: 'PaymentMethodInfoCustomTypeSet'
   /**
    *	The Custom Fields that were set.
@@ -28744,8 +30946,7 @@ export interface PaymentMethodInfoCustomTypeSetMessagePayload
  *	Generated after a successful [Set MethodInfo InterfaceAccount](ctp:api:type:PaymentSetMethodInfoInterfaceAccountAction) update action on Payments and [Set MethodInfo InterfaceAccount](ctp:api:type:MyPaymentSetMethodInfoInterfaceAccountAction) update action on My Payments.
  *
  */
-export interface PaymentMethodInfoInterfaceAccountSetMessagePayload
-  extends IMessagePayload {
+export interface PaymentMethodInfoInterfaceAccountSetMessagePayload extends IMessagePayload {
   readonly type: 'PaymentMethodInfoInterfaceAccountSet'
   /**
    *	Interface account of the Payment Method after the [Set MethodInfo InterfaceAccount](ctp:api:type:PaymentSetMethodInfoInterfaceAccountAction) update action.
@@ -28764,8 +30965,7 @@ export interface PaymentMethodInfoInterfaceAccountSetMessagePayload
  *	Generated after a successful [Set MethodInfo Interface](ctp:api:type:PaymentSetMethodInfoInterfaceAction) update action.
  *
  */
-export interface PaymentMethodInfoInterfaceSetMessagePayload
-  extends IMessagePayload {
+export interface PaymentMethodInfoInterfaceSetMessagePayload extends IMessagePayload {
   readonly type: 'PaymentMethodInfoInterfaceSet'
   /**
    *	Payment interface of the Payment Method after the [Set MethodInfo Interface](ctp:api:type:PaymentSetMethodInfoInterfaceAction) update action.
@@ -28784,8 +30984,7 @@ export interface PaymentMethodInfoInterfaceSetMessagePayload
  *	Generated after a successful [Set MethodInfo Method](ctp:api:type:PaymentSetMethodInfoMethodAction) update action.
  *
  */
-export interface PaymentMethodInfoMethodSetMessagePayload
-  extends IMessagePayload {
+export interface PaymentMethodInfoMethodSetMessagePayload extends IMessagePayload {
   readonly type: 'PaymentMethodInfoMethodSet'
   /**
    *	Payment Method after the [Set MethodInfo Method](ctp:api:type:PaymentSetMethodInfoMethodAction) update action.
@@ -28804,8 +31003,7 @@ export interface PaymentMethodInfoMethodSetMessagePayload
  *	Generated after a successful [Set MethodInfo Name](ctp:api:type:PaymentSetMethodInfoNameAction) update action.
  *
  */
-export interface PaymentMethodInfoNameSetMessagePayload
-  extends IMessagePayload {
+export interface PaymentMethodInfoNameSetMessagePayload extends IMessagePayload {
   readonly type: 'PaymentMethodInfoNameSet'
   /**
    *	Name of the Payment Method after the [Set MethodInfo Name](ctp:api:type:PaymentSetMethodInfoNameAction) update action.
@@ -28824,8 +31022,7 @@ export interface PaymentMethodInfoNameSetMessagePayload
  *	Generated after a successful [Set MethodInfo Token](ctp:api:type:PaymentSetMethodInfoTokenAction) update action.
  *
  */
-export interface PaymentMethodInfoTokenSetMessagePayload
-  extends IMessagePayload {
+export interface PaymentMethodInfoTokenSetMessagePayload extends IMessagePayload {
   readonly type: 'PaymentMethodInfoTokenSet'
   /**
    *	Token of the Payment Method after the [Set MethodInfo Token](ctp:api:type:PaymentSetMethodInfoTokenAction) update action.
@@ -28844,8 +31041,7 @@ export interface PaymentMethodInfoTokenSetMessagePayload
  *	Generated after a successful [Set InterfaceAccount](ctp:api:type:PaymentMethodSetInterfaceAccountAction) update action.
  *
  */
-export interface PaymentMethodInterfaceAccountSetMessagePayload
-  extends IMessagePayload {
+export interface PaymentMethodInterfaceAccountSetMessagePayload extends IMessagePayload {
   readonly type: 'PaymentMethodInterfaceAccountSet'
   /**
    *	Interface account of the Payment Method after the [Set InterfaceAccount](ctp:api:type:PaymentMethodSetInterfaceAccountAction) update action.
@@ -28921,8 +31117,7 @@ export interface PaymentMethodNameSetMessagePayload extends IMessagePayload {
  *	Generated after a successful [Set PaymentInterface](ctp:api:type:PaymentMethodSetPaymentInterfaceAction) update action.
  *
  */
-export interface PaymentMethodPaymentInterfaceSetMessagePayload
-  extends IMessagePayload {
+export interface PaymentMethodPaymentInterfaceSetMessagePayload extends IMessagePayload {
   readonly type: 'PaymentMethodPaymentInterfaceSet'
   /**
    *	Payment interface of the Payment Method after the [Set PaymentInterface](ctp:api:type:PaymentMethodSetPaymentInterfaceAction) update action.
@@ -28941,8 +31136,7 @@ export interface PaymentMethodPaymentInterfaceSetMessagePayload
  *	Generated after a successful [Set PaymentMethodStatus](ctp:api:type:PaymentMethodSetPaymentMethodStatusAction) update action.
  *
  */
-export interface PaymentMethodPaymentMethodStatusSetMessagePayload
-  extends IMessagePayload {
+export interface PaymentMethodPaymentMethodStatusSetMessagePayload extends IMessagePayload {
   readonly type: 'PaymentMethodPaymentMethodStatusSet'
   /**
    *	Status of the Payment Method after the [Set PaymentMethodStatus](ctp:api:type:PaymentMethodSetPaymentMethodStatusAction) update action.
@@ -28961,8 +31155,7 @@ export interface PaymentMethodPaymentMethodStatusSetMessagePayload
  *	Generated after a successful [Set StatusInterfaceCode](ctp:api:type:PaymentSetStatusInterfaceCodeAction) update action.
  *
  */
-export interface PaymentStatusInterfaceCodeSetMessagePayload
-  extends IMessagePayload {
+export interface PaymentStatusInterfaceCodeSetMessagePayload extends IMessagePayload {
   readonly type: 'PaymentStatusInterfaceCodeSet'
   /**
    *	The `interfaceCode` that was set during the [Set StatusInterfaceCode](ctp:api:type:PaymentSetStatusInterfaceCodeAction) update action.
@@ -28975,8 +31168,7 @@ export interface PaymentStatusInterfaceCodeSetMessagePayload
  *	Generated after a successful [Transition State](ctp:api:type:PaymentTransitionStateAction) update action.
  *
  */
-export interface PaymentStatusStateTransitionMessagePayload
-  extends IMessagePayload {
+export interface PaymentStatusStateTransitionMessagePayload extends IMessagePayload {
   readonly type: 'PaymentStatusStateTransition'
   /**
    *	[State](ctp:api:type:State) of the [Payment](ctp:api:type:Payment) after the [Transition State](ctp:api:type:PaymentTransitionStateAction) update action.
@@ -29008,8 +31200,7 @@ export interface PaymentTransactionAddedMessagePayload extends IMessagePayload {
  *	Generated after a successful [Set Transaction InterfaceId](ctp:api:type:PaymentSetTransactionInterfaceIdAction) update action.
  *
  */
-export interface PaymentTransactionInterfaceIdSetMessagePayload
-  extends IMessagePayload {
+export interface PaymentTransactionInterfaceIdSetMessagePayload extends IMessagePayload {
   readonly type: 'PaymentTransactionInterfaceIdSet'
   /**
    *	Unique identifier of the [Transaction](ctp:api:type:Transaction).
@@ -29034,8 +31225,7 @@ export interface PaymentTransactionInterfaceIdSetMessagePayload
  *	Generated after a successful [Change TransactionState](ctp:api:type:PaymentChangeTransactionStateAction) update action.
  *
  */
-export interface PaymentTransactionStateChangedMessagePayload
-  extends IMessagePayload {
+export interface PaymentTransactionStateChangedMessagePayload extends IMessagePayload {
   readonly type: 'PaymentTransactionStateChanged'
   /**
    *	Unique identifier for the [Transaction](ctp:api:type:Transaction) for which the [Transaction State](ctp:api:type:TransactionState) changed.
@@ -29083,7 +31273,7 @@ export interface ProductCreatedMessagePayload extends IMessagePayload {
   readonly productProjection: ProductProjection
 }
 /**
- *	Generated after a successful [Delete Product](/../api/projects/products#delete-product) request.
+ *	Generated after a successful [Delete Product](/api/projects/products#delete-product) request.
  *
  */
 export interface ProductDeletedMessagePayload extends IMessagePayload {
@@ -29102,7 +31292,7 @@ export interface ProductDeletedMessagePayload extends IMessagePayload {
   readonly currentProjection?: ProductProjection
 }
 /**
- *	Generated after a successful [Add External Image](ctp:api:type:ProductAddExternalImageAction) update action or after the successful [upload of an image](/../api/projects/products#upload-product-image).
+ *	Generated after a successful [Add External Image](ctp:api:type:ProductAddExternalImageAction) update action or after the successful [upload of an image](ctp:api:endpoint:/{projectKey}/products/{id}/images:POST).
  *
  */
 export interface ProductImageAddedMessagePayload extends IMessagePayload {
@@ -29192,8 +31382,7 @@ export interface ProductPriceChangedMessagePayload extends IMessagePayload {
  *	Generated after adding a Custom Field to a Price using the [Set Price CustomField](ctp:api:type:ProductSetProductPriceCustomFieldAction) update action.
  *
  */
-export interface ProductPriceCustomFieldAddedMessagePayload
-  extends IMessagePayload {
+export interface ProductPriceCustomFieldAddedMessagePayload extends IMessagePayload {
   readonly type: 'ProductPriceCustomFieldAdded'
   /**
    *	Unique identifier of the [Price](ctp:api:type:Price) to which the Custom Field was added.
@@ -29230,8 +31419,7 @@ export interface ProductPriceCustomFieldAddedMessagePayload
  *	Generated after changing an existing Custom Field on a Price using the [Set Price CustomField](ctp:api:type:ProductSetProductPriceCustomFieldAction) update action.
  *
  */
-export interface ProductPriceCustomFieldChangedMessagePayload
-  extends IMessagePayload {
+export interface ProductPriceCustomFieldChangedMessagePayload extends IMessagePayload {
   readonly type: 'ProductPriceCustomFieldChanged'
   /**
    *	Unique identifier of the [Price](ctp:api:type:Price) of which the Custom Field was changed.
@@ -29268,8 +31456,7 @@ export interface ProductPriceCustomFieldChangedMessagePayload
  *	Generated after removing a Custom Field from a Price using the [Set Price CustomField](ctp:api:type:ProductSetProductPriceCustomFieldAction) update action.
  *
  */
-export interface ProductPriceCustomFieldRemovedMessagePayload
-  extends IMessagePayload {
+export interface ProductPriceCustomFieldRemovedMessagePayload extends IMessagePayload {
   readonly type: 'ProductPriceCustomFieldRemoved'
   /**
    *	Unique identifier of the [Price](ctp:api:type:Price) from which the Custom Field was removed.
@@ -29300,8 +31487,7 @@ export interface ProductPriceCustomFieldRemovedMessagePayload
  *	Generated after removing a Custom Type from a Price using the [Set Price Custom Type](ctp:api:type:ProductSetProductPriceCustomTypeAction) update action.
  *
  */
-export interface ProductPriceCustomFieldsRemovedMessagePayload
-  extends IMessagePayload {
+export interface ProductPriceCustomFieldsRemovedMessagePayload extends IMessagePayload {
   readonly type: 'ProductPriceCustomFieldsRemoved'
   /**
    *	Unique identifier of the [Price](ctp:api:type:Price) from which the Custom Type was removed.
@@ -29326,8 +31512,7 @@ export interface ProductPriceCustomFieldsRemovedMessagePayload
  *	Generated after a successful [Set Price Custom Type](ctp:api:type:ProductSetProductPriceCustomTypeAction) update action.
  *
  */
-export interface ProductPriceCustomFieldsSetMessagePayload
-  extends IMessagePayload {
+export interface ProductPriceCustomFieldsSetMessagePayload extends IMessagePayload {
   readonly type: 'ProductPriceCustomFieldsSet'
   /**
    *	Unique identifier of the [Price](ctp:api:type:Price) on which the Custom Type was set.
@@ -29364,8 +31549,7 @@ export interface ProductPriceCustomFieldsSetMessagePayload
  *	Generated after a Price is updated due to a [Product Discount](ctp:api:type:ProductDiscount).
  *
  */
-export interface ProductPriceDiscountsSetMessagePayload
-  extends IMessagePayload {
+export interface ProductPriceDiscountsSetMessagePayload extends IMessagePayload {
   readonly type: 'ProductPriceDiscountsSet'
   /**
    *	Array containing details about the [Embedded Prices](ctp:api:type:Price) that were updated.
@@ -29378,8 +31562,7 @@ export interface ProductPriceDiscountsSetMessagePayload
  *	Generated after a successful [Set Discounted Price](ctp:api:type:ProductSetDiscountedPriceAction) update action.
  *
  */
-export interface ProductPriceExternalDiscountSetMessagePayload
-  extends IMessagePayload {
+export interface ProductPriceExternalDiscountSetMessagePayload extends IMessagePayload {
   readonly type: 'ProductPriceExternalDiscountSet'
   /**
    *	Unique identifier of the [Product Variant](ctp:api:type:ProductVariant) for which the Discount was set.
@@ -29545,8 +31728,7 @@ export interface ProductPublishedMessagePayload extends IMessagePayload {
  *	Generated after a successful [Remove from Category](ctp:api:type:ProductRemoveFromCategoryAction) update action.
  *
  */
-export interface ProductRemovedFromCategoryMessagePayload
-  extends IMessagePayload {
+export interface ProductRemovedFromCategoryMessagePayload extends IMessagePayload {
   readonly type: 'ProductRemovedFromCategory'
   /**
    *	[Category](ctp:api:type:Category) the [Product](ctp:api:type:Product) was removed from.
@@ -29565,8 +31747,7 @@ export interface ProductRemovedFromCategoryMessagePayload
  *	Generated after a successful [Revert Staged Changes](ctp:api:type:ProductRevertStagedChangesAction) update action.
  *
  */
-export interface ProductRevertedStagedChangesMessagePayload
-  extends IMessagePayload {
+export interface ProductRevertedStagedChangesMessagePayload extends IMessagePayload {
   readonly type: 'ProductRevertedStagedChanges'
   /**
    *	List of image URLs that were removed during the [Revert Staged Changes](ctp:api:type:ProductRevertStagedChangesAction) update action.
@@ -29589,7 +31770,7 @@ export interface ProductSelectionCreatedMessagePayload extends IMessagePayload {
   readonly productSelection: ProductSelection
 }
 /**
- *	Generated after a successful [Delete Product Selection](/../api/projects/product-selections#delete-productselection) request.
+ *	Generated after a successful [Delete Product Selection](/api/projects/product-selections#delete-productselection) request.
  *
  */
 export interface ProductSelectionDeletedMessagePayload extends IMessagePayload {
@@ -29599,8 +31780,7 @@ export interface ProductSelectionDeletedMessagePayload extends IMessagePayload {
  *	Generated after a successful [Add Product](ctp:api:type:ProductSelectionAddProductAction) update action.
  *
  */
-export interface ProductSelectionProductAddedMessagePayload
-  extends IMessagePayload {
+export interface ProductSelectionProductAddedMessagePayload extends IMessagePayload {
   readonly type: 'ProductSelectionProductAdded'
   /**
    *	[Product](ctp:api:type:Product) that was added to the [Product Selection](ctp:api:type:ProductSelection).
@@ -29619,8 +31799,7 @@ export interface ProductSelectionProductAddedMessagePayload
  *	Generated after a successful [Exclude Product](ctp:api:type:ProductSelectionExcludeProductAction) update action.
  *
  */
-export interface ProductSelectionProductExcludedMessagePayload
-  extends IMessagePayload {
+export interface ProductSelectionProductExcludedMessagePayload extends IMessagePayload {
   readonly type: 'ProductSelectionProductExcluded'
   /**
    *	[Product](ctp:api:type:Product) that was excluded from the [Product Selection](ctp:api:type:ProductSelection).
@@ -29639,8 +31818,7 @@ export interface ProductSelectionProductExcludedMessagePayload
  *	Generated after a successful [Remove Product](ctp:api:type:ProductSelectionRemoveProductAction) update action.
  *
  */
-export interface ProductSelectionProductRemovedMessagePayload
-  extends IMessagePayload {
+export interface ProductSelectionProductRemovedMessagePayload extends IMessagePayload {
   readonly type: 'ProductSelectionProductRemoved'
   /**
    *	[Product](ctp:api:type:Product) that was removed from the Product Selection.
@@ -29653,8 +31831,7 @@ export interface ProductSelectionProductRemovedMessagePayload
  *	Generated after a successful [Set Variant Exclusion](ctp:api:type:ProductSelectionSetVariantExclusionAction) update action.
  *
  */
-export interface ProductSelectionVariantExclusionChangedMessagePayload
-  extends IMessagePayload {
+export interface ProductSelectionVariantExclusionChangedMessagePayload extends IMessagePayload {
   readonly type: 'ProductSelectionVariantExclusionChanged'
   /**
    *	[Product](ctp:api:type:Product) for which the Product Variant Exclusion changed.
@@ -29677,8 +31854,7 @@ export interface ProductSelectionVariantExclusionChangedMessagePayload
  *	Generated after a successful [Set Variant Selection](ctp:api:type:ProductSelectionSetVariantSelectionAction) update action.
  *
  */
-export interface ProductSelectionVariantSelectionChangedMessagePayload
-  extends IMessagePayload {
+export interface ProductSelectionVariantSelectionChangedMessagePayload extends IMessagePayload {
   readonly type: 'ProductSelectionVariantSelectionChanged'
   /**
    *	[Product](ctp:api:type:Product) for which the Product Variant Selection changed.
@@ -29735,8 +31911,8 @@ export interface ProductStateTransitionMessagePayload extends IMessagePayload {
   readonly force: boolean
 }
 /**
- *	Generated after a successful [Create Product Tailoring](/../api/projects/product-tailoring#create-producttailoring) or
- *	[Create Product Tailoring in Store](/../api/projects/product-tailoring#create-producttailoring-in-store) request.
+ *	Generated after a successful [Create Product Tailoring](ctp:api:endpoint:/{projectKey}/product-tailoring:POST) or
+ *	[Create Product Tailoring in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/product-tailoring:POST) request.
  *
  */
 export interface ProductTailoringCreatedMessagePayload extends IMessagePayload {
@@ -29815,15 +31991,15 @@ export interface ProductTailoringCreatedMessagePayload extends IMessagePayload {
    */
   readonly attributes?: ProductTailoringAttribute[]
   /**
-   *	`true` if the ProductTailoring is published.
+   *	Whether the ProductTailoring is published.
    *
    *
    */
   readonly published: boolean
 }
 /**
- *	Generated after a successful [Delete Product Tailoring](/../api/projects/product-tailoring#delete-producttailoring) or
- *	[Delete ProductTailoring assigned to Product in Store](/../api/projects/product-tailoring#delete-producttailoring-assigned-to-product-in-store) request.
+ *	Generated after a successful [Delete Product Tailoring](/api/projects/product-tailoring#delete-producttailoring) or
+ *	[Delete ProductTailoring assigned to Product in Store](/api/projects/product-tailoring#delete-producttailoring-assigned-to-product-in-store) request.
  *
  */
 export interface ProductTailoringDeletedMessagePayload extends IMessagePayload {
@@ -29851,8 +32027,7 @@ export interface ProductTailoringDeletedMessagePayload extends IMessagePayload {
  *	Generated after a successful Product Tailoring [Set Description](ctp:api:type:ProductTailoringSetDescriptionAction) update action.
  *
  */
-export interface ProductTailoringDescriptionSetMessagePayload
-  extends IMessagePayload {
+export interface ProductTailoringDescriptionSetMessagePayload extends IMessagePayload {
   readonly type: 'ProductTailoringDescriptionSet'
   /**
    *	The Store to which the Product Tailoring belongs.
@@ -29890,8 +32065,7 @@ export interface ProductTailoringDescriptionSetMessagePayload
  *	or after a successful [Upload Product Tailoring image](/projects/product-tailoring#upload-product-tailoring-image) request.
  *
  */
-export interface ProductTailoringImageAddedMessagePayload
-  extends IMessagePayload {
+export interface ProductTailoringImageAddedMessagePayload extends IMessagePayload {
   readonly type: 'ProductTailoringImageAdded'
   /**
    *	The Store to which the Product Tailoring belongs.
@@ -29928,8 +32102,7 @@ export interface ProductTailoringImageAddedMessagePayload
  *	Generated after a successful [Set Images](ctp:api:type:ProductTailoringSetExternalImagesAction) update action.
  *
  */
-export interface ProductTailoringImagesSetMessagePayload
-  extends IMessagePayload {
+export interface ProductTailoringImagesSetMessagePayload extends IMessagePayload {
   readonly type: 'ProductTailoringImagesSet'
   /**
    *	The Store to which the Product Tailoring belongs.
@@ -29967,6 +32140,43 @@ export interface ProductTailoringImagesSetMessagePayload
    *
    */
   readonly images?: Image[]
+}
+/**
+ *	Generated after a successful Product Tailoring [Set Key](ctp:api:type:ProductTailoringSetKeyAction) update action.
+ *
+ */
+export interface ProductTailoringKeySetMessagePayload extends IMessagePayload {
+  readonly type: 'ProductTailoringKeySet'
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	User-defined unique identifier of the Product this Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	`key` value of the [ProductTailoring](ctp:api:type:ProductTailoring) after the [Set Key](ctp:api:type:ProductTailoringSetKeyAction) update action.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	`key` value of the [ProductTailoring](ctp:api:type:ProductTailoring) before the [Set Key](ctp:api:type:ProductTailoringSetKeyAction) update action.
+   *
+   *
+   */
+  readonly oldKey?: string
 }
 /**
  *	Generated after a successful Product Tailoring [Set Name](ctp:api:type:ProductTailoringSetNameAction) update action.
@@ -30009,8 +32219,7 @@ export interface ProductTailoringNameSetMessagePayload extends IMessagePayload {
  *	Generated after a successful [Product Tailoring Publish](ctp:api:type:ProductTailoringPublishAction) update action.
  *
  */
-export interface ProductTailoringPublishedMessagePayload
-  extends IMessagePayload {
+export interface ProductTailoringPublishedMessagePayload extends IMessagePayload {
   readonly type: 'ProductTailoringPublished'
   /**
    *	The Store to which the Product Tailoring belongs.
@@ -30072,8 +32281,7 @@ export interface ProductTailoringSlugSetMessagePayload extends IMessagePayload {
  *	Generated after a successful [Product Tailoring Unpublish](ctp:api:type:ProductTailoringUnpublishAction) update action.
  *
  */
-export interface ProductTailoringUnpublishedMessagePayload
-  extends IMessagePayload {
+export interface ProductTailoringUnpublishedMessagePayload extends IMessagePayload {
   readonly type: 'ProductTailoringUnpublished'
   /**
    *	The Store to which the Product Tailoring belongs.
@@ -30139,7 +32347,7 @@ export interface ProductVariantDeletedMessagePayload extends IMessagePayload {
    */
   readonly removedImageUrls: string[]
   /**
-   *	If `true`, this message informs that only the staged ProductVariant has been removed by the update action.
+   *	Whether this message informs that only the staged ProductVariant has been removed by the update action.
    *	If `false`, both the current and staged ProductVariant have been removed.
    *
    *
@@ -30150,8 +32358,7 @@ export interface ProductVariantDeletedMessagePayload extends IMessagePayload {
  *	Generated after a successful [Add ProductVariant Tailoring](ctp:api:type:ProductTailoringAddVariantAction) update action.
  *
  */
-export interface ProductVariantTailoringAddedMessagePayload
-  extends IMessagePayload {
+export interface ProductVariantTailoringAddedMessagePayload extends IMessagePayload {
   readonly type: 'ProductVariantTailoringAdded'
   /**
    *	The Store to which the Product Tailoring belongs.
@@ -30188,8 +32395,7 @@ export interface ProductVariantTailoringAddedMessagePayload
  *	Generated after a successful [Remove ProductVariant Tailoring](ctp:api:type:ProductTailoringRemoveVariantAction) update action.
  *
  */
-export interface ProductVariantTailoringRemovedMessagePayload
-  extends IMessagePayload {
+export interface ProductVariantTailoringRemovedMessagePayload extends IMessagePayload {
   readonly type: 'ProductVariantTailoringRemoved'
   /**
    *	The Store to which the Product Tailoring belongs.
@@ -30229,7 +32435,7 @@ export interface ProductVariantTailoringRemovedMessagePayload
 export interface QuoteCreatedMessagePayload extends IMessagePayload {
   readonly type: 'QuoteCreated'
   /**
-   *	[Quote](/../api/projects/quotes) that was created.
+   *	[Quote](/api/projects/quotes) that was created.
    *
    *
    */
@@ -30242,20 +32448,20 @@ export interface QuoteCreatedMessagePayload extends IMessagePayload {
 export interface QuoteCustomerChangedMessagePayload extends IMessagePayload {
   readonly type: 'QuoteCustomerChanged'
   /**
-   *	The [Buyer](/../api/quotes-overview#buyer) who now owns the Quote.
+   *	The [Buyer](/api/quotes-overview#buyer) who now owns the Quote.
    *
    *
    */
   readonly customer: CustomerReference
   /**
-   *	The previous [Buyer](/../api/quotes-overview#buyer).
+   *	The previous [Buyer](/api/quotes-overview#buyer).
    *
    *
    */
   readonly previousCustomer: CustomerReference
 }
 /**
- *	Generated after a successful [Delete Quote](/../api/projects/quotes#delete-quote) request.
+ *	Generated after a successful [Delete Quote](/api/projects/quotes#delete-quote) request.
  *
  */
 export interface QuoteDeletedMessagePayload extends IMessagePayload {
@@ -30265,8 +32471,7 @@ export interface QuoteDeletedMessagePayload extends IMessagePayload {
  *	Generated after a successful [Request Quote Renegotiation](ctp:api:type:QuoteRequestQuoteRenegotiationAction) update action.
  *
  */
-export interface QuoteRenegotiationRequestedMessagePayload
-  extends IMessagePayload {
+export interface QuoteRenegotiationRequestedMessagePayload extends IMessagePayload {
   readonly type: 'QuoteRenegotiationRequested'
   /**
    *	Message from the [Buyer](/api/quotes-overview#buyer) regarding the Quote renegotiation request.
@@ -30282,7 +32487,7 @@ export interface QuoteRenegotiationRequestedMessagePayload
 export interface QuoteRequestCreatedMessagePayload extends IMessagePayload {
   readonly type: 'QuoteRequestCreated'
   /**
-   *	[Quote Request](/../api/projects/quote-requests) that was created.
+   *	[Quote Request](/api/projects/quote-requests) that was created.
    *
    *
    */
@@ -30292,24 +32497,23 @@ export interface QuoteRequestCreatedMessagePayload extends IMessagePayload {
  *	Generated after a successful [Change Customer](ctp:api:type:QuoteRequestChangeCustomerAction) update action.
  *
  */
-export interface QuoteRequestCustomerChangedMessagePayload
-  extends IMessagePayload {
+export interface QuoteRequestCustomerChangedMessagePayload extends IMessagePayload {
   readonly type: 'QuoteRequestCustomerChanged'
   /**
-   *	The [Buyer](/../api/quotes-overview#buyer) who now owns the Quote Request.
+   *	The [Buyer](/api/quotes-overview#buyer) who now owns the Quote Request.
    *
    *
    */
   readonly customer: CustomerReference
   /**
-   *	The previous [Buyer](/../api/quotes-overview#buyer).
+   *	The previous [Buyer](/api/quotes-overview#buyer).
    *
    *
    */
   readonly previousCustomer: CustomerReference
 }
 /**
- *	Generated after a successful [Delete QuoteRequest](/../api/projects/quote-requests#delete-quoterequest) request.
+ *	Generated after a successful [Delete QuoteRequest](/api/projects/quote-requests#delete-quoterequest) request.
  *
  */
 export interface QuoteRequestDeletedMessagePayload extends IMessagePayload {
@@ -30319,8 +32523,7 @@ export interface QuoteRequestDeletedMessagePayload extends IMessagePayload {
  *	Generated after a successful [Change Quote Request State](ctp:api:type:QuoteRequestChangeQuoteRequestStateAction) update action.
  *
  */
-export interface QuoteRequestStateChangedMessagePayload
-  extends IMessagePayload {
+export interface QuoteRequestStateChangedMessagePayload extends IMessagePayload {
   readonly type: 'QuoteRequestStateChanged'
   /**
    *	State of the Quote Request after the [Change Quote Request State](ctp:api:type:QuoteRequestChangeQuoteRequestStateAction) update action.
@@ -30339,8 +32542,7 @@ export interface QuoteRequestStateChangedMessagePayload
  *	Generated after a successful [Transition State](ctp:api:type:QuoteRequestTransitionStateAction) update action.
  *
  */
-export interface QuoteRequestStateTransitionMessagePayload
-  extends IMessagePayload {
+export interface QuoteRequestStateTransitionMessagePayload extends IMessagePayload {
   readonly type: 'QuoteRequestStateTransition'
   /**
    *	[State](ctp:api:type:State) of the [Quote](ctp:api:type:Quote) after the [Transition State](ctp:api:type:QuoteRequestTransitionStateAction) update action.
@@ -30422,8 +32624,7 @@ export interface RecurringOrderCreatedMessagePayload extends IMessagePayload {
  *	Generated after adding a Custom Field using the [Set CustomField](ctp:api:type:RecurringOrderSetCustomFieldAction).
  *
  */
-export interface RecurringOrderCustomFieldAddedMessagePayload
-  extends IMessagePayload {
+export interface RecurringOrderCustomFieldAddedMessagePayload extends IMessagePayload {
   readonly type: 'RecurringOrderCustomFieldAdded'
   /**
    *	Name of the Custom Field that was added.
@@ -30441,8 +32642,7 @@ export interface RecurringOrderCustomFieldAddedMessagePayload
  *	Generated when an existing Custom Field has been changed using the [Set CustomField](ctp:api:type:RecurringOrderSetCustomFieldAction) action.
  *
  */
-export interface RecurringOrderCustomFieldChangedMessagePayload
-  extends IMessagePayload {
+export interface RecurringOrderCustomFieldChangedMessagePayload extends IMessagePayload {
   readonly type: 'RecurringOrderCustomFieldChanged'
   /**
    *	Name of the Custom Field that changed.
@@ -30468,8 +32668,7 @@ export interface RecurringOrderCustomFieldChangedMessagePayload
  *	Generated when a Custom Field has been removed from the Order using the [Set CustomField](ctp:api:type:RecurringOrderSetCustomFieldAction) action.
  *
  */
-export interface RecurringOrderCustomFieldRemovedMessagePayload
-  extends IMessagePayload {
+export interface RecurringOrderCustomFieldRemovedMessagePayload extends IMessagePayload {
   readonly type: 'RecurringOrderCustomFieldRemoved'
   /**
    *	Name of the Custom Field that was removed.
@@ -30482,8 +32681,7 @@ export interface RecurringOrderCustomFieldRemovedMessagePayload
  *	Generated after a successful [Set Custom Type](ctp:api:type:RecurringOrderSetCustomTypeAction) with empty parameters.
  *
  */
-export interface RecurringOrderCustomTypeRemovedMessagePayload
-  extends IMessagePayload {
+export interface RecurringOrderCustomTypeRemovedMessagePayload extends IMessagePayload {
   readonly type: 'RecurringOrderCustomTypeRemoved'
   /**
    *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
@@ -30496,8 +32694,7 @@ export interface RecurringOrderCustomTypeRemovedMessagePayload
  *	Generated after a successful [Set Custom Type](ctp:api:type:RecurringOrderSetCustomTypeAction).
  *
  */
-export interface RecurringOrderCustomTypeSetMessagePayload
-  extends IMessagePayload {
+export interface RecurringOrderCustomTypeSetMessagePayload extends IMessagePayload {
   readonly type: 'RecurringOrderCustomTypeSet'
   /**
    *	The Custom Fields that have been set.
@@ -30512,7 +32709,7 @@ export interface RecurringOrderCustomTypeSetMessagePayload
   readonly previousTypeId?: string
 }
 /**
- *	Generated after a successful [Delete RecurringOrder](/../api/projects/recurring-orders#delete-recurringorder) request.
+ *	Generated after a successful [Delete RecurringOrder](/api/projects/recurring-orders#delete-recurringorder) request.
  *
  */
 export interface RecurringOrderDeletedMessagePayload extends IMessagePayload {
@@ -30528,8 +32725,7 @@ export interface RecurringOrderDeletedMessagePayload extends IMessagePayload {
  *	Generated after a successful [Set Expires At](ctp:api:type:RecurringOrderSetExpiresAtAction) update action.
  *
  */
-export interface RecurringOrderExpiresAtSetMessagePayload
-  extends IMessagePayload {
+export interface RecurringOrderExpiresAtSetMessagePayload extends IMessagePayload {
   readonly type: 'RecurringOrderExpiresAtSet'
   /**
    *	Expiration date and time of the Recurring Order after the [Set Expires At](ctp:api:type:RecurringOrderSetExpiresAtAction) update action.
@@ -30604,8 +32800,7 @@ export interface RecurringOrderKeySetMessagePayload extends IMessagePayload {
  *	Generated after a successful [Set Schedule](ctp:api:type:RecurringOrderSetScheduleAction) update action.
  *
  */
-export interface RecurringOrderScheduleSetMessagePayload
-  extends IMessagePayload {
+export interface RecurringOrderScheduleSetMessagePayload extends IMessagePayload {
   readonly type: 'RecurringOrderScheduleSet'
   /**
    *	[Schedule](ctp:api:type:RecurrencePolicySchedule) of the Recurring Order after the [Set Schedule](ctp:api:type:RecurringOrderSetScheduleAction) update action.
@@ -30624,8 +32819,7 @@ export interface RecurringOrderScheduleSetMessagePayload
  *	Generated after a successful [Set Starts At](ctp:api:type:RecurringOrderSetStartsAtAction) update action.
  *
  */
-export interface RecurringOrderStartsAtSetMessagePayload
-  extends IMessagePayload {
+export interface RecurringOrderStartsAtSetMessagePayload extends IMessagePayload {
   readonly type: 'RecurringOrderStartsAtSet'
   /**
    *	Start date and time of the Recurring Order after the [Set Starts At](ctp:api:type:RecurringOrderSetStartsAtAction) update action.
@@ -30644,8 +32838,7 @@ export interface RecurringOrderStartsAtSetMessagePayload
  *	Generated after a successful [Set RecurringOrderState](ctp:api:type:RecurringOrderSetStateAction) update action.
  *
  */
-export interface RecurringOrderStateChangedMessagePayload
-  extends IMessagePayload {
+export interface RecurringOrderStateChangedMessagePayload extends IMessagePayload {
   readonly type: 'RecurringOrderStateChanged'
   /**
    *	[RecurringOrderState](ctp:api:type:RecurringOrderState) after the [Set RecurringOrderState](ctp:api:type:RecurringOrderSetStateAction) update action.
@@ -30664,8 +32857,7 @@ export interface RecurringOrderStateChangedMessagePayload
  *	Generated after a successful [Transition State](ctp:api:type:RecurringOrderTransitionStateAction) update action.
  *
  */
-export interface RecurringOrderStateTransitionMessagePayload
-  extends IMessagePayload {
+export interface RecurringOrderStateTransitionMessagePayload extends IMessagePayload {
   readonly type: 'RecurringOrderStateTransition'
   /**
    *	[RecurringOrderState](ctp:api:type:RecurringOrderState) after the [Transition State](ctp:api:type:RecurringOrderTransitionStateAction) update action.
@@ -30812,8 +33004,7 @@ export interface IShoppingListMessagePayload {
  *	Generated after a successful [Add ShoppingListLineItem](ctp:api:type:ShoppingListAddLineItemAction) update action.
  *
  */
-export interface ShoppingListLineItemAddedMessagePayload
-  extends IShoppingListMessagePayload {
+export interface ShoppingListLineItemAddedMessagePayload extends IShoppingListMessagePayload {
   readonly type: 'ShoppingListLineItemAdded'
   /**
    *	[Line Item](ctp:api:type:ShoppingListLineItem) that was added to the [ShoppingList](ctp:api:type:ShoppingList).
@@ -30826,8 +33017,7 @@ export interface ShoppingListLineItemAddedMessagePayload
  *	Generated after a successful [Remove ShoppingListLineItem](ctp:api:type:ShoppingListRemoveLineItemAction) update action.
  *
  */
-export interface ShoppingListLineItemRemovedMessagePayload
-  extends IShoppingListMessagePayload {
+export interface ShoppingListLineItemRemovedMessagePayload extends IShoppingListMessagePayload {
   readonly type: 'ShoppingListLineItemRemoved'
   /**
    *	[Line Item](ctp:api:type:ShoppingListLineItem) that was removed from the [ShoppingList](ctp:api:type:ShoppingList).
@@ -30852,14 +33042,14 @@ export interface ShoppingListStoreSetMessagePayload extends IMessagePayload {
 export interface StagedQuoteCreatedMessagePayload extends IMessagePayload {
   readonly type: 'StagedQuoteCreated'
   /**
-   *	[Staged Quote](/../api/projects/staged-quotes) that was created.
+   *	[Staged Quote](/api/projects/staged-quotes) that was created.
    *
    *
    */
   readonly stagedQuote: StagedQuote
 }
 /**
- *	Generated after a successful [Delete StagedQuote](/../api/projects/staged-quotes#delete-stagedquote) request.
+ *	Generated after a successful [Delete StagedQuote](/api/projects/staged-quotes#delete-stagedquote) request.
  *
  */
 export interface StagedQuoteDeletedMessagePayload extends IMessagePayload {
@@ -30869,8 +33059,7 @@ export interface StagedQuoteDeletedMessagePayload extends IMessagePayload {
  *	Generated after a successful [Set Seller Comment](ctp:api:type:StagedQuoteSetSellerCommentAction) update action.
  *
  */
-export interface StagedQuoteSellerCommentSetMessagePayload
-  extends IMessagePayload {
+export interface StagedQuoteSellerCommentSetMessagePayload extends IMessagePayload {
   readonly type: 'StagedQuoteSellerCommentSet'
   /**
    *	`sellerComment` on the [StagedQuote](ctp:api:type:StagedQuote) after a successful [Set Seller Comment](ctp:api:type:StagedQuoteSetSellerCommentAction) update action.
@@ -30902,8 +33091,7 @@ export interface StagedQuoteStateChangedMessagePayload extends IMessagePayload {
  *	Generated after a successful [Transition State](ctp:api:type:StagedQuoteTransitionStateAction) update action.
  *
  */
-export interface StagedQuoteStateTransitionMessagePayload
-  extends IMessagePayload {
+export interface StagedQuoteStateTransitionMessagePayload extends IMessagePayload {
   readonly type: 'StagedQuoteStateTransition'
   /**
    *	[State](ctp:api:type:State) of the [Quote](ctp:api:type:Quote) after the [Transition State](ctp:api:type:StagedQuoteTransitionStateAction) update action.
@@ -30941,8 +33129,7 @@ export interface StagedQuoteValidToSetMessagePayload extends IMessagePayload {
  *	Generated after a successful [Change Active](ctp:api:type:StandalonePriceChangeActiveAction) update action.
  *
  */
-export interface StandalonePriceActiveChangedMessagePayload
-  extends IMessagePayload {
+export interface StandalonePriceActiveChangedMessagePayload extends IMessagePayload {
   readonly type: 'StandalonePriceActiveChanged'
   /**
    *	Value of the `active` field of the StandalonePrice after the [Change Active](ctp:api:type:StandalonePriceChangeActiveAction) update action.
@@ -30971,7 +33158,7 @@ export interface StandalonePriceCreatedMessagePayload extends IMessagePayload {
   readonly standalonePrice: StandalonePrice
 }
 /**
- *	Generated after a successful [Delete StandalonePrice](/../api/projects/standalone-prices#delete-standaloneprice) request.
+ *	Generated after a successful [Delete StandalonePrice](/api/projects/standalone-prices#delete-standaloneprice) request.
  *
  */
 export interface StandalonePriceDeletedMessagePayload extends IMessagePayload {
@@ -30987,8 +33174,7 @@ export interface StandalonePriceDeletedMessagePayload extends IMessagePayload {
  *	Generated after a [Product Discount](ctp:api:type:ProductDiscount) is successfully applied to a StandalonePrice.
  *
  */
-export interface StandalonePriceDiscountSetMessagePayload
-  extends IMessagePayload {
+export interface StandalonePriceDiscountSetMessagePayload extends IMessagePayload {
   readonly type: 'StandalonePriceDiscountSet'
   /**
    *	The new `discounted` value of the updated [StandalonePrice](ctp:api:type:StandalonePrice).
@@ -31001,8 +33187,7 @@ export interface StandalonePriceDiscountSetMessagePayload
  *	Generated after a successful [Set Discounted Price](ctp:api:type:StandalonePriceSetDiscountedPriceAction) update action.
  *
  */
-export interface StandalonePriceExternalDiscountSetMessagePayload
-  extends IMessagePayload {
+export interface StandalonePriceExternalDiscountSetMessagePayload extends IMessagePayload {
   readonly type: 'StandalonePriceExternalDiscountSet'
   /**
    *	The `discounted` value of the [StandalonePrice](ctp:api:type:StandalonePrice) after the [Set Discounted Price](ctp:api:type:StandalonePriceSetDiscountedPriceAction) update action.
@@ -31034,11 +33219,10 @@ export interface StandalonePriceKeySetMessagePayload extends IMessagePayload {
  *	Generated after a successful [Apply Staged Changes](ctp:api:type:StandalonePriceApplyStagedChangesAction) update action.
  *
  */
-export interface StandalonePriceStagedChangesAppliedMessagePayload
-  extends IMessagePayload {
+export interface StandalonePriceStagedChangesAppliedMessagePayload extends IMessagePayload {
   readonly type: 'StandalonePriceStagedChangesApplied'
   /**
-   *	Applied changes of the [StandalonePrice](/../api/projects/standalone-prices) after the [Apply Staged Changes](ctp:api:type:StandalonePriceApplyStagedChangesAction) update action.
+   *	Applied changes of the [StandalonePrice](/api/projects/standalone-prices) after the [Apply Staged Changes](ctp:api:type:StandalonePriceApplyStagedChangesAction) update action.
    *
    *
    */
@@ -31048,8 +33232,7 @@ export interface StandalonePriceStagedChangesAppliedMessagePayload
  *	Generated after a successful [Remove Staged Changes](ctp:api:type:StandalonePriceRemoveStagedChangesAction) update action.
  *
  */
-export interface StandalonePriceStagedChangesRemovedMessagePayload
-  extends IMessagePayload {
+export interface StandalonePriceStagedChangesRemovedMessagePayload extends IMessagePayload {
   readonly type: 'StandalonePriceStagedChangesRemoved'
   /**
    *	Removed changes of the [StandalonePrice](ctp:api:type:StandalonePrice) after the [Remove Staged Changes](ctp:api:type:StandalonePriceRemoveStagedChangesAction) update action.
@@ -31062,8 +33245,7 @@ export interface StandalonePriceStagedChangesRemovedMessagePayload
  *	Generated after a successful [Add Price Tier](ctp:api:type:StandalonePriceAddPriceTierAction) update action
  *
  */
-export interface StandalonePriceTierAddedMessagePayload
-  extends IMessagePayload {
+export interface StandalonePriceTierAddedMessagePayload extends IMessagePayload {
   readonly type: 'StandalonePriceTierAdded'
   /**
    *	The [Price Tier](ctp:api:type:PriceTier) that has been added to the array field `tiers` for the [StandalonePrice](ctp:api:type:StandalonePrice).
@@ -31076,8 +33258,7 @@ export interface StandalonePriceTierAddedMessagePayload
  *	Generated after a successful [Remove Price Tier](ctp:api:type:StandalonePriceRemovePriceTierAction) update action
  *
  */
-export interface StandalonePriceTierRemovedMessagePayload
-  extends IMessagePayload {
+export interface StandalonePriceTierRemovedMessagePayload extends IMessagePayload {
   readonly type: 'StandalonePriceTierRemoved'
   /**
    *	The [Price Tier](ctp:api:type:PriceTier) that has been removed from the array field `tiers` for the [StandalonePrice](ctp:api:type:StandalonePrice).
@@ -31109,8 +33290,7 @@ export interface StandalonePriceTiersSetMessagePayload extends IMessagePayload {
  *	Generated after a successful [Set Valid From and Until](ctp:api:type:StandalonePriceSetValidFromAndUntilAction) update action.
  *
  */
-export interface StandalonePriceValidFromAndUntilSetMessagePayload
-  extends IMessagePayload {
+export interface StandalonePriceValidFromAndUntilSetMessagePayload extends IMessagePayload {
   readonly type: 'StandalonePriceValidFromAndUntilSet'
   /**
    *	Value of [StandalonePrice](ctp:api:type:StandalonePrice) `validFrom` after the [Set Valid From and Until](ctp:api:type:StandalonePriceSetValidFromAndUntilAction) update action.
@@ -31141,8 +33321,7 @@ export interface StandalonePriceValidFromAndUntilSetMessagePayload
  *	Generated after a successful [Set Valid From](ctp:api:type:StandalonePriceSetValidFromAction) update action.
  *
  */
-export interface StandalonePriceValidFromSetMessagePayload
-  extends IMessagePayload {
+export interface StandalonePriceValidFromSetMessagePayload extends IMessagePayload {
   readonly type: 'StandalonePriceValidFromSet'
   /**
    *	Value of [StandalonePrice](ctp:api:type:StandalonePrice) `validFrom` after the [Set Valid From](ctp:api:type:StandalonePriceSetValidFromAction) update action.
@@ -31161,8 +33340,7 @@ export interface StandalonePriceValidFromSetMessagePayload
  *	Generated after a successful [Set Valid Until](ctp:api:type:StandalonePriceSetValidUntilAction) update action.
  *
  */
-export interface StandalonePriceValidUntilSetMessagePayload
-  extends IMessagePayload {
+export interface StandalonePriceValidUntilSetMessagePayload extends IMessagePayload {
   readonly type: 'StandalonePriceValidUntilSet'
   /**
    *	Value of [StandalonePrice](ctp:api:type:StandalonePrice) `validUntil` after the [Set Valid Until](ctp:api:type:StandalonePriceSetValidUntilAction) update action.
@@ -31181,8 +33359,7 @@ export interface StandalonePriceValidUntilSetMessagePayload
  *	Generated after a successful [Change Value](ctp:api:type:StandalonePriceChangeValueAction) update action.
  *
  */
-export interface StandalonePriceValueChangedMessagePayload
-  extends IMessagePayload {
+export interface StandalonePriceValueChangedMessagePayload extends IMessagePayload {
   readonly type: 'StandalonePriceValueChanged'
   /**
    *	The new value of the updated [StandalonePrice](ctp:api:type:StandalonePrice).
@@ -31203,6 +33380,45 @@ export interface StandalonePriceValueChangedMessagePayload
    *
    */
   readonly oldValue?: TypedMoney
+}
+/**
+ *	Generated after a successful [Set Checkout Url Template](ctp:api:type:StoreSetCheckoutUrlTemplateAction) update action.
+ *
+ */
+export interface StoreCheckoutUrlTemplateSetMessagePayload extends IMessagePayload {
+  readonly type: 'StoreCheckoutUrlTemplateSet'
+  /**
+   *	The `checkoutUrlTemplate` of the [Store](ctp:api:type:Store) after the [Set Checkout Url Template](ctp:api:type:StoreSetCheckoutUrlTemplateAction) update action.
+   *
+   *
+   */
+  readonly checkoutUrlTemplate?: string
+}
+/**
+ *	Generated after a successful [Set Contact Url](ctp:api:type:StoreSetContactUrlAction) update action.
+ *
+ */
+export interface StoreContactUrlSetMessagePayload extends IMessagePayload {
+  readonly type: 'StoreContactUrlSet'
+  /**
+   *	The `contactUrl` of the [Store](ctp:api:type:Store) after the [Set Contact Url](ctp:api:type:StoreSetContactUrlAction) update action.
+   *
+   *
+   */
+  readonly contactUrl?: string
+}
+/**
+ *	Generated after a successful [Set Cookie Policy Url](ctp:api:type:StoreSetCookiePolicyUrlAction) update action.
+ *
+ */
+export interface StoreCookiePolicyUrlSetMessagePayload extends IMessagePayload {
+  readonly type: 'StoreCookiePolicyUrlSet'
+  /**
+   *	The `cookiePolicyUrl` of the [Store](ctp:api:type:Store) after the [Set Cookie Policy Url](ctp:api:type:StoreSetCookiePolicyUrlAction) update action.
+   *
+   *
+   */
+  readonly cookiePolicyUrl?: string
 }
 /**
  *	Generated after a successful [Add Country](ctp:api:type:StoreAddCountryAction),
@@ -31275,7 +33491,7 @@ export interface StoreCreatedMessagePayload extends IMessagePayload {
   readonly custom?: CustomFields
 }
 /**
- *	Generated after a successful [Delete Store](/../api/projects/stores#delete-store) request.
+ *	Generated after a successful [Delete Store](/api/projects/stores#delete-store) request.
  *
  */
 export interface StoreDeletedMessagePayload extends IMessagePayload {
@@ -31287,8 +33503,7 @@ export interface StoreDeletedMessagePayload extends IMessagePayload {
  *	[Set Distribution Channels](ctp:api:type:StoreSetDistributionChannelsAction) update action.
  *
  */
-export interface StoreDistributionChannelsChangedMessagePayload
-  extends IMessagePayload {
+export interface StoreDistributionChannelsChangedMessagePayload extends IMessagePayload {
   readonly type: 'StoreDistributionChannelsChanged'
   /**
    *	Product distribution Channels that have been added to the [Store](ctp:api:type:Store).
@@ -31301,6 +33516,32 @@ export interface StoreDistributionChannelsChangedMessagePayload
    *
    */
   readonly removedDistributionChannels?: ChannelReference[]
+}
+/**
+ *	Generated after a successful [Set Faq Url](ctp:api:type:StoreSetFaqUrlAction) update action.
+ *
+ */
+export interface StoreFaqUrlSetMessagePayload extends IMessagePayload {
+  readonly type: 'StoreFaqUrlSet'
+  /**
+   *	The `faqUrl` of the [Store](ctp:api:type:Store) after the [Set Faq Url](ctp:api:type:StoreSetFaqUrlAction) update action.
+   *
+   *
+   */
+  readonly faqUrl?: string
+}
+/**
+ *	Generated after a successful [Set Imprint Url](ctp:api:type:StoreSetImprintUrlAction) update action.
+ *
+ */
+export interface StoreImprintUrlSetMessagePayload extends IMessagePayload {
+  readonly type: 'StoreImprintUrlSet'
+  /**
+   *	The `imprintUrl` of the [Store](ctp:api:type:Store) after the [Set Imprint Url](ctp:api:type:StoreSetImprintUrlAction) update action.
+   *
+   *
+   */
+  readonly imprintUrl?: string
 }
 /**
  *	Generated after a successful [Set Languages](ctp:api:type:StoreSetLanguagesAction) update action.
@@ -31341,14 +33582,39 @@ export interface StoreNameSetMessagePayload extends IMessagePayload {
   readonly nameAllLocales?: LocalizedString[]
 }
 /**
+ *	Generated after a successful [Set Order Url Template](ctp:api:type:StoreSetOrderUrlTemplateAction) update action.
+ *
+ */
+export interface StoreOrderUrlTemplateSetMessagePayload extends IMessagePayload {
+  readonly type: 'StoreOrderUrlTemplateSet'
+  /**
+   *	The `orderUrlTemplate` of the [Store](ctp:api:type:Store) after the [Set Order Url Template](ctp:api:type:StoreSetOrderUrlTemplateAction) update action.
+   *
+   *
+   */
+  readonly orderUrlTemplate?: string
+}
+/**
+ *	Generated after a successful [Set Privacy Policy Url](ctp:api:type:StoreSetPrivacyPolicyUrlAction) update action.
+ *
+ */
+export interface StorePrivacyPolicyUrlSetMessagePayload extends IMessagePayload {
+  readonly type: 'StorePrivacyPolicyUrlSet'
+  /**
+   *	The `privacyPolicyUrl` of the [Store](ctp:api:type:Store) after the [Set Privacy Policy Url](ctp:api:type:StoreSetPrivacyPolicyUrlAction) update action.
+   *
+   *
+   */
+  readonly privacyPolicyUrl?: string
+}
+/**
  *	Generated by a successful [Add Product Selection](ctp:api:type:StoreAddProductSelectionAction),
  *	[Remove Product Selection](ctp:api:type:StoreRemoveProductSelectionAction),
  *	[Set Product Selections](ctp:api:type:StoreSetProductSelectionsAction),
  *	or [Change Product Selections Active](ctp:api:type:StoreChangeProductSelectionAction) update action.
  *
  */
-export interface StoreProductSelectionsChangedMessagePayload
-  extends IMessagePayload {
+export interface StoreProductSelectionsChangedMessagePayload extends IMessagePayload {
   readonly type: 'StoreProductSelectionsChanged'
   /**
    *	[ProductSelectionSettings](ctp:api:type:ProductSelectionSetting) that were added to the [Store](ctp:api:type:Store).
@@ -31370,13 +33636,38 @@ export interface StoreProductSelectionsChangedMessagePayload
   readonly updatedProductSelections?: ProductSelectionSetting[]
 }
 /**
+ *	Generated after a successful [Set Refund Policy Url](ctp:api:type:StoreSetRefundPolicyUrlAction) update action.
+ *
+ */
+export interface StoreRefundPolicyUrlSetMessagePayload extends IMessagePayload {
+  readonly type: 'StoreRefundPolicyUrlSet'
+  /**
+   *	The `refundPolicyUrl` of the [Store](ctp:api:type:Store) after the [Set Refund Policy Url](ctp:api:type:StoreSetRefundPolicyUrlAction) update action.
+   *
+   *
+   */
+  readonly refundPolicyUrl?: string
+}
+/**
+ *	Generated after a successful [Set Shipping Policy Url](ctp:api:type:StoreSetShippingPolicyUrlAction) update action.
+ *
+ */
+export interface StoreShippingPolicyUrlSetMessagePayload extends IMessagePayload {
+  readonly type: 'StoreShippingPolicyUrlSet'
+  /**
+   *	The `shippingPolicyUrl` of the [Store](ctp:api:type:Store) after the [Set Shipping Policy Url](ctp:api:type:StoreSetShippingPolicyUrlAction) update action.
+   *
+   *
+   */
+  readonly shippingPolicyUrl?: string
+}
+/**
  *	Generated after a successful [Add Supply Channel](ctp:api:type:StoreAddSupplyChannelAction),
  *	[Remove Supply Channel](ctp:api:type:StoreRemoveSupplyChannelAction), or
  *	[Set Supply Channels](ctp:api:type:StoreSetSupplyChannelsAction) update action.
  *
  */
-export interface StoreSupplyChannelsChangedMessagePayload
-  extends IMessagePayload {
+export interface StoreSupplyChannelsChangedMessagePayload extends IMessagePayload {
   readonly type: 'StoreSupplyChannelsChanged'
   /**
    *	Inventory supply Channels that have been added to the [Store](ctp:api:type:Store).
@@ -31389,4 +33680,242 @@ export interface StoreSupplyChannelsChangedMessagePayload
    *
    */
   readonly removedSupplyChannels?: ChannelReference[]
+}
+/**
+ *	Generated after a successful [Set Terms Of Service Url](ctp:api:type:StoreSetTermsOfServiceUrlAction) update action.
+ *
+ */
+export interface StoreTermsOfServiceUrlSetMessagePayload extends IMessagePayload {
+  readonly type: 'StoreTermsOfServiceUrlSet'
+  /**
+   *	The `termsOfServiceUrl` of the [Store](ctp:api:type:Store) after the [Set Terms Of Service Url](ctp:api:type:StoreSetTermsOfServiceUrlAction) update action.
+   *
+   *
+   */
+  readonly termsOfServiceUrl?: string
+}
+/**
+ *	Generated after a successful [Create Variant](ctp:api:endpoint:/{projectKey}/variants:POST) request.
+ *
+ */
+export interface VariantCreatedMessagePayload extends IMessagePayload {
+  readonly type: 'VariantCreated'
+  /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	Unique identifier of the Variant.
+   *
+   *
+   */
+  readonly id: string
+  /**
+   *	Unique identifier of the Variant within its parent Product.
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	User-defined unique identifier of the Variant.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	SKU of the Variant.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	Attributes of the Variant.
+   *
+   *
+   */
+  readonly attributes?: Attribute[]
+  /**
+   *	Assets of the Variant.
+   *
+   *
+   */
+  readonly assets?: Asset[]
+  /**
+   *	Images of the Variant.
+   *
+   *
+   */
+  readonly images?: Image[]
+  /**
+   *	Whether the Variant was published.
+   *
+   *
+   */
+  readonly publish: boolean
+}
+/**
+ *	Generated after a successful [Delete Variant](/api/projects/variants#delete-variant) request.
+ *
+ */
+export interface VariantDeletedMessagePayload extends IMessagePayload {
+  readonly type: 'VariantDeleted'
+  /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
+}
+/**
+ *	Generated after a successful [Add External Image](ctp:api:type:VariantAddExternalImageAction) update action.
+ *
+ */
+export interface VariantImageAddedMessagePayload extends IMessagePayload {
+  readonly type: 'VariantImageAdded'
+  /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	[Image](ctp:api:type:Image) that was added.
+   *
+   *
+   */
+  readonly image: Image
+  /**
+   *	Whether the update was only applied to the staged Variant.
+   *
+   *
+   */
+  readonly staged: boolean
+}
+/**
+ *	Generated after a successful [Set Images](ctp:api:type:VariantSetImagesAction) update action.
+ *
+ */
+export interface VariantImagesSetMessagePayload extends IMessagePayload {
+  readonly type: 'VariantImagesSet'
+  /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	The images that were set on the Variant.
+   *
+   *
+   */
+  readonly images: Image[]
+  /**
+   *	The previous images of the Variant.
+   *
+   *
+   */
+  readonly oldImages: Image[]
+  /**
+   *	Whether the update was only applied to the staged Variant.
+   *
+   *
+   */
+  readonly staged: boolean
+}
+/**
+ *	Generated after a successful [Set Key](ctp:api:type:VariantSetKeyAction) update action.
+ *
+ */
+export interface VariantKeySetMessagePayload extends IMessagePayload {
+  readonly type: 'VariantKeySet'
+  /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	The key that was set on the Variant.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	The previous key of the Variant.
+   *
+   *
+   */
+  readonly oldKey?: string
+}
+/**
+ *	Generated after a successful [Publish](ctp:api:type:VariantPublishAction) update action.
+ *
+ */
+export interface VariantPublishedMessagePayload extends IMessagePayload {
+  readonly type: 'VariantPublished'
+  /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
+}
+/**
+ *	Generated after a successful [Set SKU](ctp:api:type:VariantSetSkuAction) update action.
+ *
+ */
+export interface VariantSkuSetMessagePayload extends IMessagePayload {
+  readonly type: 'VariantSkuSet'
+  /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	The SKU that was set on the Variant.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	The previous SKU of the Variant.
+   *
+   *
+   */
+  readonly oldSku?: string
+  /**
+   *	Whether the update was only applied to the staged Variant.
+   *
+   *
+   */
+  readonly staged: boolean
+}
+/**
+ *	Generated after a successful [Staged Changes Removed](ctp:api:type:VariantRemoveStagedChangesAction) update action.
+ *
+ */
+export interface VariantStagedChangesRemovedMessagePayload extends IMessagePayload {
+  readonly type: 'VariantStagedChangesRemoved'
+  /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
+}
+/**
+ *	Generated after a successful [Unpublish](ctp:api:type:VariantUnpublishAction) update action.
+ *
+ */
+export interface VariantUnpublishedMessagePayload extends IMessagePayload {
+  readonly type: 'VariantUnpublished'
+  /**
+   *	Reference to the Product containing the Variant.
+   *
+   *
+   */
+  readonly product: ProductReference
 }

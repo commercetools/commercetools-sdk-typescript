@@ -1,4 +1,4 @@
-# Typescript SDK for Composable Commerce Checkout APIs.
+# Typescript SDK for the commercetools Checkout API.
 
 ## Usage examples
 

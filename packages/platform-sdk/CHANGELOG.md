@@ -1,5 +1,808 @@
 # @commercetools/platform-sdk
 
+## 9.5.0
+
+### Minor Changes
+
+- [#1451](https://github.com/commercetools/commercetools-sdk-typescript/pull/1451) [`6dff98c`](https://github.com/commercetools/commercetools-sdk-typescript/commit/6dff98c17dd481efb04dfe7f5fdf1943cfe74a50) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Removed Type(s)</summary>
+  - :warning: removed type `Expansion`
+  - :warning: removed type `QueryPredicate`
+  - :warning: removed type `Sort`
+
+  </details>
+
+  <details>
+  <summary>MarkDeprecated Type(s)</summary>
+  - marked type `FacetRange` as deprecated
+  - marked type `FacetResult` as deprecated
+  - marked type `FacetResults` as deprecated
+  - marked type `FacetTerm` as deprecated
+  - marked type `FacetTypes` as deprecated
+  - marked type `FilteredFacetResult` as deprecated
+  - marked type `ProductProjectionPagedSearchResponse` as deprecated
+  - marked type `RangeFacetResult` as deprecated
+  - marked type `Suggestion` as deprecated
+  - marked type `SuggestionResult` as deprecated
+  - marked type `TermFacetResult` as deprecated
+  - marked type `TermFacetResultType` as deprecated
+
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `AgentBusinessUnitAmbiguousError`
+  - added type `AgentBusinessUnitLimitExceededError`
+  - added type `AgentBusinessUnitUnresolvedError`
+  - added type `AgentExtractionFailedError`
+  - added type `AgentFeatureDisabledError`
+  - added type `AgentFileNotProcessedWarning`
+  - added type `AgentMissingCountryError`
+  - added type `AgentMissingCustomerEmailError`
+  - added type `AgentMissingEntityTypeError`
+  - added type `AgentNoLineItemsExtractedError`
+  - added type `AgentOutOfScopeError`
+  - added type `AgentProductSearchNotEnabledError`
+  - added type `AgentProductsNotFoundError`
+  - added type `AgentProductsNotFoundWarning`
+  - added type `AgentQuoteRequestCreationFailedError`
+  - added type `AgentResponsesAuthError`
+  - added type `AgentResponsesCartSuccess`
+  - added type `AgentResponsesErrorResponse`
+  - added type `AgentResponsesMultipartRequest`
+  - added type `AgentResponsesOutputType`
+  - added type `AgentResponsesPayload`
+  - added type `AgentResponsesQuoteRequestSuccess`
+  - added type `AgentResponsesRequest`
+  - added type `AgentResponsesSuccess`
+  - added type `AgentStoreAmbiguousError`
+  - added type `AgentStoreDistributionChannelsUnsupportedError`
+  - added type `AgentStoreUnresolvedError`
+  - added type `EstimatedDelivery`
+  - added type `CartSetEstimatedDeliveryAction`
+  - added type `CartEstimatedDeliverySetMessage`
+  - added type `OrderEstimatedDeliverySetMessage`
+  - added type `StoreCheckoutUrlTemplateSetMessage`
+  - added type `StoreContactUrlSetMessage`
+  - added type `StoreCookiePolicyUrlSetMessage`
+  - added type `StoreFaqUrlSetMessage`
+  - added type `StoreImprintUrlSetMessage`
+  - added type `StoreOrderUrlTemplateSetMessage`
+  - added type `StorePrivacyPolicyUrlSetMessage`
+  - added type `StoreRefundPolicyUrlSetMessage`
+  - added type `StoreShippingPolicyUrlSetMessage`
+  - added type `StoreTermsOfServiceUrlSetMessage`
+  - added type `CartEstimatedDeliverySetMessagePayload`
+  - added type `OrderEstimatedDeliverySetMessagePayload`
+  - added type `StoreCheckoutUrlTemplateSetMessagePayload`
+  - added type `StoreContactUrlSetMessagePayload`
+  - added type `StoreCookiePolicyUrlSetMessagePayload`
+  - added type `StoreFaqUrlSetMessagePayload`
+  - added type `StoreImprintUrlSetMessagePayload`
+  - added type `StoreOrderUrlTemplateSetMessagePayload`
+  - added type `StorePrivacyPolicyUrlSetMessagePayload`
+  - added type `StoreRefundPolicyUrlSetMessagePayload`
+  - added type `StoreShippingPolicyUrlSetMessagePayload`
+  - added type `StoreTermsOfServiceUrlSetMessagePayload`
+  - added type `OrderSetEstimatedDeliveryAction`
+  - added type `ShippingMethodSetCarrierAction`
+  - added type `Storefront`
+  - added type `StoreSetCheckoutUrlTemplateAction`
+  - added type `StoreSetContactUrlAction`
+  - added type `StoreSetCookiePolicyUrlAction`
+  - added type `StoreSetFaqUrlAction`
+  - added type `StoreSetImprintUrlAction`
+  - added type `StoreSetOrderUrlTemplateAction`
+  - added type `StoreSetPrivacyPolicyUrlAction`
+  - added type `StoreSetRefundPolicyUrlAction`
+  - added type `StoreSetShippingPolicyUrlAction`
+  - added type `StoreSetTermsOfServiceUrlAction`
+  - added type `TypeRemoveEnumValuesAction`
+  - added type `TypeRemoveLocalizedEnumValuesAction`
+
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+  - added property `estimatedDelivery` to type `ShippingInfo`
+  - added property `estimatedDelivery` to type `CartAddShippingMethodAction`
+  - added property `estimatedDelivery` to type `CartSetCustomShippingMethodAction`
+  - added property `estimatedDelivery` to type `CartSetShippingMethodAction`
+  - added property `product` to type `VariantCreatedMessage`
+  - added property `product` to type `VariantDeletedMessage`
+  - added property `product` to type `VariantImageAddedMessage`
+  - added property `product` to type `VariantImagesSetMessage`
+  - added property `product` to type `VariantKeySetMessage`
+  - added property `product` to type `VariantPublishedMessage`
+  - added property `product` to type `VariantSkuSetMessage`
+  - added property `product` to type `VariantStagedChangesRemovedMessage`
+  - added property `product` to type `VariantCreatedMessagePayload`
+  - added property `product` to type `VariantDeletedMessagePayload`
+  - added property `product` to type `VariantImageAddedMessagePayload`
+  - added property `product` to type `VariantImagesSetMessagePayload`
+  - added property `product` to type `VariantKeySetMessagePayload`
+  - added property `product` to type `VariantPublishedMessagePayload`
+  - added property `product` to type `VariantSkuSetMessagePayload`
+  - added property `product` to type `VariantStagedChangesRemovedMessagePayload`
+  - added property `taxedPrice` to type `CustomLineItemImportDraft`
+  - added property `taxedPrice` to type `LineItemImportDraft`
+  - added property `taxedPrice` to type `ShippingInfoImportDraft`
+  - added property `carrier` to type `ShippingMethod`
+  - added property `carrier` to type `ShippingMethodDraft`
+  - added property `storefront` to type `Store`
+  - added property `storefront` to type `StoreDraft`
+
+  </details>
+
+  <details>
+  <summary>MarkDeprecated Property(s)</summary>
+  - marked property `FacetResult::type` as deprecated
+  - marked property `FacetResults::/^[a-z].*$/` as deprecated
+  - marked property `FilteredFacetResult::type` as deprecated
+  - marked property `ProductProjectionPagedSearchResponse::facets` as deprecated
+  - marked property `RangeFacetResult::type` as deprecated
+  - marked property `TermFacetResult::type` as deprecated
+  - marked property `TermFacetResult::dataType` as deprecated
+
+  </details>
+
+  <details>
+  <summary>Changed Property(s)</summary>
+  - :warning: changed property `expand` of type `ProductSearchProjectionParams` from type `Expansion[]` to `string[]`
+
+  </details>
+
+  <details>
+  <summary>Removed Property(s)</summary>
+  - :warning: removed property `productId` from type `VariantCreatedMessage`
+  - :warning: removed property `productId` from type `VariantCreatedMessagePayload`
+
+  </details>
+
+  <details>
+  <summary>Added Resource(s)</summary>
+  - added resource `/{projectKey}/agents`
+  - added resource `/{projectKey}/agents/intake`
+  - added resource `/{projectKey}/agents/intake/v1`
+  - added resource `/{projectKey}/agents/intake/v1/responses`
+
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+  - added enum `variant` to type `ChangeSubscriptionResourceTypeId`
+  - added enum `variant` to type `MessageSubscriptionResourceTypeId`
+
+  </details>
+
+  <details>
+  <summary>MarkDeprecated Method(s)</summary>
+  - marked method `post /{projectKey}/product-projections/search` as deprecated
+  - marked method `get /{projectKey}/product-projections/search` as deprecated
+  - marked method `get /{projectKey}/product-projections/suggest` as deprecated
+
+  </details>
+
+  <details>
+  <summary>Added Method(s)</summary>
+  - added method `apiRoot.withProjectKey().agents().intake().v1().responses().post()`
+
+  </details>
+
+## 9.4.0
+
+### Minor Changes
+
+- [#1439](https://github.com/commercetools/commercetools-sdk-typescript/pull/1439) [`7c21e89`](https://github.com/commercetools/commercetools-sdk-typescript/commit/7c21e8984cb7315c24e6a61918faafe5205c30c3) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Property(s)</summary>
+  - added property `authenticationMode` to type `McpServer`
+  - added property `authenticationMode` to type `McpServerDraft`
+
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `McpServerAuthenticationMode`
+  - added type `McpServerSetAuthenticationModeAction`
+
+  </details>
+
+### Patch Changes
+
+- [#1442](https://github.com/commercetools/commercetools-sdk-typescript/pull/1442) [`1db61fe`](https://github.com/commercetools/commercetools-sdk-typescript/commit/1db61fea985f0358a41e5655266336987f931f37) Thanks [@ajimae](https://github.com/ajimae)! - Make platform SDK use configured client host url
+
+- Updated dependencies [[`1db61fe`](https://github.com/commercetools/commercetools-sdk-typescript/commit/1db61fea985f0358a41e5655266336987f931f37)]:
+  - @commercetools/ts-client@5.0.2
+
+## 9.3.0
+
+### Minor Changes
+
+- [#1404](https://github.com/commercetools/commercetools-sdk-typescript/pull/1404) [`1fe16bb`](https://github.com/commercetools/commercetools-sdk-typescript/commit/1fe16bb1f4a2345c25caa4875c8bac092d659c9b) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Method(s)</summary>
+  - added method `apiRoot.withProjectKey().mcpServers().get()`
+  - added method `apiRoot.withProjectKey().mcpServers().post()`
+  - added method `apiRoot.withProjectKey().variants().withId().images().post()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().discountCodes().get()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().discountCodes().head()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().discountCodes().withKey().get()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().discountCodes().withKey().head()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().discountCodes().withId().get()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().discountCodes().withId().head()`
+  - added method `apiRoot.withProjectKey().mcpServers().types().get()`
+  - added method `apiRoot.withProjectKey().mcpServers().withKey().get()`
+  - added method `apiRoot.withProjectKey().mcpServers().withKey().post()`
+  - added method `apiRoot.withProjectKey().mcpServers().withKey().delete()`
+  - added method `apiRoot.withProjectKey().mcpServers().withId().get()`
+  - added method `apiRoot.withProjectKey().mcpServers().withId().post()`
+  - added method `apiRoot.withProjectKey().mcpServers().withId().delete()`
+  - added method `apiRoot.withProjectKey().mcpServers().types().withMcpServerType().get()`
+
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+  - added property `stores` to type `DiscountCode`
+  - added property `warnings` to type `Variant`
+  - added property `categories` to type `VariantProjection`
+  - added property `categoryOrderHints` to type `VariantProjection`
+
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `OverlappingPriceValidityError`
+  - added type `UnauthorizedError`
+  - added type `GraphQLOverlappingPriceValidityError`
+  - added type `GraphQLUnauthorizedError`
+  - added type `CommerceMcpServerConfig`
+  - added type `CommerceMcpServerConfigDraft`
+  - added type `McpServer`
+  - added type `McpServerConfig`
+  - added type `McpServerConfigDraft`
+  - added type `McpServerDraft`
+  - added type `McpServerJsonOutputFiltering`
+  - added type `McpServerJsonOutputFilteringMatcher`
+  - added type `McpServerPagedQueryResponse`
+  - added type `McpServerState`
+  - added type `McpServerTool`
+  - added type `McpServerToolOutputFormatting`
+  - added type `McpServerType`
+  - added type `McpServerTypeTool`
+  - added type `McpServerUpdate`
+  - added type `McpServerUpdateAction`
+  - added type `ParameterOverride`
+  - added type `RemoveToolCustomizationTarget`
+  - added type `ToolCustomization`
+  - added type `McpServerAddToolAction`
+  - added type `McpServerAddToolCustomizationAction`
+  - added type `McpServerRemoveToolAction`
+  - added type `McpServerRemoveToolCustomizationAction`
+  - added type `McpServerSetDescriptionAction`
+  - added type `McpServerSetJsonOutputFilteringAction`
+  - added type `McpServerSetNameAction`
+  - added type `McpServerSetStateAction`
+  - added type `McpServerSetToolCustomizationsAction`
+  - added type `McpServerSetToolOutputFormattingAction`
+  - added type `McpServerSetToolsAction`
+  - added type `ProductTailoringKeySetMessage`
+  - added type `ProductTailoringKeySetMessagePayload`
+  - added type `ProductTailoringSetKeyAction`
+  - added type `VariantMoveImageToPositionAction`
+  - added type `VariantSetImageLabelAction`
+
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+  - added enum `variant` to type `AttributeReferenceTypeId`
+  - added enum `variant` to type `CustomFieldReferenceValue`
+
+  </details>
+
+  <details>
+  <summary>Added Resource(s)</summary>
+  - added resource `/{projectKey}/mcp-servers`
+  - added resource `/{projectKey}/variants/{ID}/images`
+  - added resource `/{projectKey}/in-store/key={storeKey}/discount-codes`
+  - added resource `/{projectKey}/in-store/key={storeKey}/discount-codes/key={key}`
+  - added resource `/{projectKey}/in-store/key={storeKey}/discount-codes/{ID}`
+  - added resource `/{projectKey}/mcp-servers/types`
+  - added resource `/{projectKey}/mcp-servers/key={key}`
+  - added resource `/{projectKey}/mcp-servers/{ID}`
+  - added resource `/{projectKey}/mcp-servers/types/{mcpServerType}`
+
+  </details>
+
+### Patch Changes
+
+- [#1424](https://github.com/commercetools/commercetools-sdk-typescript/pull/1424) [`021e5fd`](https://github.com/commercetools/commercetools-sdk-typescript/commit/021e5fd52af058cc26174bd248a5019e511ba3af) Thanks [@industrian](https://github.com/industrian)! - Remove Composable Commerce branding
+
+- [#1426](https://github.com/commercetools/commercetools-sdk-typescript/pull/1426) [`4437269`](https://github.com/commercetools/commercetools-sdk-typescript/commit/4437269408f5a863187a65bba68a8354b9fc0a60) Thanks [@ajimae](https://github.com/ajimae)! - Release a new version of the SDKs, including the latest generated documentation updates
+
+- Updated dependencies [[`021e5fd`](https://github.com/commercetools/commercetools-sdk-typescript/commit/021e5fd52af058cc26174bd248a5019e511ba3af)]:
+  - @commercetools/ts-client@5.0.1
+
+## 9.2.0
+
+### Minor Changes
+
+- [#1393](https://github.com/commercetools/commercetools-sdk-typescript/pull/1393) [`fbfca0e`](https://github.com/commercetools/commercetools-sdk-typescript/commit/fbfca0e1243dcf70aca604720b6003f0cd0bdf2e) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `BulkOperationMaxItemsExceededError`
+  - added type `GraphQLBulkOperationMaxItemsExceededError`
+  - added type `VariantCreatedMessage`
+  - added type `VariantDeletedMessage`
+  - added type `VariantImageAddedMessage`
+  - added type `VariantImagesSetMessage`
+  - added type `VariantKeySetMessage`
+  - added type `VariantPublishedMessage`
+  - added type `VariantSkuSetMessage`
+  - added type `VariantStagedChangesRemovedMessage`
+  - added type `VariantUnpublishedMessage`
+  - added type `VariantCreatedMessagePayload`
+  - added type `VariantDeletedMessagePayload`
+  - added type `VariantImageAddedMessagePayload`
+  - added type `VariantImagesSetMessagePayload`
+  - added type `VariantKeySetMessagePayload`
+  - added type `VariantPublishedMessagePayload`
+  - added type `VariantSkuSetMessagePayload`
+  - added type `VariantStagedChangesRemovedMessagePayload`
+  - added type `VariantUnpublishedMessagePayload`
+  - added type `ProductSetDefaultVariantAction`
+  - added type `ProductCatalogModel`
+  - added type `ProjectSetProductCatalogModelAction`
+  - added type `VariantAttributes`
+  - added type `VariantAttributesAttributeMetadata`
+  - added type `VariantAttributesAvailability`
+  - added type `VariantAttributesChannelAvailability`
+  - added type `VariantAttributesChannelAvailabilityMap`
+  - added type `VariantAttributesVariant`
+  - added type `Variant`
+  - added type `VariantBulkUpdate`
+  - added type `VariantBulkUpdateFailResult`
+  - added type `VariantBulkUpdateItem`
+  - added type `VariantBulkUpdateResource`
+  - added type `VariantBulkUpdateResponse`
+  - added type `VariantBulkUpdateResult`
+  - added type `VariantBulkUpdateSuccessResult`
+  - added type `VariantData`
+  - added type `VariantDraft`
+  - added type `VariantPagedQueryResponse`
+  - added type `VariantProjection`
+  - added type `VariantProjectionPagedQueryResponse`
+  - added type `VariantReference`
+  - added type `VariantResourceIdentifier`
+  - added type `VariantUpdate`
+  - added type `VariantUpdateAction`
+  - added type `VariantAddAssetAction`
+  - added type `VariantAddExternalImageAction`
+  - added type `VariantChangeAssetNameAction`
+  - added type `VariantChangeAssetOrderAction`
+  - added type `VariantPublishAction`
+  - added type `VariantRemoveAssetAction`
+  - added type `VariantRemoveImageAction`
+  - added type `VariantRemoveStagedChangesAction`
+  - added type `VariantSetAssetCustomFieldAction`
+  - added type `VariantSetAssetCustomTypeAction`
+  - added type `VariantSetAssetDescriptionAction`
+  - added type `VariantSetAssetKeyAction`
+  - added type `VariantSetAssetSourcesAction`
+  - added type `VariantSetAssetTagsAction`
+  - added type `VariantSetAssetsAction`
+  - added type `VariantSetAttributeAction`
+  - added type `VariantSetAttributesAction`
+  - added type `VariantSetImagesAction`
+  - added type `VariantSetKeyAction`
+  - added type `VariantSetSkuAction`
+  - added type `VariantUnpublishAction`
+  </details>
+
+  <details>
+  <summary>Added Resource(s)</summary>
+  - added resource `/{projectKey}/variant-projections`
+  - added resource `/{projectKey}/variants`
+  - added resource `/{projectKey}/product-projections/key={key}/variant-attributes`
+  - added resource `/{projectKey}/product-projections/{ID}/variant-attributes`
+  - added resource `/{projectKey}/variant-projections/key={key}`
+  - added resource `/{projectKey}/variant-projections/{ID}`
+  - added resource `/{projectKey}/variants/bulk`
+  - added resource `/{projectKey}/variants/key={key}`
+  - added resource `/{projectKey}/variants/{ID}`
+  - added resource `/{projectKey}/in-store/key={storeKey}/variant-projections`
+  - added resource `/{projectKey}/in-store/key={storeKey}/product-projections/key={key}/variant-attributes`
+  - added resource `/{projectKey}/in-store/key={storeKey}/product-projections/{ID}/variant-attributes`
+  - added resource `/{projectKey}/in-store/key={storeKey}/variant-projections/key={key}`
+  - added resource `/{projectKey}/in-store/key={storeKey}/variant-projections/{ID}`
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+  - added property `defaultVariant` to type `ProductData`
+  - added property `productCatalogModel` to type `Project`
+  </details>
+
+  <details>
+  <summary>Added Method(s)</summary>
+  - added method `apiRoot.withProjectKey().variantProjections().get()`
+  - added method `apiRoot.withProjectKey().variantProjections().head()`
+  - added method `apiRoot.withProjectKey().variants().get()`
+  - added method `apiRoot.withProjectKey().variants().post()`
+  - added method `apiRoot.withProjectKey().variants().head()`
+  - added method `apiRoot.withProjectKey().productProjections().withKey().variantAttributes().get()`
+  - added method `apiRoot.withProjectKey().productProjections().withId().variantAttributes().get()`
+  - added method `apiRoot.withProjectKey().variantProjections().withKey().get()`
+  - added method `apiRoot.withProjectKey().variantProjections().withKey().head()`
+  - added method `apiRoot.withProjectKey().variantProjections().withId().get()`
+  - added method `apiRoot.withProjectKey().variantProjections().withId().head()`
+  - added method `apiRoot.withProjectKey().variants().bulk().post()`
+  - added method `apiRoot.withProjectKey().variants().withKey().get()`
+  - added method `apiRoot.withProjectKey().variants().withKey().head()`
+  - added method `apiRoot.withProjectKey().variants().withKey().post()`
+  - added method `apiRoot.withProjectKey().variants().withKey().delete()`
+  - added method `apiRoot.withProjectKey().variants().withId().get()`
+  - added method `apiRoot.withProjectKey().variants().withId().head()`
+  - added method `apiRoot.withProjectKey().variants().withId().post()`
+  - added method `apiRoot.withProjectKey().variants().withId().delete()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().variantProjections().get()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().variantProjections().head()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().productProjections().withKey().variantAttributes().get()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().productProjections().withId().variantAttributes().get()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().variantProjections().withKey().get()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().variantProjections().withKey().head()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().variantProjections().withId().get()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().variantProjections().withId().head()`
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+  - added enum `variant` to type `ReferenceTypeId`
+  </details>
+
+## 9.1.0
+
+### Minor Changes
+
+- [#1384](https://github.com/commercetools/commercetools-sdk-typescript/pull/1384) [`49c05ff`](https://github.com/commercetools/commercetools-sdk-typescript/commit/49c05ff0d82bcb994ab5c08685ff177077186342) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Property(s)</summary>
+  - added property `stores` to type `ShippingMethod`
+  - added property `stores` to type `ShippingMethodDraft`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `CartLockedMessage`
+  - added type `CartUnlockedMessage`
+  - added type `CartLockedMessagePayload`
+  - added type `CartUnlockedMessagePayload`
+  - added type `ShippingMethodAddStoreAction`
+  - added type `ShippingMethodRemoveStoreAction`
+  - added type `ShippingMethodSetStoresAction`
+  </details>
+
+## 9.0.0
+
+### Major Changes
+
+- [#1312](https://github.com/commercetools/commercetools-sdk-typescript/pull/1312) [`947f262`](https://github.com/commercetools/commercetools-sdk-typescript/commit/947f2621f67bf217b329223093be7d8d49755d93) Thanks [@ajimae](https://github.com/ajimae)! - ## Drop support for Node.js 18 and 20
+
+  ### What changed
+
+  The minimum required Node.js version has been raised from `>=18` to `>=22`. Node.js 18 and 20 are no longer supported.
+
+  ### Why
+
+  Dependencies in this SDK now require Node.js 22 or higher. In particular:
+
+  - **nock 14.x** (used in tests) replaced its internal HTTP interception with `@mswjs/interceptors`, which relies on modern Node.js internals.
+  - **Jest 30** requires Node.js 22+ for its test runner.
+  - Node.js 18 reached end-of-life in April 2025. Node.js 20 reaches end-of-life in April 2026. Aligning the engine requirement with actively maintained LTS releases reduces the maintenance surface.
+
+  ### How to update
+
+  Upgrade your runtime to **Node.js 22 or later** before updating to this version. No code changes are required — only the Node.js runtime version needs to change.
+
+  ```bash
+  # Using nvm
+  nvm install 22
+  nvm use 22
+
+  # Using fnm
+  fnm install 22
+  fnm use 22
+  ```
+
+  If you are pinned to Node.js 18 or 20 for other reasons, stay on the previous major version of this SDK until you are able to upgrade your runtime.
+
+### Minor Changes
+
+- [#1330](https://github.com/commercetools/commercetools-sdk-typescript/pull/1330) [`34686cd`](https://github.com/commercetools/commercetools-sdk-typescript/commit/34686cd3be7794ba13452a71a6116e0f4788dcbd) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added QueryParameter(s)</summary>
+  - added query parameter `dataErasure` to method `delete /{projectKey}/business-units/key={key}`
+  - added query parameter `dataErasure` to method `delete /{projectKey}/business-units/{ID}`
+  - added query parameter `dataErasure` to method `delete /{projectKey}/in-store/key={storeKey}/business-units/key={key}`
+  - added query parameter `dataErasure` to method `delete /{projectKey}/in-store/key={storeKey}/business-units/{ID}`
+  </details>
+
+### Patch Changes
+
+- Updated dependencies [[`947f262`](https://github.com/commercetools/commercetools-sdk-typescript/commit/947f2621f67bf217b329223093be7d8d49755d93), [`f3b1563`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f3b1563bfa6b5f1b64320ca4202a1554271d8352)]:
+  - @commercetools/ts-client@5.0.0
+
+## 8.27.0
+
+### Minor Changes
+
+- [#1303](https://github.com/commercetools/commercetools-sdk-typescript/pull/1303) [`934fcda`](https://github.com/commercetools/commercetools-sdk-typescript/commit/934fcdaae1436b4224a5e4b92bb5d436ce1eb69f) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Enum(s)</summary>
+  - added enum `ReserveOnCart` to type `InventoryMode`
+  - added enum `reservation` to type `ReferenceTypeId`
+  - added enum `reservation` to type `ResourceTypeId`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `ReservationReference`
+  - added type `CartSetReservationExpirationInMinutesAction`
+  - added type `NonStandardCurrency`
+  - added type `CircularDependencyError`
+  - added type `ExtensionChainTooDeepError`
+  - added type `ExtensionChainTooWideError`
+  - added type `ExtensionDependencyExistsError`
+  - added type `LineItemQuantityAboveLimitError`
+  - added type `LineItemQuantityBelowLimitError`
+  - added type `MissingDependencyError`
+  - added type `GraphQLCircularDependencyError`
+  - added type `GraphQLExtensionChainTooDeepError`
+  - added type `GraphQLExtensionChainTooWideError`
+  - added type `GraphQLExtensionDependencyExistsError`
+  - added type `GraphQLLineItemQuantityAboveLimitError`
+  - added type `GraphQLLineItemQuantityBelowLimitError`
+  - added type `GraphQLMissingDependencyError`
+  - added type `ExtensionAdditionalContext`
+  - added type `ExtensionAdditionalContextDraft`
+  - added type `ExtensionReference`
+  - added type `ExtensionResourceIdentifier`
+  - added type `ExtensionSetAdditionalContextAction`
+  - added type `ExtensionSetDependenciesAction`
+  - added type `ExtensionSetExpansionPathsAction`
+  - added type `InventoryEntryStockLevels`
+  - added type `InventoryEntrySetReorderPointAction`
+  - added type `InventoryEntrySetReservationExpirationInMinutesAction`
+  - added type `InventoryEntrySetSafetyStockAction`
+  - added type `InventoryEntryOutOfStockMessage`
+  - added type `InventoryEntryReorderPointMessage`
+  - added type `InventoryEntryReservationExpirationInMinutesSetMessage`
+  - added type `InventoryEntrySafetyStockMessage`
+  - added type `InventoryEntryOutOfStockMessagePayload`
+  - added type `InventoryEntryReorderPointMessagePayload`
+  - added type `InventoryEntryReservationExpirationInMinutesSetMessagePayload`
+  - added type `InventoryEntrySafetyStockMessagePayload`
+  - added type `InventoryConfiguration`
+  - added type `ProjectSetReleaseExpiredReservationsAction`
+  - added type `ProjectSetReservationExpirationInMinutesAction`
+  - added type `Reservation`
+  - added type `ReservationState`
+  - added type `CannotChangeReservationExpiryWarning`
+  - added type `CannotCreateReservationWarning`
+  - added type `CannotUpdateReservationWarning`
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+  - added property `warnings` to type `Cart`
+  - added property `reservation` to type `LineItem`
+  - added property `dependencies` to type `Extension`
+  - added property `expansionPaths` to type `Extension`
+  - added property `additionalContext` to type `Extension`
+  - added property `dependencies` to type `ExtensionDraft`
+  - added property `expansionPaths` to type `ExtensionDraft`
+  - added property `additionalContext` to type `ExtensionDraft`
+  - added property `oldResource` to type `ExtensionInput`
+  - added property `reservationExpirationInMinutes` to type `InventoryEntry`
+  - added property `stockLevels` to type `InventoryEntry`
+  - added property `reservationExpirationInMinutes` to type `InventoryEntryDraft`
+  - added property `stockLevels` to type `InventoryEntryDraft`
+  - added property `inventory` to type `Project`
+  </details>
+
+## 8.26.0
+
+### Minor Changes
+
+- [#1296](https://github.com/commercetools/commercetools-sdk-typescript/pull/1296) [`52cc58b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/52cc58b95ce94eed65e219cc2a365895b832a05e) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Enum(s)</summary>
+  - added enum `ReserveOnCart` to type `InventoryMode`
+  - added enum `reservation` to type `ReferenceTypeId`
+  - added enum `reservation` to type `ResourceTypeId`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `ReservationReference`
+  - added type `CartSetReservationExpirationInMinutesAction`
+  - added type `NonStandardCurrency`
+  - added type `CircularDependencyError`
+  - added type `ExtensionChainTooDeepError`
+  - added type `ExtensionChainTooWideError`
+  - added type `ExtensionDependencyExistsError`
+  - added type `LineItemQuantityAboveLimitError`
+  - added type `LineItemQuantityBelowLimitError`
+  - added type `MissingDependencyError`
+  - added type `GraphQLCircularDependencyError`
+  - added type `GraphQLExtensionChainTooDeepError`
+  - added type `GraphQLExtensionChainTooWideError`
+  - added type `GraphQLExtensionDependencyExistsError`
+  - added type `GraphQLLineItemQuantityAboveLimitError`
+  - added type `GraphQLLineItemQuantityBelowLimitError`
+  - added type `GraphQLMissingDependencyError`
+  - added type `ExtensionAdditionalContext`
+  - added type `ExtensionAdditionalContextDraft`
+  - added type `ExtensionReference`
+  - added type `ExtensionResourceIdentifier`
+  - added type `ExtensionSetAdditionalContextAction`
+  - added type `ExtensionSetDependenciesAction`
+  - added type `ExtensionSetExpansionPathsAction`
+  - added type `InventoryEntryStockLevels`
+  - added type `InventoryEntrySetReorderPointAction`
+  - added type `InventoryEntrySetReservationExpirationInMinutesAction`
+  - added type `InventoryEntrySetSafetyStockAction`
+  - added type `InventoryEntryOutOfStockMessage`
+  - added type `InventoryEntryReorderPointMessage`
+  - added type `InventoryEntryReservationExpirationInMinutesSetMessage`
+  - added type `InventoryEntrySafetyStockMessage`
+  - added type `InventoryEntryOutOfStockMessagePayload`
+  - added type `InventoryEntryReorderPointMessagePayload`
+  - added type `InventoryEntryReservationExpirationInMinutesSetMessagePayload`
+  - added type `InventoryEntrySafetyStockMessagePayload`
+  - added type `InventoryConfiguration`
+  - added type `ProjectSetReleaseExpiredReservationsAction`
+  - added type `ProjectSetReservationExpirationInMinutesAction`
+  - added type `Reservation`
+  - added type `ReservationState`
+  - added type `CannotChangeReservationExpiryWarning`
+  - added type `CannotCreateReservationWarning`
+  - added type `CannotUpdateReservationWarning`
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+  - added property `warnings` to type `Cart`
+  - added property `reservation` to type `LineItem`
+  - added property `dependencies` to type `Extension`
+  - added property `expansionPaths` to type `Extension`
+  - added property `additionalContext` to type `Extension`
+  - added property `dependencies` to type `ExtensionDraft`
+  - added property `expansionPaths` to type `ExtensionDraft`
+  - added property `additionalContext` to type `ExtensionDraft`
+  - added property `oldResource` to type `ExtensionInput`
+  - added property `reservationExpirationInMinutes` to type `InventoryEntry`
+  - added property `stockLevels` to type `InventoryEntry`
+  - added property `reservationExpirationInMinutes` to type `InventoryEntryDraft`
+  - added property `stockLevels` to type `InventoryEntryDraft`
+  - added property `inventory` to type `Project`
+  </details>
+
+- [#1301](https://github.com/commercetools/commercetools-sdk-typescript/pull/1301) [`3577a1b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3577a1b18fcb7a2deb0dae32470a305c1fc1f45e) Thanks [@ShipilA](https://github.com/ShipilA)! - Monthly release June 2026
+
+- [#1301](https://github.com/commercetools/commercetools-sdk-typescript/pull/1301) [`3577a1b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3577a1b18fcb7a2deb0dae32470a305c1fc1f45e) Thanks [@ShipilA](https://github.com/ShipilA)! - Monthly release
+
+### Patch Changes
+
+- Updated dependencies [[`3577a1b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3577a1b18fcb7a2deb0dae32470a305c1fc1f45e), [`3577a1b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3577a1b18fcb7a2deb0dae32470a305c1fc1f45e)]:
+  - @commercetools/ts-client@4.10.0
+
+## 8.25.0
+
+### Minor Changes
+
+- [#1231](https://github.com/commercetools/commercetools-sdk-typescript/pull/1231) [`0dc71fe`](https://github.com/commercetools/commercetools-sdk-typescript/commit/0dc71feed0e596e3dcb2f2d91366464d4fe5d6aa) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `ExactLockConflictError`
+  - added type `ValidityLockConflictError`
+  - added type `GraphQLExactLockConflictError`
+  - added type `GraphQLValidityLockConflictError`
+  </details>
+
+- [#1239](https://github.com/commercetools/commercetools-sdk-typescript/pull/1239) [`4d930a0`](https://github.com/commercetools/commercetools-sdk-typescript/commit/4d930a0c084ae6a4404cee8c893442aeb258c484) Thanks [@ShipilA](https://github.com/ShipilA)! - Monthly release
+
+### Patch Changes
+
+- Updated dependencies [[`4d930a0`](https://github.com/commercetools/commercetools-sdk-typescript/commit/4d930a0c084ae6a4404cee8c893442aeb258c484)]:
+  - @commercetools/ts-client@4.9.1
+
+## 8.24.0
+
+### Minor Changes
+
+- [#1213](https://github.com/commercetools/commercetools-sdk-typescript/pull/1213) [`99d9e66`](https://github.com/commercetools/commercetools-sdk-typescript/commit/99d9e6663f00ec9ae9e26e3708c9c915d782e131) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `CartDiscountSetRecurringOrderScopeAction`
+  - added type `AnyOrder`
+  - added type `AnyOrderDraft`
+  - added type `ApplicableRecurrencePolicies`
+  - added type `ApplicableRecurrencePoliciesDraft`
+  - added type `NonRecurringOrdersOnly`
+  - added type `NonRecurringOrdersOnlyDraft`
+  - added type `RecurringOrderScope`
+  - added type `RecurringOrderScopeDraft`
+  - added type `RecurringOrdersOnly`
+  - added type `RecurringOrdersOnlyDraft`
+  </details>
+
+  <details>
+  <summary>Required Property(s)</summary>
+  - :warning: changed property `deleteDaysAfterLastModification` of type `CartsConfiguration` to be required
+  - :warning: changed property `deleteDaysAfterLastModification` of type `ShoppingListsConfiguration` to be required
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+  - added property `recurringOrderScope` to type `CartDiscount`
+  - added property `recurringOrderScope` to type `CartDiscountDraft`
+  </details>
+
+- [#1219](https://github.com/commercetools/commercetools-sdk-typescript/pull/1219) [`c665e6d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/c665e6d12fe11e66baa303059869bca2b7364b1c) Thanks [@ShipilA](https://github.com/ShipilA)! - **Api changes**
+
+  <details>
+  <summary>Required Property(s)</summary>
+  - changed property `variantSelection` of type `ProductSelectionProductAddedMessage` to be optional
+  - changed property `variantExclusion` of type `ProductSelectionProductExcludedMessage` to be optional
+  - changed property `oldVariantExclusion` of type `ProductSelectionVariantExclusionChangedMessage` to be optional
+  - changed property `newVariantExclusion` of type `ProductSelectionVariantExclusionChangedMessage` to be optional
+  - changed property `oldVariantSelection` of type `ProductSelectionVariantSelectionChangedMessage` to be optional
+  - changed property `newVariantSelection` of type `ProductSelectionVariantSelectionChangedMessage` to be optional
+  - changed property `variantSelection` of type `ProductSelectionProductAddedMessagePayload` to be optional
+  - changed property `variantExclusion` of type `ProductSelectionProductExcludedMessagePayload` to be optional
+  - changed property `oldVariantExclusion` of type `ProductSelectionVariantExclusionChangedMessagePayload` to be optional
+  - changed property `newVariantExclusion` of type `ProductSelectionVariantExclusionChangedMessagePayload` to be optional
+  - changed property `oldVariantSelection` of type `ProductSelectionVariantSelectionChangedMessagePayload` to be optional
+  - changed property `newVariantSelection` of type `ProductSelectionVariantSelectionChangedMessagePayload` to be optional
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+  - added property `interfaceId` to type `MyTransactionDraft`
+  - added property `interfaceId` to type `Transaction`
+  - added property `interfaceId` to type `TransactionDraft`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `PaymentTransactionInterfaceIdSetMessage`
+  - added type `PaymentTransactionInterfaceIdSetMessagePayload`
+  - added type `PaymentSetTransactionInterfaceIdAction`
+  </details>
+
+- [#1219](https://github.com/commercetools/commercetools-sdk-typescript/pull/1219) [`c665e6d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/c665e6d12fe11e66baa303059869bca2b7364b1c) Thanks [@ShipilA](https://github.com/ShipilA)! - Regular release
+
+### Patch Changes
+
+- [#1219](https://github.com/commercetools/commercetools-sdk-typescript/pull/1219) [`c665e6d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/c665e6d12fe11e66baa303059869bca2b7364b1c) Thanks [@ShipilA](https://github.com/ShipilA)! - Monthly release
+
+- Updated dependencies [[`c665e6d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/c665e6d12fe11e66baa303059869bca2b7364b1c), [`c665e6d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/c665e6d12fe11e66baa303059869bca2b7364b1c)]:
+  - @commercetools/ts-client@4.9.0
+
 ## 8.23.0
 
 ### Minor Changes
@@ -7732,6 +8535,7 @@
   - added property `cartVersion` to type `MyQuoteRequestDraft`
   - added property `createdAt` to type `AssignedProductSelection`
   - added property `quoteState` to type `Quote`
+
   </details>
 
   <details>

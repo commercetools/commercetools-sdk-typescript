@@ -93,6 +93,8 @@ export interface DiscountGroupDraft {
   /**
    *	User-defined unique identifier for the DiscountGroup.
    *
+   *	If the value is used by another Discount Group, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
+   *
    *
    */
   readonly key: string
@@ -105,7 +107,7 @@ export interface DiscountGroupDraft {
   /**
    *	Value between `0` and `1` that determines the order in which the CartDiscount from the DiscountGroup will be applied; a CartDiscount with a higher value will be prioritized.
    *
-   *	The sort order must be unique among all DiscountGroups and CartDiscounts.
+   *	If the value is used by another Cart Discount or Discount Group, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
    *
    *
    */
@@ -118,18 +120,18 @@ export interface DiscountGroupDraft {
   readonly isActive?: boolean
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [DiscountGroup](ctp:api:type:DiscountGroup).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with `results` containing an array of [DiscountGroup](ctp:api:type:DiscountGroup).
  *
  */
 export interface DiscountGroupPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -142,10 +144,10 @@ export interface DiscountGroupPagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -171,7 +173,7 @@ export interface DiscountGroupReference extends IReference {
   readonly id: string
   /**
    *	Contains the representation of the expanded DiscountGroup.
-   *	Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for DiscountGroups.
+   *	Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for DiscountGroups.
    *
    *
    */
@@ -179,7 +181,7 @@ export interface DiscountGroupReference extends IReference {
 }
 /**
  *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [DiscountGroup](ctp:api:type:DiscountGroup). Either `id` or `key` is required.
- *	If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	If both are set, an [InvalidJsonInput](ctp:api:type:InvalidJsonInputError) error is returned.
  *
  */
 export interface DiscountGroupResourceIdentifier extends IResourceIdentifier {
@@ -226,12 +228,11 @@ export interface IDiscountGroupUpdateAction {
    */
   readonly action: string
 }
-export interface DiscountGroupSetDescriptionAction
-  extends IDiscountGroupUpdateAction {
+export interface DiscountGroupSetDescriptionAction extends IDiscountGroupUpdateAction {
   readonly action: 'setDescription'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -240,11 +241,10 @@ export interface DiscountGroupSetDescriptionAction
 /**
  *	This action generates the [DiscountGroupIsActiveSet](ctp:api:type:DiscountGroupIsActiveSetMessage) Message.
  *
- *	If the [limit](/../api/limits#discount-groups) for active Discount Groups has been reached, a [MaxDiscountGroupsReached](ctp:api:type:MaxDiscountGroupsReachedError) error is returned.
+ *	If the [limit](/api/limits#discount-groups) for active Discount Groups has been reached, a [MaxDiscountGroupsReached](ctp:api:type:MaxDiscountGroupsReachedError) error is returned.
  *
  */
-export interface DiscountGroupSetIsActiveAction
-  extends IDiscountGroupUpdateAction {
+export interface DiscountGroupSetIsActiveAction extends IDiscountGroupUpdateAction {
   readonly action: 'setIsActive'
   /**
    *	New value to set.
@@ -264,6 +264,8 @@ export interface DiscountGroupSetKeyAction extends IDiscountGroupUpdateAction {
   /**
    *	New value to set.
    *
+   *	If the value is used by another Discount Group, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
+   *
    *
    */
   readonly key: string
@@ -272,7 +274,7 @@ export interface DiscountGroupSetNameAction extends IDiscountGroupUpdateAction {
   readonly action: 'setName'
   /**
    *	New value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -282,14 +284,13 @@ export interface DiscountGroupSetNameAction extends IDiscountGroupUpdateAction {
  *	Setting the sort order generates the [DiscountGroupSortOrderSet](ctp:api:type:DiscountGroupSortOrderSetMessage) Message.
  *
  */
-export interface DiscountGroupSetSortOrderAction
-  extends IDiscountGroupUpdateAction {
+export interface DiscountGroupSetSortOrderAction extends IDiscountGroupUpdateAction {
   readonly action: 'setSortOrder'
   /**
    *	New value to set (between `0` and `1`).
    *	A CartDiscount with a higher value will be prioritized.
    *
-   *	The sort order must be unique among all DiscountGroups and CartDiscounts.
+   *	If the value is used by another Cart Discount or Discount Group, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
    *
    *
    */

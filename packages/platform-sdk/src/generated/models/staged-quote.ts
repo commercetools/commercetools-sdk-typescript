@@ -76,7 +76,7 @@ export interface StagedQuote extends BaseResource {
    */
   readonly stagedQuoteState: StagedQuoteState
   /**
-   *	The [Buyer](/../api/quotes-overview#buyer) who requested the Quote.
+   *	The [Buyer](/api/quotes-overview#buyer) who requested the Quote.
    *
    *
    */
@@ -100,7 +100,7 @@ export interface StagedQuote extends BaseResource {
    */
   readonly validTo?: string
   /**
-   *	Message from the [Seller](/../api/quotes-overview#seller) included in the offer.
+   *	Message from the [Seller](/api/quotes-overview#seller) included in the offer.
    *
    *
    */
@@ -119,19 +119,19 @@ export interface StagedQuote extends BaseResource {
   readonly state?: StateReference
   /**
    *	The purchase order number is typically set by the [Buyer](/quotes-overview#buyer) on a [QuoteRequest](ctp:api:type:QuoteRequest) to
-   *	track the purchase order during the [quote and order flow](/../api/quotes-overview#intended-workflow).
+   *	track the purchase order during the [quote and order flow](/api/quotes-overview#intended-workflow).
    *
    *
    */
   readonly purchaseOrderNumber?: string
   /**
-   *	The [BusinessUnit](ctp:api:type:BusinessUnit) for the Staged Quote. Only available for [B2B](/../offering/composable-commerce#composable-commerce-for-b2b)-enabled Projects.
+   *	The [BusinessUnit](ctp:api:type:BusinessUnit) for the Staged Quote. Only available for [B2B](/offering/commerce-b2b)-enabled Projects.
    *
    *
    */
   readonly businessUnit?: BusinessUnitKeyReference
   /**
-   *	The Store to which the [Buyer](/../api/quotes-overview#buyer) belongs.
+   *	The Store to which the [Buyer](/api/quotes-overview#buyer) belongs.
    *
    *
    */
@@ -151,7 +151,7 @@ export interface StagedQuoteDraft {
    */
   readonly quoteRequestVersion: number
   /**
-   *	If `true`, the `quoteRequestState` of the referenced [QuoteRequest](ctp:api:type:QuoteRequest) will be set to `Accepted`.
+   *	Whether the `quoteRequestState` of the referenced [QuoteRequest](ctp:api:type:QuoteRequest) will be set to `Accepted`.
    *
    *
    */
@@ -163,7 +163,7 @@ export interface StagedQuoteDraft {
    */
   readonly key?: string
   /**
-   *	[Custom Fields](/../api/projects/custom-fields) to be added to the StagedQuote.
+   *	[Custom Fields](ctp:api:type:CustomFields) to be added to the StagedQuote.
    *
    *	- If specified, the Custom Fields are merged with the Custom Fields on the referenced [QuoteRequest](ctp:api:type:QuoteRequest) and added to the StagedQuote.
    *	- If empty, the Custom Fields on the referenced [QuoteRequest](ctp:api:type:QuoteRequest) are added to the StagedQuote automatically.
@@ -180,18 +180,18 @@ export interface StagedQuoteDraft {
   readonly state?: StateReference
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [StagedQuote](ctp:api:type:StagedQuote).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with results containing an array of [StagedQuote](ctp:api:type:StagedQuote).
  *
  */
 export interface StagedQuotePagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -204,10 +204,10 @@ export interface StagedQuotePagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -233,7 +233,7 @@ export interface StagedQuoteReference extends IReference {
   readonly id: string
   /**
    *	Contains the representation of the expanded StagedQuote.
-   *	Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for StagedQuote.
+   *	Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for StagedQuote.
    *
    *
    */
@@ -297,8 +297,7 @@ export interface IStagedQuoteUpdateAction {
    */
   readonly action: string
 }
-export interface StagedQuoteChangeStagedQuoteStateAction
-  extends IStagedQuoteUpdateAction {
+export interface StagedQuoteChangeStagedQuoteStateAction extends IStagedQuoteUpdateAction {
   readonly action: 'changeStagedQuoteState'
   /**
    *	New state to be set for the Staged Quote.
@@ -306,11 +305,10 @@ export interface StagedQuoteChangeStagedQuoteStateAction
    */
   readonly stagedQuoteState: StagedQuoteState
 }
-export interface StagedQuoteSetCustomFieldAction
-  extends IStagedQuoteUpdateAction {
+export interface StagedQuoteSetCustomFieldAction extends IStagedQuoteUpdateAction {
   readonly action: 'setCustomField'
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -324,25 +322,25 @@ export interface StagedQuoteSetCustomFieldAction
    */
   readonly value?: any
 }
-export interface StagedQuoteSetCustomTypeAction
-  extends IStagedQuoteUpdateAction {
+export interface StagedQuoteSetCustomTypeAction extends IStagedQuoteUpdateAction {
   readonly action: 'setCustomType'
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the StagedQuote with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the StagedQuote with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the StagedQuote.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the StagedQuote.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the StagedQuote.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */
   readonly fields?: FieldContainer
 }
-export interface StagedQuoteSetSellerCommentAction
-  extends IStagedQuoteUpdateAction {
+export interface StagedQuoteSetSellerCommentAction extends IStagedQuoteUpdateAction {
   readonly action: 'setSellerComment'
   /**
    *	If `sellerComment` is absent or `null`, this field will be removed if it exists.
@@ -364,8 +362,7 @@ export interface StagedQuoteSetValidToAction extends IStagedQuoteUpdateAction {
  *	If the existing [State](ctp:api:type:State) has set `transitions`, there must be a direct transition to the new State. If `transitions` is not set, no validation is performed. This update action produces the [Staged Quote State Transition](ctp:api:type:StagedQuoteStateTransitionMessage) Message.
  *
  */
-export interface StagedQuoteTransitionStateAction
-  extends IStagedQuoteUpdateAction {
+export interface StagedQuoteTransitionStateAction extends IStagedQuoteUpdateAction {
   readonly action: 'transitionState'
   /**
    *	Value to set.

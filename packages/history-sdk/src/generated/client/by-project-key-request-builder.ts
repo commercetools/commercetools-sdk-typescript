@@ -9,7 +9,7 @@ import {
   RecordPagedQueryResponse,
   Source,
 } from '../models/change-history'
-import { executeRequest, QueryParam } from '../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../shared/utils/common-types'
 import { ApiRequest } from '../shared/utils/requests-utils'
 import { ByProjectKeyByResourceTypeRequestBuilder } from './by-project-key-by-resource-type-request-builder'
 import { ByProjectKeyGraphqlRequestBuilder } from './graphql/by-project-key-graphql-request-builder'
@@ -72,9 +72,9 @@ export class ByProjectKeyRequestBuilder {
       changes?: string | string[]
       stores?: string | string[]
       excludePlatformInitiatedChanges?:
-        | PlatformInitiatedChange
-        | PlatformInitiatedChange[]
+        PlatformInitiatedChange | PlatformInitiatedChange[]
       expand?: boolean
+      withTotal?: boolean
       [key: string]: QueryParam
     }
     headers?: {

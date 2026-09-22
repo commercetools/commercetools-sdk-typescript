@@ -26,11 +26,7 @@ export enum BusinessUnitIndexingStatusValues {
 }
 
 export type BusinessUnitIndexingStatus =
-  | 'Failed'
-  | 'Indexing'
-  | 'Ready'
-  | 'Scheduled'
-  | (string & {})
+  'Failed' | 'Indexing' | 'Ready' | 'Scheduled' | (string & {})
 /**
  *	The current indexing status of Customer Search.
  *
@@ -43,11 +39,7 @@ export enum CustomerIndexingStatusValues {
 }
 
 export type CustomerIndexingStatus =
-  | 'Failed'
-  | 'Indexing'
-  | 'Ready'
-  | 'Scheduled'
-  | (string & {})
+  'Failed' | 'Indexing' | 'Ready' | 'Scheduled' | (string & {})
 export interface BusinessUnitConfiguration {
   /**
    *	Status of Business Units created using the [My Business Unit endpoint](ctp:api:endpoint:/{projectKey}/me/business-units:POST).
@@ -62,7 +54,7 @@ export interface BusinessUnitConfiguration {
   readonly myBusinessUnitAssociateRoleOnCreation?: AssociateRoleKeyReference
 }
 /**
- *	Default value for [Business Unit Status](ctp:api:type:BusinessUnitStatus) configured though [Project settings](/../api/projects/project#change-my-business-unit-status-on-creation).
+ *	Default value for [Business Unit Status](ctp:api:type:BusinessUnitStatus) configured though [Project settings](/api/projects/project#change-my-business-unit-status-on-creation).
  */
 export enum BusinessUnitConfigurationStatusValues {
   Active = 'Active',
@@ -70,11 +62,9 @@ export enum BusinessUnitConfigurationStatusValues {
 }
 
 export type BusinessUnitConfigurationStatus =
-  | 'Active'
-  | 'Inactive'
-  | (string & {})
+  'Active' | 'Inactive' | (string & {})
 /**
- *	Specifies the status of the [Business Unit Search](/../api/projects/business-unit-search) index.
+ *	Specifies the status of the [Business Unit Search](/api/projects/business-unit-search) index.
  *	You can change the status using the [Change Business Unit Search Status](ctp:api:type:ProjectChangeBusinessUnitSearchStatusAction) update action.
  *
  */
@@ -84,9 +74,7 @@ export enum BusinessUnitSearchStatusValues {
 }
 
 export type BusinessUnitSearchStatus =
-  | 'Activated'
-  | 'Deactivated'
-  | (string & {})
+  'Activated' | 'Deactivated' | (string & {})
 export interface CartsConfiguration {
   /**
    *	Default value for the `deleteDaysAfterLastModification` parameter of the [CartDraft](ctp:api:type:CartDraft) and [MyCartDraft](ctp:api:type:MyCartDraft).
@@ -120,7 +108,7 @@ export interface CartsConfiguration {
   readonly taxRoundingMode?: RoundingMode
 }
 /**
- *	Specifies the status of the [Customer Search](/../api/projects/customer-search) index.
+ *	Specifies the status of the [Customer Search](/api/projects/customer-search) index.
  *	You can change the status using the [Change Customer Search Status](ctp:api:type:ProjectChangeCustomerSearchStatusAction) update action.
  *
  */
@@ -131,7 +119,7 @@ export enum CustomerSearchStatusValues {
 
 export type CustomerSearchStatus = 'Activated' | 'Deactivated' | (string & {})
 /**
- *	Defines how Product Discounts and Cart Discounts are combined for every Cart in a Project.
+ *	Defines how Product Discounts and Cart Discounts are combined for Line Items in every Cart of the Project.
  *
  */
 export enum DiscountCombinationModeValues {
@@ -153,9 +141,13 @@ export interface DiscountsConfiguration {
   readonly discountCombinationMode: DiscountCombinationMode
 }
 /**
- *	Represents a RFC 7662 compliant [OAuth 2.0 Token Introspection](https://datatracker.ietf.org/doc/html/rfc7662) endpoint. For more information, see [Requesting an access token using an external OAuth 2.0 server](/../api/authorization#request-an-access-token-using-an-external-oauth-server).
+ *	Represents an RFC 7662-compliant [OAuth 2.0 Token Introspection](https://datatracker.ietf.org/doc/html/rfc7662) endpoint.
+ *	For more information, see [Requesting an access token using an external OAuth 2.0 server](/api/authorization#request-an-access-token-using-an-external-oauth-server).
  *
- *	You can only configure **one** external OAuth 2.0 endpoint per Project. To authenticate using multiple external services (such as social network logins), use a middle layer authentication service.
+ *	You can only configure **one** external OAuth 2.0 endpoint per Project.
+ *	To authenticate using multiple external services (such as social network logins), use a middle layer authentication service that delegates to those services and exposes a single RFC 7662-compliant OAuth 2.0 Token Introspection endpoint to the commercetools APIs.
+ *	This middle layer is a custom service that you build and host.
+ *	It receives the token introspection request from the APIs, routes the token validation to the appropriate external service, and returns the introspection response in the expected format.
  *
  */
 export interface ExternalOAuth {
@@ -172,7 +164,26 @@ export interface ExternalOAuth {
   readonly authorizationHeader: string
 }
 /**
- *	Specifies the status of the [Order Search](/../api/projects/order-search) index.
+ *	Inventory configuration settings for a Project.
+ *
+ */
+export interface InventoryConfiguration {
+  /**
+   *	The number of minutes after which a [Reservation](ctp:api:type:Reservation) expires. To use the [ReserveOnCart](ctp:api:type:InventoryMode) inventory mode, this field must be set.
+   *
+   *
+   */
+  readonly reservationExpirationInMinutes?: number
+  /**
+   *	Whether [Reservations](ctp:api:type:Reservation) are marked as `Expired` once their
+   *	`reservationExpirationInMinutes` is reached. The reserved inventory is then made available. If set to `false`, tracking Line Items with expired reservations becomes your responsibility.
+   *
+   *
+   */
+  readonly releaseExpiredReservations: boolean
+}
+/**
+ *	Specifies the status of the [Order Search](/api/projects/order-search) index.
  */
 export enum OrderSearchStatusValues {
   Activated = 'Activated',
@@ -180,15 +191,23 @@ export enum OrderSearchStatusValues {
 }
 
 export type OrderSearchStatus = 'Activated' | 'Deactivated' | (string & {})
+/**
+ *	Determines how Product Variants are managed in the Project.
+ *
+ */
+export enum ProductCatalogModelValues {
+  Classic = 'Classic',
+  Modular = 'Modular',
+}
+
+export type ProductCatalogModel = 'Classic' | 'Modular' | (string & {})
 export enum ProductSearchIndexingModeValues {
   ProductProjectionsSearch = 'ProductProjectionsSearch',
   ProductsSearch = 'ProductsSearch',
 }
 
 export type ProductSearchIndexingMode =
-  | 'ProductProjectionsSearch'
-  | 'ProductsSearch'
-  | (string & {})
+  'ProductProjectionsSearch' | 'ProductsSearch' | (string & {})
 export interface Project {
   /**
    *	Current version of the Project.
@@ -239,19 +258,19 @@ export interface Project {
    */
   readonly trialUntil?: string
   /**
-   *	Holds the configuration for the [Messages Query](/../api/projects/messages) feature.
+   *	Holds the configuration for the [Messages Query](/api/projects/messages) feature.
    *
    *
    */
   readonly messages: MessagesConfiguration
   /**
-   *	Holds the configuration for the [Carts](/../api/projects/carts) feature.
+   *	Holds the configuration for the [Carts](/api/projects/carts) feature.
    *
    *
    */
   readonly carts: CartsConfiguration
   /**
-   *	Holds the configuration for the [Shopping Lists](/../api/projects/shoppingLists) feature.
+   *	Holds the configuration for the [Shopping Lists](/api/projects/shoppingLists) feature.
    *
    *
    */
@@ -281,11 +300,24 @@ export interface Project {
    */
   readonly businessUnits?: BusinessUnitConfiguration
   /**
+   *	Holds configuration specific to inventory.
+   *
+   *
+   */
+  readonly inventory: InventoryConfiguration
+  /**
    *	Holds configuration specific to discounts, including how Product and Cart Discounts are combined in every Cart of the Project.
    *
    *
    */
   readonly discounts: DiscountsConfiguration
+  /**
+   *	Determines how Product Variants are managed in the Project.
+   *	If not set, defaults to `Classic` behavior.
+   *
+   *
+   */
+  readonly productCatalogModel?: ProductCatalogModel
 }
 export interface ProjectUpdate {
   /**
@@ -321,6 +353,9 @@ export type ProjectUpdateAction =
   | ProjectSetBusinessUnitAssociateRoleOnCreationAction
   | ProjectSetDiscountsConfigurationAction
   | ProjectSetExternalOAuthAction
+  | ProjectSetProductCatalogModelAction
+  | ProjectSetReleaseExpiredReservationsAction
+  | ProjectSetReservationExpirationInMinutesAction
   | ProjectSetShippingRateInputTypeAction
 export interface IProjectUpdateAction {
   /**
@@ -334,27 +369,27 @@ export interface IProjectUpdateAction {
  */
 export interface SearchIndexingConfiguration {
   /**
-   *	Configuration for the [Product Projection Search](/../api/projects/product-projection-search) and [Search Term Suggestions](/../api/projects/search-term-suggestions) APIs.
+   *	Configuration for the [Product Projection Search](/api/projects/product-projection-search) and [Search Term Suggestions](/api/projects/search-term-suggestions) APIs.
    *
    */
   readonly products?: SearchIndexingConfigurationValues
   /**
-   *	Configuration for the [Product Search](/../api/projects/product-search) feature.
+   *	Configuration for the [Product Search](/api/projects/product-search) feature.
    *
    */
   readonly productsSearch?: SearchIndexingConfigurationValues
   /**
-   *	Configuration for the [Order Search](/../api/projects/order-search) feature.
+   *	Configuration for the [Order Search](/api/projects/order-search) feature.
    *
    */
   readonly orders?: SearchIndexingConfigurationValues
   /**
-   *	Configuration for the [Customer Search](/../api/projects/customer-search) feature.
+   *	Configuration for the [Customer Search](/api/projects/customer-search) feature.
    *
    */
   readonly customers?: SearchIndexingConfigurationValues
   /**
-   *	Configuration for the [Business Unit Search](/../api/projects/business-unit-search) feature.
+   *	Configuration for the [Business Unit Search](/api/projects/business-unit-search) feature.
    *
    */
   readonly businessUnits?: SearchIndexingConfigurationValues
@@ -369,10 +404,7 @@ export enum SearchIndexingConfigurationStatusValues {
 }
 
 export type SearchIndexingConfigurationStatus =
-  | 'Activated'
-  | 'Deactivated'
-  | 'Indexing'
-  | (string & {})
+  'Activated' | 'Deactivated' | 'Indexing' | (string & {})
 export interface SearchIndexingConfigurationValues {
   /**
    *	Current status of resource indexing. Present on Projects from 1 February 2019.
@@ -393,9 +425,7 @@ export interface SearchIndexingConfigurationValues {
   readonly lastModifiedBy?: LastModifiedBy
 }
 export type ShippingRateInputType =
-  | CartClassificationType
-  | CartScoreType
-  | CartValueType
+  CartClassificationType | CartScoreType | CartValueType
 export interface IShippingRateInputType {
   /**
    *
@@ -440,8 +470,7 @@ export interface ShoppingListsConfiguration {
    */
   readonly deleteDaysAfterLastModification: number
 }
-export interface ProjectChangeBusinessUnitSearchStatusAction
-  extends IProjectUpdateAction {
+export interface ProjectChangeBusinessUnitSearchStatusAction extends IProjectUpdateAction {
   readonly action: 'changeBusinessUnitSearchStatus'
   /**
    *	Activates or deactivates the [Search Business Units](ctp:api:endpoint:/{projectKey}/business-units/search:POST) feature. Activation will trigger building a search index for the Business Units in the Project.
@@ -449,8 +478,7 @@ export interface ProjectChangeBusinessUnitSearchStatusAction
    */
   readonly status: BusinessUnitSearchStatus
 }
-export interface ProjectChangeBusinessUnitStatusOnCreationAction
-  extends IProjectUpdateAction {
+export interface ProjectChangeBusinessUnitStatusOnCreationAction extends IProjectUpdateAction {
   readonly action: 'changeMyBusinessUnitStatusOnCreation'
   /**
    *	Status for Business Units created using the [My Business Unit endpoint](ctp:api:endpoint:/{projectKey}/me/business-units:POST).
@@ -459,11 +487,10 @@ export interface ProjectChangeBusinessUnitStatusOnCreationAction
    */
   readonly status: BusinessUnitConfigurationStatus
 }
-export interface ProjectChangeCartsConfigurationAction
-  extends IProjectUpdateAction {
+export interface ProjectChangeCartsConfigurationAction extends IProjectUpdateAction {
   readonly action: 'changeCartsConfiguration'
   /**
-   *	Configuration for the [Carts](/../api/projects/carts) feature.
+   *	Configuration for the [Carts](/api/projects/carts) feature.
    *
    *
    */
@@ -478,8 +505,7 @@ export interface ProjectChangeCountriesAction extends IProjectUpdateAction {
    */
   readonly countries: string[]
 }
-export interface ProjectChangeCountryTaxRateFallbackEnabledAction
-  extends IProjectUpdateAction {
+export interface ProjectChangeCountryTaxRateFallbackEnabledAction extends IProjectUpdateAction {
   readonly action: 'changeCountryTaxRateFallbackEnabled'
   /**
    *	When `true`, country _- no state_ Tax Rate is used as fallback. See [CartsConfiguration](ctp:api:type:CartsConfiguration).
@@ -496,33 +522,31 @@ export interface ProjectChangeCurrenciesAction extends IProjectUpdateAction {
    */
   readonly currencies: string[]
 }
-export interface ProjectChangeCustomerSearchStatusAction
-  extends IProjectUpdateAction {
+export interface ProjectChangeCustomerSearchStatusAction extends IProjectUpdateAction {
   readonly action: 'changeCustomerSearchStatus'
   /**
-   *	Activates or deactivates the [Customer Search](/../api/projects/customer-search) feature. Activation will trigger building a search index for the Customers in the Project.
+   *	Activates or deactivates the [Customer Search](/api/projects/customer-search) feature. Activation will trigger building a search index for the Customers in the Project.
    *
    */
   readonly status: CustomerSearchStatus
 }
-/**
- *	Removing a language used by a [Store](ctp:api:type:Store) returns a [LanguageUsedInStores](ctp:api:type:LanguageUsedInStoresError) error.
- *
- */
 export interface ProjectChangeLanguagesAction extends IProjectUpdateAction {
   readonly action: 'changeLanguages'
   /**
-   *	New value to set. Must not be empty.
+   *	New value to set.
+   *
+   *	If set to an empty value, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
+   *	If a language in use by a [Store](ctp:api:type:Store) is removed, a [LanguageUsedInStores](ctp:api:type:LanguageUsedInStoresError) error is returned.
    *
    *
    */
   readonly languages: string[]
 }
-export interface ProjectChangeMessagesConfigurationAction
-  extends IProjectUpdateAction {
+export interface ProjectChangeMessagesConfigurationAction extends IProjectUpdateAction {
   readonly action: 'changeMessagesConfiguration'
   /**
-   *	Configuration for the [Messages Query](/../api/projects/messages) feature.
+   *	Configuration for the [Messages Query](/api/projects/messages) feature.
    *
    */
   readonly messagesConfiguration: MessagesConfigurationDraft
@@ -536,17 +560,15 @@ export interface ProjectChangeNameAction extends IProjectUpdateAction {
    */
   readonly name: string
 }
-export interface ProjectChangeOrderSearchStatusAction
-  extends IProjectUpdateAction {
+export interface ProjectChangeOrderSearchStatusAction extends IProjectUpdateAction {
   readonly action: 'changeOrderSearchStatus'
   /**
-   *	Activates or deactivates the [Order Search](/../api/projects/order-search) feature. Activation will trigger building a search index for the Orders in the Project.
+   *	Activates or deactivates the [Order Search](/api/projects/order-search) feature. Activation will trigger building a search index for the Orders in the Project.
    *
    */
   readonly status: OrderSearchStatus
 }
-export interface ProjectChangePriceRoundingModeAction
-  extends IProjectUpdateAction {
+export interface ProjectChangePriceRoundingModeAction extends IProjectUpdateAction {
   readonly action: 'changePriceRoundingMode'
   /**
    *	Project-level default rounding mode for calculating the total prices on [LineItems](ctp:api:type:LineItem) and [CustomLineItems](ctp:api:type:CustomLineItem). See [CartsConfiguration](ctp:api:type:CartsConfiguration).
@@ -554,35 +576,40 @@ export interface ProjectChangePriceRoundingModeAction
    */
   readonly priceRoundingMode: RoundingMode
 }
-export interface ProjectChangeProductSearchIndexingEnabledAction
-  extends IProjectUpdateAction {
+/**
+ *	[Product Projection Search](/api/projects/product-projection-search) is **deprecated**.
+ *	For Projects created after 31 August 2026, the `"ProductProjectionsSearch"` mode cannot be activated. Use `ProductsSearch` instead.
+ *	For such Projects, setting `enabled` to `true` with `mode` `"ProductProjectionsSearch"` returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
+ *
+ */
+export interface ProjectChangeProductSearchIndexingEnabledAction extends IProjectUpdateAction {
   readonly action: 'changeProductSearchIndexingEnabled'
   /**
-   *	- If `false`, the indexing of [Product](ctp:api:type:Product) information will stop and the [Product Projection Search](/../api/projects/product-projection-search) as well as the [Search Term Suggestions](/../api/projects/search-term-suggestions) API will no longer be available for this Project. The Project's [SearchIndexingConfiguration](ctp:api:type:SearchIndexingConfiguration) `status` for `products` will be changed to `"Deactivated"`.
-   *	- If `true`, the indexing of [Product](ctp:api:type:Product) information will start and the [Product Projection Search](/../api/projects/product-projection-search) as well as the [Search Term Suggestions](/../api/projects/search-term-suggestions) API will become available soon after for this Project. Proportional to the amount of information being indexed, the Project's [SearchIndexingConfiguration](ctp:api:type:SearchIndexingConfiguration) `status` for `products` will be shown as `"Indexing"` during this time. As soon as the indexing has finished, the configuration status will be changed to `"Activated"` making the aforementioned APIs fully available for this Project.
+   *	Whether to enable product indexing for the storefront search APIs selected by `mode`.
+   *
+   *	- If `true`, indexing starts for the selected API and the corresponding status changes to `"Indexing"`. After indexing finishes, the status changes to `"Activated"` and the selected API becomes available.
+   *	- If `false`, indexing stops and the selected API become unavailable. The corresponding [SearchIndexingConfiguration](ctp:api:type:SearchIndexingConfiguration) `status` changes to `"Deactivated"`.
    *
    *
    */
   readonly enabled: boolean
   /**
-   *	Controls whether the action should apply to [Product Projection Search](/../api/projects/product-projection-search) or to [Product Search](/../api/projects/product-search).
+   *	Controls whether the action should apply to [Product Projection Search](/api/projects/product-projection-search) or to [Product Search](/api/projects/product-search).
    *
    *
    */
   readonly mode?: ProductSearchIndexingMode
 }
-export interface ProjectChangeShoppingListsConfigurationAction
-  extends IProjectUpdateAction {
+export interface ProjectChangeShoppingListsConfigurationAction extends IProjectUpdateAction {
   readonly action: 'changeShoppingListsConfiguration'
   /**
-   *	Configuration for the [Shopping Lists](/../api/projects/shoppingLists) feature.
+   *	Configuration for the [Shopping Lists](/api/projects/shoppingLists) feature.
    *
    *
    */
   readonly shoppingListsConfiguration: ShoppingListsConfiguration
 }
-export interface ProjectChangeTaxRoundingModeAction
-  extends IProjectUpdateAction {
+export interface ProjectChangeTaxRoundingModeAction extends IProjectUpdateAction {
   readonly action: 'changeTaxRoundingMode'
   /**
    *	Project-level default rounding mode for tax calculation. See [CartsConfiguration](ctp:api:type:CartsConfiguration).
@@ -590,8 +617,7 @@ export interface ProjectChangeTaxRoundingModeAction
    */
   readonly taxRoundingMode: RoundingMode
 }
-export interface ProjectSetBusinessUnitAssociateRoleOnCreationAction
-  extends IProjectUpdateAction {
+export interface ProjectSetBusinessUnitAssociateRoleOnCreationAction extends IProjectUpdateAction {
   readonly action: 'setMyBusinessUnitAssociateRoleOnCreation'
   /**
    *	Default [Associate Role](ctp:api:type:AssociateRole) assigned to the Associate creating a Business Unit using the [My Business Unit endpoint](ctp:api:endpoint:/{projectKey}/me/business-units:POST).
@@ -600,8 +626,7 @@ export interface ProjectSetBusinessUnitAssociateRoleOnCreationAction
    */
   readonly associateRole: AssociateRoleResourceIdentifier
 }
-export interface ProjectSetDiscountsConfigurationAction
-  extends IProjectUpdateAction {
+export interface ProjectSetDiscountsConfigurationAction extends IProjectUpdateAction {
   readonly action: 'setDiscountsConfiguration'
   /**
    *	Configuration for the behavior of Cart and Product Discounts in the Project.
@@ -613,17 +638,63 @@ export interface ProjectSetDiscountsConfigurationAction
 export interface ProjectSetExternalOAuthAction extends IProjectUpdateAction {
   readonly action: 'setExternalOAuth'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
   readonly externalOAuth?: ExternalOAuth
 }
-export interface ProjectSetShippingRateInputTypeAction
-  extends IProjectUpdateAction {
+export interface ProjectSetProductCatalogModelAction extends IProjectUpdateAction {
+  readonly action: 'setProductCatalogModel'
+  /**
+   *	Configuration for the Product catalog model in the Project.
+   *
+   *	When set to `Classic`, Product Variants are embedded in the Product.
+   *
+   *	When set to `Modular`, Product Variants are managed as standalone entities.
+   *	In this mode:
+   *	- Variant-related update actions on Products return a `400` error.
+   *	- Products must be created without `masterVariant` and `variants`.
+   *	- Products cannot be deleted while Variants reference them.
+   *	- Products cannot be unpublished while they have published Variants.
+   *	- [Carts](/projects/carts) read variant data from the Variant API instead of embedded Product Variants.
+   *	- `priceMode` on Products is set to `Standalone`.
+   *
+   *
+   */
+  readonly productCatalogModel: ProductCatalogModel
+}
+/**
+ *	If set to `true`, [Reservations](ctp:api:type:Reservation) are marked as `Expired` once their
+ *	`reservationExpirationInMinutes` is reached. The reserved inventory is then made available. If set to `false`, tracking Line Items with expired reservations becomes your responsibility.
+ *
+ */
+export interface ProjectSetReleaseExpiredReservationsAction extends IProjectUpdateAction {
+  readonly action: 'setReleaseExpiredReservations'
+  /**
+   *	Value to set.
+   *
+   */
+  readonly releaseExpiredReservations: boolean
+}
+/**
+ *	To use the [ReserveOnCart](ctp:api:type:InventoryMode) Line Item inventory mode, you must set the `reservationExpirationInMinutes` field on the [Project](ctp:api:type:Project) using this update action.
+ *
+ *	To override the Project setting, use the [Set Reservation Expiration In Minutes](ctp:api:type:InventoryEntrySetReservationExpirationInMinutesAction) update action on specific [InventoryEntries](ctp:api:type:InventoryEntry).
+ *
+ */
+export interface ProjectSetReservationExpirationInMinutesAction extends IProjectUpdateAction {
+  readonly action: 'setReservationExpirationInMinutes'
+  /**
+   *	Value to set.
+   *
+   */
+  readonly reservationExpirationInMinutes: number
+}
+export interface ProjectSetShippingRateInputTypeAction extends IProjectUpdateAction {
   readonly action: 'setShippingRateInputType'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */

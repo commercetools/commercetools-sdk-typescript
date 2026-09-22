@@ -17,7 +17,7 @@ import {
 } from './payment-integration'
 
 /**
- *	Information for the request to the [Connector](/connectors-and-applications#payment-connectors) to initiate the payment for a specific [Cart](/../api/projects/carts).
+ *	Information for the request to the [Connector](/connectors-and-applications#payment-connectors) to initiate the payment for a specific [Cart](/api/projects/carts).
  *
  */
 export interface Transaction {
@@ -48,7 +48,7 @@ export interface Transaction {
    */
   readonly transactionItems: TransactionItem[]
   /**
-   *	Reference to the [Cart](/../api/projects/carts#cart) for which the payment must be executed.
+   *	Reference to the [Cart](ctp:api:type:Cart) for which the payment must be executed.
    *
    */
   readonly cart?: CartReference
@@ -58,7 +58,7 @@ export interface Transaction {
    */
   readonly transactionStatus: TransactionStatus
   /**
-   *	Reference to the [Order](/../api/projects/orders#order) created from the Cart when the Transaction is completed.
+   *	Reference to the [Order](ctp:api:type:Order) created from the Cart when the Transaction is completed.
    *
    */
   readonly order?: OrderReference
@@ -160,11 +160,7 @@ export enum TransactionStateValues {
 }
 
 export type TransactionState =
-  | 'Completed'
-  | 'Failed'
-  | 'Initial'
-  | 'Pending'
-  | (string & {})
+  'Completed' | 'Failed' | 'Initial' | 'Pending' | (string & {})
 /**
  *	The state of the [Transaction](/transactions-api#transaction) and the related errors in case of a failed Transaction.
  *

@@ -8,7 +8,7 @@ import {
   BusinessUnitPagedQueryResponse,
 } from '../../models/business-unit'
 import { MyBusinessUnitDraft } from '../../models/me'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyMeBusinessUnitsByIDRequestBuilder } from './by-project-key-me-business-units-by-id-request-builder'
 import { ByProjectKeyMeBusinessUnitsKeyByKeyRequestBuilder } from './by-project-key-me-business-units-key-by-key-request-builder'
@@ -109,7 +109,7 @@ export class ByProjectKeyMeBusinessUnitsRequestBuilder {
     )
   }
   /**
-   *	Automatically assigns the Associate to the Business Unit in the default [Associate Role](ctp:api:type:AssociateRole) defined in [BusinessUnitConfiguration](ctp:api:type:BusinessUnitConfiguration). If there is no default Associate Role configured, this request fails with an [InvalidOperation](ctp:api:type:InvalidOperationError) error. When creating a Division, the Associate must have the `AddChildUnits` [Permission](ctp:api:type:Permission) in the parent unit. If the required [Permission](/projects/associate-roles#permission) is missing, an [AssociateMissingPermission](/errors#associatemissingpermission) error is returned.
+   *	Automatically assigns the Associate to the Business Unit in the default [Associate Role](ctp:api:type:AssociateRole) defined in [BusinessUnitConfiguration](ctp:api:type:BusinessUnitConfiguration). If there is no default Associate Role configured, this request fails with an [InvalidOperation](ctp:api:type:InvalidOperationError) error. When creating a Division, the Associate must have the `AddChildUnits` [Permission](ctp:api:type:Permission) in the parent unit. If the required [Permission](ctp:api:type:Permission) is missing, an [AssociateMissingPermission](ctp:api:type:AssociateMissingPermissionError) error is returned.
    *
    */
   public post(methodArgs: {

@@ -141,6 +141,14 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
+      uri: '/test_projectKey/test_resourceType?withTotal=true',
+      request: apiRoot
+        .withProjectKeyValue({ projectKey: 'test_projectKey' })
+        .withResourceTypeValue({ resourceType: 'test_resourceType' })
+        .get({ queryArgs: { withTotal: true } }),
+    },
+    {
+      method: 'get',
       uri: '/test_projectKey/test_resourceType',
       request: apiRoot
         .withProjectKeyValue({ projectKey: 'test_projectKey' })
@@ -154,11 +162,11 @@ describe('Testing ByProjectKeyByResourceTypeRequestBuilder Requests', () => {
   const requestsToTest = getRequestsWithMethodParameters()
   requestsToTest.forEach((rm) => {
     test(`Testing => request method: ${rm.method} and url: ${rm.uri}`, async () => {
-      expect(rm.method.toLowerCase()).toBe(
-        rm.request.clientRequest().method.toLowerCase()
+      expect(rm.request.clientRequest().method.toLowerCase()).toBe(
+        rm.method.toLowerCase()
       )
-      expect(rm.uri.toLowerCase()).toBe(
-        rm.request.clientRequest().uri.toLowerCase()
+      expect(rm.request.clientRequest().uri.toLowerCase()).toBe(
+        rm.uri.toLowerCase()
       )
     })
   })

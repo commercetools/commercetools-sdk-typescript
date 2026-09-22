@@ -77,7 +77,7 @@ export default async function executor(request: HttpClientConfig) {
           ...options,
           ...rest,
           headers: {
-            ...rest.headers,
+            ...Object.assign({}, rest.headers, rest.request?.headers ?? {}),
           },
 
           // for axios
@@ -189,11 +189,10 @@ export default async function executor(request: HttpClientConfig) {
           const statusCode = response.status || response.statusCode
 
           // An error response can come from infrastructure sitting in front of
-          // the API (e.g. an HTML page from a load balancer, or the API gateway's
-          // empty-bodied 429). Keep the raw body so the status code survives,
-          // instead of collapsing into a `NetworkError` with `statusCode: 0`.
-          // Anything else, including a response whose status we do not know,
-          // keeps surfacing the parse failure.
+          // the API (e.g. an HTML page from a load balancer). Keep the raw body
+          // so the status code survives, instead of collapsing into a `NetworkError`
+          // with `statusCode: 0`. Anything else, including a response whose status
+          // we do not know, keeps surfacing the parse failure.
           if (!(statusCode > 399)) throw err
 
           data = result

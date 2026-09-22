@@ -16,12 +16,14 @@ import { ByProjectKeyOrdersRequestBuilder } from './orders/by-project-key-orders
 import { ByProjectKeyPricesRequestBuilder } from './prices/by-project-key-prices-request-builder'
 import { ByProjectKeyProductDraftsRequestBuilder } from './product-drafts/by-project-key-product-drafts-request-builder'
 import { ByProjectKeyProductSelectionsRequestBuilder } from './product-selections/by-project-key-product-selections-request-builder'
+import { ByProjectKeyProductTailoringsRequestBuilder } from './product-tailorings/by-project-key-product-tailorings-request-builder'
 import { ByProjectKeyProductTypesRequestBuilder } from './product-types/by-project-key-product-types-request-builder'
 import { ByProjectKeyProductVariantPatchesRequestBuilder } from './product-variant-patches/by-project-key-product-variant-patches-request-builder'
 import { ByProjectKeyProductVariantsRequestBuilder } from './product-variants/by-project-key-product-variants-request-builder'
 import { ByProjectKeyProductsRequestBuilder } from './products/by-project-key-products-request-builder'
 import { ByProjectKeyStandalonePricesRequestBuilder } from './standalone-prices/by-project-key-standalone-prices-request-builder'
 import { ByProjectKeyTypesRequestBuilder } from './types/by-project-key-types-request-builder'
+import { ByProjectKeyVariantsRequestBuilder } from './variants/by-project-key-variants-request-builder'
 /**
  **/
 export class ByProjectKeyRequestBuilder {
@@ -160,6 +162,15 @@ export class ByProjectKeyRequestBuilder {
       baseUri: this.args.baseUri,
     })
   }
+  public productTailorings(): ByProjectKeyProductTailoringsRequestBuilder {
+    return new ByProjectKeyProductTailoringsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
   public orders(): ByProjectKeyOrdersRequestBuilder {
     return new ByProjectKeyOrdersRequestBuilder({
       pathArgs: {
@@ -180,6 +191,15 @@ export class ByProjectKeyRequestBuilder {
   }
   public standalonePrices(): ByProjectKeyStandalonePricesRequestBuilder {
     return new ByProjectKeyStandalonePricesRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public variants(): ByProjectKeyVariantsRequestBuilder {
+    return new ByProjectKeyVariantsRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },

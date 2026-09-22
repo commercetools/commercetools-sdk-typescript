@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { Cart, CartUpdate } from '../../models/cart'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
@@ -74,7 +74,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Updates a Cart in a [Store](ctp:api:type:Store) using one or more [update actions](/../api/projects/carts#update-actions).
+   *	Updates a Cart in a [Store](ctp:api:type:Store) using one or more [update actions](/api/projects/carts#update-actions).
    *
    *	If the Cart exists in the Project but does not have a `store` specified, or the `store` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
    *

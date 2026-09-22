@@ -8,8 +8,8 @@ import { ErrorObject, ErrorResponse } from './error'
 import { ProductProjection } from './product'
 import {
   SearchFieldType,
-  SearchSorting,
   SearchSortOrder,
+  SearchSorting,
   _SearchQuery,
 } from './search'
 
@@ -20,19 +20,19 @@ export interface ProductPagedSearchResponse {
    */
   readonly total: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
   readonly offset: number
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Results for [facets](/../api/projects/product-search#facets) when requested.
+   *	Results for [facets](/api/projects/product-search#facets) when requested.
    *
    *
    */
@@ -78,7 +78,7 @@ export interface ProductSearchMatchingVariantEntry {
 }
 export interface ProductSearchMatchingVariants {
   /**
-   *	`true` if all Variants of the returned Product match the search query, or if search query does not specify any expression for a [Product Variant field](/../api/projects/product-search#field-levels).
+   *	Whether all Variants of the returned Product match the search query, or if search query does not specify any expression for a [Product Variant field](/api/projects/product-search#field-levels).
    *
    *	`false` if only a subset of the Product Variants match the search query.
    *
@@ -97,7 +97,7 @@ export interface ProductSearchMatchingVariants {
   readonly matchedVariants: ProductSearchMatchingVariantEntry[]
 }
 /**
- *	The query parameters used for the deprecated [data integration with Product Projection parameters](/../api/deprecations-and-removals#product-projection-parameters) in Product Search.
+ *	The query parameters used for the deprecated [data integration with Product Projection parameters](/api/deprecations-and-removals#product-projection-parameters) in Product Search.
  *
  */
 export interface ProductSearchProjectionParams {
@@ -109,43 +109,43 @@ export interface ProductSearchProjectionParams {
    */
   readonly expand?: string[]
   /**
-   *	Set to `true` to retrieve the [staged](/../api/projects/productProjections#current--staged) Product Projection
+   *	Whether to retrieve the [staged](/api/projects/productProjections#current--staged) Product Projection
    *
    *
    */
   readonly staged?: boolean
   /**
-   *	The currency used for [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection).
+   *	The currency used for [Product price selection](/api/pricing-and-discounts-overview#product-price-selection).
    *
    *
    */
   readonly priceCurrency?: string
   /**
-   *	The country used for [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection). It can be used only *in conjunction with* the `priceCurrency` parameter.
+   *	The country used for [Product price selection](/api/pricing-and-discounts-overview#product-price-selection). It can be used only *in conjunction with* the `priceCurrency` parameter.
    *
    *
    */
   readonly priceCountry?: string
   /**
-   *	`id` of an existing [CustomerGroup](ctp:api:type:CustomerGroup) used for [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection). It can be used only *in conjunction with* the `priceCurrency` parameter.
+   *	`id` of an existing [CustomerGroup](ctp:api:type:CustomerGroup) used for [Product price selection](/api/pricing-and-discounts-overview#product-price-selection). It can be used only *in conjunction with* the `priceCurrency` parameter.
    *
    *
    */
   readonly priceCustomerGroup?: string
   /**
-   *	IDs of existing [CustomerGroups](ctp:api:type:CustomerGroup) used for [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection), when using [multiple Customer Groups](/../api/customers-overview#customer-groups). It can be used only *in conjunction with* the `priceCurrency` parameter.
+   *	IDs of existing [CustomerGroups](ctp:api:type:CustomerGroup) used for [Product price selection](/api/pricing-and-discounts-overview#product-price-selection), when using [multiple Customer Groups](/api/customers-overview#customer-groups). It can be used only *in conjunction with* the `priceCurrency` parameter.
    *
    *
    */
   readonly priceCustomerGroupAssignments?: string[]
   /**
-   *	`id` of an existing [Channel](ctp:api:type:Channel) used for [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection). It can be used only *in conjunction with* the `priceCurrency` parameter.
+   *	`id` of an existing [Channel](ctp:api:type:Channel) used for [Product price selection](/api/pricing-and-discounts-overview#product-price-selection). It can be used only *in conjunction with* the `priceCurrency` parameter.
    *
    *
    */
   readonly priceChannel?: string
   /**
-   *	Used for [locale-based projection](/../api/projects/productProjections#locales).
+   *	Used for [locale-based projection](/api/projects/productProjections#locales).
    *
    *
    */
@@ -153,12 +153,12 @@ export interface ProductSearchProjectionParams {
   /**
    *	`key` of an existing [Store](ctp:api:type:Store).
    *	If the Store has defined `languages`, `countries`, `distributionChannels`, or `supplyChannels`,
-   *	they are used for projections based on [locale](/../api/projects/productProjections#locales), [price](/../api/projects/productProjections#prices),
-   *	and [inventory](/../api/projects/productProjections#inventory-entries).
+   *	they are used for projections based on [locale](/api/projects/productProjections#locales), [price](/api/projects/productProjections#prices),
+   *	and [inventory](/api/projects/productProjections#inventory-entries).
    *
-   *	For Projects with active [Product Selections](/../api/projects/product-selections), the API does not take the [availability of the Product in the specified Store](/../api/project-configuration-overview#products-available-in-store) into account.
+   *	For Projects with active [Product Selections](/api/projects/product-selections), the API does not take the [availability of the Product in the specified Store](/api/project-configuration-overview#products-available-in-store) into account.
    *
-   *	[Product Tailoring](/../api/projects/product-tailoring) modifies the product information returned in API responses. However, you can only specify [query expressions](/../api/search-query-language#simple-expressions) for the original Product data, not for tailored data.
+   *	[Product Tailoring](/api/projects/product-tailoring) modifies the product information returned in API responses. However, you can only specify [query expressions](/api/search-query-language#simple-expressions) for the original Product data, not for tailored data.
    *
    *
    */
@@ -166,26 +166,26 @@ export interface ProductSearchProjectionParams {
 }
 export interface ProductSearchRequest {
   /**
-   *	The search query against [searchable Product fields](/../api/projects/product-search#searchable-product-fields).
+   *	The search query against [searchable Product fields](/api/projects/product-search#searchable-product-fields).
    *
    *
    */
   readonly query?: _SearchQuery
   /**
-   *	Controls how results to your query are [sorted](/../api/projects/product-search#sorting).
+   *	Controls how results to your query are [sorted](/api/projects/product-search#sorting).
    *	If not provided, the results are sorted by relevance score in descending order.
    *
    *
    */
   readonly sort?: SearchSorting[]
   /**
-   *	The maximum number of search results to be returned in one [page](/../api/projects/product-search#pagination).
+   *	The maximum number of search results to be returned in one [page](/api/projects/product-search#pagination).
    *
    *
    */
   readonly limit?: number
   /**
-   *	The number of search results to be skipped in the response for [pagination](/../api/projects/product-search#pagination).
+   *	The number of search results to be skipped in the response for [pagination](/api/projects/product-search#pagination).
    *
    *
    */
@@ -193,20 +193,20 @@ export interface ProductSearchRequest {
   /**
    *	If `query` specifies an expression for a Product Variant field,
    *	set this to `true` to get additional information for each returned Product about which Product Variants match the search query.
-   *	For details, see [matching variants](/../api/projects/product-search#matching-variants).
+   *	For details, see [matching variants](/api/projects/product-search#matching-variants).
    *
    *
    */
   readonly markMatchingVariants?: boolean
   /**
-   *	Controls deprecated data integration [with Product Projection parameters](/../api/deprecations-and-removals#product-projection-parameters).
+   *	Controls deprecated data integration [with Product Projection parameters](/api/deprecations-and-removals#product-projection-parameters).
    *	If not set, the result does not include the Product Projection.
    *
    *	@deprecated
    */
   readonly productProjectionParameters?: ProductSearchProjectionParams
   /**
-   *	Set this field to request [facets](/../api/projects/product-search#facets).
+   *	Set this field to request [facets](/api/projects/product-search#facets).
    *
    *
    */
@@ -235,7 +235,7 @@ export interface ProductSearchResult {
   readonly matchingVariants?: ProductSearchMatchingVariants
   /**
    *	Projected data of the Product with `id`.
-   *	Only present if deprecated data integration [with Product Projection parameters](/../api/deprecations-and-removals#product-projection-parameters) is requested.
+   *	Only present if deprecated data integration [with Product Projection parameters](/api/deprecations-and-removals#product-projection-parameters) is requested.
    *
    *	@deprecated
    */
@@ -247,9 +247,7 @@ export enum ProductSearchFacetCountLevelEnumValues {
 }
 
 export type ProductSearchFacetCountLevelEnum =
-  | 'products'
-  | 'variants'
-  | (string & {})
+  'products' | 'variants' | (string & {})
 export interface ProductSearchFacetCountValue {
   /**
    *	Name of the count facet to appear in the [ProductSearchFacetResultCount](ctp:api:type:ProductSearchFacetResultCount).
@@ -278,9 +276,7 @@ export enum ProductSearchFacetDistinctBucketSortByValues {
 }
 
 export type ProductSearchFacetDistinctBucketSortBy =
-  | 'count'
-  | 'key'
-  | (string & {})
+  'count' | 'key' | (string & {})
 export interface ProductSearchFacetDistinctBucketSortExpression {
   /**
    *	Defines whether to sort by bucket count or key.
@@ -336,7 +332,7 @@ export interface ProductSearchFacetDistinctValue {
    */
   readonly limit?: number
   /**
-   *	String value specifying linguistic and regional preferences using the [IETF language tag format](https://en.wikipedia.org/wiki/IETF_language_tag), as described in [BCP 47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt). The format combines language, script, and region using hyphen-separated subtags. For example: `en`, `en-US`, `zh-Hans-SG`.
+   *	String value specifying linguistic and regional preferences using the [IETF language tag format](https://en.wikipedia.org/wiki/IETF_language_tag), as described in [BCP 47](https://www.rfc-editor.org/info/bcp47/). The format combines language, script, and region using hyphen-separated subtags. For example: `en`, `en-US`, `zh-Hans-SG`.
    *
    *
    */
@@ -359,24 +355,21 @@ export type _ProductSearchFacetExpression =
   | ProductSearchFacetDistinctExpression
   | ProductSearchFacetRangesExpression
   | ProductSearchFacetStatsExpression
-export interface ProductSearchFacetCountExpression
-  extends ProductSearchFacetExpression {
+export interface ProductSearchFacetCountExpression extends ProductSearchFacetExpression {
   /**
    *	Definition of the count facet.
    *
    */
   readonly count: ProductSearchFacetCountValue
 }
-export interface ProductSearchFacetDistinctExpression
-  extends ProductSearchFacetExpression {
+export interface ProductSearchFacetDistinctExpression extends ProductSearchFacetExpression {
   /**
    *	Definition of the distinct facet.
    *
    */
   readonly distinct: ProductSearchFacetDistinctValue
 }
-export interface ProductSearchFacetRangesExpression
-  extends ProductSearchFacetExpression {
+export interface ProductSearchFacetRangesExpression extends ProductSearchFacetExpression {
   /**
    *	Definition of the ranges facet.
    *
@@ -436,7 +429,7 @@ export interface ProductSearchFacetRangesValue {
    */
   readonly ranges: ProductSearchFacetRangesFacetRange[]
   /**
-   *	String value specifying linguistic and regional preferences using the [IETF language tag format](https://en.wikipedia.org/wiki/IETF_language_tag), as described in [BCP 47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt). The format combines language, script, and region using hyphen-separated subtags. For example: `en`, `en-US`, `zh-Hans-SG`.
+   *	String value specifying linguistic and regional preferences using the [IETF language tag format](https://en.wikipedia.org/wiki/IETF_language_tag), as described in [BCP 47](https://www.rfc-editor.org/info/bcp47/). The format combines language, script, and region using hyphen-separated subtags. For example: `en`, `en-US`, `zh-Hans-SG`.
    *
    *
    */
@@ -460,11 +453,10 @@ export type _ProductSearchFacetResult =
   | ProductSearchFacetResultCount
   | ProductSearchFacetResultStats
 /**
- *	Result of a [distinct facet](/../api/projects/product-search#distinct-facets) or a [ranges facet](/../api/projects/product-search#ranges-facets).
+ *	Result of a [distinct facet](/api/projects/product-search#distinct-facets) or a [ranges facet](/api/projects/product-search#ranges-facets).
  *
  */
-export interface ProductSearchFacetResultBucket
-  extends ProductSearchFacetResult {
+export interface ProductSearchFacetResultBucket extends ProductSearchFacetResult {
   /**
    *	Contains results of the facet.
    *
@@ -484,11 +476,10 @@ export interface ProductSearchFacetResultBucketEntry {
   readonly count: number
 }
 /**
- *	Result of a [count facet](/../api/projects/product-search#count-facets).
+ *	Result of a [count facet](/api/projects/product-search#count-facets).
  *
  */
-export interface ProductSearchFacetResultCount
-  extends ProductSearchFacetResult {
+export interface ProductSearchFacetResultCount extends ProductSearchFacetResult {
   /**
    *	Number of Products (or Product Variants) matching the query.
    *
@@ -496,12 +487,11 @@ export interface ProductSearchFacetResultCount
   readonly value: number
 }
 /**
- *	Result of a [stats facet](/../api/projects/product-search#stats-facets).
+ *	Result of a [stats facet](/api/projects/product-search#stats-facets).
  *	The data type of `min` `max`, `mean`, and `sum` matches the data type of the `field` in the [facet expression](ctp:api:type:ProductSearchFacetStatsExpression).
  *
  */
-export interface ProductSearchFacetResultStats
-  extends ProductSearchFacetResult {
+export interface ProductSearchFacetResultStats extends ProductSearchFacetResult {
   /**
    *	The minimum value of the field, scoped to the faceted results.
    *
@@ -542,8 +532,7 @@ export enum ProductSearchFacetScopeEnumValues {
 }
 
 export type ProductSearchFacetScopeEnum = 'all' | 'query' | (string & {})
-export interface ProductSearchFacetStatsExpression
-  extends ProductSearchFacetExpression {
+export interface ProductSearchFacetStatsExpression extends ProductSearchFacetExpression {
   /**
    *	Definition of the stats facet.
    *

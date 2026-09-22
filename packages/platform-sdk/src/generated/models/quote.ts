@@ -14,8 +14,8 @@ import {
   ShippingInfo,
   ShippingRateInput,
   TaxCalculationMode,
-  TaxedPrice,
   TaxMode,
+  TaxedPrice,
 } from './cart'
 import {
   Address,
@@ -99,7 +99,7 @@ export interface Quote extends BaseResource {
    */
   readonly stagedQuote: StagedQuoteReference
   /**
-   *	The [Buyer](/../api/quotes-overview#buyer) who owns the Quote.
+   *	The [Buyer](/api/quotes-overview#buyer) who owns the Quote.
    *
    *
    */
@@ -119,19 +119,19 @@ export interface Quote extends BaseResource {
    */
   readonly validTo?: string
   /**
-   *	Message from the [Seller](/../api/quotes-overview#seller) included in the offer.
+   *	Message from the [Seller](/api/quotes-overview#seller) included in the offer.
    *
    *
    */
   readonly sellerComment?: string
   /**
-   *	Message from the [Buyer](/../api/quotes-overview#buyer) included in the [renegotiation request](ctp:api:type:QuoteRequestQuoteRenegotiationAction).
+   *	Message from the [Buyer](/api/quotes-overview#buyer) included in the [renegotiation request](ctp:api:type:QuoteRequestQuoteRenegotiationAction).
    *
    *
    */
   readonly buyerComment?: string
   /**
-   *	The Store to which the [Buyer](/../api/quotes-overview#buyer) belongs.
+   *	The Store to which the [Buyer](/api/quotes-overview#buyer) belongs.
    *
    *
    */
@@ -264,13 +264,13 @@ export interface Quote extends BaseResource {
   readonly state?: StateReference
   /**
    *	The purchase order number is typically set by the [Buyer](/quotes-overview#buyer) on a [QuoteRequest](ctp:api:type:QuoteRequest) to
-   *	track the purchase order during the [quote and order flow](/../api/quotes-overview#intended-workflow).
+   *	track the purchase order during the [quote and order flow](/api/quotes-overview#intended-workflow).
    *
    *
    */
   readonly purchaseOrderNumber?: string
   /**
-   *	The [BusinessUnit](ctp:api:type:BusinessUnit) for the Quote. Only available for [B2B](/../offering/composable-commerce#composable-commerce-for-b2b)-enabled Projects.
+   *	The [BusinessUnit](ctp:api:type:BusinessUnit) for the Quote. Only available for [B2B](/offering/commerce-b2b)-enabled Projects.
    *
    *
    */
@@ -295,7 +295,7 @@ export interface QuoteDraft {
    */
   readonly stagedQuoteVersion: number
   /**
-   *	If `true`, the `stagedQuoteState` of the referenced [StagedQuote](/../api/projects/staged-quotes#stagedquote) will be set to `Sent`.
+   *	Whether the `stagedQuoteState` of the referenced [StagedQuote](ctp:api:type:StagedQuote) will be set to `Sent`.
    *
    *
    */
@@ -308,28 +308,28 @@ export interface QuoteDraft {
    */
   readonly state?: StateReference
   /**
-   *	[Custom Fields](/../api/projects/custom-fields) to be added to the Quote.
+   *	[Custom Fields](ctp:api:type:CustomFields) to be added to the Quote.
    *
-   *	- If specified, the Custom Fields are merged with the Custom Fields on the referenced [StagedQuote](/../api/projects/staged-quotes#stagedquote) and added to the Quote.
-   *	- If empty, the Custom Fields on the referenced [StagedQuote](/../api/projects/staged-quotes#stagedquote) are added to the Quote automatically.
+   *	- If specified, the Custom Fields are merged with the Custom Fields on the referenced [StagedQuote](ctp:api:type:StagedQuote) and added to the Quote.
+   *	- If empty, the Custom Fields on the referenced [StagedQuote](ctp:api:type:StagedQuote) are added to the Quote automatically.
    *
    *
    */
   readonly custom?: CustomFieldsDraft
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [Quote](ctp:api:type:Quote).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with results containing an array of [Quote](ctp:api:type:Quote).
  *
  */
 export interface QuotePagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -342,10 +342,10 @@ export interface QuotePagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -371,7 +371,7 @@ export interface QuoteReference extends IReference {
   readonly id: string
   /**
    *	Contains the representation of the expanded Quote.
-   *	Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for Quote.
+   *	Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for Quote.
    *
    *
    */
@@ -471,8 +471,7 @@ export interface QuoteChangeQuoteStateAction extends IQuoteUpdateAction {
  *	Represents the Buyer requesting renegotiation for a Quote. Valid for Quotes in a `Pending` [state](ctp:api:type:QuoteState).
  *
  */
-export interface QuoteRequestQuoteRenegotiationAction
-  extends IQuoteUpdateAction {
+export interface QuoteRequestQuoteRenegotiationAction extends IQuoteUpdateAction {
   readonly action: 'requestQuoteRenegotiation'
   /**
    *	Message from the [Buyer](/api/quotes-overview#buyer) regarding the Quote renegotiation request.
@@ -484,7 +483,7 @@ export interface QuoteRequestQuoteRenegotiationAction
 export interface QuoteSetCustomFieldAction extends IQuoteUpdateAction {
   readonly action: 'setCustomField'
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -501,14 +500,16 @@ export interface QuoteSetCustomFieldAction extends IQuoteUpdateAction {
 export interface QuoteSetCustomTypeAction extends IQuoteUpdateAction {
   readonly action: 'setCustomType'
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the Quote with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the Quote with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the Quote.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Quote.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the Quote.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */

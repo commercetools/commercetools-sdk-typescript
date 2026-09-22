@@ -113,13 +113,17 @@ export interface ChannelDraft {
   /**
    *	User-defined unique identifier for the Channel.
    *
+   *	If set to an empty value, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
+   *	If the value is used by another Channel in the Project, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
+   *
    *
    */
   readonly key: string
   /**
    *	Roles of the Channel.
-   *	Each channel must have at least one role.
-   *	If not specified, then `InventorySupply` is assigned by default.
+   *
+   *	The Channel must have at least one role. If set to an empty array, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    *
    */
@@ -157,18 +161,18 @@ export interface ChannelDraft {
   readonly geoLocation?: GeoJson
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [Channel](ctp:api:type:Channel).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with results containing an array of [Channel](ctp:api:type:Channel).
  *
  */
 export interface ChannelPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -181,10 +185,10 @@ export interface ChannelPagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -210,14 +214,14 @@ export interface ChannelReference extends IReference {
   readonly id: string
   /**
    *	Contains the representation of the expanded Channel.
-   *	Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for Channels.
+   *	Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for Channels.
    *
    *
    */
   readonly obj?: Channel
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](ctp:api:type:InvalidJsonInputError) error is returned.
  *
  */
 export interface ChannelResourceIdentifier extends IResourceIdentifier {
@@ -236,7 +240,7 @@ export interface ChannelResourceIdentifier extends IResourceIdentifier {
   readonly key?: string
 }
 /**
- *	Describes the purpose and type of the Channel. A Channel can have one or more roles.
+ *	Describes how a Channel is used. A Channel can have one or more roles.
  *
  */
 export enum ChannelRoleEnumValues {
@@ -293,6 +297,8 @@ export interface ChannelAddRolesAction extends IChannelUpdateAction {
   /**
    *	Value to append to the array.
    *
+   *	If the specified roles are already present, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
    *
    */
   readonly roles: ChannelRoleEnum[]
@@ -300,7 +306,11 @@ export interface ChannelAddRolesAction extends IChannelUpdateAction {
 export interface ChannelChangeDescriptionAction extends IChannelUpdateAction {
   readonly action: 'changeDescription'
   /**
-   *	New value to set. Must not be empty.
+   *	New value to set.
+   *
+   *	If set to an empty value, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
+   *	If the new value is the same as the current value, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    *
    */
@@ -309,7 +319,11 @@ export interface ChannelChangeDescriptionAction extends IChannelUpdateAction {
 export interface ChannelChangeKeyAction extends IChannelUpdateAction {
   readonly action: 'changeKey'
   /**
-   *	New value to set. Must not be empty.
+   *	New value to set.
+   *
+   *	If set to an empty value, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
+   *	If the value is used by another Channel in the Project, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
    *
    *
    */
@@ -318,7 +332,11 @@ export interface ChannelChangeKeyAction extends IChannelUpdateAction {
 export interface ChannelChangeNameAction extends IChannelUpdateAction {
   readonly action: 'changeName'
   /**
-   *	New value to set. Must not be empty.
+   *	New value to set.
+   *
+   *	If set to an empty value, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
+   *	If the new value is the same as the current value, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    *
    */
@@ -329,6 +347,10 @@ export interface ChannelRemoveRolesAction extends IChannelUpdateAction {
   /**
    *	Value to remove from the array.
    *
+   *	If none of the specified roles are already present, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
+   *	If all roles from the Channel are removed, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
    *
    */
   readonly roles: ChannelRoleEnum[]
@@ -336,17 +358,20 @@ export interface ChannelRemoveRolesAction extends IChannelUpdateAction {
 export interface ChannelSetAddressAction extends IChannelUpdateAction {
   readonly action: 'setAddress'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
   readonly address?: _BaseAddress
 }
-export interface ChannelSetAddressCustomFieldAction
-  extends IChannelUpdateAction {
+/**
+ *	To set a Custom Field for a Channel, `Channel.address` must be set; otherwise, an [InvalidInput](ctp:api:type:InvalidInputError) error is returned.
+ *
+ */
+export interface ChannelSetAddressCustomFieldAction extends IChannelUpdateAction {
   readonly action: 'setAddressCustomField'
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -360,18 +385,23 @@ export interface ChannelSetAddressCustomFieldAction
    */
   readonly value?: any
 }
-export interface ChannelSetAddressCustomTypeAction
-  extends IChannelUpdateAction {
+/**
+ *	To set a Custom Type for a Channel, `Channel.address` must be set; otherwise, an [InvalidInput](ctp:api:type:InvalidInputError) error is returned.
+ *
+ */
+export interface ChannelSetAddressCustomTypeAction extends IChannelUpdateAction {
   readonly action: 'setAddressCustomType'
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the `address` with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the `address` with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the `address`.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the `address`.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the `address`.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */
@@ -380,7 +410,7 @@ export interface ChannelSetAddressCustomTypeAction
 export interface ChannelSetCustomFieldAction extends IChannelUpdateAction {
   readonly action: 'setCustomField'
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -397,14 +427,16 @@ export interface ChannelSetCustomFieldAction extends IChannelUpdateAction {
 export interface ChannelSetCustomTypeAction extends IChannelUpdateAction {
   readonly action: 'setCustomType'
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the Channel with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the Channel with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the Channel.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Channel.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the Channel.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */
@@ -422,7 +454,9 @@ export interface ChannelSetGeoLocationAction extends IChannelUpdateAction {
 export interface ChannelSetRolesAction extends IChannelUpdateAction {
   readonly action: 'setRoles'
   /**
-   *	Value to set. If not specified, then `InventorySupply` is assigned by default.
+   *	Value to set. If set to an empty array, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
+   *	 If the new value is the same as the current value, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    *
    */

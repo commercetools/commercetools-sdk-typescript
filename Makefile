@@ -5,9 +5,9 @@ IMPORT_RAML ?= $(RAML_FILE)
 HISTORY_RAML ?= $(RAML_FILE)
 CHECKOUT_RAML ?= $(RAML_FILE)
 
-.PHONY: build build_api_sdk build_import_sdk build_import_sdk build_history_sdk build_checkout_sdk gen_api_sdk gen_import_sdk gen_history_sdk gen_checkout_sdk
+.PHONY: build build_api_sdk build_import_sdk build_import_sdk build_history_sdk build_checkout_sdk gen_api_sdk gen_import_sdk gen_history_sdk gen_checkout_sdk gen_graphql_builder
 
-build: codegen_install gen_api_sdk gen_import_sdk gen_history_sdk gen_checkout_sdk post_process prettify verify
+build: codegen_install gen_api_sdk gen_import_sdk gen_history_sdk gen_checkout_sdk gen_graphql_builder post_process prettify verify
 build_api_sdk: codegen_install gen_api_sdk post_process prettify verify
 build_import_sdk: codegen_install gen_import_sdk post_process prettify verify
 build_history_sdk: codegen_install gen_history_sdk post_process prettify verify
@@ -44,6 +44,15 @@ generate_history:
 
 generate_checkout:
 	$(MAKE) -C packages LIB_NAME="checkout" GEN_RAML_FILE=../$(CHECKOUT_RAML) generate_sdk
+
+# Regenerates the typed GraphQL query builder from the committed GraphQL schema.
+#
+# Part of `build` so that the committed client can never drift from schema.graphqls: the
+# SDK generator workflow in commercetools-api-reference copies api-specs/graphql/schema.sdl
+# over schema.graphqls and then runs `make build`, so this target has to be in that chain
+# for the regenerated client to land in the same commit as the schema it came from.
+gen_graphql_builder: yarn_install
+	yarn workspace @commercetools/graphql-sdk generate
 
 check_pending:
 	git status --porcelain -- ':(exclude)*gen.properties'

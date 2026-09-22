@@ -144,9 +144,7 @@ export enum AssociateRoleInheritanceModeValues {
 }
 
 export type AssociateRoleInheritanceMode =
-  | 'Disabled'
-  | 'Enabled'
-  | (string & {})
+  'Disabled' | 'Enabled' | (string & {})
 /**
  *	Specifies how an Attribute (or a set of Attributes) should be validated across all variants of a Product:
  *
@@ -159,11 +157,7 @@ export enum AttributeConstraintEnumValues {
 }
 
 export type AttributeConstraintEnum =
-  | 'CombinationUnique'
-  | 'None'
-  | 'SameForAll'
-  | 'Unique'
-  | (string & {})
+  'CombinationUnique' | 'None' | 'SameForAll' | 'Unique' | (string & {})
 export interface AttributeDefinition {
   /**
    *	Describes the Type of the Attribute.
@@ -182,7 +176,7 @@ export interface AttributeDefinition {
    */
   readonly label: LocalizedString
   /**
-   *	If `true`, the Attribute must have a value on a [ProductVariant](ctp:api:type:ProductVariant).
+   *	Whether the Attribute must have a value on a [ProductVariant](ctp:api:type:ProductVariant).
    *
    */
   readonly isRequired: boolean
@@ -210,12 +204,12 @@ export interface AttributeDefinition {
    */
   readonly inputHint: TextInputHint
   /**
-   *	If `true`, the Attribute's values are available in the [Product Search](/../api/projects/product-search) or the [Product Projection Search](/../api/projects/product-projection-search) API for use in full-text search queries, filters, and facets.
+   *	Whether the Attribute's values are available in the [Product Search](/api/projects/product-search) or the [Product Projection Search](/api/projects/product-projection-search) API for use in full-text search queries, filters, and facets.
    *	However, if an Attribute's `level` is set as `Product`, then Product Projection Search does **not support** the Attribute.
    *
    *	The exact features that are available with this flag depend on the specific [AttributeType](ctp:api:type:AttributeType).
-   *	The maximum size of a searchable field is **restricted** by the [Field content size limit](/../api/limits#field-content-size).
-   *	This constraint is enforced at both [Product creation](ctp:api:endpoint:/{projectKey}/products:POST) and [Product update](/../api/projects/products#update-product).
+   *	The maximum size of a searchable field is **restricted** by the [Field content size limit](/api/limits#field-content-size).
+   *	This constraint is enforced at both [Product creation](ctp:api:endpoint:/{projectKey}/products:POST) and [Product update](/api/projects/products#update-product).
    *	If the length of the input exceeds the maximum size, an [InvalidField](ctp:api:type:InvalidFieldError) error is returned.
    *
    */
@@ -282,9 +276,7 @@ export enum BusinessUnitAssociateModeValues {
 }
 
 export type BusinessUnitAssociateMode =
-  | 'Explicit'
-  | 'ExplicitAndFromParent'
-  | (string & {})
+  'Explicit' | 'ExplicitAndFromParent' | (string & {})
 /**
  *	Indicates whether the Business Unit can be edited and used in [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quote Requests](ctp:api:type:QuoteRequest), or [Quotes](ctp:api:type:Quote).
  *
@@ -342,7 +334,7 @@ export interface CustomFields {
    */
   readonly type: TypeReference
   /**
-   *	Object containing the Custom Fields for the [customized resource or data type](/../api/projects/types#resourcetypeid).
+   *	Object containing the Custom Fields of the [customized resource or data type](/api/projects/types#resourcetypeid).
    *
    *
    */
@@ -522,7 +514,7 @@ export interface DeliveryItem {
    */
   readonly id: string
   /**
-   *	Number of Line Items or Custom Line Items delivered.
+   *	Quantity of Line Items or Custom Line Items delivered.
    *
    *
    */
@@ -548,7 +540,7 @@ export interface DirectDiscount {
   /**
    *	Segment of the Cart that is discounted.
    *
-   *	Empty when the `value` is set to `giftLineItem`.
+   *	Absent if the `value` is `giftLineItem`.
    *
    *
    */
@@ -625,7 +617,7 @@ export interface DiscountedLineItemPrice {
 }
 export interface DiscountedLineItemPriceForQuantity {
   /**
-   *	Number of Line Items or Custom Line Items in the Cart.
+   *	Quantity of Line Items or Custom Line Items in the Cart.
    *
    *
    */
@@ -665,8 +657,8 @@ export interface Stacking extends IDiscountTypeCombination {
   readonly type: 'Stacking'
 }
 /**
- *	Defines a [Custom Field](/../api/projects/custom-fields) and its meta-information.
- *	This FieldDefinition is similar to an [AttributeDefinition](ctp:api:type:AttributeDefinition) of [Product Types](/../api/projects/productTypes).
+ *	Defines a [Custom Field](/api/projects/custom-fields) and its meta-information.
+ *	This FieldDefinition is similar to an [AttributeDefinition](ctp:api:type:AttributeDefinition) of [Product Types](/api/projects/productTypes).
  *
  */
 export interface FieldDefinition {
@@ -775,8 +767,7 @@ export interface ItemShippingDetails {
    */
   readonly targets: ItemShippingTarget[]
   /**
-   *	- `true` if the quantity of Line Items or Custom Line Items is equal to the sum of sub-quantities defined in `targets`.
-   *	- `false` if the quantity of Line Items or Custom Line Items is not equal to the sum of sub-quantities defined in `targets`.
+   *	Whether the quantity of Line Items or Custom Line Items is equal to the sum of sub-quantities defined in `targets`.
    *	  Ordering a Cart when the value is `false` returns an [InvalidItemShippingDetails](ctp:api:type:InvalidItemShippingDetailsError) error.
    *
    *
@@ -816,7 +807,7 @@ export interface ItemShippingTarget {
 }
 export interface ItemState {
   /**
-   *	Number of Line Items or Custom Line Items in this State.
+   *	Quantity of Line Items or Custom Line Items in this State.
    *
    *
    */
@@ -833,9 +824,7 @@ export interface ItemState {
  *
  */
 export type KeyReference =
-  | AssociateRoleKeyReference
-  | BusinessUnitKeyReference
-  | StoreKeyReference
+  AssociateRoleKeyReference | BusinessUnitKeyReference | StoreKeyReference
 export interface IKeyReference {
   /**
    *	Type of referenced resource.
@@ -851,7 +840,7 @@ export interface IKeyReference {
   readonly key: string
 }
 /**
- *	The representation of a [Line Item](/../api/carts-orders-overview#line-items) in a [Cart](ctp:api:type:Cart) or in an [Order](ctp:api:type:Order).
+ *	The representation of a [Line Item](/api/carts-orders-overview#line-items) in a [Cart](ctp:api:type:Cart) or in an [Order](ctp:api:type:Order).
  *
  */
 export interface LineItem {
@@ -894,7 +883,7 @@ export interface LineItem {
   readonly name: LocalizedString
   /**
    *	`slug` of the current version of the Product. Updated automatically if the `slug` changes. Empty if the Product has been deleted.
-   *	The `productSlug` field of LineItem is not expanded when using [Reference Expansion](/../api/general-concepts#reference-expansion).
+   *	The `productSlug` field of LineItem is not expanded when using [Reference Expansion](/api/general-concepts#reference-expansion).
    *
    *
    */
@@ -921,7 +910,7 @@ export interface LineItem {
    */
   readonly price: Price
   /**
-   *	Number of Line Items of the given Product Variant present in the [Cart](ctp:api:type:Cart) or [Order](ctp:api:type:Order).
+   *	Quantity of Line Items of the given Product Variant present in the [Cart](ctp:api:type:Cart) or [Order](ctp:api:type:Order).
    *
    *
    */
@@ -930,7 +919,7 @@ export interface LineItem {
    *	Total price of this Line Item equalling `price` multiplied by `quantity`. If the Line Item is discounted, the total price is the `discountedPricePerQuantity` multiplied by `quantity`.
    *	Includes taxes if the [TaxRate](ctp:api:type:TaxRate) `includedInPrice` is `true`.
    *
-   *	If `ExternalPrice` [LineItemPriceMode](#ctp:api:type:LineItemPriceMode) is used with high-precision money, then the total price is rounded by using the `HalfEven` rounding mode.
+   *	If `ExternalPrice` [LineItemPriceMode](ctp:api:type:LineItemPriceMode) is used with high-precision money, then the total price is rounded by using the `HalfEven` rounding mode.
    *
    *
    */
@@ -973,13 +962,13 @@ export interface LineItem {
    */
   readonly perMethodTaxRate: MethodTaxRate[]
   /**
-   *	Identifies [Inventory entries](/../api/projects/inventory) that are reserved. The referenced Channel has the `InventorySupply` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
+   *	Identifies [Inventory entries](/api/projects/inventory) that are reserved. The referenced Channel has the `InventorySupply` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
    *
    *
    */
   readonly supplyChannel?: ChannelReference
   /**
-   *	Used to [select](/../api/pricing-and-discounts-overview#line-item-price-selection) a Product Price. The referenced Channel has the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
+   *	Used to [select](/api/pricing-and-discounts-overview#line-item-price-selection) a Product Price. The referenced Channel has the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
    *
    *
    */
@@ -1091,11 +1080,7 @@ export enum OrderStateValues {
 }
 
 export type OrderState =
-  | 'Cancelled'
-  | 'Complete'
-  | 'Confirmed'
-  | 'Open'
-  | (string & {})
+  'Cancelled' | 'Complete' | 'Confirmed' | 'Open' | (string & {})
 /**
  *	Information regarding the appearance, content, and shipment of a Parcel.
  *
@@ -1189,12 +1174,7 @@ export enum PaymentStateValues {
 }
 
 export type PaymentState =
-  | 'BalanceDue'
-  | 'CreditOwed'
-  | 'Failed'
-  | 'Paid'
-  | 'Pending'
-  | (string & {})
+  'BalanceDue' | 'CreditOwed' | 'Failed' | 'Paid' | 'Pending' | (string & {})
 /**
  *	Permissions grant granular access to [Approval Rules](ctp:api:type:ApprovalRule), [Approval Flows](ctp:api:type:ApprovalFlow), [Business Units](ctp:api:type:BusinessUnit), [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), [Quote Requests](ctp:api:type:QuoteRequest), and [Shopping Lists](ctp:api:type:ShoppingList).
  *
@@ -1352,9 +1332,7 @@ export interface Price {
    */
   readonly validUntil?: string
   /**
-   *	Is set if a [ProductDiscount](ctp:api:type:ProductDiscount) has been applied.
-   *	If set, the API uses the DiscountedPrice value for the [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
-   *	When a [relative discount](ctp:api:type:ProductDiscountValueRelative) has been applied and the fraction part of the DiscountedPrice `value` is 0.5, the `value` is rounded in favor of the customer with [half-down rounding](https://en.wikipedia.org/wiki/Rounding#Rounding_half_down).
+   *	Set if a [ProductDiscount](ctp:api:type:ProductDiscount) applies. When present, the API uses the DiscountedPrice value for [Line Item price selection](/api/pricing-and-discounts-overview#line-item-price-selection).
    *
    *
    */
@@ -1387,7 +1365,7 @@ export interface ProductSelectionSetting {
    */
   readonly productSelection: ProductSelectionReference
   /**
-   *	If `true`, all Products assigned to this Product Selection are part of the Store's assortment.
+   *	Whether all Products assigned to this Product Selection are part of the Store's assortment.
    *
    */
   readonly active: boolean
@@ -1467,7 +1445,7 @@ export interface ProductVariantChannelAvailability {
   readonly version: number
 }
 /**
- *	JSON object where the keys are supply [Channel](/projects/channels) `id`, and the values are [ProductVariantChannelAvailability](/projects/products#productvariantchannelavailability).
+ *	JSON object where the keys are supply [Channel](/projects/channels) `id`, and the values are [ProductVariantChannelAvailability](ctp:api:type:ProductVariantChannelAvailability).
  *
  */
 export interface ProductVariantChannelAvailabilityMap {
@@ -1493,11 +1471,7 @@ export enum ProductVariantSelectionTypeEnumValues {
 }
 
 export type ProductVariantSelectionTypeEnum =
-  | 'exclusion'
-  | 'includeAllExcept'
-  | 'includeOnly'
-  | 'inclusion'
-  | (string & {})
+  'exclusion' | 'includeAllExcept' | 'includeOnly' | 'inclusion' | (string & {})
 /**
  *	Predefined states tracking the status of the Quote Request in the negotiation process.
  *
@@ -1511,12 +1485,7 @@ export enum QuoteRequestStateValues {
 }
 
 export type QuoteRequestState =
-  | 'Accepted'
-  | 'Cancelled'
-  | 'Closed'
-  | 'Rejected'
-  | 'Submitted'
-  | (string & {})
+  'Accepted' | 'Cancelled' | 'Closed' | 'Rejected' | 'Submitted' | (string & {})
 /**
  *	Predefined states tracking the status of the Quote.
  *
@@ -1707,9 +1676,7 @@ export interface ResourceIdentifier {
   readonly typeId: ReferenceTypeId
 }
 export type _ResourceIdentifier =
-  | ResourceIdentifier
-  | BusinessUnitResourceIdentifier
-  | ZoneResourceIdentifier
+  ResourceIdentifier | BusinessUnitResourceIdentifier | ZoneResourceIdentifier
 /**
  *	Stores information about returns connected to an Order.
  *
@@ -1747,7 +1714,7 @@ export interface ReturnItem {
    */
   readonly key?: string
   /**
-   *	Number of Line Items or Custom Line Items returned.
+   *	Quantity of Line Items or Custom Line Items returned.
    *
    *
    */
@@ -1804,11 +1771,7 @@ export enum ReturnPaymentStateValues {
 }
 
 export type ReturnPaymentState =
-  | 'Initial'
-  | 'NonRefundable'
-  | 'NotRefunded'
-  | 'Refunded'
-  | (string & {})
+  'Initial' | 'NonRefundable' | 'NotRefunded' | 'Refunded' | (string & {})
 export enum ReturnShipmentStateValues {
   Advised = 'Advised',
   BackInStock = 'BackInStock',
@@ -1817,11 +1780,7 @@ export enum ReturnShipmentStateValues {
 }
 
 export type ReturnShipmentState =
-  | 'Advised'
-  | 'BackInStock'
-  | 'Returned'
-  | 'Unusable'
-  | (string & {})
+  'Advised' | 'BackInStock' | 'Returned' | 'Unusable' | (string & {})
 export interface ReviewRatingStatistics {
   /**
    *	Average rating of one target
@@ -1927,12 +1886,12 @@ export interface ShippingRate {
    */
   readonly price: CentPrecisionMoney
   /**
-   *	[Free shipping](/../api/shipping-delivery-overview#free-shipping) is applied if the sum of the (Custom) Line Item Prices reaches the specified value.
+   *	[Free shipping](/api/shipping-delivery-overview#free-shipping) is applied if the sum of the (Custom) Line Item Prices reaches the specified value.
    *
    */
   readonly freeAbove?: CentPrecisionMoney
   /**
-   *	`true` if the ShippingRate matches given [Cart](ctp:api:type:Cart) or [Location](ctp:api:type:Location).
+   *	Whether the ShippingRate matches the given [Cart](ctp:api:type:Cart) or [Location](ctp:api:type:Location).
    *	Only appears in response to requests for [Get ShippingMethods for a Cart](ctp:api:endpoint:/{projectKey}/shipping-methods/matching-cart:GET) or
    *	[Get ShippingMethods for a Location](ctp:api:endpoint:/{projectKey}/shipping-methods/matching-location:GET).
    *
@@ -1958,10 +1917,7 @@ export enum ShippingRateTierTypeValues {
 }
 
 export type ShippingRateTierType =
-  | 'CartClassification'
-  | 'CartScore'
-  | 'CartValue'
-  | (string & {})
+  'CartClassification' | 'CartScore' | 'CartValue' | (string & {})
 /**
  *	Describes how the Cart Discount interacts with other Discounts.
  *
@@ -1993,9 +1949,7 @@ export enum StateRoleEnumValues {
 }
 
 export type StateRoleEnum =
-  | 'Return'
-  | 'ReviewIncludedInStatistics'
-  | (string & {})
+  'Return' | 'ReviewIncludedInStatistics' | (string & {})
 /**
  *	Resource or object type the State can be assigned to.
  *
@@ -2032,7 +1986,7 @@ export interface StoreCountry {
   readonly code: string
 }
 /**
- *	It is used to calculate the [taxPortions](/../api/projects/carts#taxedprice) field in a Cart or Order.
+ *	It is used to calculate the [taxPortions](/api/projects/carts#taxedprice) field in a Cart or Order.
  */
 export interface SubRate {
   /**
@@ -2086,9 +2040,7 @@ export enum TaxCalculationModeValues {
 }
 
 export type TaxCalculationMode =
-  | 'LineItemLevel'
-  | 'UnitPriceLevel'
-  | (string & {})
+  'LineItemLevel' | 'UnitPriceLevel' | (string & {})
 /**
  *	Indicates how taxes are set on the Cart.
  *
@@ -2101,11 +2053,7 @@ export enum TaxModeValues {
 }
 
 export type TaxMode =
-  | 'Disabled'
-  | 'External'
-  | 'ExternalAmount'
-  | 'Platform'
-  | (string & {})
+  'Disabled' | 'External' | 'ExternalAmount' | 'Platform' | (string & {})
 export interface TaxRate {
   /**
    *	Present if the TaxRate is part of a [TaxCategory](ctp:api:type:TaxCategory).
@@ -2134,7 +2082,7 @@ export interface TaxRate {
    */
   readonly amount: number
   /**
-   *	If `true`, tax is included in [Embedded Prices](ctp:api:type:Price) or [Standalone Prices](ctp:api:type:StandalonePrice), and the `taxedPrice` is present on [LineItems](ctp:api:type:LineItem). In this case, the `totalNet` price on [TaxedPrice](ctp:api:type:TaxedPrice) includes the TaxRate.
+   *	Whether tax is included in [Embedded Prices](ctp:api:type:Price) or [Standalone Prices](ctp:api:type:StandalonePrice), and the `taxedPrice` is present on [LineItems](ctp:api:type:LineItem). In this case, the `totalNet` price on [TaxedPrice](ctp:api:type:TaxedPrice) includes the TaxRate.
    *
    *
    */
@@ -2304,8 +2252,7 @@ export interface TrackingData {
    */
   readonly providerTransaction?: string
   /**
-   *	- If `true`, the Parcel is being returned.
-   *	- If `false`, the Parcel is being delivered to the customer.
+   *	Whether the Parcel is being returned. If `false`, the Parcel is being delivered to the customer.
    *
    *
    */
@@ -2366,11 +2313,7 @@ export enum TransactionStateValues {
 }
 
 export type TransactionState =
-  | 'Failure'
-  | 'Initial'
-  | 'Pending'
-  | 'Success'
-  | (string & {})
+  'Failure' | 'Initial' | 'Pending' | 'Success' | (string & {})
 export enum TransactionTypeValues {
   Authorization = 'Authorization',
   CancelAuthorization = 'CancelAuthorization',
@@ -2433,11 +2376,9 @@ export enum BusinessUnitApprovalRuleModeValues {
 }
 
 export type BusinessUnitApprovalRuleMode =
-  | 'Explicit'
-  | 'ExplicitAndFromParent'
-  | (string & {})
+  'Explicit' | 'ExplicitAndFromParent' | (string & {})
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [BusinessUnit](ctp:api:type:BusinessUnit). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [BusinessUnit](ctp:api:type:BusinessUnit). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](ctp:api:type:InvalidJsonInputError) error is returned.
  *
  */
 export interface BusinessUnitResourceIdentifier extends ResourceIdentifier {
@@ -2555,8 +2496,8 @@ export interface DiscountedTotalPricePortion {
   readonly discountedAmount: TypedMoney
 }
 /**
- *	This mode determines the type of Prices used for [price selection](/../api/pricing-and-discounts-overview#price-selection) by Line Items and Products.
- *	For more information about the difference between the Prices, see [Pricing](/../api/pricing-and-discounts-overview).
+ *	This mode determines the type of Prices used for [price selection](/api/pricing-and-discounts-overview#price-selection) by Line Items and Products.
+ *	For more information about the difference between the Prices, see [Pricing](/api/pricing-and-discounts-overview).
  *
  */
 export enum ProductPriceModeEnumValues {
@@ -2856,6 +2797,9 @@ export interface DiscountedPrice {
   /**
    *	Money value of the discounted price.
    *
+   *	- When a [relative Product Discount](ctp:api:type:ProductDiscountValueRelative) applies and the fractional part of the resulting discounted price is 0.5, the discounted price is [rounded half down](https://en.wikipedia.org/wiki/Rounding#Rounding_half_down).
+   *	- When an [absolute Product Discount](ctp:api:type:ProductDiscountValueAbsolute) exceeds the price of the Product Variant, the resulting discounted price is set to `0`.
+   *
    *
    */
   readonly value: TypedMoney
@@ -2876,9 +2820,7 @@ export enum ShippingMethodStateValues {
 }
 
 export type ShippingMethodState =
-  | 'DoesNotMatchCart'
-  | 'MatchesCart'
-  | (string & {})
+  'DoesNotMatchCart' | 'MatchesCart' | (string & {})
 /**
  *	Roles defining how an [Associate](ctp:api:type:Associate) can interact with a Business Unit.
  *
@@ -3239,10 +3181,7 @@ export enum InventoryModeValues {
 }
 
 export type InventoryMode =
-  | 'None'
-  | 'ReserveOnOrder'
-  | 'TrackOnly'
-  | (string & {})
+  'None' | 'ReserveOnOrder' | 'TrackOnly' | (string & {})
 /**
  *	Indicates how a Line Item was added to a Cart.
  *
@@ -3264,10 +3203,7 @@ export enum LineItemPriceModeValues {
 }
 
 export type LineItemPriceMode =
-  | 'ExternalPrice'
-  | 'ExternalTotal'
-  | 'Platform'
-  | (string & {})
+  'ExternalPrice' | 'ExternalTotal' | 'Platform' | (string & {})
 /**
  *	Information about recurring orders and frequencies.
  *
@@ -3340,7 +3276,7 @@ export type PriceSelectionMode = 'Dynamic' | 'Fixed' | (string & {})
 /**
  *	A Price tier is selected instead of the default Price when a certain quantity of the [ProductVariant](ctp:api:type:ProductVariant) is [added to a Cart](/projects/carts#add-lineitem) and ordered.
  *	_For   If no Price tier is found for the Order quantity, the base Price is used.
- *	A Price tier is applied for the entire quantity of a Product Variant put as [LineItem](/projects/carts#lineitem) in a Cart as soon as the minimum quantity for the Price tier is reached.
+ *	A Price tier is applied for the entire quantity of a Product Variant put as [LineItem](ctp:api:type:LineItem) in a Cart as soon as the minimum quantity for the Price tier is reached.
  *	The Price tier is applied per Line Item of the Product Variant. If, for example, the same Product Variant appears in the same Cart as several Line Items, (what can be achieved by different values of a Custom Field on the Line Items) for each Line Item the minimum quantity must be reached to get the Price tier.
  *
  */
@@ -3460,8 +3396,8 @@ export interface ProductVariant {
    */
   readonly attributes?: Attribute[]
   /**
-   *	Only available when [price selection](/../api/pricing-and-discounts-overview#price-selection) is used.
-   *	Cannot be used in a [Query Predicate](ctp:api:type:QueryPredicate).
+   *	Only available when [price selection](/api/pricing-and-discounts-overview#price-selection) is used.
+   *	Cannot be used in a [Query Predicate](/api/predicates/query).
    *
    *
    */
@@ -3487,30 +3423,30 @@ export interface ProductVariant {
    */
   readonly availability?: ProductVariantAvailability
   /**
-   *	`true` if the Product Variant matches the search query.
-   *	Only available in response to a [Product Projection Search](ctp:api:type:ProductProjectionSearch) request.
+   *	Whether the Product Variant matches the search query.
+   *	Only available in response to a [Product Projection Search](/api/projects/product-projection-search) request.
    *
    *
    */
   readonly isMatchingVariant?: boolean
   /**
-   *	Only available in response to a [Product Projection Search](ctp:api:type:ProductProjectionSearch) request
-   *	with [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection).
+   *	Only available in response to a [Product Projection Search](/api/projects/product-projection-search) request
+   *	with [Product price selection](/api/pricing-and-discounts-overview#product-price-selection).
    *	Can be used to sort, [filter](ctp:api:type:ProductProjectionSearchFilterScopedPrice), and facet.
    *
    *
    */
   readonly scopedPrice?: ScopedPrice
   /**
-   *	Only available in response to a [Product Projection Search](ctp:api:type:ProductProjectionSearchFilterScopedPrice) request
-   *	with [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection).
+   *	Only available in response to a [Product Projection Search](/api/projects/product-projection-search) request
+   *	with [Product price selection](/api/pricing-and-discounts-overview#product-price-selection).
    *
    *
    */
   readonly scopedPriceDiscounted?: boolean
   /**
-   *	Only available when [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection) is used.
-   *	Cannot be used in a [Query Predicate](ctp:api:type:QueryPredicate).
+   *	Only available when [Product price selection](/api/pricing-and-discounts-overview#product-price-selection) is used.
+   *	Cannot be used in a [Query Predicate](/api/predicates/query).
    *
    *
    */
@@ -3610,7 +3546,7 @@ export type ResourceTypeId =
   | (string & {})
 /**
  *	Scoped Price is contained in a [ProductVariant](ctp:api:type:ProductVariant) which is returned in response to a
- *	[Product Projection Search](ctp:api:type:ProductProjectionSearchFilterScopedPrice) request when [Scoped Price Search](/../api/pricing-and-discounts-overview#scoped-price-search) is used.
+ *	[Product Projection Search](ctp:api:type:ProductProjectionSearchFilterScopedPrice) request when [Scoped Price Search](/api/pricing-and-discounts-overview#scoped-price-search) is used.
  *
  */
 export interface ScopedPrice {
@@ -3665,13 +3601,13 @@ export interface ScopedPrice {
   /**
    *	Is set when a matching [ProductDiscount](ctp:api:type:ProductDiscount) exists. If set, the [Cart](ctp:api:type:Cart) uses the discounted value for the [Cart Price calculation](ctp:api:type:CartAddLineItemAction).
    *
-   *	When a [relative Product Discount](ctp:api:type:ProductDiscountValueRelative) is applied and the fractional part of the discounted Price is 0.5, the discounted Price is [rounded half down](https://en.wikipedia.org/wiki/Rounding#Rounding_half_down) in favor of the Customer.
+   *	When a [relative Product Discount](ctp:api:type:ProductDiscountValueRelative) is applied and the fractional part of the discounted Price is 0.5, the discounted Price is [rounded half down](https://en.wikipedia.org/wiki/Rounding#Rounding_half_down).
    *
    *
    */
   readonly discounted?: DiscountedPrice
   /**
-   *	Custom Fields for the Price.
+   *	Custom Fields of the Price.
    *
    *
    */
@@ -3769,7 +3705,7 @@ export interface TypeReference extends IReference {
   readonly id: string
 }
 /**
- *	These objects represent information about which [API Client](/../api/projects/api-clients) created or modified a resource. For more information, see [Client Logging](/../api/general-concepts#client-logging).
+ *	These objects represent information about which [API Client](/api/projects/api-clients) created or modified a resource. For more information, see [Client Logging](/api/general-concepts#client-logging).
  *
  */
 export interface ClientLogging {
@@ -3780,7 +3716,7 @@ export interface ClientLogging {
    */
   readonly clientId?: string
   /**
-   *	[External user ID](/../api/general-concepts#external-user-ids) provided by `X-External-User-ID` HTTP Header.
+   *	[External user ID](/api/general-concepts#external-user-ids) provided by `X-External-User-ID` HTTP Header.
    *
    *
    */
@@ -3798,14 +3734,14 @@ export interface ClientLogging {
    */
   readonly anonymousId?: string
   /**
-   *	Indicates the [Customer](ctp:api:type:Customer) who created or modified the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only available for [B2B](/../offering/composable-commerce#composable-commerce-for-b2b)-enabled Projects when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
+   *	Indicates the [Customer](ctp:api:type:Customer) who created or modified the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only available for [B2B](/offering/commerce-b2b)-enabled Projects when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
    *
    *
    */
   readonly associate?: CustomerReference
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Zone](ctp:api:type:Zone). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Zone](ctp:api:type:Zone). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](ctp:api:type:InvalidJsonInputError) error is returned.
  *
  */
 export interface ZoneResourceIdentifier extends ResourceIdentifier {

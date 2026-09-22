@@ -8,7 +8,7 @@ import {
   CustomObjectDraft,
   CustomObjectPagedQueryResponse,
 } from '../../models/custom-object'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyCustomObjectsByContainerByKeyRequestBuilder } from './by-project-key-custom-objects-by-container-by-key-request-builder'
 import { ByProjectKeyCustomObjectsByContainerRequestBuilder } from './by-project-key-custom-objects-by-container-request-builder'
@@ -53,7 +53,7 @@ export class ByProjectKeyCustomObjectsRequestBuilder {
   /**
    *	For performance reasons, it is highly advisable to query for Custom Objects in a container by using the `container` field in the `where` predicate.
    *
-   *	This endpoint is deprecated and replaced by the [Query CustomObjects in Container](/../apis/ctp:api:endpoint:/{projectKey}/custom-objects/{container}:GET) endpoint.
+   *	This endpoint is deprecated and replaced by the [Query CustomObjects in Container](ctp:api:endpoint:/{projectKey}/custom-objects/{container}:GET) endpoint.
    *
    */
   /**

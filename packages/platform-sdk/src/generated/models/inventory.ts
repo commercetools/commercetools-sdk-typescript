@@ -74,24 +74,24 @@ export interface InventoryEntry extends BaseResource {
    */
   readonly supplyChannel?: ChannelReference
   /**
-   *	Overall amount of stock (`availableQuantity` + reserved).
+   *	Overall amount of stock (`availableQuantity` + reserved). This value is eventually consistent with the internal SKU availability used for reservation logic, with a delay of up to 10 seconds. See [Inventory checks and consistency](/api/inventory-overview#inventory-checks-and-consistency) for more information.
    *
    */
   readonly quantityOnStock: number
   /**
-   *	Available amount of stock (`quantityOnStock` - reserved).
+   *	Available amount of stock (`quantityOnStock` - reserved). This value is eventually consistent with the internal SKU availability used for reservation logic, with a delay of up to 10 seconds. See [Inventory checks and consistency](/api/inventory-overview#inventory-checks-and-consistency) for more information.
    *
    *
    */
   readonly availableQuantity: number
   /**
-   *	Minimum quantity that can be added to a Cart. See [Quantity limits](/../api/carts-orders-overview#quantity-limits).
+   *	Minimum quantity that can be added to a Cart. See [Quantity limits](/api/inventory-overview#quantity-limits).
    *
    *
    */
   readonly minCartQuantity?: number
   /**
-   *	Maximum quantity that can be added to a Cart. See [Quantity limits](/../api/carts-orders-overview#quantity-limits).
+   *	Maximum quantity that can be added to a Cart. See [Quantity limits](/api/inventory-overview#quantity-limits).
    *
    *
    */
@@ -107,6 +107,21 @@ export interface InventoryEntry extends BaseResource {
    *
    */
   readonly expectedDelivery?: string
+  /**
+   *	Expiration time of [ReserveOnCart](ctp:api:type:InventoryMode) reservations associated with this InventoryEntry.
+   *
+   *	- A Reservation is [ReserveOnCart](ctp:api:type:InventoryMode) if it was created for a [LineItem](ctp:api:type:LineItem) that is using the [ReserveOnCart](ctp:api:type:InventoryMode) inventory mode.
+   *	- If this field is empty, the [Project](ctp:api:type:Project)-level reservation expiration time applies.
+   *
+   *
+   */
+  readonly reservationExpirationInMinutes?: number
+  /**
+   *	Configuration of stock levels for the InventoryEntry. Corresponding [Messages](/api/projects/messages/product-catalog-messages#inventory-entry-messages) are triggered when the `quantityOnStock` reaches the configured levels.
+   *
+   *
+   */
+  readonly stockLevels?: InventoryEntryStockLevels
   /**
    *	Custom Fields of the InventoryEntry.
    *
@@ -124,7 +139,7 @@ export interface InventoryEntryDraft {
   /**
    *	User-defined unique identifier for the InventoryEntry.
    *
-   *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing InventoryEntries with the [Import API](/../api/import-export/overview) and the [Merchant Center](/../merchant-center/import-data).
+   *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing InventoryEntries with the [Import API](/api/import-export/overview) and the [Merchant Center](/merchant-center/import-data).
    *
    *
    */
@@ -136,19 +151,19 @@ export interface InventoryEntryDraft {
    */
   readonly supplyChannel?: ChannelResourceIdentifier
   /**
-   *	Overall amount of stock.
+   *	Overall amount of stock. See [Inventory checks and consistency](/api/inventory-overview#inventory-checks-and-consistency) for consistency information.
    *
    *
    */
   readonly quantityOnStock: number
   /**
-   *	Minimum quantity that can be added to a Cart. See [Quantity limits](/../api/carts-orders-overview#quantity-limits).
+   *	Minimum quantity that can be added to a Cart. See [Quantity limits](/api/inventory-overview#quantity-limits).
    *
    *
    */
   readonly minCartQuantity?: number
   /**
-   *	Maximum quantity that can be added to a Cart. See [Quantity limits](/../api/carts-orders-overview#quantity-limits).
+   *	Maximum quantity that can be added to a Cart. See [Quantity limits](/api/inventory-overview#quantity-limits).
    *
    *
    */
@@ -166,7 +181,22 @@ export interface InventoryEntryDraft {
    */
   readonly expectedDelivery?: string
   /**
-   *	Custom Fields of the InventoryEntry.
+   *	Expiration time of [ReserveOnCart](ctp:api:type:InventoryMode) reservations associated with this InventoryEntry.
+   *
+   *	- A Reservation is [ReserveOnCart](ctp:api:type:InventoryMode) if it was created for a [LineItem](ctp:api:type:LineItem) that is using the [ReserveOnCart](ctp:api:type:InventoryMode) inventory mode.
+   *	- If this field is empty, the [Project](ctp:api:type:Project)-level reservation expiration time applies.
+   *
+   *
+   */
+  readonly reservationExpirationInMinutes?: number
+  /**
+   *	Configuration of stock levels for the InventoryEntry. Corresponding [Messages](/api/projects/messages/product-catalog-messages#inventory-entry-messages) are triggered when the `quantityOnStock` reaches the configured levels.
+   *
+   *
+   */
+  readonly stockLevels?: InventoryEntryStockLevels
+  /**
+   *	Custom Fields for the InventoryEntry.
    *
    *
    */
@@ -185,14 +215,14 @@ export interface InventoryEntryReference extends IReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded InventoryEntry. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for InventoryEntries.
+   *	Contains the representation of the expanded InventoryEntry. Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for InventoryEntries.
    *
    *
    */
   readonly obj?: InventoryEntry
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to an [InventoryEntry](ctp:api:type:InventoryEntry). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to an [InventoryEntry](ctp:api:type:InventoryEntry). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](ctp:api:type:InvalidJsonInputError) error is returned.
  *
  */
 export interface InventoryEntryResourceIdentifier extends IResourceIdentifier {
@@ -209,6 +239,24 @@ export interface InventoryEntryResourceIdentifier extends IResourceIdentifier {
    *
    */
   readonly key?: string
+}
+/**
+ *	Stock level thresholds for an [InventoryEntry](ctp:api:type:InventoryEntry) that trigger Messages when stock levels reach certain points. For more information, see [Stock level notifications](/api/inventory-overview#stock-level-notifications).
+ *
+ */
+export interface InventoryEntryStockLevels {
+  /**
+   *	When the `quantityOnStock` of the [InventoryEntry](ctp:api:type:InventoryEntry) reaches this value, an [InventoryEntryReorderPoint](ctp:api:type:InventoryEntryReorderPointMessage) Message is generated.
+   *
+   *
+   */
+  readonly reorderPoint?: number
+  /**
+   *	When the `quantityOnStock` of the [InventoryEntry](ctp:api:type:InventoryEntry) reaches this value, an [InventoryEntrySafetyStock](ctp:api:type:InventoryEntrySafetyStockMessage) Message is generated.
+   *
+   *
+   */
+  readonly safetyStock?: number
 }
 export interface InventoryEntryUpdate {
   /**
@@ -234,7 +282,10 @@ export type InventoryEntryUpdateAction =
   | InventoryEntrySetExpectedDeliveryAction
   | InventoryEntrySetInventoryLimitsAction
   | InventoryEntrySetKeyAction
+  | InventoryEntrySetReorderPointAction
+  | InventoryEntrySetReservationExpirationInMinutesAction
   | InventoryEntrySetRestockableInDaysAction
+  | InventoryEntrySetSafetyStockAction
   | InventoryEntrySetSupplyChannelAction
 export interface IInventoryEntryUpdateAction {
   /**
@@ -244,13 +295,13 @@ export interface IInventoryEntryUpdateAction {
 }
 export interface InventoryPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -263,10 +314,10 @@ export interface InventoryPagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -279,10 +330,12 @@ export interface InventoryPagedQueryResponse {
   readonly results: InventoryEntry[]
 }
 /**
- *	Updates `availableQuantity` based on the new `quantityOnStock` and amount of active reservations.
+ *	Incrementally updates the `quantityOnStock` by the specified amount. This changes the `availableQuantity`, based on the number of active reservations.
+ *
+ *	To set an absolute quantity value instead, use the [InventoryEntryChangeQuantityAction](ctp:api:type:InventoryEntryChangeQuantityAction) update action.
+ *
  */
-export interface InventoryEntryAddQuantityAction
-  extends IInventoryEntryUpdateAction {
+export interface InventoryEntryAddQuantityAction extends IInventoryEntryUpdateAction {
   readonly action: 'addQuantity'
   /**
    *	Value to add to `quantityOnStock`.
@@ -291,10 +344,11 @@ export interface InventoryEntryAddQuantityAction
   readonly quantity: number
 }
 /**
- *	Updates `availableQuantity` based on the new `quantityOnStock` and amount of active reservations.
+ *	Sets the `quantityOnStock` to an absolute value. This changes the `availableQuantity`, based on the number of active reservations.
+ *	To make an incremental change instead, use the [InventoryEntryAddQuantityAction](ctp:api:type:InventoryEntryAddQuantityAction) update action.
+ *
  */
-export interface InventoryEntryChangeQuantityAction
-  extends IInventoryEntryUpdateAction {
+export interface InventoryEntryChangeQuantityAction extends IInventoryEntryUpdateAction {
   readonly action: 'changeQuantity'
   /**
    *	Value to set for `quantityOnStock`.
@@ -303,10 +357,13 @@ export interface InventoryEntryChangeQuantityAction
   readonly quantity: number
 }
 /**
- *	Updates `availableQuantity` based on the new `quantityOnStock` and amount of active reservations.
+ *
+ *	Removes a specific quantity from `quantityOnStock`. This changes the `availableQuantity`, based on the number of active reservations. You can update `quantityOnStock` to values below zero.
+ *
+ *	Carts with existing `ReserveOnCart` reservations will not be invalidated by this update action and can still be ordered.
+ *
  */
-export interface InventoryEntryRemoveQuantityAction
-  extends IInventoryEntryUpdateAction {
+export interface InventoryEntryRemoveQuantityAction extends IInventoryEntryUpdateAction {
   readonly action: 'removeQuantity'
   /**
    *	Value to remove from `quantityOnStock`.
@@ -314,11 +371,10 @@ export interface InventoryEntryRemoveQuantityAction
    */
   readonly quantity: number
 }
-export interface InventoryEntrySetCustomFieldAction
-  extends IInventoryEntryUpdateAction {
+export interface InventoryEntrySetCustomFieldAction extends IInventoryEntryUpdateAction {
   readonly action: 'setCustomField'
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -332,39 +388,39 @@ export interface InventoryEntrySetCustomFieldAction
    */
   readonly value?: any
 }
-export interface InventoryEntrySetCustomTypeAction
-  extends IInventoryEntryUpdateAction {
+export interface InventoryEntrySetCustomTypeAction extends IInventoryEntryUpdateAction {
   readonly action: 'setCustomType'
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the InventoryEntry with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the InventoryEntry with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the InventoryEntry.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the InventoryEntry.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the InventoryEntry.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */
   readonly fields?: FieldContainer
 }
-export interface InventoryEntrySetExpectedDeliveryAction
-  extends IInventoryEntryUpdateAction {
+export interface InventoryEntrySetExpectedDeliveryAction extends IInventoryEntryUpdateAction {
   readonly action: 'setExpectedDelivery'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
+   *
    *
    */
   readonly expectedDelivery?: string
 }
 /**
  *	Sets the inventory limits for a specific InventoryEntry. This action allows you to define minimum and maximum
- *	quantities that can be added to a Cart. For more information, see [Quantity limits](/../api/carts-orders-overview#quantity-limits).
+ *	quantities that can be added to a Cart. For more information, see [Quantity limits](/api/inventory-overview#quantity-limits).
  *
  */
-export interface InventoryEntrySetInventoryLimitsAction
-  extends IInventoryEntryUpdateAction {
+export interface InventoryEntrySetInventoryLimitsAction extends IInventoryEntryUpdateAction {
   readonly action: 'setInventoryLimits'
   /**
    *	Sets the minimum quantity that can be added to a Cart. If the value is absent or `null`
@@ -381,33 +437,76 @@ export interface InventoryEntrySetInventoryLimitsAction
    */
   readonly maxCartQuantity?: number
 }
-export interface InventoryEntrySetKeyAction
-  extends IInventoryEntryUpdateAction {
+export interface InventoryEntrySetKeyAction extends IInventoryEntryUpdateAction {
   readonly action: 'setKey'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
   readonly key?: string
 }
-export interface InventoryEntrySetRestockableInDaysAction
-  extends IInventoryEntryUpdateAction {
+/**
+ *	Sets the reorder point level for a specific InventoryEntry. When the stock reaches this level,
+ *	a corresponding [InventoryEntryReorderPoint](ctp:api:type:InventoryEntryReorderPointMessage) Message is generated.
+ *
+ */
+export interface InventoryEntrySetReorderPointAction extends IInventoryEntryUpdateAction {
+  readonly action: 'setReorderPoint'
+  /**
+   *	Sets the configured inventory stock level for reorder point. If the value is absent or `null`
+   *	the configured inventory stock level is removed.
+   *
+   *
+   */
+  readonly quantity?: number
+}
+/**
+ *	Sets the default reservation expiration time for the Inventory Entry. This action does not affect existing reservations. To change the expiration date and time of existing reservations, see the [Set Reservation Expiration In Minutes](ctp:api:type:CartSetReservationExpirationInMinutesAction) update action on the Carts API.
+ *
+ *	Produces the [InventoryEntry Reservation Expiration In Minutes Set](ctp:api:type:InventoryEntryReservationExpirationInMinutesSetMessage) Message after a successful update.
+ *
+ */
+export interface InventoryEntrySetReservationExpirationInMinutesAction extends IInventoryEntryUpdateAction {
+  readonly action: 'setReservationExpirationInMinutes'
+  /**
+   *	Value to set, must be a positive integer. If omitted, any existing value is removed.
+   *
+   *
+   */
+  readonly reservationExpirationInMinutes?: number
+}
+export interface InventoryEntrySetRestockableInDaysAction extends IInventoryEntryUpdateAction {
   readonly action: 'setRestockableInDays'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
+   *
    *
    */
   readonly restockableInDays?: number
 }
 /**
+ *	Sets the safety stock level for a specific InventoryEntry. When the stock reaches this level,
+ *	a corresponding [InventoryEntrySafetyStock](ctp:api:type:InventoryEntrySafetyStockMessage) Message is generated.
+ *
+ */
+export interface InventoryEntrySetSafetyStockAction extends IInventoryEntryUpdateAction {
+  readonly action: 'setSafetyStock'
+  /**
+   *	Sets the configured inventory stock level for safety stock. If the value is absent or `null`
+   *	the configured inventory stock level is removed.
+   *
+   *
+   */
+  readonly quantity?: number
+}
+/**
  *	If an entry with the same `sku` and `supplyChannel` already exists, an [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
  */
-export interface InventoryEntrySetSupplyChannelAction
-  extends IInventoryEntryUpdateAction {
+export interface InventoryEntrySetSupplyChannelAction extends IInventoryEntryUpdateAction {
   readonly action: 'setSupplyChannel'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    */
   readonly supplyChannel?: ChannelResourceIdentifier

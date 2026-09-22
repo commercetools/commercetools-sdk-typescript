@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { DiscountGroup, DiscountGroupUpdate } from '../../models/discount-group'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
@@ -70,7 +70,7 @@ export class ByProjectKeyDiscountGroupsKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Updates a DiscountGroup in the Project using one or more [update actions](/../api/projects/discount-groups#update-actions).
+   *	Updates a DiscountGroup in the Project using one or more [update actions](/api/projects/discount-groups#update-actions).
    *
    */
   public post(methodArgs: {

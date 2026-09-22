@@ -124,18 +124,18 @@ export interface ApprovalFlowApproval {
   readonly approvedAt: string
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [ApprovalFlow](ctp:api:type:ApprovalFlow).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with results containing an array of [ApprovalFlow](ctp:api:type:ApprovalFlow).
  *
  */
 export interface ApprovalFlowPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -148,10 +148,10 @@ export interface ApprovalFlowPagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -194,10 +194,7 @@ export enum ApprovalFlowStatusValues {
 }
 
 export type ApprovalFlowStatus =
-  | 'Approved'
-  | 'Pending'
-  | 'Rejected'
-  | (string & {})
+  'Approved' | 'Pending' | 'Rejected' | (string & {})
 export interface ApprovalFlowUpdate {
   /**
    *	Expected version of the [Approval Flow](ctp:api:type:ApprovalFlow) to which the changes should be applied.
@@ -250,8 +247,7 @@ export interface ApprovalFlowRejectAction extends IApprovalFlowUpdateAction {
    */
   readonly reason?: string
 }
-export interface ApprovalFlowSetCustomFieldAction
-  extends IApprovalFlowUpdateAction {
+export interface ApprovalFlowSetCustomFieldAction extends IApprovalFlowUpdateAction {
   readonly action: 'setCustomField'
   /**
    *	Name of the [Custom Field](ctp:api:type:CustomFields).
@@ -268,8 +264,7 @@ export interface ApprovalFlowSetCustomFieldAction
    */
   readonly value?: any
 }
-export interface ApprovalFlowSetCustomTypeAction
-  extends IApprovalFlowUpdateAction {
+export interface ApprovalFlowSetCustomTypeAction extends IApprovalFlowUpdateAction {
   readonly action: 'setCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the ApprovalFlow with [Custom Fields](ctp:api:type:CustomFields).
@@ -279,7 +274,9 @@ export interface ApprovalFlowSetCustomTypeAction
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](ctp:api:type:CustomFields) fields for the ApprovalFlow.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the ApprovalFlow.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */

@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { Cart, CartDraft, CartPagedQueryResponse } from '../../models/cart'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyInStoreKeyByStoreKeyCartsCustomerIdByCustomerIdMergeRequestBuilder } from '../merge/by-project-key-in-store-key-by-store-key-carts-customer-id-by-customer-id-merge-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyCartsReplicateRequestBuilder } from '../replicate/by-project-key-in-store-key-by-store-key-carts-replicate-request-builder'
@@ -146,8 +146,6 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsRequestBuilder {
   /**
    *	Creates a Cart in a [Store](ctp:api:type:Store).
    *
-   *	If the referenced [ShippingMethod](ctp:api:type:ShippingMethod) in the [CartDraft](ctp:api:type:CartDraft) has a predicate that does not match, or if the Shipping Method is not active, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
-   *
    *	Specific Error Codes:
    *
    *	- [DiscountCodeNonApplicable](ctp:api:type:DiscountCodeNonApplicableError)
@@ -155,6 +153,10 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsRequestBuilder {
    *	- [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError)
    *	- [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError)
    *	- [CountryNotConfiguredInStore](ctp:api:type:CountryNotConfiguredInStoreError)
+   *	- [InvalidOperation](ctp:api:type:InvalidOperationError) is returned in several cases, including the following:
+   *	    - The referenced Shipping Method has a predicate that does not match the Cart.
+   *	    - The referenced Shipping Method is not active.
+   *	    - The referenced Shipping Method is scoped to a Store that differs from the Cart's Store.
    *
    */
   public post(methodArgs: {
