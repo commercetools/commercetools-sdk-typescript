@@ -1,5 +1,156 @@
 # @commercetools/ts-client
 
+## 5.0.3
+
+### Patch Changes
+
+- [#1471](https://github.com/commercetools/commercetools-sdk-typescript/pull/1471) [`a8a13c6`](https://github.com/commercetools/commercetools-sdk-typescript/commit/a8a13c651c76c936c3cdf5c3d9d0c5d443037433) Thanks [@ajimae](https://github.com/ajimae)! - Keep the HTTP status code of an error response whose body is not JSON.
+
+  When `fetch` is the `httpClient`, the response body was parsed with `JSON.parse` unconditionally.
+  An error response carrying a non-JSON body — typically an HTML page produced by infrastructure in
+  front of the API, such as a load balancer returning `502 Bad Gateway` — made that parse throw, and
+  the failure surfaced as a generic `NetworkError` with `statusCode: 0`. The real status code was
+  lost, so callers could neither classify nor count these responses:
+
+  ```
+  NetworkError: Unexpected token '<', "\n<html><hea"... is not valid JSON
+    statusCode: 0
+  ```
+
+  The parse failure is now caught for responses whose status is an error, and the unparsed body is
+  kept. The same response gives:
+
+  ```
+  HttpError: Unexpected non-JSON error response
+    statusCode: 502
+    body: '\n<html><head><title>502 Bad Gateway</title></head>...'
+  ```
+
+  This is what `axios` already returned for the same response, so both HTTP clients now agree.
+
+  A response whose status is not an error is still expected to carry a JSON body, and a parse failure
+  there keeps surfacing as before, rather than passing an unparsed body to the caller as if the
+  request had succeeded.
+
+  These infrastructure errors are transient, so also consider adding their status codes to
+  `retryConfig.retryCodes`, which is applied to the status before the body is read:
+
+  ```ts
+  createHttpMiddleware({
+    host,
+    httpClient: fetch,
+    enableRetry: true,
+    retryConfig: { retryCodes: [502] },
+  })
+  ```
+
+## 5.0.2
+
+### Patch Changes
+
+- [#1442](https://github.com/commercetools/commercetools-sdk-typescript/pull/1442) [`1db61fe`](https://github.com/commercetools/commercetools-sdk-typescript/commit/1db61fea985f0358a41e5655266336987f931f37) Thanks [@ajimae](https://github.com/ajimae)! - Make platform SDK use configured client host url
+
+## 5.0.1
+
+### Patch Changes
+
+- [#1424](https://github.com/commercetools/commercetools-sdk-typescript/pull/1424) [`021e5fd`](https://github.com/commercetools/commercetools-sdk-typescript/commit/021e5fd52af058cc26174bd248a5019e511ba3af) Thanks [@industrian](https://github.com/industrian)! - Remove Composable Commerce branding
+
+## 5.0.0
+
+### Major Changes
+
+- [#1312](https://github.com/commercetools/commercetools-sdk-typescript/pull/1312) [`947f262`](https://github.com/commercetools/commercetools-sdk-typescript/commit/947f2621f67bf217b329223093be7d8d49755d93) Thanks [@ajimae](https://github.com/ajimae)! - ## Drop support for Node.js 18 and 20
+
+  ### What changed
+
+  The minimum required Node.js version has been raised from `>=18` to `>=22`. Node.js 18 and 20 are no longer supported.
+
+  ### Why
+
+  Dependencies in this SDK now require Node.js 22 or higher. In particular:
+
+  - **nock 14.x** (used in tests) replaced its internal HTTP interception with `@mswjs/interceptors`, which relies on modern Node.js internals.
+  - **Jest 30** requires Node.js 22+ for its test runner.
+  - Node.js 18 reached end-of-life in April 2025. Node.js 20 reaches end-of-life in April 2026. Aligning the engine requirement with actively maintained LTS releases reduces the maintenance surface.
+
+  ### How to update
+
+  Upgrade your runtime to **Node.js 22 or later** before updating to this version. No code changes are required — only the Node.js runtime version needs to change.
+
+  ```bash
+  # Using nvm
+  nvm install 22
+  nvm use 22
+
+  # Using fnm
+  fnm install 22
+  fnm use 22
+  ```
+
+  If you are pinned to Node.js 18 or 20 for other reasons, stay on the previous major version of this SDK until you are able to upgrade your runtime.
+
+### Patch Changes
+
+- [#1343](https://github.com/commercetools/commercetools-sdk-typescript/pull/1343) [`f3b1563`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f3b1563bfa6b5f1b64320ca4202a1554271d8352) Thanks [@ajimae](https://github.com/ajimae)! - Default `maskSensitiveHeaderData` to `true`
+
+  ### What changed
+
+  The `maskSensitiveHeaderData` option of the HTTP middleware now defaults to `true`. Previously it implicitly defaulted to `false`, so sensitive headers such as `Authorization: Bearer <token>` were only masked when the option was explicitly set.
+
+  ### Why
+
+  Masking should be safe by default. With the previous default, the `originalRequest` attached to error/response objects could expose the `Authorization` token unless consumers opted in. Defaulting to `true` prevents accidental leaking of credentials into logs and error payloads.
+
+  ### How to update
+
+  No changes are required to benefit from the safer default. If you intentionally rely on unmasked request headers (for example, for local debugging), set the option explicitly:
+
+  ```ts
+  const httpMiddlewareOptions = {
+    host: 'https://api.<region>.commercetools.com',
+    maskSensitiveHeaderData: false,
+  }
+  ```
+
+## 4.10.0
+
+### Minor Changes
+
+- [#1301](https://github.com/commercetools/commercetools-sdk-typescript/pull/1301) [`3577a1b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3577a1b18fcb7a2deb0dae32470a305c1fc1f45e) Thanks [@ShipilA](https://github.com/ShipilA)! - Monthly release June 2026
+
+### Patch Changes
+
+- [#1301](https://github.com/commercetools/commercetools-sdk-typescript/pull/1301) [`3577a1b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3577a1b18fcb7a2deb0dae32470a305c1fc1f45e) Thanks [@ShipilA](https://github.com/ShipilA)! - Monthly release
+
+## 4.9.3
+
+### Patch Changes
+
+- [#1291](https://github.com/commercetools/commercetools-sdk-typescript/pull/1291) [`5638fa6`](https://github.com/commercetools/commercetools-sdk-typescript/commit/5638fa6717ca4326cfa3d3a60b5e3423e416f007) Thanks [@ajimae](https://github.com/ajimae)! - [Feat][DEVX-793] Allow Passing Custom Headers to Http Requests
+
+## 4.9.2
+
+### Patch Changes
+
+- [#1266](https://github.com/commercetools/commercetools-sdk-typescript/pull/1266) [`6814099`](https://github.com/commercetools/commercetools-sdk-typescript/commit/6814099c19abf13bf1c92b8092815db13cc45161) Thanks [@ajimae](https://github.com/ajimae)! - remove content-length headers and allow underlying client to calculate conent length
+
+## 4.9.1
+
+### Patch Changes
+
+- [#1239](https://github.com/commercetools/commercetools-sdk-typescript/pull/1239) [`4d930a0`](https://github.com/commercetools/commercetools-sdk-typescript/commit/4d930a0c084ae6a4404cee8c893442aeb258c484) Thanks [@ShipilA](https://github.com/ShipilA)! - Monthly release
+
+## 4.9.0
+
+### Minor Changes
+
+- [#1219](https://github.com/commercetools/commercetools-sdk-typescript/pull/1219) [`c665e6d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/c665e6d12fe11e66baa303059869bca2b7364b1c) Thanks [@ShipilA](https://github.com/ShipilA)! - Regular release
+
+### Patch Changes
+
+- [#1219](https://github.com/commercetools/commercetools-sdk-typescript/pull/1219) [`c665e6d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/c665e6d12fe11e66baa303059869bca2b7364b1c) Thanks [@ShipilA](https://github.com/ShipilA)! - Monthly release
+
 ## 4.8.0
 
 ### Minor Changes

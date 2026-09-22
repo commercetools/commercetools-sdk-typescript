@@ -5,7 +5,7 @@
  */
 
 /**
- *	Possible values for the `fieldType` property on [simple expressions](/../api/search-query-language#simple-expressions) indicating the data type of the `field`.
+ *	Possible values for the `fieldType` property on [simple expressions](/api/search-query-language#simple-expressions) indicating the data type of the `field`.
  */
 export enum SearchFieldTypeValues {
   Boolean = 'boolean',
@@ -76,9 +76,7 @@ export interface SearchMatchingVariant {
 }
 export interface SearchQuery {}
 export type _SearchQuery =
-  | SearchQuery
-  | _SearchCompoundExpression
-  | _SearchQueryExpression
+  SearchQuery | _SearchCompoundExpression | _SearchQueryExpression
 export interface SearchCompoundExpression extends SearchQuery {}
 export type _SearchCompoundExpression =
   | SearchCompoundExpression
@@ -195,7 +193,7 @@ export interface SearchQueryExpressionValue {
    */
   readonly boost?: number
   /**
-   *	Possible values for the `fieldType` property on [simple expressions](/../api/search-query-language#simple-expressions) indicating the data type of the `field`.
+   *	Possible values for the `fieldType` property on [simple expressions](/api/search-query-language#simple-expressions) indicating the data type of the `field`.
    *
    */
   readonly fieldType?: SearchFieldType
@@ -219,7 +217,7 @@ export interface SearchAnyValue extends SearchQueryExpressionValue {
    */
   readonly value: any
   /**
-   *	String value specifying linguistic and regional preferences using the [IETF language tag format](https://en.wikipedia.org/wiki/IETF_language_tag), as described in [BCP 47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt). The format combines language, script, and region using hyphen-separated subtags. For example: `en`, `en-US`, `zh-Hans-SG`.
+   *	String value specifying linguistic and regional preferences using the [IETF language tag format](https://en.wikipedia.org/wiki/IETF_language_tag), as described in [BCP 47](https://www.rfc-editor.org/info/bcp47/). The format combines language, script, and region using hyphen-separated subtags. For example: `en`, `en-US`, `zh-Hans-SG`.
    *
    *
    */
@@ -275,7 +273,7 @@ export interface SearchExactValue extends SearchQueryExpressionValue {
    */
   readonly values?: any[]
   /**
-   *	String value specifying linguistic and regional preferences using the [IETF language tag format](https://en.wikipedia.org/wiki/IETF_language_tag), as described in [BCP 47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt). The format combines language, script, and region using hyphen-separated subtags. For example: `en`, `en-US`, `zh-Hans-SG`.
+   *	String value specifying linguistic and regional preferences using the [IETF language tag format](https://en.wikipedia.org/wiki/IETF_language_tag), as described in [BCP 47](https://www.rfc-editor.org/info/bcp47/). The format combines language, script, and region using hyphen-separated subtags. For example: `en`, `en-US`, `zh-Hans-SG`.
    *
    *
    */
@@ -287,7 +285,7 @@ export interface SearchExactValue extends SearchQueryExpressionValue {
 }
 export interface SearchExistsValue extends SearchQueryExpressionValue {
   /**
-   *	String value specifying linguistic and regional preferences using the [IETF language tag format](https://en.wikipedia.org/wiki/IETF_language_tag), as described in [BCP 47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt). The format combines language, script, and region using hyphen-separated subtags. For example: `en`, `en-US`, `zh-Hans-SG`.
+   *	String value specifying linguistic and regional preferences using the [IETF language tag format](https://en.wikipedia.org/wiki/IETF_language_tag), as described in [BCP 47](https://www.rfc-editor.org/info/bcp47/). The format combines language, script, and region using hyphen-separated subtags. For example: `en`, `en-US`, `zh-Hans-SG`.
    *
    *
    */
@@ -299,7 +297,7 @@ export interface SearchFullTextPrefixValue extends SearchQueryExpressionValue {
    */
   readonly value: any
   /**
-   *	String value specifying linguistic and regional preferences using the [IETF language tag format](https://en.wikipedia.org/wiki/IETF_language_tag), as described in [BCP 47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt). The format combines language, script, and region using hyphen-separated subtags. For example: `en`, `en-US`, `zh-Hans-SG`.
+   *	String value specifying linguistic and regional preferences using the [IETF language tag format](https://en.wikipedia.org/wiki/IETF_language_tag), as described in [BCP 47](https://www.rfc-editor.org/info/bcp47/). The format combines language, script, and region using hyphen-separated subtags. For example: `en`, `en-US`, `zh-Hans-SG`.
    *
    *
    */
@@ -315,7 +313,7 @@ export interface SearchFullTextValue extends SearchQueryExpressionValue {
    */
   readonly value: any
   /**
-   *	String value specifying linguistic and regional preferences using the [IETF language tag format](https://en.wikipedia.org/wiki/IETF_language_tag), as described in [BCP 47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt). The format combines language, script, and region using hyphen-separated subtags. For example: `en`, `en-US`, `zh-Hans-SG`.
+   *	String value specifying linguistic and regional preferences using the [IETF language tag format](https://en.wikipedia.org/wiki/IETF_language_tag), as described in [BCP 47](https://www.rfc-editor.org/info/bcp47/). The format combines language, script, and region using hyphen-separated subtags. For example: `en`, `en-US`, `zh-Hans-SG`.
    *
    *
    */
@@ -422,7 +420,7 @@ export interface SearchSorting {
    */
   readonly field: string
   /**
-   *	String value specifying linguistic and regional preferences using the [IETF language tag format](https://en.wikipedia.org/wiki/IETF_language_tag), as described in [BCP 47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt). The format combines language, script, and region using hyphen-separated subtags. For example: `en`, `en-US`, `zh-Hans-SG`.
+   *	String value specifying linguistic and regional preferences using the [IETF language tag format](https://en.wikipedia.org/wiki/IETF_language_tag), as described in [BCP 47](https://www.rfc-editor.org/info/bcp47/). The format combines language, script, and region using hyphen-separated subtags. For example: `en`, `en-US`, `zh-Hans-SG`.
    *
    *
    */
@@ -447,7 +445,7 @@ export interface SearchSorting {
    */
   readonly fieldType?: SearchFieldType
   /**
-   *	Allows you to apply a [sort filter](/../api/search-query-language#sort-filter).
+   *	Allows you to apply a [sort filter](/api/search-query-language#sort-filter).
    *
    *
    */

@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { Store, StoreUpdate } from '../../models/store'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
@@ -89,6 +89,12 @@ export class ByProjectKeyStoresByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	If the Store is referenced by a resource, a [ReferenceExists](ctp:api:type:ReferenceExistsError) error is returned.
+   *
+   *	To avoid dependency conflicts, first delete all active and anonymous Carts that reference the Store, then delete all Orders.
+   *
+   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

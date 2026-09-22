@@ -25,7 +25,12 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsCustomerIdByCustomerIdMergeReq
    *
    *	If the Cart exists in the Project but does not have a `store` specified, or the `store` field references a different Store, a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned.
    *
-   *	For more information about merge mode behaviors, merge rules, and tax recalculation, see [Merge a Cart](/../api/carts-orders-overview#merge-a-cart).
+   *	- [InvalidOperation](ctp:api:type:InvalidOperationError) is returned in several cases, including the following:
+   *	    - The referenced Shipping Method is not active.
+   *	    - The referenced Shipping Method is scoped to a Store that differs from the Cart's Store.
+   *	    - The referenced Shipping Method is scoped to a Store, but the Cart does not belong to a Store.
+   *
+   *	For more information about merge mode behaviors, merge rules, and tax recalculation, see [Merge a Cart](/api/carts-orders-overview#merge-a-cart).
    *
    */
   public post(methodArgs: {

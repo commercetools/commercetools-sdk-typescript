@@ -8,7 +8,7 @@ import {
   ExtensionDraft,
   ExtensionPagedQueryResponse,
 } from '../../models/extension'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyExtensionsByIDRequestBuilder } from './by-project-key-extensions-by-id-request-builder'
 import { ByProjectKeyExtensionsKeyByKeyRequestBuilder } from './by-project-key-extensions-key-by-key-request-builder'

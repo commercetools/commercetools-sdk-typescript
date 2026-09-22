@@ -11,12 +11,14 @@ import { DiscountCodeImport } from './discount-codes'
 import { InventoryImport } from './inventories'
 import { PriceImport } from './prices'
 import { ProductSelectionImport } from './product-selections'
+import { ProductTailoringImport } from './product-tailoring'
 import { ProductDraftImport } from './productdrafts'
 import { ProductImport } from './products'
 import { ProductTypeImport } from './producttypes'
 import { ProductVariantImport } from './productvariants'
 import { StandalonePriceImport } from './standalone-prices'
 import { TypeImport } from './types'
+import { VariantImport } from './variants'
 
 export interface Asset {
   /**
@@ -174,10 +176,12 @@ export type _ImportResource =
   | ProductDraftImport
   | ProductImport
   | ProductSelectionImport
+  | ProductTailoringImport
   | ProductTypeImport
   | ProductVariantImport
   | StandalonePriceImport
   | TypeImport
+  | VariantImport
 /**
  *	References a resource by key.
  */
@@ -628,11 +632,13 @@ export enum ImportResourceTypeValues {
   Product = 'product',
   ProductDraft = 'product-draft',
   ProductSelection = 'product-selection',
+  ProductTailoring = 'product-tailoring',
   ProductType = 'product-type',
   ProductVariant = 'product-variant',
   ProductVariantPatch = 'product-variant-patch',
   StandalonePrice = 'standalone-price',
   Type = 'type',
+  Variant = 'variant',
 }
 
 export type ImportResourceType =
@@ -647,11 +653,13 @@ export type ImportResourceType =
   | 'product'
   | 'product-draft'
   | 'product-selection'
+  | 'product-tailoring'
   | 'product-type'
   | 'product-variant'
   | 'product-variant-patch'
   | 'standalone-price'
   | 'type'
+  | 'variant'
   | (string & {})
 /**
  *	Type of referenced resource.
@@ -680,6 +688,7 @@ export enum ReferenceTypeValues {
   Store = 'store',
   TaxCategory = 'tax-category',
   Type = 'type',
+  Variant = 'variant',
 }
 
 export type ReferenceType =
@@ -705,6 +714,7 @@ export type ReferenceType =
   | 'store'
   | 'tax-category'
   | 'type'
+  | 'variant'
   | (string & {})
 /**
  *	Every [Import Operation](ctp:import:type:ImportOperation) is assigned one of the following states.
@@ -713,6 +723,7 @@ export type ReferenceType =
 export enum ProcessingStateValues {
   Canceled = 'canceled',
   Imported = 'imported',
+  PartiallyImported = 'partiallyImported',
   Processing = 'processing',
   Rejected = 'rejected',
   Unresolved = 'unresolved',
@@ -723,6 +734,7 @@ export enum ProcessingStateValues {
 export type ProcessingState =
   | 'canceled'
   | 'imported'
+  | 'partiallyImported'
   | 'processing'
   | 'rejected'
   | 'unresolved'

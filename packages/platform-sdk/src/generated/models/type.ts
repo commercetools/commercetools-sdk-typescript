@@ -71,6 +71,7 @@ export enum CustomFieldReferenceValueValues {
   Review = 'review',
   ShippingMethod = 'shipping-method',
   State = 'state',
+  Variant = 'variant',
   Zone = 'zone',
 }
 
@@ -92,6 +93,7 @@ export type CustomFieldReferenceValue =
   | 'review'
   | 'shipping-method'
   | 'state'
+  | 'variant'
   | 'zone'
   | (string & {})
 /**
@@ -106,14 +108,14 @@ export interface CustomFields {
    */
   readonly type: TypeReference
   /**
-   *	Object containing the Custom Fields for the [customized resource or data type](/../api/projects/types#resourcetypeid).
+   *	Object containing the Custom Fields of the [customized resource or data type](/api/projects/types#resourcetypeid).
    *
    *
    */
   readonly fields: FieldContainer
 }
 /**
- *	The representation used when creating or updating a [customizable data type](/../api/projects/types#resourcetypeid) with Custom Fields.
+ *	The representation used when creating or updating a [customizable data type](/api/projects/types#resourcetypeid) with Custom Fields.
  *
  */
 export interface CustomFieldsDraft {
@@ -124,7 +126,7 @@ export interface CustomFieldsDraft {
    */
   readonly type: TypeResourceIdentifier
   /**
-   *	Object containing the Custom Fields for the [customized resource or data type](/../api/projects/types#resourcetypeid).
+   *	Object containing the Custom Fields for the [customized resource or data type](/api/projects/types#resourcetypeid).
    *
    *
    */
@@ -134,8 +136,8 @@ export interface FieldContainer {
   [key: string]: any
 }
 /**
- *	Defines a [Custom Field](/../api/projects/custom-fields) and its meta-information.
- *	This FieldDefinition is similar to an [AttributeDefinition](ctp:api:type:AttributeDefinition) of [Product Types](/../api/projects/productTypes).
+ *	Defines a [Custom Field](/api/projects/custom-fields) and its meta-information.
+ *	This FieldDefinition is similar to an [AttributeDefinition](ctp:api:type:AttributeDefinition) of [Product Types](/api/projects/productTypes).
  *
  */
 export interface FieldDefinition {
@@ -330,6 +332,7 @@ export enum ResourceTypeIdValues {
   ProductTailoring = 'product-tailoring',
   Quote = 'quote',
   RecurringOrder = 'recurring-order',
+  Reservation = 'reservation',
   Review = 'review',
   Shipping = 'shipping',
   ShippingMethod = 'shipping-method',
@@ -370,6 +373,7 @@ export type ResourceTypeId =
   | 'product-tailoring'
   | 'quote'
   | 'recurring-order'
+  | 'reservation'
   | 'review'
   | 'shipping'
   | 'shipping-method'
@@ -474,18 +478,18 @@ export interface TypeDraft {
   readonly fieldDefinitions?: FieldDefinition[]
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [Types](ctp:api:type:Type).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with `results` containing an array of [Types](ctp:api:type:Type).
  *
  */
 export interface TypePagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -498,10 +502,10 @@ export interface TypePagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](ctp:api:type:QueryPredicate), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -527,14 +531,14 @@ export interface TypeReference extends IReference {
   readonly id: string
   /**
    *	Contains the representation of the expanded Type.
-   *	Only present in responses to requests with [Reference Expansion](ctp:api:type:Expansion) for Types.
+   *	Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for Types.
    *
    *
    */
   readonly obj?: Type
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of a [Type](ctp:api:type:Type). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of a [Type](ctp:api:type:Type). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](ctp:api:type:InvalidJsonInputError) error is returned.
  *
  */
 export interface TypeResourceIdentifier extends IResourceIdentifier {
@@ -590,7 +594,9 @@ export type TypeUpdateAction =
   | TypeChangeLocalizedEnumValueLabelAction
   | TypeChangeLocalizedEnumValueOrderAction
   | TypeChangeNameAction
+  | TypeRemoveEnumValuesAction
   | TypeRemoveFieldDefinitionAction
+  | TypeRemoveLocalizedEnumValuesAction
   | TypeSetDescriptionAction
 export interface ITypeUpdateAction {
   /**
@@ -690,8 +696,7 @@ export interface TypeChangeEnumValueOrderAction extends ITypeUpdateAction {
    */
   readonly keys: string[]
 }
-export interface TypeChangeFieldDefinitionOrderAction
-  extends ITypeUpdateAction {
+export interface TypeChangeFieldDefinitionOrderAction extends ITypeUpdateAction {
   readonly action: 'changeFieldDefinitionOrder'
   /**
    *	Must match the set of `name`s of FieldDefinitions (up to order).
@@ -750,8 +755,7 @@ export interface TypeChangeLabelAction extends ITypeUpdateAction {
  *	Changes the `label` of a [LocalizedEnumValue](ctp:api:type:CustomFieldLocalizedEnumValue) of a [LocalizedEnumType](ctp:api:type:CustomFieldLocalizedEnumType) FieldDefinition.
  *
  */
-export interface TypeChangeLocalizedEnumValueLabelAction
-  extends ITypeUpdateAction {
+export interface TypeChangeLocalizedEnumValueLabelAction extends ITypeUpdateAction {
   readonly action: 'changeLocalizedEnumValueLabel'
   /**
    *	`name` of the [FieldDefinition](ctp:api:type:FieldDefinition) to update.
@@ -772,8 +776,7 @@ export interface TypeChangeLocalizedEnumValueLabelAction
  *	This update action can be used to update a [LocalizedEnumType](ctp:api:type:CustomFieldLocalizedEnumType) FieldDefinition and a [SetType](ctp:api:type:CustomFieldSetType) of [LocalizedEnumType](ctp:api:type:CustomFieldLocalizedEnumType) FieldDefinitions.
  *
  */
-export interface TypeChangeLocalizedEnumValueOrderAction
-  extends ITypeUpdateAction {
+export interface TypeChangeLocalizedEnumValueOrderAction extends ITypeUpdateAction {
   readonly action: 'changeLocalizedEnumValueOrder'
   /**
    *	`name` of the [Field Definition](ctp:api:type:FieldDefinition) to update.
@@ -798,20 +801,64 @@ export interface TypeChangeNameAction extends ITypeUpdateAction {
    */
   readonly name: LocalizedString
 }
+/**
+ *	Removes EnumValues from an [EnumType](ctp:api:type:CustomFieldEnumType) FieldDefinition.
+ *	This update action can be used to update an [EnumType](ctp:api:type:CustomFieldEnumType) FieldDefinition and a [SetType](ctp:api:type:CustomFieldSetType) FieldDefinition of [EnumType](ctp:api:type:CustomFieldEnumType).
+ *
+ *	This update action is always allowed, even if the FieldDefinition is `required` and even if a resource still has a Custom Field value referencing one of the removed keys. Existing Custom Field values are not updated or removed by this update action, and are returned unchanged until they are explicitly updated. Note that a subsequent update of a single Custom Field on such a resource can fail, because that update revalidates all Custom Field values on the resource.
+ *
+ */
+export interface TypeRemoveEnumValuesAction extends ITypeUpdateAction {
+  readonly action: 'removeEnumValues'
+  /**
+   *	`name` of the [FieldDefinition](ctp:api:type:FieldDefinition) to update.
+   *
+   *
+   */
+  readonly fieldName: string
+  /**
+   *	Keys of the [EnumValues](ctp:api:type:CustomFieldEnumValue) to remove. An empty array results in no change.
+   *
+   *
+   */
+  readonly keys: string[]
+}
 export interface TypeRemoveFieldDefinitionAction extends ITypeUpdateAction {
   readonly action: 'removeFieldDefinition'
   /**
    *	`name` of the [FieldDefinition](ctp:api:type:FieldDefinition) to remove.
-   *	The removal of a FieldDefinition deletes [asynchronously](/../api/general-concepts#eventual-consistency) all Custom Fields using the FieldDefinition as well.
+   *	The removal of a FieldDefinition deletes [asynchronously](/api/general-concepts#eventual-consistency) all Custom Fields using the FieldDefinition as well.
    *
    *
    */
   readonly fieldName: string
 }
+/**
+ *	Removes LocalizedEnumValues from a [LocalizedEnumType](ctp:api:type:CustomFieldLocalizedEnumType) FieldDefinition.
+ *	This update action can be used to update a [LocalizedEnumType](ctp:api:type:CustomFieldLocalizedEnumType) FieldDefinition and a [SetType](ctp:api:type:CustomFieldSetType) FieldDefinition of [LocalizedEnumType](ctp:api:type:CustomFieldLocalizedEnumType).
+ *
+ *	This update action is always allowed, even if the FieldDefinition is `required` and even if a resource still has a Custom Field value referencing one of the removed keys. Existing Custom Field values are not updated or removed by this update action, and are returned unchanged until they are explicitly updated. Note that a subsequent update of a single Custom Field on such a resource can fail, because that update revalidates all Custom Field values on the resource.
+ *
+ */
+export interface TypeRemoveLocalizedEnumValuesAction extends ITypeUpdateAction {
+  readonly action: 'removeLocalizedEnumValues'
+  /**
+   *	`name` of the [FieldDefinition](ctp:api:type:FieldDefinition) to update.
+   *
+   *
+   */
+  readonly fieldName: string
+  /**
+   *	Keys of the [LocalizedEnumValues](ctp:api:type:CustomFieldLocalizedEnumValue) to remove. An empty array results in no change.
+   *
+   *
+   */
+  readonly keys: string[]
+}
 export interface TypeSetDescriptionAction extends ITypeUpdateAction {
   readonly action: 'setDescription'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */

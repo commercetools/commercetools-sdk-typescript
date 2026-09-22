@@ -8,7 +8,7 @@ import {
   PaymentMethodDraft,
   PaymentMethodPagedQueryResponse,
 } from '../../models/payment-method'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyPaymentMethodsByIDRequestBuilder } from './by-project-key-payment-methods-by-id-request-builder'
 import { ByProjectKeyPaymentMethodsKeyByKeyRequestBuilder } from './by-project-key-payment-methods-key-by-key-request-builder'

@@ -8,7 +8,7 @@ import {
   SubscriptionDraft,
   SubscriptionPagedQueryResponse,
 } from '../../models/subscription'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeySubscriptionsByIDRequestBuilder } from './by-project-key-subscriptions-by-id-request-builder'
 import { ByProjectKeySubscriptionsKeyByKeyRequestBuilder } from './by-project-key-subscriptions-key-by-key-request-builder'
@@ -103,7 +103,7 @@ export class ByProjectKeySubscriptionsRequestBuilder {
     )
   }
   /**
-   *	A test notification is sent to ensure the correct configuration of the Destination. If the notification cannot be delivered, the Subscription will not be created. The payload of the test notification is of type [ResourceCreated](/../api/projects/subscriptions#resourcecreateddeliverypayload) for the `resourceTypeId` `subscription`.
+   *	A test notification is sent to ensure the correct configuration of the Destination. If the notification cannot be delivered, the Subscription will not be created. The payload of the test notification is of type [ResourceCreated](/api/projects/subscriptions#resourcecreateddeliverypayload) for the `resourceTypeId` `subscription`.
    *
    */
   public post(methodArgs: {

@@ -8,7 +8,7 @@ import {
   OrderEditDraft,
   OrderEditPagedQueryResponse,
 } from '../../models/order-edit'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyOrdersEditsByIDRequestBuilder } from './by-project-key-orders-edits-by-id-request-builder'
 import { ByProjectKeyOrdersEditsKeyByKeyRequestBuilder } from './by-project-key-orders-edits-key-by-key-request-builder'
@@ -110,7 +110,7 @@ export class ByProjectKeyOrdersEditsRequestBuilder {
    *	Creates an OrderEdit in the Project.
    *	You can either create multiple Order Edits for an Order and apply them sequentially to an Order, or create multiple Order Edits parallelly (as alternatives to each other) and apply one of them to the Order.
    *
-   *	You can only create an Order Edit if the [InventoryMode](/projects/carts#inventorymode) of the Order and its [LineItems](/projects/carts#lineitem) is `None`.
+   *	You can only create an Order Edit if the [InventoryMode](ctp:api:type:InventoryMode) of the Order and its [LineItems](/projects/carts#lineitem) is `None`.
    *
    */
   public post(methodArgs: {

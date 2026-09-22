@@ -1,5 +1,57 @@
 # @commercetools/ts-sdk-apm
 
+## 5.0.1
+
+### Patch Changes
+
+- [#1424](https://github.com/commercetools/commercetools-sdk-typescript/pull/1424) [`021e5fd`](https://github.com/commercetools/commercetools-sdk-typescript/commit/021e5fd52af058cc26174bd248a5019e511ba3af) Thanks [@industrian](https://github.com/industrian)! - Remove Composable Commerce branding
+
+## 5.0.0
+
+### Major Changes
+
+- [#1312](https://github.com/commercetools/commercetools-sdk-typescript/pull/1312) [`947f262`](https://github.com/commercetools/commercetools-sdk-typescript/commit/947f2621f67bf217b329223093be7d8d49755d93) Thanks [@ajimae](https://github.com/ajimae)! - ## Drop support for Node.js 18 and 20
+
+  ### What changed
+
+  The minimum required Node.js version has been raised from `>=18` to `>=22`. Node.js 18 and 20 are no longer supported.
+
+  ### Why
+
+  Dependencies in this SDK now require Node.js 22 or higher. In particular:
+
+  - **nock 14.x** (used in tests) replaced its internal HTTP interception with `@mswjs/interceptors`, which relies on modern Node.js internals.
+  - **Jest 30** requires Node.js 22+ for its test runner.
+  - Node.js 18 reached end-of-life in April 2025. Node.js 20 reaches end-of-life in April 2026. Aligning the engine requirement with actively maintained LTS releases reduces the maintenance surface.
+
+  ### How to update
+
+  Upgrade your runtime to **Node.js 22 or later** before updating to this version. No code changes are required — only the Node.js runtime version needs to change.
+
+  ```bash
+  # Using nvm
+  nvm install 22
+  nvm use 22
+
+  # Using fnm
+  fnm install 22
+  fnm use 22
+  ```
+
+  If you are pinned to Node.js 18 or 20 for other reasons, stay on the previous major version of this SDK until you are able to upgrade your runtime.
+
+## 4.4.2
+
+### Patch Changes
+
+- [#1274](https://github.com/commercetools/commercetools-sdk-typescript/pull/1274) [`55b82c5`](https://github.com/commercetools/commercetools-sdk-typescript/commit/55b82c5e575d6e19a55977b75b2b264b297edda8) Thanks [@ajimae](https://github.com/ajimae)! - remove uuid package
+
+## 4.4.1
+
+### Patch Changes
+
+- [#1219](https://github.com/commercetools/commercetools-sdk-typescript/pull/1219) [`c665e6d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/c665e6d12fe11e66baa303059869bca2b7364b1c) Thanks [@ShipilA](https://github.com/ShipilA)! - Monthly release
+
 ## 4.4.0
 
 ### Minor Changes

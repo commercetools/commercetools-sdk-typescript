@@ -4,18 +4,12 @@
     "access": "public"
   },
   "name": "@commercetools/checkout-sdk",
-  "version": "1.5.0",
+  "version": "2.0.1",
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
-  "description": "Typescript SDK for Composable Commerce Checkout API",
-  "keywords": [
-    "commercetools",
-    "composable commerce",
-    "typescript",
-    "sdk",
-    "checkout"
-  ],
+  "description": "Typescript SDK for the commercetools Checkout API",
+  "keywords": ["commercetools", "typescript", "sdk", "checkout"],
   "homepage": "https://github.com/commercetools/commercetools-sdk-typescript/packages/checkout-sdk",
   "bugs": "https://github.com/commercetools/commercetools-sdk-typescript/issues",
   "repository": {
@@ -32,10 +26,10 @@
     "./dist/commercetools-checkout-sdk.esm.js": "./dist/commercetools-checkout-sdk.browser.esm.js"
   },
   "dependencies": {
-    "@commercetools/ts-client": "^4.8.0"
+    "@commercetools/ts-client": "^5.0.1"
   },
   "devDependencies": {
-    "organize-imports-cli": "0.10.0",
+    "organize-imports-cli": "1.0.2",
     "tsconfig-replace-paths": "0.0.14"
   },
   "scripts": {

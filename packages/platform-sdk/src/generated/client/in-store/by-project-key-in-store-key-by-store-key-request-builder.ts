@@ -8,6 +8,7 @@ import { ByProjectKeyInStoreKeyByStoreKeyBusinessUnitsRequestBuilder } from '../
 import { ByProjectKeyInStoreKeyByStoreKeyCartDiscountsRequestBuilder } from '../cart-discounts/by-project-key-in-store-key-by-store-key-cart-discounts-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyCartsRequestBuilder } from '../carts/by-project-key-in-store-key-by-store-key-carts-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyCustomersRequestBuilder } from '../customers/by-project-key-in-store-key-by-store-key-customers-request-builder'
+import { ByProjectKeyInStoreKeyByStoreKeyDiscountCodesRequestBuilder } from '../discount-codes/by-project-key-in-store-key-by-store-key-discount-codes-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyLoginRequestBuilder } from '../login/by-project-key-in-store-key-by-store-key-login-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyMeRequestBuilder } from '../me/by-project-key-in-store-key-by-store-key-me-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyOrdersRequestBuilder } from '../orders/by-project-key-in-store-key-by-store-key-orders-request-builder'
@@ -20,6 +21,7 @@ import { ByProjectKeyInStoreKeyByStoreKeyQuotesRequestBuilder } from '../quotes/
 import { ByProjectKeyInStoreKeyByStoreKeyShippingMethodsRequestBuilder } from '../shipping-methods/by-project-key-in-store-key-by-store-key-shipping-methods-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyShoppingListsRequestBuilder } from '../shopping-lists/by-project-key-in-store-key-by-store-key-shopping-lists-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyStagedQuotesRequestBuilder } from '../staged-quotes/by-project-key-in-store-key-by-store-key-staged-quotes-request-builder'
+import { ByProjectKeyInStoreKeyByStoreKeyVariantProjectionsRequestBuilder } from '../variant-projections/by-project-key-in-store-key-by-store-key-variant-projections-request-builder'
 /**
  **/
 export class ByProjectKeyInStoreKeyByStoreKeyRequestBuilder {
@@ -73,6 +75,15 @@ export class ByProjectKeyInStoreKeyByStoreKeyRequestBuilder {
    */
   public customers(): ByProjectKeyInStoreKeyByStoreKeyCustomersRequestBuilder {
     return new ByProjectKeyInStoreKeyByStoreKeyCustomersRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public discountCodes(): ByProjectKeyInStoreKeyByStoreKeyDiscountCodesRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyDiscountCodesRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },
@@ -191,7 +202,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyRequestBuilder {
     })
   }
   /**
-   *	A staged quote holds the negotiation between the [Buyer](/../api/quotes-overview#buyer) and the [Seller](/../api/quotes-overview#seller).
+   *	A staged quote holds the negotiation between the [Buyer](/api/quotes-overview#buyer) and the [Seller](/api/quotes-overview#seller).
    */
   public stagedQuotes(): ByProjectKeyInStoreKeyByStoreKeyStagedQuotesRequestBuilder {
     return new ByProjectKeyInStoreKeyByStoreKeyStagedQuotesRequestBuilder({
@@ -201,6 +212,22 @@ export class ByProjectKeyInStoreKeyByStoreKeyRequestBuilder {
       executeRequest: this.args.executeRequest,
       baseUri: this.args.baseUri,
     })
+  }
+  /**
+   *	A Variant Projection is a lightweight, read-only representation of a single Product Variant
+   *	with embedded Product data such as name, slug, and description, scoped to a specific [Store](ctp:api:type:Store).
+   *
+   */
+  public variantProjections(): ByProjectKeyInStoreKeyByStoreKeyVariantProjectionsRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyVariantProjectionsRequestBuilder(
+      {
+        pathArgs: {
+          ...this.args.pathArgs,
+        },
+        executeRequest: this.args.executeRequest,
+        baseUri: this.args.baseUri,
+      }
+    )
   }
   /**
    *	Retrieves the authenticated customer.

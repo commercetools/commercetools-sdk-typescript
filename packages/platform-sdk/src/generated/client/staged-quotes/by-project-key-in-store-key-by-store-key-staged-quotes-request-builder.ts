@@ -8,7 +8,7 @@ import {
   StagedQuoteDraft,
   StagedQuotePagedQueryResponse,
 } from '../../models/staged-quote'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyInStoreKeyByStoreKeyStagedQuotesByIDRequestBuilder } from './by-project-key-in-store-key-by-store-key-staged-quotes-by-id-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyStagedQuotesKeyByKeyRequestBuilder } from './by-project-key-in-store-key-by-store-key-staged-quotes-key-by-key-request-builder'
@@ -111,6 +111,12 @@ export class ByProjectKeyInStoreKeyByStoreKeyStagedQuotesRequestBuilder {
   }
   /**
    *	Creates a StagedQuote in a [Store](ctp:api:type:Store).
+   *
+   *	- [InvalidOperation](ctp:api:type:InvalidOperationError) is returned in several cases, including the following:
+   *	    - The referenced Shipping Method is not active.
+   *	    - The referenced Shipping Method is scoped to a Store that differs from the Store referenced by the [Quote Request](ctp:api:type:QuoteRequest).
+   *	    - The referenced Shipping Method is scoped to a Store, but the [Quote Request](ctp:api:type:QuoteRequest) does not belong to a Store.
+   *
    */
   public post(methodArgs: {
     queryArgs?: {

@@ -8,7 +8,7 @@ import {
   ChannelDraft,
   ChannelPagedQueryResponse,
 } from '../../models/channel'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyChannelsByIDRequestBuilder } from './by-project-key-channels-by-id-request-builder'
 import { ByProjectKeyChannelsKeyByKeyRequestBuilder } from './by-project-key-channels-key-by-key-request-builder'

@@ -1,5 +1,65 @@
 # @commercetools/sdk-client-v2
 
+## 4.0.1
+
+### Patch Changes
+
+- [#1424](https://github.com/commercetools/commercetools-sdk-typescript/pull/1424) [`021e5fd`](https://github.com/commercetools/commercetools-sdk-typescript/commit/021e5fd52af058cc26174bd248a5019e511ba3af) Thanks [@industrian](https://github.com/industrian)! - Remove Composable Commerce branding
+
+## 4.0.0
+
+### Major Changes
+
+- [#1312](https://github.com/commercetools/commercetools-sdk-typescript/pull/1312) [`947f262`](https://github.com/commercetools/commercetools-sdk-typescript/commit/947f2621f67bf217b329223093be7d8d49755d93) Thanks [@ajimae](https://github.com/ajimae)! - ## Drop support for Node.js 18 and 20
+
+  ### What changed
+
+  The minimum required Node.js version has been raised from `>=18` to `>=22`. Node.js 18 and 20 are no longer supported.
+
+  ### Why
+
+  Dependencies in this SDK now require Node.js 22 or higher. In particular:
+
+  - **nock 14.x** (used in tests) replaced its internal HTTP interception with `@mswjs/interceptors`, which relies on modern Node.js internals.
+  - **Jest 30** requires Node.js 22+ for its test runner.
+  - Node.js 18 reached end-of-life in April 2025. Node.js 20 reaches end-of-life in April 2026. Aligning the engine requirement with actively maintained LTS releases reduces the maintenance surface.
+
+  ### How to update
+
+  Upgrade your runtime to **Node.js 22 or later** before updating to this version. No code changes are required — only the Node.js runtime version needs to change.
+
+  ```bash
+  # Using nvm
+  nvm install 22
+  nvm use 22
+
+  # Using fnm
+  fnm install 22
+  fnm use 22
+  ```
+
+  If you are pinned to Node.js 18 or 20 for other reasons, stay on the previous major version of this SDK until you are able to upgrade your runtime.
+
+## 3.5.0
+
+### Minor Changes
+
+- [#1301](https://github.com/commercetools/commercetools-sdk-typescript/pull/1301) [`3577a1b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3577a1b18fcb7a2deb0dae32470a305c1fc1f45e) Thanks [@ShipilA](https://github.com/ShipilA)! - Monthly release
+
+- [#1301](https://github.com/commercetools/commercetools-sdk-typescript/pull/1301) [`3577a1b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3577a1b18fcb7a2deb0dae32470a305c1fc1f45e) Thanks [@ShipilA](https://github.com/ShipilA)! - Monthly release June 2026
+
+## 3.4.0
+
+### Minor Changes
+
+- [#1239](https://github.com/commercetools/commercetools-sdk-typescript/pull/1239) [`4d930a0`](https://github.com/commercetools/commercetools-sdk-typescript/commit/4d930a0c084ae6a4404cee8c893442aeb258c484) Thanks [@ShipilA](https://github.com/ShipilA)! - Monthly release
+
+## 3.3.1
+
+### Patch Changes
+
+- [#1219](https://github.com/commercetools/commercetools-sdk-typescript/pull/1219) [`c665e6d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/c665e6d12fe11e66baa303059869bca2b7364b1c) Thanks [@ShipilA](https://github.com/ShipilA)! - Monthly release
+
 ## 3.3.0
 
 ### Minor Changes

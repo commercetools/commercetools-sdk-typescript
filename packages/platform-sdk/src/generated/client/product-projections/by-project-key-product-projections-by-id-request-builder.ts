@@ -4,8 +4,9 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { ProductProjection } from '../../models/product'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
+import { ByProjectKeyProductProjectionsByIDVariantAttributesRequestBuilder } from '../variant-attributes/by-project-key-product-projections-by-id-variant-attributes-request-builder'
 /**
  **/
 export class ByProjectKeyProductProjectionsByIDRequestBuilder {
@@ -19,11 +20,23 @@ export class ByProjectKeyProductProjectionsByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
+  public variantAttributes(): ByProjectKeyProductProjectionsByIDVariantAttributesRequestBuilder {
+    return new ByProjectKeyProductProjectionsByIDVariantAttributesRequestBuilder(
+      {
+        pathArgs: {
+          ...this.args.pathArgs,
+        },
+        executeRequest: this.args.executeRequest,
+        baseUri: this.args.baseUri,
+      }
+    )
+  }
+
   /**
-   *	Retrieves the [projected](/../api/projects/productProjections#projection-dimensions) representation of a [Product](ctp:api:type:Product) by its ID.
+   *	Retrieves the [projected](/api/projects/productProjections#projection-dimensions) representation of a [Product](ctp:api:type:Product) by its ID.
    *
    *	By default, this endpoint returns the `current` representation of Products where the `published` flag is `true`.
-   *	If a Product is unpublished (`published=false`), the endpoint returns a [Not Found](/../api/errors#404-not-found) error.
+   *	If a Product is unpublished (`published=false`), the endpoint returns a [Not Found](/api/errors#404-not-found) error.
    *
    *	Required access scopes:
    *

@@ -113,18 +113,18 @@ export interface RecurrencePolicyDraft {
   readonly schedule: RecurrencePolicyScheduleDraft
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [RecurrencePolicy](ctp:api:type:RecurrencePolicy).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with results containing an array of [RecurrencePolicy](ctp:api:type:RecurrencePolicy).
  *
  */
 export interface RecurrencePolicyPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -137,10 +137,10 @@ export interface RecurrencePolicyPagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -166,18 +166,17 @@ export interface RecurrencePolicyReference extends IReference {
   readonly id: string
   /**
    *	Contains the representation of the expanded RecurrencePolicy.
-   *	Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for RecurrencePolicies.
+   *	Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for RecurrencePolicies.
    *
    *
    */
   readonly obj?: RecurrencePolicy
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [RecurrencePolicy](ctp:api:type:RecurrencePolicy). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [RecurrencePolicy](ctp:api:type:RecurrencePolicy). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](ctp:api:type:InvalidJsonInputError) error is returned.
  *
  */
-export interface RecurrencePolicyResourceIdentifier
-  extends IResourceIdentifier {
+export interface RecurrencePolicyResourceIdentifier extends IResourceIdentifier {
   readonly typeId: 'recurrence-policy'
   /**
    *	Unique identifier of the referenced [RecurrencePolicy](ctp:api:type:RecurrencePolicy). Required if `key` is absent.
@@ -215,8 +214,7 @@ export interface DayOfMonthSchedule extends IRecurrencePolicySchedule {
   readonly day: number
 }
 export type RecurrencePolicyScheduleDraft =
-  | DayOfMonthScheduleDraft
-  | StandardScheduleDraft
+  DayOfMonthScheduleDraft | StandardScheduleDraft
 export interface IRecurrencePolicyScheduleDraft {
   /**
    *
@@ -230,8 +228,7 @@ export interface IRecurrencePolicyScheduleDraft {
  *	- To place orders on different dates within the same month (for example, the 1st and 15th), create separate [Recurring Orders](ctp:api:type:RecurringOrder)—each with its own schedule.
  *
  */
-export interface DayOfMonthScheduleDraft
-  extends IRecurrencePolicyScheduleDraft {
+export interface DayOfMonthScheduleDraft extends IRecurrencePolicyScheduleDraft {
   readonly type: 'dayOfMonth'
   /**
    *	The day of the month when the [Recurring Order](ctp:api:type:RecurringOrder) should be created.
@@ -305,41 +302,37 @@ export interface StandardScheduleDraft extends IRecurrencePolicyScheduleDraft {
    */
   readonly intervalUnit: IntervalUnit
 }
-export interface RecurrencePolicySetDescriptionAction
-  extends IRecurrencePolicyUpdateAction {
+export interface RecurrencePolicySetDescriptionAction extends IRecurrencePolicyUpdateAction {
   readonly action: 'setDescription'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
   readonly description?: LocalizedString
 }
-export interface RecurrencePolicySetKeyAction
-  extends IRecurrencePolicyUpdateAction {
+export interface RecurrencePolicySetKeyAction extends IRecurrencePolicyUpdateAction {
   readonly action: 'setKey'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
   readonly key?: string
 }
-export interface RecurrencePolicySetNameAction
-  extends IRecurrencePolicyUpdateAction {
+export interface RecurrencePolicySetNameAction extends IRecurrencePolicyUpdateAction {
   readonly action: 'setName'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
   readonly name?: LocalizedString
 }
-export interface RecurrencePolicySetScheduleAction
-  extends IRecurrencePolicyUpdateAction {
+export interface RecurrencePolicySetScheduleAction extends IRecurrencePolicyUpdateAction {
   readonly action: 'setSchedule'
   /**
    *	Schedule where the recurrence is defined.

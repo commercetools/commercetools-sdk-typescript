@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { TaxCategory, TaxCategoryUpdate } from '../../models/tax-category'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
@@ -89,6 +89,10 @@ export class ByProjectKeyTaxCategoriesKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	If the TaxCategory is referenced by a resource, a [ReferenceExists](ctp:api:type:ReferenceExistsError) error is returned.
+   *
+   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

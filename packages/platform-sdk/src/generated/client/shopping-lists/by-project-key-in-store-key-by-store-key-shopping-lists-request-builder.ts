@@ -8,7 +8,7 @@ import {
   ShoppingListDraft,
   ShoppingListPagedQueryResponse,
 } from '../../models/shopping-list'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyInStoreKeyByStoreKeyShoppingListsByIDRequestBuilder } from './by-project-key-in-store-key-by-store-key-shopping-lists-by-id-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyShoppingListsKeyByKeyRequestBuilder } from './by-project-key-in-store-key-by-store-key-shopping-lists-key-by-key-request-builder'

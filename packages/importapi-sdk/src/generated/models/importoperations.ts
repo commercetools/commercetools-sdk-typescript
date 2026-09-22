@@ -46,7 +46,7 @@ export interface ImportOperation {
    */
   readonly resourceVersion?: number
   /**
-   *	Contains errors if the import was unsuccessful. See [Errors](/import-export/error).
+   *	Contains errors if the import was unsuccessful. See [Errors](/api/errors#import-api-specific-errors).
    *
    *
    */
@@ -74,17 +74,17 @@ export interface ImportOperation {
   readonly expiresAt: string
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) for Import Operations.
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) for Import Operations.
  *
  */
 export interface ImportOperationPagedResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -115,9 +115,7 @@ export enum ImportOperationStateValues {
 }
 
 export type ImportOperationState =
-  | 'processing'
-  | 'validationFailed'
-  | (string & {})
+  'processing' | 'validationFailed' | (string & {})
 /**
  *	The status of a new [ImportOperation](#importoperation).
  */

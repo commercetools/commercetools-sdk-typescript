@@ -8,7 +8,7 @@ import {
   CategoryDraft,
   CategoryPagedQueryResponse,
 } from '../../models/category'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyCategoriesByIDRequestBuilder } from './by-project-key-categories-by-id-request-builder'
 import { ByProjectKeyCategoriesKeyByKeyRequestBuilder } from './by-project-key-categories-key-by-key-request-builder'
@@ -50,7 +50,7 @@ export class ByProjectKeyCategoriesRequestBuilder {
   }
 
   /**
-   *	Either the [scope](/../api/scopes) `view_products:{projectKey}` or `view_categories:{projectKey}` is required.
+   *	Either the [scope](/api/scopes) `view_products:{projectKey}` or `view_categories:{projectKey}` is required.
    *
    */
   public get(methodArgs?: {
@@ -108,7 +108,7 @@ export class ByProjectKeyCategoriesRequestBuilder {
     )
   }
   /**
-   *	Either the [scope](/../api/scopes) `manage_products:{projectKey}` or `manage_categories:{projectKey}` is required.
+   *	Either the [scope](/api/scopes) `manage_products:{projectKey}` or `manage_categories:{projectKey}` is required.
    *
    *	Creating a Category produces the [CategoryCreated](ctp:api:type:CategoryCreatedMessage) Message.
    *

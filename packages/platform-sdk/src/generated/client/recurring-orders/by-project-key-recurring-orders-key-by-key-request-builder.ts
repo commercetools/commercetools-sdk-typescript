@@ -7,7 +7,7 @@ import {
   RecurringOrder,
   RecurringOrderUpdate,
 } from '../../models/recurring-order'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
@@ -72,7 +72,7 @@ export class ByProjectKeyRecurringOrdersKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Updates a Recurring Order using one or more [update actions](/../api/projects/recurring-orders#update-actions).
+   *	Updates a Recurring Order using one or more [update actions](/api/projects/recurring-orders#update-actions).
    *
    *	A Recurring Order can only be updated when it is not processing an Order. Otherwise, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *

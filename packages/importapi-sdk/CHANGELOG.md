@@ -1,5 +1,225 @@
 # @commercetools/importapi-sdk
 
+## 7.1.1
+
+### Patch Changes
+
+- [#1424](https://github.com/commercetools/commercetools-sdk-typescript/pull/1424) [`021e5fd`](https://github.com/commercetools/commercetools-sdk-typescript/commit/021e5fd52af058cc26174bd248a5019e511ba3af) Thanks [@industrian](https://github.com/industrian)! - Remove Composable Commerce branding
+
+- [#1426](https://github.com/commercetools/commercetools-sdk-typescript/pull/1426) [`4437269`](https://github.com/commercetools/commercetools-sdk-typescript/commit/4437269408f5a863187a65bba68a8354b9fc0a60) Thanks [@ajimae](https://github.com/ajimae)! - Release a new version of the SDKs, including the latest generated documentation updates
+
+- Updated dependencies [[`021e5fd`](https://github.com/commercetools/commercetools-sdk-typescript/commit/021e5fd52af058cc26174bd248a5019e511ba3af)]:
+  - @commercetools/ts-client@5.0.1
+
+## 7.1.0
+
+### Minor Changes
+
+- [#1393](https://github.com/commercetools/commercetools-sdk-typescript/pull/1393) [`fbfca0e`](https://github.com/commercetools/commercetools-sdk-typescript/commit/fbfca0e1243dcf70aca604720b6003f0cd0bdf2e) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `VariantImportRequest`
+  - added type `VariantImport`
+  </details>
+
+  <details>
+  <summary>Added Resource(s)</summary>
+  - added resource `/{projectKey}/variants`
+  - added resource `/{projectKey}/variants/import-containers`
+  - added resource `/{projectKey}/variants/import-containers/{importContainerKey}`
+  </details>
+
+  <details>
+  <summary>Added Method(s)</summary>
+  - added method `apiRoot.withProjectKeyValue().variants().importContainers().withImportContainerKeyValue().post()`
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+  - added enum `variant` to type `ImportResourceType`
+  - added enum `variant` to type `ReferenceType`
+  </details>
+
+## 7.0.0
+
+### Major Changes
+
+- [#1312](https://github.com/commercetools/commercetools-sdk-typescript/pull/1312) [`947f262`](https://github.com/commercetools/commercetools-sdk-typescript/commit/947f2621f67bf217b329223093be7d8d49755d93) Thanks [@ajimae](https://github.com/ajimae)! - ## Drop support for Node.js 18 and 20
+
+  ### What changed
+
+  The minimum required Node.js version has been raised from `>=18` to `>=22`. Node.js 18 and 20 are no longer supported.
+
+  ### Why
+
+  Dependencies in this SDK now require Node.js 22 or higher. In particular:
+
+  - **nock 14.x** (used in tests) replaced its internal HTTP interception with `@mswjs/interceptors`, which relies on modern Node.js internals.
+  - **Jest 30** requires Node.js 22+ for its test runner.
+  - Node.js 18 reached end-of-life in April 2025. Node.js 20 reaches end-of-life in April 2026. Aligning the engine requirement with actively maintained LTS releases reduces the maintenance surface.
+
+  ### How to update
+
+  Upgrade your runtime to **Node.js 22 or later** before updating to this version. No code changes are required — only the Node.js runtime version needs to change.
+
+  ```bash
+  # Using nvm
+  nvm install 22
+  nvm use 22
+
+  # Using fnm
+  fnm install 22
+  fnm use 22
+  ```
+
+  If you are pinned to Node.js 18 or 20 for other reasons, stay on the previous major version of this SDK until you are able to upgrade your runtime.
+
+### Patch Changes
+
+- Updated dependencies [[`947f262`](https://github.com/commercetools/commercetools-sdk-typescript/commit/947f2621f67bf217b329223093be7d8d49755d93), [`f3b1563`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f3b1563bfa6b5f1b64320ca4202a1554271d8352)]:
+  - @commercetools/ts-client@5.0.0
+
+## 6.17.0
+
+### Minor Changes
+
+- [#1303](https://github.com/commercetools/commercetools-sdk-typescript/pull/1303) [`934fcda`](https://github.com/commercetools/commercetools-sdk-typescript/commit/934fcdaae1436b4224a5e4b92bb5d436ce1eb69f) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Resource(s)</summary>
+  - added resource `/{projectKey}/product-tailorings`
+  - added resource `/{projectKey}/product-tailorings/import-containers`
+  - added resource `/{projectKey}/product-tailorings/import-containers/{importContainerKey}`
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+  - added enum `product-tailoring` to type `ImportResourceType`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `ProductTailoringImportRequest`
+  - added type `ProductVariantTailoringImport`
+  - added type `ProductTailoringImport`
+  </details>
+
+  <details>
+  <summary>Added Method(s)</summary>
+  - added method `apiRoot.withProjectKeyValue().productTailorings().importContainers().withImportContainerKeyValue().post()`
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+  - added property `reservationExpirationInMinutes` to type `InventoryImport`
+  - added property `active` to type `StandalonePriceImport`
+  </details>
+
+## 6.16.0
+
+### Minor Changes
+
+- [#1296](https://github.com/commercetools/commercetools-sdk-typescript/pull/1296) [`52cc58b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/52cc58b95ce94eed65e219cc2a365895b832a05e) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Resource(s)</summary>
+  - added resource `/{projectKey}/product-tailorings`
+  - added resource `/{projectKey}/product-tailorings/import-containers`
+  - added resource `/{projectKey}/product-tailorings/import-containers/{importContainerKey}`
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+  - added enum `product-tailoring` to type `ImportResourceType`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `ProductTailoringImportRequest`
+  - added type `ProductVariantTailoringImport`
+  - added type `ProductTailoringImport`
+  </details>
+
+  <details>
+  <summary>Added Method(s)</summary>
+  - added method `apiRoot.withProjectKeyValue().productTailorings().importContainers().withImportContainerKeyValue().post()`
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+  - added property `reservationExpirationInMinutes` to type `InventoryImport`
+  - added property `active` to type `StandalonePriceImport`
+  </details>
+
+- [#1301](https://github.com/commercetools/commercetools-sdk-typescript/pull/1301) [`3577a1b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3577a1b18fcb7a2deb0dae32470a305c1fc1f45e) Thanks [@ShipilA](https://github.com/ShipilA)! - Monthly release June 2026
+
+### Patch Changes
+
+- Updated dependencies [[`3577a1b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3577a1b18fcb7a2deb0dae32470a305c1fc1f45e), [`3577a1b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3577a1b18fcb7a2deb0dae32470a305c1fc1f45e)]:
+  - @commercetools/ts-client@4.10.0
+
+## 6.15.0
+
+### Minor Changes
+
+- [#1245](https://github.com/commercetools/commercetools-sdk-typescript/pull/1245) [`ac43d9a`](https://github.com/commercetools/commercetools-sdk-typescript/commit/ac43d9a4b59f4ffc4aad1b91e7a0b42ebe8cac2c) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Enum(s)</summary>
+  - added enum `partiallyImported` to type `ProcessingState`
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+  - added property `partiallyImported` to type `OperationStates`
+  </details>
+
+## 6.14.0
+
+### Minor Changes
+
+- [#1219](https://github.com/commercetools/commercetools-sdk-typescript/pull/1219) [`c665e6d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/c665e6d12fe11e66baa303059869bca2b7364b1c) Thanks [@ShipilA](https://github.com/ShipilA)! - **Api changes**
+
+  <details>
+  <summary>Required Property(s)</summary>
+  - changed property `variantSelection` of type `ProductSelectionProductAddedMessage` to be optional
+  - changed property `variantExclusion` of type `ProductSelectionProductExcludedMessage` to be optional
+  - changed property `oldVariantExclusion` of type `ProductSelectionVariantExclusionChangedMessage` to be optional
+  - changed property `newVariantExclusion` of type `ProductSelectionVariantExclusionChangedMessage` to be optional
+  - changed property `oldVariantSelection` of type `ProductSelectionVariantSelectionChangedMessage` to be optional
+  - changed property `newVariantSelection` of type `ProductSelectionVariantSelectionChangedMessage` to be optional
+  - changed property `variantSelection` of type `ProductSelectionProductAddedMessagePayload` to be optional
+  - changed property `variantExclusion` of type `ProductSelectionProductExcludedMessagePayload` to be optional
+  - changed property `oldVariantExclusion` of type `ProductSelectionVariantExclusionChangedMessagePayload` to be optional
+  - changed property `newVariantExclusion` of type `ProductSelectionVariantExclusionChangedMessagePayload` to be optional
+  - changed property `oldVariantSelection` of type `ProductSelectionVariantSelectionChangedMessagePayload` to be optional
+  - changed property `newVariantSelection` of type `ProductSelectionVariantSelectionChangedMessagePayload` to be optional
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+  - added property `interfaceId` to type `MyTransactionDraft`
+  - added property `interfaceId` to type `Transaction`
+  - added property `interfaceId` to type `TransactionDraft`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `PaymentTransactionInterfaceIdSetMessage`
+  - added type `PaymentTransactionInterfaceIdSetMessagePayload`
+  - added type `PaymentSetTransactionInterfaceIdAction`
+  </details>
+
+- [#1219](https://github.com/commercetools/commercetools-sdk-typescript/pull/1219) [`c665e6d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/c665e6d12fe11e66baa303059869bca2b7364b1c) Thanks [@ShipilA](https://github.com/ShipilA)! - Regular release
+
+### Patch Changes
+
+- [#1219](https://github.com/commercetools/commercetools-sdk-typescript/pull/1219) [`c665e6d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/c665e6d12fe11e66baa303059869bca2b7364b1c) Thanks [@ShipilA](https://github.com/ShipilA)! - Monthly release
+
+- Updated dependencies [[`c665e6d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/c665e6d12fe11e66baa303059869bca2b7364b1c), [`c665e6d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/c665e6d12fe11e66baa303059869bca2b7364b1c)]:
+  - @commercetools/ts-client@4.9.0
+
 ## 6.13.0
 
 ### Minor Changes
@@ -1377,6 +1597,7 @@
   - added property `cartVersion` to type `MyQuoteRequestDraft`
   - added property `createdAt` to type `AssignedProductSelection`
   - added property `quoteState` to type `Quote`
+
   </details>
 
   <details>

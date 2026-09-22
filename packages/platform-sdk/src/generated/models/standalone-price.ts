@@ -141,7 +141,7 @@ export interface StandalonePrice extends BaseResource {
    */
   readonly validFrom?: string
   /**
-   *	Date until the Price is valid. Standalone Prices that are no longer valid are not automatically deleted, but they can be [deleted](/../api/projects/standalone-prices#delete-standaloneprice) if necessary.
+   *	Date until the Price is valid. Standalone Prices that are no longer valid are not automatically deleted, but they can be [deleted](/api/projects/standalone-prices#delete-standaloneprice) if necessary.
    *
    *
    */
@@ -155,16 +155,13 @@ export interface StandalonePrice extends BaseResource {
    */
   readonly tiers?: PriceTier[]
   /**
-   *	Set if a matching [ProductDiscount](ctp:api:type:ProductDiscount) exists. If set, the API uses the `discounted` value for the [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
-   *	When a [relative discount](/../api/projects/productDiscounts#productdiscountvaluerelative) is applied and the fraction part of the `discounted` price is 0.5, the discounted price is rounded in favor of the customer with the [half down rounding](https://en.wikipedia.org/wiki/Rounding#Rounding_half_down).
-   *
-   *	If an [absolute discount](ctp:api:type:ProductDiscountValueAbsolute) value exceeds the price of the Product Variant, the discounted price is a negative value.
+   *	Set if a matching [ProductDiscount](ctp:api:type:ProductDiscount) exists. If set, the API uses the `discounted` value for the [Line Item price selection](/api/pricing-and-discounts-overview#line-item-price-selection).
    *
    *
    */
   readonly discounted?: DiscountedPrice
   /**
-   *	Custom Fields for the StandalonePrice.
+   *	Custom Fields of the StandalonePrice.
    *
    *
    */
@@ -176,8 +173,8 @@ export interface StandalonePrice extends BaseResource {
    */
   readonly staged?: StagedStandalonePrice
   /**
-   *	If set to `true`, the StandalonePrice is considered during [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection).
-   *	If set to `false`, the StandalonePrice is not considered during [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection) and any associated Line Items in a Cart cannot be ordered.
+   *	Whether the StandalonePrice is considered during [Product price selection](/api/pricing-and-discounts-overview#product-price-selection).
+   *	If set to `false`, the StandalonePrice is not considered during [Product price selection](/api/pricing-and-discounts-overview#product-price-selection) and any associated Line Items in a Cart cannot be ordered.
    *
    *
    */
@@ -192,6 +189,9 @@ export interface StandalonePrice extends BaseResource {
 export interface StandalonePriceDraft {
   /**
    *	User-defined unique identifier for the StandalonePrice.
+   *
+   *	If the value is used by another Standalone Price, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
+   *
    *
    */
   readonly key?: string
@@ -224,6 +224,8 @@ export interface StandalonePriceDraft {
   /**
    *	Sets the product distribution [Channel](ctp:api:type:Channel) for which this Price is valid.
    *
+   *	If the referenced Channel does not contain the `ProductDistribution` role, a [MissingRoleOnChannel](ctp:api:type:MissingRoleOnChannelError) error is returned.
+   *
    *
    */
   readonly channel?: ChannelResourceIdentifier
@@ -234,7 +236,7 @@ export interface StandalonePriceDraft {
    */
   readonly validFrom?: string
   /**
-   *	Sets the date until the Price is valid. Must be at least 1 ms later than `validFrom`. Standalone Prices that are no longer valid are not automatically deleted, but they can be [deleted](/../api/projects/standalone-prices#delete-standaloneprice) if necessary.
+   *	Sets the date until the Price is valid. Must be at least 1 ms later than `validFrom`. Standalone Prices that are no longer valid are not automatically deleted, but they can be [deleted](/api/projects/standalone-prices#delete-standaloneprice) if necessary.
    *
    *
    */
@@ -272,7 +274,7 @@ export interface StandalonePriceDraft {
    */
   readonly staged?: StagedPriceDraft
   /**
-   *	Set to `false`, if the StandalonePrice should not be considered during [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection).
+   *	Set to `false`, if the StandalonePrice should not be considered during [Product price selection](/api/pricing-and-discounts-overview#product-price-selection).
    *
    *
    */
@@ -303,10 +305,10 @@ export interface StandalonePricePagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -331,7 +333,7 @@ export interface StandalonePriceReference extends IReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded StandalonePrice. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for StandalonePrice.
+   *	Contains the representation of the expanded StandalonePrice. Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for StandalonePrice.
    *
    *
    */
@@ -396,8 +398,7 @@ export interface IStandalonePriceUpdateAction {
  *	Adding a [PriceTier](ctp:api:type:PriceTier) to a [StandalonePrice](ctp:api:type:StandalonePrice) produces the [Standalone Price Tier Added](ctp:api:type:StandalonePriceTierAddedMessage) Message.
  *
  */
-export interface StandalonePriceAddPriceTierAction
-  extends IStandalonePriceUpdateAction {
+export interface StandalonePriceAddPriceTierAction extends IStandalonePriceUpdateAction {
   readonly action: 'addPriceTier'
   /**
    *	The [PriceTier](ctp:api:type:PriceTier) to be added to the `tiers` field of the [StandalonePrice](ctp:api:type:StandalonePrice).
@@ -414,16 +415,14 @@ export interface StandalonePriceAddPriceTierAction
  *	Applies all staged changes to the StandalonePrice by overwriting all current values with the values in the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice). After successfully applied, the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice) will be removed from the StandalonePrice. An `applyStagedChanges` update action on a StandalonePrice that does not contain any staged changes will return a `400 Bad Request` error. Applying staged changes successfully will produce the [StandalonePriceStagedChangesApplied](ctp:api:type:StandalonePriceStagedChangesAppliedMessage) Message.
  *
  */
-export interface StandalonePriceApplyStagedChangesAction
-  extends IStandalonePriceUpdateAction {
+export interface StandalonePriceApplyStagedChangesAction extends IStandalonePriceUpdateAction {
   readonly action: 'applyStagedChanges'
 }
 /**
  *	Updating the value of a [StandalonePrice](ctp:api:type:StandalonePrice) produces the [StandalonePriceActiveChanged](ctp:api:type:StandalonePriceActiveChangedMessage) Message.
  *
  */
-export interface StandalonePriceChangeActiveAction
-  extends IStandalonePriceUpdateAction {
+export interface StandalonePriceChangeActiveAction extends IStandalonePriceUpdateAction {
   readonly action: 'changeActive'
   /**
    *	New value to set for the `active` field of the [StandalonePrice](ctp:api:type:StandalonePrice).
@@ -436,8 +435,7 @@ export interface StandalonePriceChangeActiveAction
  *	Updating the value of a [StandalonePrice](ctp:api:type:StandalonePrice) produces the [StandalonePriceValueChangedMessage](ctp:api:type:StandalonePriceValueChangedMessage).
  *
  */
-export interface StandalonePriceChangeValueAction
-  extends IStandalonePriceUpdateAction {
+export interface StandalonePriceChangeValueAction extends IStandalonePriceUpdateAction {
   readonly action: 'changeValue'
   /**
    *	New value to set. Must not be empty.
@@ -448,7 +446,7 @@ export interface StandalonePriceChangeValueAction
    */
   readonly value: _Money
   /**
-   *	If set to `true` the update action applies to the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice). If set to `false`, the update action applies to the current [StandalonePrice](ctp:api:type:StandalonePrice).
+   *	Whether the update action applies to the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice). If set to `false`, the update action applies to the current [StandalonePrice](ctp:api:type:StandalonePrice).
    *
    *
    */
@@ -458,8 +456,7 @@ export interface StandalonePriceChangeValueAction
  *	Removing a [PriceTier](ctp:api:type:PriceTier) from a [StandalonePrice](ctp:api:type:StandalonePrice) produces the [Standalone Price Tier Removed](ctp:api:type:StandalonePriceTierRemovedMessage) Message.
  *
  */
-export interface StandalonePriceRemovePriceTierAction
-  extends IStandalonePriceUpdateAction {
+export interface StandalonePriceRemovePriceTierAction extends IStandalonePriceUpdateAction {
   readonly action: 'removePriceTier'
   /**
    *	The `minimumQuantity` of the [PriceTier](ctp:api:type:PriceTier) to be removed from the `tiers` field of the [StandalonePrice](ctp:api:type:StandalonePrice).
@@ -473,15 +470,13 @@ export interface StandalonePriceRemovePriceTierAction
  *	Removing staged changes successfully produces the [StandalonePriceStagedChangesRemoved](ctp:api:type:StandalonePriceStagedChangesRemovedMessage) Message.
  *
  */
-export interface StandalonePriceRemoveStagedChangesAction
-  extends IStandalonePriceUpdateAction {
+export interface StandalonePriceRemoveStagedChangesAction extends IStandalonePriceUpdateAction {
   readonly action: 'removeStagedChanges'
 }
-export interface StandalonePriceSetCustomFieldAction
-  extends IStandalonePriceUpdateAction {
+export interface StandalonePriceSetCustomFieldAction extends IStandalonePriceUpdateAction {
   readonly action: 'setCustomField'
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -495,18 +490,19 @@ export interface StandalonePriceSetCustomFieldAction
    */
   readonly value?: any
 }
-export interface StandalonePriceSetCustomTypeAction
-  extends IStandalonePriceUpdateAction {
+export interface StandalonePriceSetCustomTypeAction extends IStandalonePriceUpdateAction {
   readonly action: 'setCustomType'
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the StandalonePrice with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the StandalonePrice with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the StandalonePrice.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the StandalonePrice.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the StandalonePrice.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */
@@ -519,11 +515,10 @@ export interface StandalonePriceSetCustomTypeAction
  *	Produces the [StandalonePriceExternalDiscountSet](ctp:api:type:StandalonePriceExternalDiscountSetMessage) Message.
  *
  */
-export interface StandalonePriceSetDiscountedPriceAction
-  extends IStandalonePriceUpdateAction {
+export interface StandalonePriceSetDiscountedPriceAction extends IStandalonePriceUpdateAction {
   readonly action: 'setDiscountedPrice'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *	The referenced [ProductDiscount](ctp:api:type:ProductDiscount) must be of type external, active, and its predicate must match the referenced Price.
    *
@@ -535,11 +530,12 @@ export interface StandalonePriceSetDiscountedPriceAction
  *	Sets the key on a Standalone Price. Produces the [StandalonePriceKeySet](ctp:api:type:StandalonePriceKeySetMessage) Message.
  *
  */
-export interface StandalonePriceSetKeyAction
-  extends IStandalonePriceUpdateAction {
+export interface StandalonePriceSetKeyAction extends IStandalonePriceUpdateAction {
   readonly action: 'setKey'
   /**
-   *	Value to set. Must be unique. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
+   *
+   *	If the value is used by another Standalone Price, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
    *
    *
    */
@@ -549,11 +545,10 @@ export interface StandalonePriceSetKeyAction
  *	Sets all [PriceTiers](ctp:api:type:PriceTier) for a [StandalonePrice](ctp:api:type:StandalonePrice) in one action, produces the [Standalone Price Tiers Set](ctp:api:type:StandalonePriceTiersSetMessage) Message.
  *
  */
-export interface StandalonePriceSetPriceTiersAction
-  extends IStandalonePriceUpdateAction {
+export interface StandalonePriceSetPriceTiersAction extends IStandalonePriceUpdateAction {
   readonly action: 'setPriceTiers'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. Set to an empty array to remove any existing value.
    *	The `minimumQuantity` of the PriceTiers must be unique and greater than `1`, otherwise an [InvalidField](ctp:api:type:InvalidFieldError) error is returned.
    *
    *
@@ -565,13 +560,16 @@ export interface StandalonePriceSetPriceTiersAction
  *
  *	As the validity dates are part of the price scope and are not allowed to overlap, this update might return the [DuplicateStandalonePriceScope](ctp:api:type:DuplicateStandalonePriceScopeError) and [OverlappingStandalonePriceValidity](ctp:api:type:OverlappingStandalonePriceValidityError) errors, respectively. A Price without validity period does not conflict with a Price defined for a time period.
  *
+ *	If a modification is already in progress for the exact combination of SKU and price scope fields, an [ExactLockConflict](ctp:api:type:ExactLockConflictError) error is returned.
+ *
+ *	If a modification is already in progress for the combination of SKU and price scope fields (but potentially different validity period), a [ValidityLockConflict](ctp:api:type:ValidityLockConflictError) error is returned.
+ *
  */
-export interface StandalonePriceSetValidFromAction
-  extends IStandalonePriceUpdateAction {
+export interface StandalonePriceSetValidFromAction extends IStandalonePriceUpdateAction {
   readonly action: 'setValidFrom'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -582,20 +580,23 @@ export interface StandalonePriceSetValidFromAction
  *
  *	As the validity dates are part of the price scope and are not allowed to overlap, this update might return the [DuplicateStandalonePriceScope](ctp:api:type:DuplicateStandalonePriceScopeError) and [OverlappingStandalonePriceValidity](ctp:api:type:OverlappingStandalonePriceValidityError) errors, respectively. A Price without validity period does not conflict with a Price defined for a time period.
  *
+ *	If a modification is already in progress for the exact combination of SKU and price scope fields, an [ExactLockConflict](ctp:api:type:ExactLockConflictError) error is returned.
+ *
+ *	If a modification is already in progress for the combination of SKU and price scope fields (but potentially different validity period), a [ValidityLockConflict](ctp:api:type:ValidityLockConflictError) error is returned.
+ *
  */
-export interface StandalonePriceSetValidFromAndUntilAction
-  extends IStandalonePriceUpdateAction {
+export interface StandalonePriceSetValidFromAndUntilAction extends IStandalonePriceUpdateAction {
   readonly action: 'setValidFromAndUntil'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
   readonly validFrom?: string
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -606,13 +607,16 @@ export interface StandalonePriceSetValidFromAndUntilAction
  *
  *	As the validity dates are part of the price scope and are not allowed to overlap, this update might return the [DuplicateStandalonePriceScope](ctp:api:type:DuplicateStandalonePriceScopeError) and [OverlappingStandalonePriceValidity](ctp:api:type:OverlappingStandalonePriceValidityError) errors, respectively. A Price without validity period does not conflict with a Price defined for a time period.
  *
+ *	If a modification is already in progress for the exact combination of SKU and price scope fields, an [ExactLockConflict](ctp:api:type:ExactLockConflictError) error is returned.
+ *
+ *	If a modification is already in progress for the combination of SKU and price scope fields (but potentially different validity period), a [ValidityLockConflict](ctp:api:type:ValidityLockConflictError) error is returned.
+ *
  */
-export interface StandalonePriceSetValidUntilAction
-  extends IStandalonePriceUpdateAction {
+export interface StandalonePriceSetValidUntilAction extends IStandalonePriceUpdateAction {
   readonly action: 'setValidUntil'
   /**
    *	Value to set.
-   *	If empty, any existing value is removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */

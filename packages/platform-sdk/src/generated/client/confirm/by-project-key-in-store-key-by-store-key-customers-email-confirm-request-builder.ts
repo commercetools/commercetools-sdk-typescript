@@ -20,13 +20,13 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersEmailConfirmRequestBuilder
     }
   ) {}
   /**
-   *	Use this method to verify a Store-specific Customer's email during their [email verification process](/../api/customers-overview#customer-email-verification).
+   *	Use this method to verify a Store-specific Customer's email during their [email verification process](/api/customers-overview#customer-email-verification).
    *
    *	Verifying the email of the Customer produces the [CustomerEmailVerified](ctp:api:type:CustomerEmailVerifiedMessage) Message.
    *
    *	If the Customer exists in the Project but the `stores` field references a different [Store](ctp:api:type:Store), this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
    *
-   *	After the email is verified, all email tokens issued previously through the [email verification flow](/../api/projects/customers#email-verification-of-customer) are invalidated. This invalidation of tokens is [eventually consistent](/../api/general-concepts#eventual-consistency).
+   *	After the email is verified, all email tokens issued previously through the [email verification flow](/api/projects/customers#email-verification-of-customer) are invalidated. This invalidation of tokens is [eventually consistent](/api/general-concepts#eventual-consistency).
    *
    */
   public post(methodArgs: {

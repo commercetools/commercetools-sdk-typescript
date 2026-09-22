@@ -22,7 +22,7 @@ export class ByProjectKeyBusinessUnitsSearchRequestBuilder {
     }
   ) {}
   /**
-   *	If the initial indexing is in progress or the feature is inactive, A [SearchNotReady](ctp:api:type:SearchNotReadyError) error is returned. If inactive, you can [reactivate](/../api/projects/business-unit-search#reactivate) it.
+   *	If the initial indexing is in progress or the feature is inactive, A [SearchNotReady](ctp:api:type:SearchNotReadyError) error is returned. If inactive, you can [reactivate](/api/projects/business-unit-search#reactivate) it.
    *
    */
   public post(methodArgs: {

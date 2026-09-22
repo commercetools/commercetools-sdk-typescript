@@ -17,6 +17,7 @@ import {
   LocalizedString,
   Reference,
 } from './common'
+import { StoreKeyReference } from './store'
 import {
   CustomFields,
   CustomFieldsDraft,
@@ -79,7 +80,7 @@ export interface DiscountCode extends BaseResource {
    */
   readonly description?: LocalizedString
   /**
-   *	User-defined unique identifier of the DiscountCode [added to the Cart](/../api/projects/carts#add-discountcode) to apply the related [CartDiscounts](ctp:api:type:CartDiscount).
+   *	User-defined unique identifier of the DiscountCode [added to the Cart](/api/projects/carts#add-discountcode) to apply the related [CartDiscounts](ctp:api:type:CartDiscount).
    *
    *
    */
@@ -90,6 +91,14 @@ export interface DiscountCode extends BaseResource {
    *
    */
   readonly cartDiscounts: CartDiscountReference[]
+  /**
+   *	Reference to the Stores the DiscountCode is associated with, derived from the `stores` field of each referenced [CartDiscount](ctp:api:type:CartDiscount).
+   *
+   *	The value of this field is [eventually consistent](/api/general-concepts#eventual-consistency).
+   *
+   *
+   */
+  readonly stores: StoreKeyReference[]
   /**
    *	DiscountCode can only be applied to Carts that match this predicate.
    *
@@ -111,14 +120,24 @@ export interface DiscountCode extends BaseResource {
   readonly references: Reference[]
   /**
    *	Number of times the DiscountCode can be applied.
+   *
    *	DiscountCode application is counted at the time of Order creation or edit. However, Order cancellation or deletion does not decrement the count.
+   *
+   *	If `maxApplicationsPerCustomer` is set, each application also counts toward this limit.
+   *
+   *	This field does not limit discount applications for Orders created from a [Recurring Order](ctp:api:type:RecurringOrder).
    *
    *
    */
   readonly maxApplications?: number
   /**
    *	Number of times the DiscountCode can be applied per Customer (anonymous Carts are not supported).
+   *
+   *	Each use also counts toward the `maxApplications` limit.
+   *
    *	DiscountCode application is counted at the time of Order creation or edit. However, Order cancellation or deletion does not decrement the count.
+   *
+   *	This field does not limit discount applications for Orders created from a [Recurring Order](ctp:api:type:RecurringOrder).
    *
    *
    */
@@ -159,7 +178,10 @@ export interface DiscountCodeDraft {
   /**
    *	User-defined unique identifier for the DiscountCode.
    *
-   *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing Discount Codes with the [Import API](/../api/import-export/overview) and the [Merchant Center](/../merchant-center/import-data).
+   *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing Discount Codes with the [Import API](/api/import-export/overview) and the [Merchant Center](/merchant-center/import-data).
+   *
+   *	If the value is used by another Discount Code, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
+   *
    *
    */
   readonly key?: string
@@ -176,8 +198,10 @@ export interface DiscountCodeDraft {
    */
   readonly description?: LocalizedString
   /**
-   *	User-defined unique identifier for the DiscountCode that can be [added to the Cart](/../api/projects/carts#add-discountcode) to apply the related [CartDiscounts](ctp:api:type:CartDiscount).
+   *	User-defined unique identifier for the DiscountCode that can be [added to the Cart](/api/projects/carts#add-discountcode) to apply the related [CartDiscounts](ctp:api:type:CartDiscount).
    *	It cannot be modified after the DiscountCode is created.
+   *
+   *	If the value is used by another Discount Code, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
    *
    *
    */
@@ -205,6 +229,10 @@ export interface DiscountCodeDraft {
    *
    *	If not set, the DiscountCode can be applied any number of times.
    *
+   *	If `maxApplicationsPerCustomer` is set, each application also counts toward this limit.
+   *
+   *	This field does not limit discount applications for Orders created from a [Recurring Order](ctp:api:type:RecurringOrder).
+   *
    *
    */
   readonly maxApplications?: number
@@ -212,6 +240,10 @@ export interface DiscountCodeDraft {
    *	Number of times the DiscountCode can be applied per Customer.
    *
    *	If not set, the DiscountCode can be applied any number of times.
+   *
+   *	Each use also counts toward the `maxApplications` limit.
+   *
+   *	This field does not limit discount applications for Orders created from a [Recurring Order](ctp:api:type:RecurringOrder).
    *
    *
    */
@@ -242,18 +274,18 @@ export interface DiscountCodeDraft {
   readonly validUntil?: string
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [DiscountCode](ctp:api:type:DiscountCode).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with `results` containing an array of [DiscountCode](ctp:api:type:DiscountCode).
  *
  */
 export interface DiscountCodePagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -266,10 +298,10 @@ export interface DiscountCodePagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -294,14 +326,14 @@ export interface DiscountCodeReference extends IReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded DiscountCode. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for DiscountCodes.
+   *	Contains the representation of the expanded DiscountCode. Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for DiscountCodes.
    *
    *
    */
   readonly obj?: DiscountCode
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [DiscountCode](ctp:api:type:DiscountCode). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [DiscountCode](ctp:api:type:DiscountCode). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](ctp:api:type:InvalidJsonInputError) error is returned.
  *
  */
 export interface DiscountCodeResourceIdentifier extends IResourceIdentifier {
@@ -355,8 +387,7 @@ export interface IDiscountCodeUpdateAction {
    */
   readonly action: string
 }
-export interface DiscountCodeChangeCartDiscountsAction
-  extends IDiscountCodeUpdateAction {
+export interface DiscountCodeChangeCartDiscountsAction extends IDiscountCodeUpdateAction {
   readonly action: 'changeCartDiscounts'
   /**
    *	New value to set.
@@ -365,8 +396,7 @@ export interface DiscountCodeChangeCartDiscountsAction
    */
   readonly cartDiscounts: CartDiscountResourceIdentifier[]
 }
-export interface DiscountCodeChangeGroupsAction
-  extends IDiscountCodeUpdateAction {
+export interface DiscountCodeChangeGroupsAction extends IDiscountCodeUpdateAction {
   readonly action: 'changeGroups'
   /**
    *	New value to set. An empty array removes the DiscountCode from all groups.
@@ -375,8 +405,7 @@ export interface DiscountCodeChangeGroupsAction
    */
   readonly groups: string[]
 }
-export interface DiscountCodeChangeIsActiveAction
-  extends IDiscountCodeUpdateAction {
+export interface DiscountCodeChangeIsActiveAction extends IDiscountCodeUpdateAction {
   readonly action: 'changeIsActive'
   /**
    *	New value to set. Set to `true` to activate the DiscountCode for all matching Discounts.
@@ -385,20 +414,19 @@ export interface DiscountCodeChangeIsActiveAction
    */
   readonly isActive: boolean
 }
-export interface DiscountCodeSetCartPredicateAction
-  extends IDiscountCodeUpdateAction {
+export interface DiscountCodeSetCartPredicateAction extends IDiscountCodeUpdateAction {
   readonly action: 'setCartPredicate'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
+   *
    *
    */
   readonly cartPredicate?: string
 }
-export interface DiscountCodeSetCustomFieldAction
-  extends IDiscountCodeUpdateAction {
+export interface DiscountCodeSetCustomFieldAction extends IDiscountCodeUpdateAction {
   readonly action: 'setCustomField'
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -412,28 +440,29 @@ export interface DiscountCodeSetCustomFieldAction
    */
   readonly value?: any
 }
-export interface DiscountCodeSetCustomTypeAction
-  extends IDiscountCodeUpdateAction {
+export interface DiscountCodeSetCustomTypeAction extends IDiscountCodeUpdateAction {
   readonly action: 'setCustomType'
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the DiscountCode with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the DiscountCode with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the DiscountCode.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the DiscountCode.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the DiscountCode.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */
   readonly fields?: FieldContainer
 }
-export interface DiscountCodeSetDescriptionAction
-  extends IDiscountCodeUpdateAction {
+export interface DiscountCodeSetDescriptionAction extends IDiscountCodeUpdateAction {
   readonly action: 'setDescription'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
+   *
    *
    */
   readonly description?: LocalizedString
@@ -445,32 +474,39 @@ export interface DiscountCodeSetDescriptionAction
 export interface DiscountCodeSetKeyAction extends IDiscountCodeUpdateAction {
   readonly action: 'setKey'
   /**
-   *	Unique value to set.
-   *	If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
+   *
+   *	If the value is used by another Discount Code, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
    *
    *
    */
   readonly key?: string
 }
-export interface DiscountCodeSetMaxApplicationsAction
-  extends IDiscountCodeUpdateAction {
+export interface DiscountCodeSetMaxApplicationsAction extends IDiscountCodeUpdateAction {
   readonly action: 'setMaxApplications'
   /**
    *	Value to set.
    *
-   *	If empty, any existing value will be removed and the DiscountCode can be applied any number of times.
+   *	If omitted, any existing value is removed and the DiscountCode can be applied any number of times.
+   *
+   *	If `maxApplicationsPerCustomer` is set, each application also counts toward this limit.
+   *
+   *	This field does not limit discount applications for Orders created from a [Recurring Order](ctp:api:type:RecurringOrder).
    *
    *
    */
   readonly maxApplications?: number
 }
-export interface DiscountCodeSetMaxApplicationsPerCustomerAction
-  extends IDiscountCodeUpdateAction {
+export interface DiscountCodeSetMaxApplicationsPerCustomerAction extends IDiscountCodeUpdateAction {
   readonly action: 'setMaxApplicationsPerCustomer'
   /**
    *	Value to set.
    *
-   *	If empty, any existing value will be removed and the DiscountCode can be applied any number of times.
+   *	If omitted, any existing value is removed and the DiscountCode can be applied any number of times.
+   *
+   *	Each use also counts toward the `maxApplications` limit.
+   *
+   *	This field does not limit discount applications for Orders created from a [Recurring Order](ctp:api:type:RecurringOrder).
    *
    *
    */
@@ -479,42 +515,40 @@ export interface DiscountCodeSetMaxApplicationsPerCustomerAction
 export interface DiscountCodeSetNameAction extends IDiscountCodeUpdateAction {
   readonly action: 'setName'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
+   *
    *
    */
   readonly name?: LocalizedString
 }
-export interface DiscountCodeSetValidFromAction
-  extends IDiscountCodeUpdateAction {
+export interface DiscountCodeSetValidFromAction extends IDiscountCodeUpdateAction {
   readonly action: 'setValidFrom'
   /**
-   *	Value to set that must be earlier than `validUntil`. If empty, any existing value will be removed.
+   *	Value to set that must be earlier than `validUntil`. If omitted, any existing value is removed.
    *
    *
    */
   readonly validFrom?: string
 }
-export interface DiscountCodeSetValidFromAndUntilAction
-  extends IDiscountCodeUpdateAction {
+export interface DiscountCodeSetValidFromAndUntilAction extends IDiscountCodeUpdateAction {
   readonly action: 'setValidFromAndUntil'
   /**
-   *	Value to set that must be earlier than `validUntil`. If empty, any existing value will be removed.
+   *	Value to set that must be earlier than `validUntil`. If omitted, any existing value is removed.
    *
    *
    */
   readonly validFrom?: string
   /**
-   *	Value to set that must be later than `validFrom`. If empty, any existing value will be removed.
+   *	Value to set that must be later than `validFrom`. If omitted, any existing value is removed.
    *
    *
    */
   readonly validUntil?: string
 }
-export interface DiscountCodeSetValidUntilAction
-  extends IDiscountCodeUpdateAction {
+export interface DiscountCodeSetValidUntilAction extends IDiscountCodeUpdateAction {
   readonly action: 'setValidUntil'
   /**
-   *	Value to set that must be later than `validFrom`. If empty, any existing value will be removed.
+   *	Value to set that must be later than `validFrom`. If omitted, any existing value is removed.
    *
    *
    */

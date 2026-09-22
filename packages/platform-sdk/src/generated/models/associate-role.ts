@@ -63,7 +63,7 @@ export interface AssociateRole extends BaseResource {
    */
   readonly key: string
   /**
-   *	Whether the AssociateRole can be assigned to an Associate by a [buyer](/../api/associates-overview#buyer). If false, the AssociateRole can only be assigned using the [general endpoint](/../api/associates-overview#through-the-general-endpoints).
+   *	Whether the AssociateRole can be assigned to an Associate by a [buyer](/api/associates-overview#buyer). If false, the AssociateRole can only be assigned using the [general endpoint](/api/associates-overview#through-the-general-endpoints).
    *
    *
    */
@@ -81,7 +81,7 @@ export interface AssociateRole extends BaseResource {
    */
   readonly permissions: Permission[]
   /**
-   *	Custom Fields for the AssociateRole.
+   *	Custom Fields of the AssociateRole.
    *
    *
    */
@@ -101,7 +101,7 @@ export interface AssociateRoleDraft {
    */
   readonly name?: string
   /**
-   *	Whether the AssociateRole can be assigned to an Associate by a [buyer](/../api/associates-overview#buyer).
+   *	Whether the AssociateRole can be assigned to an Associate by a [buyer](/api/associates-overview#buyer).
    *
    *
    */
@@ -133,18 +133,18 @@ export interface AssociateRoleKeyReference extends IKeyReference {
   readonly key: string
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [AssociateRole](ctp:api:type:AssociateRole).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with results containing an array of [AssociateRole](ctp:api:type:AssociateRole).
  *
  */
 export interface AssociateRolePagedQueryResponse {
   /**
-   *	Number of requested [results](/../api/general-concepts#limit).
+   *	Number of requested [results](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of elements [skipped](/../api/general-concepts#offset).
+   *	Number of elements [skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -157,10 +157,10 @@ export interface AssociateRolePagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -185,14 +185,14 @@ export interface AssociateRoleReference extends IReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded AssociateRole. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for AssociateRole.
+   *	Contains the representation of the expanded AssociateRole. Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for AssociateRole.
    *
    *
    */
   readonly obj?: AssociateRole
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:TypeResourceIdentifier) of an [AssociateRole](ctp:api:type:AssociateRole). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:TypeResourceIdentifier) of an [AssociateRole](ctp:api:type:AssociateRole). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](ctp:api:type:InvalidJsonInputError) error is returned.
  *
  */
 export interface AssociateRoleResourceIdentifier extends IResourceIdentifier {
@@ -346,8 +346,7 @@ export type Permission =
  *	Adding a Permission to an [AssociateRole](ctp:api:type:AssociateRole) generates an [AssociateRolePermissionAdded](ctp:api:type:AssociateRolePermissionAddedMessage) Message.
  *
  */
-export interface AssociateRoleAddPermissionAction
-  extends IAssociateRoleUpdateAction {
+export interface AssociateRoleAddPermissionAction extends IAssociateRoleUpdateAction {
   readonly action: 'addPermission'
   /**
    *	Permission to be added to the AssociateRole.
@@ -360,8 +359,7 @@ export interface AssociateRoleAddPermissionAction
  *	Changing the `buyerAssignable` value of an AssociateRole generates an [AssociateRoleBuyerAssignableChanged](ctp:api:type:AssociateRoleBuyerAssignableChangedMessage) Message.
  *
  */
-export interface AssociateRoleChangeBuyerAssignableAction
-  extends IAssociateRoleUpdateAction {
+export interface AssociateRoleChangeBuyerAssignableAction extends IAssociateRoleUpdateAction {
   readonly action: 'changeBuyerAssignable'
   /**
    *	The new value of the `buyerAssignable` field of the AssociateRole.
@@ -374,8 +372,7 @@ export interface AssociateRoleChangeBuyerAssignableAction
  *	Removing a Permission from an [AssociateRole](ctp:api:type:AssociateRole) generates an [AssociateRolePermissionRemoved](ctp:api:type:AssociateRolePermissionRemovedMessage) Message.
  *
  */
-export interface AssociateRoleRemovePermissionAction
-  extends IAssociateRoleUpdateAction {
+export interface AssociateRoleRemovePermissionAction extends IAssociateRoleUpdateAction {
   readonly action: 'removePermission'
   /**
    *	Permission to be removed from the AssociateRole.
@@ -384,8 +381,7 @@ export interface AssociateRoleRemovePermissionAction
    */
   readonly permission: Permission
 }
-export interface AssociateRoleSetCustomFieldAction
-  extends IAssociateRoleUpdateAction {
+export interface AssociateRoleSetCustomFieldAction extends IAssociateRoleUpdateAction {
   readonly action: 'setCustomField'
   /**
    *	Name of the [Custom Field](ctp:api:type:CustomFields).
@@ -402,8 +398,7 @@ export interface AssociateRoleSetCustomFieldAction
    */
   readonly value?: any
 }
-export interface AssociateRoleSetCustomTypeAction
-  extends IAssociateRoleUpdateAction {
+export interface AssociateRoleSetCustomTypeAction extends IAssociateRoleUpdateAction {
   readonly action: 'setCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the AssociateRole with [Custom Fields](ctp:api:type:CustomFields).
@@ -413,7 +408,9 @@ export interface AssociateRoleSetCustomTypeAction
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](ctp:api:type:CustomFields) for the AssociateRole.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the AssociateRole.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */
@@ -437,8 +434,7 @@ export interface AssociateRoleSetNameAction extends IAssociateRoleUpdateAction {
  *	Updating the Permissions on an [AssociateRole](ctp:api:type:AssociateRole) generates an [AssociateRolePermissionsSet](ctp:api:type:AssociateRolePermissionsSetMessage) Message.
  *
  */
-export interface AssociateRoleSetPermissionsAction
-  extends IAssociateRoleUpdateAction {
+export interface AssociateRoleSetPermissionsAction extends IAssociateRoleUpdateAction {
   readonly action: 'setPermissions'
   /**
    *	Overrides the current list of Permissions for the AssociateRole.

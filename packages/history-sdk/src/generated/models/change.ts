@@ -41,19 +41,19 @@ import {
   BusinessUnitType,
   CategoryOrderHints,
   ChannelRoleEnum,
-  CustomerGroupAssignment,
   CustomFieldEnumValue,
   CustomFieldLocalizedEnumValue,
   CustomFields,
   CustomLineItem,
+  CustomerGroupAssignment,
   DeliveryItem,
   DirectDiscount,
   DiscountCodeInfo,
+  DiscountOnTotalPrice,
+  DiscountTypeCombination,
   DiscountedLineItemPrice,
   DiscountedLineItemPriceForQuantity,
   DiscountedPrice,
-  DiscountOnTotalPrice,
-  DiscountTypeCombination,
   FieldDefinition,
   GeoLocation,
   Image,
@@ -98,10 +98,10 @@ import {
   StoreCountry,
   SyncInfo,
   TaxCalculationMode,
-  TaxedItemPrice,
-  TaxedPrice,
   TaxMode,
   TaxRate,
+  TaxedItemPrice,
+  TaxedPrice,
   TextLineItem,
   TrackingData,
   Transaction,
@@ -449,6 +449,7 @@ export type Change =
   | SetTitleChange
   | SetTransactionCustomFieldChange
   | SetTransactionCustomTypeChange
+  | SetTransactionInterfaceIdChange
   | SetTransitionsChange
   | SetUnitTypeChange
   | SetValidFromAndUntilChange
@@ -768,7 +769,7 @@ export interface AddFieldDefinitionChange extends IChange {
   readonly nextValue: FieldDefinition
 }
 /**
- *	This change is initiated by background processes after the [Add Associate](ctp:api:type:BusinessUnitAddAssociateAction) update action is performed (if [Associates are inherited](/../api/associates-overview#inheritance-of-associates-and-their-roles)).
+ *	This change is initiated by background processes after the [Add Associate](ctp:api:type:BusinessUnitAddAssociateAction) update action is performed (if [Associates are inherited](/api/associates-overview#inheritance-of-associates-and-their-roles)).
  */
 export interface AddInheritedAssociateChange extends IChange {
   readonly type: 'AddInheritedAssociateChange'
@@ -1720,7 +1721,7 @@ export interface ChangeGroupsChange extends IChange {
   readonly removedItems: string[]
 }
 /**
- *	Change triggered by the [Change Associate](ctp:api:type:BusinessUnitChangeAssociateAction) update action on a parent of a Business Unit in cases where [inheritance applies](/../api/associates-overview#conditions-for-inheritance).
+ *	Change triggered by the [Change Associate](ctp:api:type:BusinessUnitChangeAssociateAction) update action on a parent of a Business Unit in cases where [inheritance applies](/api/associates-overview#conditions-for-inheritance).
  */
 export interface ChangeInheritedAssociateChange extends IChange {
   readonly type: 'ChangeInheritedAssociateChange'
@@ -1999,6 +2000,17 @@ export interface ChangeLocalizedNameChange extends IChange {
    *
    */
   readonly nextValue: LocalizedString
+  /**
+   *	Product data that was updated.
+   *
+   *	- `staged`, if the staged [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *	- `current`, if the current [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *
+   *	This field is only present if the change is related to the Product entity.
+   *
+   *
+   */
+  readonly catalogData: string
 }
 /**
  *	Change triggered by the [Change Master Variant](ctp:api:type:ProductChangeMasterVariantAction) update action.
@@ -3162,7 +3174,7 @@ export interface RemoveImageChange extends IChange {
   readonly variant: string
 }
 /**
- *	This change is initiated by background processes after the [Remove Associate](ctp:api:type:BusinessUnitRemoveAssociateAction) update action is performed (if [Associates are inherited](/../api/associates-overview#inheritance-of-associates-and-their-roles)).
+ *	This change is initiated by background processes after the [Remove Associate](ctp:api:type:BusinessUnitRemoveAssociateAction) update action is performed (if [Associates are inherited](/api/associates-overview#inheritance-of-associates-and-their-roles)).
  */
 export interface RemoveInheritedAssociateChange extends IChange {
   readonly type: 'RemoveInheritedAssociateChange'
@@ -3549,7 +3561,7 @@ export interface RequestQuoteRenegotiationChange extends IChange {
    */
   readonly nextValue: QuoteState
   /**
-   *	Message from the [Buyer](/../api/quotes-overview#buyer) regarding the [Quote](ctp:api:type:Quote) renegotiation request.
+   *	Message from the [Buyer](/api/quotes-overview#buyer) regarding the [Quote](ctp:api:type:Quote) renegotiation request.
    *
    */
   readonly buyerComment: string
@@ -3685,7 +3697,7 @@ export interface SetAssetCustomFieldChange extends IChange {
    */
   readonly nextValue: any
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    */
   readonly name: string
@@ -4206,7 +4218,7 @@ export interface SetCustomFieldChange extends IChange {
    */
   readonly nextValue: any
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    */
   readonly name: string
@@ -4241,7 +4253,7 @@ export interface SetCustomLineItemCustomFieldChange extends IChange {
    */
   readonly nextValue: any
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    */
   readonly name: string
@@ -5143,7 +5155,7 @@ export interface SetLastNameChange extends IChange {
   readonly nextValue: string
 }
 /**
- *	This change is initiated by background processes after the [Delete Product](/../api/projects/products#delete-product) request or [Remove ProductVariant](ctp:api:type:ProductRemoveVariantAction) update action is performed.
+ *	This change is initiated by background processes after the [Delete Product](/api/projects/products#delete-product) request or [Remove ProductVariant](ctp:api:type:ProductRemoveVariantAction) update action is performed.
  */
 export interface SetLineItemDeactivatedAtChange extends IChange {
   readonly type: 'SetLineItemDeactivatedAtChange'
@@ -5619,6 +5631,17 @@ export interface SetLocalizedDescriptionChange extends IChange {
    *
    */
   readonly nextValue: LocalizedString
+  /**
+   *	Product data that was updated.
+   *
+   *	- `staged`, if the staged [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *	- `current`, if the current [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *
+   *	This field is only present if the change is related to the Product entity.
+   *
+   *
+   */
+  readonly catalogData: string
 }
 /**
  *	Change triggered by the [Set Max Applications](ctp:api:type:DiscountCodeSetMaxApplicationsAction) update action.
@@ -5885,7 +5908,7 @@ export interface SetOrderLineItemCustomFieldChange extends IChange {
    */
   readonly customTypeId: string
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    */
   readonly name: string
@@ -6279,7 +6302,7 @@ export interface SetProductPriceCustomFieldChange extends IChange {
    */
   readonly customTypeId: string
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    */
   readonly name: string
@@ -6821,7 +6844,7 @@ export interface SetShoppingListLineItemCustomFieldChange extends IChange {
    */
   readonly nextValue: any
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    */
   readonly name: string
@@ -7183,7 +7206,7 @@ export interface SetTextLineItemCustomFieldChange extends IChange {
    */
   readonly nextValue: any
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    */
   readonly name: string
@@ -7886,7 +7909,7 @@ export interface SetBillingAddressCustomFieldChange extends IChange {
    */
   readonly change: string
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    */
   readonly name: string
@@ -7981,8 +8004,7 @@ export interface SetCustomLineItemDiscountedPriceChange extends IChange {
 /**
  *	Change triggered after a recalculation of discount on a [Custom Line Item](ctp:api:type:CustomLineItem).
  */
-export interface SetCustomLineItemDiscountedPricePerQuantityChange
-  extends IChange {
+export interface SetCustomLineItemDiscountedPricePerQuantityChange extends IChange {
   readonly type: 'SetCustomLineItemDiscountedPricePerQuantityChange'
   /**
    *
@@ -8062,7 +8084,7 @@ export interface SetDeliveryAddressCustomFieldChange extends IChange {
    */
   readonly addressId: string
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    */
   readonly name: string
@@ -8131,7 +8153,7 @@ export interface SetDeliveryCustomFieldChange extends IChange {
    */
   readonly deliveryId: string
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    */
   readonly name: string
@@ -8244,7 +8266,7 @@ export interface SetItemShippingAddressCustomFieldChange extends IChange {
    */
   readonly addressId: string
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    */
   readonly name: string
@@ -8352,7 +8374,7 @@ export interface SetParcelCustomFieldChange extends IChange {
    */
   readonly customTypeId: string
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    */
   readonly name: string
@@ -8393,7 +8415,7 @@ export interface SetParcelCustomTypeChange extends IChange {
   readonly nextValue: CustomFields
 }
 /**
- *	Change triggered by the [Change password of Customer](/../api/projects/customers#change-password-of-customer) or [Change password of Customer in Store](/../api/projects/customers#change-password-of-customer-in-store) request.
+ *	Change triggered by the [Change password of Customer](/api/projects/customers#change-password-of-customer) or [Change password of Customer in Store](/api/projects/customers#change-password-of-customer-in-store) request.
  */
 export interface SetPasswordChange extends IChange {
   readonly type: 'SetPasswordChange'
@@ -8535,7 +8557,7 @@ export interface SetReturnItemCustomLineItemCustomFieldChange extends IChange {
    */
   readonly customLineItemId: string
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    */
   readonly name: string
@@ -8616,7 +8638,7 @@ export interface SetReturnItemLineItemCustomFieldChange extends IChange {
    */
   readonly lineItemId: string
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    */
   readonly name: string
@@ -8686,7 +8708,7 @@ export interface SetShippingAddressCustomFieldChange extends IChange {
    */
   readonly change: string
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    */
   readonly name: string
@@ -8743,7 +8765,7 @@ export interface SetShippingCustomFieldChange extends IChange {
    */
   readonly shippingKey: string
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    */
   readonly name: string
@@ -8805,7 +8827,7 @@ export interface SetTransactionCustomFieldChange extends IChange {
    */
   readonly transaction: TransactionChangeValue
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    */
   readonly name: string
@@ -8952,7 +8974,7 @@ export interface SetAssociatesChange extends IChange {
   readonly nextValue: Associate[]
 }
 /**
- *	This change is initiated by background processes after the [Change Parent Unit](ctp:api:type:BusinessUnitChangeParentUnitAction) or [Set Unit Type](ctp:api:type:BusinessUnitSetUnitTypeAction) update action is performed (if [Associates are inherited](/../api/associates-overview#inheritance-of-associates-and-their-roles)).
+ *	This change is initiated by background processes after the [Change Parent Unit](ctp:api:type:BusinessUnitChangeParentUnitAction) or [Set Unit Type](ctp:api:type:BusinessUnitSetUnitTypeAction) update action is performed (if [Associates are inherited](/api/associates-overview#inheritance-of-associates-and-their-roles)).
  */
 export interface SetInheritedAssociatesChange extends IChange {
   readonly type: 'SetInheritedAssociatesChange'
@@ -9213,6 +9235,31 @@ export interface SetTaxedShippingPriceChange extends IChange {
    *
    */
   readonly nextValue: TaxedPrice
+}
+/**
+ *	Change triggered by the [Set Transaction InterfaceId](ctp:api:type:PaymentSetTransactionInterfaceIdAction) update action.
+ */
+export interface SetTransactionInterfaceIdChange extends IChange {
+  readonly type: 'SetTransactionInterfaceIdChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Holds information about the updated Transaction.
+   *
+   */
+  readonly transaction: TransactionChangeValue
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: string
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: string
 }
 /**
  *	Change triggered by the [Add ShippingRate](ctp:api:type:ShippingMethodAddShippingRateAction) update action.
@@ -9570,7 +9617,7 @@ export interface StandalonePriceSetCustomFieldChange extends IChange {
    */
   readonly change: string
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    */
   readonly name: string

@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { Customer } from '../../models/customer'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
@@ -21,7 +21,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersEmailTokenByEmailTokenRequ
     }
   ) {}
   /**
-   *	Use this method to retrieve a Store-specific Customer's details by using the email token during their [email verification process](/../api/customers-overview#customer-email-verification).
+   *	Use this method to retrieve a Store-specific Customer's details by using the email token during their [email verification process](/api/customers-overview#customer-email-verification).
    *
    *	If the Customer exists in the Project but the `stores` field references a different [Store](ctp:api:type:Store), this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
    *

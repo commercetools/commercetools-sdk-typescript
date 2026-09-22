@@ -8,7 +8,7 @@ import {
   StandalonePriceDraft,
   StandalonePricePagedQueryResponse,
 } from '../../models/standalone-price'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyStandalonePricesByIDRequestBuilder } from './by-project-key-standalone-prices-by-id-request-builder'
 import { ByProjectKeyStandalonePricesKeyByKeyRequestBuilder } from './by-project-key-standalone-prices-key-by-key-request-builder'
@@ -108,6 +108,8 @@ export class ByProjectKeyStandalonePricesRequestBuilder {
    *
    *	- If the Standalone Price has the same price scope as an existing Standalone Price, a [DuplicateStandalonePriceScope](ctp:api:type:DuplicateStandalonePriceScopeError) error is returned.
    *	- If the Standalone Price has overlapping validity periods within the same price scope, a [OverlappingStandalonePriceValidity](ctp:api:type:OverlappingStandalonePriceValidityError) error is returned. A Price without validity period does not conflict with a Price defined for a time period.
+   *	- If a modification is already in progress for the exact combination of SKU and price scope fields, an [ExactLockConflict](ctp:api:type:ExactLockConflictError) error is returned.
+   *	- If a modification is already in progress for the combination of SKU and price scope fields (but potentially different validity period), a [ValidityLockConflict](ctp:api:type:ValidityLockConflictError) error is returned.
    *
    */
   public post(methodArgs: {

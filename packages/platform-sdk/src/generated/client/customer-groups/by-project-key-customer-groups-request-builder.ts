@@ -8,7 +8,7 @@ import {
   CustomerGroupDraft,
   CustomerGroupPagedQueryResponse,
 } from '../../models/customer-group'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyCustomerGroupsByIDRequestBuilder } from './by-project-key-customer-groups-by-id-request-builder'
 import { ByProjectKeyCustomerGroupsKeyByKeyRequestBuilder } from './by-project-key-customer-groups-key-by-key-request-builder'

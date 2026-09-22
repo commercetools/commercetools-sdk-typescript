@@ -58,6 +58,15 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'delete',
+      uri: '/test_projectKey/business-units/key=test_key?dataErasure=true&version=2',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .businessUnits()
+        .withKey({ key: 'test_key' })
+        .delete({ queryArgs: { dataErasure: true, version: 2 } }),
+    },
+    {
+      method: 'delete',
       uri: '/test_projectKey/business-units/key=test_key?version=2',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
@@ -81,11 +90,11 @@ describe('Testing ByProjectKeyBusinessUnitsKeyByKeyRequestBuilder Requests', () 
   const requestsToTest = getRequestsWithMethodParameters()
   requestsToTest.forEach((rm) => {
     test(`Testing => request method: ${rm.method} and url: ${rm.uri}`, async () => {
-      expect(rm.method.toLowerCase()).toBe(
-        rm.request.clientRequest().method.toLowerCase()
+      expect(rm.request.clientRequest().method.toLowerCase()).toBe(
+        rm.method.toLowerCase()
       )
-      expect(rm.uri.toLowerCase()).toBe(
-        rm.request.clientRequest().uri.toLowerCase()
+      expect(rm.request.clientRequest().uri.toLowerCase()).toBe(
+        rm.uri.toLowerCase()
       )
     })
   })

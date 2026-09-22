@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { PaymentMethod, PaymentMethodUpdate } from '../../models/payment-method'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
@@ -70,7 +70,7 @@ export class ByProjectKeyPaymentMethodsKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Updates a PaymentMethod in the Project using one or more [update actions](/../api/projects/payment-methods#update-actions).
+   *	Updates a PaymentMethod in the Project using one or more [update actions](/api/projects/payment-methods#update-actions).
    *
    */
   public post(methodArgs: {
