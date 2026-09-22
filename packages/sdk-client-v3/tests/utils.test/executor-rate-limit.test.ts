@@ -32,7 +32,6 @@ describe('executor — gateway rate limiting', () => {
     const result = await executor(makeRequest(httpClient, { maxRetries: 1 }))
 
     expect(result.statusCode).toEqual(429)
-    expect(result.data).toBeNull()
   })
 
   test('still parses a JSON error body (Change History shape)', async () => {

@@ -174,25 +174,33 @@ export default async function executor(request: HttpClientConfig) {
         return {
           data: null,
           retryCount,
-          statusCode:
-            response.status || response.statusCode || data?.statusCode,
+          statusCode: response.status || response.statusCode || data.statusCode,
           headers: response.headers,
         }
       }
 
-      try {
-        // try to parse the `fetch` response as text
-        if (response.text && typeof response.text == 'function') {
-          result = await response.text()
+      // try to parse the `fetch` response as text
+      if (response.text && typeof response.text == 'function') {
+        result = await response.text()
 
-          // An empty body is possible and accaptable
-          data = result ? JSON.parse(result) : null
-        } else {
-          // axios response
-          data = response.data || response
+        try {
+          data = JSON.parse(result)
+        } catch (err) {
+          const statusCode = response.status || response.statusCode
+
+          // An error response can come from infrastructure sitting in front of
+          // the API (e.g. an HTML page from a load balancer, or the API gateway's
+          // empty-bodied 429). Keep the raw body so the status code survives,
+          // instead of collapsing into a `NetworkError` with `statusCode: 0`.
+          // Anything else, including a response whose status we do not know,
+          // keeps surfacing the parse failure.
+          if (!(statusCode > 399)) throw err
+
+          data = result
         }
-      } catch (err) {
-        throw err
+      } else {
+        // axios response
+        data = response.data || response
       }
 
       return {
