@@ -7006,6 +7006,15 @@ input McpServerJsonOutputFilteringMatcherInput {
   fieldPaths: [String!]
 }
 
+type McpServerLimitWithCurrent {
+  current: Long!
+  limit: Long!
+}
+
+type McpServerLimits {
+  total: McpServerLimitWithCurrent!
+}
+
 type McpServerQueryResult {
   count: Int!
   exists: Boolean!
@@ -12736,6 +12745,11 @@ type Query {
   BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
   """
   mcpServer(id: String, key: String): McpServer
+
+  """
+  BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
+  """
+  mcpServerLimits: McpServerLimits!
 
   """
   BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta

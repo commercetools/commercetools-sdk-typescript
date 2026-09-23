@@ -3531,6 +3531,17 @@ export interface McpServerJsonOutputFilteringMatcher {
     __typename: 'McpServerJsonOutputFilteringMatcher'
 }
 
+export interface McpServerLimitWithCurrent {
+    current: Scalars['Long']
+    limit: Scalars['Long']
+    __typename: 'McpServerLimitWithCurrent'
+}
+
+export interface McpServerLimits {
+    total: McpServerLimitWithCurrent
+    __typename: 'McpServerLimits'
+}
+
 export interface McpServerQueryResult {
     count: Scalars['Int']
     exists: Scalars['Boolean']
@@ -6082,6 +6093,8 @@ export interface Query {
     limits: ProjectCustomLimitsProjection
     /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     mcpServer: (McpServer | null)
+    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
+    mcpServerLimits: McpServerLimits
     /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     mcpServerType: (McpServerTypeCatalogEntry | null)
     /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
@@ -14501,6 +14514,19 @@ export interface McpServerJsonOutputFilteringMatcherGenqlSelection{
 
 export interface McpServerJsonOutputFilteringMatcherInput {fieldNameContains?: (Scalars['String'][] | null),fieldNames?: (Scalars['String'][] | null),fieldPaths?: (Scalars['String'][] | null)}
 
+export interface McpServerLimitWithCurrentGenqlSelection{
+    current?: boolean | number
+    limit?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface McpServerLimitsGenqlSelection{
+    total?: McpServerLimitWithCurrentGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
 export interface McpServerQueryResultGenqlSelection{
     count?: boolean | number
     exists?: boolean | number
@@ -18935,6 +18961,8 @@ export interface QueryGenqlSelection{
     limits?: ProjectCustomLimitsProjectionGenqlSelection
     /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     mcpServer?: (McpServerGenqlSelection & { __args?: {id?: (Scalars['String'] | null), key?: (Scalars['String'] | null)} })
+    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
+    mcpServerLimits?: McpServerLimitsGenqlSelection
     /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     mcpServerType?: (McpServerTypeCatalogEntryGenqlSelection & { __args: {majorVersion?: (Scalars['String'] | null), type: McpServerType} })
     /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
@@ -27812,6 +27840,22 @@ export interface setKey {key?: (Scalars['String'] | null)}
     export const isMcpServerJsonOutputFilteringMatcher = (obj?: { __typename?: any } | null): obj is McpServerJsonOutputFilteringMatcher => {
       if (!obj?.__typename) throw new Error('__typename is missing in "isMcpServerJsonOutputFilteringMatcher"')
       return McpServerJsonOutputFilteringMatcher_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const McpServerLimitWithCurrent_possibleTypes: string[] = ['McpServerLimitWithCurrent']
+    export const isMcpServerLimitWithCurrent = (obj?: { __typename?: any } | null): obj is McpServerLimitWithCurrent => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isMcpServerLimitWithCurrent"')
+      return McpServerLimitWithCurrent_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const McpServerLimits_possibleTypes: string[] = ['McpServerLimits']
+    export const isMcpServerLimits = (obj?: { __typename?: any } | null): obj is McpServerLimits => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isMcpServerLimits"')
+      return McpServerLimits_possibleTypes.includes(obj.__typename)
     }
     
 
