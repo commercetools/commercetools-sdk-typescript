@@ -35,7 +35,6 @@ describe('parseDeltaSeconds', () => {
     ['null', null],
     ['undefined', undefined],
     ['empty string', ''],
-    ['zero', '0'],
     ['negative', '-5'],
     ['decimal', '1.5'],
     ['text', 'soon'],

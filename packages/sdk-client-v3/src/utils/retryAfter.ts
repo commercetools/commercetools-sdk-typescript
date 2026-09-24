@@ -32,7 +32,7 @@ export function parseDeltaSeconds(
   if (trimmed === '' || !/^\d+$/.test(trimmed)) return null
 
   const seconds = Number(trimmed)
-  if (!Number.isFinite(seconds) || seconds <= 0) return null
+  if (!Number.isFinite(seconds) || seconds < 0) return null
 
   const delay = seconds * 1000
 
