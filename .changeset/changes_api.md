@@ -216,6 +216,7 @@
 <summary>Added Enum(s)</summary>
 
 - added enum `mcp-server` to type `ReferenceTypeId`
+- added enum `product` to type `ExtensionResourceTypeId`
 - added enum `InMigration` to type `ProductCatalogModel`
 - added enum `variant` to type `ChangeSubscriptionResourceTypeId`
 - added enum `variant` to type `MessageSubscriptionResourceTypeId`
