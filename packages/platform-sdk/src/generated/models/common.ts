@@ -1291,6 +1291,7 @@ export enum ReferenceTypeIdValues {
   Extension = 'extension',
   InventoryEntry = 'inventory-entry',
   KeyValueDocument = 'key-value-document',
+  McpServer = 'mcp-server',
   Order = 'order',
   OrderEdit = 'order-edit',
   Payment = 'payment',
@@ -1340,6 +1341,7 @@ export type ReferenceTypeId =
   | 'extension'
   | 'inventory-entry'
   | 'key-value-document'
+  | 'mcp-server'
   | 'order'
   | 'order-edit'
   | 'payment'

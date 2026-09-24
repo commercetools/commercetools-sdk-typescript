@@ -1,8 +1,8 @@
+export { not } from './builder/where'
 export { GraphQLApiRequest } from './client/graphql-api-request'
 export { GraphQLClient, createGraphQLClient } from './client/graphql-client'
 export { GraphQLRequestError } from './errors/graphql-request-error'
 export { printDocument, toGraphQLRequestBody } from './utils/print-document'
-export { not } from './builder/where'
 
 export { everything, generateMutationOp, generateQueryOp } from './builder/generated'
 
@@ -13,6 +13,13 @@ export type {
   ResultFieldOf,
   SelectionOf
 } from './builder/chain'
+export type {
+  FieldsSelection,
+  Mutation,
+  MutationGenqlSelection,
+  Query,
+  QueryGenqlSelection
+} from './builder/generated'
 export type {
   AnyValue,
   CollectionOf,
@@ -31,13 +38,6 @@ export type {
   WhereBuilder,
   WhereResourceOf
 } from './builder/where'
-export type {
-  FieldsSelection,
-  Mutation,
-  MutationGenqlSelection,
-  Query,
-  QueryGenqlSelection
-} from './builder/generated'
 export type {
   ApiRequestLike,
   ClientResponse,

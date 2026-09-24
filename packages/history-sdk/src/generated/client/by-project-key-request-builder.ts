@@ -61,12 +61,14 @@ export class ByProjectKeyRequestBuilder {
       limit?: number
       offset?: number
       userId?: string
+      userIds?: string | string[]
       clientId?: string
       customerId?: string
       associateId?: string
       businessUnit?: string
       type?: string
       resourceId?: string
+      resourceIds?: string | string[]
       resourceKey?: string
       source?: Source
       changes?: string | string[]

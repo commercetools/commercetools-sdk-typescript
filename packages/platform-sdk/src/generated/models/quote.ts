@@ -244,6 +244,13 @@ export interface Quote extends BaseResource {
    */
   readonly directDiscounts?: DirectDiscount[]
   /**
+   *	- If `true`, only [Direct Discounts](ctp:api:type:DirectDiscount) apply to the Quote. Matching [Cart Discounts](ctp:api:type:CartDiscount) are ignored, and Discount Codes cannot be added.
+   *	- If `false`, Cart Discounts, Discount Codes, and Direct Discounts apply to the Quote.
+   *
+   *
+   */
+  readonly directDiscountsIgnoreCartDiscounts?: boolean
+  /**
    *	Custom Fields on the Quote.
    *
    *
