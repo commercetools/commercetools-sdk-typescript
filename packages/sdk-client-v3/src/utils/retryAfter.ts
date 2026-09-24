@@ -34,7 +34,9 @@ export function parseDeltaSeconds(
   const seconds = Number(trimmed)
   if (!Number.isFinite(seconds) || seconds <= 0) return null
 
-  return seconds * 1000
+  const delay = seconds * 1000
+
+  return Number.isFinite(delay) ? delay : null
 }
 
 export function parseRetryAfter(

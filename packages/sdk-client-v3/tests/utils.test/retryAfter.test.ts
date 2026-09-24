@@ -19,6 +19,18 @@ describe('parseDeltaSeconds', () => {
     expect(parseDeltaSeconds('  30  ')).toEqual(30_000)
   })
 
+  test('treats zero as a valid instruction to retry now', () => {
+    // RFC 9110 delta-seconds is non-negative, so 0 is fine and means "retry
+    // immediately". Returning null would make the executor refuse to retry
+    expect(parseDeltaSeconds('0')).toEqual(0)
+  })
+
+  test('rejects a value so large it overflows to Infinity in milliseconds', () => {
+    const overflowing = '1' + '0'.repeat(306)
+    expect(Number.isFinite(Number(overflowing))).toBe(true)
+    expect(parseDeltaSeconds(overflowing)).toBeNull()
+  })
+
   test.each([
     ['null', null],
     ['undefined', undefined],
@@ -154,6 +166,12 @@ describe('hasRetryTiming', () => {
 
   test('false for a 429 with no timing header', () => {
     expect(hasRetryTiming({ status: 429, headers: {} }, NOW)).toBe(false)
+  })
+
+  test('true for a 429 with Retry-After: 0', () => {
+    expect(
+      hasRetryTiming({ status: 429, headers: { 'retry-after': '0' } }, NOW)
+    ).toBe(true)
   })
 })
 
