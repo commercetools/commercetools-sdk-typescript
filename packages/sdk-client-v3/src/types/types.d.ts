@@ -242,6 +242,7 @@ export type RetryMiddlewareOptions = {
   maxDelay?: typeof Infinity
   retryOnAbort?: boolean
   retryCodes?: Array<number | string>
+  useRetryAfter?: boolean
 }
 
 export type CorrelationIdMiddlewareOptions = {
