@@ -44,6 +44,10 @@ export function ConcurrentModification(this: any, ...args: Array<unknown>) {
   DefineError.apply(this, [409, ...args] as any)
 }
 
+export function TooManyRequests(this: any, ...args: Array<unknown>) {
+  DefineError.apply(this, [429, ...args] as any)
+}
+
 export function InternalServerError(this: any, ...args: Array<unknown>) {
   DefineError.apply(this, [500, ...args] as any)
 }
@@ -66,6 +70,8 @@ export default function getErrorByCode(code: number) {
       return NotFound
     case 409:
       return ConcurrentModification
+    case 429:
+      return TooManyRequests
     case 500:
       return InternalServerError
     case 503:

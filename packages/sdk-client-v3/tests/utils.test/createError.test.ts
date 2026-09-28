@@ -104,6 +104,24 @@ describe('createError', () => {
     expect(errorResponse instanceof Error).toEqual(true)
   })
 
+  test('a 429 error', () => {
+    const _error = errorObject({
+      statusCode: 429,
+      message: 'You have made too many requests. Please try again later.',
+    })
+
+    const errorResponse = createError(_error)
+
+    expect(errorResponse.status).toEqual(429)
+    expect(errorResponse.statusCode).toEqual(429)
+    expect(errorResponse.code).toEqual('TooManyRequests')
+    expect(errorResponse.name).toEqual('TooManyRequests')
+    expect(errorResponse.message).toEqual(
+      'You have made too many requests. Please try again later.'
+    )
+    expect(errorResponse instanceof Error).toEqual(true)
+  })
+
   test('a 500 error', () => {
     const _error = errorObject({
       statusCode: 500,
