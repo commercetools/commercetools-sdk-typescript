@@ -86,6 +86,15 @@ export function hasRetryTiming(
   return getRetryDelay(response, now) !== null
 }
 
+export function canRetryWithin(
+  response: any,
+  maxDelay: number,
+  now: number = Date.now()
+): boolean {
+  const delay = getRetryDelay(response, now)
+  return delay !== null && delay <= maxDelay
+}
+
 // uses positive jitter to a server-specified delay and caps it
 export function applyRetryAfterJitter(
   delay: number,

@@ -72,6 +72,46 @@ describe('executor — gateway rate limiting', () => {
     expect(result.statusCode).toEqual(429)
   })
 
+  test('does not retry a 429 asking for longer than maxDelay', async () => {
+    // maxDelay 100ms, server asks for 1s. Retrying at 100ms lands inside the same
+    // window and is certain to fail, so surface the 429 instead of burning the budget.
+    const httpClient = jest
+      .fn()
+      .mockResolvedValue(fakeResponse(429, { 'x-ratelimit-reset': '1' }, ''))
+
+    const result = await executor(
+      makeRequest(httpClient, { maxRetries: 3, maxDelay: 100 })
+    )
+
+    expect(httpClient).toHaveBeenCalledTimes(1)
+    expect(result.statusCode).toEqual(429)
+  })
+
+  test('retries a 429 asking for exactly maxDelay', async () => {
+    const httpClient = jest
+      .fn()
+      .mockResolvedValue(fakeResponse(429, { 'x-ratelimit-reset': '1' }, ''))
+
+    await executor(makeRequest(httpClient, { maxRetries: 1, maxDelay: 1000 }))
+
+    expect(httpClient).toHaveBeenCalledTimes(2)
+  })
+
+  test('still caps rather than giving up on a 503', async () => {
+    // A Retry-After on a 503 is an estimate, not a hard window, so an early retry
+    // may succeed and the delay is capped instead of abandoned.
+    const httpClient = jest
+      .fn()
+      .mockResolvedValue(fakeResponse(503, { 'retry-after': '1' }, ''))
+
+    const start = Date.now()
+    await executor(makeRequest(httpClient, { maxRetries: 1, maxDelay: 100 }))
+    const elapsed = Date.now() - start
+
+    expect(httpClient).toHaveBeenCalledTimes(2)
+    expect(elapsed).toBeLessThan(900)
+  })
+
   test('still retries a 503 with no timing header', async () => {
     const httpClient = jest.fn().mockResolvedValue(fakeResponse(503, {}, ''))
 

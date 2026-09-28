@@ -1,6 +1,6 @@
 import { HttpClientConfig, IResponse, TResponse } from '../types/types'
 import { calculateRetryDelay, sleep, validateRetryCodes } from '../utils'
-import { hasRetryTiming } from './retryAfter'
+import { canRetryWithin } from './retryAfter'
 
 const TOO_MANY_REQUESTS = 429
 const DEFAULT_RETRY_CODES = [TOO_MANY_REQUESTS, 503]
@@ -16,12 +16,15 @@ function hasResponseRetryCode(
 
 function shouldRetryResponse(
   retryCodes: Array<string | number>,
-  response: any
+  response: any,
+  maxDelay: number
 ) {
   if (!hasResponseRetryCode(retryCodes, response)) return false
 
+  // A 429 is retried only when the server said when and only when that wait
+  // fits within maxDelay.
   const status = response?.status ?? response?.statusCode
-  if (status === TOO_MANY_REQUESTS) return hasRetryTiming(response)
+  if (status === TOO_MANY_REQUESTS) return canRetryWithin(response, maxDelay)
 
   return true
 }
@@ -114,7 +117,7 @@ export default async function executor(request: HttpClientConfig) {
             _response = await execute()
             if (
               _response.status > 399 &&
-              shouldRetryResponse(retryCodes, _response)
+              shouldRetryResponse(retryCodes, _response, maxDelay)
             ) {
               return { _response, shouldRetry: true }
             }
