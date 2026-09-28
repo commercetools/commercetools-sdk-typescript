@@ -57,7 +57,10 @@ describe('executor — gateway rate limiting', () => {
       .fn()
       .mockResolvedValue(fakeResponse(429, { 'x-ratelimit-reset': '1' }, ''))
 
-    await executor(makeRequest(httpClient, { maxRetries: 2 }))
+    // maxDelay has to exceed the header value or the request is correctly
+    // refused as un-retryable. The smallest header value is 1 second, since
+    // both headers are expressed in whole seconds
+    await executor(makeRequest(httpClient, { maxRetries: 2, maxDelay: 5000 }))
 
     // initial attempt + 2 retries
     expect(httpClient).toHaveBeenCalledTimes(3)
