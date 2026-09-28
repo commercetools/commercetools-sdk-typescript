@@ -15,6 +15,11 @@ A rate-limited response that carries no timing information is intentionally not 
 so a typical retry amount of a few attempts over a few seconds would be spent entirely on requests certain to be rejected again,
 leaving the caller waiting longer only to see the same failure.
 
-The server-specified delay is capped at `maxDelay` and given a small amount of positive jitter, so that many clients rate limited in the same window do not all retry at the same instant. The jitter never shortens the wait below what the server asked for.
+A `429` asking to wait longer than `maxDelay` is not retried either. A rate limit window is a hard boundary, so capping the wait would place the next attempt inside the same window, where it is certain to fail again. Raise `maxDelay` to
+opt into waiting longer. For a `Retry-After` on a `503` the delay is still capped rather than abandoned, since that is the server's estimate of recovery rather than a fixed window.
+
+Otherwise, the server-specified delay is given a small amount of positive jitter, so that many clients rate limited in the same window do not all retry at the same instant. The jitter never shortens the wait below what the server asked for.
 
 Set `respectRetryAfter: false` in `retryConfig` to ignore these headers and always use the configured backoff.
+
+Rate-limited responses now surface as a `TooManyRequests` error rather than a generic `HttpError`, matching the error code the API documents. `error.name` and `error.code` change accordingly for `429`s; `statusCode` is unchanged.
