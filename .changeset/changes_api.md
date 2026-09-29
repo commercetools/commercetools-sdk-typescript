@@ -171,6 +171,8 @@
 - added property `storefront` to type `StoreDraft`
 - added property `taxRoundingTarget` to type `TaxRate`
 - added property `taxRoundingTarget` to type `TaxRateDraft`
+- added property `restockableInDays` to type `VariantAttributesAvailability`
+- added property `restockableInDays` to type `VariantAttributesChannelAvailability`
 
 </details>
 
