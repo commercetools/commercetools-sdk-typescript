@@ -578,6 +578,7 @@ export interface AttributeDefinition {
     labelAllLocales: LocalizedString[]
     level: Level
     name: Scalars['String']
+    savedToLineItem: Scalars['Boolean']
     type: AttributeDefinitionType
     __typename: 'AttributeDefinition'
 }
@@ -10081,12 +10082,13 @@ export interface AttributeDefinitionGenqlSelection{
     labelAllLocales?: LocalizedStringGenqlSelection
     level?: boolean | number
     name?: boolean | number
+    savedToLineItem?: boolean | number
     type?: AttributeDefinitionTypeGenqlSelection
     __typename?: boolean | number
     __scalar?: boolean | number
 }
 
-export interface AttributeDefinitionDraft {attributeConstraint?: (AttributeConstraint | null),inputHint?: (TextInputHint | null),inputTip?: (LocalizedStringItemInputType[] | null),isRequired: Scalars['Boolean'],isSearchable: Scalars['Boolean'],label: LocalizedStringItemInputType[],level?: (Level | null),name: Scalars['String'],type: AttributeTypeDraft}
+export interface AttributeDefinitionDraft {attributeConstraint?: (AttributeConstraint | null),inputHint?: (TextInputHint | null),inputTip?: (LocalizedStringItemInputType[] | null),isRequired: Scalars['Boolean'],isSearchable: Scalars['Boolean'],label: LocalizedStringItemInputType[],level?: (Level | null),name: Scalars['String'],savedToLineItem?: (Scalars['Boolean'] | null),type: AttributeTypeDraft}
 
 export interface AttributeDefinitionResultGenqlSelection{
     limit?: boolean | number
@@ -18589,7 +18591,7 @@ export interface ProductTypeLimitsProjectionGenqlSelection{
     __scalar?: boolean | number
 }
 
-export interface ProductTypeUpdateAction {addAttributeDefinition?: (addAttributeDefinition | null),addLocalizedEnumValue?: (addLocalizedEnumValue | null),addPlainEnumValue?: (addPlainEnumValue | null),changeAttributeName?: (changeAttributeName | null),changeAttributeOrder?: (changeAttributeOrder | null),changeAttributeOrderByName?: (changeAttributeOrderByName | null),changeDescription?: (changeDescription | null),changeEnumKey?: (changeEnumKey | null),changeInputHint?: (changeInputHint | null),changeIsSearchable?: (changeIsSearchable | null),changeLabel?: (changeLabel | null),changeLocalizedEnumValueLabel?: (changeLocalizedEnumValueLabel | null),changeLocalizedEnumValueOrder?: (changeLocalizedEnumValueOrder | null),changeName?: (changeName | null),changePlainEnumValueLabel?: (changePlainEnumValueLabel | null),changePlainEnumValueOrder?: (changePlainEnumValueOrder | null),removeAttributeDefinition?: (removeAttributeDefinition | null),removeEnumValues?: (removeEnumValues | null),setInputTip?: (setInputTip | null),setKey?: (setKey | null)}
+export interface ProductTypeUpdateAction {addAttributeDefinition?: (addAttributeDefinition | null),addLocalizedEnumValue?: (addLocalizedEnumValue | null),addPlainEnumValue?: (addPlainEnumValue | null),changeAttributeName?: (changeAttributeName | null),changeAttributeOrder?: (changeAttributeOrder | null),changeAttributeOrderByName?: (changeAttributeOrderByName | null),changeDescription?: (changeDescription | null),changeEnumKey?: (changeEnumKey | null),changeInputHint?: (changeInputHint | null),changeIsSearchable?: (changeIsSearchable | null),changeLabel?: (changeLabel | null),changeLocalizedEnumValueLabel?: (changeLocalizedEnumValueLabel | null),changeLocalizedEnumValueOrder?: (changeLocalizedEnumValueOrder | null),changeName?: (changeName | null),changePlainEnumValueLabel?: (changePlainEnumValueLabel | null),changePlainEnumValueOrder?: (changePlainEnumValueOrder | null),removeAttributeDefinition?: (removeAttributeDefinition | null),removeEnumValues?: (removeEnumValues | null),setInputTip?: (setInputTip | null),setKey?: (setKey | null),setSavedToLineItem?: (setSavedToLineItem | null)}
 
 export interface ProductUnpublishedGenqlSelection{
     type?: boolean | number
@@ -24586,6 +24588,8 @@ export interface removeEnumValues {attributeName: Scalars['String'],keys: Scalar
 export interface setInputTip {attributeName: Scalars['String'],inputTip?: (LocalizedStringItemInputType[] | null)}
 
 export interface setKey {key?: (Scalars['String'] | null)}
+
+export interface setSavedToLineItem {attributeName: Scalars['String'],savedToLineItem: Scalars['Boolean']}
 
 
     const APIClientWithSecret_possibleTypes: string[] = ['APIClientWithSecret']
