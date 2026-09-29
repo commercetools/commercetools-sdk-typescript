@@ -4,6 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import {
+  AgentResponsesMultipartRequest,
   AgentResponsesRequest,
   AgentResponsesSuccess,
 } from '../../models/agent'
@@ -32,7 +33,7 @@ export class ByProjectKeyAgentsIntakeV1ResponsesRequestBuilder {
    *
    */
   public post(methodArgs: {
-    body: AgentResponsesRequest
+    body: AgentResponsesRequest | AgentResponsesMultipartRequest
     headers?: {
       [key: string]: string | string[]
     }
