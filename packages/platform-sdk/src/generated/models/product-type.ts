@@ -89,6 +89,15 @@ export interface AttributeDefinition {
    *
    */
   readonly isSearchable: boolean
+  /**
+   *	Whether the Attribute value is copied onto the [LineItem](ctp:api:type:LineItem) when the Product is added to a Cart.
+   *	When `false`, the Attribute value is excluded from the Line Item variant. Line Items already in a Cart are not immediately affected by a change to this value. Existing Line Items are updated the next time their Product data is refreshed, such as when a [Recalculate](ctp:api:type:CartRecalculateAction) update action is performed with `updateProductData` set to `true`, or on a Cart update that triggers an API Extension. Replicating a Cart creates a new Cart that contains the current Product data; it does not update the original Cart.
+   *
+   *	When `savedToLineItem` is `false`, [LineItem predicates](/api/projects/predicates#lineitem-field-identifiers) that reference this Attribute, such as those in Cart Discounts and Shipping Methods, evaluate as if the Attribute is not set.
+   *
+   *
+   */
+  readonly savedToLineItem: boolean
 }
 /**
  *	Specify the Attribute to be created with the [ProductTypeDraft](ctp:api:type:ProductTypeDraft).
@@ -160,6 +169,15 @@ export interface AttributeDefinitionDraft {
    *
    */
   readonly isSearchable?: boolean
+  /**
+   *	Whether the Attribute value is copied onto the [LineItem](ctp:api:type:LineItem) when the Product is added to a Cart.
+   *	When `false`, the Attribute value is excluded from the Line Item variant. Line Items already in a Cart are not immediately affected by a change to this value. Existing Line Items are updated the next time their Product data is refreshed, such as when a [Recalculate](ctp:api:type:CartRecalculateAction) update action is performed with `updateProductData` set to `true`, or on a Cart update that triggers an API Extension. Replicating a Cart creates a new Cart that contains the current Product data; it does not update the original Cart.
+   *
+   *	When `savedToLineItem` is `false`, [LineItem predicates](/api/projects/predicates#lineitem-field-identifiers) that reference this Attribute, such as those in Cart Discounts and Shipping Methods, evaluate as if the Attribute is not set.
+   *
+   *
+   */
+  readonly savedToLineItem?: boolean
 }
 export enum AttributeLevelEnumValues {
   Product = 'Product',
@@ -584,6 +602,7 @@ export type ProductTypeUpdateAction =
   | ProductTypeChangeNameAction
   | ProductTypeChangePlainEnumValueLabelAction
   | ProductTypeChangePlainEnumValueOrderAction
+  | ProductTypeChangeSavedToLineItemAction
   | ProductTypeRemoveAttributeDefinitionAction
   | ProductTypeRemoveEnumValuesAction
   | ProductTypeSetInputTipAction
@@ -870,6 +889,33 @@ export interface ProductTypeChangePlainEnumValueOrderAction extends IProductType
    *
    */
   readonly values: AttributePlainEnumValue[]
+}
+/**
+ *	Changes the `savedToLineItem` property of an [AttributeDefinition](ctp:api:type:AttributeDefinition) on a [ProductType](ctp:api:type:ProductType).
+ *	This update action controls whether the Attribute value is copied onto a [LineItem](ctp:api:type:LineItem) when a Product is added to a Cart.
+ *
+ *	Changing this value does not immediately affect Line Items already in a Cart. Existing Line Items are updated the next time their Product data is refreshed, such as when a [Recalculate](ctp:api:type:CartRecalculateAction) update action is performed with `updateProductData` set to `true`, or on a Cart update that triggers an API Extension. Replicating a Cart creates a new Cart that contains the current Product data; it does not update the original Cart.
+ *
+ *	When `savedToLineItem` is `false`, [LineItem predicates](/api/projects/predicates#lineitem-field-identifiers) that reference this Attribute, such as those in Cart Discounts and Shipping Methods, evaluate as if the Attribute is not set.
+ *
+ */
+export interface ProductTypeChangeSavedToLineItemAction extends IProductTypeUpdateAction {
+  readonly action: 'changeSavedToLineItem'
+  /**
+   *	Name of the AttributeDefinition to update.
+   *
+   *
+   */
+  readonly attributeName: string
+  /**
+   *	Whether the Attribute value is copied onto a [LineItem](ctp:api:type:LineItem) when the Product is added to a Cart.
+   *	See [AttributeDefinition](ctp:api:type:AttributeDefinition) for details.
+   *
+   *	It has no effect if the Attribute already has the given value.
+   *
+   *
+   */
+  readonly savedToLineItem: boolean
 }
 /**
  *	Removes an AttributeDefinition and also deletes all corresponding Attributes on all [Products](/projects/products) with this ProductType. Data from deleted Attributes cannot be recovered. The removal of the Attributes is [eventually consistent](/general-concepts#eventual-consistency).

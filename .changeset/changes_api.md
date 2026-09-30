@@ -120,6 +120,7 @@
 - added type `StoreTermsOfServiceUrlSetMessagePayload`
 - added type `StagedOrderSetDirectDiscountsIgnoreCartDiscountsAction`
 - added type `OrderSetEstimatedDeliveryAction`
+- added type `ProductTypeChangeSavedToLineItemAction`
 - added type `ShippingMethodSetCarrierAction`
 - added type `Storefront`
 - added type `StoreSetCheckoutUrlTemplateAction`
@@ -173,6 +174,8 @@
 - added property `taxedPrice` to type `LineItemImportDraft`
 - added property `directDiscountsIgnoreCartDiscounts` to type `Order`
 - added property `taxedPrice` to type `ShippingInfoImportDraft`
+- added property `savedToLineItem` to type `AttributeDefinition`
+- added property `savedToLineItem` to type `AttributeDefinitionDraft`
 - added property `directDiscountsIgnoreCartDiscounts` to type `QuoteRequest`
 - added property `directDiscountsIgnoreCartDiscounts` to type `Quote`
 - added property `carrier` to type `ShippingMethod`
