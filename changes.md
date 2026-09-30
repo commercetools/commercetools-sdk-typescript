@@ -80,6 +80,9 @@
 - added type `EstimatedDelivery`
 - added type `CartSetDirectDiscountsIgnoreCartDiscountsAction`
 - added type `CartSetEstimatedDeliveryAction`
+- added type `CategoryAddStoreAction`
+- added type `CategoryRemoveStoreAction`
+- added type `CategorySetStoresAction`
 - added type `ExtensionCircularDependencyError`
 - added type `GraphQLExtensionCircularDependencyError`
 - added type `CartEstimatedDeliverySetMessage`
@@ -138,6 +141,8 @@
 - added property `estimatedDelivery` to type `CartAddShippingMethodAction`
 - added property `estimatedDelivery` to type `CartSetCustomShippingMethodAction`
 - added property `estimatedDelivery` to type `CartSetShippingMethodAction`
+- added property `stores` to type `Category`
+- added property `stores` to type `CategoryDraft`
 - added property `product` to type `VariantCreatedMessage`
 - added property `product` to type `VariantDeletedMessage`
 - added property `product` to type `VariantImageAddedMessage`
@@ -207,6 +212,9 @@
 - added resource `/{projectKey}/agents/intake`
 - added resource `/{projectKey}/agents/intake/v1`
 - added resource `/{projectKey}/agents/intake/v1/responses`
+- added resource `/{projectKey}/in-store/key={storeKey}/categories`
+- added resource `/{projectKey}/in-store/key={storeKey}/categories/key={key}`
+- added resource `/{projectKey}/in-store/key={storeKey}/categories/{ID}`
 
 </details>
 
@@ -237,6 +245,17 @@
 <summary>Added Method(s)</summary>
 
 - added method `apiRoot.withProjectKey().agents().intake().v1().responses().post()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().categories().get()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().categories().head()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().categories().post()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().categories().withKey().get()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().categories().withKey().head()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().categories().withKey().post()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().categories().withKey().delete()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().categories().withId().get()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().categories().withId().head()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().categories().withId().post()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().categories().withId().delete()`
 
 </details>
 
