@@ -13,6 +13,7 @@ import {
   AgentMissingCountryError,
   AgentMissingCustomerEmailError,
   AgentMissingEntityTypeError,
+  AgentMissingShoppingListNameError,
   AgentNoLineItemsExtractedError,
   AgentOutOfScopeError,
   AgentProductSearchNotEnabledError,
@@ -20,6 +21,7 @@ import {
   AgentQuoteRequestCreationFailedError,
   AgentResponsesAuthError,
   AgentResponsesErrorResponse,
+  AgentShoppingListCreationFailedError,
   AgentStoreAmbiguousError,
   AgentStoreDistributionChannelsUnsupportedError,
   AgentStoreUnresolvedError,
@@ -31,11 +33,13 @@ import {
   GraphQLAgentMissingCountryError,
   GraphQLAgentMissingCustomerEmailError,
   GraphQLAgentMissingEntityTypeError,
+  GraphQLAgentMissingShoppingListNameError,
   GraphQLAgentNoLineItemsExtractedError,
   GraphQLAgentOutOfScopeError,
   GraphQLAgentProductSearchNotEnabledError,
   GraphQLAgentProductsNotFoundError,
   GraphQLAgentQuoteRequestCreationFailedError,
+  GraphQLAgentShoppingListCreationFailedError,
   GraphQLAgentStoreAmbiguousError,
   GraphQLAgentStoreDistributionChannelsUnsupportedError,
   GraphQLAgentStoreUnresolvedError,
@@ -94,11 +98,13 @@ export type ErrorObject =
   | AgentMissingCountryError
   | AgentMissingCustomerEmailError
   | AgentMissingEntityTypeError
+  | AgentMissingShoppingListNameError
   | AgentNoLineItemsExtractedError
   | AgentOutOfScopeError
   | AgentProductSearchNotEnabledError
   | AgentProductsNotFoundError
   | AgentQuoteRequestCreationFailedError
+  | AgentShoppingListCreationFailedError
   | AgentStoreAmbiguousError
   | AgentStoreDistributionChannelsUnsupportedError
   | AgentStoreUnresolvedError
@@ -2606,11 +2612,13 @@ export type GraphQLErrorObject =
   | GraphQLAgentMissingCountryError
   | GraphQLAgentMissingCustomerEmailError
   | GraphQLAgentMissingEntityTypeError
+  | GraphQLAgentMissingShoppingListNameError
   | GraphQLAgentNoLineItemsExtractedError
   | GraphQLAgentOutOfScopeError
   | GraphQLAgentProductSearchNotEnabledError
   | GraphQLAgentProductsNotFoundError
   | GraphQLAgentQuoteRequestCreationFailedError
+  | GraphQLAgentShoppingListCreationFailedError
   | GraphQLAgentStoreAmbiguousError
   | GraphQLAgentStoreDistributionChannelsUnsupportedError
   | GraphQLAgentStoreUnresolvedError
