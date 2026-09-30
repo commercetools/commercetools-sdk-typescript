@@ -686,16 +686,12 @@ export interface BooleanType {
     __typename: 'BooleanType'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface BulkUpdateVariantsItemError {
     code: (Scalars['String'] | null)
     message: (Scalars['String'] | null)
     __typename: 'BulkUpdateVariantsItemError'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface BulkUpdateVariantsItemResult {
     errors: (BulkUpdateVariantsItemError[] | null)
     resource: (BulkUpdateVariantsResource | null)
@@ -705,16 +701,12 @@ export interface BulkUpdateVariantsItemResult {
 
 export type BulkUpdateVariantsItemStatus = 'Fail' | 'Success'
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface BulkUpdateVariantsResource {
     id: Scalars['String']
     version: Scalars['Long']
     __typename: 'BulkUpdateVariantsResource'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface BulkUpdateVariantsResponse {
     failureCount: Scalars['Int']
     results: BulkUpdateVariantsItemResult[]
@@ -2991,7 +2983,6 @@ export interface InStore {
     order: (Order | null)
     orders: OrderQueryResult
     product: (Product | null)
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     productProjectionVariantAttributes: (ProductProjectionVariantAttributes | null)
     productSelection: (ProductSelection | null)
     productSelectionAssignments: ProductAssignmentQueryResult
@@ -3007,17 +2998,9 @@ export interface InStore {
     shoppingLists: ShoppingListQueryResult
     stagedQuote: (StagedQuote | null)
     stagedQuotes: StagedQuoteQueryResult
-    /**
-     * BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-     * 
-     * Query a single variant projection by id, key, or sku and other args
-     */
+    /** Query a single variant projection by id, key, or sku and other args */
     variantProjection: (VariantProjection | null)
-    /**
-     * BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-     * 
-     * Query variant projections with filtering and pagination
-     */
+    /** Query variant projections with filtering and pagination */
     variantProjections: VariantProjectionQueryResult
     __typename: 'InStore'
 }
@@ -3721,7 +3704,6 @@ export interface MultiBuyLineItemsTarget {
 
 export interface Mutation {
     applyOrderEdit: (OrderEdit | null)
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     bulkUpdateVariants: BulkUpdateVariantsResponse
     createApiClient: (APIClientWithSecret | null)
     createApprovalRule: (ApprovalRule | null)
@@ -3776,7 +3758,6 @@ export interface Mutation {
     createSubscription: (CommercetoolsSubscription | null)
     createTaxCategory: (TaxCategory | null)
     createTypeDefinition: (TypeDefinition | null)
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     createVariant: (Variant | null)
     createZone: (Zone | null)
     /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
@@ -3887,7 +3868,6 @@ export interface Mutation {
     deleteSubscription: (CommercetoolsSubscription | null)
     deleteTaxCategory: (TaxCategory | null)
     deleteTypeDefinition: (TypeDefinition | null)
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     deleteVariant: (VariantDeletionResult | null)
     deleteZone: (Zone | null)
     importOrder: (Order | null)
@@ -3948,7 +3928,6 @@ export interface Mutation {
     updateSubscription: (CommercetoolsSubscription | null)
     updateTaxCategory: (TaxCategory | null)
     updateTypeDefinition: (TypeDefinition | null)
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     updateVariant: (Variant | null)
     updateZone: (Zone | null)
     __typename: 'Mutation'
@@ -5032,9 +5011,7 @@ export interface ProductData {
     categoriesRef: Reference[]
     categoryOrderHint: (Scalars['String'] | null)
     categoryOrderHints: CategoryOrderHint[]
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     defaultVariant: (Variant | null)
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     defaultVariantRef: (Reference | null)
     description: (Scalars['String'] | null)
     descriptionAllLocales: (LocalizedString[] | null)
@@ -5417,8 +5394,6 @@ export interface ProductProjectionSearchResult {
     __typename: 'ProductProjectionSearchResult'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface ProductProjectionVariantAttributes {
     attributes: VariantAttributeDefinition[]
     productId: Scalars['String']
@@ -6033,7 +6008,6 @@ export interface ProjectProjection {
     languages: Scalars['Locale'][]
     messages: MessagesConfiguration
     name: Scalars['String']
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     productCatalogModel: (ProductCatalogModel | null)
     searchIndexing: (SearchIndexingConfiguration | null)
     shippingRateInputType: (ShippingRateInputType | null)
@@ -6122,7 +6096,6 @@ export interface Query {
     productDiscount: (ProductDiscount | null)
     productDiscounts: ProductDiscountQueryResult
     productProjectionSearch: ProductProjectionSearchResult
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     productProjectionVariantAttributes: (ProductProjectionVariantAttributes | null)
     productProjectionsSuggest: SuggestResult
     productSelection: (ProductSelection | null)
@@ -6181,21 +6154,11 @@ export interface Query {
     taxCategory: (TaxCategory | null)
     typeDefinition: (TypeDefinition | null)
     typeDefinitions: TypeDefinitionQueryResult
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     variant: (Variant | null)
-    /**
-     * BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-     * 
-     * Query a single variant projection by id, key, or sku and other args
-     */
+    /** Query a single variant projection by id, key, or sku and other args */
     variantProjection: (VariantProjection | null)
-    /**
-     * BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-     * 
-     * Query variant projections with filtering and pagination
-     */
+    /** Query variant projections with filtering and pagination */
     variantProjections: VariantProjectionQueryResult
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     variants: VariantQueryResult
     zone: (Zone | null)
     zones: ZoneQueryResult
@@ -8911,8 +8874,6 @@ export interface ValueFacetResult {
     __typename: 'ValueFacetResult'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface Variant {
     createdAt: Scalars['DateTime']
     createdBy: (Initiator | null)
@@ -8930,24 +8891,18 @@ export interface Variant {
     __typename: 'Variant'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantAttributeAvailability {
     channels: VariantAttributeChannelAvailability[]
     noChannel: (VariantAttributeSimpleAvailability | null)
     __typename: 'VariantAttributeAvailability'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantAttributeChannelAvailability {
     availability: VariantAttributeSimpleAvailability
     channelRef: Reference
     __typename: 'VariantAttributeChannelAvailability'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantAttributeDefinition {
     label: (Scalars['String'] | null)
     labelAllLocales: LocalizedString[]
@@ -8956,8 +8911,6 @@ export interface VariantAttributeDefinition {
     __typename: 'VariantAttributeDefinition'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantAttributeSimpleAvailability {
     availableQuantity: Scalars['Long']
     isOnStock: Scalars['Boolean']
@@ -8965,8 +8918,6 @@ export interface VariantAttributeSimpleAvailability {
     __typename: 'VariantAttributeSimpleAvailability'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantAttributeVariant {
     attributesRaw: RawAttribute[]
     availability: (VariantAttributeAvailability | null)
@@ -8976,8 +8927,6 @@ export interface VariantAttributeVariant {
     __typename: 'VariantAttributeVariant'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantCreated {
     assets: Asset[]
     attributesRaw: RawAttribute[]
@@ -8992,8 +8941,6 @@ export interface VariantCreated {
     __typename: 'VariantCreated'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantData {
     assets: Asset[]
     /** This field contains raw attributes data */
@@ -9003,16 +8950,12 @@ export interface VariantData {
     __typename: 'VariantData'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantDeleted {
     productRef: Reference
     type: Scalars['String']
     __typename: 'VariantDeleted'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantDeletionResult {
     variant: Variant
     /** Warnings produced while deleting the variant. Only available in the mutation response. */
@@ -9020,8 +8963,6 @@ export interface VariantDeletionResult {
     __typename: 'VariantDeletionResult'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantImageAdded {
     image: Image
     productRef: Reference
@@ -9030,8 +8971,6 @@ export interface VariantImageAdded {
     __typename: 'VariantImageAdded'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantImagesSet {
     images: Image[]
     oldImages: Image[]
@@ -9041,8 +8980,6 @@ export interface VariantImagesSet {
     __typename: 'VariantImagesSet'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantKeySet {
     key: (Scalars['String'] | null)
     oldKey: (Scalars['String'] | null)
@@ -9052,11 +8989,7 @@ export interface VariantKeySet {
 }
 
 
-/**
- * BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
- * 
- * A variant projection with embedded product data
- */
+/** A variant projection with embedded product data */
 export interface VariantProjection {
     assets: Asset[]
     /** This field contains attributes data. Use includeNames/excludeNames query arguments to filter. */
@@ -9094,8 +9027,6 @@ export interface VariantProjectionQueryResult {
     __typename: 'VariantProjectionQueryResult'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantPublished {
     productRef: Reference
     type: Scalars['String']
@@ -9111,8 +9042,6 @@ export interface VariantQueryResult {
     __typename: 'VariantQueryResult'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantSkuSet {
     oldSku: (Scalars['String'] | null)
     productRef: Reference
@@ -9122,8 +9051,6 @@ export interface VariantSkuSet {
     __typename: 'VariantSkuSet'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantStagedChangesRemoved {
     productRef: Reference
     type: Scalars['String']
@@ -9136,8 +9063,6 @@ export interface VariantTailoring {
     __typename: 'VariantTailoring'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantUnpublished {
     productRef: Reference
     type: Scalars['String']
@@ -9525,12 +9450,8 @@ export interface AddTypeFieldDefinition {fieldDefinition: FieldDefinitionInput}
 
 export interface AddTypeLocalizedEnumValue {fieldName: Scalars['String'],value: LocalizedEnumValueInput}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface AddVariantAsset {asset: AssetDraftInput,position?: (Scalars['Int'] | null),staged?: (Scalars['Boolean'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface AddVariantExternalImage {image: ImageInput,staged?: (Scalars['Boolean'] | null)}
 
 export interface AddZoneLocation {location: ZoneLocation}
@@ -10256,12 +10177,8 @@ export interface BooleanTypeGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface BulkUpdateVariantsInput {actions: VariantBulkAction[],items: BulkUpdateVariantsItemInput[],versionControl?: (VersionControl | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface BulkUpdateVariantsItemErrorGenqlSelection{
     code?: boolean | number
     message?: boolean | number
@@ -10269,12 +10186,8 @@ export interface BulkUpdateVariantsItemErrorGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface BulkUpdateVariantsItemInput {id?: (Scalars['String'] | null),key?: (Scalars['String'] | null),version?: (Scalars['Long'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface BulkUpdateVariantsItemResultGenqlSelection{
     errors?: BulkUpdateVariantsItemErrorGenqlSelection
     resource?: BulkUpdateVariantsResourceGenqlSelection
@@ -10283,8 +10196,6 @@ export interface BulkUpdateVariantsItemResultGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface BulkUpdateVariantsResourceGenqlSelection{
     id?: boolean | number
     version?: boolean | number
@@ -10292,8 +10203,6 @@ export interface BulkUpdateVariantsResourceGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface BulkUpdateVariantsResponseGenqlSelection{
     failureCount?: boolean | number
     results?: BulkUpdateVariantsItemResultGenqlSelection
@@ -11660,12 +11569,8 @@ export interface ChangeTypeLocalizedEnumValueOrder {fieldName: Scalars['String']
 
 export interface ChangeTypeName {name: LocalizedStringItemInputType[]}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface ChangeVariantAssetName {assetId?: (Scalars['String'] | null),assetKey?: (Scalars['String'] | null),name: LocalizedStringItemInputType[],staged?: (Scalars['Boolean'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface ChangeVariantAssetOrder {assetOrder: Scalars['String'][],staged?: (Scalars['Boolean'] | null)}
 
 export interface ChangeZoneName {name: Scalars['String']}
@@ -13731,7 +13636,6 @@ export interface InStoreGenqlSelection{
     sku?: (Scalars['String'] | null), 
     /** Queries for a [Product](https://docs.commercetools.com/api/projects/products#product) with specified [ProductVariant](https://docs.commercetools.com/api/projects/products#productvariant) `key` */
     variantKey?: (Scalars['String'] | null)} })
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     productProjectionVariantAttributes?: (ProductProjectionVariantAttributesGenqlSelection & { __args: {
     /** Queries with specified ID */
     id?: (Scalars['String'] | null), 
@@ -13787,11 +13691,7 @@ export interface InStoreGenqlSelection{
     /** Queries with specified key */
     key?: (Scalars['String'] | null)} })
     stagedQuotes?: (StagedQuoteQueryResultGenqlSelection & { __args?: {limit?: (Scalars['Int'] | null), offset?: (Scalars['Int'] | null), sort?: (Scalars['String'][] | null), where?: (Scalars['String'] | null)} })
-    /**
-     * BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-     * 
-     * Query a single variant projection by id, key, or sku and other args
-     */
+    /** Query a single variant projection by id, key, or sku and other args */
     variantProjection?: (VariantProjectionGenqlSelection & { __args?: {
     /** Queries with specified ID */
     id?: (Scalars['String'] | null), 
@@ -13803,11 +13703,7 @@ export interface InStoreGenqlSelection{
     sku?: (Scalars['String'] | null), 
     /** If true, queries staged projections. If false (default), queries current (published) projections. */
     staged?: Scalars['Boolean']} })
-    /**
-     * BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-     * 
-     * Query variant projections with filtering and pagination
-     */
+    /** Query variant projections with filtering and pagination */
     variantProjections?: (VariantProjectionQueryResultGenqlSelection & { __args?: {
     /**
      * The names of the attributes to exclude.
@@ -15121,8 +15017,6 @@ export interface MoneyTypeGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface MoveImageToPosition {imageUrl: Scalars['String'],position: Scalars['Int'],staged?: (Scalars['Boolean'] | null)}
 
 export interface MoveProductImageToPosition {imageUrl: Scalars['String'],position: Scalars['Int'],sku?: (Scalars['String'] | null),staged?: (Scalars['Boolean'] | null),variantId?: (Scalars['Int'] | null)}
@@ -15163,7 +15057,6 @@ export interface MutationGenqlSelection{
     id: Scalars['String'], 
     /** Current version of the referenced Order. */
     resourceVersion: Scalars['Long']} })
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     bulkUpdateVariants?: (BulkUpdateVariantsResponseGenqlSelection & { __args: {input: BulkUpdateVariantsInput} })
     createApiClient?: (APIClientWithSecretGenqlSelection & { __args: {draft: CreateApiClient} })
     createApprovalRule?: (ApprovalRuleGenqlSelection & { __args: {
@@ -15260,7 +15153,6 @@ export interface MutationGenqlSelection{
     createSubscription?: (CommercetoolsSubscriptionGenqlSelection & { __args: {draft: SubscriptionDraft} })
     createTaxCategory?: (TaxCategoryGenqlSelection & { __args: {draft: TaxCategoryDraft} })
     createTypeDefinition?: (TypeDefinitionGenqlSelection & { __args: {draft: TypeDefinitionDraft} })
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     createVariant?: (VariantGenqlSelection & { __args: {draft: VariantDraft} })
     createZone?: (ZoneGenqlSelection & { __args: {draft: CreateZone} })
     /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
@@ -15589,7 +15481,6 @@ export interface MutationGenqlSelection{
     id?: (Scalars['String'] | null), 
     /** Queries with specified key */
     key?: (Scalars['String'] | null), version: Scalars['Long']} })
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     deleteVariant?: (VariantDeletionResultGenqlSelection & { __args: {
     /** Queries with specified ID */
     id?: (Scalars['String'] | null), 
@@ -15874,7 +15765,6 @@ export interface MutationGenqlSelection{
     id?: (Scalars['String'] | null), 
     /** Queries with specified key */
     key?: (Scalars['String'] | null), version: Scalars['Long']} })
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     updateVariant?: (VariantGenqlSelection & { __args: {actions: VariantUpdateAction[], 
     /** Queries with specified ID */
     id?: (Scalars['String'] | null), 
@@ -17350,9 +17240,7 @@ export interface ProductDataGenqlSelection{
     categoriesRef?: ReferenceGenqlSelection
     categoryOrderHint?: { __args: {categoryId: Scalars['String']} }
     categoryOrderHints?: CategoryOrderHintGenqlSelection
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     defaultVariant?: VariantGenqlSelection
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     defaultVariantRef?: ReferenceGenqlSelection
     description?: { __args: {
     /** List of languages the client is able to understand, and which locale variant is preferred. */
@@ -17944,8 +17832,6 @@ export interface ProductProjectionSearchResultGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface ProductProjectionVariantAttributesGenqlSelection{
     attributes?: VariantAttributeDefinitionGenqlSelection
     productId?: boolean | number
@@ -18599,9 +18485,7 @@ export interface ProductUnpublishedGenqlSelection{
     __scalar?: boolean | number
 }
 
-export interface ProductUpdateAction {addAsset?: (AddProductAsset | null),addExternalImage?: (AddProductExternalImage | null),addPrice?: (AddProductPrice | null),addToCategory?: (AddProductToCategory | null),addVariant?: (AddProductVariant | null),changeAssetName?: (ChangeProductAssetName | null),changeAssetOrder?: (ChangeProductAssetOrder | null),changeImageLabel?: (ChangeProductImageLabel | null),changeMasterVariant?: (ChangeProductMasterVariant | null),changeName?: (ChangeProductName | null),changePrice?: (ChangeProductPrice | null),changeSlug?: (ChangeProductSlug | null),moveImageToPosition?: (MoveProductImageToPosition | null),publish?: (PublishProduct | null),removeAsset?: (RemoveProductAsset | null),removeFromCategory?: (RemoveProductFromCategory | null),removeImage?: (RemoveProductImage | null),removePrice?: (RemoveProductPrice | null),removeVariant?: (RemoveProductVariant | null),revertStagedChanges?: (RevertStagedChanges | null),revertStagedVariantChanges?: (RevertStagedVariantChanges | null),setAssetCustomField?: (SetProductAssetCustomField | null),setAssetCustomType?: (SetProductAssetCustomType | null),setAssetDescription?: (SetProductAssetDescription | null),setAssetKey?: (SetProductAssetKey | null),setAssetSources?: (SetProductAssetSources | null),setAssetTags?: (SetProductAssetTags | null),setAttribute?: (SetProductAttribute | null),setAttributeInAllVariants?: (SetProductAttributeInAllVariants | null),setCategoryOrderHint?: (SetProductCategoryOrderHint | null),
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
-setDefaultVariant?: (SetProductDefaultVariant | null),setDescription?: (SetProductDescription | null),setDiscountedPrice?: (SetProductDiscountedPrice | null),setImageLabel?: (SetProductImageLabel | null),setKey?: (SetProductKey | null),setMetaAttributes?: (SetProductMetaAttributes | null),setMetaDescription?: (SetProductMetaDescription | null),setMetaKeywords?: (SetProductMetaKeywords | null),setMetaTitle?: (SetProductMetaTitle | null),setPriceKey?: (SetProductPriceKey | null),setPriceMode?: (SetProductPriceMode | null),setPrices?: (SetProductPrices | null),setProductAttribute?: (ProductLevelAttributeInput | null),setProductPriceCustomField?: (SetProductPriceCustomField | null),setProductPriceCustomType?: (SetProductPriceCustomType | null),setProductVariantKey?: (SetProductVariantKey | null),setSearchKeywords?: (SetSearchKeywords | null),setSku?: (SetProductSku | null),setTaxCategory?: (SetProductTaxCategory | null),transitionState?: (TransitionProductState | null),unpublish?: (UnpublishProduct | null)}
+export interface ProductUpdateAction {addAsset?: (AddProductAsset | null),addExternalImage?: (AddProductExternalImage | null),addPrice?: (AddProductPrice | null),addToCategory?: (AddProductToCategory | null),addVariant?: (AddProductVariant | null),changeAssetName?: (ChangeProductAssetName | null),changeAssetOrder?: (ChangeProductAssetOrder | null),changeImageLabel?: (ChangeProductImageLabel | null),changeMasterVariant?: (ChangeProductMasterVariant | null),changeName?: (ChangeProductName | null),changePrice?: (ChangeProductPrice | null),changeSlug?: (ChangeProductSlug | null),moveImageToPosition?: (MoveProductImageToPosition | null),publish?: (PublishProduct | null),removeAsset?: (RemoveProductAsset | null),removeFromCategory?: (RemoveProductFromCategory | null),removeImage?: (RemoveProductImage | null),removePrice?: (RemoveProductPrice | null),removeVariant?: (RemoveProductVariant | null),revertStagedChanges?: (RevertStagedChanges | null),revertStagedVariantChanges?: (RevertStagedVariantChanges | null),setAssetCustomField?: (SetProductAssetCustomField | null),setAssetCustomType?: (SetProductAssetCustomType | null),setAssetDescription?: (SetProductAssetDescription | null),setAssetKey?: (SetProductAssetKey | null),setAssetSources?: (SetProductAssetSources | null),setAssetTags?: (SetProductAssetTags | null),setAttribute?: (SetProductAttribute | null),setAttributeInAllVariants?: (SetProductAttributeInAllVariants | null),setCategoryOrderHint?: (SetProductCategoryOrderHint | null),setDefaultVariant?: (SetProductDefaultVariant | null),setDescription?: (SetProductDescription | null),setDiscountedPrice?: (SetProductDiscountedPrice | null),setImageLabel?: (SetProductImageLabel | null),setKey?: (SetProductKey | null),setMetaAttributes?: (SetProductMetaAttributes | null),setMetaDescription?: (SetProductMetaDescription | null),setMetaKeywords?: (SetProductMetaKeywords | null),setMetaTitle?: (SetProductMetaTitle | null),setPriceKey?: (SetProductPriceKey | null),setPriceMode?: (SetProductPriceMode | null),setPrices?: (SetProductPrices | null),setProductAttribute?: (ProductLevelAttributeInput | null),setProductPriceCustomField?: (SetProductPriceCustomField | null),setProductPriceCustomType?: (SetProductPriceCustomType | null),setProductVariantKey?: (SetProductVariantKey | null),setSearchKeywords?: (SetSearchKeywords | null),setSku?: (SetProductSku | null),setTaxCategory?: (SetProductTaxCategory | null),transitionState?: (TransitionProductState | null),unpublish?: (UnpublishProduct | null)}
 
 export interface ProductVariantGenqlSelection{
     /** Returns all recurrence prices based on the price selection rules. */
@@ -18814,7 +18698,6 @@ export interface ProjectProjectionGenqlSelection{
     languages?: boolean | number
     messages?: MessagesConfigurationGenqlSelection
     name?: boolean | number
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     productCatalogModel?: boolean | number
     searchIndexing?: SearchIndexingConfigurationGenqlSelection
     shippingRateInputType?: ShippingRateInputTypeGenqlSelection
@@ -18829,9 +18712,7 @@ export interface ProjectSettingsUpdateAction {changeBusinessUnitSearchStatus?: (
 /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 changeCartDiscountVisualizationSearchStatus?: (ChangeProjectSettingsCartDiscountVisualizationSearchStatus | null),changeCartsConfiguration?: (ChangeProjectSettingsCartsConfiguration | null),changeCountries?: (ChangeProjectSettingsCountries | null),changeCountryTaxRateFallbackEnabled?: (ChangeProjectSettingsCountryTaxRateFallbackEnabled | null),changeCurrencies?: (ChangeProjectSettingsCurrencies | null),changeCustomerSearchStatus?: (ChangeProjectSettingsCustomerSearchStatus | null),changeLanguages?: (ChangeProjectSettingsLanguages | null),changeMessagesConfiguration?: (ChangeProjectSettingsMessagesConfiguration | null),changeMessagesEnabled?: (ChangeProjectSettingsMessagesEnabled | null),changeMyBusinessUnitStatusOnCreation?: (ChangeProjectSettingsMyBusinessUnitStatusOnCreation | null),changeName?: (ChangeProjectSettingsName | null),changeOrderSearchStatus?: (ChangeProjectSettingsOrderSearchStatus | null),changePriceRoundingMode?: (ChangeProjectSettingsPriceRoundingMode | null),changeProductSearchIndexingEnabled?: (ChangeProjectSettingsProductSearchIndexingEnabled | null),changeShoppingListsConfiguration?: (ChangeProjectSettingsShoppingListsConfiguration | null),changeTaxRoundingMode?: (ChangeProjectSettingsTaxRoundingMode | null),changeTotalPriceDiscountDoesNotReduceExternalTax?: (ChangeProjectSettingsTotalPriceDiscountDoesNotReduceExternalTax | null),setDiscountsConfiguration?: (SetProjectSettingsDiscountsConfiguration | null),setExternalOAuth?: (SetProjectSettingsExternalOAuth | null),
 /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
-setMyBusinessUnitAssociateRoleOnCreation?: (SetProjectSettingsMyBusinessUnitAssociateRoleOnCreation | null),
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
-setProductCatalogModel?: (SetProjectSettingsProductCatalogModel | null),
+setMyBusinessUnitAssociateRoleOnCreation?: (SetProjectSettingsMyBusinessUnitAssociateRoleOnCreation | null),setProductCatalogModel?: (SetProjectSettingsProductCatalogModel | null),
 /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 setProductVsCartDiscountCombination?: (SetProjectSettingsProductVsCartDiscountCombination | null),
 /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
@@ -18843,8 +18724,6 @@ export interface PublishProduct {scope?: (PublishScope | null)}
 
 export interface PublishTailoring {dummy?: (Scalars['String'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface PublishVariant {dummy?: (Scalars['String'] | null)}
 
 export interface PurchaseOrderNumberSetGenqlSelection{
@@ -19023,7 +18902,6 @@ export interface QueryGenqlSelection{
     productProjectionSearch?: (ProductProjectionSearchResultGenqlSelection & { __args: {facetFilters?: (SearchFilterInput[] | null), facets?: (SearchFacetInput[] | null), filters?: (SearchFilterInput[] | null), fuzzy?: (Scalars['Boolean'] | null), fuzzyLevel?: (Scalars['Int'] | null), limit?: (Scalars['Int'] | null), locale?: (Scalars['Locale'] | null), localeProjection?: (Scalars['Locale'][] | null), 
     /** Deprecated: please use 'markMatchingVariants'. */
     markMatchingVariant?: (Scalars['Boolean'] | null), markMatchingVariants?: (Scalars['Boolean'] | null), offset?: (Scalars['Int'] | null), priceSelector?: (PriceSelectorInput | null), projectExpandedProducts?: (Scalars['Boolean'] | null), queryFilters?: (SearchFilterInput[] | null), sorts?: (Scalars['String'][] | null), staged?: (Scalars['Boolean'] | null), storeProjection?: (Scalars['String'] | null), text?: (Scalars['String'] | null)} })
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     productProjectionVariantAttributes?: (ProductProjectionVariantAttributesGenqlSelection & { __args: {
     /** Queries with specified ID */
     id?: (Scalars['String'] | null), 
@@ -19170,7 +19048,6 @@ export interface QueryGenqlSelection{
     /** Queries with specified key */
     key?: (Scalars['String'] | null)} })
     typeDefinitions?: (TypeDefinitionQueryResultGenqlSelection & { __args?: {limit?: (Scalars['Int'] | null), offset?: (Scalars['Int'] | null), sort?: (Scalars['String'][] | null), where?: (Scalars['String'] | null)} })
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     variant?: (VariantGenqlSelection & { __args?: {
     /** Queries with specified ID */
     id?: (Scalars['String'] | null), 
@@ -19180,11 +19057,7 @@ export interface QueryGenqlSelection{
     sku?: (Scalars['String'] | null), 
     /** Queries for a staged variant with specified SKU */
     stagedSku?: (Scalars['String'] | null)} })
-    /**
-     * BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-     * 
-     * Query a single variant projection by id, key, or sku and other args
-     */
+    /** Query a single variant projection by id, key, or sku and other args */
     variantProjection?: (VariantProjectionGenqlSelection & { __args?: {
     /** Queries with specified ID */
     id?: (Scalars['String'] | null), 
@@ -19196,11 +19069,7 @@ export interface QueryGenqlSelection{
     sku?: (Scalars['String'] | null), 
     /** If true, queries staged projections. If false (default), queries current (published) projections. */
     staged?: Scalars['Boolean']} })
-    /**
-     * BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-     * 
-     * Query variant projections with filtering and pagination
-     */
+    /** Query variant projections with filtering and pagination */
     variantProjections?: (VariantProjectionQueryResultGenqlSelection & { __args?: {
     /**
      * The names of the attributes to exclude.
@@ -19220,7 +19089,6 @@ export interface QueryGenqlSelection{
     productId?: (Scalars['String'] | null), sort?: (Scalars['String'][] | null), 
     /** If true, queries staged projections. If false (default), queries current (published) projections. */
     staged?: Scalars['Boolean'], where?: (Scalars['String'] | null)} })
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     variants?: (VariantQueryResultGenqlSelection & { __args?: {limit?: (Scalars['Int'] | null), offset?: (Scalars['Int'] | null), 
     /** Queries with specified Product ID */
     productId?: (Scalars['String'] | null), sort?: (Scalars['String'][] | null), where?: (Scalars['String'] | null)} })
@@ -20219,12 +20087,8 @@ export interface RemoveTypeFieldDefinition {fieldName: Scalars['String']}
 /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface RemoveTypeLocalizedEnumValues {fieldName: Scalars['String'],keys: Scalars['String'][]}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface RemoveVariantAsset {assetId?: (Scalars['String'] | null),assetKey?: (Scalars['String'] | null),staged?: (Scalars['Boolean'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface RemoveVariantImage {imageUrl: Scalars['String'],staged?: (Scalars['Boolean'] | null)}
 
 export interface RemoveZoneLocation {location: ZoneLocation}
@@ -21209,8 +21073,6 @@ export interface SetProductAttributeInAllVariants {name: Scalars['String'],stage
 
 export interface SetProductCategoryOrderHint {categoryId: Scalars['String'],orderHint?: (Scalars['String'] | null),staged?: (Scalars['Boolean'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetProductDefaultVariant {staged?: (Scalars['Boolean'] | null),variant?: (ResourceIdentifierInput | null)}
 
 export interface SetProductDescription {description?: (LocalizedStringItemInputType[] | null),staged?: (Scalars['Boolean'] | null)}
@@ -21311,8 +21173,6 @@ export interface SetProjectSettingsExternalOAuth {externalOAuth?: (ExternalOAuth
 /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetProjectSettingsMyBusinessUnitAssociateRoleOnCreation {associateRole?: (ResourceIdentifierInput | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetProjectSettingsProductCatalogModel {productCatalogModel: ProductCatalogModel}
 
 
@@ -22170,56 +22030,30 @@ export interface SetTypeGenqlSelection{
 
 export interface SetTypeDescription {description?: (LocalizedStringItemInputType[] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetVariantAssetCustomField {assetId?: (Scalars['String'] | null),assetKey?: (Scalars['String'] | null),name: Scalars['String'],staged?: (Scalars['Boolean'] | null),value?: (Scalars['String'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetVariantAssetCustomType {assetId?: (Scalars['String'] | null),assetKey?: (Scalars['String'] | null),fields?: (CustomFieldInput[] | null),staged?: (Scalars['Boolean'] | null),type?: (ResourceIdentifierInput | null),typeId?: (Scalars['String'] | null),typeKey?: (Scalars['String'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetVariantAssetDescription {assetId?: (Scalars['String'] | null),assetKey?: (Scalars['String'] | null),description?: (LocalizedStringItemInputType[] | null),staged?: (Scalars['Boolean'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetVariantAssetKey {assetId: Scalars['String'],assetKey?: (Scalars['String'] | null),staged?: (Scalars['Boolean'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetVariantAssetSources {assetId?: (Scalars['String'] | null),assetKey?: (Scalars['String'] | null),sources?: (AssetSourceInput[] | null),staged?: (Scalars['Boolean'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetVariantAssetTags {assetId?: (Scalars['String'] | null),assetKey?: (Scalars['String'] | null),staged?: (Scalars['Boolean'] | null),tags?: (Scalars['String'][] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetVariantAssets {assets?: (AssetDraftInput[] | null),staged?: (Scalars['Boolean'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetVariantAttribute {name: Scalars['String'],staged?: (Scalars['Boolean'] | null),value?: (Scalars['String'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetVariantAttributes {attributes?: (ProductAttributeInput[] | null),staged?: (Scalars['Boolean'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetVariantImageLabel {imageUrl: Scalars['String'],label?: (Scalars['String'] | null),staged?: (Scalars['Boolean'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetVariantImages {images?: (ImageInput[] | null),staged?: (Scalars['Boolean'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetVariantKey {key?: (Scalars['String'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetVariantSku {sku?: (Scalars['String'] | null),staged?: (Scalars['Boolean'] | null)}
 
 export interface SetZoneDescription {description?: (Scalars['String'] | null)}
@@ -24053,8 +23887,6 @@ export interface UnpublishProduct {dummy?: (Scalars['String'] | null)}
 
 export interface UnpublishTailoring {dummy?: (Scalars['String'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface UnpublishVariant {dummy?: (Scalars['String'] | null)}
 
 export interface UpdateCartItemShippingAddress {address: AddressInput}
@@ -24109,8 +23941,6 @@ export interface ValueFacetResultGenqlSelection{
 
 export interface ValueFilterInput {path: Scalars['String'],values: Scalars['String'][]}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantGenqlSelection{
     createdAt?: boolean | number
     createdBy?: InitiatorGenqlSelection
@@ -24129,8 +23959,6 @@ export interface VariantGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantAttributeAvailabilityGenqlSelection{
     channels?: VariantAttributeChannelAvailabilityGenqlSelection
     noChannel?: VariantAttributeSimpleAvailabilityGenqlSelection
@@ -24138,8 +23966,6 @@ export interface VariantAttributeAvailabilityGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantAttributeChannelAvailabilityGenqlSelection{
     availability?: VariantAttributeSimpleAvailabilityGenqlSelection
     channelRef?: ReferenceGenqlSelection
@@ -24147,8 +23973,6 @@ export interface VariantAttributeChannelAvailabilityGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantAttributeDefinitionGenqlSelection{
     label?: { __args: {
     /** List of languages the client is able to understand, and which locale variant is preferred. */
@@ -24162,8 +23986,6 @@ export interface VariantAttributeDefinitionGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantAttributeSimpleAvailabilityGenqlSelection{
     availableQuantity?: boolean | number
     isOnStock?: boolean | number
@@ -24172,8 +23994,6 @@ export interface VariantAttributeSimpleAvailabilityGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantAttributeVariantGenqlSelection{
     attributesRaw?: RawAttributeGenqlSelection
     availability?: VariantAttributeAvailabilityGenqlSelection
@@ -24184,12 +24004,8 @@ export interface VariantAttributeVariantGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantBulkAction {publish?: (PublishVariant | null),unpublish?: (UnpublishVariant | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantCreatedGenqlSelection{
     assets?: AssetGenqlSelection
     attributesRaw?: RawAttributeGenqlSelection
@@ -24205,8 +24021,6 @@ export interface VariantCreatedGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantDataGenqlSelection{
     assets?: AssetGenqlSelection
     /** This field contains raw attributes data */
@@ -24229,8 +24043,6 @@ export interface VariantDataGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantDeletedGenqlSelection{
     productRef?: ReferenceGenqlSelection
     type?: boolean | number
@@ -24238,8 +24050,6 @@ export interface VariantDeletedGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantDeletionResultGenqlSelection{
     variant?: VariantGenqlSelection
     /** Warnings produced while deleting the variant. Only available in the mutation response. */
@@ -24248,12 +24058,8 @@ export interface VariantDeletionResultGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantDraft {assets?: (AssetDraftInput[] | null),attributes?: (ProductAttributeInput[] | null),images?: (ImageInput[] | null),key?: (Scalars['String'] | null),product: ResourceIdentifierInput,publish?: (Scalars['Boolean'] | null),sku?: (Scalars['String'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantImageAddedGenqlSelection{
     image?: ImageGenqlSelection
     productRef?: ReferenceGenqlSelection
@@ -24263,8 +24069,6 @@ export interface VariantImageAddedGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantImagesSetGenqlSelection{
     images?: ImageGenqlSelection
     oldImages?: ImageGenqlSelection
@@ -24275,8 +24079,6 @@ export interface VariantImagesSetGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantKeySetGenqlSelection{
     key?: boolean | number
     oldKey?: boolean | number
@@ -24287,11 +24089,7 @@ export interface VariantKeySetGenqlSelection{
 }
 
 
-/**
- * BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
- * 
- * A variant projection with embedded product data
- */
+/** A variant projection with embedded product data */
 export interface VariantProjectionGenqlSelection{
     assets?: AssetGenqlSelection
     /** This field contains attributes data. Use includeNames/excludeNames query arguments to filter. */
@@ -24355,8 +24153,6 @@ export interface VariantProjectionQueryResultGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantPublishedGenqlSelection{
     productRef?: ReferenceGenqlSelection
     type?: boolean | number
@@ -24374,8 +24170,6 @@ export interface VariantQueryResultGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantSkuSetGenqlSelection{
     oldSku?: boolean | number
     productRef?: ReferenceGenqlSelection
@@ -24386,8 +24180,6 @@ export interface VariantSkuSetGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantStagedChangesRemovedGenqlSelection{
     productRef?: ReferenceGenqlSelection
     type?: boolean | number
@@ -24402,8 +24194,6 @@ export interface VariantTailoringGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantUnpublishedGenqlSelection{
     productRef?: ReferenceGenqlSelection
     type?: boolean | number
@@ -24411,8 +24201,6 @@ export interface VariantUnpublishedGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantUpdateAction {addAsset?: (AddVariantAsset | null),addExternalImage?: (AddVariantExternalImage | null),changeAssetName?: (ChangeVariantAssetName | null),changeAssetOrder?: (ChangeVariantAssetOrder | null),moveImageToPosition?: (MoveImageToPosition | null),publish?: (PublishVariant | null),removeAsset?: (RemoveVariantAsset | null),removeImage?: (RemoveVariantImage | null),removeStagedChanges?: (RemoveStagedChanges | null),setAssetCustomField?: (SetVariantAssetCustomField | null),setAssetCustomType?: (SetVariantAssetCustomType | null),setAssetDescription?: (SetVariantAssetDescription | null),setAssetKey?: (SetVariantAssetKey | null),setAssetSources?: (SetVariantAssetSources | null),setAssetTags?: (SetVariantAssetTags | null),setAssets?: (SetVariantAssets | null),setAttribute?: (SetVariantAttribute | null),setAttributes?: (SetVariantAttributes | null),setImageLabel?: (SetVariantImageLabel | null),setImages?: (SetVariantImages | null),setKey?: (SetVariantKey | null),setSku?: (SetVariantSku | null),unpublish?: (UnpublishVariant | null)}
 
 
