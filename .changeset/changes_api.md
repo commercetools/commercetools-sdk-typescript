@@ -1,3 +1,7 @@
+---
+'@commercetools/platform-sdk': minor
+---
+
 **Api changes**
 
 <details>
@@ -264,18 +268,5 @@
 - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().categories().withId().head()`
 - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().categories().withId().post()`
 - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().categories().withId().delete()`
-
-</details>
-
-**History changes**
-
-<details>
-<summary>Added QueryParameter(s)</summary>
-
-- added query parameter `userIds` to method `get /{projectKey}`
-- added query parameter `resourceIds` to method `get /{projectKey}`
-- added query parameter `userIds` to method `get /{projectKey}/{resourceType}`
-- added query parameter `resourceIds` to method `get /{projectKey}/{resourceType}`
-- added query parameter `userIds` to method `get /{projectKey}/{resourceType}/{ID}`
 
 </details>

@@ -578,6 +578,7 @@ export interface AttributeDefinition {
     labelAllLocales: LocalizedString[]
     level: Level
     name: Scalars['String']
+    savedToLineItem: Scalars['Boolean']
     type: AttributeDefinitionType
     __typename: 'AttributeDefinition'
 }
@@ -685,16 +686,12 @@ export interface BooleanType {
     __typename: 'BooleanType'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface BulkUpdateVariantsItemError {
     code: (Scalars['String'] | null)
     message: (Scalars['String'] | null)
     __typename: 'BulkUpdateVariantsItemError'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface BulkUpdateVariantsItemResult {
     errors: (BulkUpdateVariantsItemError[] | null)
     resource: (BulkUpdateVariantsResource | null)
@@ -704,16 +701,12 @@ export interface BulkUpdateVariantsItemResult {
 
 export type BulkUpdateVariantsItemStatus = 'Fail' | 'Success'
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface BulkUpdateVariantsResource {
     id: Scalars['String']
     version: Scalars['Long']
     __typename: 'BulkUpdateVariantsResource'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface BulkUpdateVariantsResponse {
     failureCount: Scalars['Int']
     results: BulkUpdateVariantsItemResult[]
@@ -1465,6 +1458,8 @@ export interface Category {
     slugAllLocales: LocalizedString[]
     /** Number of staged products in the category subtree. */
     stagedProductCount: Scalars['Int']
+    stores: Store[]
+    storesRef: KeyReference[]
     version: Scalars['Long']
     __typename: 'Category'
 }
@@ -2836,6 +2831,7 @@ export interface ExternalTaxRateDraftOutput {
     name: Scalars['String']
     state: (Scalars['String'] | null)
     subRates: SubRate[]
+    taxRoundingTarget: TaxRoundingTarget
     __typename: 'ExternalTaxRateDraftOutput'
 }
 
@@ -2971,6 +2967,8 @@ export interface InStore {
     cartDiscount: (CartDiscount | null)
     cartDiscounts: CartDiscountQueryResult
     carts: CartQueryResult
+    categories: CategoryQueryResult
+    category: (Category | null)
     customer: (Customer | null)
     customerActiveCart: (Cart | null)
     customers: CustomerQueryResult
@@ -2985,7 +2983,6 @@ export interface InStore {
     order: (Order | null)
     orders: OrderQueryResult
     product: (Product | null)
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     productProjectionVariantAttributes: (ProductProjectionVariantAttributes | null)
     productSelection: (ProductSelection | null)
     productSelectionAssignments: ProductAssignmentQueryResult
@@ -3001,17 +2998,9 @@ export interface InStore {
     shoppingLists: ShoppingListQueryResult
     stagedQuote: (StagedQuote | null)
     stagedQuotes: StagedQuoteQueryResult
-    /**
-     * BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-     * 
-     * Query a single variant projection by id, key, or sku and other args
-     */
+    /** Query a single variant projection by id, key, or sku and other args */
     variantProjection: (VariantProjection | null)
-    /**
-     * BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-     * 
-     * Query variant projections with filtering and pagination
-     */
+    /** Query variant projections with filtering and pagination */
     variantProjections: VariantProjectionQueryResult
     __typename: 'InStore'
 }
@@ -3482,7 +3471,7 @@ export interface McpServer {
     __typename: 'McpServer'
 }
 
-export type McpServerAuthenticationMode = 'ClientCredentials' | 'CommercetoolsIdentity' | 'ShopperIdentity'
+export type McpServerAuthenticationMode = 'BuyerIdentity' | 'ClientCredentials' | 'CommercetoolsIdentity'
 
 export interface McpServerCatalogTool {
     description: (Scalars['String'] | null)
@@ -3524,6 +3513,17 @@ export interface McpServerJsonOutputFilteringMatcher {
     fieldNames: (Scalars['String'][] | null)
     fieldPaths: (Scalars['String'][] | null)
     __typename: 'McpServerJsonOutputFilteringMatcher'
+}
+
+export interface McpServerLimitWithCurrent {
+    current: Scalars['Long']
+    limit: Scalars['Long']
+    __typename: 'McpServerLimitWithCurrent'
+}
+
+export interface McpServerLimits {
+    total: McpServerLimitWithCurrent
+    __typename: 'McpServerLimits'
 }
 
 export interface McpServerQueryResult {
@@ -3608,7 +3608,7 @@ export interface Message {
     __typename: 'Message'
 }
 
-export type MessagePayload = (ApprovalFlowApproved | ApprovalFlowCompleted | ApprovalFlowCreated | ApprovalFlowRejected | ApprovalRuleApproversSet | ApprovalRuleCreated | ApprovalRuleDescriptionSet | ApprovalRuleKeySet | ApprovalRuleNameSet | ApprovalRulePredicateSet | ApprovalRuleRequestersSet | ApprovalRuleStatusSet | AssociateRoleBuyerAssignableChanged | AssociateRoleCreated | AssociateRoleDeleted | AssociateRoleNameSet | AssociateRolePermissionAdded | AssociateRolePermissionRemoved | AssociateRolePermissionsSet | BusinessUnitAddressAdded | BusinessUnitAddressChanged | BusinessUnitAddressCustomFieldAdded | BusinessUnitAddressCustomFieldChanged | BusinessUnitAddressCustomFieldRemoved | BusinessUnitAddressCustomTypeRemoved | BusinessUnitAddressCustomTypeSet | BusinessUnitAddressRemoved | BusinessUnitApprovalRuleModeChanged | BusinessUnitAssociateAdded | BusinessUnitAssociateChanged | BusinessUnitAssociateModeChanged | BusinessUnitAssociateRemoved | BusinessUnitAssociatesSet | BusinessUnitBillingAddressAdded | BusinessUnitBillingAddressRemoved | BusinessUnitContactEmailSet | BusinessUnitCreated | BusinessUnitCustomFieldAdded | BusinessUnitCustomFieldChanged | BusinessUnitCustomFieldRemoved | BusinessUnitCustomTypeRemoved | BusinessUnitCustomTypeSet | BusinessUnitCustomerGroupAssignmentAdded | BusinessUnitCustomerGroupAssignmentRemoved | BusinessUnitCustomerGroupAssignmentsSet | BusinessUnitDefaultBillingAddressSet | BusinessUnitDefaultShippingAddressSet | BusinessUnitDeleted | BusinessUnitNameChanged | BusinessUnitParentChanged | BusinessUnitShippingAddressAdded | BusinessUnitShippingAddressRemoved | BusinessUnitStatusChanged | BusinessUnitStoreAdded | BusinessUnitStoreModeChanged | BusinessUnitStoreRemoved | BusinessUnitStoresSet | BusinessUnitTopLevelUnitSet | BusinessUnitTypeSet | CartCreated | CartDiscountCreated | CartDiscountDeleted | CartDiscountStoreAdded | CartDiscountStoreRemoved | CartDiscountStoresSet | CartEstimatedDeliverySet | CartFrozen | CartLocked | CartPurchaseOrderNumberSet | CartUnfrozen | CartUnlocked | CategoryCreated | CategorySlugChanged | CustomLineItemStateTransition | CustomerAddressAdded | CustomerAddressChanged | CustomerAddressCustomFieldAdded | CustomerAddressCustomFieldChanged | CustomerAddressCustomFieldRemoved | CustomerAddressCustomTypeRemoved | CustomerAddressCustomTypeSet | CustomerAddressRemoved | CustomerBillingAddressAdded | CustomerBillingAddressRemoved | CustomerCompanyNameSet | CustomerCreated | CustomerCustomFieldAdded | CustomerCustomFieldChanged | CustomerCustomFieldRemoved | CustomerCustomTypeRemoved | CustomerCustomTypeSet | CustomerDateOfBirthSet | CustomerDefaultBillingAddressSet | CustomerDefaultShippingAddressSet | CustomerDeleted | CustomerEmailChanged | CustomerEmailTokenCreated | CustomerEmailVerified | CustomerExternalIdSet | CustomerFirstNameSet | CustomerGroupAssignmentAdded | CustomerGroupAssignmentRemoved | CustomerGroupAssignmentsSet | CustomerGroupCustomFieldAdded | CustomerGroupCustomFieldChanged | CustomerGroupCustomFieldRemoved | CustomerGroupCustomTypeRemoved | CustomerGroupCustomTypeSet | CustomerGroupSet | CustomerLastNameSet | CustomerPasswordTokenCreated | CustomerPasswordUpdated | CustomerShippingAddressAdded | CustomerShippingAddressRemoved | CustomerStoresSet | CustomerTitleSet | DeliveryAdded | DeliveryAddressSet | DeliveryCustomFieldAdded | DeliveryCustomFieldChanged | DeliveryCustomFieldRemoved | DeliveryCustomTypeRemoved | DeliveryCustomTypeSet | DeliveryItemsUpdated | DeliveryRemoved | DiscountCodeCreated | DiscountCodeDeleted | DiscountCodeKeySet | DiscountGroupCreated | DiscountGroupDeleted | DiscountGroupIsActiveSet | DiscountGroupKeySet | DiscountGroupSortOrderSet | InventoryEntryCreated | InventoryEntryDeleted | InventoryEntryOutOfStock | InventoryEntryQuantitySet | InventoryEntryReorderPoint | InventoryEntryReservationExpirationInMinutesSet | InventoryEntrySafetyStock | LineItemStateTransition | OrderBillingAddressSet | OrderBusinessUnitSet | OrderCreated | OrderCreatedFromRecurringOrder | OrderCustomFieldAdded | OrderCustomFieldChanged | OrderCustomFieldRemoved | OrderCustomLineItemAdded | OrderCustomLineItemDiscountSet | OrderCustomLineItemQuantityChanged | OrderCustomLineItemRemoved | OrderCustomTypeRemoved | OrderCustomTypeSet | OrderCustomerEmailSet | OrderCustomerGroupSet | OrderCustomerSet | OrderDeleted | OrderDiscountCodeAdded | OrderDiscountCodeRemoved | OrderDiscountCodeStateSet | OrderDiscountTypeCombinationSet | OrderEditApplied | OrderEstimatedDeliverySet | OrderImported | OrderLineItemAdded | OrderLineItemDiscountSet | OrderLineItemDistributionChannelSet | OrderLineItemRemoved | OrderPaymentAdded | OrderPaymentRemoved | OrderPaymentStateChanged | OrderReturnShipmentStateChanged | OrderShipmentStateChanged | OrderShippingAddressSet | OrderShippingContainerSet | OrderShippingInfoSet | OrderShippingRateInputSet | OrderShippingUpdated | OrderStateChanged | OrderStateTransition | OrderStoreSet | ParcelAddedToDelivery | ParcelItemsUpdated | ParcelMeasurementsUpdated | ParcelRemovedFromDelivery | ParcelTrackingDataUpdated | PaymentCreated | PaymentInteractionAdded | PaymentInterfaceIdSet | PaymentMethodCreated | PaymentMethodCustomFieldAdded | PaymentMethodCustomFieldChanged | PaymentMethodCustomFieldRemoved | PaymentMethodCustomTypeRemoved | PaymentMethodCustomTypeSet | PaymentMethodDefaultSet | PaymentMethodDeleted | PaymentMethodInfoCustomFieldAdded | PaymentMethodInfoCustomFieldChanged | PaymentMethodInfoCustomFieldRemoved | PaymentMethodInfoCustomTypeRemoved | PaymentMethodInfoCustomTypeSet | PaymentMethodInfoInterfaceAccountSet | PaymentMethodInfoInterfaceSet | PaymentMethodInfoMethodSet | PaymentMethodInfoNameSet | PaymentMethodInfoTokenSet | PaymentMethodInterfaceAccountSet | PaymentMethodKeySet | PaymentMethodMethodSet | PaymentMethodNameSet | PaymentMethodPaymentInterfaceSet | PaymentMethodPaymentMethodStatusSet | PaymentStatusInterfaceCodeSet | PaymentStatusStateTransition | PaymentTransactionAdded | PaymentTransactionInterfaceIdSet | PaymentTransactionStateChanged | ProductAddedToCategory | ProductCreated | ProductDeleted | ProductImageAdded | ProductPriceAdded | ProductPriceChanged | ProductPriceCustomFieldAdded | ProductPriceCustomFieldChanged | ProductPriceCustomFieldRemoved | ProductPriceCustomFieldsRemoved | ProductPriceCustomFieldsSet | ProductPriceDiscountsSet | ProductPriceExternalDiscountSet | ProductPriceKeySet | ProductPriceModeSet | ProductPriceRemoved | ProductPricesSet | ProductPublished | ProductRemovedFromCategory | ProductRevertedStagedChanges | ProductSelectionCreated | ProductSelectionDeleted | ProductSelectionProductAdded | ProductSelectionProductExcluded | ProductSelectionProductRemoved | ProductSelectionVariantExclusionChanged | ProductSelectionVariantSelectionChanged | ProductSlugChanged | ProductStateTransition | ProductTailoringCreated | ProductTailoringDeleted | ProductTailoringDescriptionSet | ProductTailoringImageAdded | ProductTailoringImagesSet | ProductTailoringKeySet | ProductTailoringNameSet | ProductTailoringPublished | ProductTailoringSlugSet | ProductTailoringUnpublished | ProductUnpublished | ProductVariantAdded | ProductVariantDeleted | ProductVariantTailoringAdded | ProductVariantTailoringRemoved | PurchaseOrderNumberSet | QuoteCreated | QuoteCustomerChanged | QuoteDeleted | QuoteRenegotiationRequested | QuoteRequestCreated | QuoteRequestCustomerChanged | QuoteRequestDeleted | QuoteRequestStateChanged | QuoteRequestStateTransition | QuoteStateChanged | QuoteStateTransition | RecurringOrderCreated | RecurringOrderCustomFieldAdded | RecurringOrderCustomFieldChanged | RecurringOrderCustomFieldRemoved | RecurringOrderCustomTypeRemoved | RecurringOrderCustomTypeSet | RecurringOrderDeleted | RecurringOrderExpiresAtSet | RecurringOrderFailed | RecurringOrderKeySet | RecurringOrderScheduleSet | RecurringOrderStartsAtSet | RecurringOrderStateChanged | RecurringOrderStateTransition | ReturnInfoAdded | ReturnInfoSet | ReviewCreated | ReviewRatingSet | ReviewStateTransition | ShoppingListLineItemAdded | ShoppingListLineItemRemoved | StagedQuoteCreated | StagedQuoteDeleted | StagedQuoteSellerCommentSet | StagedQuoteStateChanged | StagedQuoteStateTransition | StagedQuoteValidToSet | StandalonePriceActiveChanged | StandalonePriceCreated | StandalonePriceDeleted | StandalonePriceDiscountSet | StandalonePriceExternalDiscountSet | StandalonePriceKeySet | StandalonePriceStagedChangesApplied | StandalonePriceStagedChangesRemoved | StandalonePriceTierAdded | StandalonePriceTierRemoved | StandalonePriceTiersSet | StandalonePriceValidFromAndUntilSet | StandalonePriceValidFromSet | StandalonePriceValidUntilSet | StandalonePriceValueChanged | StoreCheckoutUrlTemplateSet | StoreContactUrlSet | StoreCookiePolicyUrlSet | StoreCountriesChanged | StoreCreated | StoreDeleted | StoreDistributionChannelsChanged | StoreFaqUrlSet | StoreImprintUrlSet | StoreLanguagesChanged | StoreNameSet | StoreOrderUrlTemplateSet | StorePrivacyPolicyUrlSet | StoreProductSelectionsChanged | StoreRefundPolicyUrlSet | StoreShippingPolicyUrlSet | StoreSupplyChannelsChanged | StoreTermsOfServiceUrlSet | VariantCreated | VariantDeleted | VariantImageAdded | VariantImagesSet | VariantKeySet | VariantPublished | VariantSkuSet | VariantStagedChangesRemoved | VariantUnpublished) & { __isUnion?: true }
+export type MessagePayload = (ApprovalFlowApproved | ApprovalFlowCompleted | ApprovalFlowCreated | ApprovalFlowRejected | ApprovalRuleApproversSet | ApprovalRuleCreated | ApprovalRuleDescriptionSet | ApprovalRuleKeySet | ApprovalRuleNameSet | ApprovalRulePredicateSet | ApprovalRuleRequestersSet | ApprovalRuleStatusSet | AssociateRoleBuyerAssignableChanged | AssociateRoleCreated | AssociateRoleDeleted | AssociateRoleNameSet | AssociateRolePermissionAdded | AssociateRolePermissionRemoved | AssociateRolePermissionsSet | BusinessUnitAddressAdded | BusinessUnitAddressChanged | BusinessUnitAddressCustomFieldAdded | BusinessUnitAddressCustomFieldChanged | BusinessUnitAddressCustomFieldRemoved | BusinessUnitAddressCustomTypeRemoved | BusinessUnitAddressCustomTypeSet | BusinessUnitAddressRemoved | BusinessUnitApprovalRuleModeChanged | BusinessUnitAssociateAdded | BusinessUnitAssociateChanged | BusinessUnitAssociateModeChanged | BusinessUnitAssociateRemoved | BusinessUnitAssociatesSet | BusinessUnitBillingAddressAdded | BusinessUnitBillingAddressRemoved | BusinessUnitContactEmailSet | BusinessUnitCreated | BusinessUnitCustomFieldAdded | BusinessUnitCustomFieldChanged | BusinessUnitCustomFieldRemoved | BusinessUnitCustomTypeRemoved | BusinessUnitCustomTypeSet | BusinessUnitCustomerGroupAssignmentAdded | BusinessUnitCustomerGroupAssignmentRemoved | BusinessUnitCustomerGroupAssignmentsSet | BusinessUnitDefaultBillingAddressSet | BusinessUnitDefaultShippingAddressSet | BusinessUnitDeleted | BusinessUnitNameChanged | BusinessUnitParentChanged | BusinessUnitShippingAddressAdded | BusinessUnitShippingAddressRemoved | BusinessUnitStatusChanged | BusinessUnitStoreAdded | BusinessUnitStoreModeChanged | BusinessUnitStoreRemoved | BusinessUnitStoresSet | BusinessUnitTopLevelUnitSet | BusinessUnitTypeSet | CartCreated | CartDiscountCreated | CartDiscountDeleted | CartDiscountStoreAdded | CartDiscountStoreRemoved | CartDiscountStoresSet | CartEstimatedDeliverySet | CartFrozen | CartLocked | CartPurchaseOrderNumberSet | CartUnfrozen | CartUnlocked | CategoryCreated | CategorySlugChanged | CustomLineItemStateTransition | CustomerAddressAdded | CustomerAddressChanged | CustomerAddressCustomFieldAdded | CustomerAddressCustomFieldChanged | CustomerAddressCustomFieldRemoved | CustomerAddressCustomTypeRemoved | CustomerAddressCustomTypeSet | CustomerAddressRemoved | CustomerBillingAddressAdded | CustomerBillingAddressRemoved | CustomerCompanyNameSet | CustomerCreated | CustomerCustomFieldAdded | CustomerCustomFieldChanged | CustomerCustomFieldRemoved | CustomerCustomTypeRemoved | CustomerCustomTypeSet | CustomerDateOfBirthSet | CustomerDefaultBillingAddressSet | CustomerDefaultShippingAddressSet | CustomerDeleted | CustomerEmailChanged | CustomerEmailTokenCreated | CustomerEmailVerified | CustomerExternalIdSet | CustomerFirstNameSet | CustomerGroupAssignmentAdded | CustomerGroupAssignmentRemoved | CustomerGroupAssignmentsSet | CustomerGroupCustomFieldAdded | CustomerGroupCustomFieldChanged | CustomerGroupCustomFieldRemoved | CustomerGroupCustomTypeRemoved | CustomerGroupCustomTypeSet | CustomerGroupSet | CustomerLastNameSet | CustomerPasswordTokenCreated | CustomerPasswordUpdated | CustomerShippingAddressAdded | CustomerShippingAddressRemoved | CustomerStoresSet | CustomerTitleSet | DeliveryAdded | DeliveryAddressSet | DeliveryCustomFieldAdded | DeliveryCustomFieldChanged | DeliveryCustomFieldRemoved | DeliveryCustomTypeRemoved | DeliveryCustomTypeSet | DeliveryItemsUpdated | DeliveryRemoved | DiscountCodeCreated | DiscountCodeDeleted | DiscountCodeKeySet | DiscountGroupCreated | DiscountGroupDeleted | DiscountGroupIsActiveSet | DiscountGroupKeySet | DiscountGroupSortOrderSet | InventoryEntryCreated | InventoryEntryDeleted | InventoryEntryOutOfStock | InventoryEntryQuantitySet | InventoryEntryReorderPoint | InventoryEntryReservationExpirationInMinutesSet | InventoryEntrySafetyStock | LineItemStateTransition | OrderBillingAddressSet | OrderBusinessUnitSet | OrderCreated | OrderCreatedFromRecurringOrder | OrderCustomFieldAdded | OrderCustomFieldChanged | OrderCustomFieldRemoved | OrderCustomLineItemAdded | OrderCustomLineItemDiscountSet | OrderCustomLineItemQuantityChanged | OrderCustomLineItemRemoved | OrderCustomTypeRemoved | OrderCustomTypeSet | OrderCustomerEmailSet | OrderCustomerGroupSet | OrderCustomerSet | OrderDeleted | OrderDiscountCodeAdded | OrderDiscountCodeRemoved | OrderDiscountCodeStateSet | OrderDiscountTypeCombinationSet | OrderEditApplied | OrderEstimatedDeliverySet | OrderImported | OrderLineItemAdded | OrderLineItemDiscountSet | OrderLineItemDistributionChannelSet | OrderLineItemRemoved | OrderPaymentAdded | OrderPaymentRemoved | OrderPaymentStateChanged | OrderReturnShipmentStateChanged | OrderShipmentStateChanged | OrderShippingAddressSet | OrderShippingContainerSet | OrderShippingInfoSet | OrderShippingRateInputSet | OrderShippingUpdated | OrderStateChanged | OrderStateTransition | OrderStoreSet | ParcelAddedToDelivery | ParcelItemsUpdated | ParcelMeasurementsUpdated | ParcelRemovedFromDelivery | ParcelTrackingDataUpdated | PaymentCreated | PaymentInteractionAdded | PaymentInterfaceIdSet | PaymentMethodCreated | PaymentMethodCustomFieldAdded | PaymentMethodCustomFieldChanged | PaymentMethodCustomFieldRemoved | PaymentMethodCustomTypeRemoved | PaymentMethodCustomTypeSet | PaymentMethodDefaultSet | PaymentMethodDeleted | PaymentMethodInfoCustomFieldAdded | PaymentMethodInfoCustomFieldChanged | PaymentMethodInfoCustomFieldRemoved | PaymentMethodInfoCustomTypeRemoved | PaymentMethodInfoCustomTypeSet | PaymentMethodInfoInterfaceAccountSet | PaymentMethodInfoInterfaceSet | PaymentMethodInfoMethodSet | PaymentMethodInfoNameSet | PaymentMethodInfoTokenSet | PaymentMethodInterfaceAccountSet | PaymentMethodKeySet | PaymentMethodMethodSet | PaymentMethodNameSet | PaymentMethodPaymentInterfaceSet | PaymentMethodPaymentMethodStatusSet | PaymentStatusInterfaceCodeSet | PaymentStatusStateTransition | PaymentTransactionAdded | PaymentTransactionInterfaceIdSet | PaymentTransactionStateChanged | ProductAddedToCategory | ProductCreated | ProductDeleted | ProductImageAdded | ProductPriceAdded | ProductPriceChanged | ProductPriceCustomFieldAdded | ProductPriceCustomFieldChanged | ProductPriceCustomFieldRemoved | ProductPriceCustomFieldsRemoved | ProductPriceCustomFieldsSet | ProductPriceDiscountsSet | ProductPriceExternalDiscountSet | ProductPriceKeySet | ProductPriceModeSet | ProductPriceRemoved | ProductPricesSet | ProductPublished | ProductRemovedFromCategory | ProductRevertedStagedChanges | ProductSelectionCreated | ProductSelectionDeleted | ProductSelectionProductAdded | ProductSelectionProductExcluded | ProductSelectionProductRemoved | ProductSelectionVariantExclusionChanged | ProductSelectionVariantSelectionChanged | ProductSlugChanged | ProductStateTransition | ProductTailoringCreated | ProductTailoringDeleted | ProductTailoringDescriptionSet | ProductTailoringImageAdded | ProductTailoringImagesSet | ProductTailoringKeySet | ProductTailoringNameSet | ProductTailoringPublished | ProductTailoringSlugSet | ProductTailoringUnpublished | ProductUnpublished | ProductVariantAdded | ProductVariantDeleted | ProductVariantTailoringAdded | ProductVariantTailoringRemoved | PurchaseOrderNumberSet | QuoteCreated | QuoteCustomerChanged | QuoteDeleted | QuoteRenegotiationRequested | QuoteRequestCreated | QuoteRequestCustomerChanged | QuoteRequestDeleted | QuoteRequestStateChanged | QuoteRequestStateTransition | QuoteStateChanged | QuoteStateTransition | RecurringOrderCreated | RecurringOrderCustomFieldAdded | RecurringOrderCustomFieldChanged | RecurringOrderCustomFieldRemoved | RecurringOrderCustomTypeRemoved | RecurringOrderCustomTypeSet | RecurringOrderDeleted | RecurringOrderExpiresAtSet | RecurringOrderFailed | RecurringOrderKeySet | RecurringOrderScheduleSet | RecurringOrderStartsAtSet | RecurringOrderStateChanged | RecurringOrderStateTransition | ReturnInfoAdded | ReturnInfoSet | ReviewCreated | ReviewRatingSet | ReviewStateTransition | ShippingMethodActiveChanged | ShippingMethodCarrierSet | ShippingMethodCreated | ShippingMethodCustomFieldAdded | ShippingMethodCustomFieldChanged | ShippingMethodCustomFieldRemoved | ShippingMethodCustomTypeRemoved | ShippingMethodCustomTypeSet | ShippingMethodDeleted | ShippingMethodDescriptionSet | ShippingMethodIsDefaultChanged | ShippingMethodKeySet | ShippingMethodLocalizedDescriptionSet | ShippingMethodLocalizedNameSet | ShippingMethodNameChanged | ShippingMethodPredicateSet | ShippingMethodShippingRateAdded | ShippingMethodShippingRateRemoved | ShippingMethodStoreAdded | ShippingMethodStoreRemoved | ShippingMethodStoresSet | ShippingMethodTaxCategoryChanged | ShippingMethodZoneAdded | ShippingMethodZoneRemoved | ShoppingListLineItemAdded | ShoppingListLineItemRemoved | StagedQuoteCreated | StagedQuoteDeleted | StagedQuoteSellerCommentSet | StagedQuoteStateChanged | StagedQuoteStateTransition | StagedQuoteValidToSet | StandalonePriceActiveChanged | StandalonePriceCreated | StandalonePriceDeleted | StandalonePriceDiscountSet | StandalonePriceExternalDiscountSet | StandalonePriceKeySet | StandalonePriceStagedChangesApplied | StandalonePriceStagedChangesRemoved | StandalonePriceTierAdded | StandalonePriceTierRemoved | StandalonePriceTiersSet | StandalonePriceValidFromAndUntilSet | StandalonePriceValidFromSet | StandalonePriceValidUntilSet | StandalonePriceValueChanged | StoreCheckoutUrlTemplateSet | StoreContactUrlSet | StoreCookiePolicyUrlSet | StoreCountriesChanged | StoreCreated | StoreDeleted | StoreDistributionChannelsChanged | StoreFaqUrlSet | StoreImprintUrlSet | StoreLanguagesChanged | StoreNameSet | StoreOrderUrlTemplateSet | StorePrivacyPolicyUrlSet | StoreProductSelectionsChanged | StoreRefundPolicyUrlSet | StoreShippingPolicyUrlSet | StoreSupplyChannelsChanged | StoreTermsOfServiceUrlSet | VariantCreated | VariantDeleted | VariantImageAdded | VariantImagesSet | VariantKeySet | VariantPublished | VariantSkuSet | VariantStagedChangesRemoved | VariantUnpublished) & { __isUnion?: true }
 
 export interface MessageQueryResult {
     count: Scalars['Int']
@@ -3704,7 +3704,6 @@ export interface MultiBuyLineItemsTarget {
 
 export interface Mutation {
     applyOrderEdit: (OrderEdit | null)
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     bulkUpdateVariants: BulkUpdateVariantsResponse
     createApiClient: (APIClientWithSecret | null)
     createApprovalRule: (ApprovalRule | null)
@@ -3759,7 +3758,6 @@ export interface Mutation {
     createSubscription: (CommercetoolsSubscription | null)
     createTaxCategory: (TaxCategory | null)
     createTypeDefinition: (TypeDefinition | null)
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     createVariant: (Variant | null)
     createZone: (Zone | null)
     /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
@@ -3870,7 +3868,6 @@ export interface Mutation {
     deleteSubscription: (CommercetoolsSubscription | null)
     deleteTaxCategory: (TaxCategory | null)
     deleteTypeDefinition: (TypeDefinition | null)
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     deleteVariant: (VariantDeletionResult | null)
     deleteZone: (Zone | null)
     importOrder: (Order | null)
@@ -3931,7 +3928,6 @@ export interface Mutation {
     updateSubscription: (CommercetoolsSubscription | null)
     updateTaxCategory: (TaxCategory | null)
     updateTypeDefinition: (TypeDefinition | null)
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     updateVariant: (Variant | null)
     updateZone: (Zone | null)
     __typename: 'Mutation'
@@ -5015,9 +5011,7 @@ export interface ProductData {
     categoriesRef: Reference[]
     categoryOrderHint: (Scalars['String'] | null)
     categoryOrderHints: CategoryOrderHint[]
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     defaultVariant: (Variant | null)
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     defaultVariantRef: (Reference | null)
     description: (Scalars['String'] | null)
     descriptionAllLocales: (LocalizedString[] | null)
@@ -5400,8 +5394,6 @@ export interface ProductProjectionSearchResult {
     __typename: 'ProductProjectionSearchResult'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface ProductProjectionVariantAttributes {
     attributes: VariantAttributeDefinition[]
     productId: Scalars['String']
@@ -6016,7 +6008,6 @@ export interface ProjectProjection {
     languages: Scalars['Locale'][]
     messages: MessagesConfiguration
     name: Scalars['String']
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     productCatalogModel: (ProductCatalogModel | null)
     searchIndexing: (SearchIndexingConfiguration | null)
     shippingRateInputType: (ShippingRateInputType | null)
@@ -6078,6 +6069,8 @@ export interface Query {
     /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     mcpServer: (McpServer | null)
     /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
+    mcpServerLimits: McpServerLimits
+    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     mcpServerType: (McpServerTypeCatalogEntry | null)
     /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     mcpServerTypes: McpServerTypeCatalogEntry[]
@@ -6103,7 +6096,6 @@ export interface Query {
     productDiscount: (ProductDiscount | null)
     productDiscounts: ProductDiscountQueryResult
     productProjectionSearch: ProductProjectionSearchResult
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     productProjectionVariantAttributes: (ProductProjectionVariantAttributes | null)
     productProjectionsSuggest: SuggestResult
     productSelection: (ProductSelection | null)
@@ -6162,21 +6154,11 @@ export interface Query {
     taxCategory: (TaxCategory | null)
     typeDefinition: (TypeDefinition | null)
     typeDefinitions: TypeDefinitionQueryResult
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     variant: (Variant | null)
-    /**
-     * BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-     * 
-     * Query a single variant projection by id, key, or sku and other args
-     */
+    /** Query a single variant projection by id, key, or sku and other args */
     variantProjection: (VariantProjection | null)
-    /**
-     * BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-     * 
-     * Query variant projections with filtering and pagination
-     */
+    /** Query variant projections with filtering and pagination */
     variantProjections: VariantProjectionQueryResult
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     variants: VariantQueryResult
     zone: (Zone | null)
     zones: ZoneQueryResult
@@ -7655,6 +7637,86 @@ export interface ShippingMethod {
     __typename: 'ShippingMethod'
 }
 
+export interface ShippingMethodActiveChanged {
+    active: Scalars['Boolean']
+    oldActive: (Scalars['Boolean'] | null)
+    type: Scalars['String']
+    __typename: 'ShippingMethodActiveChanged'
+}
+
+export interface ShippingMethodCarrierSet {
+    carrier: (Scalars['String'] | null)
+    oldCarrier: (Scalars['String'] | null)
+    type: Scalars['String']
+    __typename: 'ShippingMethodCarrierSet'
+}
+
+export interface ShippingMethodCreated {
+    shippingMethod: ShippingMethod
+    type: Scalars['String']
+    __typename: 'ShippingMethodCreated'
+}
+
+export interface ShippingMethodCustomFieldAdded {
+    name: Scalars['String']
+    type: Scalars['String']
+    value: Scalars['Json']
+    __typename: 'ShippingMethodCustomFieldAdded'
+}
+
+export interface ShippingMethodCustomFieldChanged {
+    name: Scalars['String']
+    oldValue: (Scalars['Json'] | null)
+    type: Scalars['String']
+    value: Scalars['Json']
+    __typename: 'ShippingMethodCustomFieldChanged'
+}
+
+export interface ShippingMethodCustomFieldRemoved {
+    name: Scalars['String']
+    type: Scalars['String']
+    __typename: 'ShippingMethodCustomFieldRemoved'
+}
+
+export interface ShippingMethodCustomTypeRemoved {
+    oldTypeId: (Scalars['String'] | null)
+    type: Scalars['String']
+    __typename: 'ShippingMethodCustomTypeRemoved'
+}
+
+export interface ShippingMethodCustomTypeSet {
+    customFields: CustomFieldsType
+    oldTypeId: (Scalars['String'] | null)
+    type: Scalars['String']
+    __typename: 'ShippingMethodCustomTypeSet'
+}
+
+export interface ShippingMethodDeleted {
+    type: Scalars['String']
+    __typename: 'ShippingMethodDeleted'
+}
+
+export interface ShippingMethodDescriptionSet {
+    description: (Scalars['String'] | null)
+    oldDescription: (Scalars['String'] | null)
+    type: Scalars['String']
+    __typename: 'ShippingMethodDescriptionSet'
+}
+
+export interface ShippingMethodIsDefaultChanged {
+    isDefault: Scalars['Boolean']
+    oldIsDefault: (Scalars['Boolean'] | null)
+    type: Scalars['String']
+    __typename: 'ShippingMethodIsDefaultChanged'
+}
+
+export interface ShippingMethodKeySet {
+    key: (Scalars['String'] | null)
+    oldKey: (Scalars['String'] | null)
+    type: Scalars['String']
+    __typename: 'ShippingMethodKeySet'
+}
+
 export interface ShippingMethodLimitWithCurrent {
     current: Scalars['Long']
     limit: (Scalars['Long'] | null)
@@ -7667,6 +7729,38 @@ export interface ShippingMethodLimitsProjection {
     __typename: 'ShippingMethodLimitsProjection'
 }
 
+export interface ShippingMethodLocalizedDescriptionSet {
+    localizedDescription: (Scalars['String'] | null)
+    localizedDescriptionAllLocales: (LocalizedString[] | null)
+    oldLocalizedDescription: (Scalars['String'] | null)
+    oldLocalizedDescriptionAllLocales: (LocalizedString[] | null)
+    type: Scalars['String']
+    __typename: 'ShippingMethodLocalizedDescriptionSet'
+}
+
+export interface ShippingMethodLocalizedNameSet {
+    localizedName: (Scalars['String'] | null)
+    localizedNameAllLocales: (LocalizedString[] | null)
+    oldLocalizedName: (Scalars['String'] | null)
+    oldLocalizedNameAllLocales: (LocalizedString[] | null)
+    type: Scalars['String']
+    __typename: 'ShippingMethodLocalizedNameSet'
+}
+
+export interface ShippingMethodNameChanged {
+    name: Scalars['String']
+    oldName: (Scalars['String'] | null)
+    type: Scalars['String']
+    __typename: 'ShippingMethodNameChanged'
+}
+
+export interface ShippingMethodPredicateSet {
+    oldPredicate: (Scalars['String'] | null)
+    predicate: (Scalars['String'] | null)
+    type: Scalars['String']
+    __typename: 'ShippingMethodPredicateSet'
+}
+
 export interface ShippingMethodQueryResult {
     count: Scalars['Int']
     exists: Scalars['Boolean']
@@ -7676,12 +7770,70 @@ export interface ShippingMethodQueryResult {
     __typename: 'ShippingMethodQueryResult'
 }
 
+export interface ShippingMethodShippingRateAdded {
+    shippingRate: (ShippingRate | null)
+    type: Scalars['String']
+    zone: (Zone | null)
+    zoneRef: Reference
+    __typename: 'ShippingMethodShippingRateAdded'
+}
+
+export interface ShippingMethodShippingRateRemoved {
+    shippingRate: (ShippingRate | null)
+    type: Scalars['String']
+    zone: (Zone | null)
+    zoneRef: Reference
+    __typename: 'ShippingMethodShippingRateRemoved'
+}
+
 export type ShippingMethodState = 'DoesNotMatchCart' | 'MatchesCart'
+
+export interface ShippingMethodStoreAdded {
+    storeRef: KeyReference
+    type: Scalars['String']
+    __typename: 'ShippingMethodStoreAdded'
+}
+
+export interface ShippingMethodStoreRemoved {
+    storeRef: KeyReference
+    type: Scalars['String']
+    __typename: 'ShippingMethodStoreRemoved'
+}
+
+export interface ShippingMethodStoresSet {
+    oldStoresRef: KeyReference[]
+    storesRef: KeyReference[]
+    type: Scalars['String']
+    __typename: 'ShippingMethodStoresSet'
+}
 
 export interface ShippingMethodTargetDraftOutput {
     quantity: Scalars['Long']
     shippingMethodKey: Scalars['String']
     __typename: 'ShippingMethodTargetDraftOutput'
+}
+
+export interface ShippingMethodTaxCategoryChanged {
+    oldTaxCategory: (TaxCategory | null)
+    oldTaxCategoryRef: (Reference | null)
+    taxCategory: (TaxCategory | null)
+    taxCategoryRef: Reference
+    type: Scalars['String']
+    __typename: 'ShippingMethodTaxCategoryChanged'
+}
+
+export interface ShippingMethodZoneAdded {
+    type: Scalars['String']
+    zone: (Zone | null)
+    zoneRef: Reference
+    __typename: 'ShippingMethodZoneAdded'
+}
+
+export interface ShippingMethodZoneRemoved {
+    type: Scalars['String']
+    zone: (Zone | null)
+    zoneRef: Reference
+    __typename: 'ShippingMethodZoneRemoved'
 }
 
 
@@ -8471,8 +8623,11 @@ export interface TaxRate {
     name: Scalars['String']
     state: (Scalars['String'] | null)
     subRates: SubRate[]
+    taxRoundingTarget: TaxRoundingTarget
     __typename: 'TaxRate'
 }
+
+export type TaxRoundingTarget = 'Net' | 'Tax'
 
 export interface TaxedItemPrice {
     taxPortions: TaxPortion[]
@@ -8719,8 +8874,6 @@ export interface ValueFacetResult {
     __typename: 'ValueFacetResult'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface Variant {
     createdAt: Scalars['DateTime']
     createdBy: (Initiator | null)
@@ -8738,24 +8891,18 @@ export interface Variant {
     __typename: 'Variant'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantAttributeAvailability {
     channels: VariantAttributeChannelAvailability[]
     noChannel: (VariantAttributeSimpleAvailability | null)
     __typename: 'VariantAttributeAvailability'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantAttributeChannelAvailability {
     availability: VariantAttributeSimpleAvailability
     channelRef: Reference
     __typename: 'VariantAttributeChannelAvailability'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantAttributeDefinition {
     label: (Scalars['String'] | null)
     labelAllLocales: LocalizedString[]
@@ -8764,16 +8911,13 @@ export interface VariantAttributeDefinition {
     __typename: 'VariantAttributeDefinition'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantAttributeSimpleAvailability {
     availableQuantity: Scalars['Long']
     isOnStock: Scalars['Boolean']
+    restockableInDays: (Scalars['Int'] | null)
     __typename: 'VariantAttributeSimpleAvailability'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantAttributeVariant {
     attributesRaw: RawAttribute[]
     availability: (VariantAttributeAvailability | null)
@@ -8783,8 +8927,6 @@ export interface VariantAttributeVariant {
     __typename: 'VariantAttributeVariant'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantCreated {
     assets: Asset[]
     attributesRaw: RawAttribute[]
@@ -8799,8 +8941,6 @@ export interface VariantCreated {
     __typename: 'VariantCreated'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantData {
     assets: Asset[]
     /** This field contains raw attributes data */
@@ -8810,16 +8950,12 @@ export interface VariantData {
     __typename: 'VariantData'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantDeleted {
     productRef: Reference
     type: Scalars['String']
     __typename: 'VariantDeleted'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantDeletionResult {
     variant: Variant
     /** Warnings produced while deleting the variant. Only available in the mutation response. */
@@ -8827,8 +8963,6 @@ export interface VariantDeletionResult {
     __typename: 'VariantDeletionResult'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantImageAdded {
     image: Image
     productRef: Reference
@@ -8837,8 +8971,6 @@ export interface VariantImageAdded {
     __typename: 'VariantImageAdded'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantImagesSet {
     images: Image[]
     oldImages: Image[]
@@ -8848,8 +8980,6 @@ export interface VariantImagesSet {
     __typename: 'VariantImagesSet'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantKeySet {
     key: (Scalars['String'] | null)
     oldKey: (Scalars['String'] | null)
@@ -8859,15 +8989,14 @@ export interface VariantKeySet {
 }
 
 
-/**
- * BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
- * 
- * A variant projection with embedded product data
- */
+/** A variant projection with embedded product data */
 export interface VariantProjection {
     assets: Asset[]
     /** This field contains attributes data. Use includeNames/excludeNames query arguments to filter. */
     attributes: RawAttribute[]
+    categories: Category[]
+    categoriesRef: Reference[]
+    categoryOrderHints: CategoryOrderHint[]
     createdAt: Scalars['DateTime']
     default: Scalars['Boolean']
     description: (Scalars['String'] | null)
@@ -8898,8 +9027,6 @@ export interface VariantProjectionQueryResult {
     __typename: 'VariantProjectionQueryResult'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantPublished {
     productRef: Reference
     type: Scalars['String']
@@ -8915,8 +9042,6 @@ export interface VariantQueryResult {
     __typename: 'VariantQueryResult'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantSkuSet {
     oldSku: (Scalars['String'] | null)
     productRef: Reference
@@ -8926,8 +9051,6 @@ export interface VariantSkuSet {
     __typename: 'VariantSkuSet'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantStagedChangesRemoved {
     productRef: Reference
     type: Scalars['String']
@@ -8940,8 +9063,6 @@ export interface VariantTailoring {
     __typename: 'VariantTailoring'
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantUnpublished {
     productRef: Reference
     type: Scalars['String']
@@ -9138,6 +9259,8 @@ export interface AddCartShoppingList {distributionChannel?: (ResourceIdentifierI
 
 export interface AddCategoryAsset {asset: AssetDraftInput,position?: (Scalars['Int'] | null)}
 
+export interface AddCategoryStore {store: ResourceIdentifierInput}
+
 export interface AddChannelRoles {roles: ChannelRole[]}
 
 export interface AddCustomerAddress {address: AddressInput}
@@ -9327,12 +9450,8 @@ export interface AddTypeFieldDefinition {fieldDefinition: FieldDefinitionInput}
 
 export interface AddTypeLocalizedEnumValue {fieldName: Scalars['String'],value: LocalizedEnumValueInput}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface AddVariantAsset {asset: AssetDraftInput,position?: (Scalars['Int'] | null),staged?: (Scalars['Boolean'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface AddVariantExternalImage {image: ImageInput,staged?: (Scalars['Boolean'] | null)}
 
 export interface AddZoneLocation {location: ZoneLocation}
@@ -9884,12 +10003,13 @@ export interface AttributeDefinitionGenqlSelection{
     labelAllLocales?: LocalizedStringGenqlSelection
     level?: boolean | number
     name?: boolean | number
+    savedToLineItem?: boolean | number
     type?: AttributeDefinitionTypeGenqlSelection
     __typename?: boolean | number
     __scalar?: boolean | number
 }
 
-export interface AttributeDefinitionDraft {attributeConstraint?: (AttributeConstraint | null),inputHint?: (TextInputHint | null),inputTip?: (LocalizedStringItemInputType[] | null),isRequired: Scalars['Boolean'],isSearchable: Scalars['Boolean'],label: LocalizedStringItemInputType[],level?: (Level | null),name: Scalars['String'],type: AttributeTypeDraft}
+export interface AttributeDefinitionDraft {attributeConstraint?: (AttributeConstraint | null),inputHint?: (TextInputHint | null),inputTip?: (LocalizedStringItemInputType[] | null),isRequired: Scalars['Boolean'],isSearchable: Scalars['Boolean'],label: LocalizedStringItemInputType[],level?: (Level | null),name: Scalars['String'],savedToLineItem?: (Scalars['Boolean'] | null),type: AttributeTypeDraft}
 
 export interface AttributeDefinitionResultGenqlSelection{
     limit?: boolean | number
@@ -10057,12 +10177,8 @@ export interface BooleanTypeGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface BulkUpdateVariantsInput {actions: VariantBulkAction[],items: BulkUpdateVariantsItemInput[],versionControl?: (VersionControl | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface BulkUpdateVariantsItemErrorGenqlSelection{
     code?: boolean | number
     message?: boolean | number
@@ -10070,12 +10186,8 @@ export interface BulkUpdateVariantsItemErrorGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface BulkUpdateVariantsItemInput {id?: (Scalars['String'] | null),key?: (Scalars['String'] | null),version?: (Scalars['Long'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface BulkUpdateVariantsItemResultGenqlSelection{
     errors?: BulkUpdateVariantsItemErrorGenqlSelection
     resource?: BulkUpdateVariantsResourceGenqlSelection
@@ -10084,8 +10196,6 @@ export interface BulkUpdateVariantsItemResultGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface BulkUpdateVariantsResourceGenqlSelection{
     id?: boolean | number
     version?: boolean | number
@@ -10093,8 +10203,6 @@ export interface BulkUpdateVariantsResourceGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface BulkUpdateVariantsResponseGenqlSelection{
     failureCount?: boolean | number
     results?: BulkUpdateVariantsItemResultGenqlSelection
@@ -11037,6 +11145,8 @@ export interface CategoryGenqlSelection{
     slugAllLocales?: LocalizedStringGenqlSelection
     /** Number of staged products in the category subtree. */
     stagedProductCount?: boolean | number
+    stores?: StoreGenqlSelection
+    storesRef?: KeyReferenceGenqlSelection
     version?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
@@ -11049,7 +11159,7 @@ export interface CategoryCreatedGenqlSelection{
     __scalar?: boolean | number
 }
 
-export interface CategoryDraft {assets?: (AssetDraftInput[] | null),custom?: (CustomFieldsDraft | null),description?: (LocalizedStringItemInputType[] | null),externalId?: (Scalars['String'] | null),key?: (Scalars['String'] | null),metaDescription?: (LocalizedStringItemInputType[] | null),metaKeywords?: (LocalizedStringItemInputType[] | null),metaTitle?: (LocalizedStringItemInputType[] | null),name: LocalizedStringItemInputType[],orderHint?: (Scalars['String'] | null),parent?: (ResourceIdentifierInput | null),slug: LocalizedStringItemInputType[]}
+export interface CategoryDraft {assets?: (AssetDraftInput[] | null),custom?: (CustomFieldsDraft | null),description?: (LocalizedStringItemInputType[] | null),externalId?: (Scalars['String'] | null),key?: (Scalars['String'] | null),metaDescription?: (LocalizedStringItemInputType[] | null),metaKeywords?: (LocalizedStringItemInputType[] | null),metaTitle?: (LocalizedStringItemInputType[] | null),name: LocalizedStringItemInputType[],orderHint?: (Scalars['String'] | null),parent?: (ResourceIdentifierInput | null),slug: LocalizedStringItemInputType[],stores?: (ResourceIdentifierInput[] | null)}
 
 export interface CategoryLimitsProjectionGenqlSelection{
     maxCategories?: LimitGenqlSelection
@@ -11101,7 +11211,7 @@ export interface CategorySlugChangedGenqlSelection{
     __scalar?: boolean | number
 }
 
-export interface CategoryUpdateAction {addAsset?: (AddCategoryAsset | null),changeAssetName?: (ChangeCategoryAssetName | null),changeAssetOrder?: (ChangeCategoryAssetOrder | null),changeName?: (ChangeCategoryName | null),changeOrderHint?: (ChangeCategoryOrderHint | null),changeParent?: (ChangeCategoryParent | null),changeSlug?: (ChangeCategorySlug | null),removeAsset?: (RemoveCategoryAsset | null),setAssetCustomField?: (SetCategoryAssetCustomField | null),setAssetCustomType?: (SetCategoryAssetCustomType | null),setAssetDescription?: (SetCategoryAssetDescription | null),setAssetKey?: (SetCategoryAssetKey | null),setAssetSources?: (SetCategoryAssetSources | null),setAssetTags?: (SetCategoryAssetTags | null),setCustomField?: (SetCategoryCustomField | null),setCustomType?: (SetCategoryCustomType | null),setDescription?: (SetCategoryDescription | null),setExternalId?: (SetCategoryExternalId | null),setKey?: (SetCategoryKey | null),setMetaDescription?: (SetCategoryMetaDescription | null),setMetaKeywords?: (SetCategoryMetaKeywords | null),setMetaTitle?: (SetCategoryMetaTitle | null)}
+export interface CategoryUpdateAction {addAsset?: (AddCategoryAsset | null),addStore?: (AddCategoryStore | null),changeAssetName?: (ChangeCategoryAssetName | null),changeAssetOrder?: (ChangeCategoryAssetOrder | null),changeName?: (ChangeCategoryName | null),changeOrderHint?: (ChangeCategoryOrderHint | null),changeParent?: (ChangeCategoryParent | null),changeSlug?: (ChangeCategorySlug | null),removeAsset?: (RemoveCategoryAsset | null),removeStore?: (RemoveCategoryStore | null),setAssetCustomField?: (SetCategoryAssetCustomField | null),setAssetCustomType?: (SetCategoryAssetCustomType | null),setAssetDescription?: (SetCategoryAssetDescription | null),setAssetKey?: (SetCategoryAssetKey | null),setAssetSources?: (SetCategoryAssetSources | null),setAssetTags?: (SetCategoryAssetTags | null),setCustomField?: (SetCategoryCustomField | null),setCustomType?: (SetCategoryCustomType | null),setDescription?: (SetCategoryDescription | null),setExternalId?: (SetCategoryExternalId | null),setKey?: (SetCategoryKey | null),setMetaDescription?: (SetCategoryMetaDescription | null),setMetaKeywords?: (SetCategoryMetaKeywords | null),setMetaTitle?: (SetCategoryMetaTitle | null),setStores?: (SetCategoryStores | null)}
 
 export interface ChangeAssociateRoleBuyerAssignable {buyerAssignable: Scalars['Boolean']}
 
@@ -11459,12 +11569,8 @@ export interface ChangeTypeLocalizedEnumValueOrder {fieldName: Scalars['String']
 
 export interface ChangeTypeName {name: LocalizedStringItemInputType[]}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface ChangeVariantAssetName {assetId?: (Scalars['String'] | null),assetKey?: (Scalars['String'] | null),name: LocalizedStringItemInputType[],staged?: (Scalars['Boolean'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface ChangeVariantAssetOrder {assetOrder: Scalars['String'][],staged?: (Scalars['Boolean'] | null)}
 
 export interface ChangeZoneName {name: Scalars['String']}
@@ -13194,7 +13300,7 @@ export interface ExternalTaxAmountDraftOutputGenqlSelection{
     __scalar?: boolean | number
 }
 
-export interface ExternalTaxRateDraft {amount: Scalars['Float'],country: Scalars['Country'],includedInPrice?: (Scalars['Boolean'] | null),name: Scalars['String'],state?: (Scalars['String'] | null),subRates?: (SubRateDraft[] | null)}
+export interface ExternalTaxRateDraft {amount: Scalars['Float'],country: Scalars['Country'],includedInPrice?: (Scalars['Boolean'] | null),name: Scalars['String'],state?: (Scalars['String'] | null),subRates?: (SubRateDraft[] | null),taxRoundingTarget?: (TaxRoundingTarget | null)}
 
 export interface ExternalTaxRateDraftOutputGenqlSelection{
     amount?: boolean | number
@@ -13203,6 +13309,7 @@ export interface ExternalTaxRateDraftOutputGenqlSelection{
     name?: boolean | number
     state?: boolean | number
     subRates?: SubRateGenqlSelection
+    taxRoundingTarget?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
 }
@@ -13487,6 +13594,12 @@ export interface InStoreGenqlSelection{
     key?: (Scalars['String'] | null)} })
     cartDiscounts?: (CartDiscountQueryResultGenqlSelection & { __args?: {limit?: (Scalars['Int'] | null), offset?: (Scalars['Int'] | null), sort?: (Scalars['String'][] | null), where?: (Scalars['String'] | null)} })
     carts?: (CartQueryResultGenqlSelection & { __args?: {limit?: (Scalars['Int'] | null), offset?: (Scalars['Int'] | null), sort?: (Scalars['String'][] | null), where?: (Scalars['String'] | null)} })
+    categories?: (CategoryQueryResultGenqlSelection & { __args?: {limit?: (Scalars['Int'] | null), offset?: (Scalars['Int'] | null), sort?: (Scalars['String'][] | null), where?: (Scalars['String'] | null)} })
+    category?: (CategoryGenqlSelection & { __args?: {
+    /** Queries with specified ID */
+    id?: (Scalars['String'] | null), 
+    /** Queries with specified key */
+    key?: (Scalars['String'] | null)} })
     customer?: (CustomerGenqlSelection & { __args?: {
     /** Queries a customer with specified email token */
     emailToken?: (Scalars['String'] | null), 
@@ -13523,7 +13636,6 @@ export interface InStoreGenqlSelection{
     sku?: (Scalars['String'] | null), 
     /** Queries for a [Product](https://docs.commercetools.com/api/projects/products#product) with specified [ProductVariant](https://docs.commercetools.com/api/projects/products#productvariant) `key` */
     variantKey?: (Scalars['String'] | null)} })
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     productProjectionVariantAttributes?: (ProductProjectionVariantAttributesGenqlSelection & { __args: {
     /** Queries with specified ID */
     id?: (Scalars['String'] | null), 
@@ -13579,11 +13691,7 @@ export interface InStoreGenqlSelection{
     /** Queries with specified key */
     key?: (Scalars['String'] | null)} })
     stagedQuotes?: (StagedQuoteQueryResultGenqlSelection & { __args?: {limit?: (Scalars['Int'] | null), offset?: (Scalars['Int'] | null), sort?: (Scalars['String'][] | null), where?: (Scalars['String'] | null)} })
-    /**
-     * BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-     * 
-     * Query a single variant projection by id, key, or sku and other args
-     */
+    /** Query a single variant projection by id, key, or sku and other args */
     variantProjection?: (VariantProjectionGenqlSelection & { __args?: {
     /** Queries with specified ID */
     id?: (Scalars['String'] | null), 
@@ -13595,11 +13703,7 @@ export interface InStoreGenqlSelection{
     sku?: (Scalars['String'] | null), 
     /** If true, queries staged projections. If false (default), queries current (published) projections. */
     staged?: Scalars['Boolean']} })
-    /**
-     * BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-     * 
-     * Query variant projections with filtering and pagination
-     */
+    /** Query variant projections with filtering and pagination */
     variantProjections?: (VariantProjectionQueryResultGenqlSelection & { __args?: {
     /**
      * The names of the attributes to exclude.
@@ -14308,6 +14412,19 @@ export interface McpServerJsonOutputFilteringMatcherGenqlSelection{
 
 export interface McpServerJsonOutputFilteringMatcherInput {fieldNameContains?: (Scalars['String'][] | null),fieldNames?: (Scalars['String'][] | null),fieldPaths?: (Scalars['String'][] | null)}
 
+export interface McpServerLimitWithCurrentGenqlSelection{
+    current?: boolean | number
+    limit?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface McpServerLimitsGenqlSelection{
+    total?: McpServerLimitWithCurrentGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
 export interface McpServerQueryResultGenqlSelection{
     count?: boolean | number
     exists?: boolean | number
@@ -14727,6 +14844,30 @@ export interface MessagePayloadGenqlSelection{
     on_ReviewCreated?: ReviewCreatedGenqlSelection
     on_ReviewRatingSet?: ReviewRatingSetGenqlSelection
     on_ReviewStateTransition?: ReviewStateTransitionGenqlSelection
+    on_ShippingMethodActiveChanged?: ShippingMethodActiveChangedGenqlSelection
+    on_ShippingMethodCarrierSet?: ShippingMethodCarrierSetGenqlSelection
+    on_ShippingMethodCreated?: ShippingMethodCreatedGenqlSelection
+    on_ShippingMethodCustomFieldAdded?: ShippingMethodCustomFieldAddedGenqlSelection
+    on_ShippingMethodCustomFieldChanged?: ShippingMethodCustomFieldChangedGenqlSelection
+    on_ShippingMethodCustomFieldRemoved?: ShippingMethodCustomFieldRemovedGenqlSelection
+    on_ShippingMethodCustomTypeRemoved?: ShippingMethodCustomTypeRemovedGenqlSelection
+    on_ShippingMethodCustomTypeSet?: ShippingMethodCustomTypeSetGenqlSelection
+    on_ShippingMethodDeleted?: ShippingMethodDeletedGenqlSelection
+    on_ShippingMethodDescriptionSet?: ShippingMethodDescriptionSetGenqlSelection
+    on_ShippingMethodIsDefaultChanged?: ShippingMethodIsDefaultChangedGenqlSelection
+    on_ShippingMethodKeySet?: ShippingMethodKeySetGenqlSelection
+    on_ShippingMethodLocalizedDescriptionSet?: ShippingMethodLocalizedDescriptionSetGenqlSelection
+    on_ShippingMethodLocalizedNameSet?: ShippingMethodLocalizedNameSetGenqlSelection
+    on_ShippingMethodNameChanged?: ShippingMethodNameChangedGenqlSelection
+    on_ShippingMethodPredicateSet?: ShippingMethodPredicateSetGenqlSelection
+    on_ShippingMethodShippingRateAdded?: ShippingMethodShippingRateAddedGenqlSelection
+    on_ShippingMethodShippingRateRemoved?: ShippingMethodShippingRateRemovedGenqlSelection
+    on_ShippingMethodStoreAdded?: ShippingMethodStoreAddedGenqlSelection
+    on_ShippingMethodStoreRemoved?: ShippingMethodStoreRemovedGenqlSelection
+    on_ShippingMethodStoresSet?: ShippingMethodStoresSetGenqlSelection
+    on_ShippingMethodTaxCategoryChanged?: ShippingMethodTaxCategoryChangedGenqlSelection
+    on_ShippingMethodZoneAdded?: ShippingMethodZoneAddedGenqlSelection
+    on_ShippingMethodZoneRemoved?: ShippingMethodZoneRemovedGenqlSelection
     on_ShoppingListLineItemAdded?: ShoppingListLineItemAddedGenqlSelection
     on_ShoppingListLineItemRemoved?: ShoppingListLineItemRemovedGenqlSelection
     on_StagedQuoteCreated?: StagedQuoteCreatedGenqlSelection
@@ -14876,8 +15017,6 @@ export interface MoneyTypeGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface MoveImageToPosition {imageUrl: Scalars['String'],position: Scalars['Int'],staged?: (Scalars['Boolean'] | null)}
 
 export interface MoveProductImageToPosition {imageUrl: Scalars['String'],position: Scalars['Int'],sku?: (Scalars['String'] | null),staged?: (Scalars['Boolean'] | null),variantId?: (Scalars['Int'] | null)}
@@ -14918,7 +15057,6 @@ export interface MutationGenqlSelection{
     id: Scalars['String'], 
     /** Current version of the referenced Order. */
     resourceVersion: Scalars['Long']} })
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     bulkUpdateVariants?: (BulkUpdateVariantsResponseGenqlSelection & { __args: {input: BulkUpdateVariantsInput} })
     createApiClient?: (APIClientWithSecretGenqlSelection & { __args: {draft: CreateApiClient} })
     createApprovalRule?: (ApprovalRuleGenqlSelection & { __args: {
@@ -14939,7 +15077,9 @@ export interface MutationGenqlSelection{
     createCartDiscount?: (CartDiscountGenqlSelection & { __args: {draft: CartDiscountDraft, 
     /** The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions. */
     storeKey?: (Scalars['KeyReferenceInput'] | null)} })
-    createCategory?: (CategoryGenqlSelection & { __args: {draft: CategoryDraft} })
+    createCategory?: (CategoryGenqlSelection & { __args: {draft: CategoryDraft, 
+    /** The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions. */
+    storeKey?: (Scalars['KeyReferenceInput'] | null)} })
     createChannel?: (ChannelGenqlSelection & { __args: {draft: ChannelDraft} })
     createCustomerGroup?: (CustomerGroupGenqlSelection & { __args: {draft: CustomerGroupDraft} })
     createDiscountCode?: (DiscountCodeGenqlSelection & { __args: {draft: DiscountCodeDraft} })
@@ -15013,7 +15153,6 @@ export interface MutationGenqlSelection{
     createSubscription?: (CommercetoolsSubscriptionGenqlSelection & { __args: {draft: SubscriptionDraft} })
     createTaxCategory?: (TaxCategoryGenqlSelection & { __args: {draft: TaxCategoryDraft} })
     createTypeDefinition?: (TypeDefinitionGenqlSelection & { __args: {draft: TypeDefinitionDraft} })
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     createVariant?: (VariantGenqlSelection & { __args: {draft: VariantDraft} })
     createZone?: (ZoneGenqlSelection & { __args: {draft: CreateZone} })
     /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
@@ -15147,7 +15286,9 @@ export interface MutationGenqlSelection{
     /** Queries with specified ID */
     id?: (Scalars['String'] | null), 
     /** Queries with specified key */
-    key?: (Scalars['String'] | null), version: Scalars['Long']} })
+    key?: (Scalars['String'] | null), 
+    /** The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions. */
+    storeKey?: (Scalars['KeyReferenceInput'] | null), version: Scalars['Long']} })
     deleteChannel?: (ChannelGenqlSelection & { __args: {
     /** Queries with specified ID */
     id?: (Scalars['String'] | null), 
@@ -15340,7 +15481,6 @@ export interface MutationGenqlSelection{
     id?: (Scalars['String'] | null), 
     /** Queries with specified key */
     key?: (Scalars['String'] | null), version: Scalars['Long']} })
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     deleteVariant?: (VariantDeletionResultGenqlSelection & { __args: {
     /** Queries with specified ID */
     id?: (Scalars['String'] | null), 
@@ -15413,7 +15553,9 @@ export interface MutationGenqlSelection{
     /** Queries with specified ID */
     id?: (Scalars['String'] | null), 
     /** Queries with specified key */
-    key?: (Scalars['String'] | null), version: Scalars['Long']} })
+    key?: (Scalars['String'] | null), 
+    /** The mutation is only performed if the resource is part of the store. Can be used with store-specific OAuth permissions. */
+    storeKey?: (Scalars['KeyReferenceInput'] | null), version: Scalars['Long']} })
     updateChannel?: (ChannelGenqlSelection & { __args: {actions: ChannelUpdateAction[], 
     /** Queries with specified ID */
     id?: (Scalars['String'] | null), 
@@ -15623,7 +15765,6 @@ export interface MutationGenqlSelection{
     id?: (Scalars['String'] | null), 
     /** Queries with specified key */
     key?: (Scalars['String'] | null), version: Scalars['Long']} })
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     updateVariant?: (VariantGenqlSelection & { __args: {actions: VariantUpdateAction[], 
     /** Queries with specified ID */
     id?: (Scalars['String'] | null), 
@@ -17099,9 +17240,7 @@ export interface ProductDataGenqlSelection{
     categoriesRef?: ReferenceGenqlSelection
     categoryOrderHint?: { __args: {categoryId: Scalars['String']} }
     categoryOrderHints?: CategoryOrderHintGenqlSelection
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     defaultVariant?: VariantGenqlSelection
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     defaultVariantRef?: ReferenceGenqlSelection
     description?: { __args: {
     /** List of languages the client is able to understand, and which locale variant is preferred. */
@@ -17693,8 +17832,6 @@ export interface ProductProjectionSearchResultGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface ProductProjectionVariantAttributesGenqlSelection{
     attributes?: VariantAttributeDefinitionGenqlSelection
     productId?: boolean | number
@@ -18340,7 +18477,7 @@ export interface ProductTypeLimitsProjectionGenqlSelection{
     __scalar?: boolean | number
 }
 
-export interface ProductTypeUpdateAction {addAttributeDefinition?: (addAttributeDefinition | null),addLocalizedEnumValue?: (addLocalizedEnumValue | null),addPlainEnumValue?: (addPlainEnumValue | null),changeAttributeName?: (changeAttributeName | null),changeAttributeOrder?: (changeAttributeOrder | null),changeAttributeOrderByName?: (changeAttributeOrderByName | null),changeDescription?: (changeDescription | null),changeEnumKey?: (changeEnumKey | null),changeInputHint?: (changeInputHint | null),changeIsSearchable?: (changeIsSearchable | null),changeLabel?: (changeLabel | null),changeLocalizedEnumValueLabel?: (changeLocalizedEnumValueLabel | null),changeLocalizedEnumValueOrder?: (changeLocalizedEnumValueOrder | null),changeName?: (changeName | null),changePlainEnumValueLabel?: (changePlainEnumValueLabel | null),changePlainEnumValueOrder?: (changePlainEnumValueOrder | null),removeAttributeDefinition?: (removeAttributeDefinition | null),removeEnumValues?: (removeEnumValues | null),setInputTip?: (setInputTip | null),setKey?: (setKey | null)}
+export interface ProductTypeUpdateAction {addAttributeDefinition?: (addAttributeDefinition | null),addLocalizedEnumValue?: (addLocalizedEnumValue | null),addPlainEnumValue?: (addPlainEnumValue | null),changeAttributeName?: (changeAttributeName | null),changeAttributeOrder?: (changeAttributeOrder | null),changeAttributeOrderByName?: (changeAttributeOrderByName | null),changeDescription?: (changeDescription | null),changeEnumKey?: (changeEnumKey | null),changeInputHint?: (changeInputHint | null),changeIsSearchable?: (changeIsSearchable | null),changeLabel?: (changeLabel | null),changeLocalizedEnumValueLabel?: (changeLocalizedEnumValueLabel | null),changeLocalizedEnumValueOrder?: (changeLocalizedEnumValueOrder | null),changeName?: (changeName | null),changePlainEnumValueLabel?: (changePlainEnumValueLabel | null),changePlainEnumValueOrder?: (changePlainEnumValueOrder | null),removeAttributeDefinition?: (removeAttributeDefinition | null),removeEnumValues?: (removeEnumValues | null),setInputTip?: (setInputTip | null),setKey?: (setKey | null),setSavedToLineItem?: (setSavedToLineItem | null)}
 
 export interface ProductUnpublishedGenqlSelection{
     type?: boolean | number
@@ -18348,9 +18485,7 @@ export interface ProductUnpublishedGenqlSelection{
     __scalar?: boolean | number
 }
 
-export interface ProductUpdateAction {addAsset?: (AddProductAsset | null),addExternalImage?: (AddProductExternalImage | null),addPrice?: (AddProductPrice | null),addToCategory?: (AddProductToCategory | null),addVariant?: (AddProductVariant | null),changeAssetName?: (ChangeProductAssetName | null),changeAssetOrder?: (ChangeProductAssetOrder | null),changeImageLabel?: (ChangeProductImageLabel | null),changeMasterVariant?: (ChangeProductMasterVariant | null),changeName?: (ChangeProductName | null),changePrice?: (ChangeProductPrice | null),changeSlug?: (ChangeProductSlug | null),moveImageToPosition?: (MoveProductImageToPosition | null),publish?: (PublishProduct | null),removeAsset?: (RemoveProductAsset | null),removeFromCategory?: (RemoveProductFromCategory | null),removeImage?: (RemoveProductImage | null),removePrice?: (RemoveProductPrice | null),removeVariant?: (RemoveProductVariant | null),revertStagedChanges?: (RevertStagedChanges | null),revertStagedVariantChanges?: (RevertStagedVariantChanges | null),setAssetCustomField?: (SetProductAssetCustomField | null),setAssetCustomType?: (SetProductAssetCustomType | null),setAssetDescription?: (SetProductAssetDescription | null),setAssetKey?: (SetProductAssetKey | null),setAssetSources?: (SetProductAssetSources | null),setAssetTags?: (SetProductAssetTags | null),setAttribute?: (SetProductAttribute | null),setAttributeInAllVariants?: (SetProductAttributeInAllVariants | null),setCategoryOrderHint?: (SetProductCategoryOrderHint | null),
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
-setDefaultVariant?: (SetProductDefaultVariant | null),setDescription?: (SetProductDescription | null),setDiscountedPrice?: (SetProductDiscountedPrice | null),setImageLabel?: (SetProductImageLabel | null),setKey?: (SetProductKey | null),setMetaAttributes?: (SetProductMetaAttributes | null),setMetaDescription?: (SetProductMetaDescription | null),setMetaKeywords?: (SetProductMetaKeywords | null),setMetaTitle?: (SetProductMetaTitle | null),setPriceKey?: (SetProductPriceKey | null),setPriceMode?: (SetProductPriceMode | null),setPrices?: (SetProductPrices | null),setProductAttribute?: (ProductLevelAttributeInput | null),setProductPriceCustomField?: (SetProductPriceCustomField | null),setProductPriceCustomType?: (SetProductPriceCustomType | null),setProductVariantKey?: (SetProductVariantKey | null),setSearchKeywords?: (SetSearchKeywords | null),setSku?: (SetProductSku | null),setTaxCategory?: (SetProductTaxCategory | null),transitionState?: (TransitionProductState | null),unpublish?: (UnpublishProduct | null)}
+export interface ProductUpdateAction {addAsset?: (AddProductAsset | null),addExternalImage?: (AddProductExternalImage | null),addPrice?: (AddProductPrice | null),addToCategory?: (AddProductToCategory | null),addVariant?: (AddProductVariant | null),changeAssetName?: (ChangeProductAssetName | null),changeAssetOrder?: (ChangeProductAssetOrder | null),changeImageLabel?: (ChangeProductImageLabel | null),changeMasterVariant?: (ChangeProductMasterVariant | null),changeName?: (ChangeProductName | null),changePrice?: (ChangeProductPrice | null),changeSlug?: (ChangeProductSlug | null),moveImageToPosition?: (MoveProductImageToPosition | null),publish?: (PublishProduct | null),removeAsset?: (RemoveProductAsset | null),removeFromCategory?: (RemoveProductFromCategory | null),removeImage?: (RemoveProductImage | null),removePrice?: (RemoveProductPrice | null),removeVariant?: (RemoveProductVariant | null),revertStagedChanges?: (RevertStagedChanges | null),revertStagedVariantChanges?: (RevertStagedVariantChanges | null),setAssetCustomField?: (SetProductAssetCustomField | null),setAssetCustomType?: (SetProductAssetCustomType | null),setAssetDescription?: (SetProductAssetDescription | null),setAssetKey?: (SetProductAssetKey | null),setAssetSources?: (SetProductAssetSources | null),setAssetTags?: (SetProductAssetTags | null),setAttribute?: (SetProductAttribute | null),setAttributeInAllVariants?: (SetProductAttributeInAllVariants | null),setCategoryOrderHint?: (SetProductCategoryOrderHint | null),setDefaultVariant?: (SetProductDefaultVariant | null),setDescription?: (SetProductDescription | null),setDiscountedPrice?: (SetProductDiscountedPrice | null),setImageLabel?: (SetProductImageLabel | null),setKey?: (SetProductKey | null),setMetaAttributes?: (SetProductMetaAttributes | null),setMetaDescription?: (SetProductMetaDescription | null),setMetaKeywords?: (SetProductMetaKeywords | null),setMetaTitle?: (SetProductMetaTitle | null),setPriceKey?: (SetProductPriceKey | null),setPriceMode?: (SetProductPriceMode | null),setPrices?: (SetProductPrices | null),setProductAttribute?: (ProductLevelAttributeInput | null),setProductPriceCustomField?: (SetProductPriceCustomField | null),setProductPriceCustomType?: (SetProductPriceCustomType | null),setProductVariantKey?: (SetProductVariantKey | null),setSearchKeywords?: (SetSearchKeywords | null),setSku?: (SetProductSku | null),setTaxCategory?: (SetProductTaxCategory | null),transitionState?: (TransitionProductState | null),unpublish?: (UnpublishProduct | null)}
 
 export interface ProductVariantGenqlSelection{
     /** Returns all recurrence prices based on the price selection rules. */
@@ -18563,7 +18698,6 @@ export interface ProjectProjectionGenqlSelection{
     languages?: boolean | number
     messages?: MessagesConfigurationGenqlSelection
     name?: boolean | number
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     productCatalogModel?: boolean | number
     searchIndexing?: SearchIndexingConfigurationGenqlSelection
     shippingRateInputType?: ShippingRateInputTypeGenqlSelection
@@ -18578,9 +18712,7 @@ export interface ProjectSettingsUpdateAction {changeBusinessUnitSearchStatus?: (
 /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 changeCartDiscountVisualizationSearchStatus?: (ChangeProjectSettingsCartDiscountVisualizationSearchStatus | null),changeCartsConfiguration?: (ChangeProjectSettingsCartsConfiguration | null),changeCountries?: (ChangeProjectSettingsCountries | null),changeCountryTaxRateFallbackEnabled?: (ChangeProjectSettingsCountryTaxRateFallbackEnabled | null),changeCurrencies?: (ChangeProjectSettingsCurrencies | null),changeCustomerSearchStatus?: (ChangeProjectSettingsCustomerSearchStatus | null),changeLanguages?: (ChangeProjectSettingsLanguages | null),changeMessagesConfiguration?: (ChangeProjectSettingsMessagesConfiguration | null),changeMessagesEnabled?: (ChangeProjectSettingsMessagesEnabled | null),changeMyBusinessUnitStatusOnCreation?: (ChangeProjectSettingsMyBusinessUnitStatusOnCreation | null),changeName?: (ChangeProjectSettingsName | null),changeOrderSearchStatus?: (ChangeProjectSettingsOrderSearchStatus | null),changePriceRoundingMode?: (ChangeProjectSettingsPriceRoundingMode | null),changeProductSearchIndexingEnabled?: (ChangeProjectSettingsProductSearchIndexingEnabled | null),changeShoppingListsConfiguration?: (ChangeProjectSettingsShoppingListsConfiguration | null),changeTaxRoundingMode?: (ChangeProjectSettingsTaxRoundingMode | null),changeTotalPriceDiscountDoesNotReduceExternalTax?: (ChangeProjectSettingsTotalPriceDiscountDoesNotReduceExternalTax | null),setDiscountsConfiguration?: (SetProjectSettingsDiscountsConfiguration | null),setExternalOAuth?: (SetProjectSettingsExternalOAuth | null),
 /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
-setMyBusinessUnitAssociateRoleOnCreation?: (SetProjectSettingsMyBusinessUnitAssociateRoleOnCreation | null),
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
-setProductCatalogModel?: (SetProjectSettingsProductCatalogModel | null),
+setMyBusinessUnitAssociateRoleOnCreation?: (SetProjectSettingsMyBusinessUnitAssociateRoleOnCreation | null),setProductCatalogModel?: (SetProjectSettingsProductCatalogModel | null),
 /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 setProductVsCartDiscountCombination?: (SetProjectSettingsProductVsCartDiscountCombination | null),
 /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
@@ -18592,8 +18724,6 @@ export interface PublishProduct {scope?: (PublishScope | null)}
 
 export interface PublishTailoring {dummy?: (Scalars['String'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface PublishVariant {dummy?: (Scalars['String'] | null)}
 
 export interface PurchaseOrderNumberSetGenqlSelection{
@@ -18696,9 +18826,13 @@ export interface QueryGenqlSelection{
     key?: (Scalars['String'] | null)} })
     extensions?: (ExtensionQueryResultGenqlSelection & { __args?: {limit?: (Scalars['Int'] | null), offset?: (Scalars['Int'] | null), sort?: (Scalars['String'][] | null), where?: (Scalars['String'] | null)} })
     /** This field gives access to the resources (such as carts) that are inside the given store. */
-    inStore?: (InStoreGenqlSelection & { __args: {key: Scalars['KeyReferenceInput']} })
+    inStore?: (InStoreGenqlSelection & { __args: {key: Scalars['KeyReferenceInput'], 
+    /** When `false`, in-store product reads return the original (untailored) product information instead of the Store-specific tailored values. Defaults to `true`. */
+    tailored?: (Scalars['Boolean'] | null)} })
     /** This field gives access to the resources (such as carts) that are inside one of the given stores. */
-    inStores?: (InStoreGenqlSelection & { __args: {keys: Scalars['KeyReferenceInput'][]} })
+    inStores?: (InStoreGenqlSelection & { __args: {keys: Scalars['KeyReferenceInput'][], 
+    /** When `false`, in-store product reads return the original (untailored) product information instead of the Store-specific tailored values. Defaults to `true`. */
+    tailored?: (Scalars['Boolean'] | null)} })
     inventoryEntries?: (InventoryEntryQueryResultGenqlSelection & { __args?: {limit?: (Scalars['Int'] | null), offset?: (Scalars['Int'] | null), sort?: (Scalars['String'][] | null), where?: (Scalars['String'] | null)} })
     inventoryEntry?: (InventoryEntryGenqlSelection & { __args?: {
     /** Queries with specified ID */
@@ -18708,6 +18842,8 @@ export interface QueryGenqlSelection{
     limits?: ProjectCustomLimitsProjectionGenqlSelection
     /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     mcpServer?: (McpServerGenqlSelection & { __args?: {id?: (Scalars['String'] | null), key?: (Scalars['String'] | null)} })
+    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
+    mcpServerLimits?: McpServerLimitsGenqlSelection
     /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     mcpServerType?: (McpServerTypeCatalogEntryGenqlSelection & { __args: {majorVersion?: (Scalars['String'] | null), type: McpServerType} })
     /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
@@ -18766,7 +18902,6 @@ export interface QueryGenqlSelection{
     productProjectionSearch?: (ProductProjectionSearchResultGenqlSelection & { __args: {facetFilters?: (SearchFilterInput[] | null), facets?: (SearchFacetInput[] | null), filters?: (SearchFilterInput[] | null), fuzzy?: (Scalars['Boolean'] | null), fuzzyLevel?: (Scalars['Int'] | null), limit?: (Scalars['Int'] | null), locale?: (Scalars['Locale'] | null), localeProjection?: (Scalars['Locale'][] | null), 
     /** Deprecated: please use 'markMatchingVariants'. */
     markMatchingVariant?: (Scalars['Boolean'] | null), markMatchingVariants?: (Scalars['Boolean'] | null), offset?: (Scalars['Int'] | null), priceSelector?: (PriceSelectorInput | null), projectExpandedProducts?: (Scalars['Boolean'] | null), queryFilters?: (SearchFilterInput[] | null), sorts?: (Scalars['String'][] | null), staged?: (Scalars['Boolean'] | null), storeProjection?: (Scalars['String'] | null), text?: (Scalars['String'] | null)} })
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     productProjectionVariantAttributes?: (ProductProjectionVariantAttributesGenqlSelection & { __args: {
     /** Queries with specified ID */
     id?: (Scalars['String'] | null), 
@@ -18913,7 +19048,6 @@ export interface QueryGenqlSelection{
     /** Queries with specified key */
     key?: (Scalars['String'] | null)} })
     typeDefinitions?: (TypeDefinitionQueryResultGenqlSelection & { __args?: {limit?: (Scalars['Int'] | null), offset?: (Scalars['Int'] | null), sort?: (Scalars['String'][] | null), where?: (Scalars['String'] | null)} })
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     variant?: (VariantGenqlSelection & { __args?: {
     /** Queries with specified ID */
     id?: (Scalars['String'] | null), 
@@ -18923,11 +19057,7 @@ export interface QueryGenqlSelection{
     sku?: (Scalars['String'] | null), 
     /** Queries for a staged variant with specified SKU */
     stagedSku?: (Scalars['String'] | null)} })
-    /**
-     * BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-     * 
-     * Query a single variant projection by id, key, or sku and other args
-     */
+    /** Query a single variant projection by id, key, or sku and other args */
     variantProjection?: (VariantProjectionGenqlSelection & { __args?: {
     /** Queries with specified ID */
     id?: (Scalars['String'] | null), 
@@ -18939,11 +19069,7 @@ export interface QueryGenqlSelection{
     sku?: (Scalars['String'] | null), 
     /** If true, queries staged projections. If false (default), queries current (published) projections. */
     staged?: Scalars['Boolean']} })
-    /**
-     * BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
-     * 
-     * Query variant projections with filtering and pagination
-     */
+    /** Query variant projections with filtering and pagination */
     variantProjections?: (VariantProjectionQueryResultGenqlSelection & { __args?: {
     /**
      * The names of the attributes to exclude.
@@ -18963,7 +19089,6 @@ export interface QueryGenqlSelection{
     productId?: (Scalars['String'] | null), sort?: (Scalars['String'][] | null), 
     /** If true, queries staged projections. If false (default), queries current (published) projections. */
     staged?: Scalars['Boolean'], where?: (Scalars['String'] | null)} })
-    /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
     variants?: (VariantQueryResultGenqlSelection & { __args?: {limit?: (Scalars['Int'] | null), offset?: (Scalars['Int'] | null), 
     /** Queries with specified Product ID */
     productId?: (Scalars['String'] | null), sort?: (Scalars['String'][] | null), where?: (Scalars['String'] | null)} })
@@ -19798,6 +19923,8 @@ export interface RemoveCartShippingMethod {shippingKey: Scalars['String']}
 
 export interface RemoveCategoryAsset {assetId?: (Scalars['String'] | null),assetKey?: (Scalars['String'] | null)}
 
+export interface RemoveCategoryStore {store: ResourceIdentifierInput}
+
 export interface RemoveChannelRoles {roles: ChannelRole[]}
 
 export interface RemoveCustomerAddress {addressId?: (Scalars['String'] | null),addressKey?: (Scalars['String'] | null)}
@@ -19960,12 +20087,8 @@ export interface RemoveTypeFieldDefinition {fieldName: Scalars['String']}
 /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface RemoveTypeLocalizedEnumValues {fieldName: Scalars['String'],keys: Scalars['String'][]}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface RemoveVariantAsset {assetId?: (Scalars['String'] | null),assetKey?: (Scalars['String'] | null),staged?: (Scalars['Boolean'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface RemoveVariantImage {imageUrl: Scalars['String'],staged?: (Scalars['Boolean'] | null)}
 
 export interface RemoveZoneLocation {location: ZoneLocation}
@@ -20574,6 +20697,8 @@ export interface SetCategoryMetaKeywords {metaKeywords?: (LocalizedStringItemInp
 
 export interface SetCategoryMetaTitle {metaTitle?: (LocalizedStringItemInputType[] | null)}
 
+export interface SetCategoryStores {stores: ResourceIdentifierInput[]}
+
 export interface SetChannelAddress {address?: (AddressInput | null)}
 
 export interface SetChannelAddressCustomField {name: Scalars['String'],value?: (Scalars['String'] | null)}
@@ -20948,8 +21073,6 @@ export interface SetProductAttributeInAllVariants {name: Scalars['String'],stage
 
 export interface SetProductCategoryOrderHint {categoryId: Scalars['String'],orderHint?: (Scalars['String'] | null),staged?: (Scalars['Boolean'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetProductDefaultVariant {staged?: (Scalars['Boolean'] | null),variant?: (ResourceIdentifierInput | null)}
 
 export interface SetProductDescription {description?: (LocalizedStringItemInputType[] | null),staged?: (Scalars['Boolean'] | null)}
@@ -21050,8 +21173,6 @@ export interface SetProjectSettingsExternalOAuth {externalOAuth?: (ExternalOAuth
 /** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetProjectSettingsMyBusinessUnitAssociateRoleOnCreation {associateRole?: (ResourceIdentifierInput | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetProjectSettingsProductCatalogModel {productCatalogModel: ProductCatalogModel}
 
 
@@ -21909,56 +22030,30 @@ export interface SetTypeGenqlSelection{
 
 export interface SetTypeDescription {description?: (LocalizedStringItemInputType[] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetVariantAssetCustomField {assetId?: (Scalars['String'] | null),assetKey?: (Scalars['String'] | null),name: Scalars['String'],staged?: (Scalars['Boolean'] | null),value?: (Scalars['String'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetVariantAssetCustomType {assetId?: (Scalars['String'] | null),assetKey?: (Scalars['String'] | null),fields?: (CustomFieldInput[] | null),staged?: (Scalars['Boolean'] | null),type?: (ResourceIdentifierInput | null),typeId?: (Scalars['String'] | null),typeKey?: (Scalars['String'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetVariantAssetDescription {assetId?: (Scalars['String'] | null),assetKey?: (Scalars['String'] | null),description?: (LocalizedStringItemInputType[] | null),staged?: (Scalars['Boolean'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetVariantAssetKey {assetId: Scalars['String'],assetKey?: (Scalars['String'] | null),staged?: (Scalars['Boolean'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetVariantAssetSources {assetId?: (Scalars['String'] | null),assetKey?: (Scalars['String'] | null),sources?: (AssetSourceInput[] | null),staged?: (Scalars['Boolean'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetVariantAssetTags {assetId?: (Scalars['String'] | null),assetKey?: (Scalars['String'] | null),staged?: (Scalars['Boolean'] | null),tags?: (Scalars['String'][] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetVariantAssets {assets?: (AssetDraftInput[] | null),staged?: (Scalars['Boolean'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetVariantAttribute {name: Scalars['String'],staged?: (Scalars['Boolean'] | null),value?: (Scalars['String'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetVariantAttributes {attributes?: (ProductAttributeInput[] | null),staged?: (Scalars['Boolean'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetVariantImageLabel {imageUrl: Scalars['String'],label?: (Scalars['String'] | null),staged?: (Scalars['Boolean'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetVariantImages {images?: (ImageInput[] | null),staged?: (Scalars['Boolean'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetVariantKey {key?: (Scalars['String'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface SetVariantSku {sku?: (Scalars['String'] | null),staged?: (Scalars['Boolean'] | null)}
 
 export interface SetZoneDescription {description?: (Scalars['String'] | null)}
@@ -22041,9 +22136,101 @@ export interface ShippingMethodGenqlSelection{
     __scalar?: boolean | number
 }
 
+export interface ShippingMethodActiveChangedGenqlSelection{
+    active?: boolean | number
+    oldActive?: boolean | number
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodCarrierSetGenqlSelection{
+    carrier?: boolean | number
+    oldCarrier?: boolean | number
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodCreatedGenqlSelection{
+    shippingMethod?: ShippingMethodGenqlSelection
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodCustomFieldAddedGenqlSelection{
+    name?: boolean | number
+    type?: boolean | number
+    value?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodCustomFieldChangedGenqlSelection{
+    name?: boolean | number
+    oldValue?: boolean | number
+    type?: boolean | number
+    value?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodCustomFieldRemovedGenqlSelection{
+    name?: boolean | number
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodCustomTypeRemovedGenqlSelection{
+    oldTypeId?: boolean | number
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodCustomTypeSetGenqlSelection{
+    customFields?: CustomFieldsTypeGenqlSelection
+    oldTypeId?: boolean | number
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodDeletedGenqlSelection{
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodDescriptionSetGenqlSelection{
+    description?: boolean | number
+    oldDescription?: boolean | number
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
 export interface ShippingMethodDraft {active?: (Scalars['Boolean'] | null),carrier?: (Scalars['String'] | null),custom?: (CustomFieldsDraft | null),
 /** The usage of parameter 'description' is deprecated in favor of using 'localizedDescription' */
 description?: (Scalars['String'] | null),isDefault: Scalars['Boolean'],key?: (Scalars['String'] | null),localizedDescription?: (LocalizedStringItemInputType[] | null),localizedName?: (LocalizedStringItemInputType[] | null),name: Scalars['String'],predicate?: (Scalars['String'] | null),stores?: (ResourceIdentifierInput[] | null),taxCategory: ResourceIdentifierInput,zoneRates?: (ZoneRateDraft[] | null)}
+
+export interface ShippingMethodIsDefaultChangedGenqlSelection{
+    isDefault?: boolean | number
+    oldIsDefault?: boolean | number
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodKeySetGenqlSelection{
+    key?: boolean | number
+    oldKey?: boolean | number
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
 
 export interface ShippingMethodLimitWithCurrentGenqlSelection{
     current?: boolean | number
@@ -22059,12 +22246,104 @@ export interface ShippingMethodLimitsProjectionGenqlSelection{
     __scalar?: boolean | number
 }
 
+export interface ShippingMethodLocalizedDescriptionSetGenqlSelection{
+    localizedDescription?: { __args: {
+    /** List of languages the client is able to understand, and which locale variant is preferred. */
+    acceptLanguage?: (Scalars['Locale'][] | null), 
+    /** String is defined for different locales. This argument specifies the desired locale. */
+    locale?: (Scalars['Locale'] | null)} } | boolean | number
+    localizedDescriptionAllLocales?: LocalizedStringGenqlSelection
+    oldLocalizedDescription?: { __args: {
+    /** List of languages the client is able to understand, and which locale variant is preferred. */
+    acceptLanguage?: (Scalars['Locale'][] | null), 
+    /** String is defined for different locales. This argument specifies the desired locale. */
+    locale?: (Scalars['Locale'] | null)} } | boolean | number
+    oldLocalizedDescriptionAllLocales?: LocalizedStringGenqlSelection
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodLocalizedNameSetGenqlSelection{
+    localizedName?: { __args: {
+    /** List of languages the client is able to understand, and which locale variant is preferred. */
+    acceptLanguage?: (Scalars['Locale'][] | null), 
+    /** String is defined for different locales. This argument specifies the desired locale. */
+    locale?: (Scalars['Locale'] | null)} } | boolean | number
+    localizedNameAllLocales?: LocalizedStringGenqlSelection
+    oldLocalizedName?: { __args: {
+    /** List of languages the client is able to understand, and which locale variant is preferred. */
+    acceptLanguage?: (Scalars['Locale'][] | null), 
+    /** String is defined for different locales. This argument specifies the desired locale. */
+    locale?: (Scalars['Locale'] | null)} } | boolean | number
+    oldLocalizedNameAllLocales?: LocalizedStringGenqlSelection
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodNameChangedGenqlSelection{
+    name?: boolean | number
+    oldName?: boolean | number
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodPredicateSetGenqlSelection{
+    oldPredicate?: boolean | number
+    predicate?: boolean | number
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
 export interface ShippingMethodQueryResultGenqlSelection{
     count?: boolean | number
     exists?: boolean | number
     offset?: boolean | number
     results?: ShippingMethodGenqlSelection
     total?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodShippingRateAddedGenqlSelection{
+    shippingRate?: ShippingRateGenqlSelection
+    type?: boolean | number
+    zone?: ZoneGenqlSelection
+    zoneRef?: ReferenceGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodShippingRateRemovedGenqlSelection{
+    shippingRate?: ShippingRateGenqlSelection
+    type?: boolean | number
+    zone?: ZoneGenqlSelection
+    zoneRef?: ReferenceGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodStoreAddedGenqlSelection{
+    storeRef?: KeyReferenceGenqlSelection
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodStoreRemovedGenqlSelection{
+    storeRef?: KeyReferenceGenqlSelection
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodStoresSetGenqlSelection{
+    oldStoresRef?: KeyReferenceGenqlSelection
+    storesRef?: KeyReferenceGenqlSelection
+    type?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
 }
@@ -22080,9 +22359,35 @@ export interface ShippingMethodTargetDraftOutputGenqlSelection{
 
 export interface ShippingMethodTargetDraftType {quantity: Scalars['Long'],shippingMethodKey: Scalars['String']}
 
+export interface ShippingMethodTaxCategoryChangedGenqlSelection{
+    oldTaxCategory?: TaxCategoryGenqlSelection
+    oldTaxCategoryRef?: ReferenceGenqlSelection
+    taxCategory?: TaxCategoryGenqlSelection
+    taxCategoryRef?: ReferenceGenqlSelection
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
 export interface ShippingMethodUpdateAction {addShippingRate?: (AddShippingMethodShippingRate | null),addStore?: (AddShippingMethodStore | null),addZone?: (AddShippingMethodZone | null),changeActive?: (ChangeShippingMethodActive | null),changeIsDefault?: (ChangeShippingMethodIsDefault | null),changeName?: (ChangeShippingMethodName | null),changeTaxCategory?: (ChangeShippingMethodTaxCategory | null),removeShippingRate?: (RemoveShippingMethodShippingRate | null),removeStore?: (RemoveShippingMethodStore | null),removeZone?: (RemoveShippingMethodZone | null),setCarrier?: (SetShippingMethodCarrier | null),setCustomField?: (SetShippingMethodCustomField | null),setCustomType?: (SetShippingMethodCustomType | null),
 /** This action is deprecated in favor of using 'setLocalizedDescription' */
 setDescription?: (SetShippingMethodDescription | null),setKey?: (SetShippingMethodKey | null),setLocalizedDescription?: (SetShippingMethodLocalizedDescription | null),setLocalizedName?: (SetShippingMethodLocalizedName | null),setPredicate?: (SetShippingMethodPredicate | null),setStores?: (SetShippingMethodStores | null)}
+
+export interface ShippingMethodZoneAddedGenqlSelection{
+    type?: boolean | number
+    zone?: ZoneGenqlSelection
+    zoneRef?: ReferenceGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface ShippingMethodZoneRemovedGenqlSelection{
+    type?: boolean | number
+    zone?: ZoneGenqlSelection
+    zoneRef?: ReferenceGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
 
 
 /** A field to retrieve available shipping methods for a cart. */
@@ -23234,13 +23539,14 @@ export interface TaxRateGenqlSelection{
     name?: boolean | number
     state?: boolean | number
     subRates?: SubRateGenqlSelection
+    taxRoundingTarget?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
 }
 
-export interface TaxRateDraft {amount?: (Scalars['Float'] | null),country: Scalars['Country'],includedInPrice: Scalars['Boolean'],key?: (Scalars['String'] | null),name: Scalars['String'],state?: (Scalars['String'] | null),subRates?: (SubRateDraft[] | null)}
+export interface TaxRateDraft {amount?: (Scalars['Float'] | null),country: Scalars['Country'],includedInPrice: Scalars['Boolean'],key?: (Scalars['String'] | null),name: Scalars['String'],state?: (Scalars['String'] | null),subRates?: (SubRateDraft[] | null),taxRoundingTarget?: (TaxRoundingTarget | null)}
 
-export interface TaxRateInput {amount: Scalars['Float'],country: Scalars['Country'],id?: (Scalars['String'] | null),includedInPrice: Scalars['Boolean'],key?: (Scalars['String'] | null),name: Scalars['String'],state?: (Scalars['String'] | null),subRates?: (SubRateDraft[] | null)}
+export interface TaxRateInput {amount: Scalars['Float'],country: Scalars['Country'],id?: (Scalars['String'] | null),includedInPrice: Scalars['Boolean'],key?: (Scalars['String'] | null),name: Scalars['String'],state?: (Scalars['String'] | null),subRates?: (SubRateDraft[] | null),taxRoundingTarget?: (TaxRoundingTarget | null)}
 
 export interface TaxedItemPriceGenqlSelection{
     taxPortions?: TaxPortionGenqlSelection
@@ -23581,8 +23887,6 @@ export interface UnpublishProduct {dummy?: (Scalars['String'] | null)}
 
 export interface UnpublishTailoring {dummy?: (Scalars['String'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface UnpublishVariant {dummy?: (Scalars['String'] | null)}
 
 export interface UpdateCartItemShippingAddress {address: AddressInput}
@@ -23637,8 +23941,6 @@ export interface ValueFacetResultGenqlSelection{
 
 export interface ValueFilterInput {path: Scalars['String'],values: Scalars['String'][]}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantGenqlSelection{
     createdAt?: boolean | number
     createdBy?: InitiatorGenqlSelection
@@ -23657,8 +23959,6 @@ export interface VariantGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantAttributeAvailabilityGenqlSelection{
     channels?: VariantAttributeChannelAvailabilityGenqlSelection
     noChannel?: VariantAttributeSimpleAvailabilityGenqlSelection
@@ -23666,8 +23966,6 @@ export interface VariantAttributeAvailabilityGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantAttributeChannelAvailabilityGenqlSelection{
     availability?: VariantAttributeSimpleAvailabilityGenqlSelection
     channelRef?: ReferenceGenqlSelection
@@ -23675,8 +23973,6 @@ export interface VariantAttributeChannelAvailabilityGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantAttributeDefinitionGenqlSelection{
     label?: { __args: {
     /** List of languages the client is able to understand, and which locale variant is preferred. */
@@ -23690,17 +23986,14 @@ export interface VariantAttributeDefinitionGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantAttributeSimpleAvailabilityGenqlSelection{
     availableQuantity?: boolean | number
     isOnStock?: boolean | number
+    restockableInDays?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantAttributeVariantGenqlSelection{
     attributesRaw?: RawAttributeGenqlSelection
     availability?: VariantAttributeAvailabilityGenqlSelection
@@ -23711,12 +24004,8 @@ export interface VariantAttributeVariantGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantBulkAction {publish?: (PublishVariant | null),unpublish?: (UnpublishVariant | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantCreatedGenqlSelection{
     assets?: AssetGenqlSelection
     attributesRaw?: RawAttributeGenqlSelection
@@ -23732,8 +24021,6 @@ export interface VariantCreatedGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantDataGenqlSelection{
     assets?: AssetGenqlSelection
     /** This field contains raw attributes data */
@@ -23756,8 +24043,6 @@ export interface VariantDataGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantDeletedGenqlSelection{
     productRef?: ReferenceGenqlSelection
     type?: boolean | number
@@ -23765,8 +24050,6 @@ export interface VariantDeletedGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantDeletionResultGenqlSelection{
     variant?: VariantGenqlSelection
     /** Warnings produced while deleting the variant. Only available in the mutation response. */
@@ -23775,12 +24058,8 @@ export interface VariantDeletionResultGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantDraft {assets?: (AssetDraftInput[] | null),attributes?: (ProductAttributeInput[] | null),images?: (ImageInput[] | null),key?: (Scalars['String'] | null),product: ResourceIdentifierInput,publish?: (Scalars['Boolean'] | null),sku?: (Scalars['String'] | null)}
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantImageAddedGenqlSelection{
     image?: ImageGenqlSelection
     productRef?: ReferenceGenqlSelection
@@ -23790,8 +24069,6 @@ export interface VariantImageAddedGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantImagesSetGenqlSelection{
     images?: ImageGenqlSelection
     oldImages?: ImageGenqlSelection
@@ -23802,8 +24079,6 @@ export interface VariantImagesSetGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantKeySetGenqlSelection{
     key?: boolean | number
     oldKey?: boolean | number
@@ -23814,11 +24089,7 @@ export interface VariantKeySetGenqlSelection{
 }
 
 
-/**
- * BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta
- * 
- * A variant projection with embedded product data
- */
+/** A variant projection with embedded product data */
 export interface VariantProjectionGenqlSelection{
     assets?: AssetGenqlSelection
     /** This field contains attributes data. Use includeNames/excludeNames query arguments to filter. */
@@ -23835,6 +24106,9 @@ export interface VariantProjectionGenqlSelection{
      * If neither `includeNames` nor `excludeNames` are provided, then all attributes are returned.
      */
     includeNames?: (Scalars['String'][] | null)} })
+    categories?: CategoryGenqlSelection
+    categoriesRef?: ReferenceGenqlSelection
+    categoryOrderHints?: CategoryOrderHintGenqlSelection
     createdAt?: boolean | number
     default?: boolean | number
     description?: { __args: {
@@ -23879,8 +24153,6 @@ export interface VariantProjectionQueryResultGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantPublishedGenqlSelection{
     productRef?: ReferenceGenqlSelection
     type?: boolean | number
@@ -23898,8 +24170,6 @@ export interface VariantQueryResultGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantSkuSetGenqlSelection{
     oldSku?: boolean | number
     productRef?: ReferenceGenqlSelection
@@ -23910,8 +24180,6 @@ export interface VariantSkuSetGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantStagedChangesRemovedGenqlSelection{
     productRef?: ReferenceGenqlSelection
     type?: boolean | number
@@ -23926,8 +24194,6 @@ export interface VariantTailoringGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantUnpublishedGenqlSelection{
     productRef?: ReferenceGenqlSelection
     type?: boolean | number
@@ -23935,8 +24201,6 @@ export interface VariantUnpublishedGenqlSelection{
     __scalar?: boolean | number
 }
 
-
-/** BETA: This feature can be subject to change and should be used carefully in production. https://docs.commercetools.com/api/contract#public-beta */
 export interface VariantUpdateAction {addAsset?: (AddVariantAsset | null),addExternalImage?: (AddVariantExternalImage | null),changeAssetName?: (ChangeVariantAssetName | null),changeAssetOrder?: (ChangeVariantAssetOrder | null),moveImageToPosition?: (MoveImageToPosition | null),publish?: (PublishVariant | null),removeAsset?: (RemoveVariantAsset | null),removeImage?: (RemoveVariantImage | null),removeStagedChanges?: (RemoveStagedChanges | null),setAssetCustomField?: (SetVariantAssetCustomField | null),setAssetCustomType?: (SetVariantAssetCustomType | null),setAssetDescription?: (SetVariantAssetDescription | null),setAssetKey?: (SetVariantAssetKey | null),setAssetSources?: (SetVariantAssetSources | null),setAssetTags?: (SetVariantAssetTags | null),setAssets?: (SetVariantAssets | null),setAttribute?: (SetVariantAttribute | null),setAttributes?: (SetVariantAttributes | null),setImageLabel?: (SetVariantImageLabel | null),setImages?: (SetVariantImages | null),setKey?: (SetVariantKey | null),setSku?: (SetVariantSku | null),unpublish?: (UnpublishVariant | null)}
 
 
@@ -24112,6 +24376,8 @@ export interface removeEnumValues {attributeName: Scalars['String'],keys: Scalar
 export interface setInputTip {attributeName: Scalars['String'],inputTip?: (LocalizedStringItemInputType[] | null)}
 
 export interface setKey {key?: (Scalars['String'] | null)}
+
+export interface setSavedToLineItem {attributeName: Scalars['String'],savedToLineItem: Scalars['Boolean']}
 
 
     const APIClientWithSecret_possibleTypes: string[] = ['APIClientWithSecret']
@@ -27370,6 +27636,22 @@ export interface setKey {key?: (Scalars['String'] | null)}
     
 
 
+    const McpServerLimitWithCurrent_possibleTypes: string[] = ['McpServerLimitWithCurrent']
+    export const isMcpServerLimitWithCurrent = (obj?: { __typename?: any } | null): obj is McpServerLimitWithCurrent => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isMcpServerLimitWithCurrent"')
+      return McpServerLimitWithCurrent_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const McpServerLimits_possibleTypes: string[] = ['McpServerLimits']
+    export const isMcpServerLimits = (obj?: { __typename?: any } | null): obj is McpServerLimits => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isMcpServerLimits"')
+      return McpServerLimits_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
     const McpServerQueryResult_possibleTypes: string[] = ['McpServerQueryResult']
     export const isMcpServerQueryResult = (obj?: { __typename?: any } | null): obj is McpServerQueryResult => {
       if (!obj?.__typename) throw new Error('__typename is missing in "isMcpServerQueryResult"')
@@ -27418,7 +27700,7 @@ export interface setKey {key?: (Scalars['String'] | null)}
     
 
 
-    const MessagePayload_possibleTypes: string[] = ['ApprovalFlowApproved','ApprovalFlowCompleted','ApprovalFlowCreated','ApprovalFlowRejected','ApprovalRuleApproversSet','ApprovalRuleCreated','ApprovalRuleDescriptionSet','ApprovalRuleKeySet','ApprovalRuleNameSet','ApprovalRulePredicateSet','ApprovalRuleRequestersSet','ApprovalRuleStatusSet','AssociateRoleBuyerAssignableChanged','AssociateRoleCreated','AssociateRoleDeleted','AssociateRoleNameSet','AssociateRolePermissionAdded','AssociateRolePermissionRemoved','AssociateRolePermissionsSet','BusinessUnitAddressAdded','BusinessUnitAddressChanged','BusinessUnitAddressCustomFieldAdded','BusinessUnitAddressCustomFieldChanged','BusinessUnitAddressCustomFieldRemoved','BusinessUnitAddressCustomTypeRemoved','BusinessUnitAddressCustomTypeSet','BusinessUnitAddressRemoved','BusinessUnitApprovalRuleModeChanged','BusinessUnitAssociateAdded','BusinessUnitAssociateChanged','BusinessUnitAssociateModeChanged','BusinessUnitAssociateRemoved','BusinessUnitAssociatesSet','BusinessUnitBillingAddressAdded','BusinessUnitBillingAddressRemoved','BusinessUnitContactEmailSet','BusinessUnitCreated','BusinessUnitCustomFieldAdded','BusinessUnitCustomFieldChanged','BusinessUnitCustomFieldRemoved','BusinessUnitCustomTypeRemoved','BusinessUnitCustomTypeSet','BusinessUnitCustomerGroupAssignmentAdded','BusinessUnitCustomerGroupAssignmentRemoved','BusinessUnitCustomerGroupAssignmentsSet','BusinessUnitDefaultBillingAddressSet','BusinessUnitDefaultShippingAddressSet','BusinessUnitDeleted','BusinessUnitNameChanged','BusinessUnitParentChanged','BusinessUnitShippingAddressAdded','BusinessUnitShippingAddressRemoved','BusinessUnitStatusChanged','BusinessUnitStoreAdded','BusinessUnitStoreModeChanged','BusinessUnitStoreRemoved','BusinessUnitStoresSet','BusinessUnitTopLevelUnitSet','BusinessUnitTypeSet','CartCreated','CartDiscountCreated','CartDiscountDeleted','CartDiscountStoreAdded','CartDiscountStoreRemoved','CartDiscountStoresSet','CartEstimatedDeliverySet','CartFrozen','CartLocked','CartPurchaseOrderNumberSet','CartUnfrozen','CartUnlocked','CategoryCreated','CategorySlugChanged','CustomLineItemStateTransition','CustomerAddressAdded','CustomerAddressChanged','CustomerAddressCustomFieldAdded','CustomerAddressCustomFieldChanged','CustomerAddressCustomFieldRemoved','CustomerAddressCustomTypeRemoved','CustomerAddressCustomTypeSet','CustomerAddressRemoved','CustomerBillingAddressAdded','CustomerBillingAddressRemoved','CustomerCompanyNameSet','CustomerCreated','CustomerCustomFieldAdded','CustomerCustomFieldChanged','CustomerCustomFieldRemoved','CustomerCustomTypeRemoved','CustomerCustomTypeSet','CustomerDateOfBirthSet','CustomerDefaultBillingAddressSet','CustomerDefaultShippingAddressSet','CustomerDeleted','CustomerEmailChanged','CustomerEmailTokenCreated','CustomerEmailVerified','CustomerExternalIdSet','CustomerFirstNameSet','CustomerGroupAssignmentAdded','CustomerGroupAssignmentRemoved','CustomerGroupAssignmentsSet','CustomerGroupCustomFieldAdded','CustomerGroupCustomFieldChanged','CustomerGroupCustomFieldRemoved','CustomerGroupCustomTypeRemoved','CustomerGroupCustomTypeSet','CustomerGroupSet','CustomerLastNameSet','CustomerPasswordTokenCreated','CustomerPasswordUpdated','CustomerShippingAddressAdded','CustomerShippingAddressRemoved','CustomerStoresSet','CustomerTitleSet','DeliveryAdded','DeliveryAddressSet','DeliveryCustomFieldAdded','DeliveryCustomFieldChanged','DeliveryCustomFieldRemoved','DeliveryCustomTypeRemoved','DeliveryCustomTypeSet','DeliveryItemsUpdated','DeliveryRemoved','DiscountCodeCreated','DiscountCodeDeleted','DiscountCodeKeySet','DiscountGroupCreated','DiscountGroupDeleted','DiscountGroupIsActiveSet','DiscountGroupKeySet','DiscountGroupSortOrderSet','InventoryEntryCreated','InventoryEntryDeleted','InventoryEntryOutOfStock','InventoryEntryQuantitySet','InventoryEntryReorderPoint','InventoryEntryReservationExpirationInMinutesSet','InventoryEntrySafetyStock','LineItemStateTransition','OrderBillingAddressSet','OrderBusinessUnitSet','OrderCreated','OrderCreatedFromRecurringOrder','OrderCustomFieldAdded','OrderCustomFieldChanged','OrderCustomFieldRemoved','OrderCustomLineItemAdded','OrderCustomLineItemDiscountSet','OrderCustomLineItemQuantityChanged','OrderCustomLineItemRemoved','OrderCustomTypeRemoved','OrderCustomTypeSet','OrderCustomerEmailSet','OrderCustomerGroupSet','OrderCustomerSet','OrderDeleted','OrderDiscountCodeAdded','OrderDiscountCodeRemoved','OrderDiscountCodeStateSet','OrderDiscountTypeCombinationSet','OrderEditApplied','OrderEstimatedDeliverySet','OrderImported','OrderLineItemAdded','OrderLineItemDiscountSet','OrderLineItemDistributionChannelSet','OrderLineItemRemoved','OrderPaymentAdded','OrderPaymentRemoved','OrderPaymentStateChanged','OrderReturnShipmentStateChanged','OrderShipmentStateChanged','OrderShippingAddressSet','OrderShippingContainerSet','OrderShippingInfoSet','OrderShippingRateInputSet','OrderShippingUpdated','OrderStateChanged','OrderStateTransition','OrderStoreSet','ParcelAddedToDelivery','ParcelItemsUpdated','ParcelMeasurementsUpdated','ParcelRemovedFromDelivery','ParcelTrackingDataUpdated','PaymentCreated','PaymentInteractionAdded','PaymentInterfaceIdSet','PaymentMethodCreated','PaymentMethodCustomFieldAdded','PaymentMethodCustomFieldChanged','PaymentMethodCustomFieldRemoved','PaymentMethodCustomTypeRemoved','PaymentMethodCustomTypeSet','PaymentMethodDefaultSet','PaymentMethodDeleted','PaymentMethodInfoCustomFieldAdded','PaymentMethodInfoCustomFieldChanged','PaymentMethodInfoCustomFieldRemoved','PaymentMethodInfoCustomTypeRemoved','PaymentMethodInfoCustomTypeSet','PaymentMethodInfoInterfaceAccountSet','PaymentMethodInfoInterfaceSet','PaymentMethodInfoMethodSet','PaymentMethodInfoNameSet','PaymentMethodInfoTokenSet','PaymentMethodInterfaceAccountSet','PaymentMethodKeySet','PaymentMethodMethodSet','PaymentMethodNameSet','PaymentMethodPaymentInterfaceSet','PaymentMethodPaymentMethodStatusSet','PaymentStatusInterfaceCodeSet','PaymentStatusStateTransition','PaymentTransactionAdded','PaymentTransactionInterfaceIdSet','PaymentTransactionStateChanged','ProductAddedToCategory','ProductCreated','ProductDeleted','ProductImageAdded','ProductPriceAdded','ProductPriceChanged','ProductPriceCustomFieldAdded','ProductPriceCustomFieldChanged','ProductPriceCustomFieldRemoved','ProductPriceCustomFieldsRemoved','ProductPriceCustomFieldsSet','ProductPriceDiscountsSet','ProductPriceExternalDiscountSet','ProductPriceKeySet','ProductPriceModeSet','ProductPriceRemoved','ProductPricesSet','ProductPublished','ProductRemovedFromCategory','ProductRevertedStagedChanges','ProductSelectionCreated','ProductSelectionDeleted','ProductSelectionProductAdded','ProductSelectionProductExcluded','ProductSelectionProductRemoved','ProductSelectionVariantExclusionChanged','ProductSelectionVariantSelectionChanged','ProductSlugChanged','ProductStateTransition','ProductTailoringCreated','ProductTailoringDeleted','ProductTailoringDescriptionSet','ProductTailoringImageAdded','ProductTailoringImagesSet','ProductTailoringKeySet','ProductTailoringNameSet','ProductTailoringPublished','ProductTailoringSlugSet','ProductTailoringUnpublished','ProductUnpublished','ProductVariantAdded','ProductVariantDeleted','ProductVariantTailoringAdded','ProductVariantTailoringRemoved','PurchaseOrderNumberSet','QuoteCreated','QuoteCustomerChanged','QuoteDeleted','QuoteRenegotiationRequested','QuoteRequestCreated','QuoteRequestCustomerChanged','QuoteRequestDeleted','QuoteRequestStateChanged','QuoteRequestStateTransition','QuoteStateChanged','QuoteStateTransition','RecurringOrderCreated','RecurringOrderCustomFieldAdded','RecurringOrderCustomFieldChanged','RecurringOrderCustomFieldRemoved','RecurringOrderCustomTypeRemoved','RecurringOrderCustomTypeSet','RecurringOrderDeleted','RecurringOrderExpiresAtSet','RecurringOrderFailed','RecurringOrderKeySet','RecurringOrderScheduleSet','RecurringOrderStartsAtSet','RecurringOrderStateChanged','RecurringOrderStateTransition','ReturnInfoAdded','ReturnInfoSet','ReviewCreated','ReviewRatingSet','ReviewStateTransition','ShoppingListLineItemAdded','ShoppingListLineItemRemoved','StagedQuoteCreated','StagedQuoteDeleted','StagedQuoteSellerCommentSet','StagedQuoteStateChanged','StagedQuoteStateTransition','StagedQuoteValidToSet','StandalonePriceActiveChanged','StandalonePriceCreated','StandalonePriceDeleted','StandalonePriceDiscountSet','StandalonePriceExternalDiscountSet','StandalonePriceKeySet','StandalonePriceStagedChangesApplied','StandalonePriceStagedChangesRemoved','StandalonePriceTierAdded','StandalonePriceTierRemoved','StandalonePriceTiersSet','StandalonePriceValidFromAndUntilSet','StandalonePriceValidFromSet','StandalonePriceValidUntilSet','StandalonePriceValueChanged','StoreCheckoutUrlTemplateSet','StoreContactUrlSet','StoreCookiePolicyUrlSet','StoreCountriesChanged','StoreCreated','StoreDeleted','StoreDistributionChannelsChanged','StoreFaqUrlSet','StoreImprintUrlSet','StoreLanguagesChanged','StoreNameSet','StoreOrderUrlTemplateSet','StorePrivacyPolicyUrlSet','StoreProductSelectionsChanged','StoreRefundPolicyUrlSet','StoreShippingPolicyUrlSet','StoreSupplyChannelsChanged','StoreTermsOfServiceUrlSet','VariantCreated','VariantDeleted','VariantImageAdded','VariantImagesSet','VariantKeySet','VariantPublished','VariantSkuSet','VariantStagedChangesRemoved','VariantUnpublished']
+    const MessagePayload_possibleTypes: string[] = ['ApprovalFlowApproved','ApprovalFlowCompleted','ApprovalFlowCreated','ApprovalFlowRejected','ApprovalRuleApproversSet','ApprovalRuleCreated','ApprovalRuleDescriptionSet','ApprovalRuleKeySet','ApprovalRuleNameSet','ApprovalRulePredicateSet','ApprovalRuleRequestersSet','ApprovalRuleStatusSet','AssociateRoleBuyerAssignableChanged','AssociateRoleCreated','AssociateRoleDeleted','AssociateRoleNameSet','AssociateRolePermissionAdded','AssociateRolePermissionRemoved','AssociateRolePermissionsSet','BusinessUnitAddressAdded','BusinessUnitAddressChanged','BusinessUnitAddressCustomFieldAdded','BusinessUnitAddressCustomFieldChanged','BusinessUnitAddressCustomFieldRemoved','BusinessUnitAddressCustomTypeRemoved','BusinessUnitAddressCustomTypeSet','BusinessUnitAddressRemoved','BusinessUnitApprovalRuleModeChanged','BusinessUnitAssociateAdded','BusinessUnitAssociateChanged','BusinessUnitAssociateModeChanged','BusinessUnitAssociateRemoved','BusinessUnitAssociatesSet','BusinessUnitBillingAddressAdded','BusinessUnitBillingAddressRemoved','BusinessUnitContactEmailSet','BusinessUnitCreated','BusinessUnitCustomFieldAdded','BusinessUnitCustomFieldChanged','BusinessUnitCustomFieldRemoved','BusinessUnitCustomTypeRemoved','BusinessUnitCustomTypeSet','BusinessUnitCustomerGroupAssignmentAdded','BusinessUnitCustomerGroupAssignmentRemoved','BusinessUnitCustomerGroupAssignmentsSet','BusinessUnitDefaultBillingAddressSet','BusinessUnitDefaultShippingAddressSet','BusinessUnitDeleted','BusinessUnitNameChanged','BusinessUnitParentChanged','BusinessUnitShippingAddressAdded','BusinessUnitShippingAddressRemoved','BusinessUnitStatusChanged','BusinessUnitStoreAdded','BusinessUnitStoreModeChanged','BusinessUnitStoreRemoved','BusinessUnitStoresSet','BusinessUnitTopLevelUnitSet','BusinessUnitTypeSet','CartCreated','CartDiscountCreated','CartDiscountDeleted','CartDiscountStoreAdded','CartDiscountStoreRemoved','CartDiscountStoresSet','CartEstimatedDeliverySet','CartFrozen','CartLocked','CartPurchaseOrderNumberSet','CartUnfrozen','CartUnlocked','CategoryCreated','CategorySlugChanged','CustomLineItemStateTransition','CustomerAddressAdded','CustomerAddressChanged','CustomerAddressCustomFieldAdded','CustomerAddressCustomFieldChanged','CustomerAddressCustomFieldRemoved','CustomerAddressCustomTypeRemoved','CustomerAddressCustomTypeSet','CustomerAddressRemoved','CustomerBillingAddressAdded','CustomerBillingAddressRemoved','CustomerCompanyNameSet','CustomerCreated','CustomerCustomFieldAdded','CustomerCustomFieldChanged','CustomerCustomFieldRemoved','CustomerCustomTypeRemoved','CustomerCustomTypeSet','CustomerDateOfBirthSet','CustomerDefaultBillingAddressSet','CustomerDefaultShippingAddressSet','CustomerDeleted','CustomerEmailChanged','CustomerEmailTokenCreated','CustomerEmailVerified','CustomerExternalIdSet','CustomerFirstNameSet','CustomerGroupAssignmentAdded','CustomerGroupAssignmentRemoved','CustomerGroupAssignmentsSet','CustomerGroupCustomFieldAdded','CustomerGroupCustomFieldChanged','CustomerGroupCustomFieldRemoved','CustomerGroupCustomTypeRemoved','CustomerGroupCustomTypeSet','CustomerGroupSet','CustomerLastNameSet','CustomerPasswordTokenCreated','CustomerPasswordUpdated','CustomerShippingAddressAdded','CustomerShippingAddressRemoved','CustomerStoresSet','CustomerTitleSet','DeliveryAdded','DeliveryAddressSet','DeliveryCustomFieldAdded','DeliveryCustomFieldChanged','DeliveryCustomFieldRemoved','DeliveryCustomTypeRemoved','DeliveryCustomTypeSet','DeliveryItemsUpdated','DeliveryRemoved','DiscountCodeCreated','DiscountCodeDeleted','DiscountCodeKeySet','DiscountGroupCreated','DiscountGroupDeleted','DiscountGroupIsActiveSet','DiscountGroupKeySet','DiscountGroupSortOrderSet','InventoryEntryCreated','InventoryEntryDeleted','InventoryEntryOutOfStock','InventoryEntryQuantitySet','InventoryEntryReorderPoint','InventoryEntryReservationExpirationInMinutesSet','InventoryEntrySafetyStock','LineItemStateTransition','OrderBillingAddressSet','OrderBusinessUnitSet','OrderCreated','OrderCreatedFromRecurringOrder','OrderCustomFieldAdded','OrderCustomFieldChanged','OrderCustomFieldRemoved','OrderCustomLineItemAdded','OrderCustomLineItemDiscountSet','OrderCustomLineItemQuantityChanged','OrderCustomLineItemRemoved','OrderCustomTypeRemoved','OrderCustomTypeSet','OrderCustomerEmailSet','OrderCustomerGroupSet','OrderCustomerSet','OrderDeleted','OrderDiscountCodeAdded','OrderDiscountCodeRemoved','OrderDiscountCodeStateSet','OrderDiscountTypeCombinationSet','OrderEditApplied','OrderEstimatedDeliverySet','OrderImported','OrderLineItemAdded','OrderLineItemDiscountSet','OrderLineItemDistributionChannelSet','OrderLineItemRemoved','OrderPaymentAdded','OrderPaymentRemoved','OrderPaymentStateChanged','OrderReturnShipmentStateChanged','OrderShipmentStateChanged','OrderShippingAddressSet','OrderShippingContainerSet','OrderShippingInfoSet','OrderShippingRateInputSet','OrderShippingUpdated','OrderStateChanged','OrderStateTransition','OrderStoreSet','ParcelAddedToDelivery','ParcelItemsUpdated','ParcelMeasurementsUpdated','ParcelRemovedFromDelivery','ParcelTrackingDataUpdated','PaymentCreated','PaymentInteractionAdded','PaymentInterfaceIdSet','PaymentMethodCreated','PaymentMethodCustomFieldAdded','PaymentMethodCustomFieldChanged','PaymentMethodCustomFieldRemoved','PaymentMethodCustomTypeRemoved','PaymentMethodCustomTypeSet','PaymentMethodDefaultSet','PaymentMethodDeleted','PaymentMethodInfoCustomFieldAdded','PaymentMethodInfoCustomFieldChanged','PaymentMethodInfoCustomFieldRemoved','PaymentMethodInfoCustomTypeRemoved','PaymentMethodInfoCustomTypeSet','PaymentMethodInfoInterfaceAccountSet','PaymentMethodInfoInterfaceSet','PaymentMethodInfoMethodSet','PaymentMethodInfoNameSet','PaymentMethodInfoTokenSet','PaymentMethodInterfaceAccountSet','PaymentMethodKeySet','PaymentMethodMethodSet','PaymentMethodNameSet','PaymentMethodPaymentInterfaceSet','PaymentMethodPaymentMethodStatusSet','PaymentStatusInterfaceCodeSet','PaymentStatusStateTransition','PaymentTransactionAdded','PaymentTransactionInterfaceIdSet','PaymentTransactionStateChanged','ProductAddedToCategory','ProductCreated','ProductDeleted','ProductImageAdded','ProductPriceAdded','ProductPriceChanged','ProductPriceCustomFieldAdded','ProductPriceCustomFieldChanged','ProductPriceCustomFieldRemoved','ProductPriceCustomFieldsRemoved','ProductPriceCustomFieldsSet','ProductPriceDiscountsSet','ProductPriceExternalDiscountSet','ProductPriceKeySet','ProductPriceModeSet','ProductPriceRemoved','ProductPricesSet','ProductPublished','ProductRemovedFromCategory','ProductRevertedStagedChanges','ProductSelectionCreated','ProductSelectionDeleted','ProductSelectionProductAdded','ProductSelectionProductExcluded','ProductSelectionProductRemoved','ProductSelectionVariantExclusionChanged','ProductSelectionVariantSelectionChanged','ProductSlugChanged','ProductStateTransition','ProductTailoringCreated','ProductTailoringDeleted','ProductTailoringDescriptionSet','ProductTailoringImageAdded','ProductTailoringImagesSet','ProductTailoringKeySet','ProductTailoringNameSet','ProductTailoringPublished','ProductTailoringSlugSet','ProductTailoringUnpublished','ProductUnpublished','ProductVariantAdded','ProductVariantDeleted','ProductVariantTailoringAdded','ProductVariantTailoringRemoved','PurchaseOrderNumberSet','QuoteCreated','QuoteCustomerChanged','QuoteDeleted','QuoteRenegotiationRequested','QuoteRequestCreated','QuoteRequestCustomerChanged','QuoteRequestDeleted','QuoteRequestStateChanged','QuoteRequestStateTransition','QuoteStateChanged','QuoteStateTransition','RecurringOrderCreated','RecurringOrderCustomFieldAdded','RecurringOrderCustomFieldChanged','RecurringOrderCustomFieldRemoved','RecurringOrderCustomTypeRemoved','RecurringOrderCustomTypeSet','RecurringOrderDeleted','RecurringOrderExpiresAtSet','RecurringOrderFailed','RecurringOrderKeySet','RecurringOrderScheduleSet','RecurringOrderStartsAtSet','RecurringOrderStateChanged','RecurringOrderStateTransition','ReturnInfoAdded','ReturnInfoSet','ReviewCreated','ReviewRatingSet','ReviewStateTransition','ShippingMethodActiveChanged','ShippingMethodCarrierSet','ShippingMethodCreated','ShippingMethodCustomFieldAdded','ShippingMethodCustomFieldChanged','ShippingMethodCustomFieldRemoved','ShippingMethodCustomTypeRemoved','ShippingMethodCustomTypeSet','ShippingMethodDeleted','ShippingMethodDescriptionSet','ShippingMethodIsDefaultChanged','ShippingMethodKeySet','ShippingMethodLocalizedDescriptionSet','ShippingMethodLocalizedNameSet','ShippingMethodNameChanged','ShippingMethodPredicateSet','ShippingMethodShippingRateAdded','ShippingMethodShippingRateRemoved','ShippingMethodStoreAdded','ShippingMethodStoreRemoved','ShippingMethodStoresSet','ShippingMethodTaxCategoryChanged','ShippingMethodZoneAdded','ShippingMethodZoneRemoved','ShoppingListLineItemAdded','ShoppingListLineItemRemoved','StagedQuoteCreated','StagedQuoteDeleted','StagedQuoteSellerCommentSet','StagedQuoteStateChanged','StagedQuoteStateTransition','StagedQuoteValidToSet','StandalonePriceActiveChanged','StandalonePriceCreated','StandalonePriceDeleted','StandalonePriceDiscountSet','StandalonePriceExternalDiscountSet','StandalonePriceKeySet','StandalonePriceStagedChangesApplied','StandalonePriceStagedChangesRemoved','StandalonePriceTierAdded','StandalonePriceTierRemoved','StandalonePriceTiersSet','StandalonePriceValidFromAndUntilSet','StandalonePriceValidFromSet','StandalonePriceValidUntilSet','StandalonePriceValueChanged','StoreCheckoutUrlTemplateSet','StoreContactUrlSet','StoreCookiePolicyUrlSet','StoreCountriesChanged','StoreCreated','StoreDeleted','StoreDistributionChannelsChanged','StoreFaqUrlSet','StoreImprintUrlSet','StoreLanguagesChanged','StoreNameSet','StoreOrderUrlTemplateSet','StorePrivacyPolicyUrlSet','StoreProductSelectionsChanged','StoreRefundPolicyUrlSet','StoreShippingPolicyUrlSet','StoreSupplyChannelsChanged','StoreTermsOfServiceUrlSet','VariantCreated','VariantDeleted','VariantImageAdded','VariantImagesSet','VariantKeySet','VariantPublished','VariantSkuSet','VariantStagedChangesRemoved','VariantUnpublished']
     export const isMessagePayload = (obj?: { __typename?: any } | null): obj is MessagePayload => {
       if (!obj?.__typename) throw new Error('__typename is missing in "isMessagePayload"')
       return MessagePayload_possibleTypes.includes(obj.__typename)
@@ -30698,6 +30980,102 @@ export interface setKey {key?: (Scalars['String'] | null)}
     
 
 
+    const ShippingMethodActiveChanged_possibleTypes: string[] = ['ShippingMethodActiveChanged']
+    export const isShippingMethodActiveChanged = (obj?: { __typename?: any } | null): obj is ShippingMethodActiveChanged => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodActiveChanged"')
+      return ShippingMethodActiveChanged_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodCarrierSet_possibleTypes: string[] = ['ShippingMethodCarrierSet']
+    export const isShippingMethodCarrierSet = (obj?: { __typename?: any } | null): obj is ShippingMethodCarrierSet => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodCarrierSet"')
+      return ShippingMethodCarrierSet_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodCreated_possibleTypes: string[] = ['ShippingMethodCreated']
+    export const isShippingMethodCreated = (obj?: { __typename?: any } | null): obj is ShippingMethodCreated => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodCreated"')
+      return ShippingMethodCreated_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodCustomFieldAdded_possibleTypes: string[] = ['ShippingMethodCustomFieldAdded']
+    export const isShippingMethodCustomFieldAdded = (obj?: { __typename?: any } | null): obj is ShippingMethodCustomFieldAdded => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodCustomFieldAdded"')
+      return ShippingMethodCustomFieldAdded_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodCustomFieldChanged_possibleTypes: string[] = ['ShippingMethodCustomFieldChanged']
+    export const isShippingMethodCustomFieldChanged = (obj?: { __typename?: any } | null): obj is ShippingMethodCustomFieldChanged => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodCustomFieldChanged"')
+      return ShippingMethodCustomFieldChanged_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodCustomFieldRemoved_possibleTypes: string[] = ['ShippingMethodCustomFieldRemoved']
+    export const isShippingMethodCustomFieldRemoved = (obj?: { __typename?: any } | null): obj is ShippingMethodCustomFieldRemoved => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodCustomFieldRemoved"')
+      return ShippingMethodCustomFieldRemoved_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodCustomTypeRemoved_possibleTypes: string[] = ['ShippingMethodCustomTypeRemoved']
+    export const isShippingMethodCustomTypeRemoved = (obj?: { __typename?: any } | null): obj is ShippingMethodCustomTypeRemoved => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodCustomTypeRemoved"')
+      return ShippingMethodCustomTypeRemoved_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodCustomTypeSet_possibleTypes: string[] = ['ShippingMethodCustomTypeSet']
+    export const isShippingMethodCustomTypeSet = (obj?: { __typename?: any } | null): obj is ShippingMethodCustomTypeSet => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodCustomTypeSet"')
+      return ShippingMethodCustomTypeSet_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodDeleted_possibleTypes: string[] = ['ShippingMethodDeleted']
+    export const isShippingMethodDeleted = (obj?: { __typename?: any } | null): obj is ShippingMethodDeleted => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodDeleted"')
+      return ShippingMethodDeleted_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodDescriptionSet_possibleTypes: string[] = ['ShippingMethodDescriptionSet']
+    export const isShippingMethodDescriptionSet = (obj?: { __typename?: any } | null): obj is ShippingMethodDescriptionSet => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodDescriptionSet"')
+      return ShippingMethodDescriptionSet_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodIsDefaultChanged_possibleTypes: string[] = ['ShippingMethodIsDefaultChanged']
+    export const isShippingMethodIsDefaultChanged = (obj?: { __typename?: any } | null): obj is ShippingMethodIsDefaultChanged => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodIsDefaultChanged"')
+      return ShippingMethodIsDefaultChanged_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodKeySet_possibleTypes: string[] = ['ShippingMethodKeySet']
+    export const isShippingMethodKeySet = (obj?: { __typename?: any } | null): obj is ShippingMethodKeySet => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodKeySet"')
+      return ShippingMethodKeySet_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
     const ShippingMethodLimitWithCurrent_possibleTypes: string[] = ['ShippingMethodLimitWithCurrent']
     export const isShippingMethodLimitWithCurrent = (obj?: { __typename?: any } | null): obj is ShippingMethodLimitWithCurrent => {
       if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodLimitWithCurrent"')
@@ -30714,6 +31092,38 @@ export interface setKey {key?: (Scalars['String'] | null)}
     
 
 
+    const ShippingMethodLocalizedDescriptionSet_possibleTypes: string[] = ['ShippingMethodLocalizedDescriptionSet']
+    export const isShippingMethodLocalizedDescriptionSet = (obj?: { __typename?: any } | null): obj is ShippingMethodLocalizedDescriptionSet => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodLocalizedDescriptionSet"')
+      return ShippingMethodLocalizedDescriptionSet_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodLocalizedNameSet_possibleTypes: string[] = ['ShippingMethodLocalizedNameSet']
+    export const isShippingMethodLocalizedNameSet = (obj?: { __typename?: any } | null): obj is ShippingMethodLocalizedNameSet => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodLocalizedNameSet"')
+      return ShippingMethodLocalizedNameSet_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodNameChanged_possibleTypes: string[] = ['ShippingMethodNameChanged']
+    export const isShippingMethodNameChanged = (obj?: { __typename?: any } | null): obj is ShippingMethodNameChanged => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodNameChanged"')
+      return ShippingMethodNameChanged_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodPredicateSet_possibleTypes: string[] = ['ShippingMethodPredicateSet']
+    export const isShippingMethodPredicateSet = (obj?: { __typename?: any } | null): obj is ShippingMethodPredicateSet => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodPredicateSet"')
+      return ShippingMethodPredicateSet_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
     const ShippingMethodQueryResult_possibleTypes: string[] = ['ShippingMethodQueryResult']
     export const isShippingMethodQueryResult = (obj?: { __typename?: any } | null): obj is ShippingMethodQueryResult => {
       if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodQueryResult"')
@@ -30722,10 +31132,74 @@ export interface setKey {key?: (Scalars['String'] | null)}
     
 
 
+    const ShippingMethodShippingRateAdded_possibleTypes: string[] = ['ShippingMethodShippingRateAdded']
+    export const isShippingMethodShippingRateAdded = (obj?: { __typename?: any } | null): obj is ShippingMethodShippingRateAdded => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodShippingRateAdded"')
+      return ShippingMethodShippingRateAdded_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodShippingRateRemoved_possibleTypes: string[] = ['ShippingMethodShippingRateRemoved']
+    export const isShippingMethodShippingRateRemoved = (obj?: { __typename?: any } | null): obj is ShippingMethodShippingRateRemoved => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodShippingRateRemoved"')
+      return ShippingMethodShippingRateRemoved_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodStoreAdded_possibleTypes: string[] = ['ShippingMethodStoreAdded']
+    export const isShippingMethodStoreAdded = (obj?: { __typename?: any } | null): obj is ShippingMethodStoreAdded => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodStoreAdded"')
+      return ShippingMethodStoreAdded_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodStoreRemoved_possibleTypes: string[] = ['ShippingMethodStoreRemoved']
+    export const isShippingMethodStoreRemoved = (obj?: { __typename?: any } | null): obj is ShippingMethodStoreRemoved => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodStoreRemoved"')
+      return ShippingMethodStoreRemoved_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodStoresSet_possibleTypes: string[] = ['ShippingMethodStoresSet']
+    export const isShippingMethodStoresSet = (obj?: { __typename?: any } | null): obj is ShippingMethodStoresSet => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodStoresSet"')
+      return ShippingMethodStoresSet_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
     const ShippingMethodTargetDraftOutput_possibleTypes: string[] = ['ShippingMethodTargetDraftOutput']
     export const isShippingMethodTargetDraftOutput = (obj?: { __typename?: any } | null): obj is ShippingMethodTargetDraftOutput => {
       if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodTargetDraftOutput"')
       return ShippingMethodTargetDraftOutput_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodTaxCategoryChanged_possibleTypes: string[] = ['ShippingMethodTaxCategoryChanged']
+    export const isShippingMethodTaxCategoryChanged = (obj?: { __typename?: any } | null): obj is ShippingMethodTaxCategoryChanged => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodTaxCategoryChanged"')
+      return ShippingMethodTaxCategoryChanged_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodZoneAdded_possibleTypes: string[] = ['ShippingMethodZoneAdded']
+    export const isShippingMethodZoneAdded = (obj?: { __typename?: any } | null): obj is ShippingMethodZoneAdded => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodZoneAdded"')
+      return ShippingMethodZoneAdded_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const ShippingMethodZoneRemoved_possibleTypes: string[] = ['ShippingMethodZoneRemoved']
+    export const isShippingMethodZoneRemoved = (obj?: { __typename?: any } | null): obj is ShippingMethodZoneRemoved => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isShippingMethodZoneRemoved"')
+      return ShippingMethodZoneRemoved_possibleTypes.includes(obj.__typename)
     }
     
 
@@ -32119,9 +32593,9 @@ export const enumLineItemPriceMode = {
 }
 
 export const enumMcpServerAuthenticationMode = {
+   BuyerIdentity: 'BuyerIdentity' as const,
    ClientCredentials: 'ClientCredentials' as const,
-   CommercetoolsIdentity: 'CommercetoolsIdentity' as const,
-   ShopperIdentity: 'ShopperIdentity' as const
+   CommercetoolsIdentity: 'CommercetoolsIdentity' as const
 }
 
 export const enumMcpServerState = {
@@ -32465,6 +32939,11 @@ export const enumTaxMode = {
    External: 'External' as const,
    ExternalAmount: 'ExternalAmount' as const,
    Platform: 'Platform' as const
+}
+
+export const enumTaxRoundingTarget = {
+   Net: 'Net' as const,
+   Tax: 'Tax' as const
 }
 
 export const enumTextInputHint = {

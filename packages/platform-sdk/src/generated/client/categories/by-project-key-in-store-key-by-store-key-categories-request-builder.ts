@@ -10,15 +10,16 @@ import {
 } from '../../models/category'
 import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-import { ByProjectKeyCategoriesByIDRequestBuilder } from './by-project-key-categories-by-id-request-builder'
-import { ByProjectKeyCategoriesKeyByKeyRequestBuilder } from './by-project-key-categories-key-by-key-request-builder'
+import { ByProjectKeyInStoreKeyByStoreKeyCategoriesByIDRequestBuilder } from './by-project-key-in-store-key-by-store-key-categories-by-id-request-builder'
+import { ByProjectKeyInStoreKeyByStoreKeyCategoriesKeyByKeyRequestBuilder } from './by-project-key-in-store-key-by-store-key-categories-key-by-key-request-builder'
 /**
  **/
-export class ByProjectKeyCategoriesRequestBuilder {
+export class ByProjectKeyInStoreKeyByStoreKeyCategoriesRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
         projectKey: string
+        storeKey: string
       }
       executeRequest: executeRequest
       baseUri?: string
@@ -26,20 +27,22 @@ export class ByProjectKeyCategoriesRequestBuilder {
   ) {}
   public withKey(childPathArgs: {
     key: string
-  }): ByProjectKeyCategoriesKeyByKeyRequestBuilder {
-    return new ByProjectKeyCategoriesKeyByKeyRequestBuilder({
-      pathArgs: {
-        ...this.args.pathArgs,
-        ...childPathArgs,
-      },
-      executeRequest: this.args.executeRequest,
-      baseUri: this.args.baseUri,
-    })
+  }): ByProjectKeyInStoreKeyByStoreKeyCategoriesKeyByKeyRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyCategoriesKeyByKeyRequestBuilder(
+      {
+        pathArgs: {
+          ...this.args.pathArgs,
+          ...childPathArgs,
+        },
+        executeRequest: this.args.executeRequest,
+        baseUri: this.args.baseUri,
+      }
+    )
   }
   public withId(childPathArgs: {
     ID: string
-  }): ByProjectKeyCategoriesByIDRequestBuilder {
-    return new ByProjectKeyCategoriesByIDRequestBuilder({
+  }): ByProjectKeyInStoreKeyByStoreKeyCategoriesByIDRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyCategoriesByIDRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
         ...childPathArgs,
@@ -50,7 +53,7 @@ export class ByProjectKeyCategoriesRequestBuilder {
   }
 
   /**
-   *	Either the [scope](/api/scopes) `view_products:{projectKey}` or `view_categories:{projectKey}` is required.
+   *	Retrieves [Categories](ctp:api:type:Category) that are either assigned to the specified [Store](ctp:api:type:Store) or global.
    *
    */
   public get(methodArgs?: {
@@ -71,7 +74,7 @@ export class ByProjectKeyCategoriesRequestBuilder {
       {
         baseUri: this.args.baseUri,
         method: 'GET',
-        uriTemplate: '/{projectKey}/categories',
+        uriTemplate: '/{projectKey}/in-store/key={storeKey}/categories',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,
@@ -82,7 +85,10 @@ export class ByProjectKeyCategoriesRequestBuilder {
     )
   }
   /**
-   *	Checks if one or more Categories exist for the provided query predicate. Returns a `200` status if any Categories match the query predicate, or a `404` status otherwise.
+   *	Checks if one or more Categories exist in the [Store](ctp:api:type:Store) for the provided query predicate. Returns a `200` status if any Categories match the query predicate, or a `404` status otherwise.
+   *
+   *	For global Categories, use the [Check if Category exists by Query Predicate](ctp:api:endpoint:/{projectKey}/categories:HEAD) endpoint.
+   *
    */
   public head(methodArgs?: {
     queryArgs?: {
@@ -97,7 +103,7 @@ export class ByProjectKeyCategoriesRequestBuilder {
       {
         baseUri: this.args.baseUri,
         method: 'HEAD',
-        uriTemplate: '/{projectKey}/categories',
+        uriTemplate: '/{projectKey}/in-store/key={storeKey}/categories',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,
@@ -108,7 +114,9 @@ export class ByProjectKeyCategoriesRequestBuilder {
     )
   }
   /**
-   *	Either the [scope](/api/scopes) `manage_products:{projectKey}` or `manage_categories:{projectKey}` is required.
+   *	Creates a [Category](ctp:api:type:Category) in the specified [Store](ctp:api:type:Store).
+   *
+   *	For global Categories, use the [Create Category](ctp:api:endpoint:/{projectKey}/categories:POST) endpoint.
    *
    *	Creating a Category with a `parent` locks that parent Category. For details, see [Category tree locking](/api/projects/categories#category-tree-locking).
    *
@@ -129,7 +137,7 @@ export class ByProjectKeyCategoriesRequestBuilder {
       {
         baseUri: this.args.baseUri,
         method: 'POST',
-        uriTemplate: '/{projectKey}/categories',
+        uriTemplate: '/{projectKey}/in-store/key={storeKey}/categories',
         pathVariables: this.args.pathArgs,
         headers: {
           'Content-Type': 'application/json',

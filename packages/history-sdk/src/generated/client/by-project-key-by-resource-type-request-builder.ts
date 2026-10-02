@@ -50,6 +50,8 @@ export class ByProjectKeyByResourceTypeRequestBuilder {
       limit?: number
       offset?: number
       userId?: string
+      userIds?: string | string[]
+      resourceIds?: string | string[]
       clientId?: string
       customerId?: string
       associateId?: string

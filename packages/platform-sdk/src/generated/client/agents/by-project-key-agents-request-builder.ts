@@ -18,7 +18,7 @@ export class ByProjectKeyAgentsRequestBuilder {
     }
   ) {}
   /**
-   *	Converts unstructured customer input into a [Cart](ctp:api:type:Cart) or [QuoteRequest](ctp:api:type:QuoteRequest).
+   *	Converts unstructured customer input into a [Cart](ctp:api:type:Cart), [QuoteRequest](ctp:api:type:QuoteRequest), or [ShoppingList](ctp:api:type:ShoppingList).
    *
    */
   public intake(): ByProjectKeyAgentsIntakeRequestBuilder {

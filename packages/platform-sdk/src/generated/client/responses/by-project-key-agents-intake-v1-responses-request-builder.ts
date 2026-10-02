@@ -4,6 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import {
+  AgentResponsesMultipartRequest,
   AgentResponsesRequest,
   AgentResponsesSuccess,
 } from '../../models/agent'
@@ -22,7 +23,9 @@ export class ByProjectKeyAgentsIntakeV1ResponsesRequestBuilder {
     }
   ) {}
   /**
-   *	Turns a natural-language prompt, optionally with supporting files, into a created [Cart](ctp:api:type:Cart) or [QuoteRequest](ctp:api:type:QuoteRequest), returned in commercetools REST representation.
+   *	Turns a natural-language prompt, optionally with supporting files, into a created [Cart](ctp:api:type:Cart), [QuoteRequest](ctp:api:type:QuoteRequest), or [ShoppingList](ctp:api:type:ShoppingList), returned in commercetools REST representation. The entity to create is set by `outputType` and is never inferred from the input.
+   *
+   *	A [ShoppingList](ctp:api:type:ShoppingList) additionally requires a name for the list in the input. The Intake Agent never invents one. Unlike a Cart or Quote Request, a Shopping List does not require a country.
    *
    *	Non-fatal issues, such as requested Products that could not be matched to the catalog or a file that failed to parse, are reported as `warnings` alongside a successful `201` response rather than failing the request.
    *
@@ -30,9 +33,11 @@ export class ByProjectKeyAgentsIntakeV1ResponsesRequestBuilder {
    *
    *	If the Intake Agent is not enabled for the Project, a [FeatureDisabled](ctp:api:type:AgentFeatureDisabledError) error is returned.
    *
+   *	For a list of possible errors returned by the Intake Agent, see [Intake Agent Errors](/api/errors#intake-agent) type.
+   *
    */
   public post(methodArgs: {
-    body: AgentResponsesRequest
+    body: AgentResponsesRequest | AgentResponsesMultipartRequest
     headers?: {
       [key: string]: string | string[]
     }

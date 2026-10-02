@@ -7,6 +7,7 @@ import { executeRequest } from '../../shared/utils/common-types'
 import { ByProjectKeyInStoreKeyByStoreKeyBusinessUnitsRequestBuilder } from '../business-units/by-project-key-in-store-key-by-store-key-business-units-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyCartDiscountsRequestBuilder } from '../cart-discounts/by-project-key-in-store-key-by-store-key-cart-discounts-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyCartsRequestBuilder } from '../carts/by-project-key-in-store-key-by-store-key-carts-request-builder'
+import { ByProjectKeyInStoreKeyByStoreKeyCategoriesRequestBuilder } from '../categories/by-project-key-in-store-key-by-store-key-categories-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyCustomersRequestBuilder } from '../customers/by-project-key-in-store-key-by-store-key-customers-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyDiscountCodesRequestBuilder } from '../discount-codes/by-project-key-in-store-key-by-store-key-discount-codes-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyLoginRequestBuilder } from '../login/by-project-key-in-store-key-by-store-key-login-request-builder'
@@ -61,6 +62,15 @@ export class ByProjectKeyInStoreKeyByStoreKeyRequestBuilder {
    */
   public carts(): ByProjectKeyInStoreKeyByStoreKeyCartsRequestBuilder {
     return new ByProjectKeyInStoreKeyByStoreKeyCartsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public categories(): ByProjectKeyInStoreKeyByStoreKeyCategoriesRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyCategoriesRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },
