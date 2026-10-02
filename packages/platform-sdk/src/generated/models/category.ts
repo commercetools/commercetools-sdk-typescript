@@ -382,6 +382,10 @@ export interface CategoryAddAssetAction extends ICategoryUpdateAction {
    */
   readonly position?: number
 }
+/**
+ *	This action locks the Category and its parent Category. For details, see [Category tree locking](/api/projects/categories#category-tree-locking).
+ *
+ */
 export interface CategoryAddStoreAction extends ICategoryUpdateAction {
   readonly action: 'addStore'
   /**
@@ -445,6 +449,10 @@ export interface CategoryChangeOrderHintAction extends ICategoryUpdateAction {
    */
   readonly orderHint: string
 }
+/**
+ *	This action locks the entire Category tree in the Project for the duration of the request. For details, see [Category tree locking](/api/projects/categories#category-tree-locking).
+ *
+ */
 export interface CategoryChangeParentAction extends ICategoryUpdateAction {
   readonly action: 'changeParent'
   /**
@@ -485,6 +493,8 @@ export interface CategoryRemoveAssetAction extends ICategoryUpdateAction {
   readonly assetKey?: string
 }
 /**
+ *	This action locks the Category and its parent Category. For details, see [Category tree locking](/api/projects/categories#category-tree-locking).
+ *
  *	Every direct child Category must be assigned to at least one Store in that set; otherwise, the action is rejected.
  *
  *	- When updating a Category via the [general endpoint](#update-category), all Stores can be removed as a global Category is accessible in all Stores.
@@ -735,6 +745,8 @@ export interface CategorySetMetaTitleAction extends ICategoryUpdateAction {
   readonly metaTitle?: LocalizedString
 }
 /**
+ *	This action locks the Category and its parent Category. For details, see [Category tree locking](/api/projects/categories#category-tree-locking).
+ *
  *	Every direct child Category must be assigned to at least one Store in that set; otherwise, the action is rejected.
  *
  *	- When updating a Category via the [general endpoint](#update-category), all Stores can be removed as a global Category is accessible in all Stores.
