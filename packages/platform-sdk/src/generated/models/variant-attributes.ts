@@ -70,11 +70,17 @@ export interface VariantAttributesAttributeMetadata {
  */
 export interface VariantAttributesAvailability {
   /**
-   *	Indicates whether the Variant is in stock.
+   *	Whether the Variant is in stock.
    *
    *
    */
   readonly isOnStock?: boolean
+  /**
+   *	Number of days to restock the Variant once it is out of stock.
+   *
+   *
+   */
+  readonly restockableInDays?: number
   /**
    *	Number of items of this Variant that are in stock.
    *
@@ -95,11 +101,17 @@ export interface VariantAttributesAvailability {
  */
 export interface VariantAttributesChannelAvailability {
   /**
-   *	Indicates whether the Variant is in stock in the specified [Channel](ctp:api:type:Channel).
+   *	Whether the Variant is in stock in the specified [Channel](ctp:api:type:Channel).
    *
    *
    */
   readonly isOnStock?: boolean
+  /**
+   *	Number of days to restock the Variant once it is out of stock in the specified [Channel](ctp:api:type:Channel).
+   *
+   *
+   */
+  readonly restockableInDays?: number
   /**
    *	Number of items of this Variant that are in stock in the specified [Channel](ctp:api:type:Channel).
    *

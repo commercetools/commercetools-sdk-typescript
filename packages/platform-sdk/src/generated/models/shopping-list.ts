@@ -281,7 +281,7 @@ export interface ShoppingListLineItem {
   /**
    *	`id` of the [ProductVariant](ctp:api:type:ProductVariant) the ShoppingListLineItem refers to. If not set, the ShoppingListLineItem refers to the Master Variant.
    *
-   *	For a Project with [ProductCatalogModel](ctp:api:type:ProductCatalogModel) (BETA) set to `Modular`, when `variantId` is not set, the ShoppingListLineItem refers to the Product's default [Variant](ctp:api:type:Variant) (BETA) (`defaultVariant`) instead of the Master Variant. If no default Variant is set, the ShoppingListLineItem refers to the Variant with the lowest `variantId`.
+   *	For a Project with [ProductCatalogModel](ctp:api:type:ProductCatalogModel) set to `Modular`, when `variantId` is not set, the ShoppingListLineItem refers to the Product's default [Variant](ctp:api:type:Variant) (`defaultVariant`) instead of the Master Variant. If no default Variant is set, the ShoppingListLineItem refers to the Variant with the lowest `variantId`.
    *
    *
    */
@@ -322,7 +322,7 @@ export interface ShoppingListLineItemDraft {
   /**
    *	`id` of the [ProductVariant](ctp:api:type:ProductVariant). If not set, the ShoppingListLineItem refers to the Master Variant.
    *
-   *	For a Project with [ProductCatalogModel](ctp:api:type:ProductCatalogModel) (BETA) set to `Modular`, when `variantId` is not set, the ShoppingListLineItem refers to the Product's default [Variant](ctp:api:type:Variant) (BETA) (`defaultVariant`) instead of the Master Variant. If no default Variant is set, the ShoppingListLineItem refers to the Variant with the lowest `variantId`.
+   *	For a Project with [ProductCatalogModel](ctp:api:type:ProductCatalogModel) set to `Modular`, when `variantId` is not set, the ShoppingListLineItem refers to the Product's default [Variant](ctp:api:type:Variant) (`defaultVariant`) instead of the Master Variant. If no default Variant is set, the ShoppingListLineItem refers to the Variant with the lowest `variantId`.
    *
    *
    */
@@ -589,7 +589,7 @@ export interface ShoppingListAddLineItemAction extends IShoppingListUpdateAction
   /**
    *	`id` of the [ProductVariant](ctp:api:type:ProductVariant). If not set, the ShoppingListLineItem refers to the Master Variant.
    *
-   *	For a Project with [ProductCatalogModel](ctp:api:type:ProductCatalogModel) (BETA) set to `Modular`, when `variantId` is not set, the ShoppingListLineItem refers to the Product's default [Variant](ctp:api:type:Variant) (BETA) (`defaultVariant`) instead of the Master Variant. If no default Variant is set, the ShoppingListLineItem refers to the Variant with the lowest `variantId`.
+   *	For a Project with [ProductCatalogModel](ctp:api:type:ProductCatalogModel) set to `Modular`, when `variantId` is not set, the ShoppingListLineItem refers to the Product's default [Variant](ctp:api:type:Variant) (`defaultVariant`) instead of the Master Variant. If no default Variant is set, the ShoppingListLineItem refers to the Variant with the lowest `variantId`.
    *
    *
    */

@@ -389,9 +389,18 @@ export interface Attribution {
 export enum AttributionSourceValues {
   Export = 'Export',
   Import = 'Import',
+  IntakeAgent = 'IntakeAgent',
+  ManagedCommerceMcp = 'ManagedCommerceMCP',
+  PromotionsAgent = 'PromotionsAgent',
 }
 
-export type AttributionSource = 'Export' | 'Import' | (string & {})
+export type AttributionSource =
+  | 'Export'
+  | 'Import'
+  | 'IntakeAgent'
+  | 'ManagedCommerceMCP'
+  | 'PromotionsAgent'
+  | (string & {})
 /**
  *	Polymorphic base type that represents a postal address and contact details.
  *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
@@ -1291,6 +1300,7 @@ export enum ReferenceTypeIdValues {
   Extension = 'extension',
   InventoryEntry = 'inventory-entry',
   KeyValueDocument = 'key-value-document',
+  McpServer = 'mcp-server',
   Order = 'order',
   OrderEdit = 'order-edit',
   Payment = 'payment',
@@ -1340,6 +1350,7 @@ export type ReferenceTypeId =
   | 'extension'
   | 'inventory-entry'
   | 'key-value-document'
+  | 'mcp-server'
   | 'order'
   | 'order-edit'
   | 'payment'

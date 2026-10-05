@@ -1860,8 +1860,9 @@ export interface StagedOrderSetDeliveryItemsAction extends IStagedOrderUpdateAct
   readonly items: DeliveryItem[]
 }
 /**
- *	Adds a [DirectDiscount](ctp:api:type:DirectDiscount), but only if no [DiscountCode](ctp:api:type:DiscountCode) has been added to the Order.
- *	Either a Discount Code or a Direct Discount can exist on a Order at the same time.
+ *	Adds a [DirectDiscount](ctp:api:type:DirectDiscount) to the Order.
+ *
+ *	If [Order](ctp:api:type:Order) `directDiscountsIgnoreCartDiscounts` is `true`, Direct Discounts can only be added when no [DiscountCode](ctp:api:type:DiscountCode) has been added to the Order.
  *
  */
 export interface StagedOrderSetDirectDiscountsAction extends IStagedOrderUpdateAction {
@@ -1874,6 +1875,22 @@ export interface StagedOrderSetDirectDiscountsAction extends IStagedOrderUpdateA
    *
    */
   readonly discounts: DirectDiscountDraft[]
+}
+/**
+ *	Determines whether the [Direct Discounts](ctp:api:type:DirectDiscount) on the Order replace the [Cart Discounts](ctp:api:type:CartDiscount) of the [Project](ctp:api:type:Project), or apply alongside them.
+ *
+ */
+export interface StagedOrderSetDirectDiscountsIgnoreCartDiscountsAction extends IStagedOrderUpdateAction {
+  readonly action: 'setDirectDiscountsIgnoreCartDiscounts'
+  /**
+   *	- If `true`, only [Direct Discounts](ctp:api:type:DirectDiscount) apply to the Order. Matching [Cart Discounts](ctp:api:type:CartDiscount) are ignored, and Discount Codes cannot be added.
+   *
+   *	The value can be set to `true` only if the Order does not have both `discountCodes` and `directDiscounts`.
+   *	- If `false`, Cart Discounts, Discount Codes, and Direct Discounts apply to the Order.
+   *
+   *
+   */
+  readonly directDiscountsIgnoreCartDiscounts?: boolean
 }
 export interface StagedOrderSetItemShippingAddressCustomFieldAction extends IStagedOrderUpdateAction {
   readonly action: 'setItemShippingAddressCustomField'

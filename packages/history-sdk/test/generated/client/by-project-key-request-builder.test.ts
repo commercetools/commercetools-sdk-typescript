@@ -55,6 +55,13 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
+      uri: '/test_projectKey?userIds=userIds',
+      request: apiRoot
+        .withProjectKeyValue({ projectKey: 'test_projectKey' })
+        .get({ queryArgs: { userIds: 'userIds' } }),
+    },
+    {
+      method: 'get',
       uri: '/test_projectKey?clientId=clientId',
       request: apiRoot
         .withProjectKeyValue({ projectKey: 'test_projectKey' })
@@ -94,6 +101,13 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
       request: apiRoot
         .withProjectKeyValue({ projectKey: 'test_projectKey' })
         .get({ queryArgs: { resourceId: 'resourceId' } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey?resourceIds=resourceIds',
+      request: apiRoot
+        .withProjectKeyValue({ projectKey: 'test_projectKey' })
+        .get({ queryArgs: { resourceIds: 'resourceIds' } }),
     },
     {
       method: 'get',
