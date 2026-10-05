@@ -6051,6 +6051,19 @@ type InStore implements CartDiscountQueryInterface & CartQueryInterface & Custom
     key: String
   ): StagedQuote
   stagedQuotes(limit: Int, offset: Int, sort: [String!], where: String): StagedQuoteQueryResult!
+  variant(
+    """Queries with specified ID"""
+    id: String
+
+    """Queries with specified key"""
+    key: String
+
+    """Queries for a current variant with specified SKU"""
+    sku: String
+
+    """Queries for a staged variant with specified SKU"""
+    stagedSku: String
+  ): Variant
 
   """Query a single variant projection by id, key, or sku and other args"""
   variantProjection(

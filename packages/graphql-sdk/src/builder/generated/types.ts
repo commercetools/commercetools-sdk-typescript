@@ -13373,6 +13373,23 @@ export default {
                     ]
                 }
             ],
+            "variant": [
+                2256,
+                {
+                    "id": [
+                        2154
+                    ],
+                    "key": [
+                        2154
+                    ],
+                    "sku": [
+                        2154
+                    ],
+                    "stagedSku": [
+                        2154
+                    ]
+                }
+            ],
             "variantProjection": [
                 2271,
                 {
