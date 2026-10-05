@@ -1,5 +1,26 @@
 # @commercetools/history-sdk
 
+## 6.2.0
+
+### Minor Changes
+
+- [#1469](https://github.com/commercetools/commercetools-sdk-typescript/pull/1469) [`26b873c`](https://github.com/commercetools/commercetools-sdk-typescript/commit/26b873c9c4b6f5328e9727203c24a05d117dadba) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **History changes**
+
+  <details>
+  <summary>Added QueryParameter(s)</summary>
+  - added query parameter `userIds` to method `get /{projectKey}`
+  - added query parameter `resourceIds` to method `get /{projectKey}`
+  - added query parameter `userIds` to method `get /{projectKey}/{resourceType}`
+  - added query parameter `resourceIds` to method `get /{projectKey}/{resourceType}`
+  - added query parameter `userIds` to method `get /{projectKey}/{resourceType}/{ID}`
+
+  </details>
+
+### Patch Changes
+
+- Updated dependencies [[`617d798`](https://github.com/commercetools/commercetools-sdk-typescript/commit/617d7982d24f264ea62b107c39e05542a36894bc)]:
+  - @commercetools/ts-client@5.1.0
+
 ## 6.1.0
 
 ### Minor Changes
