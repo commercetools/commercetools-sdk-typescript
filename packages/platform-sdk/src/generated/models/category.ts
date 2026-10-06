@@ -94,7 +94,7 @@ export interface Category extends BaseResource {
    */
   readonly parent?: CategoryReference
   /**
-   *	Decimal value between 0 and 1. Frontend applications can use this value for ordering Categories within the same level in the category tree.
+   *	A decimal value between 0 and 1 used to order Categories within the same level of the category tree. When sorted in ascending order, Categories with a lower `orderHint` appear before those with a higher value (for example, `0.05` before `0.07`).
    *
    *
    */
@@ -181,8 +181,8 @@ export interface CategoryDraft {
    */
   readonly parent?: CategoryResourceIdentifier
   /**
-   *	Decimal value between 0 and 1. Frontend applications can use this value for ordering Categories within the same level in the category tree.
-   *	If not set, a random value will be assigned.
+   *	A decimal value between 0 and 1 used to order Categories within the same level of the category tree. When sorted in ascending order, Categories with a lower `orderHint` appear before those with a higher value (for example, `0.05` before `0.07`).
+   *	If not set, a random value is assigned.
    *
    *
    */
@@ -443,7 +443,7 @@ export interface CategoryChangeNameAction extends ICategoryUpdateAction {
 export interface CategoryChangeOrderHintAction extends ICategoryUpdateAction {
   readonly action: 'changeOrderHint'
   /**
-   *	New value to set. Must be a decimal value between 0 and 1.
+   *	New value to set. Must be a decimal value between 0 and 1. When sorted in ascending order, Categories with a lower `orderHint` appear before those with a higher value (for example, `0.05` before `0.07`).
    *
    *
    */
