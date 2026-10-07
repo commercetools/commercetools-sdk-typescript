@@ -1,19 +1,6 @@
 **Api changes**
 
 <details>
-<summary>Removed Type(s)</summary>
-
-- :warning: removed type `Expansion`
-- :warning: removed type `QueryPredicate`
-- :warning: removed type `Sort`
-- :warning: removed type `CircularDependencyError`
-- :warning: removed type `MissingDependencyError`
-- :warning: removed type `GraphQLCircularDependencyError`
-- :warning: removed type `GraphQLMissingDependencyError`
-
-</details>
-
-<details>
 <summary>MarkDeprecated Type(s)</summary>
 
 - marked type `FacetRange` as deprecated
@@ -28,6 +15,19 @@
 - marked type `SuggestionResult` as deprecated
 - marked type `TermFacetResult` as deprecated
 - marked type `TermFacetResultType` as deprecated
+
+</details>
+
+<details>
+<summary>Removed Type(s)</summary>
+
+- :warning: removed type `Expansion`
+- :warning: removed type `QueryPredicate`
+- :warning: removed type `Sort`
+- :warning: removed type `CircularDependencyError`
+- :warning: removed type `MissingDependencyError`
+- :warning: removed type `GraphQLCircularDependencyError`
+- :warning: removed type `GraphQLMissingDependencyError`
 
 </details>
 
@@ -136,6 +136,14 @@
 </details>
 
 <details>
+<summary>Removed Property(s)</summary>
+
+- :warning: removed property `productId` from type `VariantCreatedMessage`
+- :warning: removed property `productId` from type `VariantCreatedMessagePayload`
+
+</details>
+
+<details>
 <summary>Added Property(s)</summary>
 
 - added property `directDiscountsIgnoreCartDiscounts` to type `Cart`
@@ -186,6 +194,13 @@
 </details>
 
 <details>
+<summary>Changed Property(s)</summary>
+
+- :warning: changed property `expand` of type `ProductSearchProjectionParams` from type `Expansion[]` to `string[]`
+
+</details>
+
+<details>
 <summary>MarkDeprecated Property(s)</summary>
 
 - marked property `FacetResult::type` as deprecated
@@ -195,34 +210,6 @@
 - marked property `RangeFacetResult::type` as deprecated
 - marked property `TermFacetResult::type` as deprecated
 - marked property `TermFacetResult::dataType` as deprecated
-
-</details>
-
-<details>
-<summary>Changed Property(s)</summary>
-
-- :warning: changed property `expand` of type `ProductSearchProjectionParams` from type `Expansion[]` to `string[]`
-
-</details>
-
-<details>
-<summary>Removed Property(s)</summary>
-
-- :warning: removed property `productId` from type `VariantCreatedMessage`
-- :warning: removed property `productId` from type `VariantCreatedMessagePayload`
-
-</details>
-
-<details>
-<summary>Added Resource(s)</summary>
-
-- added resource `/{projectKey}/agents`
-- added resource `/{projectKey}/agents/intake`
-- added resource `/{projectKey}/agents/intake/v1`
-- added resource `/{projectKey}/agents/intake/v1/responses`
-- added resource `/{projectKey}/in-store/key={storeKey}/categories`
-- added resource `/{projectKey}/in-store/key={storeKey}/categories/key={key}`
-- added resource `/{projectKey}/in-store/key={storeKey}/categories/{ID}`
 
 </details>
 
@@ -241,11 +228,15 @@
 </details>
 
 <details>
-<summary>MarkDeprecated Method(s)</summary>
+<summary>Added Resource(s)</summary>
 
-- marked method `post /{projectKey}/product-projections/search` as deprecated
-- marked method `get /{projectKey}/product-projections/search` as deprecated
-- marked method `get /{projectKey}/product-projections/suggest` as deprecated
+- added resource `/{projectKey}/agents`
+- added resource `/{projectKey}/agents/intake`
+- added resource `/{projectKey}/agents/intake/v1`
+- added resource `/{projectKey}/agents/intake/v1/responses`
+- added resource `/{projectKey}/in-store/key={storeKey}/categories`
+- added resource `/{projectKey}/in-store/key={storeKey}/categories/key={key}`
+- added resource `/{projectKey}/in-store/key={storeKey}/categories/{ID}`
 
 </details>
 
@@ -264,6 +255,15 @@
 - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().categories().withId().head()`
 - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().categories().withId().post()`
 - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().categories().withId().delete()`
+
+</details>
+
+<details>
+<summary>MarkDeprecated Method(s)</summary>
+
+- marked method `post /{projectKey}/product-projections/search` as deprecated
+- marked method `get /{projectKey}/product-projections/search` as deprecated
+- marked method `get /{projectKey}/product-projections/suggest` as deprecated
 
 </details>
 
