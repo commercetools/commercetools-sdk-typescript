@@ -82,9 +82,24 @@
 - added type `GraphQLAgentStoreAmbiguousError`
 - added type `GraphQLAgentStoreDistributionChannelsUnsupportedError`
 - added type `GraphQLAgentStoreUnresolvedError`
+- added type `AbsoluteAllocation`
+- added type `AbsoluteAllocationDraft`
+- added type `Allocation`
+- added type `AllocationDraft`
 - added type `EstimatedDelivery`
+- added type `PaymentAllocationDraft`
+- added type `PaymentStrategy`
+- added type `RecurringPaymentAllocation`
+- added type `RecurringPaymentConfiguration`
+- added type `RecurringPaymentConfigurationDraft`
+- added type `RelativeAllocation`
+- added type `RelativeAllocationDraft`
+- added type `CartAddRecurringPaymentAllocationAction`
+- added type `CartRemoveRecurringPaymentAllocationAction`
 - added type `CartSetDirectDiscountsIgnoreCartDiscountsAction`
 - added type `CartSetEstimatedDeliveryAction`
+- added type `CartSetRecurringPaymentConfigurationAction`
+- added type `CartSetRecurringPaymentStrategyAction`
 - added type `CategoryAddStoreAction`
 - added type `CategoryRemoveStoreAction`
 - added type `CategorySetStoresAction`
@@ -147,6 +162,7 @@
 <summary>Added Property(s)</summary>
 
 - added property `directDiscountsIgnoreCartDiscounts` to type `Cart`
+- added property `recurringPaymentConfiguration` to type `Cart`
 - added property `directDiscountsIgnoreCartDiscounts` to type `CartDraft`
 - added property `participateInBestDealSelection` to type `DirectDiscount`
 - added property `participateInBestDealSelection` to type `DirectDiscountDraft`
