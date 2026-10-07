@@ -3955,7 +3955,7 @@ input CustomLineItemDraft {
   recurrenceInfo: CustomLineItemRecurrenceInfoInputDraft
   shippingDetails: ItemShippingDetailsDraft
   slug: String!
-  taxCategory: ReferenceInput
+  taxCategory: ResourceIdentifierInput
 }
 
 type CustomLineItemDraftOutput {

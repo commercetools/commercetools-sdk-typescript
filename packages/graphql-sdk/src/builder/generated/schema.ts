@@ -11883,7 +11883,7 @@ export interface CustomLineItemGenqlSelection{
     __scalar?: boolean | number
 }
 
-export interface CustomLineItemDraft {custom?: (CustomFieldsDraft | null),externalTaxRate?: (ExternalTaxRateDraft | null),key?: (Scalars['String'] | null),money: BaseMoneyInput,name: LocalizedStringItemInputType[],priceMode?: (CustomLineItemPriceMode | null),quantity?: (Scalars['Long'] | null),recurrenceInfo?: (CustomLineItemRecurrenceInfoInputDraft | null),shippingDetails?: (ItemShippingDetailsDraft | null),slug: Scalars['String'],taxCategory?: (ReferenceInput | null)}
+export interface CustomLineItemDraft {custom?: (CustomFieldsDraft | null),externalTaxRate?: (ExternalTaxRateDraft | null),key?: (Scalars['String'] | null),money: BaseMoneyInput,name: LocalizedStringItemInputType[],priceMode?: (CustomLineItemPriceMode | null),quantity?: (Scalars['Long'] | null),recurrenceInfo?: (CustomLineItemRecurrenceInfoInputDraft | null),shippingDetails?: (ItemShippingDetailsDraft | null),slug: Scalars['String'],taxCategory?: (ResourceIdentifierInput | null)}
 
 export interface CustomLineItemDraftOutputGenqlSelection{
     custom?: CustomFieldsCommandGenqlSelection
