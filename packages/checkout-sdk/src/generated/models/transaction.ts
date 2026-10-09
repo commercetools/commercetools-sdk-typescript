@@ -160,7 +160,11 @@ export enum TransactionStateValues {
 }
 
 export type TransactionState =
-  'Completed' | 'Failed' | 'Initial' | 'Pending' | (string & {})
+  | 'Completed'
+  | 'Failed'
+  | 'Initial'
+  | 'Pending'
+  | (string & {})
 /**
  *	The state of the [Transaction](/transactions-api#transaction) and the related errors in case of a failed Transaction.
  *

@@ -1629,7 +1629,11 @@ export enum OrderStateValues {
 }
 
 export type OrderState =
-  'Cancelled' | 'Complete' | 'Confirmed' | 'Open' | (string & {})
+  | 'Cancelled'
+  | 'Complete'
+  | 'Confirmed'
+  | 'Open'
+  | (string & {})
 export interface OrderUpdate {
   /**
    *	Expected version of the Order on which the changes should be applied.
@@ -1837,7 +1841,12 @@ export enum PaymentStateValues {
 }
 
 export type PaymentState =
-  'BalanceDue' | 'CreditOwed' | 'Failed' | 'Paid' | 'Pending' | (string & {})
+  | 'BalanceDue'
+  | 'CreditOwed'
+  | 'Failed'
+  | 'Paid'
+  | 'Pending'
+  | (string & {})
 /**
  *	Contains the Product Variant to be used in the [LineItemImportDraft](ctp:api:type:LineItemImportDraft).
  *
@@ -2172,7 +2181,11 @@ export enum ReturnPaymentStateValues {
 }
 
 export type ReturnPaymentState =
-  'Initial' | 'NonRefundable' | 'NotRefunded' | 'Refunded' | (string & {})
+  | 'Initial'
+  | 'NonRefundable'
+  | 'NotRefunded'
+  | 'Refunded'
+  | (string & {})
 export enum ReturnShipmentStateValues {
   Advised = 'Advised',
   BackInStock = 'BackInStock',
@@ -2181,7 +2194,11 @@ export enum ReturnShipmentStateValues {
 }
 
 export type ReturnShipmentState =
-  'Advised' | 'BackInStock' | 'Returned' | 'Unusable' | (string & {})
+  | 'Advised'
+  | 'BackInStock'
+  | 'Returned'
+  | 'Unusable'
+  | (string & {})
 /**
  *	Indicates the shipment status of the Order.
  *

@@ -206,7 +206,10 @@ export enum PaymentComponentTypeValues {
 }
 
 export type PaymentComponentType =
-  'Component' | 'DropIn' | 'Express' | (string & {})
+  | 'Component'
+  | 'DropIn'
+  | 'Express'
+  | (string & {})
 export interface PaymentIntegration {
   /**
    *	Unique identifier of the PaymentIntegration.

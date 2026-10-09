@@ -312,7 +312,10 @@ export enum AgentResponsesOutputTypeValues {
 }
 
 export type AgentResponsesOutputType =
-  'Cart' | 'QuoteRequest' | 'ShoppingList' | (string & {})
+  | 'Cart'
+  | 'QuoteRequest'
+  | 'ShoppingList'
+  | (string & {})
 /**
  *	Structured fields for the `payload` part of a `multipart/form-data` [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request to the Intake Agent. `prompt` is optional when files are attached.
  *

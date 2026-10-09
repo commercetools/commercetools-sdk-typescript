@@ -184,7 +184,11 @@ export enum AttributeConstraintEnumValues {
 }
 
 export type AttributeConstraintEnum =
-  'CombinationUnique' | 'None' | 'SameForAll' | 'Unique' | (string & {})
+  | 'CombinationUnique'
+  | 'None'
+  | 'SameForAll'
+  | 'Unique'
+  | (string & {})
 export enum TextInputHintValues {
   MultiLine = 'MultiLine',
   SingleLine = 'SingleLine',

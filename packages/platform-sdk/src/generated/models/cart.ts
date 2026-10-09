@@ -638,7 +638,9 @@ export enum CartMergeModeValues {
 }
 
 export type CartMergeMode =
-  'MergeWithExistingCustomerCart' | 'UseAsNewActiveCustomerCart' | (string & {})
+  | 'MergeWithExistingCustomerCart'
+  | 'UseAsNewActiveCustomerCart'
+  | (string & {})
 /**
  *	Indicates who created the Cart.
  *
@@ -651,7 +653,11 @@ export enum CartOriginValues {
 }
 
 export type CartOrigin =
-  'Customer' | 'Merchant' | 'Quote' | 'RecurringOrder' | (string & {})
+  | 'Customer'
+  | 'Merchant'
+  | 'Quote'
+  | 'RecurringOrder'
+  | (string & {})
 /**
  *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with results containing an array of [Cart](ctp:api:type:Cart).
  *
@@ -742,7 +748,11 @@ export enum CartStateValues {
 }
 
 export type CartState =
-  'Active' | 'Frozen' | 'Merged' | 'Ordered' | (string & {})
+  | 'Active'
+  | 'Frozen'
+  | 'Merged'
+  | 'Ordered'
+  | (string & {})
 export interface CartUpdate {
   /**
    *	Expected version of the Cart on which the changes apply.
@@ -1497,7 +1507,11 @@ export enum InventoryModeValues {
 }
 
 export type InventoryMode =
-  'None' | 'ReserveOnCart' | 'ReserveOnOrder' | 'TrackOnly' | (string & {})
+  | 'None'
+  | 'ReserveOnCart'
+  | 'ReserveOnOrder'
+  | 'TrackOnly'
+  | (string & {})
 export interface ItemShippingDetails {
   /**
    *	Holds information on the quantity of Line Items or Custom Line Items and the address it is shipped.
@@ -1886,7 +1900,10 @@ export enum LineItemPriceModeValues {
 }
 
 export type LineItemPriceMode =
-  'ExternalPrice' | 'ExternalTotal' | 'Platform' | (string & {})
+  | 'ExternalPrice'
+  | 'ExternalTotal'
+  | 'Platform'
+  | (string & {})
 /**
  *	Used for merging an anonymous Cart with a Customer Cart with the [Merge Cart](ctp:api:endpoint:/{projectKey}/carts/customer-id={customerId}/merge:POST) and [Merge Cart in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/carts/customer-id={customerId}/merge:POST) endpoints. Either `anonymousCart` or `anonymousId` is required.
  *
@@ -2160,7 +2177,9 @@ export enum ShippingMethodStateValues {
 }
 
 export type ShippingMethodState =
-  'DoesNotMatchCart' | 'MatchesCart' | (string & {})
+  | 'DoesNotMatchCart'
+  | 'MatchesCart'
+  | (string & {})
 export enum ShippingModeValues {
   Multiple = 'Multiple',
   Single = 'Single',
@@ -2168,7 +2187,8 @@ export enum ShippingModeValues {
 
 export type ShippingMode = 'Multiple' | 'Single' | (string & {})
 export type ShippingRateInput =
-  ClassificationShippingRateInput | ScoreShippingRateInput
+  | ClassificationShippingRateInput
+  | ScoreShippingRateInput
 export interface IShippingRateInput {
   /**
    *
@@ -2203,7 +2223,8 @@ export interface ScoreShippingRateInput extends IShippingRateInput {
  *	Generic type holding specific ShippingRateInputDraft types.
  */
 export type ShippingRateInputDraft =
-  ClassificationShippingRateInputDraft | ScoreShippingRateInputDraft
+  | ClassificationShippingRateInputDraft
+  | ScoreShippingRateInputDraft
 export interface IShippingRateInputDraft {
   /**
    *
@@ -2245,7 +2266,9 @@ export enum TaxCalculationModeValues {
 }
 
 export type TaxCalculationMode =
-  'LineItemLevel' | 'UnitPriceLevel' | (string & {})
+  | 'LineItemLevel'
+  | 'UnitPriceLevel'
+  | (string & {})
 /**
  *	Indicates how taxes are set on the Cart.
  *
@@ -2258,7 +2281,11 @@ export enum TaxModeValues {
 }
 
 export type TaxMode =
-  'Disabled' | 'External' | 'ExternalAmount' | 'Platform' | (string & {})
+  | 'Disabled'
+  | 'External'
+  | 'ExternalAmount'
+  | 'Platform'
+  | (string & {})
 /**
  *	The tax portions are calculated from the [TaxRates](ctp:api:type:TaxRate).
  *	If a Tax Rate has [SubRates](ctp:api:type:SubRate), they are used and can be identified by name.

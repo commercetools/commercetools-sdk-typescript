@@ -12,6 +12,11 @@ interface IBuiltRequestParams {
 
 import { Buffer } from 'buffer/'
 
+// Escape characters that would break out of a form-encoded `scope` value.
+// Spaces (scope separator) and `:` are kept as-is.
+const encodeScope = (scope: string) =>
+  scope.replace(/[%&+=#]/g, (c) => encodeURIComponent(c))
+
 export function buildRequestForClientCredentialsFlow(
   options: AuthMiddlewareOptions
 ): IBuiltRequestParams {
@@ -27,7 +32,9 @@ export function buildRequestForClientCredentialsFlow(
   if (!(clientId && clientSecret))
     throw new Error('Missing required credentials (clientId, clientSecret)')
 
-  const scope = options.scopes ? options.scopes.join(' ') : undefined
+  const scope = options.scopes
+    ? options.scopes.map(encodeScope).join(' ')
+    : undefined
 
   const basicAuth = Buffer.from(`${clientId}:${clientSecret}`).toString(
     'base64'
@@ -64,7 +71,7 @@ export function buildRequestForPasswordFlow(
   if (!(username && password))
     throw new Error('Missing required user credentials (username, password)')
 
-  const scope = (options.scopes || []).join(' ')
+  const scope = (options.scopes || []).map(encodeScope).join(' ')
   const scopeStr = scope ? `&scope=${scope}` : ''
 
   const basicAuth = Buffer.from(`${clientId}:${clientSecret}`).toString(
@@ -74,7 +81,8 @@ export function buildRequestForPasswordFlow(
    * This is mostly useful for internal testing purposes to be able to check
    * other oauth endpoints.
    */
-  const oauthUri = options.oauthUri || `/oauth/${pKey}/customers/token`
+  const oauthUri =
+    options.oauthUri || `/oauth/${encodeURIComponent(pKey)}/customers/token`
   const url = options.host.replace(/\/$/, '') + oauthUri
   // encode username and password as requested by the system
   const body = `grant_type=password&username=${encodeURIComponent(
@@ -127,11 +135,14 @@ export function buildRequestForAnonymousSessionFlow(
   if (!options.projectKey)
     throw new Error('Missing required option (projectKey)')
   const pKey = options.projectKey
-  options.oauthUri = options.oauthUri || `/oauth/${pKey}/anonymous/token`
+  options.oauthUri =
+    options.oauthUri || `/oauth/${encodeURIComponent(pKey)}/anonymous/token`
   const result = buildRequestForClientCredentialsFlow(options)
 
   if (options.credentials.anonymousId)
-    result.body += `&anonymous_id=${options.credentials.anonymousId}`
+    result.body += `&anonymous_id=${encodeURIComponent(
+      options.credentials.anonymousId
+    )}`
 
   return { ...result }
 }

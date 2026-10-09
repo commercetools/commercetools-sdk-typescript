@@ -99,7 +99,9 @@ export enum McpServerAuthenticationModeValues {
 }
 
 export type McpServerAuthenticationMode =
-  'ClientCredentials' | 'CommercetoolsIdentity' | (string & {})
+  | 'ClientCredentials'
+  | 'CommercetoolsIdentity'
+  | (string & {})
 /**
  *	Connection configuration of an MCP Server. The `type` discriminator determines the concrete configuration shape and the set of tools available for this MCP Server. Only [CommerceMcpServerConfig](ctp:api:type:CommerceMcpServerConfig) is supported.
  *
