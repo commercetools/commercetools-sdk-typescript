@@ -116,18 +116,18 @@ export interface AutomatedReversalConfiguration {
   readonly predicate?: string
 }
 /**
- *	Reference to a connector deployment for the payment integration.
+ *	Reference to a ConnectorDeployment for the payment integration.
  *
  */
 export interface ConnectorDeploymentReference {
   /**
-   *	Unique identifier of the referenced Connect Deployment.
+   *	Unique identifier of the referenced ConnectorDeployment.
    *
    *
    */
   readonly id: string
   /**
-   *	Type identifier, always `deployment` for Connector deployment references.
+   *	Type identifier, always `deployment` for ConnectorDeployment references.
    *
    *
    */

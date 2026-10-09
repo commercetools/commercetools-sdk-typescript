@@ -62,7 +62,13 @@ export function buildRelativeUri(commonRequest: ClientRequest): string {
   var uri: string = commonRequest.uriTemplate as string
 
   for (const param in pathMap) {
-    const value = encodeURIComponent(`${pathMap[param]}`)
+    const raw = `${pathMap[param]}`
+    // encodeURIComponent leaves dots untouched, and URL parsers collapse
+    // `.` / `..` (also as `%2e`) segments, so these must be rejected.
+    if (raw === '.' || raw === '..') {
+      throw new Error(`Invalid value for path parameter "${param}"`)
+    }
+    const value = encodeURIComponent(raw)
     uri = uri.replace(`{${param}}`, `${value}`)
   }
 

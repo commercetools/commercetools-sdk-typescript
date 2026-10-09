@@ -15,6 +15,10 @@ import {
   PaymentIntegrationReference,
   PaymentIntegrationResourceIdentifier,
 } from './payment-integration'
+import {
+  RecurringOrderReference,
+  RecurringPaymentReference,
+} from './recurring-payment'
 
 /**
  *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ApplicationReference](ctp:checkout:type:ApplicationReference).
@@ -25,7 +29,10 @@ export type Reference =
   | CartReference
   | OrderReference
   | PaymentIntegrationReference
+  | PaymentMethodReference
   | PaymentReference
+  | RecurringOrderReference
+  | RecurringPaymentReference
 export interface IReference {
   /**
    *	Type of referenced resource.
@@ -35,6 +42,19 @@ export interface IReference {
   readonly typeId: ReferenceTypeId
   /**
    *	Unique ID of the referenced resource.
+   *
+   *
+   */
+  readonly id: string
+}
+/**
+ *	Reference to a [PaymentMethod](ctp:api:type:PaymentMethod).
+ *
+ */
+export interface PaymentMethodReference extends IReference {
+  readonly typeId: 'payment-method'
+  /**
+   *	Unique identifier of the referenced [PaymentMethod](ctp:api:type:PaymentMethod).
    *
    *
    */
@@ -51,6 +71,9 @@ export enum ReferenceTypeIdValues {
   Order = 'order',
   Payment = 'payment',
   PaymentIntegration = 'payment-integration',
+  PaymentMethod = 'payment-method',
+  RecurringOrder = 'recurring-order',
+  RecurringPayment = 'recurring-payment',
 }
 
 export type ReferenceTypeId =
@@ -60,6 +83,9 @@ export type ReferenceTypeId =
   | 'order'
   | 'payment'
   | 'payment-integration'
+  | 'payment-method'
+  | 'recurring-order'
+  | 'recurring-payment'
   | (string & {})
 /**
  *	Draft type to create a [Reference](ctp:checkout:type:Reference) to a resource. Provide either the `id` or (wherever supported) the `key` of the resource to reference, but depending on the API endpoint the response returns a Reference.

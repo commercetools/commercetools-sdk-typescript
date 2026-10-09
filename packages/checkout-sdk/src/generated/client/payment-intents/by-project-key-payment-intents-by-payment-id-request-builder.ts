@@ -23,10 +23,13 @@ export class ByProjectKeyPaymentIntentsByPaymentIdRequestBuilder {
     }
   ) {}
   /**
+   *	Requests to the payment [Connector](/checkout/connectors-and-applications#payment-connectors) time out after 30 seconds.
+   *
    *	Specific Error Codes:
    *	- [MultipleActionsNotAllowed](ctp:checkout:type:MultipleActionsNotAllowedError)
    *	- [RequiredField](ctp:checkout:type:RequiredFieldError)
    *	- [ResourceNotFound](ctp:checkout:type:ResourceNotFoundError)
+   *	- [ConnectorTimeout](ctp:checkout:type:ConnectorTimeoutError)
    *
    */
   public post(methodArgs: {
