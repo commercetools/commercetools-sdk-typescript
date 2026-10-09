@@ -352,12 +352,10 @@ type FieldFor<TResource, TField extends keyof TResource & string> =
  * what that field holds.
  */
 export type PredicateRoot<TResource> = {
-  readonly [
-    TField in Extract<
-      Exclude<keyof TResource, Hidden<TResource>>,
-      string
-    > as PredicateName<TField>
-  ]: FieldFor<TResource, TField>
+  readonly [TField in Extract<
+    Exclude<keyof TResource, Hidden<TResource>>,
+    string
+  > as PredicateName<TField>]: FieldFor<TResource, TField>
 }
 
 /** The resource a `where` predicate filters over: the element type of `results`. */

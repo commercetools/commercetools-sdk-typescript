@@ -822,7 +822,9 @@ export interface ImageDimensions {
  *
  */
 export type KeyReference =
-  AssociateRoleKeyReference | BusinessUnitKeyReference | StoreKeyReference
+  | AssociateRoleKeyReference
+  | BusinessUnitKeyReference
+  | StoreKeyReference
 export interface IKeyReference {
   /**
    *	Type of referenced resource.
@@ -933,7 +935,13 @@ export enum NonStandardCurrencyValues {
 }
 
 export type NonStandardCurrency =
-  'CZK0' | 'HUF0' | 'ILS0' | 'KZT0' | 'TRY0' | 'TWD0' | (string & {})
+  | 'CZK0'
+  | 'HUF0'
+  | 'ILS0'
+  | 'KZT0'
+  | 'TRY0'
+  | 'TWD0'
+  | (string & {})
 /**
  *	The representation for prices embedded in [LineItems](ctp:api:type:LineItem) and in [ProductVariants](ctp:api:type:ProductVariant) when the [ProductPriceMode](ctp:api:type:ProductPriceModeEnum) is `Embedded`.
  *	For the `Standalone` ProductPriceMode refer to [StandalonePrice](ctp:api:type:StandalonePrice).

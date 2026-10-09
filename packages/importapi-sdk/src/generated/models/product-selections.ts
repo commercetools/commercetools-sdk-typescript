@@ -17,7 +17,9 @@ export enum VariantSelectionTypeValues {
 }
 
 export type VariantSelectionType =
-  'includeAllExcept' | 'includeOnly' | (string & {})
+  | 'includeAllExcept'
+  | 'includeOnly'
+  | (string & {})
 /**
  *	Variant selection specifying how variants are included or excluded.
  *
@@ -80,7 +82,9 @@ export enum ProductSelectionModeValues {
 }
 
 export type ProductSelectionMode =
-  'Individual' | 'IndividualExclusion' | (string & {})
+  | 'Individual'
+  | 'IndividualExclusion'
+  | (string & {})
 /**
  *	Represents the data used to import a ProductSelection. Once imported, this data is persisted as a [ProductSelection](ctp:api:type:ProductSelection) in the Project.
  *

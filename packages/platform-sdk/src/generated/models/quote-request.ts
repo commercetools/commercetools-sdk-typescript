@@ -403,7 +403,12 @@ export enum QuoteRequestStateValues {
 }
 
 export type QuoteRequestState =
-  'Accepted' | 'Cancelled' | 'Closed' | 'Rejected' | 'Submitted' | (string & {})
+  | 'Accepted'
+  | 'Cancelled'
+  | 'Closed'
+  | 'Rejected'
+  | 'Submitted'
+  | (string & {})
 export interface QuoteRequestUpdate {
   /**
    *	Expected version of the [QuoteRequest](ctp:api:type:QuoteRequest) to which the changes should be applied.

@@ -101,7 +101,9 @@ export enum AssociateRoleInheritanceModeValues {
 }
 
 export type AssociateRoleInheritanceMode =
-  'Disabled' | 'Enabled' | (string & {})
+  | 'Disabled'
+  | 'Enabled'
+  | (string & {})
 /**
  *	Generic type to model the fields that all types of Business Units have in common.
  *
@@ -288,7 +290,9 @@ export enum BusinessUnitApprovalRuleModeValues {
 }
 
 export type BusinessUnitApprovalRuleMode =
-  'Explicit' | 'ExplicitAndFromParent' | (string & {})
+  | 'Explicit'
+  | 'ExplicitAndFromParent'
+  | (string & {})
 /**
  *	Determines whether a Business Unit can inherit Associates from a parent.
  *
@@ -299,7 +303,9 @@ export enum BusinessUnitAssociateModeValues {
 }
 
 export type BusinessUnitAssociateMode =
-  'Explicit' | 'ExplicitAndFromParent' | (string & {})
+  | 'Explicit'
+  | 'ExplicitAndFromParent'
+  | (string & {})
 /**
  *	Information about all roles and permissions of an Associate in a [BusinessUnit](ctp:api:type:BusinessUnit).
  *

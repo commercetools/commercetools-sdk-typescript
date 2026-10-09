@@ -241,7 +241,9 @@ export enum StateRoleEnumValues {
 }
 
 export type StateRoleEnum =
-  'Return' | 'ReviewIncludedInStatistics' | (string & {})
+  | 'Return'
+  | 'ReviewIncludedInStatistics'
+  | (string & {})
 /**
  *	Resource or object type the State can be assigned to.
  *

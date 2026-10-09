@@ -210,7 +210,8 @@ export interface VariantBulkUpdateResponse {
  *
  */
 export type VariantBulkUpdateResult =
-  VariantBulkUpdateFailResult | VariantBulkUpdateSuccessResult
+  | VariantBulkUpdateFailResult
+  | VariantBulkUpdateSuccessResult
 export interface IVariantBulkUpdateResult {
   /**
    *	Unique identifier of the Variant from the request. Present when the Variant was identified by `id`.
