@@ -23,12 +23,9 @@ describe('oauth token and project details', () => {
     const { access_token } = await tokenRes.json()
     expect(access_token).toBeDefined()
 
-    const projectRes = await fetch(
-      `${apiURL}/${projectKey}/orders/order-number=./../../carts`,
-      {
-        headers: { Authorization: `Bearer ${access_token}` },
-      }
-    )
+    const projectRes = await fetch(`${apiURL}/${projectKey}`, {
+      headers: { Authorization: `Bearer ${access_token}` },
+    })
     expect(projectRes.status).toBe(200)
     const project = await projectRes.json()
     expect(project.key).toEqual(projectKey)
