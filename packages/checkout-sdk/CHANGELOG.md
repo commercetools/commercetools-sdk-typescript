@@ -1,5 +1,106 @@
 # @commercetools/checkout-sdk
 
+## 2.1.0
+
+### Minor Changes
+
+- [#1479](https://github.com/commercetools/commercetools-sdk-typescript/pull/1479) [`fe2648f`](https://github.com/commercetools/commercetools-sdk-typescript/commit/fe2648f979773b7df53297263420c27a2ada9837) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Checkout changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `PaymentMethodReference`
+  - added type `ConnectorTimeoutError`
+  - added type `InternalConstraintViolatedError`
+  - added type `PaginatedRecurringPaymentJob`
+  - added type `RecurringPaymentJob`
+  - added type `RecurringPaymentJobDraft`
+  - added type `RecurringPaymentJobError`
+  - added type `RecurringPaymentJobState`
+  - added type `RecurringPaymentJobStatus`
+  - added type `PaginatedRecurringPayment`
+  - added type `PaymentMethodConfiguration`
+  - added type `RecurringOrderReference`
+  - added type `RecurringPayment`
+  - added type `RecurringPaymentDraft`
+  - added type `RecurringPaymentReference`
+  - added type `RecurringPaymentAddPaymentMethodConfigurationUpdateAction`
+  - added type `RecurringPaymentSetKeyUpdateAction`
+  - added type `RecurringPaymentSetPaymentMethodConfigurationUpdateAction`
+  - added type `RecurringPaymentSetRecurringOrderUpdateAction`
+  - added type `RecurringPaymentUpdateAction`
+  - added type `RecurringPaymentUpdateActions`
+  - added type `TransactionItemPaymentIntegration`
+  - added type `TransactionItemPaymentIntegrationDraft`
+  - added type `TransactionItemRecurring`
+  - added type `TransactionItemRecurringDraft`
+
+  </details>
+
+  <details>
+  <summary>Removed Property(s)</summary>
+  - :warning: removed property `paymentIntegration` from type `TransactionItem`
+  - :warning: removed property `paymentIntegration` from type `TransactionItemDraft`
+
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+  - added property `type` to type `TransactionItem`
+  - added property `type` to type `TransactionItemDraft`
+
+  </details>
+
+  <details>
+  <summary>Required Property(s)</summary>
+  - :warning: changed property `cart` of type `Transaction` to be required
+
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+  - added enum `payment-method` to type `ReferenceTypeId`
+  - added enum `recurring-payment` to type `ReferenceTypeId`
+  - added enum `recurring-order` to type `ReferenceTypeId`
+
+  </details>
+
+  <details>
+  <summary>Added Resource(s)</summary>
+  - added resource `/{projectKey}/recurring-payment-jobs`
+  - added resource `/{projectKey}/recurring-payments`
+  - added resource `/{projectKey}/recurring-payment-jobs/{id}`
+  - added resource `/{projectKey}/recurring-payment-jobs/key={key}`
+  - added resource `/{projectKey}/recurring-payments/{id}`
+  - added resource `/{projectKey}/recurring-payments/key={key}`
+
+  </details>
+
+  <details>
+  <summary>Added Method(s)</summary>
+  - added method `apiRoot.withProjectKey().recurringPaymentJobs().get()`
+  - added method `apiRoot.withProjectKey().recurringPaymentJobs().post()`
+  - added method `apiRoot.withProjectKey().recurringPayments().get()`
+  - added method `apiRoot.withProjectKey().recurringPayments().post()`
+  - added method `apiRoot.withProjectKey().recurringPaymentJobs().withId().get()`
+  - added method `apiRoot.withProjectKey().recurringPaymentJobs().withId().delete()`
+  - added method `apiRoot.withProjectKey().recurringPaymentJobs().withKey().get()`
+  - added method `apiRoot.withProjectKey().recurringPaymentJobs().withKey().delete()`
+  - added method `apiRoot.withProjectKey().recurringPayments().withId().get()`
+  - added method `apiRoot.withProjectKey().recurringPayments().withId().post()`
+  - added method `apiRoot.withProjectKey().recurringPayments().withId().delete()`
+  - added method `apiRoot.withProjectKey().recurringPayments().withKey().get()`
+  - added method `apiRoot.withProjectKey().recurringPayments().withKey().post()`
+  - added method `apiRoot.withProjectKey().recurringPayments().withKey().delete()`
+
+  </details>
+
+### Patch Changes
+
+- [#1480](https://github.com/commercetools/commercetools-sdk-typescript/pull/1480) [`4e52e6e`](https://github.com/commercetools/commercetools-sdk-typescript/commit/4e52e6e9266a9eeb57a7005aac04c7ec4d36cf5c) Thanks [@jenschude](https://github.com/jenschude)! - Harden request building against injection. Path parameters of `.` or `..` are now rejected (`encodeURIComponent` does not encode dots). The OAuth request builders now encode `anonymousId` and `projectKey`, and escape `% & + = #` in scopes.
+
+- Updated dependencies [[`4e52e6e`](https://github.com/commercetools/commercetools-sdk-typescript/commit/4e52e6e9266a9eeb57a7005aac04c7ec4d36cf5c)]:
+  - @commercetools/ts-client@5.1.1
+
 ## 2.0.1
 
 ### Patch Changes

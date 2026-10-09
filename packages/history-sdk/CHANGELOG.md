@@ -1,5 +1,28 @@
 # @commercetools/history-sdk
 
+## 6.3.0
+
+### Minor Changes
+
+- [#1479](https://github.com/commercetools/commercetools-sdk-typescript/pull/1479) [`fe2648f`](https://github.com/commercetools/commercetools-sdk-typescript/commit/fe2648f979773b7df53297263420c27a2ada9837) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **History changes**
+
+  <details>
+  <summary>Added QueryParameter(s)</summary>
+  - added query parameter `userIds` to method `get /{projectKey}`
+  - added query parameter `resourceIds` to method `get /{projectKey}`
+  - added query parameter `userIds` to method `get /{projectKey}/{resourceType}`
+  - added query parameter `resourceIds` to method `get /{projectKey}/{resourceType}`
+  - added query parameter `userIds` to method `get /{projectKey}/{resourceType}/{ID}`
+
+  </details>
+
+### Patch Changes
+
+- [#1480](https://github.com/commercetools/commercetools-sdk-typescript/pull/1480) [`4e52e6e`](https://github.com/commercetools/commercetools-sdk-typescript/commit/4e52e6e9266a9eeb57a7005aac04c7ec4d36cf5c) Thanks [@jenschude](https://github.com/jenschude)! - Harden request building against injection. Path parameters of `.` or `..` are now rejected (`encodeURIComponent` does not encode dots). The OAuth request builders now encode `anonymousId` and `projectKey`, and escape `% & + = #` in scopes.
+
+- Updated dependencies [[`4e52e6e`](https://github.com/commercetools/commercetools-sdk-typescript/commit/4e52e6e9266a9eeb57a7005aac04c7ec4d36cf5c)]:
+  - @commercetools/ts-client@5.1.1
+
 ## 6.2.0
 
 ### Minor Changes
