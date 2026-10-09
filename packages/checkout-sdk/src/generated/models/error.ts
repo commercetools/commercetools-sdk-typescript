@@ -10,8 +10,10 @@
 export type ErrorObject =
   | ConcurrentModificationError
   | ConnectorFailedError
+  | ConnectorTimeoutError
   | DuplicateFieldWithConflictingResourceError
   | GeneralError
+  | InternalConstraintViolatedError
   | InvalidFieldError
   | InvalidInputError
   | InvalidJsonInputError
@@ -85,6 +87,19 @@ export interface ConnectorFailedError extends IErrorObject {
   readonly message: string
 }
 /**
+ *	Returned when the payment [Connector](/checkout/connectors-and-applications#payment-connectors) does not respond within the configured timeout of 30 seconds. The Connector may still be processing the request.
+ *
+ */
+export interface ConnectorTimeoutError extends IErrorObject {
+  readonly code: 'ConnectorTimeout'
+  /**
+   *	`"The connector did not respond within the configured timeout."`
+   *
+   *
+   */
+  readonly message: string
+}
+/**
  *	Returned when a field value conflicts with an existing value stored in a particular resource causing a duplicate.
  *
  */
@@ -133,6 +148,19 @@ export interface GeneralError extends IErrorObject {
   readonly code: 'General'
   /**
    *	Description about any known details of the problem, for example, `"Write operations are temporarily unavailable"`.
+   *
+   *
+   */
+  readonly message: string
+}
+/**
+ *	Returned when the referenced resources violate a constraint required for the operation, for example, when a Cart and a PaymentMethod are expected to belong to the same customer but do not.
+ *
+ */
+export interface InternalConstraintViolatedError extends IErrorObject {
+  readonly code: 'InternalConstraintViolated'
+  /**
+   *	Description of the error.
    *
    *
    */

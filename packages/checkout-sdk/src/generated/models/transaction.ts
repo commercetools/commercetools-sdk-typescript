@@ -9,9 +9,10 @@ import {
   ApplicationResourceIdentifier,
 } from './application'
 import { CartReference, CartResourceIdentifier, OrderReference } from './cart'
-import { Amount } from './common'
+import { Amount, PaymentMethodReference } from './common'
 import { PaymentReference } from './payment'
 import {
+  ConnectorDeploymentReference,
   PaymentIntegrationReference,
   PaymentIntegrationResourceIdentifier,
 } from './payment-integration'
@@ -51,7 +52,7 @@ export interface Transaction {
    *	Reference to the [Cart](ctp:api:type:Cart) for which the payment must be executed.
    *
    */
-  readonly cart?: CartReference
+  readonly cart: CartReference
   /**
    *	Status of the Transaction.
    *
@@ -116,12 +117,94 @@ export interface TransactionError {
   readonly message: string
 }
 /**
- *	Payment information related to the [Transaction](/transactions-api#transaction).
+ *	Payment information related to the [Transaction](ctp:checkout:type:Transaction). If `type` is not present, this is a [TransactionItemPaymentIntegration](ctp:checkout:type:TransactionItemPaymentIntegration). Each supported payment flow has its own corresponding Transaction Item type, like [TransactionItemRecurring](ctp:checkout:type:TransactionItemRecurring).
  *
  */
-export interface TransactionItem {
+export type TransactionItem =
+  TransactionItemPaymentIntegration | TransactionItemRecurring
+export interface ITransactionItem {
+  /**
+   *	Type of the Transaction Item, matching the `type` of the [TransactionItemDraft](ctp:checkout:type:TransactionItemDraft) it was created from. Not present for Transaction Items created without an explicit `type`.
+   *
+   *
+   */
+  readonly type?: string
   /**
    *	Money value of the Transaction Item.
+   *
+   *
+   */
+  readonly amount?: Amount
+  /**
+   *	Reference to the [Payment](ctp:api:type:Payment) associated with the Transaction Item.
+   *
+   */
+  readonly payment?: PaymentReference
+}
+/**
+ *	Base type for creating a Transaction Item. If `type` is omitted, a [TransactionItemPaymentIntegrationDraft](ctp:checkout:type:TransactionItemPaymentIntegrationDraft) is created to process the payment through a Payment Integration. Each supported payment flow has its own corresponding Transaction Item Draft type, like [TransactionItemRecurringDraft](ctp:checkout:type:TransactionItemRecurringDraft).
+ *
+ */
+export type TransactionItemDraft =
+  TransactionItemPaymentIntegrationDraft | TransactionItemRecurringDraft
+export interface ITransactionItemDraft {
+  /**
+   *	Type of the Transaction Item to create.
+   *
+   *
+   */
+  readonly type?: string
+  /**
+   *	Money value of the Transaction Item. If not present, the Connector resolves the amount from the [Cart](ctp:api:type:Cart).
+   *
+   *
+   */
+  readonly amount?: Amount
+}
+/**
+ *	A Transaction Item processed through a [Payment Integration](/checkout/connectors-and-applications#payment-integrations). This is the default Transaction Item type used when `type` is not present.
+ *
+ */
+export interface TransactionItemPaymentIntegration extends ITransactionItem {
+  /**
+   *	Not present for TransactionItemPaymentIntegration.
+   *
+   *
+   */
+  readonly type?: string
+  /**
+   *	Reference to the [Payment Integration](ctp:checkout:type:PaymentIntegration) used to execute the payment.
+   *
+   *
+   */
+  readonly paymentIntegration: PaymentIntegrationReference
+}
+/**
+ *	Creates a Transaction Item that is processed through a [Payment Integration](/checkout/connectors-and-applications#payment-integrations). This is the default Transaction Item type used when `type` is omitted.
+ *
+ */
+export interface TransactionItemPaymentIntegrationDraft extends ITransactionItemDraft {
+  /**
+   *	Must not be set for TransactionItemPaymentIntegrationDraft.
+   *
+   *
+   */
+  readonly type?: string
+  /**
+   *	Resource Identifier of the [Payment Integration](/checkout/connectors-and-applications#payment-integrations) to use to execute the payment.
+   *
+   */
+  readonly paymentIntegration: PaymentIntegrationResourceIdentifier
+}
+/**
+ *	A Transaction Item processing a recurring payment for a [PaymentMethod](ctp:api:type:PaymentMethod).
+ *
+ */
+export interface TransactionItemRecurring extends ITransactionItem {
+  readonly type: 'Recurring'
+  /**
+   *	Money value of the Transaction Item.
+   *
    *
    */
   readonly amount?: Amount
@@ -131,22 +214,41 @@ export interface TransactionItem {
    */
   readonly payment?: PaymentReference
   /**
-   *	Reference to the [Payment Integration](ctp:checkout:type:PaymentIntegration) to use to execute the payment.
+   *	Reference to the [PaymentMethod](ctp:api:type:PaymentMethod) charged for the Transaction Item.
+   *
    *
    */
-  readonly paymentIntegration: PaymentIntegrationReference
+  readonly paymentMethod: PaymentMethodReference
+  /**
+   *	Reference to the connector deployment used to execute the payment.
+   *
+   *
+   */
+  readonly connectorDeployment: ConnectorDeploymentReference
 }
-export interface TransactionItemDraft {
+/**
+ *	Creates a Transaction Item to process a recurring payment for a [PaymentMethod](ctp:api:type:PaymentMethod) using a specific connector deployment. The [Cart](ctp:api:type:Cart) referenced by the Transaction must have the same `customerId` as the referenced PaymentMethod.
+ *
+ */
+export interface TransactionItemRecurringDraft extends ITransactionItemDraft {
+  readonly type: 'Recurring'
   /**
-   *	Resource Identifier of the [Payment Integration](/connectors-and-applications#payment-integrations) to use to execute the payment.
+   *	Money value of the Transaction Item. If not present, the Connector resolves the amount from the [Cart](ctp:api:type:Cart).
    *
-   */
-  readonly paymentIntegration: PaymentIntegrationResourceIdentifier
-  /**
-   *	Money value of the Transaction Item.
    *
    */
   readonly amount?: Amount
+  /**
+   *	Reference to the [PaymentMethod](ctp:api:type:PaymentMethod) to charge. The PaymentMethod must belong to the same customer as the Cart referenced by the Transaction.
+   *
+   *
+   */
+  readonly paymentMethod: PaymentMethodReference
+  /**
+   *	Reference to the connector deployment to use to execute the payment.
+   *
+   */
+  readonly connectorDeployment: ConnectorDeploymentReference
 }
 /**
  *	The state of the [Transaction](/transactions-api#transaction).

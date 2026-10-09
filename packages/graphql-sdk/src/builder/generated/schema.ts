@@ -2998,6 +2998,7 @@ export interface InStore {
     shoppingLists: ShoppingListQueryResult
     stagedQuote: (StagedQuote | null)
     stagedQuotes: StagedQuoteQueryResult
+    variant: (Variant | null)
     /** Query a single variant projection by id, key, or sku and other args */
     variantProjection: (VariantProjection | null)
     /** Query variant projections with filtering and pagination */
@@ -11882,7 +11883,7 @@ export interface CustomLineItemGenqlSelection{
     __scalar?: boolean | number
 }
 
-export interface CustomLineItemDraft {custom?: (CustomFieldsDraft | null),externalTaxRate?: (ExternalTaxRateDraft | null),key?: (Scalars['String'] | null),money: BaseMoneyInput,name: LocalizedStringItemInputType[],priceMode?: (CustomLineItemPriceMode | null),quantity?: (Scalars['Long'] | null),recurrenceInfo?: (CustomLineItemRecurrenceInfoInputDraft | null),shippingDetails?: (ItemShippingDetailsDraft | null),slug: Scalars['String'],taxCategory?: (ReferenceInput | null)}
+export interface CustomLineItemDraft {custom?: (CustomFieldsDraft | null),externalTaxRate?: (ExternalTaxRateDraft | null),key?: (Scalars['String'] | null),money: BaseMoneyInput,name: LocalizedStringItemInputType[],priceMode?: (CustomLineItemPriceMode | null),quantity?: (Scalars['Long'] | null),recurrenceInfo?: (CustomLineItemRecurrenceInfoInputDraft | null),shippingDetails?: (ItemShippingDetailsDraft | null),slug: Scalars['String'],taxCategory?: (ResourceIdentifierInput | null)}
 
 export interface CustomLineItemDraftOutputGenqlSelection{
     custom?: CustomFieldsCommandGenqlSelection
@@ -13691,6 +13692,15 @@ export interface InStoreGenqlSelection{
     /** Queries with specified key */
     key?: (Scalars['String'] | null)} })
     stagedQuotes?: (StagedQuoteQueryResultGenqlSelection & { __args?: {limit?: (Scalars['Int'] | null), offset?: (Scalars['Int'] | null), sort?: (Scalars['String'][] | null), where?: (Scalars['String'] | null)} })
+    variant?: (VariantGenqlSelection & { __args?: {
+    /** Queries with specified ID */
+    id?: (Scalars['String'] | null), 
+    /** Queries with specified key */
+    key?: (Scalars['String'] | null), 
+    /** Queries for a current variant with specified SKU */
+    sku?: (Scalars['String'] | null), 
+    /** Queries for a staged variant with specified SKU */
+    stagedSku?: (Scalars['String'] | null)} })
     /** Query a single variant projection by id, key, or sku and other args */
     variantProjection?: (VariantProjectionGenqlSelection & { __args?: {
     /** Queries with specified ID */

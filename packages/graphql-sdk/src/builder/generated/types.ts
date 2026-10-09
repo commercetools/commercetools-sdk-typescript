@@ -8753,7 +8753,7 @@ export default {
                 2154
             ],
             "taxCategory": [
-                1266
+                1359
             ],
             "__typename": [
                 2154
@@ -13369,6 +13369,23 @@ export default {
                         "[String!]"
                     ],
                     "where": [
+                        2154
+                    ]
+                }
+            ],
+            "variant": [
+                2256,
+                {
+                    "id": [
+                        2154
+                    ],
+                    "key": [
+                        2154
+                    ],
+                    "sku": [
+                        2154
+                    ],
+                    "stagedSku": [
                         2154
                     ]
                 }
