@@ -1,5 +1,11 @@
 # @commercetools/ts-client
 
+## 5.1.1
+
+### Patch Changes
+
+- [#1480](https://github.com/commercetools/commercetools-sdk-typescript/pull/1480) [`4e52e6e`](https://github.com/commercetools/commercetools-sdk-typescript/commit/4e52e6e9266a9eeb57a7005aac04c7ec4d36cf5c) Thanks [@jenschude](https://github.com/jenschude)! - Harden request building against injection. Path parameters of `.` or `..` are now rejected (`encodeURIComponent` does not encode dots). The OAuth request builders now encode `anonymousId` and `projectKey`, and escape `% & + = #` in scopes.
+
 ## 5.1.0
 
 ### Minor Changes

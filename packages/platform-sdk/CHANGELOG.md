@@ -1,5 +1,290 @@
 # @commercetools/platform-sdk
 
+## 9.7.0
+
+### Minor Changes
+
+- [#1479](https://github.com/commercetools/commercetools-sdk-typescript/pull/1479) [`fe2648f`](https://github.com/commercetools/commercetools-sdk-typescript/commit/fe2648f979773b7df53297263420c27a2ada9837) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>MarkDeprecated Type(s)</summary>
+  - marked type `FacetRange` as deprecated
+  - marked type `FacetResult` as deprecated
+  - marked type `FacetResults` as deprecated
+  - marked type `FacetTerm` as deprecated
+  - marked type `FacetTypes` as deprecated
+  - marked type `FilteredFacetResult` as deprecated
+  - marked type `ProductProjectionPagedSearchResponse` as deprecated
+  - marked type `RangeFacetResult` as deprecated
+  - marked type `Suggestion` as deprecated
+  - marked type `SuggestionResult` as deprecated
+  - marked type `TermFacetResult` as deprecated
+  - marked type `TermFacetResultType` as deprecated
+
+  </details>
+
+  <details>
+  <summary>Removed Type(s)</summary>
+  - :warning: removed type `Expansion`
+  - :warning: removed type `QueryPredicate`
+  - :warning: removed type `Sort`
+  - :warning: removed type `CircularDependencyError`
+  - :warning: removed type `MissingDependencyError`
+  - :warning: removed type `GraphQLCircularDependencyError`
+  - :warning: removed type `GraphQLMissingDependencyError`
+
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `AgentBusinessUnitAmbiguousError`
+  - added type `AgentBusinessUnitLimitExceededError`
+  - added type `AgentBusinessUnitUnresolvedError`
+  - added type `AgentExtractionFailedError`
+  - added type `AgentFeatureDisabledError`
+  - added type `AgentFileNotProcessedWarning`
+  - added type `AgentMissingCountryError`
+  - added type `AgentMissingCustomerEmailError`
+  - added type `AgentMissingEntityTypeError`
+  - added type `AgentMissingShoppingListNameError`
+  - added type `AgentNoLineItemsExtractedError`
+  - added type `AgentOutOfScopeError`
+  - added type `AgentProductSearchNotEnabledError`
+  - added type `AgentProductsNotFoundError`
+  - added type `AgentProductsNotFoundWarning`
+  - added type `AgentQuoteRequestCreationFailedError`
+  - added type `AgentResponsesAuthError`
+  - added type `AgentResponsesCartSuccess`
+  - added type `AgentResponsesErrorResponse`
+  - added type `AgentResponsesMultipartRequest`
+  - added type `AgentResponsesOutputType`
+  - added type `AgentResponsesPayload`
+  - added type `AgentResponsesQuoteRequestSuccess`
+  - added type `AgentResponsesRequest`
+  - added type `AgentResponsesShoppingListSuccess`
+  - added type `AgentResponsesSuccess`
+  - added type `AgentShoppingListCreationFailedError`
+  - added type `AgentStoreAmbiguousError`
+  - added type `AgentStoreDistributionChannelsUnsupportedError`
+  - added type `AgentStoreUnresolvedError`
+  - added type `GraphQLAgentBusinessUnitAmbiguousError`
+  - added type `GraphQLAgentBusinessUnitLimitExceededError`
+  - added type `GraphQLAgentBusinessUnitUnresolvedError`
+  - added type `GraphQLAgentExtractionFailedError`
+  - added type `GraphQLAgentFeatureDisabledError`
+  - added type `GraphQLAgentMissingCountryError`
+  - added type `GraphQLAgentMissingCustomerEmailError`
+  - added type `GraphQLAgentMissingEntityTypeError`
+  - added type `GraphQLAgentMissingShoppingListNameError`
+  - added type `GraphQLAgentNoLineItemsExtractedError`
+  - added type `GraphQLAgentOutOfScopeError`
+  - added type `GraphQLAgentProductSearchNotEnabledError`
+  - added type `GraphQLAgentProductsNotFoundError`
+  - added type `GraphQLAgentQuoteRequestCreationFailedError`
+  - added type `GraphQLAgentShoppingListCreationFailedError`
+  - added type `GraphQLAgentStoreAmbiguousError`
+  - added type `GraphQLAgentStoreDistributionChannelsUnsupportedError`
+  - added type `GraphQLAgentStoreUnresolvedError`
+  - added type `AbsoluteAllocation`
+  - added type `AbsoluteAllocationDraft`
+  - added type `Allocation`
+  - added type `AllocationDraft`
+  - added type `EstimatedDelivery`
+  - added type `PaymentAllocationDraft`
+  - added type `PaymentStrategy`
+  - added type `RecurringPaymentAllocation`
+  - added type `RecurringPaymentConfiguration`
+  - added type `RecurringPaymentConfigurationDraft`
+  - added type `RelativeAllocation`
+  - added type `RelativeAllocationDraft`
+  - added type `CartAddRecurringPaymentAllocationAction`
+  - added type `CartRemoveRecurringPaymentAllocationAction`
+  - added type `CartSetDirectDiscountsIgnoreCartDiscountsAction`
+  - added type `CartSetEstimatedDeliveryAction`
+  - added type `CartSetRecurringPaymentConfigurationAction`
+  - added type `CartSetRecurringPaymentStrategyAction`
+  - added type `CategoryAddStoreAction`
+  - added type `CategoryRemoveStoreAction`
+  - added type `CategorySetStoresAction`
+  - added type `ExtensionCircularDependencyError`
+  - added type `GraphQLExtensionCircularDependencyError`
+  - added type `CartEstimatedDeliverySetMessage`
+  - added type `OrderEstimatedDeliverySetMessage`
+  - added type `StoreCheckoutUrlTemplateSetMessage`
+  - added type `StoreContactUrlSetMessage`
+  - added type `StoreCookiePolicyUrlSetMessage`
+  - added type `StoreFaqUrlSetMessage`
+  - added type `StoreImprintUrlSetMessage`
+  - added type `StoreOrderUrlTemplateSetMessage`
+  - added type `StorePrivacyPolicyUrlSetMessage`
+  - added type `StoreRefundPolicyUrlSetMessage`
+  - added type `StoreShippingPolicyUrlSetMessage`
+  - added type `StoreTermsOfServiceUrlSetMessage`
+  - added type `CartEstimatedDeliverySetMessagePayload`
+  - added type `OrderEstimatedDeliverySetMessagePayload`
+  - added type `StoreCheckoutUrlTemplateSetMessagePayload`
+  - added type `StoreContactUrlSetMessagePayload`
+  - added type `StoreCookiePolicyUrlSetMessagePayload`
+  - added type `StoreFaqUrlSetMessagePayload`
+  - added type `StoreImprintUrlSetMessagePayload`
+  - added type `StoreOrderUrlTemplateSetMessagePayload`
+  - added type `StorePrivacyPolicyUrlSetMessagePayload`
+  - added type `StoreRefundPolicyUrlSetMessagePayload`
+  - added type `StoreShippingPolicyUrlSetMessagePayload`
+  - added type `StoreTermsOfServiceUrlSetMessagePayload`
+  - added type `StagedOrderSetDirectDiscountsIgnoreCartDiscountsAction`
+  - added type `OrderSetEstimatedDeliveryAction`
+  - added type `ProductTypeSetSavedToLineItemAction`
+  - added type `ShippingMethodSetCarrierAction`
+  - added type `Storefront`
+  - added type `StoreSetCheckoutUrlTemplateAction`
+  - added type `StoreSetContactUrlAction`
+  - added type `StoreSetCookiePolicyUrlAction`
+  - added type `StoreSetFaqUrlAction`
+  - added type `StoreSetImprintUrlAction`
+  - added type `StoreSetOrderUrlTemplateAction`
+  - added type `StoreSetPrivacyPolicyUrlAction`
+  - added type `StoreSetRefundPolicyUrlAction`
+  - added type `StoreSetShippingPolicyUrlAction`
+  - added type `StoreSetTermsOfServiceUrlAction`
+  - added type `TaxRoundingTarget`
+  - added type `TypeRemoveEnumValuesAction`
+  - added type `TypeRemoveLocalizedEnumValuesAction`
+
+  </details>
+
+  <details>
+  <summary>Removed Property(s)</summary>
+  - :warning: removed property `productId` from type `VariantCreatedMessage`
+  - :warning: removed property `productId` from type `VariantCreatedMessagePayload`
+
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+  - added property `directDiscountsIgnoreCartDiscounts` to type `Cart`
+  - added property `recurringPaymentConfiguration` to type `Cart`
+  - added property `directDiscountsIgnoreCartDiscounts` to type `CartDraft`
+  - added property `participateInBestDealSelection` to type `DirectDiscount`
+  - added property `participateInBestDealSelection` to type `DirectDiscountDraft`
+  - added property `taxRoundingTarget` to type `ExternalTaxRateDraft`
+  - added property `estimatedDelivery` to type `ShippingInfo`
+  - added property `estimatedDelivery` to type `CartAddShippingMethodAction`
+  - added property `estimatedDelivery` to type `CartSetCustomShippingMethodAction`
+  - added property `estimatedDelivery` to type `CartSetShippingMethodAction`
+  - added property `stores` to type `Category`
+  - added property `stores` to type `CategoryDraft`
+  - added property `product` to type `VariantCreatedMessage`
+  - added property `product` to type `VariantDeletedMessage`
+  - added property `product` to type `VariantImageAddedMessage`
+  - added property `product` to type `VariantImagesSetMessage`
+  - added property `product` to type `VariantKeySetMessage`
+  - added property `product` to type `VariantPublishedMessage`
+  - added property `product` to type `VariantSkuSetMessage`
+  - added property `product` to type `VariantStagedChangesRemovedMessage`
+  - added property `product` to type `VariantCreatedMessagePayload`
+  - added property `product` to type `VariantDeletedMessagePayload`
+  - added property `product` to type `VariantImageAddedMessagePayload`
+  - added property `product` to type `VariantImagesSetMessagePayload`
+  - added property `product` to type `VariantKeySetMessagePayload`
+  - added property `product` to type `VariantPublishedMessagePayload`
+  - added property `product` to type `VariantSkuSetMessagePayload`
+  - added property `product` to type `VariantStagedChangesRemovedMessagePayload`
+  - added property `directDiscountsIgnoreCartDiscounts` to type `StagedOrder`
+  - added property `taxedPrice` to type `CustomLineItemImportDraft`
+  - added property `taxedPrice` to type `LineItemImportDraft`
+  - added property `directDiscountsIgnoreCartDiscounts` to type `Order`
+  - added property `taxedPrice` to type `ShippingInfoImportDraft`
+  - added property `savedToLineItem` to type `AttributeDefinition`
+  - added property `savedToLineItem` to type `AttributeDefinitionDraft`
+  - added property `directDiscountsIgnoreCartDiscounts` to type `QuoteRequest`
+  - added property `directDiscountsIgnoreCartDiscounts` to type `Quote`
+  - added property `carrier` to type `ShippingMethod`
+  - added property `carrier` to type `ShippingMethodDraft`
+  - added property `storefront` to type `Store`
+  - added property `storefront` to type `StoreDraft`
+  - added property `taxRoundingTarget` to type `TaxRate`
+  - added property `taxRoundingTarget` to type `TaxRateDraft`
+  - added property `restockableInDays` to type `VariantAttributesAvailability`
+  - added property `restockableInDays` to type `VariantAttributesChannelAvailability`
+
+  </details>
+
+  <details>
+  <summary>Changed Property(s)</summary>
+  - :warning: changed property `expand` of type `ProductSearchProjectionParams` from type `Expansion[]` to `string[]`
+
+  </details>
+
+  <details>
+  <summary>MarkDeprecated Property(s)</summary>
+  - marked property `FacetResult::type` as deprecated
+  - marked property `FacetResults::/^[a-z].*$/` as deprecated
+  - marked property `FilteredFacetResult::type` as deprecated
+  - marked property `ProductProjectionPagedSearchResponse::facets` as deprecated
+  - marked property `RangeFacetResult::type` as deprecated
+  - marked property `TermFacetResult::type` as deprecated
+  - marked property `TermFacetResult::dataType` as deprecated
+
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+  - added enum `IntakeAgent` to type `AttributionSource`
+  - added enum `PromotionsAgent` to type `AttributionSource`
+  - added enum `ManagedCommerceMCP` to type `AttributionSource`
+  - added enum `mcp-server` to type `ReferenceTypeId`
+  - added enum `product` to type `ExtensionResourceTypeId`
+  - added enum `InMigration` to type `ProductCatalogModel`
+  - added enum `variant` to type `ChangeSubscriptionResourceTypeId`
+  - added enum `variant` to type `MessageSubscriptionResourceTypeId`
+
+  </details>
+
+  <details>
+  <summary>Added Resource(s)</summary>
+  - added resource `/{projectKey}/agents`
+  - added resource `/{projectKey}/agents/intake`
+  - added resource `/{projectKey}/agents/intake/v1`
+  - added resource `/{projectKey}/agents/intake/v1/responses`
+  - added resource `/{projectKey}/in-store/key={storeKey}/categories`
+  - added resource `/{projectKey}/in-store/key={storeKey}/categories/key={key}`
+  - added resource `/{projectKey}/in-store/key={storeKey}/categories/{ID}`
+
+  </details>
+
+  <details>
+  <summary>Added Method(s)</summary>
+  - added method `apiRoot.withProjectKey().agents().intake().v1().responses().post()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().categories().get()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().categories().head()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().categories().post()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().categories().withKey().get()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().categories().withKey().head()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().categories().withKey().post()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().categories().withKey().delete()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().categories().withId().get()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().categories().withId().head()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().categories().withId().post()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().categories().withId().delete()`
+
+  </details>
+
+  <details>
+  <summary>MarkDeprecated Method(s)</summary>
+  - marked method `post /{projectKey}/product-projections/search` as deprecated
+  - marked method `get /{projectKey}/product-projections/search` as deprecated
+  - marked method `get /{projectKey}/product-projections/suggest` as deprecated
+
+  </details>
+
+### Patch Changes
+
+- [#1480](https://github.com/commercetools/commercetools-sdk-typescript/pull/1480) [`4e52e6e`](https://github.com/commercetools/commercetools-sdk-typescript/commit/4e52e6e9266a9eeb57a7005aac04c7ec4d36cf5c) Thanks [@jenschude](https://github.com/jenschude)! - Harden request building against injection. Path parameters of `.` or `..` are now rejected (`encodeURIComponent` does not encode dots). The OAuth request builders now encode `anonymousId` and `projectKey`, and escape `% & + = #` in scopes.
+
+- Updated dependencies [[`4e52e6e`](https://github.com/commercetools/commercetools-sdk-typescript/commit/4e52e6e9266a9eeb57a7005aac04c7ec4d36cf5c)]:
+  - @commercetools/ts-client@5.1.1
+
 ## 9.6.0
 
 ### Minor Changes
