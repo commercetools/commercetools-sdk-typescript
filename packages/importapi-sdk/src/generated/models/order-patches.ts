@@ -18,11 +18,7 @@ export enum ReturnShipmentStateValues {
 }
 
 export type ReturnShipmentState =
-  | 'Advised'
-  | 'BackInStock'
-  | 'Returned'
-  | 'Unusable'
-  | (string & {})
+  'Advised' | 'BackInStock' | 'Returned' | 'Unusable' | (string & {})
 export interface ReturnItemDraft {
   /**
    *	Quantity of Line Items or Custom Line Items to return.
