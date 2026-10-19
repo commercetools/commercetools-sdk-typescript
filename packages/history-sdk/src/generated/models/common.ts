@@ -968,7 +968,7 @@ export interface LineItem {
    */
   readonly supplyChannel?: ChannelReference
   /**
-   *	Used to [select](/api/pricing-and-discounts-overview#line-item-price-selection) a Product Price. The referenced Channel has the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
+   *	Used to [select](/api/pricing-and-discounts-apis-overview#line-item-price-selection) a Product Price. The referenced Channel has the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
    *
    *
    */
@@ -1332,7 +1332,7 @@ export interface Price {
    */
   readonly validUntil?: string
   /**
-   *	Set if a [ProductDiscount](ctp:api:type:ProductDiscount) applies. When present, the API uses the DiscountedPrice value for [Line Item price selection](/api/pricing-and-discounts-overview#line-item-price-selection).
+   *	Set if a [ProductDiscount](ctp:api:type:ProductDiscount) applies. When present, the API uses the DiscountedPrice value for [Line Item price selection](/api/pricing-and-discounts-apis-overview#line-item-price-selection).
    *
    *
    */
@@ -3396,7 +3396,7 @@ export interface ProductVariant {
    */
   readonly attributes?: Attribute[]
   /**
-   *	Only available when [price selection](/api/pricing-and-discounts-overview#price-selection) is used.
+   *	Only available when [price selection](/api/pricing-and-discounts-apis-overview#price-selection-in-api-responses) is used.
    *	Cannot be used in a [Query Predicate](/api/predicates/query).
    *
    *
@@ -3431,7 +3431,7 @@ export interface ProductVariant {
   readonly isMatchingVariant?: boolean
   /**
    *	Only available in response to a [Product Projection Search](/api/projects/product-projection-search) request
-   *	with [Product price selection](/api/pricing-and-discounts-overview#product-price-selection).
+   *	with [Product price selection](/api/projects/productProjections#product-price-selection).
    *	Can be used to sort, [filter](ctp:api:type:ProductProjectionSearchFilterScopedPrice), and facet.
    *
    *
@@ -3439,13 +3439,13 @@ export interface ProductVariant {
   readonly scopedPrice?: ScopedPrice
   /**
    *	Only available in response to a [Product Projection Search](/api/projects/product-projection-search) request
-   *	with [Product price selection](/api/pricing-and-discounts-overview#product-price-selection).
+   *	with [Product price selection](/api/projects/productProjections#product-price-selection).
    *
    *
    */
   readonly scopedPriceDiscounted?: boolean
   /**
-   *	Only available when [Product price selection](/api/pricing-and-discounts-overview#product-price-selection) is used.
+   *	Only available when [Product price selection](/api/projects/productProjections#product-price-selection) is used.
    *	Cannot be used in a [Query Predicate](/api/predicates/query).
    *
    *
@@ -3546,7 +3546,7 @@ export type ResourceTypeId =
   | (string & {})
 /**
  *	Scoped Price is contained in a [ProductVariant](ctp:api:type:ProductVariant) which is returned in response to a
- *	[Product Projection Search](ctp:api:type:ProductProjectionSearchFilterScopedPrice) request when [Scoped Price Search](/api/pricing-and-discounts-overview#scoped-price-search) is used.
+ *	[Product Projection Search](ctp:api:type:ProductProjectionSearchFilterScopedPrice) request when [Scoped Price Search](/api/pricing-and-discounts-apis-overview#scoped-price-search) is used.
  *
  */
 export interface ScopedPrice {

@@ -205,7 +205,7 @@ export interface Customer extends BaseResource {
   /**
    *	Customer Groups that the Customer belongs to.
    *
-   *	Used for [Line Item price selection](/api/pricing-and-discounts-overview#line-item-price-selection).
+   *	Used for [Line Item price selection](/api/pricing-and-discounts-apis-overview#line-item-price-selection).
    *
    *
    */
@@ -468,7 +468,7 @@ export interface CustomerDraft {
   /**
    *	Customer Groups to assign the Customer to.
    *
-   *	Used for [Line Item price selection](/api/pricing-and-discounts-overview#line-item-price-selection).
+   *	Used for [Line Item price selection](/api/pricing-and-discounts-apis-overview#line-item-price-selection).
    *
    *
    */

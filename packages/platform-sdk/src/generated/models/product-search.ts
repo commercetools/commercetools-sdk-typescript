@@ -115,31 +115,31 @@ export interface ProductSearchProjectionParams {
    */
   readonly staged?: boolean
   /**
-   *	The currency used for [Product price selection](/api/pricing-and-discounts-overview#product-price-selection).
+   *	The currency used for [Product price selection](/api/projects/productProjections#product-price-selection).
    *
    *
    */
   readonly priceCurrency?: string
   /**
-   *	The country used for [Product price selection](/api/pricing-and-discounts-overview#product-price-selection). It can be used only *in conjunction with* the `priceCurrency` parameter.
+   *	The country used for [Product price selection](/api/projects/productProjections#product-price-selection). It can be used only *in conjunction with* the `priceCurrency` parameter.
    *
    *
    */
   readonly priceCountry?: string
   /**
-   *	`id` of an existing [CustomerGroup](ctp:api:type:CustomerGroup) used for [Product price selection](/api/pricing-and-discounts-overview#product-price-selection). It can be used only *in conjunction with* the `priceCurrency` parameter.
+   *	`id` of an existing [CustomerGroup](ctp:api:type:CustomerGroup) used for [Product price selection](/api/projects/productProjections#product-price-selection). It can be used only *in conjunction with* the `priceCurrency` parameter.
    *
    *
    */
   readonly priceCustomerGroup?: string
   /**
-   *	IDs of existing [CustomerGroups](ctp:api:type:CustomerGroup) used for [Product price selection](/api/pricing-and-discounts-overview#product-price-selection), when using [multiple Customer Groups](/api/customers-overview#customer-groups). It can be used only *in conjunction with* the `priceCurrency` parameter.
+   *	IDs of existing [CustomerGroups](ctp:api:type:CustomerGroup) used for [Product price selection](/api/projects/productProjections#product-price-selection), when using [multiple Customer Groups](/api/customers-overview#customer-groups). It can be used only *in conjunction with* the `priceCurrency` parameter.
    *
    *
    */
   readonly priceCustomerGroupAssignments?: string[]
   /**
-   *	`id` of an existing [Channel](ctp:api:type:Channel) used for [Product price selection](/api/pricing-and-discounts-overview#product-price-selection). It can be used only *in conjunction with* the `priceCurrency` parameter.
+   *	`id` of an existing [Channel](ctp:api:type:Channel) used for [Product price selection](/api/projects/productProjections#product-price-selection). It can be used only *in conjunction with* the `priceCurrency` parameter.
    *
    *
    */

@@ -205,7 +205,7 @@ export interface IBusinessUnit {
   /**
    *	Customer Groups assigned to the Business Unit.
    *
-   *	They are considered during [line Item price selection](/api/pricing-and-discounts-overview#line-item-price-selection), if provided (non-null).
+   *	They are considered during [line Item price selection](/api/pricing-and-discounts-apis-overview#line-item-price-selection), if provided (non-null).
    *
    *
    */
@@ -446,7 +446,7 @@ export interface IBusinessUnitDraft {
   /**
    *	Customer Groups to assign the Business Unit to.
    *
-   *	They are considered during [line Item price selection](/api/pricing-and-discounts-overview#line-item-price-selection), if provided (non-null).
+   *	They are considered during [line Item price selection](/api/pricing-and-discounts-apis-overview#line-item-price-selection), if provided (non-null).
    *
    *
    */
@@ -724,7 +724,7 @@ export interface Company extends IBusinessUnit {
   /**
    *	Customer Groups assigned to the Business Unit.
    *
-   *	They are considered during [line Item price selection](/api/pricing-and-discounts-overview#line-item-price-selection), if provided (non-null).
+   *	They are considered during [line Item price selection](/api/pricing-and-discounts-apis-overview#line-item-price-selection), if provided (non-null).
    *
    *
    */
@@ -906,7 +906,7 @@ export interface CompanyDraft extends IBusinessUnitDraft {
   /**
    *	Customer Groups to assign the Business Unit to.
    *
-   *	They are considered during [line Item price selection](/api/pricing-and-discounts-overview#line-item-price-selection), if provided (non-null).
+   *	They are considered during [line Item price selection](/api/pricing-and-discounts-apis-overview#line-item-price-selection), if provided (non-null).
    *
    *
    */
@@ -1010,7 +1010,7 @@ export interface Division extends IBusinessUnit {
   /**
    *	Customer Groups assigned to the Business Unit.
    *
-   *	They are considered during [line Item price selection](/api/pricing-and-discounts-overview#line-item-price-selection), if provided (non-null).
+   *	They are considered during [line Item price selection](/api/pricing-and-discounts-apis-overview#line-item-price-selection), if provided (non-null).
    *
    *
    */
@@ -1190,7 +1190,7 @@ export interface DivisionDraft extends IBusinessUnitDraft {
   /**
    *	Customer Groups to assign the Business Unit to.
    *
-   *	They are considered during [line Item price selection](/api/pricing-and-discounts-overview#line-item-price-selection), if provided (non-null).
+   *	They are considered during [line Item price selection](/api/pricing-and-discounts-apis-overview#line-item-price-selection), if provided (non-null).
    *
    *
    */
