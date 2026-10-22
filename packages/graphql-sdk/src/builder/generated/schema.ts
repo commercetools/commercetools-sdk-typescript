@@ -8475,6 +8475,13 @@ export interface StoreRefundPolicyUrlSet {
     __typename: 'StoreRefundPolicyUrlSet'
 }
 
+export interface StoreSettingOngoingTypedWarning {
+    code: TypedWarningCode
+    message: Scalars['String']
+    type: Scalars['String']
+    __typename: 'StoreSettingOngoingTypedWarning'
+}
+
 export interface StoreShippingPolicyUrlSet {
     shippingPolicyUrl: (Scalars['String'] | null)
     type: Scalars['String']
@@ -8818,9 +8825,9 @@ export interface TypeDefinitionQueryResult {
 
 
 /** A non-fatal warning that occurred during a mutation. */
-export type TypedWarning = (CannotChangeReservationExpiryTypedWarning | CannotCreateReservationTypedWarning | CannotUpdateReservationTypedWarning | DefaultVariantDeletedTypedWarning | GeneralTypedWarning | ImageProcessingOngoingTypedWarning) & { __isUnion?: true }
+export type TypedWarning = (CannotChangeReservationExpiryTypedWarning | CannotCreateReservationTypedWarning | CannotUpdateReservationTypedWarning | DefaultVariantDeletedTypedWarning | GeneralTypedWarning | ImageProcessingOngoingTypedWarning | StoreSettingOngoingTypedWarning) & { __isUnion?: true }
 
-export type TypedWarningCode = 'CannotChangeReservationExpiry' | 'CannotCreateReservation' | 'CannotUpdateReservation' | 'DefaultVariantDeleted' | 'General' | 'ImageProcessingOngoing'
+export type TypedWarningCode = 'CannotChangeReservationExpiry' | 'CannotCreateReservation' | 'CannotUpdateReservation' | 'DefaultVariantDeleted' | 'General' | 'ImageProcessingOngoing' | 'StoreSettingOngoing'
 
 
 /**
@@ -9269,6 +9276,8 @@ export interface AddCartShoppingList {distributionChannel?: (ResourceIdentifierI
 export interface AddCategoryAsset {asset: AssetDraftInput,position?: (Scalars['Int'] | null)}
 
 export interface AddCategoryStore {store: ResourceIdentifierInput}
+
+export interface AddCategoryStoreWithDescendants {store: ResourceIdentifierInput}
 
 export interface AddChannelRoles {roles: ChannelRole[]}
 
@@ -11220,7 +11229,7 @@ export interface CategorySlugChangedGenqlSelection{
     __scalar?: boolean | number
 }
 
-export interface CategoryUpdateAction {addAsset?: (AddCategoryAsset | null),addStore?: (AddCategoryStore | null),changeAssetName?: (ChangeCategoryAssetName | null),changeAssetOrder?: (ChangeCategoryAssetOrder | null),changeName?: (ChangeCategoryName | null),changeOrderHint?: (ChangeCategoryOrderHint | null),changeParent?: (ChangeCategoryParent | null),changeSlug?: (ChangeCategorySlug | null),removeAsset?: (RemoveCategoryAsset | null),removeStore?: (RemoveCategoryStore | null),setAssetCustomField?: (SetCategoryAssetCustomField | null),setAssetCustomType?: (SetCategoryAssetCustomType | null),setAssetDescription?: (SetCategoryAssetDescription | null),setAssetKey?: (SetCategoryAssetKey | null),setAssetSources?: (SetCategoryAssetSources | null),setAssetTags?: (SetCategoryAssetTags | null),setCustomField?: (SetCategoryCustomField | null),setCustomType?: (SetCategoryCustomType | null),setDescription?: (SetCategoryDescription | null),setExternalId?: (SetCategoryExternalId | null),setKey?: (SetCategoryKey | null),setMetaDescription?: (SetCategoryMetaDescription | null),setMetaKeywords?: (SetCategoryMetaKeywords | null),setMetaTitle?: (SetCategoryMetaTitle | null),setStores?: (SetCategoryStores | null)}
+export interface CategoryUpdateAction {addAsset?: (AddCategoryAsset | null),addStore?: (AddCategoryStore | null),addStoreWithDescendants?: (AddCategoryStoreWithDescendants | null),changeAssetName?: (ChangeCategoryAssetName | null),changeAssetOrder?: (ChangeCategoryAssetOrder | null),changeName?: (ChangeCategoryName | null),changeOrderHint?: (ChangeCategoryOrderHint | null),changeParent?: (ChangeCategoryParent | null),changeSlug?: (ChangeCategorySlug | null),removeAsset?: (RemoveCategoryAsset | null),removeStore?: (RemoveCategoryStore | null),removeStoreWithDescendants?: (RemoveCategoryStoreWithDescendants | null),setAssetCustomField?: (SetCategoryAssetCustomField | null),setAssetCustomType?: (SetCategoryAssetCustomType | null),setAssetDescription?: (SetCategoryAssetDescription | null),setAssetKey?: (SetCategoryAssetKey | null),setAssetSources?: (SetCategoryAssetSources | null),setAssetTags?: (SetCategoryAssetTags | null),setCustomField?: (SetCategoryCustomField | null),setCustomType?: (SetCategoryCustomType | null),setDescription?: (SetCategoryDescription | null),setExternalId?: (SetCategoryExternalId | null),setKey?: (SetCategoryKey | null),setMetaDescription?: (SetCategoryMetaDescription | null),setMetaKeywords?: (SetCategoryMetaKeywords | null),setMetaTitle?: (SetCategoryMetaTitle | null),setStores?: (SetCategoryStores | null),setStoresWithDescendants?: (SetCategoryStoresWithDescendants | null)}
 
 export interface ChangeAssociateRoleBuyerAssignable {buyerAssignable: Scalars['Boolean']}
 
@@ -19953,6 +19962,8 @@ export interface RemoveCategoryAsset {assetId?: (Scalars['String'] | null),asset
 
 export interface RemoveCategoryStore {store: ResourceIdentifierInput}
 
+export interface RemoveCategoryStoreWithDescendants {store: ResourceIdentifierInput}
+
 export interface RemoveChannelRoles {roles: ChannelRole[]}
 
 export interface RemoveCustomerAddress {addressId?: (Scalars['String'] | null),addressKey?: (Scalars['String'] | null)}
@@ -20728,6 +20739,8 @@ export interface SetCategoryMetaKeywords {metaKeywords?: (LocalizedStringItemInp
 export interface SetCategoryMetaTitle {metaTitle?: (LocalizedStringItemInputType[] | null)}
 
 export interface SetCategoryStores {stores: ResourceIdentifierInput[]}
+
+export interface SetCategoryStoresWithDescendants {stores: ResourceIdentifierInput[]}
 
 export interface SetChannelAddress {address?: (AddressInput | null)}
 
@@ -23360,6 +23373,14 @@ export interface StoreRefundPolicyUrlSetGenqlSelection{
     __scalar?: boolean | number
 }
 
+export interface StoreSettingOngoingTypedWarningGenqlSelection{
+    code?: boolean | number
+    message?: boolean | number
+    type?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
 export interface StoreShippingPolicyUrlSetGenqlSelection{
     shippingPolicyUrl?: boolean | number
     type?: boolean | number
@@ -23867,6 +23888,7 @@ export interface TypedWarningGenqlSelection{
     on_DefaultVariantDeletedTypedWarning?: DefaultVariantDeletedTypedWarningGenqlSelection
     on_GeneralTypedWarning?: GeneralTypedWarningGenqlSelection
     on_ImageProcessingOngoingTypedWarning?: ImageProcessingOngoingTypedWarningGenqlSelection
+    on_StoreSettingOngoingTypedWarning?: StoreSettingOngoingTypedWarningGenqlSelection
     __typename?: boolean | number
     __scalar?: boolean | number
 }
@@ -31836,6 +31858,14 @@ export interface setSavedToLineItem {attributeName: Scalars['String'],savedToLin
     
 
 
+    const StoreSettingOngoingTypedWarning_possibleTypes: string[] = ['StoreSettingOngoingTypedWarning']
+    export const isStoreSettingOngoingTypedWarning = (obj?: { __typename?: any } | null): obj is StoreSettingOngoingTypedWarning => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isStoreSettingOngoingTypedWarning"')
+      return StoreSettingOngoingTypedWarning_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
     const StoreShippingPolicyUrlSet_possibleTypes: string[] = ['StoreShippingPolicyUrlSet']
     export const isStoreShippingPolicyUrlSet = (obj?: { __typename?: any } | null): obj is StoreShippingPolicyUrlSet => {
       if (!obj?.__typename) throw new Error('__typename is missing in "isStoreShippingPolicyUrlSet"')
@@ -32156,7 +32186,7 @@ export interface setSavedToLineItem {attributeName: Scalars['String'],savedToLin
     
 
 
-    const TypedWarning_possibleTypes: string[] = ['CannotChangeReservationExpiryTypedWarning','CannotCreateReservationTypedWarning','CannotUpdateReservationTypedWarning','DefaultVariantDeletedTypedWarning','GeneralTypedWarning','ImageProcessingOngoingTypedWarning']
+    const TypedWarning_possibleTypes: string[] = ['CannotChangeReservationExpiryTypedWarning','CannotCreateReservationTypedWarning','CannotUpdateReservationTypedWarning','DefaultVariantDeletedTypedWarning','GeneralTypedWarning','ImageProcessingOngoingTypedWarning','StoreSettingOngoingTypedWarning']
     export const isTypedWarning = (obj?: { __typename?: any } | null): obj is TypedWarning => {
       if (!obj?.__typename) throw new Error('__typename is missing in "isTypedWarning"')
       return TypedWarning_possibleTypes.includes(obj.__typename)
@@ -33012,7 +33042,8 @@ export const enumTypedWarningCode = {
    CannotUpdateReservation: 'CannotUpdateReservation' as const,
    DefaultVariantDeleted: 'DefaultVariantDeleted' as const,
    General: 'General' as const,
-   ImageProcessingOngoing: 'ImageProcessingOngoing' as const
+   ImageProcessingOngoing: 'ImageProcessingOngoing' as const,
+   StoreSettingOngoing: 'StoreSettingOngoing' as const
 }
 
 export const enumVersionControl = {

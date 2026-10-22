@@ -203,6 +203,10 @@ input AddCategoryStore {
   store: ResourceIdentifierInput!
 }
 
+input AddCategoryStoreWithDescendants {
+  store: ResourceIdentifierInput!
+}
+
 input AddChannelRoles {
   roles: [ChannelRole!]!
 }
@@ -2812,6 +2816,7 @@ type CategorySlugChanged implements MessagePayload {
 input CategoryUpdateAction {
   addAsset: AddCategoryAsset
   addStore: AddCategoryStore
+  addStoreWithDescendants: AddCategoryStoreWithDescendants
   changeAssetName: ChangeCategoryAssetName
   changeAssetOrder: ChangeCategoryAssetOrder
   changeName: ChangeCategoryName
@@ -2820,6 +2825,7 @@ input CategoryUpdateAction {
   changeSlug: ChangeCategorySlug
   removeAsset: RemoveCategoryAsset
   removeStore: RemoveCategoryStore
+  removeStoreWithDescendants: RemoveCategoryStoreWithDescendants
   setAssetCustomField: SetCategoryAssetCustomField
   setAssetCustomType: SetCategoryAssetCustomType
   setAssetDescription: SetCategoryAssetDescription
@@ -2835,6 +2841,7 @@ input CategoryUpdateAction {
   setMetaKeywords: SetCategoryMetaKeywords
   setMetaTitle: SetCategoryMetaTitle
   setStores: SetCategoryStores
+  setStoresWithDescendants: SetCategoryStoresWithDescendants
 }
 
 input ChangeAssociateRoleBuyerAssignable {
@@ -13967,6 +13974,10 @@ input RemoveCategoryStore {
   store: ResourceIdentifierInput!
 }
 
+input RemoveCategoryStoreWithDescendants {
+  store: ResourceIdentifierInput!
+}
+
 input RemoveChannelRoles {
   roles: [ChannelRole!]!
 }
@@ -15520,6 +15531,10 @@ input SetCategoryMetaTitle {
 }
 
 input SetCategoryStores {
+  stores: [ResourceIdentifierInput!]!
+}
+
+input SetCategoryStoresWithDescendants {
   stores: [ResourceIdentifierInput!]!
 }
 
@@ -19533,6 +19548,12 @@ type StoreRefundPolicyUrlSet implements MessagePayload {
   type: String!
 }
 
+type StoreSettingOngoingTypedWarning implements TypedWarning {
+  code: TypedWarningCode!
+  message: String!
+  type: String!
+}
+
 type StoreShippingPolicyUrlSet implements MessagePayload {
   shippingPolicyUrl: String
   type: String!
@@ -20303,6 +20324,7 @@ enum TypedWarningCode {
   DefaultVariantDeleted
   General
   ImageProcessingOngoing
+  StoreSettingOngoing
 }
 
 """
