@@ -138,9 +138,7 @@ export interface FacetRange {
   readonly mean: number
 }
 export type FacetResult =
-  | FilteredFacetResult
-  | RangeFacetResult
-  | TermFacetResult
+  FilteredFacetResult | RangeFacetResult | TermFacetResult
 export interface IFacetResult {
   /**
    *	@deprecated
@@ -962,7 +960,7 @@ export interface ProductVariant {
    */
   readonly attributes?: Attribute[]
   /**
-   *	Only present when [price selection](/api/pricing-and-discounts-overview#price-selection) is applied.
+   *	Only present when [price selection](/api/pricing-and-discounts-apis-overview#price-selection-in-api-responses) is applied.
    *	Cannot be used in a [Query Predicate](/api/predicates/query).
    *
    *
@@ -997,7 +995,7 @@ export interface ProductVariant {
   readonly isMatchingVariant?: boolean
   /**
    *	Only available in response to a [Product Projection Search](/api/projects/product-projection-search) request
-   *	with [Product price selection](/api/pricing-and-discounts-overview#product-price-selection).
+   *	with [Product price selection](/api/projects/productProjections#product-price-selection).
    *	Can be used to sort, [filter](ctp:api:type:ProductProjectionSearchFilterScopedPrice), and facet.
    *
    *
@@ -1005,13 +1003,13 @@ export interface ProductVariant {
   readonly scopedPrice?: ScopedPrice
   /**
    *	Only available in response to a [Product Projection Search](/api/projects/product-projection-search) request
-   *	with [Product price selection](/api/pricing-and-discounts-overview#product-price-selection).
+   *	with [Product price selection](/api/projects/productProjections#product-price-selection).
    *
    *
    */
   readonly scopedPriceDiscounted?: boolean
   /**
-   *	Only available when [Product price selection](/api/pricing-and-discounts-overview#product-price-selection) is used.
+   *	Only available when [Product price selection](/api/projects/productProjections#product-price-selection) is used.
    *	Cannot be used in a [Query Predicate](/api/predicates/query).
    *
    *
@@ -1256,13 +1254,7 @@ export enum TermFacetResultTypeValues {
 }
 
 export type TermFacetResultType =
-  | 'boolean'
-  | 'date'
-  | 'datetime'
-  | 'number'
-  | 'text'
-  | 'time'
-  | (string & {})
+  'boolean' | 'date' | 'datetime' | 'number' | 'text' | 'time' | (string & {})
 /**
  *	Creates tokens by splitting the `text` field in [SearchKeyword](ctp:api:type:SearchKeyword) by whitespaces.
  *

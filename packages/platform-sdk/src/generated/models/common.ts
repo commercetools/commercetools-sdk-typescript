@@ -822,9 +822,7 @@ export interface ImageDimensions {
  *
  */
 export type KeyReference =
-  | AssociateRoleKeyReference
-  | BusinessUnitKeyReference
-  | StoreKeyReference
+  AssociateRoleKeyReference | BusinessUnitKeyReference | StoreKeyReference
 export interface IKeyReference {
   /**
    *	Type of referenced resource.
@@ -935,13 +933,7 @@ export enum NonStandardCurrencyValues {
 }
 
 export type NonStandardCurrency =
-  | 'CZK0'
-  | 'HUF0'
-  | 'ILS0'
-  | 'KZT0'
-  | 'TRY0'
-  | 'TWD0'
-  | (string & {})
+  'CZK0' | 'HUF0' | 'ILS0' | 'KZT0' | 'TRY0' | 'TWD0' | (string & {})
 /**
  *	The representation for prices embedded in [LineItems](ctp:api:type:LineItem) and in [ProductVariants](ctp:api:type:ProductVariant) when the [ProductPriceMode](ctp:api:type:ProductPriceModeEnum) is `Embedded`.
  *	For the `Standalone` ProductPriceMode refer to [StandalonePrice](ctp:api:type:StandalonePrice).
@@ -996,7 +988,7 @@ export interface Price {
    */
   readonly validUntil?: string
   /**
-   *	Set if a [ProductDiscount](ctp:api:type:ProductDiscount) applies. When present, the API uses the DiscountedPrice value for [Line Item price selection](/api/pricing-and-discounts-overview#line-item-price-selection).
+   *	Set if a [ProductDiscount](ctp:api:type:ProductDiscount) applies. When present, the API uses the DiscountedPrice value for [Line Item price selection](/api/pricing-and-discounts-apis-overview#line-item-price-selection).
    *
    *
    */
@@ -1451,7 +1443,7 @@ export interface IResourceIdentifier {
 }
 /**
  *	Scoped Price is contained in a [ProductVariant](ctp:api:type:ProductVariant) which is returned in response to a
- *	[Product Projection Search](ctp:api:type:ProductProjectionSearchFilterScopedPrice) request when [Scoped Price Search](/api/pricing-and-discounts-overview#scoped-price-search) is used.
+ *	[Product Projection Search](ctp:api:type:ProductProjectionSearchFilterScopedPrice) request when [Scoped Price Search](/api/pricing-and-discounts-apis-overview#scoped-price-search) is used.
  *
  */
 export interface ScopedPrice {
