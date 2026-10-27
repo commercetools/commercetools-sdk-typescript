@@ -42,7 +42,10 @@ export interface ApiClient {
    */
   readonly createdAt?: string
   /**
-   *	Expiration time in seconds for each access token obtained by the APIClient. Only present when set with the [APIClientDraft](ctp:api:type:ApiClientDraft). If not present the default value applies.
+   *	Expiration time in seconds for each access token obtained by the APIClient. Only present when set with the [APIClientDraft](ctp:api:type:ApiClientDraft). If not present, the default depends on the flow used to obtain the access token.
+   *
+   *	- `10 800` seconds (3 hours) for [anonymous sessions](/api/authorization#tokens-for-anonymous-sessions).
+   *	- `172 800` seconds (48 hours) for other flows.
    *
    *
    */
@@ -71,7 +74,10 @@ export interface ApiClientDraft {
    */
   readonly deleteDaysAfterCreation?: number
   /**
-   *	Expiration time in seconds for each access token obtained by the APIClient. If not set the default value applies.
+   *	Expiration time in seconds for each access token obtained by the APIClient. If not set, the default depends on the flow used to obtain the access token.
+   *
+   *	- `10 800` seconds (3 hours) for [anonymous sessions](/api/authorization#tokens-for-anonymous-sessions).
+   *	- `172 800` seconds (48 hours) for other flows.
    *
    *
    */
