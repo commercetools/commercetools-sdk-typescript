@@ -26,11 +26,7 @@ export enum BusinessUnitIndexingStatusValues {
 }
 
 export type BusinessUnitIndexingStatus =
-  | 'Failed'
-  | 'Indexing'
-  | 'Ready'
-  | 'Scheduled'
-  | (string & {})
+  'Failed' | 'Indexing' | 'Ready' | 'Scheduled' | (string & {})
 /**
  *	The current indexing status of Customer Search.
  *
@@ -43,11 +39,7 @@ export enum CustomerIndexingStatusValues {
 }
 
 export type CustomerIndexingStatus =
-  | 'Failed'
-  | 'Indexing'
-  | 'Ready'
-  | 'Scheduled'
-  | (string & {})
+  'Failed' | 'Indexing' | 'Ready' | 'Scheduled' | (string & {})
 export interface BusinessUnitConfiguration {
   /**
    *	Status of Business Units created using the [My Business Unit endpoint](ctp:api:endpoint:/{projectKey}/me/business-units:POST).
@@ -70,9 +62,7 @@ export enum BusinessUnitConfigurationStatusValues {
 }
 
 export type BusinessUnitConfigurationStatus =
-  | 'Active'
-  | 'Inactive'
-  | (string & {})
+  'Active' | 'Inactive' | (string & {})
 /**
  *	Specifies the status of the [Business Unit Search](/api/projects/business-unit-search) index.
  *	You can change the status using the [Change Business Unit Search Status](ctp:api:type:ProjectChangeBusinessUnitSearchStatusAction) update action.
@@ -84,9 +74,7 @@ export enum BusinessUnitSearchStatusValues {
 }
 
 export type BusinessUnitSearchStatus =
-  | 'Activated'
-  | 'Deactivated'
-  | (string & {})
+  'Activated' | 'Deactivated' | (string & {})
 export interface CartsConfiguration {
   /**
    *	Default value for the `deleteDaysAfterLastModification` parameter of the [CartDraft](ctp:api:type:CartDraft) and [MyCartDraft](ctp:api:type:MyCartDraft).
@@ -214,19 +202,14 @@ export enum ProductCatalogModelValues {
 }
 
 export type ProductCatalogModel =
-  | 'Classic'
-  | 'InMigration'
-  | 'Modular'
-  | (string & {})
+  'Classic' | 'InMigration' | 'Modular' | (string & {})
 export enum ProductSearchIndexingModeValues {
   ProductProjectionsSearch = 'ProductProjectionsSearch',
   ProductsSearch = 'ProductsSearch',
 }
 
 export type ProductSearchIndexingMode =
-  | 'ProductProjectionsSearch'
-  | 'ProductsSearch'
-  | (string & {})
+  'ProductProjectionsSearch' | 'ProductsSearch' | (string & {})
 export interface Project {
   /**
    *	Current version of the Project.
@@ -424,10 +407,7 @@ export enum SearchIndexingConfigurationStatusValues {
 }
 
 export type SearchIndexingConfigurationStatus =
-  | 'Activated'
-  | 'Deactivated'
-  | 'Indexing'
-  | (string & {})
+  'Activated' | 'Deactivated' | 'Indexing' | (string & {})
 export interface SearchIndexingConfigurationValues {
   /**
    *	Current status of resource indexing. Present on Projects from 1 February 2019.
@@ -448,9 +428,7 @@ export interface SearchIndexingConfigurationValues {
   readonly lastModifiedBy?: LastModifiedBy
 }
 export type ShippingRateInputType =
-  | CartClassificationType
-  | CartScoreType
-  | CartValueType
+  CartClassificationType | CartScoreType | CartValueType
 export interface IShippingRateInputType {
   /**
    *
@@ -679,7 +657,7 @@ export interface ProjectSetProductCatalogModelAction extends IProjectUpdateActio
    *	For each migration step, see:
    *	  - [Change Product Catalog Model to InMigration](/guides/migration-guides/modular-catalog-migration#change-product-catalog-model-to-inmigration)
    *	  - [Change Product Catalog Model to Modular](/guides/migration-guides/modular-catalog-migration#change-product-catalog-model-to-modular)
-   *	  - [Rollback to Classic](/guides/migration-guides/modular-catalog-migration#rollback-to-classic)
+   *	  - [Rollback to Classic](/guides/migration-guides/modular-catalog-migration#roll-back-to-classic)
    *
    *
    */

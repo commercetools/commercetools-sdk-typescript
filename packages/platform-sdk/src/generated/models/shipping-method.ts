@@ -389,9 +389,7 @@ export interface ShippingRateDraft {
   readonly tiers?: ShippingRatePriceTier[]
 }
 export type ShippingRatePriceTier =
-  | CartClassificationTier
-  | CartScoreTier
-  | CartValueTier
+  CartClassificationTier | CartScoreTier | CartValueTier
 export interface IShippingRatePriceTier {
   /**
    *
@@ -456,7 +454,6 @@ export interface CartScoreTier extends IShippingRatePriceTier {
   readonly isMatching?: boolean
 }
 /**
- *
  *	The [ShippingRate](ctp:api:type:ShippingRate) maps to the value of the Cart and is used to select a tier.
  *	The value of the [Cart](ctp:api:type:Cart) is the sum of all Line Item totals and Custom Line Item totals (via the `totalPrice` field) after any Product Discounts and Cart Discounts have been applied.
  *	If chosen, it is not possible to set a value for the `shippingRateInput` on the [Cart](ctp:api:type:Cart).
@@ -491,10 +488,7 @@ export enum ShippingRateTierTypeValues {
 }
 
 export type ShippingRateTierType =
-  | 'CartClassification'
-  | 'CartScore'
-  | 'CartValue'
-  | (string & {})
+  'CartClassification' | 'CartScore' | 'CartValue' | (string & {})
 /**
  *	Defines shipping rates in different currencies for a specific [Zone](ctp:api:type:Zone).
  *

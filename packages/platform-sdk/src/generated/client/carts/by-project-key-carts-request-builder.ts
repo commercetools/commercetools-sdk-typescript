@@ -139,7 +139,6 @@ export class ByProjectKeyCartsRequestBuilder {
     )
   }
   /**
-   *
    *	Creates a Cart in the Project.
    *
    *	When using [InventoryMode](ctp:api:type:InventoryMode) `ReserveOnCart`:

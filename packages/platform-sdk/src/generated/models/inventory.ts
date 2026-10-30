@@ -357,7 +357,6 @@ export interface InventoryEntryChangeQuantityAction extends IInventoryEntryUpdat
   readonly quantity: number
 }
 /**
- *
  *	Removes a specific quantity from `quantityOnStock`. This changes the `availableQuantity`, based on the number of active reservations. You can update `quantityOnStock` to values below zero.
  *
  *	Carts with existing `ReserveOnCart` reservations will not be invalidated by this update action and can still be ordered.

@@ -105,7 +105,6 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeOrdersRequestBuilder {
     )
   }
   /**
-   *
    *	Creates an Order from a Cart in a [Store](ctp:api:type:Store) for the Customer or anonymous user. The `customerId` or `anonymousId` field on the Order is automatically set based on the [customer:{id}](/scopes#internal-oauth) or [anonymous_id:{id}](/scopes#internal-oauth) scope.
    *
    *	The Cart must have a shipping address set.

@@ -115,9 +115,7 @@ export enum ImportOperationStateValues {
 }
 
 export type ImportOperationState =
-  | 'processing'
-  | 'validationFailed'
-  | (string & {})
+  'processing' | 'validationFailed' | (string & {})
 /**
  *	The status of a new [ImportOperation](#importoperation).
  */

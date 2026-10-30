@@ -22,6 +22,7 @@ import {
   FieldContainer,
   TypeResourceIdentifier,
 } from './type'
+import { WarningObject } from './warning'
 
 export interface Category extends BaseResource {
   /**
@@ -146,11 +147,18 @@ export interface Category extends BaseResource {
    *
    *	If `stores` is empty, the Category is global and available in every [Store](ctp:api:type:Store).
    *
-   *	If the Category is created via the [Store-specific endpoint](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/categories), the Store specified in the request path is automatically added to the field value.
+   *	If the Category is created via the [Store-specific endpoint](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/categories:POST), the Store specified in the request path is automatically added to the field value.
    *
    *
    */
   readonly stores: StoreKeyReference[]
+  /**
+   *	Warnings about processing of a request.
+   *	Appears in response to requests with response status code `202 Accepted`.
+   *
+   *
+   */
+  readonly warnings?: WarningObject[]
 }
 export interface CategoryDraft {
   /**
@@ -339,6 +347,7 @@ export interface CategoryUpdate {
 export type CategoryUpdateAction =
   | CategoryAddAssetAction
   | CategoryAddStoreAction
+  | CategoryAddStoreWithDescendantsAction
   | CategoryChangeAssetNameAction
   | CategoryChangeAssetOrderAction
   | CategoryChangeNameAction
@@ -347,6 +356,7 @@ export type CategoryUpdateAction =
   | CategoryChangeSlugAction
   | CategoryRemoveAssetAction
   | CategoryRemoveStoreAction
+  | CategoryRemoveStoreWithDescendantsAction
   | CategorySetAssetCustomFieldAction
   | CategorySetAssetCustomTypeAction
   | CategorySetAssetDescriptionAction
@@ -362,6 +372,7 @@ export type CategoryUpdateAction =
   | CategorySetMetaKeywordsAction
   | CategorySetMetaTitleAction
   | CategorySetStoresAction
+  | CategorySetStoresWithDescendantsAction
 export interface ICategoryUpdateAction {
   /**
    *
@@ -392,6 +403,41 @@ export interface CategoryAddStoreAction extends ICategoryUpdateAction {
    *	Value to add to the Category's `stores`.
    *
    *	When called through an [in-Store endpoint](#update-category-in-store), the caller must have permission for the referenced [Store](ctp:api:type:Store).
+   *
+   *
+   */
+  readonly store: StoreResourceIdentifier
+}
+/**
+ *	Adds a [Store](ctp:api:type:Store) to the `stores` of the Category and to all of its descendant Categories.
+ *
+ *	This action is only available on the [general endpoint](#update-category).
+ *
+ *	If this action is used on the [Store-specific endpoint](#update-category-in-store), an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+ *
+ *	The API records the request and responds with `202 Accepted`. The returned Category has the same `stores` as before and an incremented `version`, and the response contains a `warnings` field with a [StoreSettingOngoing](ctp:api:type:StoreSettingOngoingWarning) Warning. A background process then applies the change to the Category and to all of its descendant Categories, so the change is [eventually consistent](/general-concepts#eventual-consistency).
+ *
+ *	Because the background process locks the subtree while it runs, concurrent Store updates, [Change Parent](ctp:api:type:CategoryChangeParentAction) actions, and [Create Category](#create-category) requests with a `parent` for Categories in the subtree can fail and should be retried. For details, see [Category tree locking](/api/projects/categories#category-tree-locking).
+ *
+ *	If the request contains another action that changes the `stores` of the Category, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned. Other update actions in the same request are applied immediately.
+ *
+ *	If the Category has more than 1000 descendant Categories, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+ *
+ *	The request is validated when the API receives it and again when the background process runs. If the change is no longer valid at that point, for example because the Stores of the parent Category changed or a referenced Store was deleted in the meantime, it isn't applied and no error is reported. Apart from the conditions described for `store`, the relations between Categories within the subtree aren't validated, as all of them receive the same change.
+ *
+ *	Requests that change the Stores of the same subtree are processed in the order the background process receives them, which isn't necessarily the order they were sent in. Send the next request for the same subtree only after the previous change has been applied.
+ *
+ */
+export interface CategoryAddStoreWithDescendantsAction extends ICategoryUpdateAction {
+  readonly action: 'addStoreWithDescendants'
+  /**
+   *	Value to add to the `stores` of the Category and each of its descendant Categories.
+   *
+   *	If the Store doesn't exist, a [ReferencedResourceNotFound](ctp:api:type:ReferencedResourceNotFoundError) error is returned.
+   *
+   *	If the Category has a parent Category that is assigned to Stores and the Store isn't one of them, an [InvalidInput](ctp:api:type:InvalidInputError) error is returned.
+   *
+   *	If the Category isn't assigned to any Store and one of its descendant Categories is assigned to a different Store, an [InvalidInput](ctp:api:type:InvalidInputError) error is returned.
    *
    *
    */
@@ -505,6 +551,43 @@ export interface CategoryRemoveStoreAction extends ICategoryUpdateAction {
   readonly action: 'removeStore'
   /**
    *	Value to remove from the Category's `stores`.
+   *
+   *
+   */
+  readonly store: StoreResourceIdentifier
+}
+/**
+ *	Removes a [Store](ctp:api:type:Store) from the `stores` of the Category and from all of its descendant Categories.
+ *
+ *	The Category itself doesn't need to be assigned to the Store, so that descendant Categories that still have it can be updated.
+ *
+ *	This action is only available on the [general endpoint](#update-category).
+ *
+ *	If this action is used on the [Store-specific endpoint](#update-category-in-store), an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+ *
+ *	The API records the request and responds with `202 Accepted`. The returned Category has the same `stores` as before and an incremented `version`, and the response contains a `warnings` field with a [StoreSettingOngoing](ctp:api:type:StoreSettingOngoingWarning) Warning. A background process then applies the change to the Category and to all of its descendant Categories, so the change is [eventually consistent](/general-concepts#eventual-consistency).
+ *
+ *	Because the background process locks the subtree while it runs, concurrent Store updates, [Change Parent](ctp:api:type:CategoryChangeParentAction) actions, and [Create Category](#create-category) requests with a `parent` for Categories in the subtree can fail and should be retried. For details, see [Category tree locking](/api/projects/categories#category-tree-locking).
+ *
+ *	If the request contains another action that changes the `stores` of the Category, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned. Other update actions in the same request are applied immediately.
+ *
+ *	If the Category has more than 1000 descendant Categories, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+ *
+ *	The request is validated when the API receives it and again when the background process runs. If the change is no longer valid at that point, for example because the Stores of the parent Category changed or a referenced Store was deleted in the meantime, it isn't applied and no error is reported. Apart from the conditions described for `store`, the relations between Categories within the subtree aren't validated, as all of them receive the same change.
+ *
+ *	Requests that change the Stores of the same subtree are processed in the order the background process receives them, which isn't necessarily the order they were sent in. Send the next request for the same subtree only after the previous change has been applied.
+ *
+ */
+export interface CategoryRemoveStoreWithDescendantsAction extends ICategoryUpdateAction {
+  readonly action: 'removeStoreWithDescendants'
+  /**
+   *	Value to remove from the `stores` of the Category and each of its descendant Categories.
+   *
+   *	If the Store doesn't exist, a [ReferencedResourceNotFound](ctp:api:type:ReferencedResourceNotFoundError) error is returned.
+   *
+   *	If removing the Store leaves the Category without Stores while its parent Category is assigned to Stores, an [InvalidInput](ctp:api:type:InvalidInputError) error is returned.
+   *
+   *	If the Store is the only Store of a descendant Category that would then be left without any Store while its parent Category is still assigned to Stores, an [InvalidInput](ctp:api:type:InvalidInputError) error is returned.
    *
    *
    */
@@ -761,6 +844,41 @@ export interface CategorySetStoresAction extends ICategoryUpdateAction {
    *	Value to set. It replaces the entire set of [Stores](ctp:api:type:Store) assigned to the Category.
    *
    *	If the `stores` field contains a Store that you do not have permission for, an [InvalidInput](ctp:api:type:InvalidInputError) error is returned.
+   *
+   *
+   */
+  readonly stores: StoreResourceIdentifier[]
+}
+/**
+ *	Sets the `stores` of the Category and propagates the same set of [Stores](ctp:api:type:Store) to all of its descendant Categories, replacing the entire set of Stores assigned to each affected Category in the subtree. Set an empty array to make the Category and its descendants global and accessible in all Stores.
+ *
+ *	This action is only available on the [general endpoint](#update-category).
+ *
+ *	If this action is used on the [Store-specific endpoint](#update-category-in-store), an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+ *
+ *	The API records the request and responds with `202 Accepted`. The returned Category has the same `stores` as before and an incremented `version`, and the response contains a `warnings` field with a [StoreSettingOngoing](ctp:api:type:StoreSettingOngoingWarning) Warning. A background process then applies the change to the Category and to all of its descendant Categories, so the change is [eventually consistent](/general-concepts#eventual-consistency).
+ *
+ *	Because the background process locks the subtree while it runs, concurrent Store updates, [Change Parent](ctp:api:type:CategoryChangeParentAction) actions, and [Create Category](#create-category) requests with a `parent` for Categories in the subtree can fail and should be retried. For details, see [Category tree locking](/api/projects/categories#category-tree-locking).
+ *
+ *	If the request contains another action that changes the `stores` of the Category, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned. Other update actions in the same request are applied immediately.
+ *
+ *	If the Category has more than 1000 descendant Categories, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+ *
+ *	The request is validated when the API receives it and again when the background process runs. If the change is no longer valid at that point, for example because the Stores of the parent Category changed or a referenced Store was deleted in the meantime, it isn't applied and no error is reported. All Categories in the subtree receive the same `stores`, so only the relation between the Category and its parent is validated.
+ *
+ *	Requests that change the Stores of the same subtree are processed in the order the background process receives them, which isn't necessarily the order they were sent in. Send the next request for the same subtree only after the previous change has been applied.
+ *
+ */
+export interface CategorySetStoresWithDescendantsAction extends ICategoryUpdateAction {
+  readonly action: 'setStoresWithDescendants'
+  /**
+   *	Value to set on the Category and each of its descendant Categories. It replaces the entire set of [Stores](ctp:api:type:Store) assigned to each Category in the subtree.
+   *
+   *	If a Store doesn't exist, a [ReferencedResourceNotFound](ctp:api:type:ReferencedResourceNotFoundError) error is returned.
+   *
+   *	If the Category has a parent Category that is assigned to Stores and `stores` contains a Store the parent isn't assigned to, an [InvalidInput](ctp:api:type:InvalidInputError) error is returned.
+   *
+   *	If the Category has a parent Category that is assigned to Stores and `stores` is empty, an [InvalidInput](ctp:api:type:InvalidInputError) error is returned.
    *
    *
    */

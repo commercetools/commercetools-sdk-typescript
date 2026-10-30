@@ -19,6 +19,7 @@ export type WarningObject =
   | CannotCreateReservationWarning
   | CannotUpdateReservationWarning
   | ImageProcessingOngoingWarning
+  | StoreSettingOngoingWarning
 export interface IWarningObject {
   /**
    *	Identifier for the type of warning.
@@ -149,6 +150,20 @@ export interface ImageProcessingOngoingWarning extends IWarningObject {
   readonly code: 'ImageProcessingOngoing'
   /**
    *	`"The image processing is still ongoing."`
+   *
+   *
+   */
+  readonly message: string
+}
+/**
+ *	Contained in responses to an [Update Category](/projects/categories#update-category) request with response status code `202 Accepted`. This is the case if the request contains a [Set Stores with Descendants](ctp:api:type:CategorySetStoresWithDescendantsAction), [Add Store with Descendants](ctp:api:type:CategoryAddStoreWithDescendantsAction), or [Remove Store with Descendants](ctp:api:type:CategoryRemoveStoreWithDescendantsAction) update action.
+ *	Indicates that the API is still applying the Store change to the Category and its descendant Categories.
+ *
+ */
+export interface StoreSettingOngoingWarning extends IWarningObject {
+  readonly code: 'StoreSettingOngoing'
+  /**
+   *	`"The store setting is still ongoing."`
    *
    *
    */

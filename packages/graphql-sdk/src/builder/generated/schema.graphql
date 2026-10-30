@@ -203,6 +203,10 @@ input AddCategoryStore {
   store: ResourceIdentifierInput!
 }
 
+input AddCategoryStoreWithDescendants {
+  store: ResourceIdentifierInput!
+}
+
 input AddChannelRoles {
   roles: [ChannelRole!]!
 }
@@ -2812,6 +2816,7 @@ type CategorySlugChanged implements MessagePayload {
 input CategoryUpdateAction {
   addAsset: AddCategoryAsset
   addStore: AddCategoryStore
+  addStoreWithDescendants: AddCategoryStoreWithDescendants
   changeAssetName: ChangeCategoryAssetName
   changeAssetOrder: ChangeCategoryAssetOrder
   changeName: ChangeCategoryName
@@ -2820,6 +2825,7 @@ input CategoryUpdateAction {
   changeSlug: ChangeCategorySlug
   removeAsset: RemoveCategoryAsset
   removeStore: RemoveCategoryStore
+  removeStoreWithDescendants: RemoveCategoryStoreWithDescendants
   setAssetCustomField: SetCategoryAssetCustomField
   setAssetCustomType: SetCategoryAssetCustomType
   setAssetDescription: SetCategoryAssetDescription
@@ -2835,6 +2841,7 @@ input CategoryUpdateAction {
   setMetaKeywords: SetCategoryMetaKeywords
   setMetaTitle: SetCategoryMetaTitle
   setStores: SetCategoryStores
+  setStoresWithDescendants: SetCategoryStoresWithDescendants
 }
 
 input ChangeAssociateRoleBuyerAssignable {
@@ -13486,6 +13493,7 @@ type RecurrencePolicy implements Versioned {
   key: String!
   lastModifiedAt: DateTime!
   lastModifiedBy: Initiator
+  minDaysBetweenOrders: Int
   name(
     """
     List of languages the client is able to understand, and which locale variant is preferred.
@@ -13505,6 +13513,7 @@ type RecurrencePolicy implements Versioned {
 input RecurrencePolicyDraft {
   description: [LocalizedStringItemInputType!]
   key: String!
+  minDaysBetweenOrders: Int
   name: [LocalizedStringItemInputType!]
   schedule: RecurrencePolicyScheduleInput!
 }
@@ -13540,6 +13549,7 @@ input RecurrencePolicyScheduleInput {
 input RecurrencePolicyUpdateAction {
   setDescription: SetRecurrencePolicyDescription
   setKey: SetRecurrencePolicyKey
+  setMinDaysBetweenOrders: SetRecurrencePolicyMinDaysBetweenOrders
   setName: SetRecurrencePolicyName
   setSchedule: SetRecurrencePolicySchedule
 }
@@ -13673,6 +13683,12 @@ type RecurringOrderKeySet implements MessagePayload {
   type: String!
 }
 
+type RecurringOrderNowRequested implements MessagePayload {
+  reason: String
+  requestedAt: DateTime!
+  type: String!
+}
+
 input RecurringOrderPausedInput {
   dummy: String
 }
@@ -13749,6 +13765,7 @@ type RecurringOrderStateTransition implements MessagePayload {
 }
 
 input RecurringOrderUpdateAction {
+  requestOrderNow: RequestRecurringOrderNow
   setCustomField: SetRecurringOrderCustomField
   setCustomType: SetRecurringOrderCustomType
   setExpiresAt: SetRecurringOrderExpiresAt
@@ -13954,6 +13971,10 @@ input RemoveCategoryAsset {
 }
 
 input RemoveCategoryStore {
+  store: ResourceIdentifierInput!
+}
+
+input RemoveCategoryStoreWithDescendants {
   store: ResourceIdentifierInput!
 }
 
@@ -14267,6 +14288,10 @@ input RemoveZoneLocation {
 
 input RequestQuoteRenegotiation {
   buyerComment: String
+}
+
+input RequestRecurringOrderNow {
+  reason: String
 }
 
 """
@@ -15506,6 +15531,10 @@ input SetCategoryMetaTitle {
 }
 
 input SetCategoryStores {
+  stores: [ResourceIdentifierInput!]!
+}
+
+input SetCategoryStoresWithDescendants {
   stores: [ResourceIdentifierInput!]!
 }
 
@@ -16809,6 +16838,10 @@ input SetRecurrencePolicyDescription {
 
 input SetRecurrencePolicyKey {
   key: String!
+}
+
+input SetRecurrencePolicyMinDaysBetweenOrders {
+  minDaysBetweenOrders: Int
 }
 
 input SetRecurrencePolicyName {
@@ -19515,6 +19548,12 @@ type StoreRefundPolicyUrlSet implements MessagePayload {
   type: String!
 }
 
+type StoreSettingOngoingTypedWarning implements TypedWarning {
+  code: TypedWarningCode!
+  message: String!
+  type: String!
+}
+
 type StoreShippingPolicyUrlSet implements MessagePayload {
   shippingPolicyUrl: String
   type: String!
@@ -20285,6 +20324,7 @@ enum TypedWarningCode {
   DefaultVariantDeleted
   General
   ImageProcessingOngoing
+  StoreSettingOngoing
 }
 
 """
