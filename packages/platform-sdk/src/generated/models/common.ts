@@ -658,6 +658,11 @@ export type _BaseResource =
  */
 export interface ClientLogging {
   /**
+   *	If `true`, the resource was created or modified by an internal process or the [Merchant Center](/merchant-center). Otherwise, it was created or modified by an [API Client](ctp:api:type:ApiClient) of your Project.
+   *
+   */
+  readonly isPlatformClient?: boolean
+  /**
    *	`id` of the [API Client](ctp:api:type:ApiClient) which created the resource.
    *
    *

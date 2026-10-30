@@ -24,6 +24,9 @@
 <summary>Added Property(s)</summary>
 
 - added property `warnings` to type `Category`
+- added property `isPlatformClient` to type `ClientLogging`
+- added property `isPlatformClient` to type `CreatedBy`
+- added property `isPlatformClient` to type `LastModifiedBy`
 - added property `minDaysBetweenOrders` to type `RecurrencePolicy`
 - added property `minDaysBetweenOrders` to type `RecurrencePolicyDraft`
 
