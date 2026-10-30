@@ -557,7 +557,6 @@ export interface ProductPagedQueryResponse {
   readonly results: Product[]
 }
 /**
- *
  *	This mode determines the type of Prices used for [price selection](/api/pricing-and-discounts-overview#price-selection) by Line Items and Products.
  *	For more information about the difference between the Prices, see [Pricing](/api/pricing-and-discounts-overview).
  *

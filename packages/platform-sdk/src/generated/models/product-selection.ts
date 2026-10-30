@@ -172,7 +172,6 @@ export interface ProductSelection extends BaseResource {
   readonly custom?: CustomFields
 }
 /**
- *
  *	Given the mode of Product Selection, this assignment refers to, it may contain:
  *
  *	- `variantSelection` field for a Product Selection with `Individual` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).

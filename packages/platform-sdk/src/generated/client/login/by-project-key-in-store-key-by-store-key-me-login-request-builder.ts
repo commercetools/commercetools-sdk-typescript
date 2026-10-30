@@ -20,7 +20,6 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeLoginRequestBuilder {
     }
   ) {}
   /**
-   *
    *	Retrieves the authenticated Customer (that matches the given email/password pair) if they are part of a specific [Store](ctp:api:type:Store).
    *
    *	If used with an optional [access token for an anonymous session](ctp:api:type:AnonymousSession), all Orders and Carts that belong to the `anonymousId` are assigned to the newly logged-in Customer.
