@@ -10,6 +10,7 @@ export { default as isBuffer } from './isBuffer'
 export { default as maskAuthData } from './maskAuthData'
 export { default as mergeAuthHeader } from './mergeAuthHeader'
 export { default as METHODS } from './methods'
+export { applyRetryAfterJitter, canRetryWithin, getRetryDelay, hasRetryTiming, parseDeltaSeconds, parseRetryAfter } from './retryAfter'
 export { default as calculateRetryDelay } from './retryDelay'
 export { default as sleep } from './sleep'
 export { default as buildTokenCacheKey } from './tokenCacheKey'
@@ -18,7 +19,7 @@ export { default as store } from './tokenStore'
 export { parseURLString, stringifyURLString } from './url'
 export { default as userAgent } from './userAgent'
 export {
-    validate, validateClient, validateHttpClientOptions, validateRetryCodes,
-    // validateUserAgentOptions,
-    validateStringBodyHeaderOptions
+  validate, validateClient, validateHttpClientOptions, validateRetryCodes,
+  // validateUserAgentOptions,
+  validateStringBodyHeaderOptions
 } from './validate'

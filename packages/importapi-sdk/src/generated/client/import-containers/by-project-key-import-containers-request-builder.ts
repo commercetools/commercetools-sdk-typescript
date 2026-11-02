@@ -8,7 +8,7 @@ import {
   ImportContainerDraft,
   ImportContainerPagedResponse,
 } from '../../models/importcontainers'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyImportContainersByImportContainerKeyRequestBuilder } from './by-project-key-import-containers-by-import-container-key-request-builder'
 /**
@@ -39,7 +39,7 @@ export class ByProjectKeyImportContainersRequestBuilder {
   /**
    *	Creates an Import Container in the Project.
    *
-   *	Generates the [ImportContainerCreated](/projects/events#import-container-created-event) Event.
+   *	Generates the [ImportContainerCreated](ctp:api:type:ImportContainerCreatedEvent) Event.
    *
    */
   public post(methodArgs: {

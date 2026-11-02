@@ -79,13 +79,13 @@ export interface AssignedProductSelection {
  */
 export interface AssignedProductSelectionPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -99,8 +99,8 @@ export interface AssignedProductSelectionPagedQueryResponse {
   /**
    *	Total number of results matching the query.
    *	Present only when the `withTotal` query parameter is set to `true`.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -134,12 +134,12 @@ export interface ProductSelection extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources updated after 1/02/2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	Present on resources updated after 1/02/2019 except for [events not tracked](/api/general-concepts#events-tracked).
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1/02/2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	Present on resources created after 1/02/2019 except for [events not tracked](/api/general-concepts#events-tracked).
    *
    */
   readonly createdBy?: CreatedBy
@@ -194,7 +194,7 @@ export interface ProductSelectionAssignment {
    *	If undefined all Variants of the referenced Product are included.
    *
    *	This field is only available for assignments to a Product Selection with `Individual` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).
-   *	The list of SKUs will be updated automatically on any change of those performed on the respective Product itself.
+   *	The list of SKUs will be updated automatically on any published change of those performed on the respective Product itself. Staged changes do not affect this field.
    *
    *
    */
@@ -204,7 +204,7 @@ export interface ProductSelectionAssignment {
    *	If undefined all Variants of the referenced Product are excluded.
    *
    *	This field is only available for assignments to a Product Selection with `IndividualExclusion` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).
-   *	The list of SKUs will be updated automatically on any change of those performed on the respective Product itself.
+   *	The list of SKUs will be updated automatically on any published change of those performed on the respective Product itself. Staged changes do not affect this field.
    *
    *
    */
@@ -251,13 +251,13 @@ export type ProductSelectionMode =
  */
 export interface ProductSelectionPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -291,13 +291,13 @@ export interface ProductSelectionPagedQueryResponse {
  */
 export interface ProductSelectionProductPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -311,8 +311,8 @@ export interface ProductSelectionProductPagedQueryResponse {
   /**
    *	Total number of results matching the query.
    *	Present only when the `withTotal` query parameter is set to `true`.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -336,18 +336,17 @@ export interface ProductSelectionReference extends IReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded ProductSelection. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for ProductSelections.
+   *	Contains the representation of the expanded ProductSelection. Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for ProductSelections.
    *
    *
    */
   readonly obj?: ProductSelection
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ProductSelection](ctp:api:type:ProductSelection). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ProductSelection](ctp:api:type:ProductSelection). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](ctp:api:type:InvalidJsonInputError) error is returned.
  *
  */
-export interface ProductSelectionResourceIdentifier
-  extends IResourceIdentifier {
+export interface ProductSelectionResourceIdentifier extends IResourceIdentifier {
   readonly typeId: 'product-selection'
   /**
    *	Unique identifier of the referenced [ProductSelection](ctp:api:type:ProductSelection). Required if `key` is absent.
@@ -389,12 +388,12 @@ export interface IProductSelectionUpdateAction {
   readonly action: string
 }
 /**
- *	Only Product Variants with the explicitly listed SKUs are part of a Product Selection with `IndividualExclusion` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).
+ *	Defines the Product Variants that are excluded from a Product Selection with `IndividualExclusion` [ProductSelectionMode](ctp:api:type:ProductSelectionMode). Product Variants not listed remain available in the Product Selection.
  *
  */
 export interface ProductVariantExclusion {
   /**
-   *	Non-empty array of SKUs representing Product Variants to be included in the Product Selection with `IndividualExclusion` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).
+   *	Non-empty array of SKUs representing Product Variants to be excluded from the Product Selection with `IndividualExclusion` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).
    *
    *
    */
@@ -419,8 +418,7 @@ export interface IProductVariantSelection {
  *	All Product Variants except the explicitly stated SKUs are part of the Product Selection.
  *
  */
-export interface ProductVariantSelectionIncludeAllExcept
-  extends IProductVariantSelection {
+export interface ProductVariantSelectionIncludeAllExcept extends IProductVariantSelection {
   readonly type: 'includeAllExcept'
   /**
    *	Non-empty array of SKUs representing Product Variants to be excluded from the Product Selection.
@@ -433,8 +431,7 @@ export interface ProductVariantSelectionIncludeAllExcept
  *	Only Product Variants with explicitly stated SKUs are part of the Product Selection.
  *
  */
-export interface ProductVariantSelectionIncludeOnly
-  extends IProductVariantSelection {
+export interface ProductVariantSelectionIncludeOnly extends IProductVariantSelection {
   readonly type: 'includeOnly'
   /**
    *	Non-empty array of SKUs representing Product Variants to be included into the Product Selection.
@@ -462,13 +459,13 @@ export type ProductVariantSelectionTypeEnum =
  */
 export interface ProductsInStorePagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -482,8 +479,8 @@ export interface ProductsInStorePagedQueryResponse {
   /**
    *	Total number of results matching the query.
    *	Present only when the `withTotal` query parameter is set to `true`.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -500,8 +497,7 @@ export interface ProductsInStorePagedQueryResponse {
  *	If the specified Product is already assigned to the Product Selection, but the existing Product Selection has a different Product Variant Selection, a [ProductPresentWithDifferentVariantSelection](ctp:api:type:ProductPresentWithDifferentVariantSelectionError) error is returned.
  *
  */
-export interface ProductSelectionAddProductAction
-  extends IProductSelectionUpdateAction {
+export interface ProductSelectionAddProductAction extends IProductSelectionUpdateAction {
   readonly action: 'addProduct'
   /**
    *	ResourceIdentifier of the Product
@@ -516,8 +512,7 @@ export interface ProductSelectionAddProductAction
    */
   readonly variantSelection?: ProductVariantSelection
 }
-export interface ProductSelectionChangeNameAction
-  extends IProductSelectionUpdateAction {
+export interface ProductSelectionChangeNameAction extends IProductSelectionUpdateAction {
   readonly action: 'changeName'
   /**
    *	The new name to be set for the ProductSelection.
@@ -531,8 +526,7 @@ export interface ProductSelectionChangeNameAction
  *	If the specified Product is already assigned to the Product Selection, but the existing Product Selection has a different Product Variant Exclusion, a [ProductPresentWithDifferentVariantSelection](ctp:api:type:ProductPresentWithDifferentVariantSelectionError) error is returned.
  *
  */
-export interface ProductSelectionExcludeProductAction
-  extends IProductSelectionUpdateAction {
+export interface ProductSelectionExcludeProductAction extends IProductSelectionUpdateAction {
   readonly action: 'excludeProduct'
   /**
    *	ResourceIdentifier of the Product
@@ -547,8 +541,7 @@ export interface ProductSelectionExcludeProductAction
    */
   readonly variantExclusion?: ProductVariantExclusion
 }
-export interface ProductSelectionRemoveProductAction
-  extends IProductSelectionUpdateAction {
+export interface ProductSelectionRemoveProductAction extends IProductSelectionUpdateAction {
   readonly action: 'removeProduct'
   /**
    *	ResourceIdentifier of the Product
@@ -556,11 +549,10 @@ export interface ProductSelectionRemoveProductAction
    */
   readonly product: ProductResourceIdentifier
 }
-export interface ProductSelectionSetCustomFieldAction
-  extends IProductSelectionUpdateAction {
+export interface ProductSelectionSetCustomFieldAction extends IProductSelectionUpdateAction {
   readonly action: 'setCustomField'
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -574,25 +566,25 @@ export interface ProductSelectionSetCustomFieldAction
    */
   readonly value?: any
 }
-export interface ProductSelectionSetCustomTypeAction
-  extends IProductSelectionUpdateAction {
+export interface ProductSelectionSetCustomTypeAction extends IProductSelectionUpdateAction {
   readonly action: 'setCustomType'
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the ProductSelection with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the ProductSelection with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the ProductSelection.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the ProductSelection.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the ProductSelection.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */
   readonly fields?: FieldContainer
 }
-export interface ProductSelectionSetKeyAction
-  extends IProductSelectionUpdateAction {
+export interface ProductSelectionSetKeyAction extends IProductSelectionUpdateAction {
   readonly action: 'setKey'
   /**
    *	If `key` is absent or `null`, the existing key, if any, will be removed.
@@ -607,8 +599,7 @@ export interface ProductSelectionSetKeyAction
  *	If the specified Product is not assigned to the Product Selection, a [ProductAssignmentMissing](ctp:api:type:ProductAssignmentMissingError) error is returned.
  *
  */
-export interface ProductSelectionSetVariantExclusionAction
-  extends IProductSelectionUpdateAction {
+export interface ProductSelectionSetVariantExclusionAction extends IProductSelectionUpdateAction {
   readonly action: 'setVariantExclusion'
   /**
    *	ResourceIdentifier of the Product
@@ -616,7 +607,7 @@ export interface ProductSelectionSetVariantExclusionAction
    */
   readonly product: ProductResourceIdentifier
   /**
-   *	Determines which Variants of the previously excluded Product are to be included in the Product Selection with `IndividualExclusion` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).
+   *	Determines which Variants of the previously excluded Product are to be excluded from the Product Selection with `IndividualExclusion` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).
    *	Leave it empty to unset an existing Variant Exclusion.
    *
    *
@@ -630,8 +621,7 @@ export interface ProductSelectionSetVariantExclusionAction
  *	If the specified Product is not assigned to the Product Selection, a [ProductAssignmentMissing](ctp:api:type:ProductAssignmentMissingError) error is returned.
  *
  */
-export interface ProductSelectionSetVariantSelectionAction
-  extends IProductSelectionUpdateAction {
+export interface ProductSelectionSetVariantSelectionAction extends IProductSelectionUpdateAction {
   readonly action: 'setVariantSelection'
   /**
    *	ResourceIdentifier of the Product

@@ -372,6 +372,18 @@ describe('testing cart API calls', () => {
     cart = updateCart
   })
 
+  it('fail on path traversel', async () => {
+    try {
+      const cart = await apiRoot
+        .carts()
+        .withId({ ID: '../categories' })
+        .get()
+        .execute()
+    } catch (e) {
+      expect(e.statusCode).toEqual(404)
+    }
+  })
+
   afterAll(async () => {
     /**
      * the order in which these resource

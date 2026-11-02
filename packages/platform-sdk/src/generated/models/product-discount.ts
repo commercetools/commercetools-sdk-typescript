@@ -79,7 +79,7 @@ export interface ProductDiscount extends BaseResource {
    */
   readonly value: ProductDiscountValue
   /**
-   *	Valid [ProductDiscount predicate](/../api/projects/predicates#productdiscount-predicates).
+   *	Valid [ProductDiscount predicate](/api/projects/predicates#productdiscount-predicates).
    *
    *
    */
@@ -92,7 +92,7 @@ export interface ProductDiscount extends BaseResource {
    */
   readonly sortOrder: string
   /**
-   *	If `true` the Product Discount is applied to Products matching the `predicate`.
+   *	Whether the Product Discount is applied to Products matching the `predicate`.
    *
    *
    */
@@ -106,14 +106,14 @@ export interface ProductDiscount extends BaseResource {
   readonly references: Reference[]
   /**
    *	Date and time (UTC) from which the Discount is effective.
-   *	Take [Eventual Consistency](/../api/general-concepts#eventual-consistency) into account for calculated discount values.
+   *	Take [Eventual Consistency](/api/general-concepts#eventual-consistency) into account for calculated discount values.
    *
    *
    */
   readonly validFrom?: string
   /**
    *	Date and time (UTC) until which the Discount is effective.
-   *	Take [Eventual Consistency](/../api/general-concepts#eventual-consistency) into account for calculated undiscounted values.
+   *	Take [Eventual Consistency](/api/general-concepts#eventual-consistency) into account for calculated undiscounted values.
    *
    *
    */
@@ -128,6 +128,8 @@ export interface ProductDiscountDraft {
   readonly name: LocalizedString
   /**
    *	User-defined unique identifier for the ProductDiscount.
+   *
+   *	If the value is used by another Product Discount, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
    *
    *
    */
@@ -145,34 +147,35 @@ export interface ProductDiscountDraft {
    */
   readonly value: ProductDiscountValueDraft
   /**
-   *	Valid [ProductDiscount predicate](/../api/projects/predicates#productdiscount-predicates).
+   *	Valid [ProductDiscount predicate](/api/projects/predicates#productdiscount-predicates).
    *
    *
    */
   readonly predicate: string
   /**
    *	Decimal value between 0 and 1 (passed as String literal) that defines the order of ProductDiscounts to apply in case more than one is applicable and active. A ProductDiscount with a higher `sortOrder` is prioritized.
-   *	The value must be **unique** among all ProductDiscounts in the [Project](ctp:api:type:Project).
+   *
+   *	If the value is used by another Product Discount, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
    *
    *
    */
   readonly sortOrder: string
   /**
-   *	Set to `true` to activate the ProductDiscount, set to `false` to deactivate it (even though the `predicate` matches).
+   *	Whether to activate the ProductDiscount. To deactivate it even though the `predicate` matches, set to `false`.
    *
    *
    */
   readonly isActive: boolean
   /**
    *	Date and time (UTC) from which the Discount is effective.
-   *	Take [Eventual Consistency](/../api/general-concepts#eventual-consistency) into account for calculated discount values.
+   *	Take [Eventual Consistency](/api/general-concepts#eventual-consistency) into account for calculated discount values.
    *
    *
    */
   readonly validFrom?: string
   /**
    *	Date and time (UTC) until which the Discount is effective.
-   *	Take [Eventual Consistency](/../api/general-concepts#eventual-consistency) into account for calculated undiscounted values.
+   *	Take [Eventual Consistency](/api/general-concepts#eventual-consistency) into account for calculated undiscounted values.
    *
    *
    */
@@ -192,7 +195,7 @@ export interface ProductDiscountMatchQuery {
    */
   readonly variantId: number
   /**
-   *	Controls which [projected representation](/../api/projects/productProjections#current--staged) is applied for the query.
+   *	Controls which [projected representation](/api/projects/productProjections#current--staged) is applied for the query.
    *	Set to `true` for the `staged` Product Projection of the specified Product Variant, set to `false` for the `current` one.
    *
    *
@@ -206,18 +209,18 @@ export interface ProductDiscountMatchQuery {
   readonly price: QueryPrice
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [ProductDiscount](ctp:api:type:ProductDiscount).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with results containing an array of [ProductDiscount](ctp:api:type:ProductDiscount).
  *
  */
 export interface ProductDiscountPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -230,10 +233,10 @@ export interface ProductDiscountPagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -258,14 +261,14 @@ export interface ProductDiscountReference extends IReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded ProductDiscount. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for ProductDiscounts.
+   *	Contains the representation of the expanded ProductDiscount. Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for ProductDiscounts.
    *
    *
    */
   readonly obj?: ProductDiscount
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ProductDiscount](ctp:api:type:ProductDiscount). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ProductDiscount](ctp:api:type:ProductDiscount). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](ctp:api:type:InvalidJsonInputError) error is returned.
  *
  */
 export interface ProductDiscountResourceIdentifier extends IResourceIdentifier {
@@ -351,14 +354,13 @@ export interface IProductDiscountValueDraft {
  *	Discounts the Product Price by a fixed amount, defined by the `money` field.
  *
  */
-export interface ProductDiscountValueAbsoluteDraft
-  extends IProductDiscountValueDraft {
+export interface ProductDiscountValueAbsoluteDraft extends IProductDiscountValueDraft {
   readonly type: 'absolute'
   /**
    *	Money values in different currencies.
    *	An absolute Product Discount will match a price only if the array contains a value with the same currency. For example, if it contains 10€ and 15$, the matching € price will be decreased by 10€ and the matching $ price will be decreased by 15$.
    *
-   *	If the value exceeds the price of a Product Variant, the discounted price (of the Product Variant) will be a negative value.
+   *	If the value exceeds the price of a Product Variant, the resulting discounted price is set to `0`.
    *
    *	If the array is empty or has multiple values of the same currency, the API returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *
@@ -379,8 +381,7 @@ export interface ProductDiscountValueExternal extends IProductDiscountValue {
  *	Use this when setting discounts using an external service.
  *
  */
-export interface ProductDiscountValueExternalDraft
-  extends IProductDiscountValueDraft {
+export interface ProductDiscountValueExternalDraft extends IProductDiscountValueDraft {
   readonly type: 'external'
 }
 /**
@@ -399,8 +400,7 @@ export interface ProductDiscountValueRelative extends IProductDiscountValue {
  *	Discounts the Product Price by a percentage, defined by the `permyriad` field.
  *
  */
-export interface ProductDiscountValueRelativeDraft
-  extends IProductDiscountValueDraft {
+export interface ProductDiscountValueRelativeDraft extends IProductDiscountValueDraft {
   readonly type: 'relative'
   /**
    *	Fraction (per ten thousand) the price is reduced by. For example, `1000` will result in a 10% price reduction.
@@ -409,8 +409,7 @@ export interface ProductDiscountValueRelativeDraft
    */
   readonly permyriad: number
 }
-export interface ProductDiscountChangeIsActiveAction
-  extends IProductDiscountUpdateAction {
+export interface ProductDiscountChangeIsActiveAction extends IProductDiscountUpdateAction {
   readonly action: 'changeIsActive'
   /**
    *	New value to set.
@@ -420,8 +419,7 @@ export interface ProductDiscountChangeIsActiveAction
    */
   readonly isActive: boolean
 }
-export interface ProductDiscountChangeNameAction
-  extends IProductDiscountUpdateAction {
+export interface ProductDiscountChangeNameAction extends IProductDiscountUpdateAction {
   readonly action: 'changeName'
   /**
    *	New value to set. Must not be empty.
@@ -430,18 +428,16 @@ export interface ProductDiscountChangeNameAction
    */
   readonly name: LocalizedString
 }
-export interface ProductDiscountChangePredicateAction
-  extends IProductDiscountUpdateAction {
+export interface ProductDiscountChangePredicateAction extends IProductDiscountUpdateAction {
   readonly action: 'changePredicate'
   /**
-   *	New value to set. Must be a valid [ProductDiscount predicate](/../api/projects/predicates#productdiscount-predicates).
+   *	New value to set. Must be a valid [ProductDiscount predicate](/api/projects/predicates#productdiscount-predicates).
    *
    *
    */
   readonly predicate: string
 }
-export interface ProductDiscountChangeSortOrderAction
-  extends IProductDiscountUpdateAction {
+export interface ProductDiscountChangeSortOrderAction extends IProductDiscountUpdateAction {
   readonly action: 'changeSortOrder'
   /**
    *	New value to set.
@@ -449,12 +445,13 @@ export interface ProductDiscountChangeSortOrderAction
    *	The string value must be a number between `0` and `1`.
    *	A Discount with a higher sortOrder is prioritized.
    *
+   *	If the value is used by another Product Discount, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
+   *
    *
    */
   readonly sortOrder: string
 }
-export interface ProductDiscountChangeValueAction
-  extends IProductDiscountUpdateAction {
+export interface ProductDiscountChangeValueAction extends IProductDiscountUpdateAction {
   readonly action: 'changeValue'
   /**
    *	New value to set. Must not be empty.
@@ -463,63 +460,60 @@ export interface ProductDiscountChangeValueAction
    */
   readonly value: ProductDiscountValueDraft
 }
-export interface ProductDiscountSetDescriptionAction
-  extends IProductDiscountUpdateAction {
+export interface ProductDiscountSetDescriptionAction extends IProductDiscountUpdateAction {
   readonly action: 'setDescription'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
   readonly description?: LocalizedString
 }
-export interface ProductDiscountSetKeyAction
-  extends IProductDiscountUpdateAction {
+export interface ProductDiscountSetKeyAction extends IProductDiscountUpdateAction {
   readonly action: 'setKey'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
+   *
+   *	If the value is used by another Product Discount, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
    *
    *
    */
   readonly key?: string
 }
-export interface ProductDiscountSetValidFromAction
-  extends IProductDiscountUpdateAction {
+export interface ProductDiscountSetValidFromAction extends IProductDiscountUpdateAction {
   readonly action: 'setValidFrom'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
-   *	Take [Eventual Consistency](/../api/general-concepts#eventual-consistency) into account for calculated discount values.
+   *	If omitted, any existing value is removed.
+   *	Take [Eventual Consistency](/api/general-concepts#eventual-consistency) into account for calculated discount values.
    *
    *
    */
   readonly validFrom?: string
 }
-export interface ProductDiscountSetValidFromAndUntilAction
-  extends IProductDiscountUpdateAction {
+export interface ProductDiscountSetValidFromAndUntilAction extends IProductDiscountUpdateAction {
   readonly action: 'setValidFromAndUntil'
   /**
    *	Value to set.
-   *	Take [Eventual Consistency](/../api/general-concepts#eventual-consistency) into account for calculated undiscounted values.
+   *	Take [Eventual Consistency](/api/general-concepts#eventual-consistency) into account for calculated undiscounted values.
    *
    *
    */
   readonly validFrom?: string
   /**
    *	Value to set.
-   *	Take [Eventual Consistency](/../api/general-concepts#eventual-consistency) into account for calculated undiscounted values.
+   *	Take [Eventual Consistency](/api/general-concepts#eventual-consistency) into account for calculated undiscounted values.
    *
    *
    */
   readonly validUntil?: string
 }
-export interface ProductDiscountSetValidUntilAction
-  extends IProductDiscountUpdateAction {
+export interface ProductDiscountSetValidUntilAction extends IProductDiscountUpdateAction {
   readonly action: 'setValidUntil'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
-   *	Take [Eventual Consistency](/../api/general-concepts#eventual-consistency) into account for calculated undiscounted values.
+   *	If omitted, any existing value is removed.
+   *	Take [Eventual Consistency](/api/general-concepts#eventual-consistency) into account for calculated undiscounted values.
    *
    *
    */

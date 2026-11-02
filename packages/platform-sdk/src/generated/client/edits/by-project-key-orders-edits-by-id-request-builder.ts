@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { OrderEdit, OrderEditUpdate } from '../../models/order-edit'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyOrdersEditsByIDApplyRequestBuilder } from '../apply/by-project-key-orders-edits-by-id-apply-request-builder'
 /**
@@ -78,7 +78,7 @@ export class ByProjectKeyOrdersEditsByIDRequestBuilder {
     )
   }
   /**
-   *	Updates an OrderEdit in the Project using one or more [update actions](/../api/projects/order-edits#update-actions).
+   *	Updates an OrderEdit in the Project using one or more [update actions](/api/projects/order-edits#update-actions).
    */
   public post(methodArgs: {
     queryArgs?: {

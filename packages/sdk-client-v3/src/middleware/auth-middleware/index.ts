@@ -5,9 +5,6 @@ import createAuthMiddlewareForPasswordFlow from './password-flow'
 import createAuthMiddlewareForRefreshTokenFlow from './refresh-token-flow'
 
 export {
-    createAuthMiddlewareForPasswordFlow,
-    createAuthMiddlewareForAnonymousSessionFlow,
-    createAuthMiddlewareForClientCredentialsFlow,
-    createAuthMiddlewareForRefreshTokenFlow,
-    createAuthMiddlewareForExistingTokenFlow,
+  createAuthMiddlewareForAnonymousSessionFlow,
+  createAuthMiddlewareForClientCredentialsFlow, createAuthMiddlewareForExistingTokenFlow, createAuthMiddlewareForPasswordFlow, createAuthMiddlewareForRefreshTokenFlow
 }

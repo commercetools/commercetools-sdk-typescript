@@ -606,7 +606,7 @@ export interface ProductVariantImport extends ImportResource {
    */
   readonly assets?: Asset[]
   /**
-   *	- Set to `false` to update both the [current and staged projections](/../api/projects/productProjections#current--staged) of the [Product](ctp:api:type:Product) with the new Product Variant data.
+   *	- Set to `false` to update both the [current and staged projections](/api/projects/productProjections#current--staged) of the [Product](ctp:api:type:Product) with the new Product Variant data.
    *	- Leave empty or set to `true` to only update the staged projection.
    *
    *

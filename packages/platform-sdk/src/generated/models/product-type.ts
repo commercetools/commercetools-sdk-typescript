@@ -53,7 +53,7 @@ export interface AttributeDefinition {
    */
   readonly label: LocalizedString
   /**
-   *	If `true`, the Attribute must have a value on a [ProductVariant](ctp:api:type:ProductVariant).
+   *	Whether the Attribute must have a value on a [ProductVariant](ctp:api:type:ProductVariant).
    *
    */
   readonly isRequired: boolean
@@ -81,16 +81,27 @@ export interface AttributeDefinition {
    */
   readonly inputHint: TextInputHint
   /**
-   *	If `true`, the Attribute's values are available in the [Product Search](/../api/projects/product-search) or the [Product Projection Search](/../api/projects/product-projection-search) API for use in full-text search queries, filters, and facets.
+   *	Whether the Attribute's values are available in the [Product Search](/api/projects/product-search) or the [Product Projection Search](/api/projects/product-projection-search) API for use in full-text search queries, filters, and facets.
    *	However, if an Attribute's `level` is set as `Product`, then Product Projection Search does **not support** the Attribute.
+   *	To use the Attribute in search, filters, or facets, set `isSearchable` to `true` for all AttributeDefinitions with the same `name` across different ProductTypes.
+   *	If the `isSearchable` values are different, the Attribute isn't available for search, filters, or facets.
    *
    *	The exact features that are available with this flag depend on the specific [AttributeType](ctp:api:type:AttributeType).
-   *	The maximum size of a searchable field is **restricted** by the [Field content size limit](/../api/limits#field-content-size).
-   *	This constraint is enforced at both [Product creation](ctp:api:endpoint:/{projectKey}/products:POST) and [Product update](/../api/projects/products#update-product).
+   *	The maximum size of a searchable field is **restricted** by the [Field content size limit](/api/limits#field-content-size).
+   *	This constraint is enforced at both [Product creation](ctp:api:endpoint:/{projectKey}/products:POST) and [Product update](/api/projects/products#update-product).
    *	If the length of the input exceeds the maximum size, an [InvalidField](ctp:api:type:InvalidFieldError) error is returned.
    *
    */
   readonly isSearchable: boolean
+  /**
+   *	Whether the Attribute value is copied onto the [LineItem](ctp:api:type:LineItem) when the Product is added to a Cart.
+   *	When `false`, the Attribute value is excluded from the Line Item variant. Line Items already in a Cart are not immediately affected by a change to this value. Existing Line Items are updated the next time their Product data is refreshed, such as when a [Recalculate](ctp:api:type:CartRecalculateAction) update action is performed with `updateProductData` set to `true`, or on a Cart update that triggers an API Extension. Replicating a Cart creates a new Cart that contains the current Product data; it does not update the original Cart.
+   *
+   *	When `savedToLineItem` is `false`, [LineItem predicates](/api/projects/predicates#lineitem-field-identifiers) that reference this Attribute, such as those in Cart Discounts and Shipping Methods, evaluate as if the Attribute is not set.
+   *
+   *
+   */
+  readonly savedToLineItem: boolean
 }
 /**
  *	Specify the Attribute to be created with the [ProductTypeDraft](ctp:api:type:ProductTypeDraft).
@@ -106,10 +117,10 @@ export interface AttributeDefinitionDraft {
    */
   readonly type: AttributeType
   /**
-   *	User-defined name of the Attribute that is unique to the [Project](ctp:api:type:Project).
+   *	User-defined name of the Attribute that must be unique within the ProductType.
    *
-   *	When using the same `name` for an Attribute in multiple ProductTypes, all fields of the AttributeDefinition of this Attribute must be the same across the ProductTypes, else an [AttributeDefinitionAlreadyExists](ctp:api:type:AttributeDefinitionAlreadyExistsError) error is returned.
-   *	An exception to this are the values of an `enum` or `lenum` Type and sets thereof.
+   *	To use the same `name` in multiple ProductTypes, each AttributeDefinition must have the same `type`; otherwise, an [AttributeDefinitionTypeConflict](ctp:api:type:AttributeDefinitionTypeConflictError) error is returned.
+   *	For `enum` or `lenum` Types and sets of these AttributeTypes, the enum values can be different for each ProductType.
    *
    */
   readonly name: string
@@ -119,7 +130,7 @@ export interface AttributeDefinitionDraft {
    */
   readonly label: LocalizedString
   /**
-   *	Set to `true` if the Attribute is required to have a value on a [ProductVariant](ctp:api:type:ProductVariant).
+   *	Whether the Attribute is required to have a value on a [ProductVariant](ctp:api:type:ProductVariant).
    *
    *
    */
@@ -150,17 +161,27 @@ export interface AttributeDefinitionDraft {
    */
   readonly inputHint?: TextInputHint
   /**
-   *	Set as `true` if you want the Attribute's values to be available in the [Product Search](/../api/projects/product-search) or the [Product Projection Search](/../api/projects/product-projection-search) API and can be used in full-text search queries, filters, and facets.
+   *	Set as `true` if you want the Attribute's values to be available in the [Product Search](/api/projects/product-search) or the [Product Projection Search](/api/projects/product-projection-search) API and can be used in full-text search queries, filters, and facets.
    *	If an Attribute's `level` is set as `Product`, then Product Projection Search does **not support** the Attribute.
-   *
+   *	To use the Attribute in search, filters, or facets, set `isSearchable` to `true` for all AttributeDefinitions with the same `name` across different ProductTypes.
+   *	If the `isSearchable` values are different, the Attribute isn't available for search, filters, or facets.
    *
    *	Which exact features are available with this flag depends on the specific [AttributeType](ctp:api:type:AttributeType).
-   *	The maximum size of a searchable field is **restricted** by the [Field content size limit](/../api/limits#field-content-size).
+   *	The maximum size of a searchable field is **restricted** by the [Field content size limit](/api/limits#field-content-size).
    *	This constraint is enforced at both Product creation and Product update.
    *	If the length of the input exceeds the maximum size, an [InvalidField](ctp:api:type:InvalidFieldError) error is returned.
    *
    */
   readonly isSearchable?: boolean
+  /**
+   *	Whether the Attribute value is copied onto the [LineItem](ctp:api:type:LineItem) when the Product is added to a Cart.
+   *	When `false`, the Attribute value is excluded from the Line Item variant. Line Items already in a Cart are not immediately affected by a change to this value. Existing Line Items are updated the next time their Product data is refreshed, such as when a [Recalculate](ctp:api:type:CartRecalculateAction) update action is performed with `updateProductData` set to `true`, or on a Cart update that triggers an API Extension. Replicating a Cart creates a new Cart that contains the current Product data; it does not update the original Cart.
+   *
+   *	When `savedToLineItem` is `false`, [LineItem predicates](/api/projects/predicates#lineitem-field-identifiers) that reference this Attribute, such as those in Cart Discounts and Shipping Methods, evaluate as if the Attribute is not set.
+   *
+   *
+   */
+  readonly savedToLineItem?: boolean
 }
 export enum AttributeLevelEnumValues {
   Product = 'Product',
@@ -224,6 +245,7 @@ export enum AttributeReferenceTypeIdValues {
   Review = 'review',
   ShippingMethod = 'shipping-method',
   State = 'state',
+  Variant = 'variant',
   Zone = 'zone',
 }
 
@@ -243,6 +265,7 @@ export type AttributeReferenceTypeId =
   | 'review'
   | 'shipping-method'
   | 'state'
+  | 'variant'
   | 'zone'
   | (string & {})
 /**
@@ -474,18 +497,18 @@ export interface ProductTypeDraft {
   readonly attributes?: AttributeDefinitionDraft[]
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [ProductType](ctp:api:type:ProductType).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with results containing an array of [ProductType](ctp:api:type:ProductType).
  *
  */
 export interface ProductTypePagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -498,10 +521,10 @@ export interface ProductTypePagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -526,14 +549,14 @@ export interface ProductTypeReference extends IReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded ProductType. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for ProductTypes.
+   *	Contains the representation of the expanded ProductType. Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for ProductTypes.
    *
    *
    */
   readonly obj?: ProductType
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ProductType](ctp:api:type:ProductType). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ProductType](ctp:api:type:ProductType). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](ctp:api:type:InvalidJsonInputError) error is returned.
  *
  */
 export interface ProductTypeResourceIdentifier extends IResourceIdentifier {
@@ -587,6 +610,7 @@ export type ProductTypeUpdateAction =
   | ProductTypeRemoveEnumValuesAction
   | ProductTypeSetInputTipAction
   | ProductTypeSetKeyAction
+  | ProductTypeSetSavedToLineItemAction
 export interface IProductTypeUpdateAction {
   /**
    *
@@ -603,8 +627,7 @@ export enum TextInputHintValues {
 }
 
 export type TextInputHint = 'MultiLine' | 'SingleLine' | (string & {})
-export interface ProductTypeAddAttributeDefinitionAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeAddAttributeDefinitionAction extends IProductTypeUpdateAction {
   readonly action: 'addAttributeDefinition'
   /**
    *	Value to append to `attributes`.
@@ -616,8 +639,7 @@ export interface ProductTypeAddAttributeDefinitionAction
  *	Adds a localizable enum to the values of [AttributeLocalizedEnumType](ctp:api:type:AttributeLocalizedEnumType). It can update an AttributeLocalizedEnumType AttributeDefinition or an [AttributeSetType](ctp:api:type:AttributeSetType) of AttributeLocalizedEnumType AttributeDefinition.
  *
  */
-export interface ProductTypeAddLocalizedEnumValueAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeAddLocalizedEnumValueAction extends IProductTypeUpdateAction {
   readonly action: 'addLocalizedEnumValue'
   /**
    *	Name of the AttributeDefinition to update.
@@ -636,8 +658,7 @@ export interface ProductTypeAddLocalizedEnumValueAction
  *	Adds an enum to the values of [AttributeEnumType](ctp:api:type:AttributeEnumType) AttributeDefinition, or [AttributeSetType](ctp:api:type:AttributeSetType) of AttributeEnumType AttributeDefinition.
  *
  */
-export interface ProductTypeAddPlainEnumValueAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeAddPlainEnumValueAction extends IProductTypeUpdateAction {
   readonly action: 'addPlainEnumValue'
   /**
    *	Name of the AttributeDefinition to update.
@@ -656,8 +677,7 @@ export interface ProductTypeAddPlainEnumValueAction
  *	Updates the `attributeConstraint` of an [AttributeDefinition](ctp:api:type:AttributeDefinition). For now only following changes are supported: `SameForAll` to `None` and `Unique` to `None`.
  *
  */
-export interface ProductTypeChangeAttributeConstraintAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeChangeAttributeConstraintAction extends IProductTypeUpdateAction {
   readonly action: 'changeAttributeConstraint'
   /**
    *	Name of the AttributeDefinition to update.
@@ -678,8 +698,7 @@ export interface ProductTypeChangeAttributeConstraintAction
  *	If the AttributeDefinition name to be changed does not exist, an [AttributeNameDoesNotExist](ctp:api:type:AttributeNameDoesNotExistError) error is returned.
  *
  */
-export interface ProductTypeChangeAttributeNameAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeChangeAttributeNameAction extends IProductTypeUpdateAction {
   readonly action: 'changeAttributeName'
   /**
    *	Name of the AttributeDefinition to update.
@@ -687,16 +706,15 @@ export interface ProductTypeChangeAttributeNameAction
    */
   readonly attributeName: string
   /**
-   *	New user-defined name of the Attribute that is unique to the [Project](ctp:api:type:Project).
+   *	New user-defined name of the Attribute that must be unique within the ProductType.
    *
-   *	When using the same `name` for an Attribute in two or more ProductTypes, all fields of the AttributeDefinition of this Attribute must be the same across the ProductTypes. If not, an [AttributeDefinitionAlreadyExists](ctp:api:type:AttributeDefinitionAlreadyExistsError) error is returned.
-   *	An exception to this are the values of an `enum` or `lenum` type and sets thereof.
+   *	To use the same `name` in multiple ProductTypes, each AttributeDefinition must have the same `type`; otherwise, an [AttributeDefinitionTypeConflict](ctp:api:type:AttributeDefinitionTypeConflictError) error is returned.
+   *	For `enum` or `lenum` Types and sets of these AttributeTypes, the enum values can be different for each ProductType.
    *
    */
   readonly newAttributeName: string
 }
-export interface ProductTypeChangeAttributeOrderByNameAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeChangeAttributeOrderByNameAction extends IProductTypeUpdateAction {
   readonly action: 'changeAttributeOrderByName'
   /**
    *	Names of Attributes to reorder. This array must include all Attributes currently present on a ProductType in a different order.
@@ -705,8 +723,7 @@ export interface ProductTypeChangeAttributeOrderByNameAction
    */
   readonly attributeNames: string[]
 }
-export interface ProductTypeChangeDescriptionAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeChangeDescriptionAction extends IProductTypeUpdateAction {
   readonly action: 'changeDescription'
   /**
    *	New value to set.
@@ -722,8 +739,7 @@ export interface ProductTypeChangeDescriptionAction
  *	All Products will be updated to the new key in an [eventually consistent](/general-concepts#eventual-consistency) way.
  *
  */
-export interface ProductTypeChangeEnumKeyAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeChangeEnumKeyAction extends IProductTypeUpdateAction {
   readonly action: 'changeEnumKey'
   /**
    *	Name of the AttributeDefinition to update.
@@ -747,8 +763,7 @@ export interface ProductTypeChangeEnumKeyAction
  *	Updates the `inputHint` of an [AttributeDefinition](ctp:api:type:AttributeDefinition).
  *
  */
-export interface ProductTypeChangeInputHintAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeChangeInputHintAction extends IProductTypeUpdateAction {
   readonly action: 'changeInputHint'
   /**
    *	Name of the AttributeDefinition to update.
@@ -764,10 +779,10 @@ export interface ProductTypeChangeInputHintAction
 }
 /**
  *	Following this update the Products are reindexed asynchronously to reflect this change on the search endpoint. When enabling search on an existing Attribute type definition, the constraint regarding the maximum size of a searchable Attribute will not be enforced. Instead, AttributeDefinitions exceeding this limit will be treated as not searchable and will not be available for full-text search.
+ *	To use the Attribute in search, filters, or facets, set `isSearchable` to `true` for all AttributeDefinitions with the same `name` across different ProductTypes. If the `isSearchable` values are different, the Attribute isn't available for search, filters, or facets.
  *
  */
-export interface ProductTypeChangeIsSearchableAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeChangeIsSearchableAction extends IProductTypeUpdateAction {
   readonly action: 'changeIsSearchable'
   /**
    *	Name of the AttributeDefinition to update.
@@ -801,8 +816,7 @@ export interface ProductTypeChangeLabelAction extends IProductTypeUpdateAction {
  *	All Products will be updated to the new label in an [eventually consistent](/general-concepts#eventual-consistency) way.
  *
  */
-export interface ProductTypeChangeLocalizedEnumValueLabelAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeChangeLocalizedEnumValueLabelAction extends IProductTypeUpdateAction {
   readonly action: 'changeLocalizedEnumValueLabel'
   /**
    *	Name of the AttributeDefinition to update.
@@ -820,8 +834,7 @@ export interface ProductTypeChangeLocalizedEnumValueLabelAction
  *	Updates the order of localized enum `values` in an [AttributeLocalizedEnumType](ctp:api:type:AttributeLocalizedEnumType) AttributeDefinition. It can update an AttributeLocalizedEnumType AttributeDefinition or an [AttributeSetType](ctp:api:type:AttributeSetType) of AttributeLocalizedEnumType AttributeDefinition.
  *
  */
-export interface ProductTypeChangeLocalizedEnumValueOrderAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeChangeLocalizedEnumValueOrderAction extends IProductTypeUpdateAction {
   readonly action: 'changeLocalizedEnumValueOrder'
   /**
    *	Name of the AttributeDefinition to update.
@@ -849,8 +862,7 @@ export interface ProductTypeChangeNameAction extends IProductTypeUpdateAction {
  *	All Products will be updated to the new label in an [eventually consistent](/general-concepts#eventual-consistency) way.
  *
  */
-export interface ProductTypeChangePlainEnumValueLabelAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeChangePlainEnumValueLabelAction extends IProductTypeUpdateAction {
   readonly action: 'changePlainEnumValueLabel'
   /**
    *	Name of the AttributeDefinition to update.
@@ -868,8 +880,7 @@ export interface ProductTypeChangePlainEnumValueLabelAction
  *	Updates the order of enum `values` in an [AttributeEnumType](ctp:api:type:AttributeEnumType) AttributeDefinition. It can update an AttributeEnumType AttributeDefinition or an [AttributeSetType](ctp:api:type:AttributeSetType) of AttributeEnumType AttributeDefinition.
  *
  */
-export interface ProductTypeChangePlainEnumValueOrderAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeChangePlainEnumValueOrderAction extends IProductTypeUpdateAction {
   readonly action: 'changePlainEnumValueOrder'
   /**
    *	Name of the AttributeDefinition to update.
@@ -884,13 +895,14 @@ export interface ProductTypeChangePlainEnumValueOrderAction
   readonly values: AttributePlainEnumValue[]
 }
 /**
- *	Removes an AttributeDefinition and also deletes all corresponding Attributes on all [Products](/projects/products) with this ProductType. The removal of the Attributes is [eventually consistent](/general-concepts#eventual-consistency).
+ *	Removes an AttributeDefinition and also deletes all corresponding Attributes on all [Products](/projects/products) with this ProductType. Data from deleted Attributes cannot be recovered. The removal of the Attributes is [eventually consistent](/general-concepts#eventual-consistency).
+ *
+ *	Do not remove an AttributeDefinition and add a new AttributeDefinition with the same `name` in the same update request. Because the removal is eventually consistent, wait until it is complete before sending another update request for the ProductType.
  *
  *	The `CombinationUnique` constraint is not checked when an Attribute is removed, and uniqueness violations may occur when you remove an Attribute with a `CombinationUnique` constraint.
  *
  */
-export interface ProductTypeRemoveAttributeDefinitionAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeRemoveAttributeDefinitionAction extends IProductTypeUpdateAction {
   readonly action: 'removeAttributeDefinition'
   /**
    *	Name of the Attribute to remove.
@@ -904,8 +916,7 @@ export interface ProductTypeRemoveAttributeDefinitionAction
  *	If the Attribute is **not** required, the Attributes of all Products using those enum keys will also be removed in an [eventually consistent](/general-concepts#eventual-consistency) way. If the Attribute is required, the operation returns an [EnumValueIsUsed](ctp:api:type:EnumValueIsUsedError) error.
  *
  */
-export interface ProductTypeRemoveEnumValuesAction
-  extends IProductTypeUpdateAction {
+export interface ProductTypeRemoveEnumValuesAction extends IProductTypeUpdateAction {
   readonly action: 'removeEnumValues'
   /**
    *	Name of the AttributeDefinition to update.
@@ -928,7 +939,7 @@ export interface ProductTypeSetInputTipAction extends IProductTypeUpdateAction {
    */
   readonly attributeName: string
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -937,8 +948,35 @@ export interface ProductTypeSetInputTipAction extends IProductTypeUpdateAction {
 export interface ProductTypeSetKeyAction extends IProductTypeUpdateAction {
   readonly action: 'setKey'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    */
   readonly key?: string
+}
+/**
+ *	Sets the `savedToLineItem` property of an [AttributeDefinition](ctp:api:type:AttributeDefinition) on a [ProductType](ctp:api:type:ProductType).
+ *	This update action controls whether the Attribute value is copied onto a [LineItem](ctp:api:type:LineItem) when a Product is added to a Cart.
+ *
+ *	Changing this value does not immediately affect Line Items already in a Cart. Existing Line Items are updated the next time their Product data is refreshed, such as when a [Recalculate](ctp:api:type:CartRecalculateAction) update action is performed with `updateProductData` set to `true`, or on a Cart update that triggers an API Extension. Replicating a Cart creates a new Cart that contains the current Product data; it does not update the original Cart.
+ *
+ *	When `savedToLineItem` is `false`, [LineItem predicates](/api/projects/predicates#lineitem-field-identifiers) that reference this Attribute, such as those in Cart Discounts and Shipping Methods, evaluate as if the Attribute is not set.
+ *
+ */
+export interface ProductTypeSetSavedToLineItemAction extends IProductTypeUpdateAction {
+  readonly action: 'setSavedToLineItem'
+  /**
+   *	Name of the AttributeDefinition to update.
+   *
+   *
+   */
+  readonly attributeName: string
+  /**
+   *	Whether the Attribute value is copied onto a [LineItem](ctp:api:type:LineItem) when the Product is added to a Cart.
+   *	See [AttributeDefinition](ctp:api:type:AttributeDefinition) for details.
+   *
+   *	It has no effect if the Attribute already has the given value.
+   *
+   *
+   */
+  readonly savedToLineItem: boolean
 }

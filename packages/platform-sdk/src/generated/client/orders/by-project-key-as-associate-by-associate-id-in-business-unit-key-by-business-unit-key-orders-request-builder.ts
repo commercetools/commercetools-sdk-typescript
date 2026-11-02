@@ -8,7 +8,7 @@ import {
   OrderFromCartDraft,
   OrderPagedQueryResponse,
 } from '../../models/order'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnitKeyOrdersQuotesRequestBuilder } from '../quotes/by-project-key-as-associate-by-associate-id-in-business-unit-key-by-business-unit-key-orders-quotes-request-builder'
 import { ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnitKeyOrdersByIDRequestBuilder } from './by-project-key-as-associate-by-associate-id-in-business-unit-key-by-business-unit-key-orders-by-id-request-builder'
@@ -129,7 +129,9 @@ export class ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnit
   /**
    *	Creates an Order from a [Cart](ctp:api:type:Cart) in a [BusinessUnit](ctp:api:type:BusinessUnit).
    *
-   *	The Cart must have a shipping address and an active Shipping Method set.
+   *	The Cart must have a shipping address set, regardless of the [TaxMode](ctp:api:type:TaxMode).
+   *
+   *	For a Cart with `Platform` [TaxMode](ctp:api:type:TaxMode), the shipping address is used for tax calculation.
    *
    *	If the Cart does not reference the same BusinessUnit as the `businessUnitKey` path parameter, an [InvalidOperation](ctp:api:type:InvalidOperationError) is returned.
    *

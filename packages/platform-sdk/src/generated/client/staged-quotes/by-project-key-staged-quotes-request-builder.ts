@@ -8,7 +8,7 @@ import {
   StagedQuoteDraft,
   StagedQuotePagedQueryResponse,
 } from '../../models/staged-quote'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyStagedQuotesByIDRequestBuilder } from './by-project-key-staged-quotes-by-id-request-builder'
 import { ByProjectKeyStagedQuotesKeyByKeyRequestBuilder } from './by-project-key-staged-quotes-key-by-key-request-builder'
@@ -81,7 +81,7 @@ export class ByProjectKeyStagedQuotesRequestBuilder {
     )
   }
   /**
-   *	Checks if one or more StagedQuotes exist for the provided query predicate. Returns a `200 OK` status if any StagedQuotes match the query predicate or a [Not Found](/../api/errors#404-not-found) error otherwise.
+   *	Checks if one or more StagedQuotes exist for the provided query predicate. Returns a `200 OK` status if any StagedQuotes match the query predicate or a [Not Found](/api/errors#404-not-found) error otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {
@@ -108,6 +108,12 @@ export class ByProjectKeyStagedQuotesRequestBuilder {
   }
   /**
    *	Creates a StagedQuote in the Project.
+   *
+   *	- [InvalidOperation](ctp:api:type:InvalidOperationError) is returned in several cases, including the following:
+   *	    - The referenced Shipping Method is not active.
+   *	    - The referenced Shipping Method is scoped to a Store that differs from the Store referenced by the [Quote Request](ctp:api:type:QuoteRequest).
+   *	    - The referenced Shipping Method is scoped to a Store, but the [Quote Request](ctp:api:type:QuoteRequest) does not belong to a Store.
+   *
    */
   public post(methodArgs: {
     queryArgs?: {

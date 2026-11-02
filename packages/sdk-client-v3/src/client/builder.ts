@@ -41,6 +41,7 @@ const {
 } = middleware
 
 export default class ClientBuilder {
+  private baseUri: string | undefined
   private projectKey: string | undefined
 
   private authMiddleware: Nullable<Middleware>
@@ -190,6 +191,7 @@ export default class ClientBuilder {
   }
 
   public withHttpMiddleware(options: HttpMiddlewareOptions): ClientBuilder {
+    this.baseUri = options.host || constants.CTP_API_URL
     this.httpMiddleware = createHttpMiddleware({
       host: options.host || constants.CTP_API_URL,
       httpClient: options.httpClient || fetch,
@@ -287,6 +289,6 @@ export default class ClientBuilder {
     if (this.httpMiddleware) middlewares.push(this.httpMiddleware)
     if (this.afterMiddleware) middlewares.push(this.afterMiddleware)
 
-    return createClient({ middlewares })
+    return createClient({ middlewares, baseUri: this.baseUri })
   }
 }

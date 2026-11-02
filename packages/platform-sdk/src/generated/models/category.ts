@@ -15,6 +15,7 @@ import {
   LastModifiedBy,
   LocalizedString,
 } from './common'
+import { StoreKeyReference, StoreResourceIdentifier } from './store'
 import {
   CustomFields,
   CustomFieldsDraft,
@@ -69,7 +70,7 @@ export interface Category extends BaseResource {
    *	User-defined identifier used as a deep-link URL to the related Category per [Locale](ctp:api:type:Locale).
    *	A Category can have the same slug for different Locales, but they are unique across the [Project](ctp:api:type:Project).
    *	Valid slugs match the pattern `^[A-Za-z0-9_-]{2,256}+$`.
-   *	For [good performance](/../api/predicates/query#performance-considerations), indexes are provided for the first 15 `languages` set in a Project.
+   *	For [good performance](/api/predicates/query#performance-considerations), indexes are provided for the first 15 `languages` set in a Project.
    *
    *
    */
@@ -93,7 +94,7 @@ export interface Category extends BaseResource {
    */
   readonly parent?: CategoryReference
   /**
-   *	Decimal value between 0 and 1. Frontend applications can use this value for ordering Categories within the same level in the category tree.
+   *	A decimal value between 0 and 1 used to order Categories within the same level of the category tree. When sorted in ascending order, Categories with a lower `orderHint` appear before those with a higher value (for example, `0.05` before `0.07`).
    *
    *
    */
@@ -123,7 +124,7 @@ export interface Category extends BaseResource {
    */
   readonly metaKeywords?: LocalizedString
   /**
-   *	Custom Fields for the Category.
+   *	Custom Fields of the Category.
    *
    *
    */
@@ -140,6 +141,16 @@ export interface Category extends BaseResource {
    *
    */
   readonly key?: string
+  /**
+   *	[Stores](ctp:api:type:Store) to which the Category is assigned and that you have permission to access.
+   *
+   *	If `stores` is empty, the Category is global and available in every [Store](ctp:api:type:Store).
+   *
+   *	If the Category is created via the [Store-specific endpoint](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/categories), the Store specified in the request path is automatically added to the field value.
+   *
+   *
+   */
+  readonly stores: StoreKeyReference[]
 }
 export interface CategoryDraft {
   /**
@@ -170,8 +181,8 @@ export interface CategoryDraft {
    */
   readonly parent?: CategoryResourceIdentifier
   /**
-   *	Decimal value between 0 and 1. Frontend applications can use this value for ordering Categories within the same level in the category tree.
-   *	If not set, a random value will be assigned.
+   *	A decimal value between 0 and 1 used to order Categories within the same level of the category tree. When sorted in ascending order, Categories with a lower `orderHint` appear before those with a higher value (for example, `0.05` before `0.07`).
+   *	If not set, a random value is assigned.
    *
    *
    */
@@ -215,25 +226,36 @@ export interface CategoryDraft {
   /**
    *	User-defined unique identifier for the Category.
    *
-   *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing Categories with the [Import API](/../api/import-export/overview) and the [Merchant Center](/../merchant-center/import-data).
+   *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing Categories with the [Import API](/api/import-export/overview) and the [Merchant Center](/merchant-center/import-data).
    *
    *
    */
   readonly key?: string
+  /**
+   *	[Stores](ctp:api:type:Store) to assign the Category to.
+   *
+   *	- If not defined or set to an empty array, the Category is global.
+   *	- If defined, you must have access to each referenced Store; otherwise, an [InvalidInput](ctp:api:type:InvalidInputError) error is returned.
+   *
+   *	  If the Category has a parent category, and the parent is assigned to Stores, this value must be a non-empty subset of the parent's Stores.
+   *
+   *
+   */
+  readonly stores?: StoreResourceIdentifier[]
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [Category](ctp:api:type:Category).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with results containing an array of [Category](ctp:api:type:Category).
  *
  */
 export interface CategoryPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -246,10 +268,10 @@ export interface CategoryPagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -274,14 +296,14 @@ export interface CategoryReference extends IReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded Category. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for Categories.
+   *	Contains the representation of the expanded Category. Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for Categories.
    *
    *
    */
   readonly obj?: Category
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Category](ctp:api:type:Category). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Category](ctp:api:type:Category). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](ctp:api:type:InvalidJsonInputError) error is returned.
  *
  */
 export interface CategoryResourceIdentifier extends IResourceIdentifier {
@@ -316,6 +338,7 @@ export interface CategoryUpdate {
 }
 export type CategoryUpdateAction =
   | CategoryAddAssetAction
+  | CategoryAddStoreAction
   | CategoryChangeAssetNameAction
   | CategoryChangeAssetOrderAction
   | CategoryChangeNameAction
@@ -323,6 +346,7 @@ export type CategoryUpdateAction =
   | CategoryChangeParentAction
   | CategoryChangeSlugAction
   | CategoryRemoveAssetAction
+  | CategoryRemoveStoreAction
   | CategorySetAssetCustomFieldAction
   | CategorySetAssetCustomTypeAction
   | CategorySetAssetDescriptionAction
@@ -337,6 +361,7 @@ export type CategoryUpdateAction =
   | CategorySetMetaDescriptionAction
   | CategorySetMetaKeywordsAction
   | CategorySetMetaTitleAction
+  | CategorySetStoresAction
 export interface ICategoryUpdateAction {
   /**
    *
@@ -356,6 +381,21 @@ export interface CategoryAddAssetAction extends ICategoryUpdateAction {
    *
    */
   readonly position?: number
+}
+/**
+ *	This action locks the Category and its parent Category. For details, see [Category tree locking](/api/projects/categories#category-tree-locking).
+ *
+ */
+export interface CategoryAddStoreAction extends ICategoryUpdateAction {
+  readonly action: 'addStore'
+  /**
+   *	Value to add to the Category's `stores`.
+   *
+   *	When called through an [in-Store endpoint](#update-category-in-store), the caller must have permission for the referenced [Store](ctp:api:type:Store).
+   *
+   *
+   */
+  readonly store: StoreResourceIdentifier
 }
 export interface CategoryChangeAssetNameAction extends ICategoryUpdateAction {
   readonly action: 'changeAssetName'
@@ -403,12 +443,16 @@ export interface CategoryChangeNameAction extends ICategoryUpdateAction {
 export interface CategoryChangeOrderHintAction extends ICategoryUpdateAction {
   readonly action: 'changeOrderHint'
   /**
-   *	New value to set. Must be a decimal value between 0 and 1.
+   *	New value to set. Must be a decimal value between 0 and 1. When sorted in ascending order, Categories with a lower `orderHint` appear before those with a higher value (for example, `0.05` before `0.07`).
    *
    *
    */
   readonly orderHint: string
 }
+/**
+ *	This action locks the entire Category tree in the Project for the duration of the request. For details, see [Category tree locking](/api/projects/categories#category-tree-locking).
+ *
+ */
 export interface CategoryChangeParentAction extends ICategoryUpdateAction {
   readonly action: 'changeParent'
   /**
@@ -448,8 +492,25 @@ export interface CategoryRemoveAssetAction extends ICategoryUpdateAction {
    */
   readonly assetKey?: string
 }
-export interface CategorySetAssetCustomFieldAction
-  extends ICategoryUpdateAction {
+/**
+ *	This action locks the Category and its parent Category. For details, see [Category tree locking](/api/projects/categories#category-tree-locking).
+ *
+ *	Every direct child Category must be assigned to at least one Store in that set; otherwise, the action is rejected.
+ *
+ *	- When updating a Category via the [general endpoint](#update-category), all Stores can be removed as a global Category is accessible in all Stores.
+ *	- When updating a Category via the [Store-specific endpoint](#update-category-in-store), you can remove the last Store only if at least one Store remains; otherwise, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned. If you do not have permission for the referenced [Store](ctp:api:type:Store), an [InvalidInput](ctp:api:type:InvalidInputError) error is returned.
+ *
+ */
+export interface CategoryRemoveStoreAction extends ICategoryUpdateAction {
+  readonly action: 'removeStore'
+  /**
+   *	Value to remove from the Category's `stores`.
+   *
+   *
+   */
+  readonly store: StoreResourceIdentifier
+}
+export interface CategorySetAssetCustomFieldAction extends ICategoryUpdateAction {
   readonly action: 'setAssetCustomField'
   /**
    *	New value to set. Either `assetId` or `assetKey` is required.
@@ -464,7 +525,7 @@ export interface CategorySetAssetCustomFieldAction
    */
   readonly assetKey?: string
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -478,8 +539,7 @@ export interface CategorySetAssetCustomFieldAction
    */
   readonly value?: any
 }
-export interface CategorySetAssetCustomTypeAction
-  extends ICategoryUpdateAction {
+export interface CategorySetAssetCustomTypeAction extends ICategoryUpdateAction {
   readonly action: 'setAssetCustomType'
   /**
    *	New value to set. Either `assetId` or `assetKey` is required.
@@ -494,21 +554,22 @@ export interface CategorySetAssetCustomTypeAction
    */
   readonly assetKey?: string
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the Asset with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the Asset with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the Asset.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Asset.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the Asset.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */
   readonly fields?: FieldContainer
 }
-export interface CategorySetAssetDescriptionAction
-  extends ICategoryUpdateAction {
+export interface CategorySetAssetDescriptionAction extends ICategoryUpdateAction {
   readonly action: 'setAssetDescription'
   /**
    *	New value to set. Either `assetId` or `assetKey` is required.
@@ -523,7 +584,7 @@ export interface CategorySetAssetDescriptionAction
    */
   readonly assetKey?: string
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -542,7 +603,7 @@ export interface CategorySetAssetKeyAction extends ICategoryUpdateAction {
    */
   readonly assetId: string
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -593,7 +654,7 @@ export interface CategorySetAssetTagsAction extends ICategoryUpdateAction {
 export interface CategorySetCustomFieldAction extends ICategoryUpdateAction {
   readonly action: 'setCustomField'
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -610,14 +671,16 @@ export interface CategorySetCustomFieldAction extends ICategoryUpdateAction {
 export interface CategorySetCustomTypeAction extends ICategoryUpdateAction {
   readonly action: 'setCustomType'
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the Category with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the Category with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the Category.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Category.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the Category.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */
@@ -626,7 +689,7 @@ export interface CategorySetCustomTypeAction extends ICategoryUpdateAction {
 export interface CategorySetDescriptionAction extends ICategoryUpdateAction {
   readonly action: 'setDescription'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -639,7 +702,7 @@ export interface CategorySetDescriptionAction extends ICategoryUpdateAction {
 export interface CategorySetExternalIdAction extends ICategoryUpdateAction {
   readonly action: 'setExternalId'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -648,14 +711,13 @@ export interface CategorySetExternalIdAction extends ICategoryUpdateAction {
 export interface CategorySetKeyAction extends ICategoryUpdateAction {
   readonly action: 'setKey'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
   readonly key?: string
 }
-export interface CategorySetMetaDescriptionAction
-  extends ICategoryUpdateAction {
+export interface CategorySetMetaDescriptionAction extends ICategoryUpdateAction {
   readonly action: 'setMetaDescription'
   /**
    *	Value to set.
@@ -681,4 +743,26 @@ export interface CategorySetMetaTitleAction extends ICategoryUpdateAction {
    *
    */
   readonly metaTitle?: LocalizedString
+}
+/**
+ *	This action locks the Category and its parent Category. For details, see [Category tree locking](/api/projects/categories#category-tree-locking).
+ *
+ *	Every direct child Category must be assigned to at least one Store in that set; otherwise, the action is rejected.
+ *
+ *	- When updating a Category via the [general endpoint](#update-category), all Stores can be removed as a global Category is accessible in all Stores.
+ *	- When updating a Category via the [Store-specific endpoint](#update-category-in-store), the `stores` field cannot be empty; otherwise, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+ *
+ *	  If you do not have permission for every Store currently assigned to the Category, an [Unauthorized](ctp:api:type:UnauthorizedError) error is returned.
+ *
+ */
+export interface CategorySetStoresAction extends ICategoryUpdateAction {
+  readonly action: 'setStores'
+  /**
+   *	Value to set. It replaces the entire set of [Stores](ctp:api:type:Store) assigned to the Category.
+   *
+   *	If the `stores` field contains a Store that you do not have permission for, an [InvalidInput](ctp:api:type:InvalidInputError) error is returned.
+   *
+   *
+   */
+  readonly stores: StoreResourceIdentifier[]
 }

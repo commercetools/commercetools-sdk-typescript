@@ -7,7 +7,7 @@ import {
   StandalonePrice,
   StandalonePriceUpdate,
 } from '../../models/standalone-price'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
@@ -66,6 +66,12 @@ export class ByProjectKeyStandalonePricesByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	If a modification is already in progress for the exact combination of SKU and price scope fields, an [ExactLockConflict](ctp:api:type:ExactLockConflictError) error is returned.
+   *
+   *	If a modification is already in progress for the combination of SKU and price scope fields (but potentially different validity period), a [ValidityLockConflict](ctp:api:type:ValidityLockConflictError) error is returned.
+   *
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

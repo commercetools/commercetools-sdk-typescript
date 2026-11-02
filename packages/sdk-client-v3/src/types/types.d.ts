@@ -85,7 +85,7 @@ export type ClientResponse<T = any> = {
 }
 
 export type ClientResult<T extends object = any> = ClientResponse<T>
-export type ClientOptions = { middlewares: Array<Middleware> }
+export type ClientOptions = { middlewares: Array<Middleware>, baseUri?: string }
 
 export type Credentials = {
   clientId: string
@@ -242,6 +242,7 @@ export type RetryMiddlewareOptions = {
   maxDelay?: typeof Infinity
   retryOnAbort?: boolean
   retryCodes?: Array<number | string>
+  useRetryAfter?: boolean
 }
 
 export type CorrelationIdMiddlewareOptions = {
@@ -305,6 +306,7 @@ export type IClientOptions = {
   retryConfig?: RetryOptions
   maskSensitiveHeaderData?: boolean
   httpClientOptions?: object
+  request?: MiddlewareRequest
 }
 
 export type HttpClientOptions = IClientOptions & Optional
@@ -323,6 +325,7 @@ type TResponse = {
 }
 
 export type Client = {
+  baseUri?: string
   execute<T extends object = any>(request: ClientRequest): Promise<ClientResult<T>>
   process<T extends object = any>(
     request: ClientRequest,

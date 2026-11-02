@@ -347,6 +347,82 @@ describe('Http Middleware.', () => {
     createHttpMiddleware(httpMiddlewareOptions as any)(next)(request)
   })
 
+  test('should mask sensitive header contents by default when the option is omitted', () => {
+    const response = createTestResponse({
+      data: {},
+      statusCode: 504,
+      headers: {
+        'server-time': '05:07',
+      },
+    })
+
+    const request = createTestRequest({
+      uri: '/default-header/content-type',
+      method: 'POST',
+      body: { id: 'test-id' },
+      headers: {
+        'Content-Type': 'image/jpeg',
+        authorization: 'Bearer xbghRywRe===',
+      },
+    })
+
+    // `maskSensitiveHeaderData` is intentionally NOT set here
+    const httpMiddlewareOptions: HttpMiddlewareOptions = {
+      host: 'http://api-host.com',
+      httpClient: jest.fn(() => response),
+      includeOriginalRequest: true,
+      includeRequestInErrorResponse: true,
+    }
+
+    const next = (req: MiddlewareRequest) => {
+      expect(req.response?.error?.originalRequest).toBeTruthy()
+      expect(
+        req.response?.error?.originalRequest?.headers?.authorization
+      ).toEqual('Bearer ********')
+      return response
+    }
+
+    createHttpMiddleware(httpMiddlewareOptions as any)(next)(request)
+  })
+
+  test('should not mask sensitive header contents when explicitly disabled', () => {
+    const response = createTestResponse({
+      data: {},
+      statusCode: 504,
+      headers: {
+        'server-time': '05:07',
+      },
+    })
+
+    const request = createTestRequest({
+      uri: '/default-header/content-type',
+      method: 'POST',
+      body: { id: 'test-id' },
+      headers: {
+        'Content-Type': 'image/jpeg',
+        authorization: 'Bearer xbghRywRe===',
+      },
+    })
+
+    const httpMiddlewareOptions: HttpMiddlewareOptions = {
+      host: 'http://api-host.com',
+      httpClient: jest.fn(() => response),
+      maskSensitiveHeaderData: false,
+      includeOriginalRequest: true,
+      includeRequestInErrorResponse: true,
+    }
+
+    const next = (req: MiddlewareRequest) => {
+      expect(req.response?.error?.originalRequest).toBeTruthy()
+      expect(
+        req.response?.error?.originalRequest?.headers?.authorization
+      ).toEqual('Bearer xbghRywRe===')
+      return response
+    }
+
+    createHttpMiddleware(httpMiddlewareOptions as any)(next)(request)
+  })
+
   test('should not default other header content-type to application/json', () => {
     const response = createTestResponse({
       data: {},
@@ -873,6 +949,144 @@ describe('Http Middleware.', () => {
       )
 
       expect(response).toBeDefined()
+    })
+  })
+
+  describe('Non-JSON error responses.', () => {
+    const htmlErrorPage =
+      '\n<html><head><title>502 Bad Gateway</title></head>\n<body><h1>502 Bad Gateway</h1></body></html>\n'
+
+    test('should preserve the status code of an error response with a non-JSON body', async () => {
+      const response = createTestResponse({
+        status: 502,
+        text: () => Promise.resolve(htmlErrorPage),
+      })
+
+      const request = createTestRequest({
+        uri: '/standalone-prices',
+        method: 'GET',
+      })
+
+      const httpMiddlewareOptions: HttpMiddlewareOptions = {
+        host: 'http://api-host.com',
+        httpClient: jest.fn(() => response),
+      }
+
+      const next = (req: MiddlewareRequest) => {
+        expect(req.response?.error?.name).toEqual('HttpError')
+        expect(req.response?.error?.statusCode).toEqual(502)
+        expect(req.response?.error?.status).toEqual(502)
+        expect(req.response?.error?.message).toEqual(
+          'Unexpected non-JSON error response'
+        )
+        // the unparsed body is kept so the caller can inspect what arrived
+        expect(req.response?.error?.body).toEqual(htmlErrorPage)
+
+        return response
+      }
+
+      await createHttpMiddleware(httpMiddlewareOptions)(next)(request)
+    })
+
+    test('should retry an error response with a non-JSON body when its status is in `retryCodes`', async () => {
+      const httpClient = jest.fn(() =>
+        createTestResponse({
+          status: 502,
+          text: () => Promise.resolve(htmlErrorPage),
+        })
+      )
+
+      const request = createTestRequest({
+        uri: '/standalone-prices',
+        method: 'GET',
+      })
+
+      const httpMiddlewareOptions: HttpMiddlewareOptions = {
+        host: 'http://api-host.com',
+        httpClient,
+        enableRetry: true,
+        retryConfig: {
+          maxRetries: 3,
+          backoff: false,
+          retryDelay: 1,
+          retryCodes: [502],
+        },
+      }
+
+      const next = (req: MiddlewareRequest): any => {
+        expect(req.response?.error?.statusCode).toEqual(502)
+        expect(req.response?.error?.retryCount).toEqual(3)
+
+        return req.response
+      }
+
+      await createHttpMiddleware(httpMiddlewareOptions)(next)(request)
+
+      // the first attempt plus three retries
+      expect(httpClient).toHaveBeenCalledTimes(4)
+    })
+
+    test('should still surface the parse failure when the response status is not an error', async () => {
+      const response = createTestResponse({
+        text: () => Promise.resolve('<html>not json</html>'),
+      })
+
+      const request = createTestRequest({
+        uri: '/standalone-prices',
+        method: 'GET',
+      })
+
+      const httpMiddlewareOptions: HttpMiddlewareOptions = {
+        host: 'http://api-host.com',
+        httpClient: jest.fn(() => response),
+      }
+
+      const next = (req: MiddlewareRequest) => response
+
+      await expect(
+        createHttpMiddleware(httpMiddlewareOptions)(next)(request)
+      ).rejects.toMatchObject({
+        body: null,
+        error: {
+          name: 'NetworkError',
+          code: 'NetworkError',
+          statusCode: 0,
+        },
+      })
+    })
+
+    test('should not change the handling of an error response with a JSON body', async () => {
+      const _response = {
+        statusCode: 400,
+        message: 'Missing required field.',
+        errors: [{ code: 'RequiredField' }],
+      }
+
+      const response = createTestResponse({
+        status: 400,
+        text: () => Promise.resolve(JSON.stringify(_response)),
+      })
+
+      const request = createTestRequest({
+        uri: '/standalone-prices',
+        method: 'GET',
+      })
+
+      const httpMiddlewareOptions: HttpMiddlewareOptions = {
+        host: 'http://api-host.com',
+        httpClient: jest.fn(() => response),
+      }
+
+      const next = (req: MiddlewareRequest) => {
+        expect(req.response?.error?.name).toEqual('BadRequest')
+        expect(req.response?.error?.code).toEqual('RequiredField')
+        expect(req.response?.error?.statusCode).toEqual(400)
+        expect(req.response?.error?.message).toEqual('Missing required field.')
+
+        return response
+      }
+
+      await createHttpMiddleware(httpMiddlewareOptions)(next)(request)
     })
   })
 })

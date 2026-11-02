@@ -12,14 +12,14 @@ import { Label } from './label'
 /**
  *	Captures the differences between the previous and next version of a resource.
  *
- *	The maximum number of Records that can be stored and their retention period are subject to a [limit](/../api/limits#change-history).
+ *	The maximum number of Records that can be stored and their retention period are subject to a [limit](/api/limits#change-history).
  *
  */
 export interface Record {
   /**
    *	Version of the resource after the change.
    *
-   *	For more information on how the version is incremented, see [Optimistic Concurrency Control](/../api/general-concepts#optimistic-concurrency-control).
+   *	For more information on how the version is incremented, see [Optimistic Concurrency Control](/api/general-concepts#optimistic-concurrency-control).
    *
    *
    */
@@ -77,13 +77,13 @@ export interface Record {
    */
   readonly stores: KeyReference[]
   /**
-   *	Reference to the [Business Unit](ctp:api:type:BusinessUnit) associated with the [Change](ctp:history:type:Change). Only available for [B2B](/../offering/composable-commerce#composable-commerce-for-b2b)-enabled Projects.
+   *	Reference to the [Business Unit](ctp:api:type:BusinessUnit) associated with the [Change](ctp:history:type:Change). Only available for [B2B](/offering/commerce-b2b)-enabled Projects.
    *
    *
    */
   readonly businessUnit?: KeyReference
   /**
-   *	`true` if no change was detected.
+   *	Whether no change was detected.
    *
    *	The version number of the resource can be increased even without any change in the resource.
    *
@@ -92,12 +92,12 @@ export interface Record {
   readonly withoutChanges: boolean
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [Record](ctp:history:type:Record).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with `results` containing an array of [Record](ctp:history:type:Record).
  *
  */
 export interface RecordPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
@@ -110,13 +110,14 @@ export interface RecordPagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation and not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation and not [strongly consistent](/api/general-concepts#strong-consistency).
+   *	Returned only when `withTotal` is set to `true` on the query.
    *
    *
    */
-  readonly total: number
+  readonly total?: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -241,7 +242,7 @@ export interface ErrorResponse {
  */
 export interface ModifiedBy {
   /**
-   *	`true` if the change was made using the Merchant Center.
+   *	Whether the change was made using the Merchant Center.
    *
    *
    */
@@ -287,7 +288,7 @@ export interface ModifiedBy {
    */
   readonly customer?: Reference
   /**
-   *	The [Associate](ctp:api:type:Associate) who made the change in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only available for [B2B](/../offering/composable-commerce#composable-commerce-for-b2b)-enabled Projects when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
+   *	The [Associate](ctp:api:type:Associate) who made the change in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only available for [B2B](/offering/commerce-b2b)-enabled Projects when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
    *
    *
    */
@@ -627,6 +628,7 @@ export enum UpdateTypeValues {
   SetPurchaseOrderNumber = 'setPurchaseOrderNumber',
   SetRating = 'setRating',
   SetReferences = 'setReferences',
+  SetReservationExpirationInMinutes = 'setReservationExpirationInMinutes',
   SetReservations = 'setReservations',
   SetRestockableInDays = 'setRestockableInDays',
   SetReturnInfo = 'setReturnInfo',
@@ -969,6 +971,7 @@ export type UpdateType =
   | 'setPurchaseOrderNumber'
   | 'setRating'
   | 'setReferences'
+  | 'setReservationExpirationInMinutes'
   | 'setReservations'
   | 'setRestockableInDays'
   | 'setReturnInfo'

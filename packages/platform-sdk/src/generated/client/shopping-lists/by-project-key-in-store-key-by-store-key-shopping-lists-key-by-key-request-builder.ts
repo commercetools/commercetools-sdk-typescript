@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { ShoppingList, ShoppingListUpdate } from '../../models/shopping-list'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
@@ -23,7 +23,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyShoppingListsKeyByKeyRequestBuilder
   /**
    *	Retrieves a ShoppingList with the provided `key` in a [Store](ctp:api:type:Store).
    *	If a ShoppingList exists in a Project but does _not_ have the `store` field, or the `store` field references a different Store,
-   *	the [ResourceNotFound](/errors#404-not-found-1) error is returned.
+   *	the [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned.
    *
    */
   public get(methodArgs?: {
@@ -73,9 +73,9 @@ export class ByProjectKeyInStoreKeyByStoreKeyShoppingListsKeyByKeyRequestBuilder
     )
   }
   /**
-   *	Updates a ShoppingList in a [Store](ctp:api:type:Store) using one or more [update actions](/../api/projects/shoppingLists#update-actions).
+   *	Updates a ShoppingList in a [Store](ctp:api:type:Store) using one or more [update actions](/api/projects/shoppingLists#update-actions).
    *	If a ShoppingList exists in a Project but does _not_ have the `store` field, or the `store` field references a different Store,
-   *	the [ResourceNotFound](/errors#404-not-found-1) error is returned.
+   *	the [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned.
    *
    */
   public post(methodArgs: {
@@ -108,7 +108,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyShoppingListsKeyByKeyRequestBuilder
   /**
    *	Deletes a ShoppingList in a [Store](ctp:api:type:Store).
    *	If a ShoppingList exists in a Project but does _not_ have the `store` field, or the `store` field references a different Store,
-   *	the [ResourceNotFound](/errors#404-not-found-1) error is returned.
+   *	the [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned.
    *
    */
   public delete(methodArgs: {

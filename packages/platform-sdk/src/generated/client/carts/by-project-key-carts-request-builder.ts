@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { Cart, CartDraft, CartPagedQueryResponse } from '../../models/cart'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyCartsCustomerIdByCustomerIdMergeRequestBuilder } from '../merge/by-project-key-carts-customer-id-by-customer-id-merge-request-builder'
 import { ByProjectKeyCartsReplicateRequestBuilder } from '../replicate/by-project-key-carts-replicate-request-builder'
@@ -142,7 +142,9 @@ export class ByProjectKeyCartsRequestBuilder {
    *
    *	Creates a Cart in the Project.
    *
-   *	If the referenced [ShippingMethod](ctp:api:type:ShippingMethod) in the [CartDraft](ctp:api:type:CartDraft) has a predicate that does not match, or if the Shipping Method is not active, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *	When using [InventoryMode](ctp:api:type:InventoryMode) `ReserveOnCart`:
+   *	- If only some Line Items can be reserved, the Cart creation succeeds, however, the items that could not be reserved are removed and reservation warnings are returned in the response.
+   *	- If none of the Line Items can be reserved, the Cart creation fails with an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *
    *	Specific Error Codes:
    *
@@ -150,6 +152,11 @@ export class ByProjectKeyCartsRequestBuilder {
    *	- [InvalidItemShippingDetails](ctp:api:type:InvalidItemShippingDetailsError)
    *	- [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError)
    *	- [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError)
+   *	- [InvalidOperation](ctp:api:type:InvalidOperationError) is returned in several cases, including the following:
+   *	    - The referenced Shipping Method has a predicate that does not match the Cart.
+   *	    - The referenced Shipping Method is not active.
+   *	    - The referenced Shipping Method is scoped to a Store that differs from the Cart's Store.
+   *	    - The referenced Shipping Method is scoped to a Store, but the Cart does not belong to a Store.
    *
    */
   public post(methodArgs: {

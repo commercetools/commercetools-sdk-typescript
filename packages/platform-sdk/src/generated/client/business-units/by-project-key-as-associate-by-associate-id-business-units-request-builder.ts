@@ -8,7 +8,7 @@ import {
   BusinessUnitDraft,
   BusinessUnitPagedQueryResponse,
 } from '../../models/business-unit'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyAsAssociateByAssociateIdBusinessUnitsByIDRequestBuilder } from './by-project-key-as-associate-by-associate-id-business-units-by-id-request-builder'
 import { ByProjectKeyAsAssociateByAssociateIdBusinessUnitsKeyByKeyRequestBuilder } from './by-project-key-as-associate-by-associate-id-business-units-key-by-key-request-builder'

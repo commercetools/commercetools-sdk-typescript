@@ -102,7 +102,7 @@ export interface AttributeGroupDraft {
   readonly key?: string
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [AttributeGroup](ctp:api:type:AttributeGroup).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with `results` containing an array of [AttributeGroup](ctp:api:type:AttributeGroup).
  *
  */
 export interface AttributeGroupPagedQueryResponse {
@@ -127,10 +127,10 @@ export interface AttributeGroupPagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -155,14 +155,14 @@ export interface AttributeGroupReference extends IReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded AttributeGroup. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for AttributeGroup.
+   *	Contains the representation of the expanded AttributeGroup. Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for AttributeGroup.
    *
    *
    */
   readonly obj?: AttributeGroup
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to an [AttributeGroup](ctp:api:type:AttributeGroup). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to an [AttributeGroup](ctp:api:type:AttributeGroup). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](ctp:api:type:InvalidJsonInputError) error is returned.
  *
  */
 export interface AttributeGroupResourceIdentifier extends IResourceIdentifier {
@@ -216,8 +216,7 @@ export interface AttributeReference {
    */
   readonly key: string
 }
-export interface AttributeGroupAddAttributeAction
-  extends IAttributeGroupUpdateAction {
+export interface AttributeGroupAddAttributeAction extends IAttributeGroupUpdateAction {
   readonly action: 'addAttribute'
   /**
    *	Value to add.
@@ -226,8 +225,7 @@ export interface AttributeGroupAddAttributeAction
    */
   readonly attribute: AttributeReference
 }
-export interface AttributeGroupChangeNameAction
-  extends IAttributeGroupUpdateAction {
+export interface AttributeGroupChangeNameAction extends IAttributeGroupUpdateAction {
   readonly action: 'changeName'
   /**
    *	New value to set.
@@ -237,8 +235,7 @@ export interface AttributeGroupChangeNameAction
    */
   readonly name: LocalizedString
 }
-export interface AttributeGroupRemoveAttributeAction
-  extends IAttributeGroupUpdateAction {
+export interface AttributeGroupRemoveAttributeAction extends IAttributeGroupUpdateAction {
   readonly action: 'removeAttribute'
   /**
    *	Value to remove.
@@ -247,8 +244,7 @@ export interface AttributeGroupRemoveAttributeAction
    */
   readonly attribute: AttributeReference
 }
-export interface AttributeGroupSetAttributesAction
-  extends IAttributeGroupUpdateAction {
+export interface AttributeGroupSetAttributesAction extends IAttributeGroupUpdateAction {
   readonly action: 'setAttributes'
   /**
    *	New unique values to set.
@@ -257,19 +253,17 @@ export interface AttributeGroupSetAttributesAction
    */
   readonly attributes: AttributeReference[]
 }
-export interface AttributeGroupSetDescriptionAction
-  extends IAttributeGroupUpdateAction {
+export interface AttributeGroupSetDescriptionAction extends IAttributeGroupUpdateAction {
   readonly action: 'setDescription'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
   readonly description?: LocalizedString
 }
-export interface AttributeGroupSetKeyAction
-  extends IAttributeGroupUpdateAction {
+export interface AttributeGroupSetKeyAction extends IAttributeGroupUpdateAction {
   readonly action: 'setKey'
   /**
    *	If `key` is absent or `null`, the existing key, if any, will be removed.

@@ -8,7 +8,7 @@ on:
 permissions:
   actions: write
   contents: write
-  id-token: write  # Required for npm trusted publishing (OIDC)
+  id-token: write # Required for npm trusted publishing (OIDC)
 
 jobs:
   release:
@@ -32,7 +32,7 @@ jobs:
           echo "email=${GH_APP_USER}+ct-changesets[bot]@users.noreply.github.com" >> "$GITHUB_OUTPUT"
 
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7.0.1
         with:
           # Pass a personal access token (using our CT Changesets App) to be able to trigger other workflows
           # https://help.github.com/en/actions/reference/events-that-trigger-workflows#triggering-new-workflows-using-a-personal-access-token
@@ -52,16 +52,19 @@ jobs:
       # Configure npm for OIDC authentication with trusted publishing
       # This must be done after CI setup to ensure npm is properly configured
 
-      # setup-node@v4 with registry-url automatically configures OIDC when id-token: write is set
+      # setup-node with registry-url automatically configures OIDC when id-token: write is set
       - name: Setup Node.js for npm publishing
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: '24'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
 
-      - name: Building packages
-        run: yarn build
-
+      # Must run before any yarn command. setup-node writes an .npmrc containing
+      # `_authToken=${NODE_AUTH_TOKEN}` and points NPM_CONFIG_USERCONFIG at it. Since
+      # setup-node v7 no longer exports a dummy NODE_AUTH_TOKEN (actions/setup-node#1558)
+      # and we publish via OIDC rather than a token, that variable is undefined and
+      # yarn v1 hard-fails with "Failed to replace env in config: ${NODE_AUTH_TOKEN}".
+      # Dropping the auth line resolves that and leaves OIDC as the only auth mechanism.
       - name: Verify npm OIDC configuration
         run: |
           # Verify registry is set correctly
@@ -71,17 +74,20 @@ jobs:
           # Verify npm can access the registry (this will use OIDC if configured)
           echo "npm OIDC authentication configured via setup-node action"
 
+      - name: Building packages
+        run: yarn build
+
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
         with:
           publish: yarn changeset publish
           version: yarn changeset:version-and-format
-          commit: 'ci(changesets): version packages'
+          commit: "ci(changesets): version packages"
         env:
           GITHUB_TOKEN: ${{ steps.generate_github_token.outputs.token }}
           # Ensure npm uses OIDC authentication
-          NPM_CONFIG_REGISTRY: 'https://registry.npmjs.org'
+          NPM_CONFIG_REGISTRY: "https://registry.npmjs.org"
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Dispatch repository event
@@ -126,11 +132,11 @@ jobs:
         run: rm -rf reference.txt
         continue-on-error: true
 
-      - uses: stefanzweifel/git-auto-commit-action@778341af668090896ca464160c2def5d1d1a3eb0 # v6.0.1
+      - uses: stefanzweifel/git-auto-commit-action@4a55954c782fc1ea30b9056cd3e7a2b40ca8887d # v7.2.0
         if: steps.changesets.outputs.published == 'true'
         with:
           branch: after-release
-          file_pattern: 'reference.txt'
+          file_pattern: "reference.txt"
           commit_message: "chore: updating API ref SHA"
           commit_author: ct-changesets[bot] <${{ steps.get_app_user.outputs.email }}>
           commit_user_name: ct-changesets[bot]

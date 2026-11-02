@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { Type, TypeDraft, TypePagedQueryResponse } from '../../models/type'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyTypesByIDRequestBuilder } from './by-project-key-types-by-id-request-builder'
 import { ByProjectKeyTypesKeyByKeyRequestBuilder } from './by-project-key-types-key-by-key-request-builder'

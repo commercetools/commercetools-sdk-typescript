@@ -30,7 +30,7 @@ import { Attribute } from './productvariants'
 
 export interface ItemState {
   /**
-   *	Number of Line Items or Custom Line Items in this State.
+   *	Quantity of Line Items or Custom Line Items in this State.
    *
    *
    */
@@ -338,8 +338,7 @@ export interface TrackingData {
    */
   readonly providerTransaction?: string
   /**
-   *	- If `true`, the Parcel is being returned.
-   *	- If `false`, the Parcel is being delivered to the customer.
+   *	Whether the Parcel is being returned. If `false`, the Parcel is being delivered to the customer.
    *
    *
    */
@@ -353,7 +352,7 @@ export interface DeliveryItem {
    */
   readonly id: string
   /**
-   *	Number of Line Items or Custom Line Items delivered.
+   *	Quantity of Line Items or Custom Line Items delivered.
    *
    *
    */

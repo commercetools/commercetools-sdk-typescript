@@ -8,7 +8,7 @@ import {
   OrderFromCartDraft,
   OrderPagedQueryResponse,
 } from '../../models/order'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyInStoreKeyByStoreKeyOrdersQuotesRequestBuilder } from '../quotes/by-project-key-in-store-key-by-store-key-orders-quotes-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyOrdersByIDRequestBuilder } from './by-project-key-in-store-key-by-store-key-orders-by-id-request-builder'
@@ -121,9 +121,9 @@ export class ByProjectKeyInStoreKeyByStoreKeyOrdersRequestBuilder {
   }
   /**
    *	Creates an Order from a Cart in a [Store](ctp:api:type:Store).
-   *	The Cart must have a shipping address and an active Shipping Method set.
+   *	The Cart must have a shipping address set, regardless of the [TaxMode](ctp:api:type:TaxMode).
    *
-   *	The shipping address is used for tax calculation for a Cart with `Platform` [TaxMode](ctp:api:type:TaxMode).
+   *	For a Cart with `Platform` [TaxMode](ctp:api:type:TaxMode), the shipping address is used for tax calculation.
    *
    *	Creating an Order produces the [OrderCreated](ctp:api:type:OrderCreatedMessage) Message.
    *

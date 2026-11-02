@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { ProductProjectionPagedQueryResponse } from '../../models/product'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyProductProjectionsSearchRequestBuilder } from '../search/by-project-key-product-projections-search-request-builder'
 import { ByProjectKeyProductProjectionsSuggestRequestBuilder } from '../suggest/by-project-key-product-projections-suggest-request-builder'
@@ -69,10 +69,10 @@ export class ByProjectKeyProductProjectionsRequestBuilder {
   }
 
   /**
-   *	Retrieves the [projected](/../api/projects/productProjections#projection-dimensions) representation of [Products](ctp:api:type:Product) by [query predicates](/../api/predicates/query).
+   *	Retrieves the [projected](/api/projects/productProjections#projection-dimensions) representation of [Products](ctp:api:type:Product) by [query predicates](/api/predicates/query).
    *
    *	By default, this endpoint returns the `current` representation of Products where the `published` flag is `true`.
-   *	If a Product is unpublished (`published=false`), the endpoint returns a [Not Found](/../api/errors#404-not-found) error.
+   *	If a Product is unpublished (`published=false`), the endpoint returns a [Not Found](/api/errors#404-not-found) error.
    *
    *	Required access scopes:
    *

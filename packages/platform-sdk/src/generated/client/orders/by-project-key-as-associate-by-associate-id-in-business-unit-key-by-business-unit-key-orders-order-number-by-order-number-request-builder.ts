@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { Order, OrderUpdate } from '../../models/order'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
@@ -73,7 +73,7 @@ export class ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnit
     )
   }
   /**
-   *	Updates an Order in a [BusinessUnit](ctp:api:type:BusinessUnit) using one or more [update actions](/../api/projects/orders#update-actions).
+   *	Updates an Order in a [BusinessUnit](ctp:api:type:BusinessUnit) using one or more [update actions](/api/projects/orders#update-actions).
    *	If the Order exists in the [Project](ctp:api:type:Project) but does not reference the requested Business Unit, this method returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *
    */

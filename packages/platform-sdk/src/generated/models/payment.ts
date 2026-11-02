@@ -105,7 +105,7 @@ export interface Payment extends BaseResource {
    */
   readonly interfaceInteractions: CustomFields[]
   /**
-   *	Custom Fields for the Payment.
+   *	Custom Fields of the Payment.
    *
    *
    */
@@ -260,12 +260,12 @@ export interface PaymentMethodInfoDraft {
   readonly custom?: CustomFieldsDraft
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [Payment](ctp:api:type:Payment).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with `results` containing an array of [Payment](ctp:api:type:Payment).
  *
  */
 export interface PaymentPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
@@ -278,16 +278,16 @@ export interface PaymentPagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
   readonly total?: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -312,14 +312,14 @@ export interface PaymentReference extends IReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded Payment. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for Payments.
+   *	Contains the representation of the expanded Payment. Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for Payments.
    *
    *
    */
   readonly obj?: Payment
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of a [Payment](ctp:api:type:Payment). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of a [Payment](ctp:api:type:Payment). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](ctp:api:type:InvalidJsonInputError) error is returned.
  *
  */
 export interface PaymentResourceIdentifier extends IResourceIdentifier {
@@ -498,7 +498,7 @@ export interface TransactionDraft {
    */
   readonly state?: TransactionState
   /**
-   *	Custom Fields of the Transaction.
+   *	Custom Fields for the Transaction.
    *
    */
   readonly custom?: CustomFieldsDraft
@@ -544,8 +544,7 @@ export type TransactionType =
  *	Adding a Payment interaction generates the [PaymentInteractionAdded](ctp:api:type:PaymentInteractionAddedMessage) Message.
  *
  */
-export interface PaymentAddInterfaceInteractionAction
-  extends IPaymentUpdateAction {
+export interface PaymentAddInterfaceInteractionAction extends IPaymentUpdateAction {
   readonly action: 'addInterfaceInteraction'
   /**
    *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of a [Type](ctp:api:type:Type).
@@ -554,7 +553,9 @@ export interface PaymentAddInterfaceInteractionAction
    */
   readonly type: TypeResourceIdentifier
   /**
-   *	[Custom Fields](/../api/projects/custom-fields) as per [FieldDefinitions](ctp:api:type:FieldDefinition) of the [Type](ctp:api:type:Type).
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the InterfaceInteraction.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */
@@ -586,8 +587,7 @@ export interface PaymentChangeAmountPlannedAction extends IPaymentUpdateAction {
    */
   readonly amount: _Money
 }
-export interface PaymentChangeTransactionInteractionIdAction
-  extends IPaymentUpdateAction {
+export interface PaymentChangeTransactionInteractionIdAction extends IPaymentUpdateAction {
   readonly action: 'changeTransactionInteractionId'
   /**
    *	Unique identifier of the [Transaction](ctp:api:type:Transaction).
@@ -606,8 +606,7 @@ export interface PaymentChangeTransactionInteractionIdAction
  *	Changing the [TransactionState](ctp:api:type:TransactionState) generates the [PaymentTransactionStateChanged](ctp:api:type:PaymentTransactionStateChangedMessage) Message.
  *
  */
-export interface PaymentChangeTransactionStateAction
-  extends IPaymentUpdateAction {
+export interface PaymentChangeTransactionStateAction extends IPaymentUpdateAction {
   readonly action: 'changeTransactionState'
   /**
    *	Unique identifier of the [Transaction](ctp:api:type:Transaction).
@@ -622,8 +621,7 @@ export interface PaymentChangeTransactionStateAction
    */
   readonly state: TransactionState
 }
-export interface PaymentChangeTransactionTimestampAction
-  extends IPaymentUpdateAction {
+export interface PaymentChangeTransactionTimestampAction extends IPaymentUpdateAction {
   readonly action: 'changeTransactionTimestamp'
   /**
    *	Unique identifier of the [Transaction](ctp:api:type:Transaction).
@@ -645,7 +643,7 @@ export interface PaymentChangeTransactionTimestampAction
 export interface PaymentSetAnonymousIdAction extends IPaymentUpdateAction {
   readonly action: 'setAnonymousId'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
@@ -654,7 +652,7 @@ export interface PaymentSetAnonymousIdAction extends IPaymentUpdateAction {
 export interface PaymentSetCustomFieldAction extends IPaymentUpdateAction {
   readonly action: 'setCustomField'
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -671,14 +669,16 @@ export interface PaymentSetCustomFieldAction extends IPaymentUpdateAction {
 export interface PaymentSetCustomTypeAction extends IPaymentUpdateAction {
   readonly action: 'setCustomType'
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the Payment with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the Payment with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the Payment.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Payment.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the Payment.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */
@@ -688,7 +688,7 @@ export interface PaymentSetCustomerAction extends IPaymentUpdateAction {
   readonly action: 'setCustomer'
   /**
    *	Value to set.
-   *	If empty, any existing reference is removed.
+   *	If omitted, any existing reference is removed.
    *
    *
    */
@@ -737,7 +737,7 @@ export interface PaymentSetMethodInfoAction extends IPaymentUpdateAction {
   readonly paymentInterface?: string
   /**
    *	Payment method to use—for example, a credit card or direct debit.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *	Setting this field is equivalent to the `setMethodInfoMethod` action and will generate the [PaymentMethodInfoMethodSet](ctp:api:type:PaymentMethodInfoMethodSetMessage) Message.
    *
@@ -746,7 +746,7 @@ export interface PaymentSetMethodInfoAction extends IPaymentUpdateAction {
   readonly method?: string
   /**
    *	Name of the Payment Method.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *	Setting this field is equivalent to the `setMethodInfoName` action and will generate the [PaymentMethodInfoNameSet](ctp:api:type:PaymentMethodInfoNameSetMessage) Message.
    *
@@ -755,7 +755,7 @@ export interface PaymentSetMethodInfoAction extends IPaymentUpdateAction {
   readonly name?: LocalizedString
   /**
    *	Tokenized payment method information of the Payment Method.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *	Setting this field is equivalent to the `setMethodInfoToken` action and will generate the [PaymentMethodInfoTokenSet](ctp:api:type:PaymentMethodInfoTokenSetMessage) Message.
    *
@@ -764,7 +764,7 @@ export interface PaymentSetMethodInfoAction extends IPaymentUpdateAction {
   readonly token?: PaymentMethodToken
   /**
    *	Account or instance of the payment interface when multiple accounts are used (per interface).
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *	Setting this field is equivalent to the `setMethodInfoInterfaceAccount` action and will generate the [PaymentMethodInfoInterfaceAccountSet](ctp:api:type:PaymentMethodInfoInterfaceAccountSetMessage) Message.
    *
@@ -773,7 +773,7 @@ export interface PaymentSetMethodInfoAction extends IPaymentUpdateAction {
   readonly interfaceAccount?: string
   /**
    *	Custom Fields for the PaymentMethodInfo.
-   *	If not provided, any existing Custom Fields will be removed, including the Custom Type.
+   *	If omitted, any existing Custom Fields are removed, including the Custom Type.
    *
    *	Setting this field is equivalent to the `setMethodInfoCustomType` and `setMethodInfoCustomField` actions, and will generate the following Messages:
    *
@@ -788,11 +788,10 @@ export interface PaymentSetMethodInfoAction extends IPaymentUpdateAction {
  *	Adding a Custom Field to a PaymentMethodInfo generates the [PaymentMethodInfoCustomFieldAdded](ctp:api:type:PaymentMethodInfoCustomFieldAddedMessage) Message, removing one generates the [PaymentMethodInfoCustomFieldRemoved](ctp:api:type:PaymentMethodInfoCustomFieldRemovedMessage) Message, and updating an existing one generates the [PaymentMethodInfoCustomFieldChanged](ctp:api:type:PaymentMethodInfoCustomFieldChangedMessage) Message.
  *
  */
-export interface PaymentSetMethodInfoCustomFieldAction
-  extends IPaymentUpdateAction {
+export interface PaymentSetMethodInfoCustomFieldAction extends IPaymentUpdateAction {
   readonly action: 'setMethodInfoCustomField'
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -810,17 +809,18 @@ export interface PaymentSetMethodInfoCustomFieldAction
  *	Adding or updating a Custom Type on a PaymentMethodInfo generates the [PaymentMethodInfoCustomTypeSet](ctp:api:type:PaymentMethodInfoCustomTypeSetMessage) Message, removing one generates the [PaymentMethodInfoCustomTypeRemoved](ctp:api:type:PaymentMethodInfoCustomTypeRemovedMessage) Message.
  *
  */
-export interface PaymentSetMethodInfoCustomTypeAction
-  extends IPaymentUpdateAction {
+export interface PaymentSetMethodInfoCustomTypeAction extends IPaymentUpdateAction {
   readonly action: 'setMethodInfoCustomType'
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the `paymentMethodInfo` with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the `paymentMethodInfo` with [Custom Fields](ctp:api:type:CustomFields).
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the `paymentMethodInfo`.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the `paymentMethodInfo`.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */
@@ -830,12 +830,11 @@ export interface PaymentSetMethodInfoCustomTypeAction
  *	This action generates the [PaymentMethodInfoInterfaceAccountSet](ctp:api:type:PaymentMethodInfoInterfaceAccountSetMessage) Message.
  *
  */
-export interface PaymentSetMethodInfoInterfaceAccountAction
-  extends IPaymentUpdateAction {
+export interface PaymentSetMethodInfoInterfaceAccountAction extends IPaymentUpdateAction {
   readonly action: 'setMethodInfoInterfaceAccount'
   /**
    *	New account or instance of the payment interface.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -845,8 +844,7 @@ export interface PaymentSetMethodInfoInterfaceAccountAction
  *	This action generates the [PaymentMethodInfoInterfaceSet](ctp:api:type:PaymentMethodInfoInterfaceSetMessage) Message.
  *
  */
-export interface PaymentSetMethodInfoInterfaceAction
-  extends IPaymentUpdateAction {
+export interface PaymentSetMethodInfoInterfaceAction extends IPaymentUpdateAction {
   readonly action: 'setMethodInfoInterface'
   /**
    *	Value to set.
@@ -864,7 +862,7 @@ export interface PaymentSetMethodInfoMethodAction extends IPaymentUpdateAction {
   readonly action: 'setMethodInfoMethod'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -878,7 +876,7 @@ export interface PaymentSetMethodInfoNameAction extends IPaymentUpdateAction {
   readonly action: 'setMethodInfoName'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -892,7 +890,7 @@ export interface PaymentSetMethodInfoTokenAction extends IPaymentUpdateAction {
   readonly action: 'setMethodInfoToken'
   /**
    *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
@@ -901,28 +899,25 @@ export interface PaymentSetMethodInfoTokenAction extends IPaymentUpdateAction {
 /**
  *	Produces the [PaymentStatusInterfaceCodeSet](ctp:api:type:PaymentStatusInterfaceCodeSetMessage) Message.
  */
-export interface PaymentSetStatusInterfaceCodeAction
-  extends IPaymentUpdateAction {
+export interface PaymentSetStatusInterfaceCodeAction extends IPaymentUpdateAction {
   readonly action: 'setStatusInterfaceCode'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If omitted, any existing value is removed.
    *
    *
    */
   readonly interfaceCode?: string
 }
-export interface PaymentSetStatusInterfaceTextAction
-  extends IPaymentUpdateAction {
+export interface PaymentSetStatusInterfaceTextAction extends IPaymentUpdateAction {
   readonly action: 'setStatusInterfaceText'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. Set to an empty string to remove any existing value.
    *
    *
    */
   readonly interfaceText: string
 }
-export interface PaymentSetTransactionCustomFieldAction
-  extends IPaymentUpdateAction {
+export interface PaymentSetTransactionCustomFieldAction extends IPaymentUpdateAction {
   readonly action: 'setTransactionCustomField'
   /**
    *	Unique identifier of the [Transaction](ctp:api:type:Transaction).
@@ -931,7 +926,7 @@ export interface PaymentSetTransactionCustomFieldAction
    */
   readonly transactionId: string
   /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *	Name of the [Custom Field](/api/projects/custom-fields).
    *
    *
    */
@@ -945,8 +940,7 @@ export interface PaymentSetTransactionCustomFieldAction
    */
   readonly value?: any
 }
-export interface PaymentSetTransactionCustomTypeAction
-  extends IPaymentUpdateAction {
+export interface PaymentSetTransactionCustomTypeAction extends IPaymentUpdateAction {
   readonly action: 'setTransactionCustomType'
   /**
    *	Unique identifier of the [Transaction](ctp:api:type:Transaction). If the specified `transactionId` does not exist, the request will fail with an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
@@ -955,14 +949,16 @@ export interface PaymentSetTransactionCustomTypeAction
    */
   readonly transactionId: string
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the Transaction with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the Transaction with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the Transaction.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Transaction.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the Transaction.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */
@@ -972,8 +968,7 @@ export interface PaymentSetTransactionCustomTypeAction
  *	Setting the transaction interface ID produces the [PaymentTransactionInterfaceIdSet](ctp:api:type:PaymentTransactionInterfaceIdSetMessage) Message.
  *
  */
-export interface PaymentSetTransactionInterfaceIdAction
-  extends IPaymentUpdateAction {
+export interface PaymentSetTransactionInterfaceIdAction extends IPaymentUpdateAction {
   readonly action: 'setTransactionInterfaceId'
   /**
    *	Unique identifier of the [Transaction](ctp:api:type:Transaction).
@@ -1006,7 +1001,7 @@ export interface PaymentTransitionStateAction extends IPaymentUpdateAction {
    */
   readonly state: StateResourceIdentifier
   /**
-   *	Set to `true` to skip validations when transitioning to the new State.
+   *	Whether to skip validations when transitioning to the new State.
    *
    */
   readonly force?: boolean

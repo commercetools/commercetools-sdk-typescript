@@ -77,5 +77,39 @@ describe('ApiRequestExecutor', () => {
 
       expect(buildRelativeUri(request)).toEqual('/key=foo%5Bbar%5D/test/bar')
     })
+
+    test('path traversal characters in uri parameter', async () => {
+      const request = {
+        baseURL: 'http://base-url',
+        method: 'GET' as const,
+        uriTemplate: '/categories/{id}',
+        pathVariables: {
+          id: '../cart',
+        },
+      }
+
+      expect(buildRelativeUri(request)).toEqual('/categories/..%2Fcart')
+    })
+    test.each(['.', '..'])('rejects dot segment %p as path parameter', (id) => {
+      const request = {
+        baseURL: 'http://base-url',
+        method: 'GET' as const,
+        uriTemplate: '/categories/{id}',
+        pathVariables: { id },
+      }
+
+      expect(() => buildRelativeUri(request)).toThrow(/Invalid value/)
+    })
+
+    test('encodes percent-encoded dot segments', () => {
+      const request = {
+        baseURL: 'http://base-url',
+        method: 'GET' as const,
+        uriTemplate: '/categories/{id}',
+        pathVariables: { id: '%2e%2e' },
+      }
+
+      expect(buildRelativeUri(request)).toEqual('/categories/%252e%252e')
+    })
   })
 })

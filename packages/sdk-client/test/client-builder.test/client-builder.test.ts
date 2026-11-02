@@ -185,7 +185,7 @@ describe('client builder', () => {
     const clientWithLoggerMiddleware = client.withLoggerMiddleware(options)
 
     expect(options.logger).toHaveBeenCalled()
-    expect(options.logger).toBeCalledTimes(1)
+    expect(options.logger).toHaveBeenCalledTimes(1)
     expect(clientWithLoggerMiddleware.withLoggerMiddleware).toBeTruthy()
   })
 
@@ -213,7 +213,7 @@ describe('client builder', () => {
       client.withAfterExecutionMiddleware(options)
 
     expect(options.middleware).toHaveBeenCalled()
-    expect(options.middleware).toBeCalledTimes(1)
+    expect(options.middleware).toHaveBeenCalledTimes(1)
     expect(clientWithAfterMiddleware.withAfterExecutionMiddleware).toBeTruthy()
   })
 
@@ -226,18 +226,11 @@ describe('client builder', () => {
         .withQueueMiddleware({ concurrency: 20 })
         .withLoggerMiddleware()
         .withHttpMiddleware(httpMiddlewareOptions)
-        .withTelemetryMiddleware<{
-          apm: Function
-          tracer: Function
-          createTelemetryMiddleware: (options: {
-            apm: Function
-            tracer: Function
-          }) => Middleware
-        }>({
+        .withTelemetryMiddleware({
           apm: jest.fn(),
           tracer: jest.fn(),
           createTelemetryMiddleware: (): Middleware => jest.fn(),
-        })
+        } as any)
         .withLoggerMiddleware({ logger: jest.fn() })
         .withBeforeExecutionMiddleware({ middleware: jest.fn() })
         .withAfterExecutionMiddleware({ middleware: jest.fn() })

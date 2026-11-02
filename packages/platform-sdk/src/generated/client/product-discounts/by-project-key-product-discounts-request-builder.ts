@@ -8,7 +8,7 @@ import {
   ProductDiscountDraft,
   ProductDiscountPagedQueryResponse,
 } from '../../models/product-discount'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyProductDiscountsMatchingRequestBuilder } from '../matching/by-project-key-product-discounts-matching-request-builder'
 import { ByProjectKeyProductDiscountsByIDRequestBuilder } from './by-project-key-product-discounts-by-id-request-builder'

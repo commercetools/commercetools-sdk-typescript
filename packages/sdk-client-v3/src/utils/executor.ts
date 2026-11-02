@@ -1,11 +1,32 @@
 import { HttpClientConfig, IResponse, TResponse } from '../types/types'
 import { calculateRetryDelay, sleep, validateRetryCodes } from '../utils'
+import { canRetryWithin } from './retryAfter'
+
+const TOO_MANY_REQUESTS = 429
+const DEFAULT_RETRY_CODES = [TOO_MANY_REQUESTS, 503]
 
 function hasResponseRetryCode(
   retryCodes: Array<string | number>,
   response: any
 ) {
-  return [503, ...retryCodes].includes(response?.status || response?.statusCode)
+  return [...DEFAULT_RETRY_CODES, ...retryCodes].includes(
+    response?.status || response?.statusCode
+  )
+}
+
+function shouldRetryResponse(
+  retryCodes: Array<string | number>,
+  response: any,
+  maxDelay: number
+) {
+  if (!hasResponseRetryCode(retryCodes, response)) return false
+
+  // A 429 is retried only when the server said when and only when that wait
+  // fits within maxDelay.
+  const status = response?.status ?? response?.statusCode
+  if (status === TOO_MANY_REQUESTS) return canRetryWithin(response, maxDelay)
+
+  return true
 }
 
 async function executeHttpClientRequest(
@@ -42,6 +63,8 @@ export default async function executor(request: HttpClientConfig) {
         retryDelay = 200,
         // If set to true reinitialize the abort controller when the timeout is reached and apply the retry config
         retryOnAbort = true,
+        // Choose a server-specified `Retry-After` header over computed backoff
+        useRetryAfter = true,
       } = retryConfig || {}
 
       let result: string,
@@ -57,7 +80,7 @@ export default async function executor(request: HttpClientConfig) {
           ...options,
           ...rest,
           headers: {
-            ...rest.headers,
+            ...Object.assign({}, rest.headers, rest.request?.headers ?? {}),
           },
 
           // for axios
@@ -94,7 +117,7 @@ export default async function executor(request: HttpClientConfig) {
             _response = await execute()
             if (
               _response.status > 399 &&
-              hasResponseRetryCode(retryCodes, _response)
+              shouldRetryResponse(retryCodes, _response, maxDelay)
             ) {
               return { _response, shouldRetry: true }
             }
@@ -126,7 +149,7 @@ export default async function executor(request: HttpClientConfig) {
         while (enableRetry && shouldRetry && retryCount < maxRetries) {
           retryCount++
 
-          // delay next retry attempt
+          // delay next retry attempt, using Retry-After
           await sleep(
             calculateRetryDelay({
               retryCount,
@@ -134,6 +157,8 @@ export default async function executor(request: HttpClientConfig) {
               maxRetries,
               backoff,
               maxDelay,
+              response: _response,
+              useRetryAfter: useRetryAfter,
             })
           )
 
@@ -157,18 +182,27 @@ export default async function executor(request: HttpClientConfig) {
         }
       }
 
-      try {
-        // try to parse the `fetch` response as text
-        if (response.text && typeof response.text == 'function') {
-          result = await response.text()
+      // try to parse the `fetch` response as text
+      if (response.text && typeof response.text == 'function') {
+        result = await response.text()
 
+        try {
           data = JSON.parse(result)
-        } else {
-          // axios response
-          data = response.data || response
+        } catch (err) {
+          const statusCode = response.status || response.statusCode
+
+          // An error response can come from infrastructure sitting in front of
+          // the API (e.g. an HTML page from a load balancer). Keep the raw body
+          // so the status code survives, instead of collapsing into a `NetworkError`
+          // with `statusCode: 0`. Anything else, including a response whose status
+          // we do not know, keeps surfacing the parse failure.
+          if (!(statusCode > 399)) throw err
+
+          data = result
         }
-      } catch (err) {
-        throw err
+      } else {
+        // axios response
+        data = response.data || response
       }
 
       return {

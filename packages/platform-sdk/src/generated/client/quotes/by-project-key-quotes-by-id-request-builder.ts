@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { Quote, QuoteUpdate } from '../../models/quote'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
@@ -46,7 +46,7 @@ export class ByProjectKeyQuotesByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if a Quote exists with the provided `id`. Returns a `200 OK` status if the Quote exists, or a [Not Found](/../api/errors#404-not-found) error otherwise.
+   *	Checks if a Quote exists with the provided `id`. Returns a `200 OK` status if the Quote exists, or a [Not Found](/api/errors#404-not-found) error otherwise.
    */
   public head(methodArgs?: {
     headers?: {
@@ -67,7 +67,7 @@ export class ByProjectKeyQuotesByIDRequestBuilder {
     )
   }
   /**
-   *	Updates a Quote in the Project using one or more [update actions](/../api/projects/quotes#update-actions).
+   *	Updates a Quote in the Project using one or more [update actions](/api/projects/quotes#update-actions).
    */
   public post(methodArgs: {
     queryArgs?: {

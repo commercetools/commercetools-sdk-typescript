@@ -63,6 +63,16 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'delete',
+      uri: '/test_projectKey/in-store/key=test_storeKey/business-units/test_ID?dataErasure=true&version=2',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .businessUnits()
+        .withId({ ID: 'test_ID' })
+        .delete({ queryArgs: { dataErasure: true, version: 2 } }),
+    },
+    {
+      method: 'delete',
       uri: '/test_projectKey/in-store/key=test_storeKey/business-units/test_ID?version=2',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
@@ -88,11 +98,11 @@ describe('Testing ByProjectKeyInStoreKeyByStoreKeyBusinessUnitsByIDRequestBuilde
   const requestsToTest = getRequestsWithMethodParameters()
   requestsToTest.forEach((rm) => {
     test(`Testing => request method: ${rm.method} and url: ${rm.uri}`, async () => {
-      expect(rm.method.toLowerCase()).toBe(
-        rm.request.clientRequest().method.toLowerCase()
+      expect(rm.request.clientRequest().method.toLowerCase()).toBe(
+        rm.method.toLowerCase()
       )
-      expect(rm.uri.toLowerCase()).toBe(
-        rm.request.clientRequest().uri.toLowerCase()
+      expect(rm.request.clientRequest().uri.toLowerCase()).toBe(
+        rm.uri.toLowerCase()
       )
     })
   })

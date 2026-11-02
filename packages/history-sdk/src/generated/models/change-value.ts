@@ -13,8 +13,8 @@ import {
   Parcel,
   Reference,
   SelectionMode,
-  TaxedPrice,
   TaxRate,
+  TaxedPrice,
 } from './common'
 
 export type ChangeTargetChangeValue =
@@ -75,29 +75,26 @@ export interface AttributeValue {
    */
   readonly value: any
 }
-export interface ChangeTargetCustomLineItemsChangeValue
-  extends IChangeTargetChangeValue {
+export interface ChangeTargetCustomLineItemsChangeValue extends IChangeTargetChangeValue {
   readonly type: 'customLineItems'
   /**
-   *	Valid [CustomLineItem target predicate](/../api/projects/predicates#customlineitem-field-identifiers).
+   *	Valid [CustomLineItem target predicate](/api/projects/predicates#customlineitem-field-identifiers).
    *
    */
   readonly predicate: string
 }
-export interface ChangeTargetLineItemsChangeValue
-  extends IChangeTargetChangeValue {
+export interface ChangeTargetLineItemsChangeValue extends IChangeTargetChangeValue {
   readonly type: 'lineItems'
   /**
-   *	Valid [LineItem target predicate](/../api/projects/predicates#lineitem-field-identifiers).
+   *	Valid [LineItem target predicate](/api/projects/predicates#lineitem-field-identifiers).
    *
    */
   readonly predicate: string
 }
-export interface ChangeTargetMultiBuyCustomLineItemsChangeValue
-  extends IChangeTargetChangeValue {
+export interface ChangeTargetMultiBuyCustomLineItemsChangeValue extends IChangeTargetChangeValue {
   readonly type: 'multiBuyCustomLineItems'
   /**
-   *	Valid [CustomLineItem target predicate](/../api/projects/predicates#customlineitem-field-identifiers).
+   *	Valid [CustomLineItem target predicate](/api/projects/predicates#customlineitem-field-identifiers).
    *
    */
   readonly predicate: string
@@ -122,11 +119,10 @@ export interface ChangeTargetMultiBuyCustomLineItemsChangeValue
    */
   readonly selectionMode: SelectionMode
 }
-export interface ChangeTargetMultiBuyLineItemsChangeValue
-  extends IChangeTargetChangeValue {
+export interface ChangeTargetMultiBuyLineItemsChangeValue extends IChangeTargetChangeValue {
   readonly type: 'multiBuyLineItems'
   /**
-   *	Valid [LineItem target predicate](/../api/projects/predicates#lineitem-field-identifiers).
+   *	Valid [LineItem target predicate](/api/projects/predicates#lineitem-field-identifiers).
    *
    */
   readonly predicate: string
@@ -151,8 +147,7 @@ export interface ChangeTargetMultiBuyLineItemsChangeValue
    */
   readonly selectionMode: SelectionMode
 }
-export interface ChangeTargetPatternChangeValue
-  extends IChangeTargetChangeValue {
+export interface ChangeTargetPatternChangeValue extends IChangeTargetChangeValue {
   readonly type: 'pattern'
   /**
    *	Defines the set of units of (Custom) Line Items in a Cart that triggered the discount application.
@@ -181,12 +176,10 @@ export interface ChangeTargetPatternChangeValue
    */
   readonly selectionMode: SelectionMode
 }
-export interface ChangeTargetShippingChangeValue
-  extends IChangeTargetChangeValue {
+export interface ChangeTargetShippingChangeValue extends IChangeTargetChangeValue {
   readonly type: 'shipping'
 }
-export interface ChangeValueAbsoluteChangeValue
-  extends IChangeValueChangeValue {
+export interface ChangeValueAbsoluteChangeValue extends IChangeValueChangeValue {
   readonly type: 'absolute'
   /**
    *	Money values in different currencies.
@@ -194,12 +187,10 @@ export interface ChangeValueAbsoluteChangeValue
    */
   readonly money: Money[]
 }
-export interface ChangeValueExternalChangeValue
-  extends IChangeValueChangeValue {
+export interface ChangeValueExternalChangeValue extends IChangeValueChangeValue {
   readonly type: 'external'
 }
-export interface ChangeValueGiftLineItemChangeValue
-  extends IChangeValueChangeValue {
+export interface ChangeValueGiftLineItemChangeValue extends IChangeValueChangeValue {
   readonly type: 'giftLineItem'
   /**
    *	Reference to a [Product](ctp:api:type:Product).
@@ -223,8 +214,7 @@ export interface ChangeValueGiftLineItemChangeValue
    */
   readonly distributionChannel: Reference
 }
-export interface ChangeValueRelativeChangeValue
-  extends IChangeValueChangeValue {
+export interface ChangeValueRelativeChangeValue extends IChangeValueChangeValue {
   readonly type: 'relative'
   /**
    *	Fraction (per ten thousand) the price is reduced by. For example, 1000 results in a 10% price reduction.

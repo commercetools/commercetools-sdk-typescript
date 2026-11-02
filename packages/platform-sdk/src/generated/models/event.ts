@@ -190,7 +190,7 @@ export interface CheckoutPaymentAuthorizationFailedEvent extends IEvent {
   readonly data: CheckoutMessagePaymentsPayloadBaseData
 }
 /**
- *	Generated when a payment is successfully authorized in Checkout. This event indicates the payment has been validated and the amount has been reserved but not yet charged.
+ *	Generated when a payment is successfully authorized in Checkout. This event indicates that the payment has been validated and the amount has been reserved but not yet charged.
  *
  */
 export interface CheckoutPaymentAuthorizedEvent extends IEvent {
@@ -376,6 +376,196 @@ export interface CheckoutPaymentRefundedEvent extends IEvent {
   readonly data: CheckoutMessagePaymentsPayloadBaseData
 }
 /**
+ *	The `data` payload of all related order event messages.
+ */
+export interface CheckoutMessageOrderPayloadBaseData {
+  /**
+   *	`key` of the [Project](ctp:api:type:Project) where the order would belong to.
+   *
+   *
+   */
+  readonly projectKey: string
+  /**
+   *	The [Cart](ctp:api:type:Cart) on which the change or action was performed.
+   *
+   *
+   */
+  readonly cart: CartReference
+  /**
+   *	The [Payments](ctp:api:type:Payment) on which the change or action was performed.
+   *
+   *
+   */
+  readonly payments: PaymentReference[]
+  /**
+   *	Errors associated with the order event.
+   *
+   *
+   */
+  readonly errors: ErrorObject[]
+}
+/**
+ *	The `data` payload of all payment related event messages.
+ */
+export interface CheckoutMessagePaymentsPayloadBaseData {
+  /**
+   *	`key` of the [Project](ctp:api:type:Project) where the payment was made.
+   *
+   *
+   */
+  readonly projectKey: string
+  /**
+   *	The [Payment](ctp:api:type:Payment) on which the change or action was performed.
+   *
+   *
+   */
+  readonly payment: PaymentReference
+  /**
+   *	`id` of the [Transaction](ctp:api:type:Transaction).
+   *
+   *
+   */
+  readonly transactionId: string
+  /**
+   *	The [Cart](ctp:api:type:Cart) on which the change or action was performed.
+   *
+   *
+   */
+  readonly cart?: CartReference
+  /**
+   *	The [Order](ctp:api:type:Order) on which the change or action was performed.
+   *
+   *
+   */
+  readonly order?: OrderReference
+}
+/**
+ *	The `data` of the [Import Container Created Event](ctp:api:type:ImportContainerCreatedEvent).
+ */
+export interface ImportContainerCreatedEventData {
+  /**
+   *	The `key` of the created Import Container.
+   *
+   *
+   */
+  readonly key: string
+  /**
+   *	The `version` of the created Import Container.
+   *
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Import Container was created.
+   *
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Date and time (UTC) the Import Container was last updated.
+   *
+   *
+   */
+  readonly lastModifiedAt: string
+}
+/**
+ *	The `data` of the [Import Container Deleted Event](ctp:api:type:ImportContainerDeletedEvent).
+ */
+export interface ImportContainerDeletedEventData {
+  /**
+   *	The `key` of the deleted Import Container.
+   *
+   *
+   */
+  readonly key: string
+  /**
+   *	The `version` of the deleted Import Container.
+   *
+   *
+   */
+  readonly version: number
+}
+/**
+ *	The `data` of the [Import Operation Rejected Event](ctp:api:type:ImportOperationRejectedEvent).
+ */
+export interface ImportOperationRejectedEventData {
+  /**
+   *	The `id` of the Import Operation with the `rejected` state.
+   *
+   *
+   */
+  readonly id: string
+}
+/**
+ *	The `data` of the [Import Unresolved Event](ctp:api:type:ImportUnresolvedEvent).
+ */
+export interface ImportUnresolvedEventData {
+  /**
+   *	The `id` of the Import Operation with the `unresolved` state.
+   *
+   *
+   */
+  readonly id: string
+  /**
+   *	The `version` of the Import Operation with the `unresolved` state.
+   *
+   *
+   */
+  readonly version: number
+  /**
+   *	The `key` of the Import Container.
+   *
+   *
+   */
+  readonly importContainerKey: string
+}
+/**
+ *	The `data` of the [Import Validation Failed Event](ctp:api:type:ImportValidationFailedEvent).
+ */
+export interface ImportValidationFailedEventData {
+  /**
+   *	The `id` of the Import Operation with the `validationFailed` state.
+   *
+   *
+   */
+  readonly id: string
+  /**
+   *	The `version` of the Import Operation with the `validationFailed` state.
+   *
+   *
+   */
+  readonly version: number
+  /**
+   *	The `key` of the Import Container.
+   *
+   *
+   */
+  readonly importContainerKey: string
+}
+/**
+ *	The `data` of the [Import Wait For Master Variant Event](ctp:api:type:ImportWaitForMasterVariantEvent).
+ */
+export interface ImportWaitForMasterVariantEventData {
+  /**
+   *	The `id` of the Import Operation with the `waitForMasterVariant` state.
+   *
+   *
+   */
+  readonly id: string
+  /**
+   *	The `version` of the Import Operation with the `waitForMasterVariant` state.
+   *
+   *
+   */
+  readonly version: number
+  /**
+   *	The `key` of the Import Container.
+   *
+   *
+   */
+  readonly importContainerKey: string
+}
+/**
  *	Generated when an [Import Container](ctp:import:type:ImportContainer) is created.
  */
 export interface ImportContainerCreatedEvent extends IEvent {
@@ -554,194 +744,4 @@ export interface ImportWaitForMasterVariantEvent extends IEvent {
    *
    */
   readonly data: ImportWaitForMasterVariantEventData
-}
-/**
- *	The `data` payload of all related order event messages.
- */
-export interface CheckoutMessageOrderPayloadBaseData {
-  /**
-   *	`key` of the [Project](ctp:api:type:Project) where the order would belong to.
-   *
-   *
-   */
-  readonly projectKey: string
-  /**
-   *	The [Cart](ctp:api:type:Cart) on which the change or action was performed.
-   *
-   *
-   */
-  readonly cart: CartReference
-  /**
-   *	The [Payments](ctp:api:type:Payment) on which the change or action was performed.
-   *
-   *
-   */
-  readonly payments: PaymentReference[]
-  /**
-   *	Errors associated with the order event.
-   *
-   *
-   */
-  readonly errors: ErrorObject[]
-}
-/**
- *	The `data` payload of all payment related event messages.
- */
-export interface CheckoutMessagePaymentsPayloadBaseData {
-  /**
-   *	`key` of the [Project](ctp:api:type:Project) where the payment was made.
-   *
-   *
-   */
-  readonly projectKey: string
-  /**
-   *	The [Payment](ctp:api:type:Payment) on which the change or action was performed.
-   *
-   *
-   */
-  readonly payment: PaymentReference
-  /**
-   *	`id` of the [Transaction](/../api/projects/payments#transaction).
-   *
-   *
-   */
-  readonly transactionId: string
-  /**
-   *	The [Cart](ctp:api:type:Cart) on which the change or action was performed.
-   *
-   *
-   */
-  readonly cart?: CartReference
-  /**
-   *	The [Order](ctp:api:type:Order) on which the change or action was performed.
-   *
-   *
-   */
-  readonly order?: OrderReference
-}
-/**
- *	The `data` of the [Import Container Created Event](ctp:api:type:ImportContainerCreatedEvent).
- */
-export interface ImportContainerCreatedEventData {
-  /**
-   *	The `key` of the created Import Container.
-   *
-   *
-   */
-  readonly key: string
-  /**
-   *	The `version` of the created Import Container.
-   *
-   *
-   */
-  readonly version: number
-  /**
-   *	Date and time (UTC) the Import Container was created.
-   *
-   *
-   */
-  readonly createdAt: string
-  /**
-   *	Date and time (UTC) the Import Container was last updated.
-   *
-   *
-   */
-  readonly lastModifiedAt: string
-}
-/**
- *	The `data` of the [Import Container Deleted Event](ctp:api:type:ImportContainerDeletedEvent).
- */
-export interface ImportContainerDeletedEventData {
-  /**
-   *	The `key` of the deleted Import Container.
-   *
-   *
-   */
-  readonly key: string
-  /**
-   *	The `version` of the deleted Import Container.
-   *
-   *
-   */
-  readonly version: number
-}
-/**
- *	The `data` of the [Import Operation Rejected Event](ctp:api:type:ImportOperationRejectedEvent).
- */
-export interface ImportOperationRejectedEventData {
-  /**
-   *	The `id` of the Import Operation with the `rejected` state.
-   *
-   *
-   */
-  readonly id: string
-}
-/**
- *	The `data` of the [Import Unresolved Event](ctp:api:type:ImportUnresolvedEvent).
- */
-export interface ImportUnresolvedEventData {
-  /**
-   *	The `id` of the Import Operation with the `unresolved` state.
-   *
-   *
-   */
-  readonly id: string
-  /**
-   *	The `version` of the Import Operation with the `unresolved` state.
-   *
-   *
-   */
-  readonly version: number
-  /**
-   *	The `key` of the Import Container.
-   *
-   *
-   */
-  readonly importContainerKey: string
-}
-/**
- *	The `data` of the [Import Validation Failed Event](ctp:api:type:ImportValidationFailedEvent).
- */
-export interface ImportValidationFailedEventData {
-  /**
-   *	The `id` of the Import Operation with the `validationFailed` state.
-   *
-   *
-   */
-  readonly id: string
-  /**
-   *	The `version` of the Import Operation with the `validationFailed` state.
-   *
-   *
-   */
-  readonly version: number
-  /**
-   *	The `key` of the Import Container.
-   *
-   *
-   */
-  readonly importContainerKey: string
-}
-/**
- *	The `data` of the [Import Wait For Master Variant Event](ctp:api:type:ImportWaitForMasterVariantEvent).
- */
-export interface ImportWaitForMasterVariantEventData {
-  /**
-   *	The `id` of the Import Operation with the `waitForMasterVariant` state.
-   *
-   *
-   */
-  readonly id: string
-  /**
-   *	The `version` of the Import Operation with the `waitForMasterVariant` state.
-   *
-   *
-   */
-  readonly version: number
-  /**
-   *	The `key` of the Import Container.
-   *
-   *
-   */
-  readonly importContainerKey: string
 }

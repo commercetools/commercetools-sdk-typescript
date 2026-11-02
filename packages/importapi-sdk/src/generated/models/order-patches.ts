@@ -25,7 +25,7 @@ export type ReturnShipmentState =
   | (string & {})
 export interface ReturnItemDraft {
   /**
-   *	Number of Line Items or Custom Line Items to return.
+   *	Quantity of Line Items or Custom Line Items to return.
    *
    *
    */

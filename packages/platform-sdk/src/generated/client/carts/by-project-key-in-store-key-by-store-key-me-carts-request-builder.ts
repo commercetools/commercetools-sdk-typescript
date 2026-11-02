@@ -5,7 +5,7 @@
  */
 import { Cart, CartPagedQueryResponse } from '../../models/cart'
 import { MyCartDraft } from '../../models/me'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyInStoreKeyByStoreKeyMeCartsByIDRequestBuilder } from './by-project-key-in-store-key-by-store-key-me-carts-by-id-request-builder'
 /**
@@ -95,7 +95,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeCartsRequestBuilder {
   }
   /**
    *
-   *	Creates a Cart in a Store for the Customer or anonymous user. The `customerId` or `anonymousId` field on the Cart is automatically set based on the [customer:{id}](/scopes#composable-commerce-oauth) or [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope.
+   *	Creates a Cart in a Store for the Customer or anonymous user. The `customerId` or `anonymousId` field on the Cart is automatically set based on the [customer:{id}](/scopes#internal-oauth) or [anonymous_id:{id}](/scopes#internal-oauth) scope.
    *
    *	The `store` field in the created [Cart](ctp:api:type:Cart) is set to the Store specified by the `storeKey` path parameter.
    *

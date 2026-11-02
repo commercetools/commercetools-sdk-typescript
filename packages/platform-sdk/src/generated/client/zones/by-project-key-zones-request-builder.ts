@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { Zone, ZoneDraft, ZonePagedQueryResponse } from '../../models/zone'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyZonesByIDRequestBuilder } from './by-project-key-zones-by-id-request-builder'
 import { ByProjectKeyZonesKeyByKeyRequestBuilder } from './by-project-key-zones-key-by-key-request-builder'
@@ -77,7 +77,7 @@ export class ByProjectKeyZonesRequestBuilder {
     )
   }
   /**
-   *	Checks if one or more Zones exist for the provided query predicate. Returns a `200 OK` status if any Zones match the query predicate, or a [Not Found](/../api/errors#404-not-found) error otherwise.
+   *	Checks if one or more Zones exist for the provided query predicate. Returns a `200 OK` status if any Zones match the query predicate, or a [Not Found](/api/errors#404-not-found) error otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {

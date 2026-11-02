@@ -8,7 +8,7 @@ import {
   ShippingMethodDraft,
   ShippingMethodPagedQueryResponse,
 } from '../../models/shipping-method'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyShippingMethodsMatchingCartLocationRequestBuilder } from '../matching-cart-location/by-project-key-shipping-methods-matching-cart-location-request-builder'
 import { ByProjectKeyShippingMethodsMatchingCartRequestBuilder } from '../matching-cart/by-project-key-shipping-methods-matching-cart-request-builder'
@@ -133,7 +133,7 @@ export class ByProjectKeyShippingMethodsRequestBuilder {
     )
   }
   /**
-   *	Checks if one or more ShippingMethods exist for the provided query predicate. Returns a `200 OK` status if any ShippingMethods match the query predicate or a [Not Found](/../api/errors#404-not-found) error otherwise.
+   *	Checks if one or more ShippingMethods exist for the provided query predicate. Returns a `200 OK` status if any ShippingMethods match the query predicate or a [Not Found](/api/errors#404-not-found) error otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {

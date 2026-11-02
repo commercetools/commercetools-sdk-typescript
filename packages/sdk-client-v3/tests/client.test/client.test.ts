@@ -20,7 +20,9 @@ const createPayloadResult = (tot: number, startingId = 0) => ({
 
 describe('validate options', () => {
   test('middlewares is required', () => {
-    expect(() => createClient(null)).toThrow('Missing required options')
+    expect(() => createClient({} as any)).toThrow(
+      'You need to provide at least one middleware'
+    )
   })
 
   test('middlewares must be an array', () => {
@@ -171,16 +173,58 @@ describe('execute function', () => {
             uri: '/test/products',
             method: 'GET',
             body: null,
-            headers: { Authorization: 'Bearer 123' },
+            // `maskSensitiveHeaderData` defaults to true, so the token is masked
+            headers: { Authorization: 'Bearer ********' },
           }),
         })
       )
       expect(response).toHaveProperty('reject')
       expect(response).toHaveProperty('resolve')
+      // `maskSensitiveHeaderData` defaults to true, so `originalRequest` is a
+      // sanitized clone that does not carry the internal promise handlers
       // @ts-ignore
-      expect(response.originalRequest).toHaveProperty('reject')
+      expect(response.originalRequest).not.toHaveProperty('reject')
       // @ts-ignore
-      expect(response.originalRequest).toHaveProperty('resolve')
+      expect(response.originalRequest).not.toHaveProperty('resolve')
+    })
+  })
+
+  test('execute and resolve a request with an unmasked `originalRequest` when masking is disabled', () => {
+    const client = createClient({
+      middlewares: [
+        (next: Next) =>
+          async (req: ClientRequest): Promise<MiddlewareResponse> => {
+            const headers = {
+              Authorization: 'Bearer 123',
+            }
+            return next({ ...req, headers, response: { body: null } })
+          },
+        (next: Next) =>
+          async (req: ClientRequest): Promise<MiddlewareResponse> => {
+            return next({
+              ...req,
+              includeOriginalRequest: true,
+              maskSensitiveHeaderData: false,
+              response: { body: null },
+            })
+          },
+      ],
+    })
+
+    return client.execute(request).then((response) => {
+      expect(response).toEqual(
+        expect.objectContaining({
+          body: null,
+          error: null,
+          originalRequest: expect.objectContaining({
+            uri: '/test/products',
+            method: 'GET',
+            body: null,
+            // masking is explicitly disabled, so the token is left untouched
+            headers: { Authorization: 'Bearer 123' },
+          }),
+        })
+      )
     })
   })
 

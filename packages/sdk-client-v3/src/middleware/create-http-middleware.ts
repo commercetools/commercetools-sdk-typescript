@@ -14,7 +14,6 @@ import {
   TResponse,
 } from '../types/types'
 import {
-  byteLength,
   constants,
   createError,
   executor,
@@ -147,7 +146,7 @@ export default function createHttpMiddleware(
     includeOriginalRequest,
     includeRequestInErrorResponse = true,
     includeResponseHeaders = true,
-    maskSensitiveHeaderData,
+    maskSensitiveHeaderData = true,
     httpClientOptions,
     stringBodyContentTypes = [],
   } = options
@@ -185,10 +184,6 @@ export default function createHttpMiddleware(
         isBuffer(request.body)
           ? request.body
           : JSON.stringify(request.body || undefined)
-
-      if (body && (typeof body === 'string' || isBuffer(body))) {
-        requestHeader['Content-Length'] = byteLength(body)
-      }
 
       const clientOptions: HttpClientOptions = {
         enableRetry,

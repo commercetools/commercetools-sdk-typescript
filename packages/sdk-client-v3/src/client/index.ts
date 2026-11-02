@@ -1,2 +1,2 @@
 export { default as ClientBuilder } from './builder'
-export { default as createClient, process as Process } from './client'
+export { process as Process, default as createClient } from './client'

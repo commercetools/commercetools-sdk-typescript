@@ -8,7 +8,7 @@ import {
   DiscountGroupDraft,
   DiscountGroupPagedQueryResponse,
 } from '../../models/discount-group'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyDiscountGroupsByIDRequestBuilder } from './by-project-key-discount-groups-by-id-request-builder'
 import { ByProjectKeyDiscountGroupsKeyByKeyRequestBuilder } from './by-project-key-discount-groups-key-by-key-request-builder'
@@ -113,7 +113,7 @@ export class ByProjectKeyDiscountGroupsRequestBuilder {
    *	Creates a DiscountGroup in the Project.
    *	This request generates the [DiscountGroupCreated](ctp:api:type:DiscountGroupCreatedMessage) Message.
    *
-   *	If the [limit](/../api/limits#discount-groups) for active Discount Groups has been reached, a [MaxDiscountGroupsReached](ctp:api:type:MaxDiscountGroupsReachedError) error is returned.
+   *	If the [limit](/api/limits#discount-groups) for active Discount Groups has been reached, a [MaxDiscountGroupsReached](ctp:api:type:MaxDiscountGroupsReachedError) error is returned.
    *
    */
   public post(methodArgs: {

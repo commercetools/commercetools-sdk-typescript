@@ -8,7 +8,7 @@ import {
   RecordPagedQueryResponse,
   Source,
 } from '../models/change-history'
-import { executeRequest, QueryParam } from '../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../shared/utils/common-types'
 import { ApiRequest } from '../shared/utils/requests-utils'
 import { ByProjectKeyByResourceTypeByIDRequestBuilder } from './by-project-key-by-resource-type-by-id-request-builder'
 /**
@@ -50,6 +50,8 @@ export class ByProjectKeyByResourceTypeRequestBuilder {
       limit?: number
       offset?: number
       userId?: string
+      userIds?: string | string[]
+      resourceIds?: string | string[]
       clientId?: string
       customerId?: string
       associateId?: string
@@ -63,6 +65,7 @@ export class ByProjectKeyByResourceTypeRequestBuilder {
         | PlatformInitiatedChange
         | PlatformInitiatedChange[]
       expand?: boolean
+      withTotal?: boolean
       [key: string]: QueryParam
     }
     headers?: {

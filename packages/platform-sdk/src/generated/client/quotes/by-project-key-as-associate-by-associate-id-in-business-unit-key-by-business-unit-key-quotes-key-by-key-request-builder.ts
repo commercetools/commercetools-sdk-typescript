@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { Quote, QuoteUpdate } from '../../models/quote'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
@@ -51,7 +51,7 @@ export class ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnit
     )
   }
   /**
-   *	Checks if a Quote exists with the provided `key` in a BusinessUnit. Returns a `200 OK` status if the Quote exists, or a [Not Found](/../api/errors#404-not-found) error otherwise.
+   *	Checks if a Quote exists with the provided `key` in a BusinessUnit. Returns a `200 OK` status if the Quote exists, or a [Not Found](/api/errors#404-not-found) error otherwise.
    */
   public head(methodArgs?: {
     headers?: {
@@ -73,7 +73,7 @@ export class ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnit
     )
   }
   /**
-   *	Updates a Quote in a BusinessUnit using one or more [update actions](/../api/projects/quotes#update-actions).
+   *	Updates a Quote in a BusinessUnit using one or more [update actions](/api/projects/quotes#update-actions).
    *	If the Quote exists in the [Project](ctp:api:type:Project) but does not reference the requested [BusinessUnit](ctp:api:type:BusinessUnit), this method returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *
    */

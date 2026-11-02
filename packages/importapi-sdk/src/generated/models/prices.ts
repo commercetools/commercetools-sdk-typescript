@@ -61,12 +61,12 @@ export interface TaxRate {
   readonly subRates?: SubRate[]
 }
 /**
- *	Represents the data used to import an [Embedded Price](/../api/pricing-and-discounts-overview#embedded-prices) . Once imported, this data is persisted as a [Price](/../api/types#price) in a Product Variant.
+ *	Represents the data used to import an [Embedded Price](/api/pricing-and-discounts-overview#embedded-prices) . Once imported, this data is persisted as a [Price](/api/types#price) in a Product Variant.
  *
  */
 export interface PriceImport extends ImportResource {
   /**
-   *	User-defined unique identifier for the Embedded Price. If a [Price](/../api/types#price) with this `key` exists on the specified `productVariant`, it is updated with the imported data.
+   *	User-defined unique identifier for the Embedded Price. If a [Price](/api/types#price) with this `key` exists on the specified `productVariant`, it is updated with the imported data.
    *
    *
    */
@@ -113,7 +113,7 @@ export interface PriceImport extends ImportResource {
    */
   readonly discounted?: DiscountedPrice
   /**
-   *	- Set to `false` to update both the [current and staged projections](/../api/projects/productProjections#current--staged) of the [Product](ctp:api:type:Product) with the new Price data.
+   *	- Set to `false` to update both the [current and staged projections](/api/projects/productProjections#current--staged) of the [Product](ctp:api:type:Product) with the new Price data.
    *	- Leave empty or set to `true` to only update the staged projection.
    *
    *

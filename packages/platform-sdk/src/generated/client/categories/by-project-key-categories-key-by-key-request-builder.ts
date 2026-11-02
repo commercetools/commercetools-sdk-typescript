@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { Category, CategoryUpdate } from '../../models/category'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
@@ -20,7 +20,7 @@ export class ByProjectKeyCategoriesKeyByKeyRequestBuilder {
     }
   ) {}
   /**
-   *	Either the [scope](/../api/scopes) `view_products:{projectKey}` or `view_categories:{projectKey}` is required.
+   *	Either the [scope](/api/scopes) `view_products:{projectKey}` or `view_categories:{projectKey}` is required.
    *
    */
   public get(methodArgs?: {
@@ -68,7 +68,7 @@ export class ByProjectKeyCategoriesKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Either the [scope](/../api/scopes) `manage_products:{projectKey}` or `manage_categories:{projectKey}` is required.
+   *	Either the [scope](/api/scopes) `manage_products:{projectKey}` or `manage_categories:{projectKey}` is required.
    *
    */
   public post(methodArgs: {
@@ -98,7 +98,7 @@ export class ByProjectKeyCategoriesKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Either the [scope](/../api/scopes) `manage_products:{projectKey}` or `manage_categories:{projectKey}` is required.
+   *	Either the [scope](/api/scopes) `manage_products:{projectKey}` or `manage_categories:{projectKey}` is required.
    *
    */
   public delete(methodArgs: {

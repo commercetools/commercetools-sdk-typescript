@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { Product, ProductUpdate } from '../../models/product'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyProductsByIDImagesRequestBuilder } from '../images/by-project-key-products-by-id-images-request-builder'
 import { ByProjectKeyProductsByIDProductSelectionsRequestBuilder } from '../product-selections/by-project-key-products-by-id-product-selections-request-builder'
@@ -41,7 +41,7 @@ export class ByProjectKeyProductsByIDRequestBuilder {
   }
 
   /**
-   *	If [Product price selection query parameters](/../api/pricing-and-discounts-overview#product-price-selection) are provided, the selected Prices are added to the response.
+   *	If [Product price selection query parameters](/api/pricing-and-discounts-overview#product-price-selection) are provided, the selected Prices are added to the response.
    */
   public get(methodArgs?: {
     queryArgs?: {
@@ -94,9 +94,9 @@ export class ByProjectKeyProductsByIDRequestBuilder {
     )
   }
   /**
-   *	If [Product price selection query parameters](/../api/pricing-and-discounts-overview#product-price-selection) are provided, the selected Prices are added to the response.
+   *	If [Product price selection query parameters](/api/pricing-and-discounts-overview#product-price-selection) are provided, the selected Prices are added to the response.
    *
-   *	A failed response can return a [DuplicatePriceScope](ctp:api:type:DuplicatePriceScopeError), [DuplicateVariantValues](ctp:api:type:DuplicateVariantValuesError), [DuplicateAttributeValue](ctp:api:type:DuplicateAttributeValueError), or [DuplicateAttributeValues](ctp:api:type:DuplicateAttributeValuesError) error.
+   *	A failed response can return a [DuplicatePriceScope](ctp:api:type:DuplicatePriceScopeError), [OverlappingPriceValidity](ctp:api:type:OverlappingPriceValidityError), [DuplicateVariantValues](ctp:api:type:DuplicateVariantValuesError), [DuplicateAttributeValue](ctp:api:type:DuplicateAttributeValueError), or [DuplicateAttributeValues](ctp:api:type:DuplicateAttributeValuesError) error.
    */
   public post(methodArgs: {
     queryArgs?: {
@@ -131,7 +131,7 @@ export class ByProjectKeyProductsByIDRequestBuilder {
     )
   }
   /**
-   *	If [Product price selection query parameters](/../api/pricing-and-discounts-overview#product-price-selection) are provided, the selected Prices are added to the response.
+   *	If [Product price selection query parameters](/api/pricing-and-discounts-overview#product-price-selection) are provided, the selected Prices are added to the response.
    *	Produces the [ProductDeleted](/projects/messages/product-catalog-messages#product-deleted) Message.
    */
   public delete(methodArgs: {

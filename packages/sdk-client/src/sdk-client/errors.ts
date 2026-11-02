@@ -18,35 +18,31 @@ function defineError(
 }
 
 export function NetworkError(this: any, ...args: Array<unknown>) {
-  defineError.call(
-    this,
-    0 /* special code to indicate network errors */,
-    ...args
-  )
+  defineError.apply(this, [0, ...args] as any)
 }
-export function HttpError(...args: Array<unknown>) {
-  defineError.call(this, /* code will be passed as arg */ ...args)
+export function HttpError(this: any, ...args: Array<unknown>) {
+  defineError.apply(this, args as any)
 }
 export function BadRequest(this: any, ...args: Array<unknown>) {
-  defineError.call(this, 400, ...args)
+  defineError.apply(this, [400, ...args] as any)
 }
 export function Unauthorized(this: any, ...args: Array<unknown>) {
-  defineError.call(this, 401, ...args)
+  defineError.apply(this, [401, ...args] as any)
 }
 export function Forbidden(this: any, ...args: Array<unknown>) {
-  defineError.call(this, 403, ...args)
+  defineError.apply(this, [403, ...args] as any)
 }
 export function NotFound(this: any, ...args: Array<unknown>) {
-  defineError.call(this, 404, ...args)
+  defineError.apply(this, [404, ...args] as any)
 }
 export function ConcurrentModification(this: any, ...args: Array<unknown>) {
-  defineError.call(this, 409, ...args)
+  defineError.apply(this, [409, ...args] as any)
 }
 export function InternalServerError(this: any, ...args: Array<unknown>) {
-  defineError.call(this, 500, ...args)
+  defineError.apply(this, [500, ...args] as any)
 }
 export function ServiceUnavailable(this: any, ...args: Array<unknown>) {
-  defineError.call(this, 503, ...args)
+  defineError.apply(this, [503, ...args] as any)
 }
 
 export default function getErrorByCode(code: number) {

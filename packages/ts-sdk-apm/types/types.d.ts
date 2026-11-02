@@ -31,7 +31,7 @@ export interface ClientRequest {
 }
 
 export type ClientResponse<T = any> = {
-  body: T
+  body?: T
   code?: string
   statusCode?: number
   headers?: Record<string, any>
@@ -41,13 +41,14 @@ export type ClientResponse<T = any> = {
 
 export type HttpErrorType = {
   name?: string
-  message: string
+  message?: string
   code?: string
   status?: number
   method: MethodType
   statusCode: number
   originalRequest?: ClientRequest
-  body: JsonObject
+  body?: JsonObject
+  error?: JsonObject
   retryCount?: number
   headers?: Record<string, any>
   [key: string]: any

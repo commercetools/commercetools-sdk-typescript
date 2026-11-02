@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { ShippingMethodPagedQueryResponse } from '../../models/shipping-method'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
@@ -20,6 +20,8 @@ export class ByProjectKeyShippingMethodsMatchingOrdereditRequestBuilder {
   ) {}
   /**
    *	Retrieves the active ShippingMethods that can ship to the provided [Location](ctp:api:type:Location) for an [OrderEdit](ctp:api:type:OrderEdit).
+   *
+   *	Store scoping is evaluated against the Order that results from applying the OrderEdit's staged actions. If the underlying Order belongs to a [Store](ctp:api:type:Store), the results include globally scoped ShippingMethods (those with an empty `stores` field) and ShippingMethods scoped to that Store. If the underlying Order has no Store, only globally scoped ShippingMethods are returned.
    *
    *	If a matching ShippingMethod has `isDefault` set to `true`, it is returned as the first item in the array.
    *
@@ -52,7 +54,7 @@ export class ByProjectKeyShippingMethodsMatchingOrdereditRequestBuilder {
     )
   }
   /**
-   *	Checks if an active ShippingMethod that can ship to the provided [Location](ctp:api:type:Location) exists for the provided [OrderEdit](ctp:api:type:OrderEdit). Returns a `200 OK` status if the ShippingMethod exists or a [Not Found](/../api/errors#404-not-found) error otherwise.
+   *	Checks if an active ShippingMethod that can ship to the provided [Location](ctp:api:type:Location) exists for the provided [OrderEdit](ctp:api:type:OrderEdit). Returns a `200 OK` status if the ShippingMethod exists or a [Not Found](/api/errors#404-not-found) error otherwise.
    */
   public head(methodArgs: {
     queryArgs: {

@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { Cart, CartUpdate } from '../../models/cart'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
@@ -69,7 +69,7 @@ export class ByProjectKeyCartsKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Updates a Cart in the Project using one or more [update actions](/../api/projects/carts#update-actions).
+   *	Updates a Cart in the Project using one or more [update actions](/api/projects/carts#update-actions).
    */
   public post(methodArgs: {
     queryArgs?: {

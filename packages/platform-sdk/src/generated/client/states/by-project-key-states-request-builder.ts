@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { State, StateDraft, StatePagedQueryResponse } from '../../models/state'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyStatesByIDRequestBuilder } from './by-project-key-states-by-id-request-builder'
 import { ByProjectKeyStatesKeyByKeyRequestBuilder } from './by-project-key-states-key-by-key-request-builder'

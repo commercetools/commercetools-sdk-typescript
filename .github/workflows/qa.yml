@@ -7,11 +7,11 @@ permissions:
 on:
   push:
     branches:
-      - 'master'
-      - '!changeset-release/**'
+      - "master"
+      - "!changeset-release/**"
 
   pull_request:
-      
+
 jobs:
   immutable-install:
     if: ${{ !startsWith(github.ref, 'refs/heads/changeset-release/') }}
@@ -20,7 +20,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Setup
         uses: ./.github/actions/ci
@@ -37,7 +37,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Setup
         uses: ./.github/actions/ci
@@ -52,13 +52,13 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Setup
         uses: ./.github/actions/ci
 
       - name: TypeScript
-        run:  yarn typecheck
+        run: yarn typecheck
 
   testing:
     if: ${{ !startsWith(github.ref, 'refs/heads/changeset-release/') }}
@@ -68,7 +68,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Setup
         uses: ./.github/actions/ci
@@ -76,14 +76,16 @@ jobs:
       - name: Build
         run: yarn build
 
-      - uses: oNaiPs/secrets-to-env-action@ec46a22bfc9b37e014b627b3208b07eb8909ea0f # v1.5
+      - uses: oNaiPs/secrets-to-env-action@75f319b3c8c926ac2eabcca34daa6cf531daf32f # v1.8
         with:
           secrets: ${{ toJSON(secrets) }}
 
       - name: Test (Examples)
         run: |
           cd examples
-          yarn install --immutable
+          # Example lockfiles are gitignored (kept out of Dependabot's scan),
+          # so install without --immutable here.
+          yarn install
           yarn test
 
       - name: Test (Unit)
@@ -93,39 +95,58 @@ jobs:
         run: yarn test --coverage
 
       - name: Upload Coverage Report
-        uses: codecov/codecov-action@v5 #2db07e317924c76f654a414629d71c65876882e2 v5.4.3
+        uses: codecov/codecov-action@v7 #2db07e317924c76f654a414629d71c65876882e2 v5.4.3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: test-coverage
 
   regression-testing:
-    if: ${{ !startsWith(github.ref, 'refs/heads/changeset-release/') }}
+    if: ${{ github.ref != 'refs/heads/master' && !startsWith(github.ref, 'refs/heads/changeset-release/')}}
     name: Regression Testing
     needs: [testing]
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: [18, 20]
+        version:
+          - 22
+          # - 24
       fail-fast: true
       max-parallel: 1
 
     steps:
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Setup
         uses: ./.github/actions/ci
 
-      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: ${{ matrix.version }}
 
       - name: Build
         run: yarn build
 
-      - uses: oNaiPs/secrets-to-env-action@ec46a22bfc9b37e014b627b3208b07eb8909ea0f # v1.5
+      - uses: oNaiPs/secrets-to-env-action@75f319b3c8c926ac2eabcca34daa6cf531daf32f # v1.8
         with:
           secrets: ${{ toJSON(secrets) }}
 
       - name: Integration tests
         run: yarn test
+
+  cleanup:
+    name: cleanup resource
+    runs-on: ubuntu-latest
+
+    # wait for test job
+    needs: [testing, regression-testing]
+
+    # ALWAYS run, even if test failed
+    if: always()
+
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: oNaiPs/secrets-to-env-action@75f319b3c8c926ac2eabcca34daa6cf531daf32f # v1.8
+        with:
+          secrets: ${{ toJSON(secrets) }}
+      - uses: ./.github/actions/cu

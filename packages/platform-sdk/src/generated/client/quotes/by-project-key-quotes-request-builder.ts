@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { Quote, QuoteDraft, QuotePagedQueryResponse } from '../../models/quote'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyQuotesByIDRequestBuilder } from './by-project-key-quotes-by-id-request-builder'
 import { ByProjectKeyQuotesKeyByKeyRequestBuilder } from './by-project-key-quotes-key-by-key-request-builder'
@@ -77,7 +77,7 @@ export class ByProjectKeyQuotesRequestBuilder {
     )
   }
   /**
-   *	Checks if one or more Quotes exist for the provided query predicate. Returns a `200 OK` status if any Quotes match the query predicate, or a [Not Found](/../api/errors#404-not-found) error otherwise.
+   *	Checks if one or more Quotes exist for the provided query predicate. Returns a `200 OK` status if any Quotes match the query predicate, or a [Not Found](/api/errors#404-not-found) error otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {

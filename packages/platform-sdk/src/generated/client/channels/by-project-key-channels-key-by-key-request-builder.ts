@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { Channel, ChannelUpdate } from '../../models/channel'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
@@ -90,7 +90,7 @@ export class ByProjectKeyChannelsKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Returns a [ReferenceExists](ctp:api:type:ReferenceExistsError) error if other resources reference the Channel to be deleted.
+   *	If the Channel is referenced by a resource, a [ReferenceExists](ctp:api:type:ReferenceExistsError) error is returned.
    *
    */
   public delete(methodArgs: {

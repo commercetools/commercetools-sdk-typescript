@@ -1,9 +1,9 @@
 export {
-    createAuthMiddlewareForAnonymousSessionFlow,
-    createAuthMiddlewareForClientCredentialsFlow,
-    createAuthMiddlewareForExistingTokenFlow,
-    createAuthMiddlewareForPasswordFlow,
-    createAuthMiddlewareForRefreshTokenFlow
+  createAuthMiddlewareForAnonymousSessionFlow,
+  createAuthMiddlewareForClientCredentialsFlow,
+  createAuthMiddlewareForExistingTokenFlow,
+  createAuthMiddlewareForPasswordFlow,
+  createAuthMiddlewareForRefreshTokenFlow
 } from './auth-middleware'
 export { default as createConcurrentModificationMiddleware } from './create-concurrent-modification-middleware'
 export { default as createCorrelationIdMiddleware } from './create-correlation-id-middleware'

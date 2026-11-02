@@ -19,7 +19,7 @@ export interface AllowedOrigins {
    */
   readonly allowAll: boolean
   /**
-   *	Value of the URL to set. If empty, any existing value will be removed.
+   *	Origins to allow. Set to an empty array to remove any existing origins.
    *
    *
    */
@@ -302,7 +302,7 @@ export interface ApplicationReference extends IReference {
   readonly id: string
 }
 /**
- *	Resource identifier to an [Application](ctp:checkout:type:Application). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/errors#invalidjsoninput) error is returned.
+ *	Resource identifier to an [Application](ctp:checkout:type:Application). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](ctp:api:type:InvalidJsonInputError) error is returned.
  *
  */
 export interface ApplicationResourceIdentifier extends IResourceIdentifier {
@@ -362,10 +362,6 @@ export interface IApplicationUpdateAction {
    */
   readonly action: string
 }
-/**
- *	Update actions for Applications.
- *
- */
 export interface ApplicationUpdateActions {
   /**
    *	Expected version of the Application on which the changes should be applied.
@@ -448,8 +444,7 @@ export interface AddAllowedOriginUpdateAction extends IApplicationUpdateAction {
    */
   readonly origin: string
 }
-export interface AddApplicationAgreementUpdateAction
-  extends IApplicationUpdateAction {
+export interface AddApplicationAgreementUpdateAction extends IApplicationUpdateAction {
   readonly action: 'addAgreement'
   /**
    *	Agreement to add to the Application.
@@ -467,8 +462,7 @@ export interface AddCountryUpdateAction extends IApplicationUpdateAction {
    */
   readonly country: string
 }
-export interface RemoveAllowedOriginUpdateAction
-  extends IApplicationUpdateAction {
+export interface RemoveAllowedOriginUpdateAction extends IApplicationUpdateAction {
   readonly action: 'removeAllowedOrigin'
   /**
    *	Origin URL to remove from the allowed origins list.
@@ -477,8 +471,7 @@ export interface RemoveAllowedOriginUpdateAction
    */
   readonly origin: string
 }
-export interface RemoveApplicationAgreementUpdateAction
-  extends IApplicationUpdateAction {
+export interface RemoveApplicationAgreementUpdateAction extends IApplicationUpdateAction {
   readonly action: 'removeAgreement'
   /**
    *	ID of the agreement to remove from the Application.
@@ -496,8 +489,7 @@ export interface RemoveCountryUpdateAction extends IApplicationUpdateAction {
    */
   readonly country: string
 }
-export interface ReorderApplicationAgreementUpdateAction
-  extends IApplicationUpdateAction {
+export interface ReorderApplicationAgreementUpdateAction extends IApplicationUpdateAction {
   readonly action: 'reorderAgreement'
   /**
    *	Array of agreement IDs.
@@ -506,8 +498,7 @@ export interface ReorderApplicationAgreementUpdateAction
    */
   readonly agreementIds: string[]
 }
-export interface SetActivePaymentComponentTypeUpdateAction
-  extends IApplicationUpdateAction {
+export interface SetActivePaymentComponentTypeUpdateAction extends IApplicationUpdateAction {
   readonly action: 'setActivePaymentComponentType'
   /**
    *	Type of payment components that the Application will use.
@@ -516,8 +507,7 @@ export interface SetActivePaymentComponentTypeUpdateAction
    */
   readonly activePaymentComponentType: PaymentComponentType
 }
-export interface SetAllowAllOriginsUpdateAction
-  extends IApplicationUpdateAction {
+export interface SetAllowAllOriginsUpdateAction extends IApplicationUpdateAction {
   readonly action: 'setAllowAllOrigins'
   /**
    *	Whether to allow all origins or not.
@@ -526,8 +516,7 @@ export interface SetAllowAllOriginsUpdateAction
    */
   readonly allowAll: boolean
 }
-export interface SetAllowedOriginsUpdateAction
-  extends IApplicationUpdateAction {
+export interface SetAllowedOriginsUpdateAction extends IApplicationUpdateAction {
   readonly action: 'setAllowedOrigins'
   /**
    *	New allowed origins configuration.
@@ -536,8 +525,7 @@ export interface SetAllowedOriginsUpdateAction
    */
   readonly allowedOrigins: AllowedOrigins
 }
-export interface SetApplicationAgreementNameUpdateAction
-  extends IApplicationUpdateAction {
+export interface SetApplicationAgreementNameUpdateAction extends IApplicationUpdateAction {
   readonly action: 'setAgreementName'
   /**
    *	ID of the agreement to update.
@@ -552,8 +540,7 @@ export interface SetApplicationAgreementNameUpdateAction
    */
   readonly name: string
 }
-export interface SetApplicationAgreementStatusUpdateAction
-  extends IApplicationUpdateAction {
+export interface SetApplicationAgreementStatusUpdateAction extends IApplicationUpdateAction {
   readonly action: 'setAgreementStatus'
   /**
    *	ID of the agreement to update.
@@ -568,8 +555,7 @@ export interface SetApplicationAgreementStatusUpdateAction
    */
   readonly status: ApplicationAgreementStatus
 }
-export interface SetApplicationAgreementTextUpdateAction
-  extends IApplicationUpdateAction {
+export interface SetApplicationAgreementTextUpdateAction extends IApplicationUpdateAction {
   readonly action: 'setAgreementText'
   /**
    *	ID of the agreement to update.
@@ -584,8 +570,7 @@ export interface SetApplicationAgreementTextUpdateAction
    */
   readonly text: LocalizedString
 }
-export interface SetApplicationAgreementTypeUpdateAction
-  extends IApplicationUpdateAction {
+export interface SetApplicationAgreementTypeUpdateAction extends IApplicationUpdateAction {
   readonly action: 'setAgreementType'
   /**
    *	ID of the agreement to update.
@@ -600,18 +585,16 @@ export interface SetApplicationAgreementTypeUpdateAction
    */
   readonly type: ApplicationAgreementType
 }
-export interface SetApplicationAgreementsUpdateAction
-  extends IApplicationUpdateAction {
+export interface SetApplicationAgreementsUpdateAction extends IApplicationUpdateAction {
   readonly action: 'setAgreements'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
   readonly agreements?: ApplicationAgreementDraft[]
 }
-export interface SetApplicationLogoUpdateAction
-  extends IApplicationUpdateAction {
+export interface SetApplicationLogoUpdateAction extends IApplicationUpdateAction {
   readonly action: 'setApplicationLogo'
   /**
    *	New logo to assign to the Application, which must be a valid url.
@@ -620,8 +603,7 @@ export interface SetApplicationLogoUpdateAction
    */
   readonly logo: ApplicationLogo
 }
-export interface SetApplicationNameUpdateAction
-  extends IApplicationUpdateAction {
+export interface SetApplicationNameUpdateAction extends IApplicationUpdateAction {
   readonly action: 'setName'
   /**
    *	New name to assign to the Application.
@@ -630,8 +612,7 @@ export interface SetApplicationNameUpdateAction
    */
   readonly name: string
 }
-export interface SetApplicationStatusUpdateAction
-  extends IApplicationUpdateAction {
+export interface SetApplicationStatusUpdateAction extends IApplicationUpdateAction {
   readonly action: 'setStatus'
   /**
    *	New status to assign to the Application.
@@ -652,14 +633,13 @@ export interface SetCountriesUpdateAction extends IApplicationUpdateAction {
 export interface SetDescriptionUpdateAction extends IApplicationUpdateAction {
   readonly action: 'setDescription'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. Set to an empty object to remove any existing value.
    *
    *
    */
   readonly description: LocalizedString
 }
-export interface SetDiscountsConfigurationUpdateAction
-  extends IApplicationUpdateAction {
+export interface SetDiscountsConfigurationUpdateAction extends IApplicationUpdateAction {
   readonly action: 'setDiscountsConfiguration'
   /**
    *	New discounts configuration for the Application.
@@ -668,18 +648,16 @@ export interface SetDiscountsConfigurationUpdateAction
    */
   readonly discountsConfiguration: DiscountsConfiguration
 }
-export interface SetPaymentReturnUrlUpdateAction
-  extends IApplicationUpdateAction {
+export interface SetPaymentReturnUrlUpdateAction extends IApplicationUpdateAction {
   readonly action: 'setPaymentReturnUrl'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	If omitted, any existing value is removed.
    *
    *
    */
   readonly paymentReturnUrl?: string
 }
-export interface SetPaymentsConfigurationUpdateAction
-  extends IApplicationUpdateAction {
+export interface SetPaymentsConfigurationUpdateAction extends IApplicationUpdateAction {
   readonly action: 'setPaymentsConfiguration'
   /**
    *	New payments configuration for the Application.

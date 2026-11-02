@@ -55,7 +55,7 @@ export interface CustomObject extends BaseResource {
    */
   readonly key: string
   /**
-   *	Can be any JSON standard type, such as number, string, boolean, array, object, or a [common API data type](/../api/types).
+   *	Can be any JSON standard type, such as number, string, boolean, array, object, or a [common API data type](/api/types).
    *
    *	- For values of type [Reference](ctp:api:type:Reference) the integrity of the data is not guaranteed. If the referenced object is deleted, the API does not delete the corresponding reference to it and the `value` points to a non-existing object in such case.
    *
@@ -77,7 +77,7 @@ export interface CustomObjectDraft {
    */
   readonly key: string
   /**
-   *	Can be any JSON standard type, such as number, string, boolean, array, object, or a [common API data type](/../api/types).
+   *	Can be any JSON standard type, such as number, string, boolean, array, object, or a [common API data type](/api/types).
    *
    *	- Fields within `value` that have `null` values **are not saved**.
    *	- For values of type [Reference](ctp:api:type:Reference) the integrity of the data is not guaranteed. If the referenced object is deleted, the API does not delete the corresponding reference to it and the `value` points to a non-existing object in such case.
@@ -93,18 +93,18 @@ export interface CustomObjectDraft {
   readonly version?: number
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [CustomObject](ctp:api:type:CustomObject).
+ *	[PagedQueryResult](/api/general-concepts#pagedqueryresult) with `results` containing an array of [CustomObject](ctp:api:type:CustomObject).
  *
  */
 export interface CustomObjectPagedQueryResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	Number of [results requested](/api/general-concepts#limit).
    *
    *
    */
   readonly limit: number
   /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	Number of [elements skipped](/api/general-concepts#offset).
    *
    *
    */
@@ -117,10 +117,10 @@ export interface CustomObjectPagedQueryResponse {
   readonly count: number
   /**
    *	The total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *	When the results are filtered with a [Query Predicate](/api/predicates/query), `total` is subject to a [limit](/api/limits#queries).
    *
    *
    */
@@ -145,7 +145,7 @@ export interface CustomObjectReference extends IReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded CustomObject. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for CustomObjects.
+   *	Contains the representation of the expanded CustomObject. Only present in responses to requests with [Reference Expansion](/api/general-concepts#reference-expansion) for CustomObjects.
    *
    *
    */

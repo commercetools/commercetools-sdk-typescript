@@ -7,7 +7,7 @@
 import { ErrorObject } from './change-history'
 
 /**
- *	Returned when the [Query Records](/../api/history/change-history#query-records) request exceeds the rate limit.
+ *	Returned when the [Query Records](/api/history/change-history#query-records) request exceeds the rate limit.
  *
  *	Reduce the date range and resource types in your query to minimize the token usage, or retry the request after some time (indicated in the `Retry-After` header).
  *
@@ -40,7 +40,7 @@ export interface IGraphQLErrorObject {
   readonly code: string
 }
 /**
- *	Returned when the [Query Records](/../api/history/change-history#query-records) request exceeds the rate limit.
+ *	Returned when the [Query Records](/api/history/change-history#query-records) request exceeds the rate limit.
  *
  *
  *

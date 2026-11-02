@@ -8,7 +8,7 @@ import {
   CustomerPagedQueryResponse,
   CustomerSignInResult,
 } from '../../models/customer'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyInStoreKeyByStoreKeyCustomersEmailConfirmRequestBuilder } from '../confirm/by-project-key-in-store-key-by-store-key-customers-email-confirm-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyCustomersEmailTokenRequestBuilder } from '../email-token/by-project-key-in-store-key-by-store-key-customers-email-token-request-builder'
@@ -197,7 +197,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersRequestBuilder {
    *
    *	If a Cart with a `store` field specified, the `store` field must reference the same [Store](ctp:api:type:Store) specified in the `{storeKey}` path parameter.
    *
-   *	Allows converting an anonymous Cart to the active Cart of a Customer with [cart merge](/../api/customers-overview#cart-merge-during-sign-in-and-sign-up).
+   *	Allows converting an anonymous Cart to the active Cart of a Customer with [cart merge](/api/customers-overview#cart-merge-during-sign-in-and-sign-up).
    *	If the Customer has multiple active Carts, the anonymous Cart is merged into the most recently modified active Cart.
    *
    *	Creating a Customer produces the [CustomerCreated](ctp:api:type:CustomerCreatedMessage) Message. Simultaneously creating two Customers with the same email address can return a [LockedField](ctp:api:type:LockedFieldError) error.

@@ -2,3 +2,4 @@ CHANGELOG.md
 index.ts
 node_modules
 *.d.ts
+packages/graphql-sdk/src/builder/generated

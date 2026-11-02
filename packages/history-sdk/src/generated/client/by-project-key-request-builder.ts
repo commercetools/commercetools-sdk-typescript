@@ -9,7 +9,7 @@ import {
   RecordPagedQueryResponse,
   Source,
 } from '../models/change-history'
-import { executeRequest, QueryParam } from '../shared/utils/common-types'
+import { QueryParam, executeRequest } from '../shared/utils/common-types'
 import { ApiRequest } from '../shared/utils/requests-utils'
 import { ByProjectKeyByResourceTypeRequestBuilder } from './by-project-key-by-resource-type-request-builder'
 import { ByProjectKeyGraphqlRequestBuilder } from './graphql/by-project-key-graphql-request-builder'
@@ -61,12 +61,14 @@ export class ByProjectKeyRequestBuilder {
       limit?: number
       offset?: number
       userId?: string
+      userIds?: string | string[]
       clientId?: string
       customerId?: string
       associateId?: string
       businessUnit?: string
       type?: string
       resourceId?: string
+      resourceIds?: string | string[]
       resourceKey?: string
       source?: Source
       changes?: string | string[]
@@ -75,6 +77,7 @@ export class ByProjectKeyRequestBuilder {
         | PlatformInitiatedChange
         | PlatformInitiatedChange[]
       expand?: boolean
+      withTotal?: boolean
       [key: string]: QueryParam
     }
     headers?: {

@@ -3,7 +3,10 @@
  * Please don't change this file manually but run `rmf-codegen generate raml_file_path -o output_path -t typescript_client` to update it.
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
-import { PaymentIntent } from '../../models/payment-intents'
+import {
+  PaymentIntent,
+  PaymentIntentResponse,
+} from '../../models/payment-intents'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
@@ -20,10 +23,13 @@ export class ByProjectKeyPaymentIntentsByPaymentIdRequestBuilder {
     }
   ) {}
   /**
+   *	Requests to the payment [Connector](/checkout/connectors-and-applications#payment-connectors) time out after 30 seconds.
+   *
    *	Specific Error Codes:
    *	- [MultipleActionsNotAllowed](ctp:checkout:type:MultipleActionsNotAllowedError)
    *	- [RequiredField](ctp:checkout:type:RequiredFieldError)
    *	- [ResourceNotFound](ctp:checkout:type:ResourceNotFoundError)
+   *	- [ConnectorTimeout](ctp:checkout:type:ConnectorTimeoutError)
    *
    */
   public post(methodArgs: {
@@ -31,8 +37,8 @@ export class ByProjectKeyPaymentIntentsByPaymentIdRequestBuilder {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<any> {
-    return new ApiRequest<any>(
+  }): ApiRequest<PaymentIntentResponse> {
+    return new ApiRequest<PaymentIntentResponse>(
       {
         baseUri: this.args.baseUri,
         method: 'POST',
