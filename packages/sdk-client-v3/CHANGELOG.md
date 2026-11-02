@@ -1,5 +1,17 @@
 # @commercetools/ts-client
 
+## 5.2.0
+
+### Minor Changes
+
+- [#1489](https://github.com/commercetools/commercetools-sdk-typescript/pull/1489) [`748a2c4`](https://github.com/commercetools/commercetools-sdk-typescript/commit/748a2c4a072bce2746aaa9b8ba445d465bce3a68) Thanks [@ShipilA](https://github.com/ShipilA)! - Monthly release (November)
+
+- [#1489](https://github.com/commercetools/commercetools-sdk-typescript/pull/1489) [`748a2c4`](https://github.com/commercetools/commercetools-sdk-typescript/commit/748a2c4a072bce2746aaa9b8ba445d465bce3a68) Thanks [@ShipilA](https://github.com/ShipilA)! - Monthly release June 2026
+
+### Patch Changes
+
+- [#1489](https://github.com/commercetools/commercetools-sdk-typescript/pull/1489) [`748a2c4`](https://github.com/commercetools/commercetools-sdk-typescript/commit/748a2c4a072bce2746aaa9b8ba445d465bce3a68) Thanks [@ShipilA](https://github.com/ShipilA)! - Monthly release
+
 ## 5.1.1
 
 ### Patch Changes
