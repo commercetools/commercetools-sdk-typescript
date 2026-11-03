@@ -391,6 +391,7 @@ export enum AttributionSourceValues {
   Import = 'Import',
   IntakeAgent = 'IntakeAgent',
   ManagedCommerceMcp = 'ManagedCommerceMCP',
+  ProductEnrichmentAgent = 'ProductEnrichmentAgent',
   PromotionsAgent = 'PromotionsAgent',
 }
 
@@ -399,6 +400,7 @@ export type AttributionSource =
   | 'Import'
   | 'IntakeAgent'
   | 'ManagedCommerceMCP'
+  | 'ProductEnrichmentAgent'
   | 'PromotionsAgent'
   | (string & {})
 /**

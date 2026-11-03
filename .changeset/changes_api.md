@@ -21,6 +21,13 @@
 </details>
 
 <details>
+<summary>Added Enum(s)</summary>
+
+- added enum `ProductEnrichmentAgent` to type `AttributionSource`
+
+</details>
+
+<details>
 <summary>Added Property(s)</summary>
 
 - added property `warnings` to type `Category`
