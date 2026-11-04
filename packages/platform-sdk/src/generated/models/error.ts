@@ -11,6 +11,7 @@ import {
   AgentExtractionFailedError,
   AgentFeatureDisabledError,
   AgentMissingCountryError,
+  AgentMissingCurrencyError,
   AgentMissingCustomerEmailError,
   AgentMissingEntityTypeError,
   AgentMissingShoppingListNameError,
@@ -22,6 +23,7 @@ import {
   AgentResponsesAuthError,
   AgentResponsesErrorResponse,
   AgentShoppingListCreationFailedError,
+  AgentShoppingListUnresolvedError,
   AgentStoreAmbiguousError,
   AgentStoreDistributionChannelsUnsupportedError,
   AgentStoreUnresolvedError,
@@ -31,6 +33,7 @@ import {
   GraphQLAgentExtractionFailedError,
   GraphQLAgentFeatureDisabledError,
   GraphQLAgentMissingCountryError,
+  GraphQLAgentMissingCurrencyError,
   GraphQLAgentMissingCustomerEmailError,
   GraphQLAgentMissingEntityTypeError,
   GraphQLAgentMissingShoppingListNameError,
@@ -40,6 +43,7 @@ import {
   GraphQLAgentProductsNotFoundError,
   GraphQLAgentQuoteRequestCreationFailedError,
   GraphQLAgentShoppingListCreationFailedError,
+  GraphQLAgentShoppingListUnresolvedError,
   GraphQLAgentStoreAmbiguousError,
   GraphQLAgentStoreDistributionChannelsUnsupportedError,
   GraphQLAgentStoreUnresolvedError,
@@ -96,6 +100,7 @@ export type ErrorObject =
   | AgentExtractionFailedError
   | AgentFeatureDisabledError
   | AgentMissingCountryError
+  | AgentMissingCurrencyError
   | AgentMissingCustomerEmailError
   | AgentMissingEntityTypeError
   | AgentMissingShoppingListNameError
@@ -105,6 +110,7 @@ export type ErrorObject =
   | AgentProductsNotFoundError
   | AgentQuoteRequestCreationFailedError
   | AgentShoppingListCreationFailedError
+  | AgentShoppingListUnresolvedError
   | AgentStoreAmbiguousError
   | AgentStoreDistributionChannelsUnsupportedError
   | AgentStoreUnresolvedError
@@ -2633,6 +2639,7 @@ export type GraphQLErrorObject =
   | GraphQLAgentExtractionFailedError
   | GraphQLAgentFeatureDisabledError
   | GraphQLAgentMissingCountryError
+  | GraphQLAgentMissingCurrencyError
   | GraphQLAgentMissingCustomerEmailError
   | GraphQLAgentMissingEntityTypeError
   | GraphQLAgentMissingShoppingListNameError
@@ -2642,6 +2649,7 @@ export type GraphQLErrorObject =
   | GraphQLAgentProductsNotFoundError
   | GraphQLAgentQuoteRequestCreationFailedError
   | GraphQLAgentShoppingListCreationFailedError
+  | GraphQLAgentShoppingListUnresolvedError
   | GraphQLAgentStoreAmbiguousError
   | GraphQLAgentStoreDistributionChannelsUnsupportedError
   | GraphQLAgentStoreUnresolvedError

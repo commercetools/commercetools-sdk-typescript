@@ -14,7 +14,7 @@ import {
   IGraphQLErrorObject,
 } from './error'
 import { QuoteRequest } from './quote-request'
-import { ShoppingList } from './shopping-list'
+import { ShoppingList, ShoppingListResourceIdentifier } from './shopping-list'
 import { StoreResourceIdentifier } from './store'
 import { IWarningObject, WarningObject } from './warning'
 
@@ -113,6 +113,20 @@ export interface AgentFileNotProcessedWarning extends IWarningObject {
  */
 export interface AgentMissingCountryError extends IErrorObject {
   readonly code: 'MissingCountry'
+  [key: string]: any
+  /**
+   *	Plain text description of the error.
+   *
+   *
+   */
+  readonly message: string
+}
+/**
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request that sets `shoppingList` when the currency for the [ShoppingList](ctp:api:type:ShoppingList) could not be determined unambiguously. No entity is created.
+ *
+ */
+export interface AgentMissingCurrencyError extends IErrorObject {
+  readonly code: 'MissingCurrency'
   [key: string]: any
   /**
    *	Plain text description of the error.
@@ -289,7 +303,7 @@ export interface AgentResponsesErrorResponse extends ErrorResponse {
  */
 export interface AgentResponsesMultipartRequest {
   /**
-   *	JSON document matching [AgentResponsesPayload](ctp:api:type:AgentResponsesPayload). Must include `outputType` and `locale`. At least one of `prompt` or `files` must be provided.
+   *	JSON document matching [AgentResponsesPayload](ctp:api:type:AgentResponsesPayload). Must include `outputType` and `locale`. At least one of `prompt`, `files`, or `shoppingList` must be provided.
    *
    *
    */
@@ -314,7 +328,7 @@ export enum AgentResponsesOutputTypeValues {
 export type AgentResponsesOutputType =
   'Cart' | 'QuoteRequest' | 'ShoppingList' | (string & {})
 /**
- *	Structured fields for the `payload` part of a `multipart/form-data` [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request to Intake. `prompt` is optional when files are attached.
+ *	Structured fields for the `payload` part of a `multipart/form-data` [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request to Intake. `prompt` is optional when files are attached or `shoppingList` is set.
  *
  *	For an `application/json` request, use [AgentResponsesRequest](ctp:api:type:AgentResponsesRequest) instead.
  *
@@ -333,26 +347,38 @@ export interface AgentResponsesPayload {
    */
   readonly locale: string
   /**
-   *	Natural-language description of the entity to create, such as the body of an email or a note. Required if no file is attached. For a Shopping List, the name of the list must be stated in either the prompt or an attached file.
+   *	Natural-language description of the entity to create, such as the body of an email or a note. Required if no file is attached and `shoppingList` is not set. For a Shopping List, the name of the list must be stated in either the prompt or an attached file.
    *
    *
    */
   readonly prompt?: string
   /**
-   *	[BusinessUnit](ctp:api:type:BusinessUnit) to use for the request. If omitted, Intake resolves it from the input.
+   *	[BusinessUnit](ctp:api:type:BusinessUnit) to use for the request. Takes precedence over the Business Unit of the Shopping List in `shoppingList`. If omitted, Intake resolves it from the input or from the Shopping List.
    *
    *
    */
   readonly businessUnit?: BusinessUnitResourceIdentifier
   /**
-   *	[Store](ctp:api:type:Store) to use for the request. If omitted, Intake resolves it from the input.
+   *	[Store](ctp:api:type:Store) to use for the request. Takes precedence over the Store of the Shopping List in `shoppingList`. If omitted, Intake resolves it from the input or from the Shopping List.
    *
    *
    */
   readonly store?: StoreResourceIdentifier
+  /**
+   *	[ShoppingList](ctp:api:type:ShoppingList) to create the Cart or Quote Request from. Intake reads the list once and uses its Line Items as the Products of the request. The ShoppingList must exist and be accessible to the caller.
+   *
+   *	If the Shopping List can't be read, a [ShoppingListUnresolved](ctp:api:type:AgentShoppingListUnresolvedError) error is returned.
+   *
+   *	If files are attached, an [InvalidField](ctp:api:type:InvalidFieldError) error is returned.
+   *
+   *	If `outputType` is `ShoppingList`, an [InvalidField](ctp:api:type:InvalidFieldError) error is returned.
+   *
+   *
+   */
+  readonly shoppingList?: ShoppingListResourceIdentifier
 }
 /**
- *	JSON body for an `application/json` [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request to Intake. `prompt` is required.
+ *	JSON body for an `application/json` [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request to Intake. `prompt` is required unless `shoppingList` is set.
  *
  *	To attach files, send a `multipart/form-data` request with an [AgentResponsesPayload](ctp:api:type:AgentResponsesPayload) as the `payload` part.
  *
@@ -371,23 +397,33 @@ export interface AgentResponsesRequest {
    */
   readonly locale: string
   /**
-   *	Natural-language description of the entity to create, such as the body of an email or a note. For a Shopping List, it must state the name of the list.
+   *	Natural-language description of the entity to create, such as the body of an email or a note. Required if `shoppingList` is not set. For a Shopping List, it must state the name of the list.
    *
    *
    */
-  readonly prompt: string
+  readonly prompt?: string
   /**
-   *	[BusinessUnit](ctp:api:type:BusinessUnit) to use for the request. If omitted, Intake resolves it from `prompt`.
+   *	[BusinessUnit](ctp:api:type:BusinessUnit) to use for the request. Takes precedence over the Business Unit of the Shopping List in `shoppingList`. If omitted, Intake resolves it from `prompt` or from the Shopping List.
    *
    *
    */
   readonly businessUnit?: BusinessUnitResourceIdentifier
   /**
-   *	[Store](ctp:api:type:Store) to use for the request. If omitted, Intake resolves it from `prompt`.
+   *	[Store](ctp:api:type:Store) to use for the request. Takes precedence over the Store of the Shopping List in `shoppingList`. If omitted, Intake resolves it from `prompt` or from the Shopping List.
    *
    *
    */
   readonly store?: StoreResourceIdentifier
+  /**
+   *	[ShoppingList](ctp:api:type:ShoppingList) to create the Cart or Quote Request from. Intake reads the list once and uses its Line Items as the Products of the request.
+   *
+   *	If the Shopping List can't be read, a [ShoppingListUnresolved](ctp:api:type:AgentShoppingListUnresolvedError) error is returned.
+   *
+   *	If `outputType` is `ShoppingList`, an [InvalidField](ctp:api:type:InvalidFieldError) error is returned.
+   *
+   *
+   */
+  readonly shoppingList?: ShoppingListResourceIdentifier
 }
 /**
  *	Successful `201` response from a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request. Returns the created entity in commercetools REST representation, together with any non-fatal `warnings`.
@@ -519,6 +555,20 @@ export interface AgentShoppingListCreationFailedError extends IErrorObject {
   readonly message: string
 }
 /**
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when the [ShoppingList](ctp:api:type:ShoppingList) in `shoppingList` could not be found. No entity is created.
+ *
+ */
+export interface AgentShoppingListUnresolvedError extends IErrorObject {
+  readonly code: 'ShoppingListUnresolved'
+  [key: string]: any
+  /**
+   *	Plain text description of the error.
+   *
+   *
+   */
+  readonly message: string
+}
+/**
  *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when the resolved [Business Unit](ctp:api:type:BusinessUnit) grants multiple [Stores](ctp:api:type:Store) and none could be automatically selected. To resolve this error, specify an explicit `store` reference in the request.
  *
  */
@@ -609,6 +659,14 @@ export interface GraphQLAgentMissingCountryError extends IGraphQLErrorObject {
   [key: string]: any
 }
 /**
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request that sets `shoppingList` when the currency for the [ShoppingList](ctp:api:type:ShoppingList) could not be determined unambiguously. No entity is created.
+ *
+ */
+export interface GraphQLAgentMissingCurrencyError extends IGraphQLErrorObject {
+  readonly code: 'MissingCurrency'
+  [key: string]: any
+}
+/**
  *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when the customer's email address was not provided and could not be inferred from the input.
  *
  */
@@ -684,6 +742,14 @@ export interface GraphQLAgentQuoteRequestCreationFailedError extends IGraphQLErr
  */
 export interface GraphQLAgentShoppingListCreationFailedError extends IGraphQLErrorObject {
   readonly code: 'ShoppingListCreationFailed'
+  [key: string]: any
+}
+/**
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when the [ShoppingList](ctp:api:type:ShoppingList) in `shoppingList` could not be found. No entity is created.
+ *
+ */
+export interface GraphQLAgentShoppingListUnresolvedError extends IGraphQLErrorObject {
+  readonly code: 'ShoppingListUnresolved'
   [key: string]: any
 }
 /**
