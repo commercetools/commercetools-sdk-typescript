@@ -1881,7 +1881,7 @@ export interface NoMatchingProductDiscountFoundError extends IErrorObject {
   readonly message: string
 }
 /**
- *	Returned if the requested resource was not found or the Product Search index is [inactive](/api/projects/product-search#activate-the-product-search-api).
+ *	Returned if the requested resource was not found or the Product Search index is [inactive](/api/storefront-search-apis-overview#activate-the-product-search-api).
  *
  */
 export interface ObjectNotFoundError extends IErrorObject {
@@ -3956,7 +3956,7 @@ export interface GraphQLNoMatchingProductDiscountFoundError extends IGraphQLErro
   [key: string]: any
 }
 /**
- *	Returned if the requested resource was not found or the Product Search index is [inactive](/api/projects/product-search#activate-the-product-search-api).
+ *	Returned if the requested resource was not found or the Product Search index is [inactive](/api/storefront-search-apis-overview#activate-the-product-search-api).
  *
  */
 export interface GraphQLObjectNotFoundError extends IGraphQLErrorObject {

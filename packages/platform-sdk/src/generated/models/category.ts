@@ -394,7 +394,7 @@ export interface CategoryAddAssetAction extends ICategoryUpdateAction {
   readonly position?: number
 }
 /**
- *	This action locks the Category and its parent Category. For details, see [Category tree locking](/api/projects/categories#category-tree-locking).
+ *	This action locks the Category and its parent Category. For details, see [Category tree locking](/api/product-catalog-apis-overview#category-tree-locking).
  *
  */
 export interface CategoryAddStoreAction extends ICategoryUpdateAction {
@@ -417,7 +417,7 @@ export interface CategoryAddStoreAction extends ICategoryUpdateAction {
  *
  *	The API records the request and responds with `202 Accepted`. The returned Category has the same `stores` as before and an incremented `version`, and the response contains a `warnings` field with a [StoreSettingOngoing](ctp:api:type:StoreSettingOngoingWarning) Warning. A background process then applies the change to the Category and to all of its descendant Categories, so the change is [eventually consistent](/general-concepts#eventual-consistency).
  *
- *	Because the background process locks the subtree while it runs, concurrent Store updates, [Change Parent](ctp:api:type:CategoryChangeParentAction) actions, and [Create Category](#create-category) requests with a `parent` for Categories in the subtree can fail and should be retried. For details, see [Category tree locking](/api/projects/categories#category-tree-locking).
+ *	Because the background process locks the subtree while it runs, concurrent Store updates, [Change Parent](ctp:api:type:CategoryChangeParentAction) actions, and [Create Category](#create-category) requests with a `parent` for Categories in the subtree can fail and should be retried. For details, see [Category tree locking](/api/product-catalog-apis-overview#category-tree-locking).
  *
  *	If the request contains another action that changes the `stores` of the Category, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned. Other update actions in the same request are applied immediately.
  *
@@ -496,7 +496,7 @@ export interface CategoryChangeOrderHintAction extends ICategoryUpdateAction {
   readonly orderHint: string
 }
 /**
- *	This action locks the entire Category tree in the Project for the duration of the request. For details, see [Category tree locking](/api/projects/categories#category-tree-locking).
+ *	This action locks the entire Category tree in the Project for the duration of the request. For details, see [Category tree locking](/api/product-catalog-apis-overview#category-tree-locking).
  *
  */
 export interface CategoryChangeParentAction extends ICategoryUpdateAction {
@@ -539,7 +539,7 @@ export interface CategoryRemoveAssetAction extends ICategoryUpdateAction {
   readonly assetKey?: string
 }
 /**
- *	This action locks the Category and its parent Category. For details, see [Category tree locking](/api/projects/categories#category-tree-locking).
+ *	This action locks the Category and its parent Category. For details, see [Category tree locking](/api/product-catalog-apis-overview#category-tree-locking).
  *
  *	Every direct child Category must be assigned to at least one Store in that set; otherwise, the action is rejected.
  *
@@ -567,7 +567,7 @@ export interface CategoryRemoveStoreAction extends ICategoryUpdateAction {
  *
  *	The API records the request and responds with `202 Accepted`. The returned Category has the same `stores` as before and an incremented `version`, and the response contains a `warnings` field with a [StoreSettingOngoing](ctp:api:type:StoreSettingOngoingWarning) Warning. A background process then applies the change to the Category and to all of its descendant Categories, so the change is [eventually consistent](/general-concepts#eventual-consistency).
  *
- *	Because the background process locks the subtree while it runs, concurrent Store updates, [Change Parent](ctp:api:type:CategoryChangeParentAction) actions, and [Create Category](#create-category) requests with a `parent` for Categories in the subtree can fail and should be retried. For details, see [Category tree locking](/api/projects/categories#category-tree-locking).
+ *	Because the background process locks the subtree while it runs, concurrent Store updates, [Change Parent](ctp:api:type:CategoryChangeParentAction) actions, and [Create Category](#create-category) requests with a `parent` for Categories in the subtree can fail and should be retried. For details, see [Category tree locking](/api/product-catalog-apis-overview#category-tree-locking).
  *
  *	If the request contains another action that changes the `stores` of the Category, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned. Other update actions in the same request are applied immediately.
  *
@@ -828,7 +828,7 @@ export interface CategorySetMetaTitleAction extends ICategoryUpdateAction {
   readonly metaTitle?: LocalizedString
 }
 /**
- *	This action locks the Category and its parent Category. For details, see [Category tree locking](/api/projects/categories#category-tree-locking).
+ *	This action locks the Category and its parent Category. For details, see [Category tree locking](/api/product-catalog-apis-overview#category-tree-locking).
  *
  *	Every direct child Category must be assigned to at least one Store in that set; otherwise, the action is rejected.
  *
@@ -858,7 +858,7 @@ export interface CategorySetStoresAction extends ICategoryUpdateAction {
  *
  *	The API records the request and responds with `202 Accepted`. The returned Category has the same `stores` as before and an incremented `version`, and the response contains a `warnings` field with a [StoreSettingOngoing](ctp:api:type:StoreSettingOngoingWarning) Warning. A background process then applies the change to the Category and to all of its descendant Categories, so the change is [eventually consistent](/general-concepts#eventual-consistency).
  *
- *	Because the background process locks the subtree while it runs, concurrent Store updates, [Change Parent](ctp:api:type:CategoryChangeParentAction) actions, and [Create Category](#create-category) requests with a `parent` for Categories in the subtree can fail and should be retried. For details, see [Category tree locking](/api/projects/categories#category-tree-locking).
+ *	Because the background process locks the subtree while it runs, concurrent Store updates, [Change Parent](ctp:api:type:CategoryChangeParentAction) actions, and [Create Category](#create-category) requests with a `parent` for Categories in the subtree can fail and should be retried. For details, see [Category tree locking](/api/product-catalog-apis-overview#category-tree-locking).
  *
  *	If the request contains another action that changes the `stores` of the Category, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned. Other update actions in the same request are applied immediately.
  *
