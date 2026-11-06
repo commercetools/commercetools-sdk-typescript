@@ -4,7 +4,7 @@
     "access": "public"
   },
   "name": "@commercetools/history-sdk",
-  "version": "6.4.0",
+  "version": "6.5.0",
   "engines": {
     "node": ">=22"
   },
@@ -29,7 +29,7 @@
     "@commercetools/ts-client": "^5.2.0"
   },
   "devDependencies": {
-    "@commercetools/platform-sdk": "9.8.0",
+    "@commercetools/platform-sdk": "9.9.0",
     "@types/uuid": "11.0.0",
     "organize-imports-cli": "1.0.2",
     "tsconfig-replace-paths": "0.0.14",
