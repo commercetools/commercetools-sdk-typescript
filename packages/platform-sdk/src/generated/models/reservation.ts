@@ -125,9 +125,4 @@ export enum ReservationStateValues {
 }
 
 export type ReservationState =
-  | 'Committed'
-  | 'Created'
-  | 'Expired'
-  | 'Released'
-  | 'Updated'
-  | (string & {})
+  'Committed' | 'Created' | 'Expired' | 'Released' | 'Updated' | (string & {})

@@ -16,13 +16,7 @@ export type MethodType =
   | 'TRACE'
 
 export type QueryParam =
-  | string
-  | string[]
-  | number
-  | number[]
-  | boolean
-  | boolean[]
-  | undefined
+  string | string[] | number | number[] | boolean | boolean[] | undefined
 
 export type VariableMap = {
   [key: string]: QueryParam

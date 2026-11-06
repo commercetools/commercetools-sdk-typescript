@@ -115,31 +115,31 @@ export interface ProductSearchProjectionParams {
    */
   readonly staged?: boolean
   /**
-   *	The currency used for [Product price selection](/api/pricing-and-discounts-overview#product-price-selection).
+   *	The currency used for [Product price selection](/api/projects/productProjections#product-price-selection).
    *
    *
    */
   readonly priceCurrency?: string
   /**
-   *	The country used for [Product price selection](/api/pricing-and-discounts-overview#product-price-selection). It can be used only *in conjunction with* the `priceCurrency` parameter.
+   *	The country used for [Product price selection](/api/projects/productProjections#product-price-selection). It can be used only *in conjunction with* the `priceCurrency` parameter.
    *
    *
    */
   readonly priceCountry?: string
   /**
-   *	`id` of an existing [CustomerGroup](ctp:api:type:CustomerGroup) used for [Product price selection](/api/pricing-and-discounts-overview#product-price-selection). It can be used only *in conjunction with* the `priceCurrency` parameter.
+   *	`id` of an existing [CustomerGroup](ctp:api:type:CustomerGroup) used for [Product price selection](/api/projects/productProjections#product-price-selection). It can be used only *in conjunction with* the `priceCurrency` parameter.
    *
    *
    */
   readonly priceCustomerGroup?: string
   /**
-   *	IDs of existing [CustomerGroups](ctp:api:type:CustomerGroup) used for [Product price selection](/api/pricing-and-discounts-overview#product-price-selection), when using [multiple Customer Groups](/api/customers-overview#customer-groups). It can be used only *in conjunction with* the `priceCurrency` parameter.
+   *	IDs of existing [CustomerGroups](ctp:api:type:CustomerGroup) used for [Product price selection](/api/projects/productProjections#product-price-selection), when using [multiple Customer Groups](/api/customers-overview#customer-groups). It can be used only *in conjunction with* the `priceCurrency` parameter.
    *
    *
    */
   readonly priceCustomerGroupAssignments?: string[]
   /**
-   *	`id` of an existing [Channel](ctp:api:type:Channel) used for [Product price selection](/api/pricing-and-discounts-overview#product-price-selection). It can be used only *in conjunction with* the `priceCurrency` parameter.
+   *	`id` of an existing [Channel](ctp:api:type:Channel) used for [Product price selection](/api/projects/productProjections#product-price-selection). It can be used only *in conjunction with* the `priceCurrency` parameter.
    *
    *
    */
@@ -156,7 +156,7 @@ export interface ProductSearchProjectionParams {
    *	they are used for projections based on [locale](/api/projects/productProjections#locales), [price](/api/projects/productProjections#prices),
    *	and [inventory](/api/projects/productProjections#inventory-entries).
    *
-   *	For Projects with active [Product Selections](/api/projects/product-selections), the API does not take the [availability of the Product in the specified Store](/api/project-configuration-overview#products-available-in-store) into account.
+   *	For Projects with active [Product Selections](/api/projects/product-selections), the API does not take the [availability of the Product in the specified Store](/api/project-configuration-apis-overview#products-available-in-store) into account.
    *
    *	[Product Tailoring](/api/projects/product-tailoring) modifies the product information returned in API responses. However, you can only specify [query expressions](/api/search-query-language#simple-expressions) for the original Product data, not for tailored data.
    *
@@ -247,9 +247,7 @@ export enum ProductSearchFacetCountLevelEnumValues {
 }
 
 export type ProductSearchFacetCountLevelEnum =
-  | 'products'
-  | 'variants'
-  | (string & {})
+  'products' | 'variants' | (string & {})
 export interface ProductSearchFacetCountValue {
   /**
    *	Name of the count facet to appear in the [ProductSearchFacetResultCount](ctp:api:type:ProductSearchFacetResultCount).
@@ -278,9 +276,7 @@ export enum ProductSearchFacetDistinctBucketSortByValues {
 }
 
 export type ProductSearchFacetDistinctBucketSortBy =
-  | 'count'
-  | 'key'
-  | (string & {})
+  'count' | 'key' | (string & {})
 export interface ProductSearchFacetDistinctBucketSortExpression {
   /**
    *	Defines whether to sort by bucket count or key.

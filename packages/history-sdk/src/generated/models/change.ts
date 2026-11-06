@@ -212,6 +212,7 @@ export type Change =
   | ChangeQuoteStateChange
   | ChangeRequiresDiscountCodeChange
   | ChangeReviewRatingStatisticsChange
+  | ChangeSavedToLineItemChange
   | ChangeShipmentStateChange
   | ChangeShoppingListLineItemQuantityChange
   | ChangeShoppingListLineItemsOrderChange
@@ -369,9 +370,13 @@ export type Change =
   | SetMetaDescriptionChange
   | SetMetaKeywordsChange
   | SetMetaTitleChange
+  | SetMethodInfoCustomFieldChange
+  | SetMethodInfoCustomTypeChange
+  | SetMethodInfoInterfaceAccountChange
   | SetMethodInfoInterfaceChange
   | SetMethodInfoMethodChange
   | SetMethodInfoNameChange
+  | SetMethodInfoTokenChange
   | SetMiddleNameChange
   | SetMinCartQuantityChange
   | SetNameChange
@@ -675,6 +680,13 @@ export interface AddDeliveryChange extends IChange {
    *
    */
   readonly nextValue: DeliveryChangeValue
+  /**
+   *	`shippingKey` of the [Shipping](ctp:api:type:Shipping) associated with the Delivery.
+   *	Only present when the Order uses the `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Change triggered by the [Add DiscountCode](ctp:api:type:StagedOrderAddDiscountCodeAction) update action.
@@ -903,6 +915,13 @@ export interface AddParcelToDeliveryChange extends IChange {
    *
    */
   readonly deliveryId: string
+  /**
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) associated with the Delivery.
+   *	Only present when the Order uses the `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Change triggered by the following update actions:
@@ -2410,6 +2429,31 @@ export interface ChangeReviewRatingStatisticsChange extends IChange {
   readonly nextValue: ReviewRatingStatistics
 }
 /**
+ *	Change triggered by the [Set AttributeDefinition SavedToLineItem](ctp:api:type:ProductTypeSetSavedToLineItemAction) update action.
+ */
+export interface ChangeSavedToLineItemChange extends IChange {
+  readonly type: 'ChangeSavedToLineItemChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: boolean
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: boolean
+  /**
+   *	Name of the updated [AttributeDefinition](ctp:api:type:AttributeDefinition).
+   *
+   */
+  readonly attributeName: string
+}
+/**
  *	Change triggered by the following update actions:
  *
  *	- [Change ShipmentState](ctp:api:type:OrderChangeShipmentStateAction) on Orders.
@@ -3051,6 +3095,13 @@ export interface RemoveDeliveryItemsChange extends IChange {
    *
    */
   readonly previousValue: DeliveryChangeValue
+  /**
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) associated with the Delivery.
+   *	Only present when the Order uses the `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Change triggered by the [Remove DiscountCode](ctp:api:type:StagedOrderRemoveDiscountCodeAction) update action.
@@ -3287,6 +3338,13 @@ export interface RemoveParcelFromDeliveryChange extends IChange {
    *
    */
   readonly deliveryId: string
+  /**
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) associated with the Delivery.
+   *	Only present when the Order uses the `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Change triggered by the following update actions:
@@ -4782,6 +4840,13 @@ export interface SetDeliveryAddressChange extends IChange {
    *
    */
   readonly deliveryId: string
+  /**
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) associated with the Delivery.
+   *	Only present when the Order uses the `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Change triggered by the following update actions:
@@ -4812,6 +4877,13 @@ export interface SetDeliveryItemsChange extends IChange {
    *
    */
   readonly deliveryId: string
+  /**
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) associated with the Delivery.
+   *	Only present when the Order uses the `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 export interface SetDescriptionChange extends IChange {
   readonly type: 'SetDescriptionChange'
@@ -5762,6 +5834,77 @@ export interface SetMetaTitleChange extends IChange {
   readonly catalogData: string
 }
 /**
+ *	Change triggered by the [Set MethodInfo CustomField](ctp:api:type:PaymentSetMethodInfoCustomFieldAction) update action.
+ */
+export interface SetMethodInfoCustomFieldChange extends IChange {
+  readonly type: 'SetMethodInfoCustomFieldChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Name of the [Custom Field](/api/projects/custom-fields).
+   *
+   */
+  readonly name: string
+  /**
+   *	`id` of the referenced [Type](ctp:api:type:Type).
+   *
+   *
+   */
+  readonly customTypeId: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: any
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: any
+}
+/**
+ *	Change triggered by the [Set MethodInfo CustomType](ctp:api:type:PaymentSetMethodInfoCustomTypeAction) update action.
+ */
+export interface SetMethodInfoCustomTypeChange extends IChange {
+  readonly type: 'SetMethodInfoCustomTypeChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: CustomFields
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: CustomFields
+}
+/**
+ *	Change triggered by the [Set MethodInfoInterfaceAccount](ctp:api:type:PaymentSetMethodInfoInterfaceAccountAction) update action.
+ */
+export interface SetMethodInfoInterfaceAccountChange extends IChange {
+  readonly type: 'SetMethodInfoInterfaceAccountChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: string
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: string
+}
+/**
  *	Change triggered by the [Set MethodInfoInterface](ctp:api:type:PaymentSetMethodInfoInterfaceAction) update action.
  */
 export interface SetMethodInfoInterfaceChange extends IChange {
@@ -5820,6 +5963,16 @@ export interface SetMethodInfoNameChange extends IChange {
    *
    */
   readonly nextValue: LocalizedString
+}
+/**
+ *	Change triggered by the [Set MethodInfoToken](ctp:api:type:PaymentSetMethodInfoTokenAction) update action.
+ */
+export interface SetMethodInfoTokenChange extends IChange {
+  readonly type: 'SetMethodInfoTokenChange'
+  /**
+   *
+   */
+  readonly change: string
 }
 /**
  *	Change triggered by the [Set Middle Name](ctp:api:type:CustomerSetMiddleNameAction) update action.
@@ -6096,6 +6249,13 @@ export interface SetParcelItemsChange extends IChange {
    *
    */
   readonly parcel: ParcelChangeValue
+  /**
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) associated with the Delivery.
+   *	Only present when the Order uses the `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Change triggered by the following update actions:
@@ -6125,6 +6285,13 @@ export interface SetParcelMeasurementsChange extends IChange {
    *
    */
   readonly parcel: ParcelChangeValue
+  /**
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) associated with the Delivery.
+   *	Only present when the Order uses the `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Change triggered by the following update actions:
@@ -6154,6 +6321,13 @@ export interface SetParcelTrackingDataChange extends IChange {
    *
    */
   readonly parcel: ParcelChangeValue
+  /**
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) associated with the Delivery.
+   *	Only present when the Order uses the `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Change triggered by the [Set Permissions](ctp:api:type:AssociateRoleSetPermissionsAction), [Add Permission](ctp:api:type:AssociateRoleAddPermissionAction), and [Remove Permission](ctp:api:type:AssociateRoleRemovePermissionAction) update actions.
@@ -8104,6 +8278,13 @@ export interface SetDeliveryAddressCustomFieldChange extends IChange {
    *
    */
   readonly nextValue: any
+  /**
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) associated with the Delivery.
+   *	Only present when the Order uses the `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Change triggered by the [Set Delivery Address Custom Type](ctp:api:type:OrderSetDeliveryAddressCustomTypeAction) update action.
@@ -8136,6 +8317,13 @@ export interface SetDeliveryAddressCustomTypeChange extends IChange {
    *
    */
   readonly nextValue: CustomFields
+  /**
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) associated with the Delivery.
+   *	Only present when the Order uses the `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Change triggered by the [Set Delivery CustomField](ctp:api:type:OrderSetDeliveryCustomFieldAction) update action.
@@ -8173,6 +8361,13 @@ export interface SetDeliveryCustomFieldChange extends IChange {
    *
    */
   readonly nextValue: any
+  /**
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) associated with the Delivery.
+   *	Only present when the Order uses the `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Change triggered by the [Set Delivery Custom Type](ctp:api:type:OrderSetDeliveryCustomTypeAction) update action.
@@ -8199,6 +8394,13 @@ export interface SetDeliveryCustomTypeChange extends IChange {
    *
    */
   readonly nextValue: CustomFields
+  /**
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) associated with the Delivery.
+   *	Only present when the Order uses the `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Change triggered by the [Add DiscountCode](ctp:api:type:StagedOrderAddDiscountCodeAction), [Remove DiscountCode](ctp:api:type:StagedOrderRemoveDiscountCodeAction), [Add LineItem](ctp:api:type:StagedOrderAddLineItemAction), or [Remove LineItem](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
@@ -8388,6 +8590,13 @@ export interface SetParcelCustomFieldChange extends IChange {
    *
    */
   readonly nextValue: any
+  /**
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) associated with the Delivery.
+   *	Only present when the Order uses the `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Change triggered by the [Set Parcel Custom Type](ctp:api:type:OrderSetParcelCustomTypeAction) update action.
@@ -8413,6 +8622,13 @@ export interface SetParcelCustomTypeChange extends IChange {
    *
    */
   readonly nextValue: CustomFields
+  /**
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) associated with the Delivery.
+   *	Only present when the Order uses the `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Change triggered by the [Change password of Customer](/api/projects/customers#change-password-of-customer) or [Change password of Customer in Store](/api/projects/customers#change-password-of-customer-in-store) request.

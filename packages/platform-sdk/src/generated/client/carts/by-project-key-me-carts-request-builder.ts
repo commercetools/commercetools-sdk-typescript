@@ -103,7 +103,6 @@ export class ByProjectKeyMeCartsRequestBuilder {
     )
   }
   /**
-   *
    *	Creates a Cart for the Customer or anonymous user. The `customerId` or `anonymousId` field on the Cart is automatically set based on the [customer:{id}](/scopes#internal-oauth) or [anonymous_id:{id}](/scopes#internal-oauth) scope.
    *
    *	Specific Error Codes:

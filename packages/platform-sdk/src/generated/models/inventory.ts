@@ -74,24 +74,24 @@ export interface InventoryEntry extends BaseResource {
    */
   readonly supplyChannel?: ChannelReference
   /**
-   *	Overall amount of stock (`availableQuantity` + reserved). This value is eventually consistent with the internal SKU availability used for reservation logic, with a delay of up to 10 seconds. See [Inventory checks and consistency](/api/inventory-overview#inventory-checks-and-consistency) for more information.
+   *	Overall amount of stock (`availableQuantity` + reserved). This value is eventually consistent with the internal SKU availability used for reservation logic, with a delay of up to 10 seconds. See [Inventory checks and consistency](/api/inventory-apis-overview#inventory-checks-and-consistency) for more information.
    *
    */
   readonly quantityOnStock: number
   /**
-   *	Available amount of stock (`quantityOnStock` - reserved). This value is eventually consistent with the internal SKU availability used for reservation logic, with a delay of up to 10 seconds. See [Inventory checks and consistency](/api/inventory-overview#inventory-checks-and-consistency) for more information.
+   *	Available amount of stock (`quantityOnStock` - reserved). This value is eventually consistent with the internal SKU availability used for reservation logic, with a delay of up to 10 seconds. See [Inventory checks and consistency](/api/inventory-apis-overview#inventory-checks-and-consistency) for more information.
    *
    *
    */
   readonly availableQuantity: number
   /**
-   *	Minimum quantity that can be added to a Cart. See [Quantity limits](/api/inventory-overview#quantity-limits).
+   *	Minimum quantity that can be added to a Cart. See [Quantity limits](/api/inventory-apis-overview#quantity-limits).
    *
    *
    */
   readonly minCartQuantity?: number
   /**
-   *	Maximum quantity that can be added to a Cart. See [Quantity limits](/api/inventory-overview#quantity-limits).
+   *	Maximum quantity that can be added to a Cart. See [Quantity limits](/api/inventory-apis-overview#quantity-limits).
    *
    *
    */
@@ -151,19 +151,19 @@ export interface InventoryEntryDraft {
    */
   readonly supplyChannel?: ChannelResourceIdentifier
   /**
-   *	Overall amount of stock. See [Inventory checks and consistency](/api/inventory-overview#inventory-checks-and-consistency) for consistency information.
+   *	Overall amount of stock. See [Inventory checks and consistency](/api/inventory-apis-overview#inventory-checks-and-consistency) for consistency information.
    *
    *
    */
   readonly quantityOnStock: number
   /**
-   *	Minimum quantity that can be added to a Cart. See [Quantity limits](/api/inventory-overview#quantity-limits).
+   *	Minimum quantity that can be added to a Cart. See [Quantity limits](/api/inventory-apis-overview#quantity-limits).
    *
    *
    */
   readonly minCartQuantity?: number
   /**
-   *	Maximum quantity that can be added to a Cart. See [Quantity limits](/api/inventory-overview#quantity-limits).
+   *	Maximum quantity that can be added to a Cart. See [Quantity limits](/api/inventory-apis-overview#quantity-limits).
    *
    *
    */
@@ -357,7 +357,6 @@ export interface InventoryEntryChangeQuantityAction extends IInventoryEntryUpdat
   readonly quantity: number
 }
 /**
- *
  *	Removes a specific quantity from `quantityOnStock`. This changes the `availableQuantity`, based on the number of active reservations. You can update `quantityOnStock` to values below zero.
  *
  *	Carts with existing `ReserveOnCart` reservations will not be invalidated by this update action and can still be ordered.
@@ -417,7 +416,7 @@ export interface InventoryEntrySetExpectedDeliveryAction extends IInventoryEntry
 }
 /**
  *	Sets the inventory limits for a specific InventoryEntry. This action allows you to define minimum and maximum
- *	quantities that can be added to a Cart. For more information, see [Quantity limits](/api/inventory-overview#quantity-limits).
+ *	quantities that can be added to a Cart. For more information, see [Quantity limits](/api/inventory-apis-overview#quantity-limits).
  *
  */
 export interface InventoryEntrySetInventoryLimitsAction extends IInventoryEntryUpdateAction {

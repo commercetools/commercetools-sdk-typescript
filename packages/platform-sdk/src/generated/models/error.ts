@@ -11,6 +11,7 @@ import {
   AgentExtractionFailedError,
   AgentFeatureDisabledError,
   AgentMissingCountryError,
+  AgentMissingCurrencyError,
   AgentMissingCustomerEmailError,
   AgentMissingEntityTypeError,
   AgentMissingShoppingListNameError,
@@ -22,6 +23,7 @@ import {
   AgentResponsesAuthError,
   AgentResponsesErrorResponse,
   AgentShoppingListCreationFailedError,
+  AgentShoppingListUnresolvedError,
   AgentStoreAmbiguousError,
   AgentStoreDistributionChannelsUnsupportedError,
   AgentStoreUnresolvedError,
@@ -31,6 +33,7 @@ import {
   GraphQLAgentExtractionFailedError,
   GraphQLAgentFeatureDisabledError,
   GraphQLAgentMissingCountryError,
+  GraphQLAgentMissingCurrencyError,
   GraphQLAgentMissingCustomerEmailError,
   GraphQLAgentMissingEntityTypeError,
   GraphQLAgentMissingShoppingListNameError,
@@ -40,6 +43,7 @@ import {
   GraphQLAgentProductsNotFoundError,
   GraphQLAgentQuoteRequestCreationFailedError,
   GraphQLAgentShoppingListCreationFailedError,
+  GraphQLAgentShoppingListUnresolvedError,
   GraphQLAgentStoreAmbiguousError,
   GraphQLAgentStoreDistributionChannelsUnsupportedError,
   GraphQLAgentStoreUnresolvedError,
@@ -96,6 +100,7 @@ export type ErrorObject =
   | AgentExtractionFailedError
   | AgentFeatureDisabledError
   | AgentMissingCountryError
+  | AgentMissingCurrencyError
   | AgentMissingCustomerEmailError
   | AgentMissingEntityTypeError
   | AgentMissingShoppingListNameError
@@ -105,6 +110,7 @@ export type ErrorObject =
   | AgentProductsNotFoundError
   | AgentQuoteRequestCreationFailedError
   | AgentShoppingListCreationFailedError
+  | AgentShoppingListUnresolvedError
   | AgentStoreAmbiguousError
   | AgentStoreDistributionChannelsUnsupportedError
   | AgentStoreUnresolvedError
@@ -198,6 +204,7 @@ export type ErrorObject =
   | ShippingMethodDoesNotMatchCartError
   | StoreCartDiscountsLimitReachedError
   | SyntaxErrorError
+  | TooManyRequestsError
   | UnauthorizedError
   | ValidityLockConflictError
 export interface IErrorObject {
@@ -1874,7 +1881,7 @@ export interface NoMatchingProductDiscountFoundError extends IErrorObject {
   readonly message: string
 }
 /**
- *	Returned if the requested resource was not found or the Product Search index is [inactive](/api/projects/product-search#activate-the-product-search-api).
+ *	Returned if the requested resource was not found or the Product Search index is [inactive](/api/storefront-search-apis-overview#activate-the-product-search-api).
  *
  */
 export interface ObjectNotFoundError extends IErrorObject {
@@ -2500,6 +2507,28 @@ export interface SyntaxErrorError extends IErrorObject {
   readonly message: string
 }
 /**
+ *	Returned when a request to a non-production Project exceeds a rate limit.
+ *
+ *	The response includes the following headers:
+ *
+ *	- `RateLimit-Limit` is the number of requests allowed in the current window.
+ *	- `RateLimit-Remaining` is the number of requests left in the current window.
+ *	- `RateLimit-Reset` is the number of seconds until the window resets.
+ *
+ *	The rate limit can vary by service and change over time, so don't rely on a fixed number. Since the response has no `Retry-After` header, wait for the number of seconds in `RateLimit-Reset` before you retry the request.
+ *
+ */
+export interface TooManyRequestsError extends IErrorObject {
+  readonly code: 'TooManyRequests'
+  [key: string]: any
+  /**
+   *	`"Too many requests. Please try again later."`
+   *
+   *
+   */
+  readonly message: string
+}
+/**
  *	Returned when one of the following conditions occurs:
  *
  *	- A Customer reference (for example, `associates[*].customer` or `inheritedAssociates[*].customer`) is expanded on the [My Business Unit](/api/projects/me-business-units) endpoint.
@@ -2610,6 +2639,7 @@ export type GraphQLErrorObject =
   | GraphQLAgentExtractionFailedError
   | GraphQLAgentFeatureDisabledError
   | GraphQLAgentMissingCountryError
+  | GraphQLAgentMissingCurrencyError
   | GraphQLAgentMissingCustomerEmailError
   | GraphQLAgentMissingEntityTypeError
   | GraphQLAgentMissingShoppingListNameError
@@ -2619,6 +2649,7 @@ export type GraphQLErrorObject =
   | GraphQLAgentProductsNotFoundError
   | GraphQLAgentQuoteRequestCreationFailedError
   | GraphQLAgentShoppingListCreationFailedError
+  | GraphQLAgentShoppingListUnresolvedError
   | GraphQLAgentStoreAmbiguousError
   | GraphQLAgentStoreDistributionChannelsUnsupportedError
   | GraphQLAgentStoreUnresolvedError
@@ -2712,6 +2743,7 @@ export type GraphQLErrorObject =
   | GraphQLShippingMethodDoesNotMatchCartError
   | GraphQLStoreCartDiscountsLimitReachedError
   | GraphQLSyntaxErrorError
+  | GraphQLTooManyRequestsError
   | GraphQLUnauthorizedError
   | GraphQLValidityLockConflictError
 export interface IGraphQLErrorObject {
@@ -3924,7 +3956,7 @@ export interface GraphQLNoMatchingProductDiscountFoundError extends IGraphQLErro
   [key: string]: any
 }
 /**
- *	Returned if the requested resource was not found or the Product Search index is [inactive](/api/projects/product-search#activate-the-product-search-api).
+ *	Returned if the requested resource was not found or the Product Search index is [inactive](/api/storefront-search-apis-overview#activate-the-product-search-api).
  *
  */
 export interface GraphQLObjectNotFoundError extends IGraphQLErrorObject {
@@ -4384,6 +4416,22 @@ export interface GraphQLStoreCartDiscountsLimitReachedError extends IGraphQLErro
  */
 export interface GraphQLSyntaxErrorError extends IGraphQLErrorObject {
   readonly code: 'SyntaxError'
+  [key: string]: any
+}
+/**
+ *	Returned when a request to a non-production Project exceeds a rate limit.
+ *
+ *	The response includes the following headers:
+ *
+ *	- `RateLimit-Limit` is the number of requests allowed in the current window.
+ *	- `RateLimit-Remaining` is the number of requests left in the current window.
+ *	- `RateLimit-Reset` is the number of seconds until the window resets.
+ *
+ *	The rate limit can vary by service and change over time, so don't rely on a fixed number. Since the response has no `Retry-After` header, wait for the number of seconds in `RateLimit-Reset` before you retry the request.
+ *
+ */
+export interface GraphQLTooManyRequestsError extends IGraphQLErrorObject {
+  readonly code: 'TooManyRequests'
   [key: string]: any
 }
 /**

@@ -194,10 +194,7 @@ export enum ApprovalFlowStatusValues {
 }
 
 export type ApprovalFlowStatus =
-  | 'Approved'
-  | 'Pending'
-  | 'Rejected'
-  | (string & {})
+  'Approved' | 'Pending' | 'Rejected' | (string & {})
 export interface ApprovalFlowUpdate {
   /**
    *	Expected version of the [Approval Flow](ctp:api:type:ApprovalFlow) to which the changes should be applied.

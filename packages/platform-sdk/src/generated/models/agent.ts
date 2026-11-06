@@ -14,12 +14,12 @@ import {
   IGraphQLErrorObject,
 } from './error'
 import { QuoteRequest } from './quote-request'
-import { ShoppingList } from './shopping-list'
+import { ShoppingList, ShoppingListResourceIdentifier } from './shopping-list'
 import { StoreResourceIdentifier } from './store'
 import { IWarningObject, WarningObject } from './warning'
 
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when the customer is associated with multiple [Business Units](ctp:api:type:BusinessUnit) and none could be automatically selected. To resolve this error, specify an explicit `businessUnit` reference in the request.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when the customer is associated with multiple [Business Units](ctp:api:type:BusinessUnit) and none could be automatically selected. To resolve this error, specify an explicit `businessUnit` reference in the request.
  *
  */
 export interface AgentBusinessUnitAmbiguousError extends IErrorObject {
@@ -33,7 +33,7 @@ export interface AgentBusinessUnitAmbiguousError extends IErrorObject {
   readonly message: string
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when the customer is associated with more [Business Units](ctp:api:type:BusinessUnit) than can be resolved automatically. To resolve this error, specify an explicit `businessUnit` reference in the request.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when the customer is associated with more [Business Units](ctp:api:type:BusinessUnit) than can be resolved automatically. To resolve this error, specify an explicit `businessUnit` reference in the request.
  *
  */
 export interface AgentBusinessUnitLimitExceededError extends IErrorObject {
@@ -47,7 +47,7 @@ export interface AgentBusinessUnitLimitExceededError extends IErrorObject {
   readonly message: string
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when the [BusinessUnit](ctp:api:type:BusinessUnit) could not be resolved from the input. Pin it with an explicit `businessUnit` reference in the request.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when the [BusinessUnit](ctp:api:type:BusinessUnit) could not be resolved from the input. Pin it with an explicit `businessUnit` reference in the request.
  *
  */
 export interface AgentBusinessUnitUnresolvedError extends IErrorObject {
@@ -61,7 +61,7 @@ export interface AgentBusinessUnitUnresolvedError extends IErrorObject {
   readonly message: string
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when the input could not be processed due to an internal error.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when the input could not be processed due to an internal error.
  *
  */
 export interface AgentExtractionFailedError extends IErrorObject {
@@ -75,7 +75,7 @@ export interface AgentExtractionFailedError extends IErrorObject {
   readonly message: string
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when the Intake Agent is not enabled for the Project.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when Intake is not enabled for the Project.
  *
  */
 export interface AgentFeatureDisabledError extends IErrorObject {
@@ -89,7 +89,7 @@ export interface AgentFeatureDisabledError extends IErrorObject {
   readonly message: string
 }
 /**
- *	Returned when an uploaded file in an Intake Agent [API request](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) could not be parsed.
+ *	Returned when an uploaded file in an Intake [API request](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) could not be parsed.
  *
  */
 export interface AgentFileNotProcessedWarning extends IWarningObject {
@@ -108,7 +108,7 @@ export interface AgentFileNotProcessedWarning extends IWarningObject {
   readonly fileName: string
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request with `outputType` set to `Cart` or `QuoteRequest` when a shipping country was not provided and could not be inferred from the input.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request with `outputType` set to `Cart` or `QuoteRequest` when a shipping country was not provided and could not be inferred from the input.
  *
  */
 export interface AgentMissingCountryError extends IErrorObject {
@@ -122,7 +122,21 @@ export interface AgentMissingCountryError extends IErrorObject {
   readonly message: string
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when the customer's email address was not provided and could not be inferred from the input.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request that sets `shoppingList` when the currency for the [ShoppingList](ctp:api:type:ShoppingList) could not be determined unambiguously. No entity is created.
+ *
+ */
+export interface AgentMissingCurrencyError extends IErrorObject {
+  readonly code: 'MissingCurrency'
+  [key: string]: any
+  /**
+   *	Plain text description of the error.
+   *
+   *
+   */
+  readonly message: string
+}
+/**
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when the customer's email address was not provided and could not be inferred from the input.
  *
  */
 export interface AgentMissingCustomerEmailError extends IErrorObject {
@@ -136,7 +150,7 @@ export interface AgentMissingCustomerEmailError extends IErrorObject {
   readonly message: string
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when the input did not specify whether to create a Cart, a Quote Request, or a Shopping List. Set `outputType` explicitly in the request.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when the input did not specify whether to create a Cart, a Quote Request, or a Shopping List. Set `outputType` explicitly in the request.
  *
  */
 export interface AgentMissingEntityTypeError extends IErrorObject {
@@ -150,7 +164,7 @@ export interface AgentMissingEntityTypeError extends IErrorObject {
   readonly message: string
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request with `outputType` set to `ShoppingList` when a name for the Shopping List is not present in the input. A name is never invented.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request with `outputType` set to `ShoppingList` when a name for the Shopping List is not present in the input. A name is never invented.
  *
  */
 export interface AgentMissingShoppingListNameError extends IErrorObject {
@@ -164,7 +178,7 @@ export interface AgentMissingShoppingListNameError extends IErrorObject {
   readonly message: string
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when no Line Items could be extracted from the provided `prompt` or files.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when no Line Items could be extracted from the provided `prompt` or files.
  *
  */
 export interface AgentNoLineItemsExtractedError extends IErrorObject {
@@ -178,7 +192,7 @@ export interface AgentNoLineItemsExtractedError extends IErrorObject {
   readonly message: string
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when the input does not contain enough information to create the requested entity. For a Cart or Quote Request, no products, no customer email address, and no shipping country could be determined. For a Shopping List, no products, no customer email address, and no name could be determined.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when the input does not contain enough information to create the requested entity. For a Cart or Quote Request, no products, no customer email address, and no shipping country could be determined. For a Shopping List, no products, no customer email address, and no name could be determined.
  *
  */
 export interface AgentOutOfScopeError extends IErrorObject {
@@ -192,7 +206,7 @@ export interface AgentOutOfScopeError extends IErrorObject {
   readonly message: string
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when Product Search is not enabled for the project.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when Product Search is not enabled for the project.
  *
  */
 export interface AgentProductSearchNotEnabledError extends IErrorObject {
@@ -206,7 +220,7 @@ export interface AgentProductSearchNotEnabledError extends IErrorObject {
   readonly message: string
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when none of the requested products could be matched to the catalog.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when none of the requested products could be matched to the catalog.
  *
  */
 export interface AgentProductsNotFoundError extends IErrorObject {
@@ -220,7 +234,7 @@ export interface AgentProductsNotFoundError extends IErrorObject {
   readonly message: string
 }
 /**
- *	Returned when one or more Products referenced in an Intake Agent [API request](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) could not be matched to the catalog or are unavailable in the bound Store. The omitted Products are excluded from the created entity.
+ *	Returned when one or more Products referenced in an Intake [API request](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) could not be matched to the catalog or are unavailable in the bound Store. The omitted Products are excluded from the created entity.
  *
  */
 export interface AgentProductsNotFoundWarning extends IWarningObject {
@@ -239,7 +253,7 @@ export interface AgentProductsNotFoundWarning extends IWarningObject {
   readonly products: string[]
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when the underlying [Cart](ctp:api:type:Cart) was created but the [QuoteRequest](ctp:api:type:QuoteRequest) could not be created from it, for example because the Cart has no verified Customer.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when the underlying [Cart](ctp:api:type:Cart) was created but the [QuoteRequest](ctp:api:type:QuoteRequest) could not be created from it, for example because the Cart has no verified Customer.
  *
  */
 export interface AgentQuoteRequestCreationFailedError extends IErrorObject {
@@ -259,12 +273,12 @@ export interface AgentQuoteRequestCreationFailedError extends IErrorObject {
   readonly cartId: string
 }
 /**
- *	Authentication or authorization failure from a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request. Uses the standard [AuthErrorResponse](ctp:api:type:AuthErrorResponse) shape (`statusCode`, `message`, `errors`, plus OAuth `error` / `error_description`) rather than the [AgentResponsesErrorResponse](ctp:api:type:AgentResponsesErrorResponse) envelope used for other errors from this endpoint.
+ *	Authentication or authorization failure from a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request. Uses the standard [AuthErrorResponse](ctp:api:type:AuthErrorResponse) shape (`statusCode`, `message`, `errors`, plus OAuth `error` / `error_description`) rather than the [AgentResponsesErrorResponse](ctp:api:type:AgentResponsesErrorResponse) envelope used for other errors from this endpoint.
  *
  */
 export interface AgentResponsesAuthError extends AuthErrorResponse {}
 /**
- *	Error response from a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request. Extends [ErrorResponse](ctp:api:type:ErrorResponse) with a `threadId` for support.
+ *	Error response from a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request. Extends [ErrorResponse](ctp:api:type:ErrorResponse) with a `threadId` for support.
  *
  */
 export interface AgentResponsesErrorResponse extends ErrorResponse {
@@ -284,12 +298,12 @@ export interface AgentResponsesErrorResponse extends ErrorResponse {
   readonly threadId?: string
 }
 /**
- *	`multipart/form-data` body for a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when files are attached. The JSON fields go in the `payload` part; files go in `files` parts.
+ *	`multipart/form-data` body for a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when files are attached. The JSON fields go in the `payload` part; files go in `files` parts.
  *
  */
 export interface AgentResponsesMultipartRequest {
   /**
-   *	JSON document matching [AgentResponsesPayload](ctp:api:type:AgentResponsesPayload). Must include `outputType` and `locale`. At least one of `prompt` or `files` must be provided.
+   *	JSON document matching [AgentResponsesPayload](ctp:api:type:AgentResponsesPayload). Must include `outputType` and `locale`. At least one of `prompt`, `files`, or `shoppingList` must be provided.
    *
    *
    */
@@ -302,7 +316,7 @@ export interface AgentResponsesMultipartRequest {
   readonly files?: Buffer[]
 }
 /**
- *	Entity that the Intake Agent creates from a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request. Never inferred from the input.
+ *	Entity that Intake creates from a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request. Never inferred from the input.
  *
  */
 export enum AgentResponsesOutputTypeValues {
@@ -312,12 +326,9 @@ export enum AgentResponsesOutputTypeValues {
 }
 
 export type AgentResponsesOutputType =
-  | 'Cart'
-  | 'QuoteRequest'
-  | 'ShoppingList'
-  | (string & {})
+  'Cart' | 'QuoteRequest' | 'ShoppingList' | (string & {})
 /**
- *	Structured fields for the `payload` part of a `multipart/form-data` [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request to the Intake Agent. `prompt` is optional when files are attached.
+ *	Structured fields for the `payload` part of a `multipart/form-data` [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request to Intake. `prompt` is optional when files are attached or `shoppingList` is set.
  *
  *	For an `application/json` request, use [AgentResponsesRequest](ctp:api:type:AgentResponsesRequest) instead.
  *
@@ -336,26 +347,38 @@ export interface AgentResponsesPayload {
    */
   readonly locale: string
   /**
-   *	Natural-language description of the entity to create, such as the body of an email or a note. Required if no file is attached. For a Shopping List, the name of the list must be stated in either the prompt or an attached file.
+   *	Natural-language description of the entity to create, such as the body of an email or a note. Required if no file is attached and `shoppingList` is not set. For a Shopping List, the name of the list must be stated in either the prompt or an attached file.
    *
    *
    */
   readonly prompt?: string
   /**
-   *	[BusinessUnit](ctp:api:type:BusinessUnit) to use for the request. If omitted, the Intake Agent resolves it from the input.
+   *	[BusinessUnit](ctp:api:type:BusinessUnit) to use for the request. Takes precedence over the Business Unit of the Shopping List in `shoppingList`. If omitted, Intake resolves it from the input or from the Shopping List.
    *
    *
    */
   readonly businessUnit?: BusinessUnitResourceIdentifier
   /**
-   *	[Store](ctp:api:type:Store) to use for the request. If omitted, the Intake Agent resolves it from the input.
+   *	[Store](ctp:api:type:Store) to use for the request. Takes precedence over the Store of the Shopping List in `shoppingList`. If omitted, Intake resolves it from the input or from the Shopping List.
    *
    *
    */
   readonly store?: StoreResourceIdentifier
+  /**
+   *	[ShoppingList](ctp:api:type:ShoppingList) to create the Cart or Quote Request from. Intake reads the list once and uses its Line Items as the Products of the request. The ShoppingList must exist and be accessible to the caller.
+   *
+   *	If the Shopping List can't be read, a [ShoppingListUnresolved](ctp:api:type:AgentShoppingListUnresolvedError) error is returned.
+   *
+   *	If files are attached, an [InvalidField](ctp:api:type:InvalidFieldError) error is returned.
+   *
+   *	If `outputType` is `ShoppingList`, an [InvalidField](ctp:api:type:InvalidFieldError) error is returned.
+   *
+   *
+   */
+  readonly shoppingList?: ShoppingListResourceIdentifier
 }
 /**
- *	JSON body for an `application/json` [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request to the Intake Agent. `prompt` is required.
+ *	JSON body for an `application/json` [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request to Intake. `prompt` is required unless `shoppingList` is set.
  *
  *	To attach files, send a `multipart/form-data` request with an [AgentResponsesPayload](ctp:api:type:AgentResponsesPayload) as the `payload` part.
  *
@@ -374,26 +397,36 @@ export interface AgentResponsesRequest {
    */
   readonly locale: string
   /**
-   *	Natural-language description of the entity to create, such as the body of an email or a note. For a Shopping List, it must state the name of the list.
+   *	Natural-language description of the entity to create, such as the body of an email or a note. Required if `shoppingList` is not set. For a Shopping List, it must state the name of the list.
    *
    *
    */
-  readonly prompt: string
+  readonly prompt?: string
   /**
-   *	[BusinessUnit](ctp:api:type:BusinessUnit) to use for the request. If omitted, the Intake Agent resolves it from `prompt`.
+   *	[BusinessUnit](ctp:api:type:BusinessUnit) to use for the request. Takes precedence over the Business Unit of the Shopping List in `shoppingList`. If omitted, Intake resolves it from `prompt` or from the Shopping List.
    *
    *
    */
   readonly businessUnit?: BusinessUnitResourceIdentifier
   /**
-   *	[Store](ctp:api:type:Store) to use for the request. If omitted, the Intake Agent resolves it from `prompt`.
+   *	[Store](ctp:api:type:Store) to use for the request. Takes precedence over the Store of the Shopping List in `shoppingList`. If omitted, Intake resolves it from `prompt` or from the Shopping List.
    *
    *
    */
   readonly store?: StoreResourceIdentifier
+  /**
+   *	[ShoppingList](ctp:api:type:ShoppingList) to create the Cart or Quote Request from. Intake reads the list once and uses its Line Items as the Products of the request.
+   *
+   *	If the Shopping List can't be read, a [ShoppingListUnresolved](ctp:api:type:AgentShoppingListUnresolvedError) error is returned.
+   *
+   *	If `outputType` is `ShoppingList`, an [InvalidField](ctp:api:type:InvalidFieldError) error is returned.
+   *
+   *
+   */
+  readonly shoppingList?: ShoppingListResourceIdentifier
 }
 /**
- *	Successful `201` response from a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request. Returns the created entity in commercetools REST representation, together with any non-fatal `warnings`.
+ *	Successful `201` response from a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request. Returns the created entity in commercetools REST representation, together with any non-fatal `warnings`.
  *
  *	The concrete type depends on `entityType`:
  *
@@ -427,7 +460,7 @@ export interface IAgentResponsesSuccess {
   readonly threadId: string
 }
 /**
- *	Successful `201` response from a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when `outputType` is `Cart`.
+ *	Successful `201` response from a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when `outputType` is `Cart`.
  *
  */
 export interface AgentResponsesCartSuccess extends IAgentResponsesSuccess {
@@ -452,7 +485,7 @@ export interface AgentResponsesCartSuccess extends IAgentResponsesSuccess {
   readonly entity: Cart
 }
 /**
- *	Successful `201` response from a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when `outputType` is `QuoteRequest`.
+ *	Successful `201` response from a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when `outputType` is `QuoteRequest`.
  *
  */
 export interface AgentResponsesQuoteRequestSuccess extends IAgentResponsesSuccess {
@@ -483,7 +516,7 @@ export interface AgentResponsesQuoteRequestSuccess extends IAgentResponsesSucces
   readonly cartId: string
 }
 /**
- *	Successful `201` response from a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when `outputType` is `ShoppingList`.
+ *	Successful `201` response from a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when `outputType` is `ShoppingList`.
  *
  */
 export interface AgentResponsesShoppingListSuccess extends IAgentResponsesSuccess {
@@ -508,7 +541,7 @@ export interface AgentResponsesShoppingListSuccess extends IAgentResponsesSucces
   readonly entity: ShoppingList
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when the [ShoppingList](ctp:api:type:ShoppingList) could not be created, for example because the request has no verified Customer or because commercetools rejected the ShoppingList draft. No entity is created, so there is nothing to clean up.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when the [ShoppingList](ctp:api:type:ShoppingList) could not be created, for example because the request has no verified Customer or because commercetools rejected the ShoppingList draft. No entity is created, so there is nothing to clean up.
  *
  */
 export interface AgentShoppingListCreationFailedError extends IErrorObject {
@@ -522,7 +555,21 @@ export interface AgentShoppingListCreationFailedError extends IErrorObject {
   readonly message: string
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when the resolved [Business Unit](ctp:api:type:BusinessUnit) grants multiple [Stores](ctp:api:type:Store) and none could be automatically selected. To resolve this error, specify an explicit `store` reference in the request.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when the [ShoppingList](ctp:api:type:ShoppingList) in `shoppingList` could not be found. No entity is created.
+ *
+ */
+export interface AgentShoppingListUnresolvedError extends IErrorObject {
+  readonly code: 'ShoppingListUnresolved'
+  [key: string]: any
+  /**
+   *	Plain text description of the error.
+   *
+   *
+   */
+  readonly message: string
+}
+/**
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when the resolved [Business Unit](ctp:api:type:BusinessUnit) grants multiple [Stores](ctp:api:type:Store) and none could be automatically selected. To resolve this error, specify an explicit `store` reference in the request.
  *
  */
 export interface AgentStoreAmbiguousError extends IErrorObject {
@@ -536,7 +583,7 @@ export interface AgentStoreAmbiguousError extends IErrorObject {
   readonly message: string
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when the resolved [Store](ctp:api:type:Store) has more than one entry in the `distributionChannels` array, which is not supported. To resolve this error, choose a Store with zero or one distribution channel.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when the resolved [Store](ctp:api:type:Store) has more than one entry in the `distributionChannels` array, which is not supported. To resolve this error, choose a Store with zero or one distribution channel.
  *
  */
 export interface AgentStoreDistributionChannelsUnsupportedError extends IErrorObject {
@@ -550,7 +597,7 @@ export interface AgentStoreDistributionChannelsUnsupportedError extends IErrorOb
   readonly message: string
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when the [Store](ctp:api:type:Store) could not be resolved from the input. Pin it with an explicit `store` reference in the request.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when the [Store](ctp:api:type:Store) could not be resolved from the input. Pin it with an explicit `store` reference in the request.
  *
  */
 export interface AgentStoreUnresolvedError extends IErrorObject {
@@ -564,7 +611,7 @@ export interface AgentStoreUnresolvedError extends IErrorObject {
   readonly message: string
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when the customer is associated with multiple [Business Units](ctp:api:type:BusinessUnit) and none could be automatically selected. To resolve this error, specify an explicit `businessUnit` reference in the request.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when the customer is associated with multiple [Business Units](ctp:api:type:BusinessUnit) and none could be automatically selected. To resolve this error, specify an explicit `businessUnit` reference in the request.
  *
  */
 export interface GraphQLAgentBusinessUnitAmbiguousError extends IGraphQLErrorObject {
@@ -572,7 +619,7 @@ export interface GraphQLAgentBusinessUnitAmbiguousError extends IGraphQLErrorObj
   [key: string]: any
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when the customer is associated with more [Business Units](ctp:api:type:BusinessUnit) than can be resolved automatically. To resolve this error, specify an explicit `businessUnit` reference in the request.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when the customer is associated with more [Business Units](ctp:api:type:BusinessUnit) than can be resolved automatically. To resolve this error, specify an explicit `businessUnit` reference in the request.
  *
  */
 export interface GraphQLAgentBusinessUnitLimitExceededError extends IGraphQLErrorObject {
@@ -580,7 +627,7 @@ export interface GraphQLAgentBusinessUnitLimitExceededError extends IGraphQLErro
   [key: string]: any
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when the [BusinessUnit](ctp:api:type:BusinessUnit) could not be resolved from the input. Pin it with an explicit `businessUnit` reference in the request.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when the [BusinessUnit](ctp:api:type:BusinessUnit) could not be resolved from the input. Pin it with an explicit `businessUnit` reference in the request.
  *
  */
 export interface GraphQLAgentBusinessUnitUnresolvedError extends IGraphQLErrorObject {
@@ -588,7 +635,7 @@ export interface GraphQLAgentBusinessUnitUnresolvedError extends IGraphQLErrorOb
   [key: string]: any
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when the input could not be processed due to an internal error.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when the input could not be processed due to an internal error.
  *
  */
 export interface GraphQLAgentExtractionFailedError extends IGraphQLErrorObject {
@@ -596,7 +643,7 @@ export interface GraphQLAgentExtractionFailedError extends IGraphQLErrorObject {
   [key: string]: any
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when the Intake Agent is not enabled for the Project.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when Intake is not enabled for the Project.
  *
  */
 export interface GraphQLAgentFeatureDisabledError extends IGraphQLErrorObject {
@@ -604,7 +651,7 @@ export interface GraphQLAgentFeatureDisabledError extends IGraphQLErrorObject {
   [key: string]: any
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request with `outputType` set to `Cart` or `QuoteRequest` when a shipping country was not provided and could not be inferred from the input.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request with `outputType` set to `Cart` or `QuoteRequest` when a shipping country was not provided and could not be inferred from the input.
  *
  */
 export interface GraphQLAgentMissingCountryError extends IGraphQLErrorObject {
@@ -612,7 +659,15 @@ export interface GraphQLAgentMissingCountryError extends IGraphQLErrorObject {
   [key: string]: any
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when the customer's email address was not provided and could not be inferred from the input.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request that sets `shoppingList` when the currency for the [ShoppingList](ctp:api:type:ShoppingList) could not be determined unambiguously. No entity is created.
+ *
+ */
+export interface GraphQLAgentMissingCurrencyError extends IGraphQLErrorObject {
+  readonly code: 'MissingCurrency'
+  [key: string]: any
+}
+/**
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when the customer's email address was not provided and could not be inferred from the input.
  *
  */
 export interface GraphQLAgentMissingCustomerEmailError extends IGraphQLErrorObject {
@@ -620,7 +675,7 @@ export interface GraphQLAgentMissingCustomerEmailError extends IGraphQLErrorObje
   [key: string]: any
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when the input did not specify whether to create a Cart, a Quote Request, or a Shopping List. Set `outputType` explicitly in the request.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when the input did not specify whether to create a Cart, a Quote Request, or a Shopping List. Set `outputType` explicitly in the request.
  *
  */
 export interface GraphQLAgentMissingEntityTypeError extends IGraphQLErrorObject {
@@ -628,7 +683,7 @@ export interface GraphQLAgentMissingEntityTypeError extends IGraphQLErrorObject 
   [key: string]: any
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request with `outputType` set to `ShoppingList` when a name for the Shopping List is not present in the input. A name is never invented.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request with `outputType` set to `ShoppingList` when a name for the Shopping List is not present in the input. A name is never invented.
  *
  */
 export interface GraphQLAgentMissingShoppingListNameError extends IGraphQLErrorObject {
@@ -636,7 +691,7 @@ export interface GraphQLAgentMissingShoppingListNameError extends IGraphQLErrorO
   [key: string]: any
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when no Line Items could be extracted from the provided `prompt` or files.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when no Line Items could be extracted from the provided `prompt` or files.
  *
  */
 export interface GraphQLAgentNoLineItemsExtractedError extends IGraphQLErrorObject {
@@ -644,7 +699,7 @@ export interface GraphQLAgentNoLineItemsExtractedError extends IGraphQLErrorObje
   [key: string]: any
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when the input does not contain enough information to create the requested entity. For a Cart or Quote Request, no products, no customer email address, and no shipping country could be determined. For a Shopping List, no products, no customer email address, and no name could be determined.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when the input does not contain enough information to create the requested entity. For a Cart or Quote Request, no products, no customer email address, and no shipping country could be determined. For a Shopping List, no products, no customer email address, and no name could be determined.
  *
  */
 export interface GraphQLAgentOutOfScopeError extends IGraphQLErrorObject {
@@ -652,7 +707,7 @@ export interface GraphQLAgentOutOfScopeError extends IGraphQLErrorObject {
   [key: string]: any
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when Product Search is not enabled for the project.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when Product Search is not enabled for the project.
  *
  */
 export interface GraphQLAgentProductSearchNotEnabledError extends IGraphQLErrorObject {
@@ -660,7 +715,7 @@ export interface GraphQLAgentProductSearchNotEnabledError extends IGraphQLErrorO
   [key: string]: any
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when none of the requested products could be matched to the catalog.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when none of the requested products could be matched to the catalog.
  *
  */
 export interface GraphQLAgentProductsNotFoundError extends IGraphQLErrorObject {
@@ -668,7 +723,7 @@ export interface GraphQLAgentProductsNotFoundError extends IGraphQLErrorObject {
   [key: string]: any
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when the underlying [Cart](ctp:api:type:Cart) was created but the [QuoteRequest](ctp:api:type:QuoteRequest) could not be created from it, for example because the Cart has no verified Customer.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when the underlying [Cart](ctp:api:type:Cart) was created but the [QuoteRequest](ctp:api:type:QuoteRequest) could not be created from it, for example because the Cart has no verified Customer.
  *
  */
 export interface GraphQLAgentQuoteRequestCreationFailedError extends IGraphQLErrorObject {
@@ -682,7 +737,7 @@ export interface GraphQLAgentQuoteRequestCreationFailedError extends IGraphQLErr
   readonly cartId: string
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when the [ShoppingList](ctp:api:type:ShoppingList) could not be created, for example because the request has no verified Customer or because commercetools rejected the ShoppingList draft. No entity is created, so there is nothing to clean up.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when the [ShoppingList](ctp:api:type:ShoppingList) could not be created, for example because the request has no verified Customer or because commercetools rejected the ShoppingList draft. No entity is created, so there is nothing to clean up.
  *
  */
 export interface GraphQLAgentShoppingListCreationFailedError extends IGraphQLErrorObject {
@@ -690,7 +745,15 @@ export interface GraphQLAgentShoppingListCreationFailedError extends IGraphQLErr
   [key: string]: any
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when the resolved [Business Unit](ctp:api:type:BusinessUnit) grants multiple [Stores](ctp:api:type:Store) and none could be automatically selected. To resolve this error, specify an explicit `store` reference in the request.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when the [ShoppingList](ctp:api:type:ShoppingList) in `shoppingList` could not be found. No entity is created.
+ *
+ */
+export interface GraphQLAgentShoppingListUnresolvedError extends IGraphQLErrorObject {
+  readonly code: 'ShoppingListUnresolved'
+  [key: string]: any
+}
+/**
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when the resolved [Business Unit](ctp:api:type:BusinessUnit) grants multiple [Stores](ctp:api:type:Store) and none could be automatically selected. To resolve this error, specify an explicit `store` reference in the request.
  *
  */
 export interface GraphQLAgentStoreAmbiguousError extends IGraphQLErrorObject {
@@ -698,7 +761,7 @@ export interface GraphQLAgentStoreAmbiguousError extends IGraphQLErrorObject {
   [key: string]: any
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when the resolved [Store](ctp:api:type:Store) has more than one entry in the `distributionChannels` array, which is not supported. To resolve this error, choose a Store with zero or one distribution channel.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when the resolved [Store](ctp:api:type:Store) has more than one entry in the `distributionChannels` array, which is not supported. To resolve this error, choose a Store with zero or one distribution channel.
  *
  */
 export interface GraphQLAgentStoreDistributionChannelsUnsupportedError extends IGraphQLErrorObject {
@@ -706,7 +769,7 @@ export interface GraphQLAgentStoreDistributionChannelsUnsupportedError extends I
   [key: string]: any
 }
 /**
- *	Returned by a [/responses](/api/agents/intake-agent#create-a-cart-quote-request-or-shopping-list) request when the [Store](ctp:api:type:Store) could not be resolved from the input. Pin it with an explicit `store` reference in the request.
+ *	Returned by a [/responses](/api/projects/intake#create-a-cart-quote-request-or-shopping-list) request when the [Store](ctp:api:type:Store) could not be resolved from the input. Pin it with an explicit `store` reference in the request.
  *
  */
 export interface GraphQLAgentStoreUnresolvedError extends IGraphQLErrorObject {

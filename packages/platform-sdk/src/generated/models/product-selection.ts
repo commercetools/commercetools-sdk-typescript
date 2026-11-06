@@ -172,7 +172,6 @@ export interface ProductSelection extends BaseResource {
   readonly custom?: CustomFields
 }
 /**
- *
  *	Given the mode of Product Selection, this assignment refers to, it may contain:
  *
  *	- `variantSelection` field for a Product Selection with `Individual` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).
@@ -242,9 +241,7 @@ export enum ProductSelectionModeValues {
 }
 
 export type ProductSelectionMode =
-  | 'Individual'
-  | 'IndividualExclusion'
-  | (string & {})
+  'Individual' | 'IndividualExclusion' | (string & {})
 /**
  *	[PagedQueryResult](/general-concepts#pagedqueryresult) containing an array of [ProductSelection](ctp:api:type:ProductSelection).
  *
@@ -404,8 +401,7 @@ export interface ProductVariantExclusion {
  *
  */
 export type ProductVariantSelection =
-  | ProductVariantSelectionIncludeAllExcept
-  | ProductVariantSelectionIncludeOnly
+  ProductVariantSelectionIncludeAllExcept | ProductVariantSelectionIncludeOnly
 export interface IProductVariantSelection {
   /**
    *	Determines whether the SKUs are to be included in, or excluded from, the Product Selection.
@@ -448,11 +444,7 @@ export enum ProductVariantSelectionTypeEnumValues {
 }
 
 export type ProductVariantSelectionTypeEnum =
-  | 'exclusion'
-  | 'includeAllExcept'
-  | 'includeOnly'
-  | 'inclusion'
-  | (string & {})
+  'exclusion' | 'includeAllExcept' | 'includeOnly' | 'inclusion' | (string & {})
 /**
  *	[PagedQueryResult](/general-concepts#pagedqueryresult) containing an array of [ProductSelectionAssignment](ctp:api:type:ProductSelectionAssignment).
  *

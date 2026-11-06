@@ -94,7 +94,6 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeCartsRequestBuilder {
     )
   }
   /**
-   *
    *	Creates a Cart in a Store for the Customer or anonymous user. The `customerId` or `anonymousId` field on the Cart is automatically set based on the [customer:{id}](/scopes#internal-oauth) or [anonymous_id:{id}](/scopes#internal-oauth) scope.
    *
    *	The `store` field in the created [Cart](ctp:api:type:Cart) is set to the Store specified by the `storeKey` path parameter.

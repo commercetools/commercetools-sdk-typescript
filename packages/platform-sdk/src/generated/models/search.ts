@@ -76,9 +76,7 @@ export interface SearchMatchingVariant {
 }
 export interface SearchQuery {}
 export type _SearchQuery =
-  | SearchQuery
-  | _SearchCompoundExpression
-  | _SearchQueryExpression
+  SearchQuery | _SearchCompoundExpression | _SearchQueryExpression
 export interface SearchCompoundExpression extends SearchQuery {}
 export type _SearchCompoundExpression =
   | SearchCompoundExpression

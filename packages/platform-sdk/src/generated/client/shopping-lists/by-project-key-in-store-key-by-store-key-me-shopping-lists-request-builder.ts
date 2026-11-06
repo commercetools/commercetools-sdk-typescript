@@ -126,7 +126,6 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsRequestBuilder {
     )
   }
   /**
-   *
    *	Creates a ShoppingList for the authenticated Customer or anonymous user in a [Store](ctp:api:type:Store). The `customer` or `anonymousId` field on the ShoppingList is automatically set based on the given [customer:{id}](/scopes#internal-oauth) or [anonymous_id:{id}](/scopes#internal-oauth) scope.
    *
    *	When using this endpoint, the `store` field of a ShoppingList is always set to the Store specified in the path parameter.

@@ -131,12 +131,10 @@ export default function createHttpMiddleware({
       const requestHeader: JsonObject<QueryParam> = { ...request.headers }
 
       // If no content-type is provided, defaults to application/json
-      if (
-        !(
-          Object.prototype.hasOwnProperty.call(requestHeader, 'Content-Type') ||
-          Object.prototype.hasOwnProperty.call(requestHeader, 'content-type')
-        )
-      ) {
+      if (!(
+        Object.prototype.hasOwnProperty.call(requestHeader, 'Content-Type') ||
+        Object.prototype.hasOwnProperty.call(requestHeader, 'content-type')
+      )) {
         requestHeader['Content-Type'] = 'application/json'
       }
 

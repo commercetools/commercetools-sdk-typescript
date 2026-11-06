@@ -720,7 +720,7 @@ export interface LineItemImportDraft {
    */
   readonly taxedPrice?: TaxedPriceDraft
   /**
-   *	The Channel used to [select a Price](/api/pricing-and-discounts-overview#line-item-price-selection).
+   *	The Channel used to [select a Price](/api/pricing-and-discounts-apis-overview#line-item-price-selection).
    *	This Channel must have the `ProductDistribution` role.
    *
    */
@@ -796,7 +796,7 @@ export interface Order extends BaseResource {
   readonly customerEmail?: string
   /**
    *	[Reference](ctp:api:type:Reference) to the Customer Group of the Customer that the Order belongs to.
-   *	Used for [Line Item price selection](/api/pricing-and-discounts-overview#line-item-price-selection).
+   *	Used for [Line Item price selection](/api/pricing-and-discounts-apis-overview#line-item-price-selection).
    *
    */
   readonly customerGroup?: CustomerGroupReference
@@ -988,7 +988,7 @@ export interface Order extends BaseResource {
    */
   readonly paymentInfo?: PaymentInfo
   /**
-   *	Used for [Line Item price selection](/api/pricing-and-discounts-overview#line-item-price-selection).
+   *	Used for [Line Item price selection](/api/pricing-and-discounts-apis-overview#line-item-price-selection).
    *
    */
   readonly country?: string
@@ -1629,11 +1629,7 @@ export enum OrderStateValues {
 }
 
 export type OrderState =
-  | 'Cancelled'
-  | 'Complete'
-  | 'Confirmed'
-  | 'Open'
-  | (string & {})
+  'Cancelled' | 'Complete' | 'Confirmed' | 'Open' | (string & {})
 export interface OrderUpdate {
   /**
    *	Expected version of the Order on which the changes should be applied.
@@ -1841,12 +1837,7 @@ export enum PaymentStateValues {
 }
 
 export type PaymentState =
-  | 'BalanceDue'
-  | 'CreditOwed'
-  | 'Failed'
-  | 'Paid'
-  | 'Pending'
-  | (string & {})
+  'BalanceDue' | 'CreditOwed' | 'Failed' | 'Paid' | 'Pending' | (string & {})
 /**
  *	Contains the Product Variant to be used in the [LineItemImportDraft](ctp:api:type:LineItemImportDraft).
  *
@@ -2181,11 +2172,7 @@ export enum ReturnPaymentStateValues {
 }
 
 export type ReturnPaymentState =
-  | 'Initial'
-  | 'NonRefundable'
-  | 'NotRefunded'
-  | 'Refunded'
-  | (string & {})
+  'Initial' | 'NonRefundable' | 'NotRefunded' | 'Refunded' | (string & {})
 export enum ReturnShipmentStateValues {
   Advised = 'Advised',
   BackInStock = 'BackInStock',
@@ -2194,11 +2181,7 @@ export enum ReturnShipmentStateValues {
 }
 
 export type ReturnShipmentState =
-  | 'Advised'
-  | 'BackInStock'
-  | 'Returned'
-  | 'Unusable'
-  | (string & {})
+  'Advised' | 'BackInStock' | 'Returned' | 'Unusable' | (string & {})
 /**
  *	Indicates the shipment status of the Order.
  *

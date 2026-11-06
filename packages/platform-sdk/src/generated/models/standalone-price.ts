@@ -155,7 +155,7 @@ export interface StandalonePrice extends BaseResource {
    */
   readonly tiers?: PriceTier[]
   /**
-   *	Set if a matching [ProductDiscount](ctp:api:type:ProductDiscount) exists. If set, the API uses the `discounted` value for the [Line Item price selection](/api/pricing-and-discounts-overview#line-item-price-selection).
+   *	Set if a matching [ProductDiscount](ctp:api:type:ProductDiscount) exists. If set, the API uses the `discounted` value for the [Line Item price selection](/api/pricing-and-discounts-apis-overview#line-item-price-selection).
    *
    *
    */
@@ -173,8 +173,8 @@ export interface StandalonePrice extends BaseResource {
    */
   readonly staged?: StagedStandalonePrice
   /**
-   *	Whether the StandalonePrice is considered during [Product price selection](/api/pricing-and-discounts-overview#product-price-selection).
-   *	If set to `false`, the StandalonePrice is not considered during [Product price selection](/api/pricing-and-discounts-overview#product-price-selection) and any associated Line Items in a Cart cannot be ordered.
+   *	Whether the StandalonePrice is considered during [Product price selection](/api/projects/productProjections#product-price-selection).
+   *	If set to `false`, the StandalonePrice is not considered during [Product price selection](/api/projects/productProjections#product-price-selection) and any associated Line Items in a Cart cannot be ordered.
    *
    *
    */
@@ -274,7 +274,7 @@ export interface StandalonePriceDraft {
    */
   readonly staged?: StagedPriceDraft
   /**
-   *	Set to `false`, if the StandalonePrice should not be considered during [Product price selection](/api/pricing-and-discounts-overview#product-price-selection).
+   *	Set to `false`, if the StandalonePrice should not be considered during [Product price selection](/api/projects/productProjections#product-price-selection).
    *
    *
    */

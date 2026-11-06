@@ -70,6 +70,8 @@ export class ByProjectKeyCategoriesKeyByKeyRequestBuilder {
   /**
    *	Either the [scope](/api/scopes) `manage_products:{projectKey}` or `manage_categories:{projectKey}` is required.
    *
+   *	The response status code is `200 OK`, unless the request contains a [Set Stores with Descendants](ctp:api:type:CategorySetStoresWithDescendantsAction), [Add Store with Descendants](ctp:api:type:CategoryAddStoreWithDescendantsAction), or [Remove Store with Descendants](ctp:api:type:CategoryRemoveStoreWithDescendantsAction) update action. In that case, the API responds with `202 Accepted`, and the returned Category contains a `warnings` field with a [StoreSettingOngoing](ctp:api:type:StoreSettingOngoingWarning) Warning.
+   *
    */
   public post(methodArgs: {
     queryArgs?: {
