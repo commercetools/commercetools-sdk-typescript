@@ -109,6 +109,9 @@ export interface ProductSelectionImport extends ImportResource {
   /**
    *	List of product assignments.
    *
+   *	When updating an existing ProductSelection, the imported list becomes the complete set of assignments, and Products omitted from the list are removed from the ProductSelection. If this field is omitted, the existing assignments are not changed.
+   *
+   *
    */
   readonly assignments?: ProductSelectionAssignment[]
 }

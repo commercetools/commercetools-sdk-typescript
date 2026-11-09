@@ -566,6 +566,12 @@ export interface TimeSetAttribute extends IAttribute {
 /**
  *	Represents the data used to import a ProductVariant. Once imported, this data is persisted as a [ProductVariant](ctp:api:type:ProductVariant) in the Project.
  *
+ *	When updating an existing ProductVariant, the import replaces its `sku`, `attributes`, `images`, and `assets` with the imported values. Values omitted from the import are removed from the ProductVariant, so a request that contains only `images` also removes all Attributes and Assets. Include all existing values you want to keep.
+ *
+ *	ProductVariantImport does not change the Embedded Prices of an existing ProductVariant. A new ProductVariant created by this import has no Embedded Prices. Import them separately with [PriceImport](ctp:import:type:PriceImport). StandalonePrices are not affected.
+ *
+ *	To change only some Attribute values, use [ProductVariantPatch](ctp:import:type:ProductVariantPatch). For more information, see [Omitted values are removed on update](/api/import-export/overview#omitted-values-are-removed-on-update).
+ *
  */
 export interface ProductVariantImport extends ImportResource {
   /**
@@ -575,6 +581,8 @@ export interface ProductVariantImport extends ImportResource {
   readonly key: string
   /**
    *	Maps to `ProductVariant.sku`.
+   *
+   *	If the ProductVariant already has a `sku` and this field is omitted, the `sku` is removed.
    *
    *
    */
@@ -590,17 +598,23 @@ export interface ProductVariantImport extends ImportResource {
    *	Maps to `ProductVariant.attributes`.
    *	The referenced attribute must be defined in an already existing ProductType in the project, or the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be `unresolved`.
    *
+   *	The imported Attributes replace the existing Attributes of the ProductVariant. Existing Attributes omitted from this array are removed. To change only some Attributes, use [ProductVariantPatch](ctp:import:type:ProductVariantPatch).
+   *
    *
    */
   readonly attributes?: Attribute[]
   /**
    *	Maps to `ProductVariant.images`.
    *
+   *	The imported images replace the existing images of the ProductVariant. If this field is omitted, all existing images are removed.
+   *
    *
    */
   readonly images?: Image[]
   /**
    *	Maps to `ProductVariant.assets`.
+   *
+   *	The imported Assets replace the existing Assets of the ProductVariant. If this field is omitted, all existing Assets are removed.
    *
    *
    */
@@ -621,6 +635,8 @@ export interface ProductVariantImport extends ImportResource {
 }
 /**
  *	Represents the data used to update a [ProductVariant](ctp:api:type:ProductVariant).
+ *
+ *	ProductVariantPatch only changes the Attributes it contains. All other Attributes, images, Assets, and Prices of the ProductVariant remain unchanged. To change images or Assets, use [ProductVariantImport](ctp:import:type:ProductVariantImport) with the complete set of values.
  *
  */
 export interface ProductVariantPatch {

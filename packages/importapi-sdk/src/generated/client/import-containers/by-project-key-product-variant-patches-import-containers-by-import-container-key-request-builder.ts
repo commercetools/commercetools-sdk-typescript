@@ -24,6 +24,7 @@ export class ByProjectKeyProductVariantPatchesImportContainersByImportContainerK
   ) {}
   /**
    *	Creates an Import Request for updating Product Variants.
+   *	Only the Attributes included in the patch are changed. All other Attributes, images, Assets, and Prices of the Product Variant remain unchanged.
    *	Returns an [InvalidField](ctp:import:type:InvalidFieldError) error if the [ProductVariantPatchRequest](ctp:import:type:ProductVariantPatchRequest) contains patches with and without the `product` field set.
    *
    */
