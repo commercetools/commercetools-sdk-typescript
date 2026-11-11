@@ -42,6 +42,13 @@
 </details>
 
 <details>
+<summary>Changed Property(s)</summary>
+
+- :warning: changed property `count` of type `ReviewRatingStatistics` from type `integer` to `number`
+
+</details>
+
+<details>
 <summary>Added Enum(s)</summary>
 
 - added enum `ProductEnrichmentAgent` to type `AttributionSource`
