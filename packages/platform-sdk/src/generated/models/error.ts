@@ -239,7 +239,7 @@ export interface AnonymousIdAlreadyInUseError extends IErrorObject {
   readonly message: string
 }
 /**
- *	Returned when an [Associate](ctp:api:type:Associate) is missing a [Permission](ctp:api:type:Permission) on a [B2B resource](/associates-overview#b2b-resources).
+ *	Returned when an [Associate](ctp:api:type:Associate) is missing a [Permission](ctp:api:type:Permission) on a [B2B resource](/business-units-and-associates-overview#b2b-resources).
  *
  */
 export interface AssociateMissingPermissionError extends IErrorObject {
@@ -2766,7 +2766,7 @@ export interface GraphQLAnonymousIdAlreadyInUseError extends IGraphQLErrorObject
   [key: string]: any
 }
 /**
- *	Returned when an [Associate](ctp:api:type:Associate) is missing a [Permission](ctp:api:type:Permission) on a [B2B resource](/associates-overview#b2b-resources).
+ *	Returned when an [Associate](ctp:api:type:Associate) is missing a [Permission](ctp:api:type:Permission) on a [B2B resource](/business-units-and-associates-overview#b2b-resources).
  *
  */
 export interface GraphQLAssociateMissingPermissionError extends IGraphQLErrorObject {
