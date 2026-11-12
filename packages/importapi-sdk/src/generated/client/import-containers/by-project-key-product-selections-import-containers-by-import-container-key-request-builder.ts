@@ -24,6 +24,9 @@ export class ByProjectKeyProductSelectionsImportContainersByImportContainerKeyRe
   ) {}
   /**
    *	Creates an Import Request for Product Selections.
+   *
+   *	When updating existing Product Selections, an `assignments` list in a [ProductSelectionImport](ctp:import:type:ProductSelectionImport) becomes the complete set of assignments, and Products omitted from the list are removed from the Product Selection.
+   *
    */
   public post(methodArgs: {
     body: ProductSelectionImportRequest

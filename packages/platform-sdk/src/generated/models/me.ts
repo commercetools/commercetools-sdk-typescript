@@ -2563,7 +2563,7 @@ export interface MyPaymentSetTransactionCustomFieldAction extends IMyPaymentUpda
   readonly value?: any
 }
 /**
- *	When accepting, declining, or renegotiating [B2B Quotes](/api/associates-overview#b2b-resources), the Customer must have the `AcceptMyQuotes`, `DeclineMyQuotes`, or `RenegotiateMyQuotes` [Permission](ctp:api:type:Permission), respectively. If the required [Permission](ctp:api:type:Permission) is missing, an [AssociateMissingPermission](ctp:api:type:AssociateMissingPermissionError) error is returned.
+ *	When accepting, declining, or renegotiating [B2B Quotes](/api/business-units-and-associates-overview#b2b-resources), the Customer must have the `AcceptMyQuotes`, `DeclineMyQuotes`, or `RenegotiateMyQuotes` [Permission](ctp:api:type:Permission), respectively. If the required [Permission](ctp:api:type:Permission) is missing, an [AssociateMissingPermission](ctp:api:type:AssociateMissingPermissionError) error is returned.
  */
 export interface MyQuoteChangeMyQuoteStateAction extends IMyQuoteUpdateAction {
   readonly action: 'changeMyQuoteState'

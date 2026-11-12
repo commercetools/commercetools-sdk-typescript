@@ -20,7 +20,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersPasswordResetRequestBuilde
     }
   ) {}
   /**
-   *	Use this method to reset a Store-specific Customer's password during their [password reset process](/api/customers-overview#customer-password-reset).
+   *	Use this method to reset a Store-specific Customer's password during their [password reset process](/api/customers-apis-overview#customer-password-reset).
    *
    *	Resetting the password of the Customer produces the [CustomerPasswordUpdated](ctp:api:type:CustomerPasswordUpdatedMessage) Message with `reset=true`.
    *

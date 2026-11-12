@@ -24,6 +24,11 @@ export class ByProjectKeyStandalonePricesImportContainersByImportContainerKeyReq
   ) {}
   /**
    *	Creates an Import Request for Standalone Prices.
+   *
+   *	When updating existing Standalone Prices, optional values omitted from a [StandalonePriceImport](ctp:import:type:StandalonePriceImport), such as `validFrom`, `validUntil`, `tiers`, `discounted`, and `custom`, are removed. Include all existing values you want to keep.
+   *
+   *	StandalonePriceImport has no `staged` field. If the existing StandalonePrice has staged changes, every update through the Import API discards them, even if the imported `value` is the same. To keep the staged changes, first apply them with the [Apply Staged Changes](ctp:api:type:StandalonePriceApplyStagedChangesAction) update action.
+   *
    */
   public post(methodArgs: {
     body: StandalonePriceImportRequest

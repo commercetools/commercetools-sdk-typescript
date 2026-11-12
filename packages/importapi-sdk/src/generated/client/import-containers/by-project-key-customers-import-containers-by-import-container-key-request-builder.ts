@@ -24,6 +24,9 @@ export class ByProjectKeyCustomersImportContainersByImportContainerKeyRequestBui
   ) {}
   /**
    *	Creates an Import Request for Customers.
+   *
+   *	When updating existing Customers, `addresses`, `customerGroup`, and `custom` omitted from a [CustomerImport](ctp:import:type:CustomerImport) are removed. Include all existing values you want to keep.
+   *
    */
   public post(methodArgs: {
     body: CustomerImportRequest

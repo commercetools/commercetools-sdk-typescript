@@ -133,7 +133,7 @@ export interface ProductSearchProjectionParams {
    */
   readonly priceCustomerGroup?: string
   /**
-   *	IDs of existing [CustomerGroups](ctp:api:type:CustomerGroup) used for [Product price selection](/api/projects/productProjections#product-price-selection), when using [multiple Customer Groups](/api/customers-overview#customer-groups). It can be used only *in conjunction with* the `priceCurrency` parameter.
+   *	IDs of existing [CustomerGroups](ctp:api:type:CustomerGroup) used for [Product price selection](/api/projects/productProjections#product-price-selection), when using [multiple Customer Groups](/api/customers-apis-overview#customer-group-assignments). It can be used only *in conjunction with* the `priceCurrency` parameter.
    *
    *
    */

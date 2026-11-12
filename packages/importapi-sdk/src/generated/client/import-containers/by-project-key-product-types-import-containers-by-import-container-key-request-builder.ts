@@ -24,6 +24,9 @@ export class ByProjectKeyProductTypesImportContainersByImportContainerKeyRequest
   ) {}
   /**
    *	Creates an Import Request for ProductTypes.
+   *
+   *	When updating existing ProductTypes, AttributeDefinitions omitted from a [ProductTypeImport](ctp:import:type:ProductTypeImport) are removed, and the corresponding Attribute values are deleted from all Products with this ProductType. Omitting the `attributes` field removes all AttributeDefinitions. This data cannot be recovered.
+   *
    */
   public post(methodArgs: {
     body: ProductTypeImportRequest

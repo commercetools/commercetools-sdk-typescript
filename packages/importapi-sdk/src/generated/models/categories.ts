@@ -15,6 +15,8 @@ import { Custom } from './customfields'
 /**
  *	Represents the data used to import a Category. Once imported, this data is persisted as a [Category](ctp:api:type:Category) in the Project.
  *
+ *	When updating an existing Category, `assets` and `custom` omitted from the import are removed from the Category. Include all existing values you want to keep. For more information, see [Omitted values are removed on update](/api/import-export/overview#omitted-values-are-removed-on-update).
+ *
  */
 export interface CategoryImport extends ImportResource {
   /**
@@ -79,11 +81,16 @@ export interface CategoryImport extends ImportResource {
   /**
    *	Maps to `Category.assets`.
    *
+   *	When updating an existing Category, Assets omitted from this array are removed.
+   *
    *
    */
   readonly assets?: Asset[]
   /**
    *	Maps to `Category.custom`.
+   *
+   *	When updating an existing Category, omitting this field removes the Custom Fields.
+   *
    *
    */
   readonly custom?: Custom

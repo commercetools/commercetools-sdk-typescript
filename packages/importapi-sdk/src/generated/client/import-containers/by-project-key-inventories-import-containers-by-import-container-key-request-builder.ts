@@ -24,6 +24,9 @@ export class ByProjectKeyInventoriesImportContainersByImportContainerKeyRequestB
   ) {}
   /**
    *	Creates an Import Request for InventoryEntries.
+   *
+   *	When updating existing InventoryEntries, `supplyChannel` and `custom` omitted from an [InventoryImport](ctp:import:type:InventoryImport) are removed. Include all existing values you want to keep.
+   *
    */
   public post(methodArgs: {
     body: InventoryImportRequest

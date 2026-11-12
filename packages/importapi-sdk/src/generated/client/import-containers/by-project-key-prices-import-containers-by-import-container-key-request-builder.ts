@@ -21,6 +21,9 @@ export class ByProjectKeyPricesImportContainersByImportContainerKeyRequestBuilde
   ) {}
   /**
    *	Creates an Import Request for Embedded Prices.
+   *
+   *	When updating an existing Embedded Price, optional values omitted from a [PriceImport](ctp:import:type:PriceImport), such as `country`, `channel`, `customerGroup`, `validFrom`, `validUntil`, `tiers`, `discounted`, and `custom`, are removed. Include all existing values you want to keep. Other Prices of the ProductVariant are not changed.
+   *
    */
   public post(methodArgs: {
     body: PriceImportRequest
