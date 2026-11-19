@@ -689,7 +689,7 @@ export interface CartLock {
   readonly clientId: string
 }
 /**
- *	Determines how to manually merge an anonymous Cart with an existing Customer Cart. For more information about merge mode behaviors, merge rules, and tax recalculation, see [Merge a Cart](/api/carts-orders-overview#merge-a-cart).
+ *	Determines how to manually merge an anonymous Cart with an existing Customer Cart. For more information about merge mode behaviors, merge rules, and tax recalculation, see [Merge a Cart](/api/carts-orders-apis-overview#merge-a-cart).
  *
  */
 export enum CartMergeModeValues {
@@ -1540,7 +1540,7 @@ export interface ExternalTaxRateDraft {
   readonly taxRoundingTarget?: TaxRoundingTarget
 }
 /**
- *	Indicates how a [Cart](ctp:api:type:Cart) freeze behaves. For detailed behavior on each of these strategies, see [Freeze a Cart](/api/carts-orders-overview#freeze-a-cart).
+ *	Indicates how a [Cart](ctp:api:type:Cart) freeze behaves. For detailed behavior on each of these strategies, see [Freeze a Cart](/api/carts-orders-apis-overview#freeze-a-cart).
  *
  */
 export enum FreezeStrategyValues {
@@ -2334,7 +2334,7 @@ export interface ShippingInfo {
   readonly estimatedDelivery?: EstimatedDelivery
 }
 /**
- *	Determines whether the selected [ShippingMethod](ctp:api:type:ShippingMethod) is allowed for the Cart. For more information, see [Predicates](/shipping-delivery-overview#predicates).
+ *	Determines whether the selected [ShippingMethod](ctp:api:type:ShippingMethod) is allowed for the Cart. For more information, see [Predicates](/shipping-delivery-apis-overview#predicates).
  *
  */
 export enum ShippingMethodStateValues {
@@ -2419,7 +2419,7 @@ export interface Stacking extends IDiscountTypeCombination {
   readonly type: 'Stacking'
 }
 /**
- *	Determines in which [Tax calculation mode](/carts-orders-overview#tax-calculation-mode) taxed prices are calculated.
+ *	Determines in which [Tax calculation mode](/carts-orders-apis-overview#tax-calculation-mode) taxed prices are calculated.
  *
  */
 export enum TaxCalculationModeValues {
@@ -3224,7 +3224,7 @@ export interface CartChangeLineItemsOrderAction extends ICartUpdateAction {
   readonly lineItemOrder: string[]
 }
 /**
- *	Changing the price rounding mode leads to [recalculation of taxes](/api/carts-orders-overview#taxes).
+ *	Changing the price rounding mode leads to [recalculation of taxes](/api/carts-orders-apis-overview#taxes).
  *
  */
 export interface CartChangePriceRoundingModeAction extends ICartUpdateAction {
@@ -3237,7 +3237,7 @@ export interface CartChangePriceRoundingModeAction extends ICartUpdateAction {
   readonly priceRoundingMode: RoundingMode
 }
 /**
- *	Changing the tax calculation mode leads to [recalculation of taxes](/api/carts-orders-overview#taxes).
+ *	Changing the tax calculation mode leads to [recalculation of taxes](/api/carts-orders-apis-overview#taxes).
  *
  */
 export interface CartChangeTaxCalculationModeAction extends ICartUpdateAction {
@@ -3264,7 +3264,7 @@ export interface CartChangeTaxModeAction extends ICartUpdateAction {
   readonly taxMode: TaxMode
 }
 /**
- *	Changing the tax rounding mode leads to [recalculation of taxes](/api/carts-orders-overview#taxes).
+ *	Changing the tax rounding mode leads to [recalculation of taxes](/api/carts-orders-apis-overview#taxes).
  *
  */
 export interface CartChangeTaxRoundingModeAction extends ICartUpdateAction {
@@ -3297,7 +3297,7 @@ export interface CartFreezeCartAction extends ICartUpdateAction {
   readonly strategy?: FreezeStrategy
 }
 /**
- *	[Locks](/api/carts-orders-overview#lock-a-cart) a Cart, preventing all updates from API Clients without an elevated [OAuth 2.0 Scope](/api/scopes).
+ *	[Locks](/api/carts-orders-apis-overview#lock-a-cart) a Cart, preventing all updates from API Clients without an elevated [OAuth 2.0 Scope](/api/scopes).
  *	This action sets the Cart's `lock` [field](/projects/carts#cart) which identifies the API Client that locked the Cart and when the lock was applied.
  *	This action requires an additional OAuth 2.0 Scope `manage_locked_carts`.
  *
@@ -3308,7 +3308,7 @@ export interface CartLockCartAction extends ICartUpdateAction {
   readonly action: 'lockCart'
 }
 /**
- *	This update action does not set any Cart field in particular, but it triggers several [Cart updates](/api/carts-orders-overview#update-a-cart)
+ *	This update action does not set any Cart field in particular, but it triggers several [Cart updates](/api/carts-orders-apis-overview#update-a-cart)
  *	to bring prices and discounts to the latest state. Those can become stale over time when no Cart updates have been performed for a while and
  *	prices on related Products have changed in the meanwhile.
  *
@@ -3759,7 +3759,7 @@ export interface CartSetCustomLineItemTaxRateAction extends ICartUpdateAction {
  *	To unset a custom Shipping Method on a Cart, use the [Set ShippingMethod](ctp:api:type:CartSetShippingMethodAction) update action
  *	without the `shippingMethod` field instead.
  *
- *	This update is not allowed when the Cart is [frozen](/api/carts-orders-overview#freeze-a-cart) with
+ *	This update is not allowed when the Cart is [frozen](/api/carts-orders-apis-overview#freeze-a-cart) with
  *	the `HardFreeze` [FreezeStrategy](ctp:api:type:FreezeStrategy).
  *
  */
@@ -3835,7 +3835,7 @@ export interface CartSetCustomerEmailAction extends ICartUpdateAction {
  *	This update action can only be used if a Customer is not assigned to the Cart.
  *	If a Customer is already assigned, the Cart uses the Customer Group of the assigned Customer.
  *
- *	To reflect the new Customer Group, this update action can result in [updates to the Cart](/api/carts-orders-overview#update-a-cart). When this occurs, the following errors can be returned: [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError) and [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError).
+ *	To reflect the new Customer Group, this update action can result in [updates to the Cart](/api/carts-orders-apis-overview#update-a-cart). When this occurs, the following errors can be returned: [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError) and [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError).
  *
  */
 export interface CartSetCustomerGroupAction extends ICartUpdateAction {
@@ -4487,7 +4487,7 @@ export interface CartSetShippingCustomTypeAction extends ICartUpdateAction {
 /**
  *	To set the Cart's Shipping Method the Cart must have the `Single` [ShippingMode](ctp:api:type:ShippingMode) and a `shippingAddress`.
  *
- *	This update is not allowed when the Cart is [frozen](/api/carts-orders-overview#freeze-a-cart) with the `HardFreeze` [FreezeStrategy](ctp:api:type:FreezeStrategy).
+ *	This update is not allowed when the Cart is [frozen](/api/carts-orders-apis-overview#freeze-a-cart) with the `HardFreeze` [FreezeStrategy](ctp:api:type:FreezeStrategy).
  *
  */
 export interface CartSetShippingMethodAction extends ICartUpdateAction {

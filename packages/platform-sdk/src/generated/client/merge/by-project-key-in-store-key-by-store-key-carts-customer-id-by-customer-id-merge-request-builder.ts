@@ -30,7 +30,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsCustomerIdByCustomerIdMergeReq
    *	    - The referenced Shipping Method is scoped to a Store that differs from the Cart's Store.
    *	    - The referenced Shipping Method is scoped to a Store, but the Cart does not belong to a Store.
    *
-   *	For more information about merge mode behaviors, merge rules, and tax recalculation, see [Merge a Cart](/api/carts-orders-overview#merge-a-cart).
+   *	For more information about merge mode behaviors, merge rules, and tax recalculation, see [Merge a Cart](/api/carts-orders-apis-overview#merge-a-cart).
    *
    */
   public post(methodArgs: {

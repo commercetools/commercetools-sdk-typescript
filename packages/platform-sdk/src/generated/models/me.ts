@@ -1663,7 +1663,7 @@ export interface MyCartChangeTaxModeAction extends IMyCartUpdateAction {
   readonly taxMode: TaxMode
 }
 /**
- *	This update action does not set any Cart field in particular, but it triggers several [Cart updates](/api/carts-orders-overview#update-a-cart)
+ *	This update action does not set any Cart field in particular, but it triggers several [Cart updates](/api/carts-orders-apis-overview#update-a-cart)
  *	to bring prices and discounts to the latest state. Those can become stale over time when no Cart updates have been performed for a while and
  *	prices on related Products have changed in the meanwhile.
  *

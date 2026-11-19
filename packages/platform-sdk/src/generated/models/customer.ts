@@ -676,7 +676,7 @@ export interface CustomerSignInResult {
    *	The Cart is recalculated to remove invalid Line Items and apply the latest prices, taxes, and discounts.
    *	During these updates, the following errors can be returned: [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError) and [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError).
    *
-   *	For more information, see [Cart updates](/api/carts-orders-overview#update-a-cart).
+   *	For more information, see [Cart updates](/api/carts-orders-apis-overview#update-a-cart).
    *
    *
    */
@@ -1236,7 +1236,7 @@ export interface CustomerSetCustomTypeAction extends ICustomerUpdateAction {
 /**
  *	Setting the Customer Group of the Customer produces the [CustomerGroupSet](ctp:api:type:CustomerGroupSetMessage) Message.
  *
- *	To reflect the new Customer Group, this update action can result in [updates](/api/carts-orders-overview#update-a-cart) to the most recently modified active Cart. When this occurs, the following errors can be returned: [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError) and [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError).
+ *	To reflect the new Customer Group, this update action can result in [updates](/api/carts-orders-apis-overview#update-a-cart) to the most recently modified active Cart. When this occurs, the following errors can be returned: [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError) and [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError).
  *
  */
 export interface CustomerSetCustomerGroupAction extends ICustomerUpdateAction {

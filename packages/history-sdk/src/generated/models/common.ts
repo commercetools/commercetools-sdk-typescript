@@ -1886,7 +1886,7 @@ export interface ShippingRate {
    */
   readonly price: CentPrecisionMoney
   /**
-   *	[Free shipping](/api/shipping-delivery-overview#free-shipping) is applied if the sum of the (Custom) Line Item Prices reaches the specified value.
+   *	[Free shipping](/api/shipping-delivery-apis-overview#free-shipping) is applied if the sum of the (Custom) Line Item Prices reaches the specified value.
    *
    */
   readonly freeAbove?: CentPrecisionMoney
@@ -2031,7 +2031,7 @@ export interface SyncInfo {
   readonly syncedAt: string
 }
 /**
- *	Determines in which [Tax calculation mode](/carts-orders-overview#tax-calculation-mode) taxed prices are calculated.
+ *	Determines in which [Tax calculation mode](/carts-orders-apis-overview#tax-calculation-mode) taxed prices are calculated.
  *
  */
 export enum TaxCalculationModeValues {
@@ -2811,7 +2811,7 @@ export interface DiscountedPrice {
   readonly discount: ProductDiscountReference
 }
 /**
- *	Determines whether the selected [ShippingMethod](ctp:api:type:ShippingMethod) is allowed for the Cart. For more information, see [Predicates](/shipping-delivery-overview#predicates).
+ *	Determines whether the selected [ShippingMethod](ctp:api:type:ShippingMethod) is allowed for the Cart. For more information, see [Predicates](/shipping-delivery-apis-overview#predicates).
  *
  */
 export enum ShippingMethodStateValues {
