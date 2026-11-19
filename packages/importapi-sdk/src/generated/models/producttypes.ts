@@ -194,6 +194,8 @@ export type TextInputHint = 'MultiLine' | 'SingleLine' | (string & {})
 /**
  *	Represents the data used to import a ProductType. Once imported, this data is persisted as a [ProductType](ctp:api:type:ProductType) in the Project.
  *
+ *	When updating an existing ProductType, AttributeDefinitions omitted from `attributes` are removed from the ProductType, and the corresponding Attribute values are deleted from all Products with this ProductType. This data cannot be recovered. Omitting the entire `attributes` field removes all AttributeDefinitions. Always include every AttributeDefinition you want to keep. For more information, see [Omitted values are removed on update](/api/import-export/overview#omitted-values-are-removed-on-update).
+ *
  */
 export interface ProductTypeImport extends ImportResource {
   /**
@@ -215,6 +217,8 @@ export interface ProductTypeImport extends ImportResource {
   readonly description: string
   /**
    *	The `attributes` of [ProductType](ctp:api:type:ProductType).
+   *
+   *	When updating an existing ProductType, AttributeDefinitions omitted from this array are removed, and all corresponding Attribute values are deleted from Products with this ProductType. If this field is omitted, all AttributeDefinitions are removed.
    *
    *
    */

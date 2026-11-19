@@ -25,6 +25,8 @@ export class ByProjectKeyProductDraftsImportContainersByImportContainerKeyReques
   /**
    *	Creates an Import Request for Products.
    *
+   *	When updating existing Products, ProductVariants, Embedded Prices, images, Assets, Attributes of the Product and its ProductVariants, `categories`, and `taxCategory` omitted from a [ProductDraftImport](ctp:import:type:ProductDraftImport) are removed. Omitting the product-level `attributes` field removes all product-level Attributes, and a partial list removes every Attribute that is not in the list. Include all existing values you want to keep.
+   *
    */
   public post(methodArgs: {
     body: ProductDraftImportRequest

@@ -76,6 +76,8 @@ export interface WhitespaceTokenizer extends ISuggestTokenizer {
  *
  *	This is the minimal representation required for creating a Product in Composable Commerce.
  *
+ *	When updating an existing Product, `categories`, `taxCategory`, and product-level `attributes` omitted from the import are removed from the Product. Omitting `attributes` removes all product-level Attributes, and a partial list removes every Attribute that is not in the list. Include all existing values you want to keep. ProductImport does not change ProductVariants or Prices. For more information, see [Omitted values are removed on update](/api/import-export/overview#omitted-values-are-removed-on-update).
+ *
  */
 export interface ProductImport extends ImportResource {
   /**
@@ -110,10 +112,16 @@ export interface ProductImport extends ImportResource {
   /**
    *	Maps to `ProductData.categories`. If the referenced [Categories](ctp:api:type:Category) do not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced Categories are created.
    *
+   *	When updating an existing Product, Categories omitted from this array are removed from the Product.
+   *
    *
    */
   readonly categories?: CategoryKeyReference[]
   /**
+   *	Maps to `ProductData.attributes`, the product-level Attributes.
+   *
+   *	When updating an existing Product, product-level Attributes omitted from this array are removed from the Product. If this field is omitted, all product-level Attributes are removed.
+   *
    *
    */
   readonly attributes?: Attribute[]
@@ -137,6 +145,8 @@ export interface ProductImport extends ImportResource {
   readonly metaKeywords?: LocalizedString
   /**
    *	Maps to `Product.taxCategory`. If the referenced [TaxCategory](ctp:api:type:TaxCategory) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced TaxCategory is created.
+   *
+   *	When updating an existing Product, omitting this field removes the TaxCategory from the Product.
    *
    *
    */

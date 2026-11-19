@@ -27,6 +27,8 @@ import { Attribute } from './productvariants'
 /**
  *	The representation of a Product Draft for the import purpose.
  *
+ *	When updating an existing Product, `variants`, Embedded Prices, images, Assets, Attributes, `categories`, and `taxCategory` that are omitted from the import are removed from the Product. This includes the product-level `attributes`: omitting this field removes all product-level Attributes, and a partial list removes every Attribute that is not in the list. Include all existing values you want to keep. For more information, see [Omitted values are removed on update](/api/import-export/overview#omitted-values-are-removed-on-update).
+ *
  */
 export interface ProductDraftImport extends ImportResource {
   /**
@@ -59,10 +61,16 @@ export interface ProductDraftImport extends ImportResource {
   /**
    *	Maps to `ProductData.categories`. If the referenced [Categories](ctp:api:type:Category) do not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced Categories are created.
    *
+   *	When updating an existing Product, Categories omitted from this array are removed from the Product.
+   *
    *
    */
   readonly categories?: CategoryKeyReference[]
   /**
+   *	Maps to `ProductData.attributes`, the product-level Attributes.
+   *
+   *	When updating an existing Product, product-level Attributes omitted from this array are removed from the Product. If this field is omitted, all product-level Attributes are removed.
+   *
    *
    */
   readonly attributes?: Attribute[]
@@ -94,10 +102,15 @@ export interface ProductDraftImport extends ImportResource {
   /**
    *	An array of related ProductVariants.
    *
+   *	When updating an existing Product, ProductVariants that are omitted from this array are removed from the Product, including their Attributes, Prices, images, and Assets. An empty array removes all non-master ProductVariants.
+   *
+   *
    */
   readonly variants?: ProductVariantDraftImport[]
   /**
    *	Maps to `Product.taxCategory`. If the referenced [TaxCategory](ctp:api:type:TaxCategory) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced TaxCategory is created.
+   *
+   *	When updating an existing Product, omitting this field removes the TaxCategory from the Product.
    *
    *
    */
@@ -148,11 +161,15 @@ export interface ProductVariantDraftImport {
    *	The Embedded Prices for the Product Variant.
    *	Each Price must have its unique Price scope (with same currency, country, Customer Group, Channel, `validFrom` and `validUntil`).
    *
+   *	When updating an existing ProductVariant, Embedded Prices omitted from this array are removed.
+   *
    *
    */
   readonly prices?: PriceDraftImport[]
   /**
    *	Attributes according to the respective AttributeDefinition.
+   *
+   *	When updating an existing ProductVariant, Attributes omitted from this array are removed.
    *
    *
    */
@@ -160,11 +177,15 @@ export interface ProductVariantDraftImport {
   /**
    *	Images for the Product Variant.
    *
+   *	When updating an existing ProductVariant, images omitted from this array are removed.
+   *
    *
    */
   readonly images?: Image[]
   /**
    *	Media assets for the Product Variant.
+   *
+   *	When updating an existing ProductVariant, Assets omitted from this array are removed.
    *
    *
    */
@@ -172,6 +193,8 @@ export interface ProductVariantDraftImport {
 }
 /**
  *	The representation of a Price Draft for the import purpose.
+ *
+ *	When updating an existing Embedded Price, optional values omitted from the import, such as `country`, `channel`, `customerGroup`, `validFrom`, `validUntil`, `tiers`, `discounted`, and `custom`, are removed from the Price.
  *
  */
 export interface PriceDraftImport {

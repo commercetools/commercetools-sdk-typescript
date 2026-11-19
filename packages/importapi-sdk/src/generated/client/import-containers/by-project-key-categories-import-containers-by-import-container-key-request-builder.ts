@@ -24,6 +24,9 @@ export class ByProjectKeyCategoriesImportContainersByImportContainerKeyRequestBu
   ) {}
   /**
    *	Creates an Import Request for Categories.
+   *
+   *	When updating existing Categories, `assets` and `custom` omitted from a [CategoryImport](ctp:import:type:CategoryImport) are removed. Include all existing values you want to keep.
+   *
    */
   public post(methodArgs: {
     body: CategoryImportRequest

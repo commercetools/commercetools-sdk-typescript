@@ -63,6 +63,8 @@ export interface TaxRate {
 /**
  *	Represents the data used to import an [Embedded Price](/api/pricing-and-discounts-overview#embedded-prices) . Once imported, this data is persisted as a [Price](/api/types#price) in a Product Variant.
  *
+ *	When updating an existing Embedded Price, the import replaces the Price with the imported data. Optional values omitted from the import, such as `country`, `channel`, `customerGroup`, `validFrom`, `validUntil`, `tiers`, `discounted`, and `custom`, are removed from the Price. Include all existing values you want to keep. Other Prices of the ProductVariant are not changed. For more information, see [Omitted values are removed on update](/api/import-export/overview#omitted-values-are-removed-on-update).
+ *
  */
 export interface PriceImport extends ImportResource {
   /**

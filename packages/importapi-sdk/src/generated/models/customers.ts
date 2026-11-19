@@ -176,6 +176,8 @@ export interface CustomerAddress {
 /**
  *	Represents the data used to import a Customer. Once imported, this data is persisted as a [Customer](ctp:api:type:Customer) in the Project.
  *
+ *	When updating an existing Customer, `addresses`, `customerGroup`, and `custom` omitted from the import are removed from the Customer. Include all existing values you want to keep. For more information, see [Omitted values are removed on update](/api/import-export/overview#omitted-values-are-removed-on-update).
+ *
  */
 export interface CustomerImport extends ImportResource {
   /**

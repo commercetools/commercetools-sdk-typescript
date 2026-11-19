@@ -13,6 +13,8 @@ import { Attribute } from './productvariants'
  *
  *	This import resource is only available for Projects with `productCatalogModel` set to `Modular`.
  *
+ *	When updating an existing Variant, `images`, `attributes`, and `assets` omitted from the import are removed from the Variant. Include all existing values you want to keep. For more information, see [Omitted values are removed on update](/api/import-export/overview#omitted-values-are-removed-on-update).
+ *
  */
 export interface VariantImport extends ImportResource {
   /**

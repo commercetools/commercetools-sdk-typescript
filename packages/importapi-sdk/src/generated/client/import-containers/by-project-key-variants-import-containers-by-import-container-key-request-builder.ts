@@ -27,6 +27,8 @@ export class ByProjectKeyVariantsImportContainersByImportContainerKeyRequestBuil
    *
    *	This endpoint is only available for Projects with `productCatalogModel` set to `Modular`.
    *
+   *	When updating existing Variants, `images`, `attributes`, and `assets` omitted from a [VariantImport](ctp:import:type:VariantImport) are removed. Include all existing values you want to keep.
+   *
    */
   public post(methodArgs: {
     body: VariantImportRequest

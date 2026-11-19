@@ -353,7 +353,7 @@ export interface ShippingRate {
    */
   readonly price: CentPrecisionMoney
   /**
-   *	[Free shipping](/api/shipping-delivery-overview#free-shipping) is applied if the sum of the (Custom) Line Item Prices reaches the specified value.
+   *	[Free shipping](/api/shipping-delivery-apis-overview#free-shipping) is applied if the sum of the (Custom) Line Item Prices reaches the specified value.
    *
    */
   readonly freeAbove?: CentPrecisionMoney
@@ -378,7 +378,7 @@ export interface ShippingRateDraft {
    */
   readonly price: _Money
   /**
-   *	[Free shipping](/api/shipping-delivery-overview#free-shipping) is applied if the sum of the (Custom) Line Item Prices reaches the specified value.
+   *	[Free shipping](/api/shipping-delivery-apis-overview#free-shipping) is applied if the sum of the (Custom) Line Item Prices reaches the specified value.
    *
    */
   readonly freeAbove?: _Money
@@ -429,7 +429,7 @@ export interface CartClassificationTier extends IShippingRatePriceTier {
 export interface CartScoreTier extends IShippingRatePriceTier {
   readonly type: 'CartScore'
   /**
-   *	Abstract value for categorizing a Cart. The range starts at `0`. The default price covers `0`, tiers start at `1`. See [Tiered shipping rates](/api/shipping-delivery-overview#tiered-shipping-rates) for details and examples.
+   *	Abstract value for categorizing a Cart. The range starts at `0`. The default price covers `0`, tiers start at `1`. See [Tiered shipping rates](/api/shipping-delivery-apis-overview#tiered-shipping-rates) for details and examples.
    *
    *
    */

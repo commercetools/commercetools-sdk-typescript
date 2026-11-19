@@ -237,7 +237,9 @@ export interface ErrorResponse {
   readonly errors?: ErrorObject[]
 }
 /**
- *	Information about the user or API Client who performed the change. This is a variant of [LastModifiedBy](ctp:api:type:LastModifiedBy).
+ *	Information about the user, API Client, or source that performed the change. This is a variant of [LastModifiedBy](ctp:api:type:LastModifiedBy).
+ *
+ *	`attributedTo` is only set for changes made after 22 October 2026.
  *
  */
 export interface ModifiedBy {
@@ -248,6 +250,7 @@ export interface ModifiedBy {
    */
   readonly isPlatformClient: boolean
   /**
+   *
    *	[ID](/general-concepts#identifier) of the Merchant Center user who made the change.
    *
    *	Present only if `isPlatformClient` is `true`.
@@ -256,6 +259,7 @@ export interface ModifiedBy {
    */
   readonly id?: string
   /**
+   *
    *	Indicates who performed the change.
    *
    *	- If the change was made by a user, the value is `"user"`.
@@ -274,6 +278,14 @@ export interface ModifiedBy {
    */
   readonly clientId?: string
   /**
+   *	[External user ID](/general-concepts#external-user-ids) of the user who made the change.
+   *
+   *	Present only if the change was made by an API Client with an external user ID.
+   *
+   *
+   */
+  readonly externalUserId?: string
+  /**
    *	Present only if the change was made using a token from an [anonymous session](/authorization#tokens-for-anonymous-sessions).
    *
    *
@@ -288,12 +300,58 @@ export interface ModifiedBy {
    */
   readonly customer?: Reference
   /**
-   *	The [Associate](ctp:api:type:Associate) who made the change in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only available for [B2B](/offering/commerce-b2b)-enabled Projects when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
+   *	The [Associate](ctp:api:type:Associate) who made the change in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only available for [B2B](/offering/commerce-b2b)-enabled Projects when an Associate acts on behalf of a company using the [associate endpoints](/business-units-and-associates-apis-overview#on-the-associate-endpoints).
    *
    *
    */
   readonly associate?: Reference
+  /**
+   *	Indicates if the change was made indirectly, for example by an agent acting on behalf of a user.
+   *
+   *	Present only for changes made after 22 October 2026.
+   *
+   *
+   */
+  readonly attributedTo?: Attribution
 }
+/**
+ *	Indicates the source and method that indirectly created or modified the resource. This is a variant of [Attribution](ctp:api:type:Attribution).
+ *
+ */
+export interface Attribution {
+  /**
+   *	[ID](/general-concepts#identifier) of the [API Client](ctp:api:type:ApiClient) that made the change.
+   *
+   *
+   */
+  readonly clientId?: string
+  /**
+   *	Method used to initiate the change.
+   *
+   *
+   */
+  readonly source: AttributionSource
+}
+/**
+ *	Indicates the source that indirectly made the change. This is a variant of [AttributionSource](ctp:api:type:AttributionSource).
+ */
+export enum AttributionSourceValues {
+  Export = 'Export',
+  Import = 'Import',
+  IntakeAgent = 'IntakeAgent',
+  ManagedCommerceMcp = 'ManagedCommerceMCP',
+  ProductEnrichmentAgent = 'ProductEnrichmentAgent',
+  PromotionsAgent = 'PromotionsAgent',
+}
+
+export type AttributionSource =
+  | 'Export'
+  | 'Import'
+  | 'IntakeAgent'
+  | 'ManagedCommerceMCP'
+  | 'ProductEnrichmentAgent'
+  | 'PromotionsAgent'
+  | (string & {})
 /**
  *	Updates that are triggered automatically as a result of a user-initiated change.
  */
@@ -345,11 +403,27 @@ export type PlatformInitiatedChange =
  */
 export enum SourceValues {
   ApiClient = 'ApiClient',
+  Export = 'Export',
   ImpEx = 'ImpEx',
+  Import = 'Import',
+  IntakeAgent = 'IntakeAgent',
+  ManagedCommerceMcp = 'ManagedCommerceMCP',
   MerchantCenter = 'MerchantCenter',
+  ProductEnrichmentAgent = 'ProductEnrichmentAgent',
+  PromotionsAgent = 'PromotionsAgent',
 }
 
-export type Source = 'ApiClient' | 'ImpEx' | 'MerchantCenter' | (string & {})
+export type Source =
+  | 'ApiClient'
+  | 'Export'
+  | 'ImpEx'
+  | 'Import'
+  | 'IntakeAgent'
+  | 'ManagedCommerceMCP'
+  | 'MerchantCenter'
+  | 'ProductEnrichmentAgent'
+  | 'PromotionsAgent'
+  | (string & {})
 export enum UpdateTypeValues {
   AddAddress = 'addAddress',
   AddAsset = 'addAsset',

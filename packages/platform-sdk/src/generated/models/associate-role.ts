@@ -63,7 +63,7 @@ export interface AssociateRole extends BaseResource {
    */
   readonly key: string
   /**
-   *	Whether the AssociateRole can be assigned to an Associate by a [buyer](/api/associates-overview#buyer). If false, the AssociateRole can only be assigned using the [general endpoint](/api/associates-overview#through-the-general-endpoints).
+   *	Whether the AssociateRole can be assigned to an Associate by a [buyer](/api/business-units-and-associates-overview#buyer). If false, the AssociateRole can only be assigned using the [general endpoint](/api/business-units-and-associates-apis-overview#through-the-general-endpoints).
    *
    *
    */
@@ -101,7 +101,7 @@ export interface AssociateRoleDraft {
    */
   readonly name?: string
   /**
-   *	Whether the AssociateRole can be assigned to an Associate by a [buyer](/api/associates-overview#buyer).
+   *	Whether the AssociateRole can be assigned to an Associate by a [buyer](/api/business-units-and-associates-overview#buyer).
    *
    *
    */

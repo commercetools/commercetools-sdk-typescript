@@ -1886,7 +1886,7 @@ export interface ShippingRate {
    */
   readonly price: CentPrecisionMoney
   /**
-   *	[Free shipping](/api/shipping-delivery-overview#free-shipping) is applied if the sum of the (Custom) Line Item Prices reaches the specified value.
+   *	[Free shipping](/api/shipping-delivery-apis-overview#free-shipping) is applied if the sum of the (Custom) Line Item Prices reaches the specified value.
    *
    */
   readonly freeAbove?: CentPrecisionMoney
@@ -2031,7 +2031,7 @@ export interface SyncInfo {
   readonly syncedAt: string
 }
 /**
- *	Determines in which [Tax calculation mode](/carts-orders-overview#tax-calculation-mode) taxed prices are calculated.
+ *	Determines in which [Tax calculation mode](/carts-orders-apis-overview#tax-calculation-mode) taxed prices are calculated.
  *
  */
 export enum TaxCalculationModeValues {
@@ -2811,7 +2811,7 @@ export interface DiscountedPrice {
   readonly discount: ProductDiscountReference
 }
 /**
- *	Determines whether the selected [ShippingMethod](ctp:api:type:ShippingMethod) is allowed for the Cart. For more information, see [Predicates](/shipping-delivery-overview#predicates).
+ *	Determines whether the selected [ShippingMethod](ctp:api:type:ShippingMethod) is allowed for the Cart. For more information, see [Predicates](/shipping-delivery-apis-overview#predicates).
  *
  */
 export enum ShippingMethodStateValues {
@@ -3734,7 +3734,7 @@ export interface ClientLogging {
    */
   readonly anonymousId?: string
   /**
-   *	Indicates the [Customer](ctp:api:type:Customer) who created or modified the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only available for [B2B](/offering/commerce-b2b)-enabled Projects when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
+   *	Indicates the [Customer](ctp:api:type:Customer) who created or modified the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only available for [B2B](/offering/commerce-b2b)-enabled Projects when an Associate acts on behalf of a company using the [associate endpoints](/business-units-and-associates-apis-overview#on-the-associate-endpoints).
    *
    *
    */

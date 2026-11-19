@@ -24,6 +24,9 @@ export class ByProjectKeyProductsImportContainersByImportContainerKeyRequestBuil
   ) {}
   /**
    *	Creates an Import Request for Products.
+   *
+   *	When updating existing Products, `categories`, `taxCategory`, and product-level `attributes` omitted from a [ProductImport](ctp:import:type:ProductImport) are removed. Omitting `attributes` removes all product-level Attributes, and a partial list removes every Attribute that is not in the list. Include all existing values you want to keep. ProductVariants and Prices are not changed.
+   *
    */
   public post(methodArgs: {
     body: ProductImportRequest

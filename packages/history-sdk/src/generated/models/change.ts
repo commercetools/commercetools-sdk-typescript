@@ -781,7 +781,7 @@ export interface AddFieldDefinitionChange extends IChange {
   readonly nextValue: FieldDefinition
 }
 /**
- *	This change is initiated by background processes after the [Add Associate](ctp:api:type:BusinessUnitAddAssociateAction) update action is performed (if [Associates are inherited](/api/associates-overview#inheritance-of-associates-and-their-roles)).
+ *	This change is initiated by background processes after the [Add Associate](ctp:api:type:BusinessUnitAddAssociateAction) update action is performed (if [Associates are inherited](/api/business-units-and-associates-apis-overview#inheritance-of-associates-and-their-roles)).
  */
 export interface AddInheritedAssociateChange extends IChange {
   readonly type: 'AddInheritedAssociateChange'
@@ -1740,7 +1740,7 @@ export interface ChangeGroupsChange extends IChange {
   readonly removedItems: string[]
 }
 /**
- *	Change triggered by the [Change Associate](ctp:api:type:BusinessUnitChangeAssociateAction) update action on a parent of a Business Unit in cases where [inheritance applies](/api/associates-overview#conditions-for-inheritance).
+ *	Change triggered by the [Change Associate](ctp:api:type:BusinessUnitChangeAssociateAction) update action on a parent of a Business Unit in cases where [inheritance applies](/api/business-units-and-associates-apis-overview#conditions-for-inheritance).
  */
 export interface ChangeInheritedAssociateChange extends IChange {
   readonly type: 'ChangeInheritedAssociateChange'
@@ -3225,7 +3225,7 @@ export interface RemoveImageChange extends IChange {
   readonly variant: string
 }
 /**
- *	This change is initiated by background processes after the [Remove Associate](ctp:api:type:BusinessUnitRemoveAssociateAction) update action is performed (if [Associates are inherited](/api/associates-overview#inheritance-of-associates-and-their-roles)).
+ *	This change is initiated by background processes after the [Remove Associate](ctp:api:type:BusinessUnitRemoveAssociateAction) update action is performed (if [Associates are inherited](/api/business-units-and-associates-apis-overview#inheritance-of-associates-and-their-roles)).
  */
 export interface RemoveInheritedAssociateChange extends IChange {
   readonly type: 'RemoveInheritedAssociateChange'
@@ -9190,7 +9190,7 @@ export interface SetAssociatesChange extends IChange {
   readonly nextValue: Associate[]
 }
 /**
- *	This change is initiated by background processes after the [Change Parent Unit](ctp:api:type:BusinessUnitChangeParentUnitAction) or [Set Unit Type](ctp:api:type:BusinessUnitSetUnitTypeAction) update action is performed (if [Associates are inherited](/api/associates-overview#inheritance-of-associates-and-their-roles)).
+ *	This change is initiated by background processes after the [Change Parent Unit](ctp:api:type:BusinessUnitChangeParentUnitAction) or [Set Unit Type](ctp:api:type:BusinessUnitSetUnitTypeAction) update action is performed (if [Associates are inherited](/api/business-units-and-associates-apis-overview#inheritance-of-associates-and-their-roles)).
  */
 export interface SetInheritedAssociatesChange extends IChange {
   readonly type: 'SetInheritedAssociatesChange'
